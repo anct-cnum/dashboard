@@ -1,0 +1,48 @@
+.fr-footer {
+
+  a[href] {
+    background-image: none;
+  }
+
+  .logoFranceRelance {
+    height: 80px;
+    width: 80px;
+  }
+
+  .footerContentCustom {
+    display: flex;
+    flex-basis: 50%;
+  }
+
+  .footerListCustom {
+    display: block;
+    column-count: 1;
+  }
+
+  .footerListCustom li:first-child {
+    margin-top: 0;
+  }
+
+  @media (max-width: 992px) {
+
+    .fr-footer__brand {
+      flex-basis: 40%;
+    }
+
+    .footerContentCustom {
+      flex-basis: 60%;
+    }
+
+    .footerListCustom {
+      display: flex;
+      flex-direction: column;
+    }
+
+  }
+
+  @media (max-width: 580px) {
+    .fr-footer__brand {
+      flex-basis: 100%;
+    }
+  }
+}

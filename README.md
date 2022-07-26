@@ -68,3 +68,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Licence
+
+Voir le fichier [LICENSE](./LICENSE.md) | [ETALAB-Licence-Ouverte-v2.0](./ETALAB-Licence-Ouverte-v2.0.pdf) du dépot.

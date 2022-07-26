@@ -1,0 +1,9 @@
+RewriteEngine On
+DirectoryIndex index.html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . index.html [L]
+
+<FilesMatch "index\.html">
+Header set Cache-Control "max-age=60, private, proxy-revalidate"
+</FilesMatch>

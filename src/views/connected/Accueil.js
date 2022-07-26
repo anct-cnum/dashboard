@@ -1,0 +1,18 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
+import Admin from './admin';
+
+export default function Accueil() {
+
+  const roleActivated = useSelector(state => state.authentication.roleActivated);
+
+  return (
+    <div className="fr-container fr-my-10w">
+      <p>Bienvenue, vous avez le profil {roleActivated} activé</p>
+      {/* routes distinctes en fonction des rôles dans les composants */}
+      { roleActivated === 'admin' &&
+        <Admin />
+      }
+    </div>
+  );
+}
