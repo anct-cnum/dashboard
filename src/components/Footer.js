@@ -30,19 +30,47 @@ function Footer() {
               <li className="fr-footer__content-item">
                 <a
                   className="fr-footer__content-link"
-                  title="Statistiques"
-                  href="https://metabase.conseiller-numerique.gouv.fr/public/dashboard/446208c4-cae2-4c0c-be19-44cb14ce7d06"
+                  title="Cartographie"
+                  href="https://carte.conseiller-numerique.gouv.fr/"
                   target="_blank" rel="noopener noreferrer">
-                    Statistiques
+                    Cartographie
                 </a>
               </li>
               <li className="fr-footer__content-item">
                 <a
-                  title="France services"
                   className="fr-footer__content-link"
-                  href="https://www.cohesion-territoires.gouv.fr/france-services"
+                  title="Statistiques publiques"
+                  href="https://metabase.conseiller-numerique.gouv.fr/public/dashboard/446208c4-cae2-4c0c-be19-44cb14ce7d06"
                   target="_blank" rel="noopener noreferrer">
-                    France services
+                    Statistiques publiques
+                </a>
+              </li>
+              <li className="fr-footer__content-item">
+                <a
+                  className="fr-footer__content-link"
+                  title="Statistiques publiques"
+                  href="https://metabase.conseiller-numerique.gouv.fr/dashboard/6"
+                  target="_blank" rel="noopener noreferrer">
+                    Statistiques internes
+                </a>
+              </li>
+              {/* Seulement pour hub & coordo pour Mattermost ? */}
+              <li className="fr-footer__content-item">
+                <a
+                  title="Mattermost"
+                  className="fr-footer__content-link"
+                  href="https://discussion.conseiller-numerique.gouv.fr/"
+                  target="_blank" rel="noopener noreferrer">
+                    Mattermost
+                </a>
+              </li>
+              <li className="fr-footer__content-item">
+                <a
+                  title="La Base"
+                  className="fr-footer__content-link"
+                  href="https://labase.anct.gouv.fr/base/3"
+                  target="_blank" rel="noopener noreferrer">
+                    La Base
                 </a>
               </li>
             </ul>
@@ -86,22 +114,22 @@ function Footer() {
         <div className="fr-footer__bottom">
           <ul className="fr-footer__bottom-list">
             <li className="fr-footer__bottom-item">
-              <Link
-                to="/accessibilite"
+              <a
+                href="https://www.conseiller-numerique.gouv.fr/accessibilite"
                 title="Accessibilit&eacute;"
                 className="fr-footer__bottom-link"
                 onClick={onClickLink}>
                   Accessibilit&eacute;: non conforme
-              </Link>
+              </a>
             </li>
             <li className="fr-footer__bottom-item">
-              <Link
-                to="/mentions-legales"
+              <a
+                href="https://www.conseiller-numerique.gouv.fr/mentions-legales"
                 title="Mentions L&eacute;gales"
                 className="fr-footer__bottom-link"
                 onClick={onClickLink}>
                   Mentions l&eacute;gales
-              </Link>
+              </a>
             </li>
             <li className="fr-footer__bottom-item">
               <a href="https://cdn.conseiller-numerique.gouv.fr/CGU-Donn%C3%A9es_personnellesConseiller_Num%C3%A9rique.pdf"

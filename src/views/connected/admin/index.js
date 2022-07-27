@@ -8,7 +8,7 @@ export default function Admin() {
     <>
       <p>Vous pouvez accéder à la route : <Link to="/admin/informations">Test accès admin uniquement</Link></p>
       <Routes>
-        <Route path="/admin/informations" element={<Informations />} />
+        <Route path="/admin/informations" element={<Informations />} /> {/* Routes spécifiques avec /admin */}
       </Routes>
     </>
   );

@@ -26,6 +26,7 @@ function Header() {
   const changeRoleActivated = e => {
     const { value } = e.target;
     dispatch(authenticationActions.changeRoleActivated(value));
+    navigate('/');
   };
 
   return (
@@ -72,15 +73,18 @@ function Header() {
               <div className="fr-header__tools">
                 <div className="fr-header__tools-links">
                   <ul className="fr-links-group">
-                    <li>
-                      <div className="fr-select-group">
-                        <select className="fr-select" id="select" name="select" value={roleActivated} onChange={changeRoleActivated}>
-                          {roles?.map((role, idx) => {
-                            return (<option key={idx} value={role}>{role}</option>);
-                          })}
-                        </select>
-                      </div>
-                    </li>
+                    {/* Affichage de la liste des rôles autorisés si l'utilisateur en possède plusieurs */}
+                    {roles?.length > 1 &&
+                      <li>
+                        <div className="fr-select-group">
+                          <select className="fr-select" id="select" name="select" value={roleActivated} onChange={changeRoleActivated}>
+                            {roles?.map((role, idx) => {
+                              return (<option key={idx} value={role}>{role}</option>);
+                            })}
+                          </select>
+                        </div>
+                      </li>
+                    }
                     <li>
                       <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={logout}>
                         D&eacute;connexion
