@@ -12,6 +12,8 @@ function Menu() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [changedMenu, setIsChangedMenu] = useState(false);
 
+  const roleActivated = useSelector(state => state.authentication.roleActivated);
+
   const toggleBurgerMenu = () => {
     dispatch(menuActions.toggleBurgerMenu());
   };
@@ -46,6 +48,115 @@ function Menu() {
         <nav className="fr-nav fr-display--none-lg" id="navigation-869" role="navigation" aria-label="Menu principal">
           <ul className="fr-nav__list">
             <li className="fr-nav__item">
+              <Link
+                to={`${roleActivated}/informations`}
+                className="fr-nav__link"
+                {...(location.pathname.startsWith(`/${roleActivated}/informations`) ? { 'aria-current': 'page' } : {})}>
+                  Mes informations
+              </Link>
+            </li>
+            <li className="fr-nav__item">
+              <Link className="fr-nav__link" to="">
+                Liste des conseillers
+              </Link>
+            </li>
+            <li className="fr-nav__item">
+              <Link className="fr-nav__link" to="">
+                Liste des structures
+              </Link>
+            </li>
+            <li className="fr-nav__item">
+              <Link
+                to={`/documents`}
+                className="fr-nav__link"
+                {...(location.pathname.startsWith(`/documents`) ? { 'aria-current': 'page' } : {})}>
+                  Documents
+              </Link>
+            </li>
+            <li className="fr-nav__item">
+              <button
+                id="statistiques"
+                className="fr-nav__btn"
+                aria-expanded={ activeMenu === 'statistiques' }
+                aria-controls="menu-statistiques"
+                onClick={onClickMenu}>
+                  Statistiques
+              </button>
+              <div className={`fr-collapse fr-menu ${activeMenu === 'statistiques' ? 'fr-collapse--expanded' : ''}`} id="menu-statistiques">
+                <ul className="fr-menu__list">
+                  <li>
+                    <Link className="fr-nav__link" to="">
+                      &bull;&nbsp;Statistiques nationales
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="fr-nav__link" to="">
+                        &bull;&nbsp;Statistiques par territoire
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="fr-nav__link" to="">
+                      &bull;&nbsp;Statistiques par structure
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li className="fr-nav__item">
+              <Link className="fr-nav__link" to="">
+                Exports
+              </Link>
+            </li>
+            <li className="fr-nav__item">
+              <button
+                id="recrutement"
+                className="fr-nav__btn"
+                aria-expanded={ activeMenu === 'recrutement' }
+                aria-controls="menu-recrutement"
+                onClick={onClickMenu}>
+                  Infos recrutement
+              </button>
+              <div className={`fr-collapse fr-menu ${activeMenu === 'recrutement' ? 'fr-collapse--expanded' : ''}`} id="menu-recrutement">
+                <ul className="fr-menu__list">
+                  <li>
+                    <Link className="fr-nav__link" to="">
+                      &bull;&nbsp;Inscription en formation
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="fr-nav__link" to="">
+                        &bull;&nbsp;Certifications
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li className="fr-nav__item">
+              <button
+                id="aide"
+                className="fr-nav__btn"
+                aria-expanded={ activeMenu === 'aide' }
+                aria-controls="menu-aide"
+                onClick={onClickMenu}>
+                  Aide
+              </button>
+              <div className={`fr-collapse fr-menu ${activeMenu === 'aide' ? 'fr-collapse--expanded' : ''}`} id="menu-aide">
+                <ul className="fr-menu__list">
+                  <li>
+                    <a className="fr-nav__link" href="https://aide.conseiller-numerique.gouv.fr/fr" target="blank" rel="noreferrer">
+                      &bull;&nbsp;FAQ
+                    </a>
+                  </li>
+                  <li>
+                    <a className="fr-nav__link" href="mailto:conseiller-numerique@anct.gouv.fr">
+                      &bull;&nbsp;Nous contacter
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            {/* Exemple conservé pour les aria-current notamment
+            <li className="fr-nav__item">
               <button
                 id="documents"
                 className="fr-nav__btn"
@@ -76,6 +187,7 @@ function Menu() {
                 </ul>
               </div>
             </li>
+            */}
           </ul>
         </nav>
       </div>
