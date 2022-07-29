@@ -8,7 +8,7 @@ function Certifications() {
         <h3>Les certifications Pix et CCP1 REMN</h3>
         <div className="fr-grid-row">
           <p>
-            <a href="https://cdn.conseiller-numerique.gouv.fr/Note_aux_SA_Certifications_CCP1_REMN_Pix.pdf" className="fr-link" target="blank" rel="noreferrer">
+            <a href="https://cdn.conseiller-numerique.gouv.fr/Note_aux_SA_Certifications_CCP1_REMN_Pix.pdf" className="fr-link" target="blank" rel="noreferrer noopener">
               T&eacute;l&eacute;charger la pr&eacute;sentation des deux certifications Pix et CCP1 REMN
             </a>
           </p>
@@ -44,7 +44,7 @@ function Certifications() {
           </p>
 
           <p>
-            <a className="fr-link" target="blank" rel="noreferrer" href="https://cdn.conseiller-numerique.gouv.fr/Note_aux_SA_Certifications_CCP1_REMN_Pix.pdf">
+            <a className="fr-link" target="blank" rel="noreferrer noopener" href="https://cdn.conseiller-numerique.gouv.fr/Note_aux_SA_Certifications_CCP1_REMN_Pix.pdf">
               Consultez la note d&rsquo;information employeurs sur les deux certifications&nbsp;: d&eacute;lais de pr&eacute;sentation, modalit&eacute;s
               de pr&eacute;paration, d&eacute;roul&eacute; des examens et consultation des r&eacute;sultats
             </a>
@@ -52,7 +52,7 @@ function Certifications() {
 
           <p>
             Pour accompagner les Conseillers num&eacute;riques, vous pouvez leur remettre
-            <a className="fr-link" target="blank" rel="noreferrer" style={{ display: 'inline' }}
+            <a className="fr-link" target="blank" rel="noreferrer noopener" style={{ display: 'inline' }}
               href="https://cdn.conseiller-numerique.gouv.fr/Fiche_info_CNFS_Certifications_CCP1_REMN_Pix.pdf">
               ce document de pr&eacute;sentation qui comprend notamment des retours d&rsquo;exp&eacute;riences de Conseillers certifi&eacute;s et
               d&rsquo;&eacute;valuateurs

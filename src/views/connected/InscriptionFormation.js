@@ -12,7 +12,7 @@ function InscriptionFormation() {
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/Presentation_offre_de_formation.pdf"
-              className="fr-link" target="blank" rel="noreferrer" title="Offre de formation">
+              className="fr-link" target="blank" rel="noreferrer noopener" title="Offre de formation">
               T&eacute;l&eacute;charger la pr&eacute;sentation de l&rsquo;offre de formation (slides au format PDF)
             </a>
           </p>
@@ -62,7 +62,7 @@ function InscriptionFormation() {
             <ul>
               <li>
                 &agrave; l&rsquo;examen du&nbsp;
-                <a href={url} target="blank" rel="noreferrer">
+                <a href={url} target="blank" rel="noreferrer noopener">
                   premier certificat de comp&eacute;tences professionnelles : &laquo;&nbsp;Accompagner diff&eacute;rents publics vers l&rsquo;autonomie
                   dans les usages des technologies, services et m&eacute;dias num&eacute;riques&nbsp;&raquo; du titre professionnel &laquo;&nbsp;
                   Responsable d&rsquo;espace de m&eacute;diation num&eacute;rique&nbsp;&raquo;
@@ -71,13 +71,13 @@ function InscriptionFormation() {
                   N.B.&nbsp;: un Conseiller d&eacute;j&agrave; titulaire du CCP1 ou du titre professionnel lors de son recrutement peut
                   &ecirc;tre&nbsp;
                   <a href={urlAide + '/article/un-conseiller-numerique-peut-il-etre-dispense-de-la-formation-initiale-obligatoire-ywgzld/'}
-                    target="blank" rel="noreferrer" >
+                    target="blank" rel="noreferrer noopener" >
                     exempt&eacute;
                   </a> de formation initiale.
                 </em>
               </li>
               <li>
-                &agrave; la&nbsp;<a href={urlPix} target="blank" rel="noreferrer">certification PIX</a>&nbsp;
+                &agrave; la&nbsp;<a href={urlPix} target="blank" rel="noreferrer noopener">certification PIX</a>&nbsp;
                 qui atteste de la maîtrise des comp&eacute;tences num&eacute;riques par le candidat.
               </li>
             </ul>
@@ -96,7 +96,7 @@ function InscriptionFormation() {
             <li>
               <p>
                 <em>Au moment de la candidature du CNFS sur la plateforme</em>&nbsp;
-                <a href="https://conseiller-numerique.gouv.fr" target="blank" rel="noreferrer" title="plateforme CN">conseiller-numerique.gouv.fr</a>&nbsp;:
+                <a href="https://conseiller-numerique.gouv.fr" target="blank" rel="noreferrer noopener" title="plateforme CN">conseiller-numerique.gouv.fr</a>&nbsp;:
               </p>
               <p>Il est propos&eacute; &agrave; chaque candidat de passer un test d&rsquo;aptitudes g&eacute;n&eacute;rales PIX.<br/>
                 Attention, le r&eacute;sultat de ce test d&rsquo;auto-positionnement ne permet pas de d&eacute;duire le volume horaire de formation
@@ -144,7 +144,7 @@ function InscriptionFormation() {
                 <em>Dans un d&eacute;lai maximum de 6 mois &agrave; compter de la date de sortie de formation&nbsp;:</em>
               </p>
               <p>
-                Pr&eacute;sentation du candidat, par son organisme de formation, <a target="blank" rel="noreferrer"
+                Pr&eacute;sentation du candidat, par son organisme de formation, <a target="blank" rel="noreferrer noopener"
                   href={ urlAide + '/article/quelles-sont-les-deux-certifications-visees-par-la-formation-comment-se-passe-les-examens-1fh1gis/'}>
                     &agrave; la certification PIX et &agrave; l&rsquo;examen du 1er certificat de comp&eacute;tences professionnelles du titre
                     professionnel REMN
@@ -197,7 +197,7 @@ function InscriptionFormation() {
 
         <div className="fr-grid-row fr-mt-3w">
           <a href="https://cdn.conseiller-numerique.gouv.fr/Presentation_offre_de_formation.pdf"
-            className="fr-link" target="blank" rel="noreferrer" title="Offre de formation">
+            className="fr-link" target="blank" rel="noreferrer noopener" title="Offre de formation">
               T&eacute;l&eacute;charger la pr&eacute;sentation de l&rsquo;offre de formation (slides au format PDF)
           </a>
         </div>
