@@ -119,12 +119,12 @@ function Menu() {
               <div className={`fr-collapse fr-menu ${activeMenu === 'recrutement' ? 'fr-collapse--expanded' : ''}`} id="menu-recrutement">
                 <ul className="fr-menu__list">
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link className="fr-nav__link" to="/formation">
                       &bull;&nbsp;Inscription en formation
                     </Link>
                   </li>
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link className="fr-nav__link" to="/certifications">
                         &bull;&nbsp;Certifications
                     </Link>
                   </li>
