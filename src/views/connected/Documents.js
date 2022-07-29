@@ -283,6 +283,14 @@ export default function Documents() {
             </span>
           </p>
         </div>
+        <div className="fr-grid-row">
+          <p>
+            <a href="https://cdn.conseiller-numerique.gouv.fr/CNFS_x_demarches_administrative.pdf"
+              className="fr-link" target="blank" rel="noreferrer" title="T&eacute;l&eacute;charger la note d&rsquo;acc&egrave;s aux droits">
+                T&eacute;l&eacute;charger la note d&rsquo;acc&egrave;s aux droits (pdf)
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
