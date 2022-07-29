@@ -26,11 +26,13 @@ function InscriptionFormation() {
             En tant que structure d&rsquo;accueil, vous vous engagez &agrave; laisser partir le Conseiller recrut&eacute; en formation, dans un
             d&eacute;lai de 15 jours maximum apr&egrave;s signature de son contrat de travail.
           </p>
-          <p style={{ fontStyle: 'italic' }}>
-            * Hors &eacute;ventuels frais de d&eacute;placement du candidat pendant sa formation ou pour rejoindre le lieu d&rsquo;examen pour
-            sa certification, &agrave; la charge de l&rsquo;employeur.
-            Pour les structures d&rsquo;accueil priv&eacute;es, une prise en charge de ces frais peut &ecirc;tre demand&eacute;e &agrave; l&rsquo;OPCO de
-            r&eacute;f&eacute;rence.
+          <p>
+            <em>
+              * Hors &eacute;ventuels frais de d&eacute;placement du candidat pendant sa formation ou pour rejoindre le lieu d&rsquo;examen pour
+              sa certification, &agrave; la charge de l&rsquo;employeur.
+              Pour les structures d&rsquo;accueil priv&eacute;es, une prise en charge de ces frais peut &ecirc;tre demand&eacute;e &agrave; l&rsquo;OPCO de
+              r&eacute;f&eacute;rence.
+            </em>
           </p>
           <p>
             Cette formation se d&eacute;roule durant les premiers mois de son contrat, selon un calendrier et dans un volume horaire adapt&eacute;
