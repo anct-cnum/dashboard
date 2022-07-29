@@ -113,18 +113,25 @@ function Menu() {
                 className="fr-nav__btn"
                 aria-expanded={ activeMenu === 'recrutement' }
                 aria-controls="menu-recrutement"
+                {...(location.pathname.startsWith(`/certifications`) || location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
                   Infos recrutement
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'recrutement' ? 'fr-collapse--expanded' : ''}`} id="menu-recrutement">
                 <ul className="fr-menu__list">
                   <li>
-                    <Link className="fr-nav__link" to="/formation">
+                    <Link
+                      className="fr-nav__link"
+                      to="/formation"
+                      {...(location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}>
                       &bull;&nbsp;Inscription en formation
                     </Link>
                   </li>
                   <li>
-                    <Link className="fr-nav__link" to="/certifications">
+                    <Link
+                      className="fr-nav__link"
+                      to="/certifications"
+                      {...(location.pathname.startsWith(`/certifications`) ? { 'aria-current': 'page' } : {})}>
                         &bull;&nbsp;Certifications
                     </Link>
                   </li>
