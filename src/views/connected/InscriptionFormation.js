@@ -96,7 +96,9 @@ function InscriptionFormation() {
             <li>
               <p>
                 <em>Au moment de la candidature du CNFS sur la plateforme</em>&nbsp;
-                <a href="https://conseiller-numerique.gouv.fr" target="blank" rel="noreferrer noopener" title="plateforme CN">conseiller-numerique.gouv.fr</a>&nbsp;:
+                <a
+                  href="https://conseiller-numerique.gouv.fr"
+                  target="blank" rel="noreferrer noopener" title="plateforme CN">conseiller-numerique.gouv.fr</a>&nbsp;:
               </p>
               <p>Il est propos&eacute; &agrave; chaque candidat de passer un test d&rsquo;aptitudes g&eacute;n&eacute;rales PIX.<br/>
                 Attention, le r&eacute;sultat de ce test d&rsquo;auto-positionnement ne permet pas de d&eacute;duire le volume horaire de formation
