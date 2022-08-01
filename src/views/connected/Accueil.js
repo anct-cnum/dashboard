@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Admin from './admin';
+import Coordinateur from './coordinateur';
 import Hub from './hub';
 import Prefet from './prefet';
 import Structure from './structure';
@@ -24,6 +25,9 @@ export default function Accueil() {
       }
       { roleActivated === 'structure' &&
         <Structure />
+      }
+      { roleActivated === 'coordinateur' &&
+        <Coordinateur />
       }
     </div>
   );

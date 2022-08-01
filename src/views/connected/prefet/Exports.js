@@ -1,19 +1,25 @@
 import React, { useEffect } from 'react';
-// import Spinner from 'react-loader-spinner';
+import { Oval } from 'react-loader-spinner';
 
 function Exports() {
 
   return (
     <div className="exportsPrefet" style={{ position: 'relative' }}>
-      {/* <div className="spinnerCustom">
-        <Spinner
-          type="Oval"
-          color="#00BFFF"
-          height={100}
-          width={100}
-          visible={exports?.loading === true}
+      <div className="spinnerCustom">
+        <Oval
+          height={80}
+          width={80}
+          color="#4fa94d"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={false}
+          ariaLabel="oval-loading"
+          secondaryColor="#4fa94d"
+          strokeWidth={2}
+          strokeWidthSecondary={2}
+
         />
-      </div> */}
+      </div>
       <p>
         <a className="fr-link" href="#">Export des structures</a>
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
