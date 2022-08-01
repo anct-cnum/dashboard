@@ -103,7 +103,10 @@ function Menu() {
               </div>
             </li>
             <li className="fr-nav__item">
-              <Link className="fr-nav__link" to="">
+              <Link
+                to={`${roleActivated}/exports`}
+                className="fr-nav__link"
+                {...(location.pathname.startsWith(`/${roleActivated}/exports`) ? { 'aria-current': 'page' } : {})}>
                 Exports
               </Link>
             </li>

@@ -1,6 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Admin from './admin';
+import Hub from './hub';
+import Prefet from './prefet';
+import Structure from './structure';
 
 export default function Accueil() {
 
@@ -12,6 +15,15 @@ export default function Accueil() {
       {/* routes distinctes en fonction des rôles dans les composants */}
       { roleActivated === 'admin' &&
         <Admin />
+      }
+      { roleActivated === 'prefet' &&
+        <Prefet />
+      }
+      { roleActivated === 'hub' &&
+        <Hub />
+      }
+      { roleActivated === 'structure' &&
+        <Structure />
       }
     </div>
   );
