@@ -7,6 +7,8 @@ function Menu() {
 
   const dispatch = useDispatch();
   const location = useLocation();
+  
+  const urlAide = process.env.REACT_APP_AIDE_HOSTNAME;
 
   const burgerMenuHidden = useSelector(state => state.menu?.hiddenBurgerMenu);
   const [activeMenu, setActiveMenu] = useState(null);
@@ -150,7 +152,7 @@ function Menu() {
               <div className={`fr-collapse fr-menu ${activeMenu === 'aide' ? 'fr-collapse--expanded' : ''}`} id="menu-aide">
                 <ul className="fr-menu__list">
                   <li>
-                    <a className="fr-nav__link" href="https://aide.conseiller-numerique.gouv.fr/fr" target="blank" rel="noreferrer">
+                    <a className="fr-nav__link" href={urlAide} target="blank" rel="noreferrer noopener">
                       &bull;&nbsp;FAQ
                     </a>
                   </li>

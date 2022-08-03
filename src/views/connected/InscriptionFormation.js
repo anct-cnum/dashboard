@@ -53,7 +53,7 @@ function InscriptionFormation() {
           Pour les structures d&rsquo;accueil, l&rsquo;obtention des deux certifications par les Conseillers num&eacute;riques est un gage de qualit&eacute;
           pour leurs futures interventions aupr&egrave;s des usagers et participe &agrave; l&rsquo;essor de leurs projets en mati&egrave;re de lutte contre
           l&rsquo;exclusion num&eacute;rique. Pour cette raison,&nbsp;
-            <a href={urlAide + '/article/la-presence-en-formation-est-elle-obligatoire-1db4moy/?bust=1649067275166'} target="blank" rel="noreferrer">
+            <a href={urlAide + '/article/la-presence-en-formation-est-elle-obligatoire-1db4moy/?bust=1649067275166'} target="blank" rel="noreferrer noopener">
               l&rsquo;assiduit&eacute; en formation
             </a> est une obligation des Conseillers num&eacute;riques France Services et la structure d&rsquo;accueil est tenue de favoriser
           cette obligation. Le non-respect de cet engagement inscrit dans l&rsquo;appel &agrave; manifestation d&rsquo;int&eacute;r&ecirc;t
