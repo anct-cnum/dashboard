@@ -4,7 +4,8 @@ function InscriptionFormation() {
   const url = process.env.REACT_APP_FRANCE_COMPETENCES_HOSTNAME;
   const urlPix = process.env.REACT_APP_PIX_CERTIFIER_HOSTNAME;
   const urlAide = process.env.REACT_APP_AIDE_HOSTNAME;
-  
+  const urlSiteVitrine = process.env.REACT_APP_PUBLIC_HOSTNAME;
+
   return (
     <div className="fr-container fr-my-10w">
       <div className="fr-container fr-container--fluid">
@@ -99,7 +100,7 @@ function InscriptionFormation() {
               <p>
                 <em>Au moment de la candidature du CNFS sur la plateforme</em>&nbsp;
                 <a
-                  href="https://conseiller-numerique.gouv.fr"
+                  href={urlSiteVitrine}
                   target="blank" rel="noreferrer noopener" title="plateforme CN">conseiller-numerique.gouv.fr</a>&nbsp;:
               </p>
               <p>Il est propos&eacute; &agrave; chaque candidat de passer un test d&rsquo;aptitudes g&eacute;n&eacute;rales PIX.<br/>
