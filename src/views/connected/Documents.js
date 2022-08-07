@@ -69,11 +69,11 @@ export default function Documents() {
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/AMI_Conseiller-Numerique.pdf"
               // eslint-disable-next-line max-len
-              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger l'Appel &agrave; Manifestation d'Int&eacute;rêt Public">
-              T&eacute;l&eacute;charger l&rsquo;Appel &agrave; Manifestation d&rsquo;Int&eacute;rêt Public (pdf)
+              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger l&rsquo;Appel &agrave; Manifestation d'Int&eacute;r&ecirc;t Public">
+              T&eacute;l&eacute;charger l&rsquo;Appel &agrave; Manifestation d&rsquo;Int&eacute;r&ecirc;t Public (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-              Appel &agrave; manifestation d&rsquo;int&eacute;rêt pour les collectivit&eacute;s territoriales et leurs groupements
+              Appel &agrave; manifestation d&rsquo;int&eacute;r&ecirc;t pour les collectivit&eacute;s territoriales et leurs groupements
             </span>
           </p>
         </div>
@@ -81,11 +81,11 @@ export default function Documents() {
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/AMI_Prive.pdf"
               // eslint-disable-next-line max-len
-              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger l'Appel &agrave; Manifestation d'Int&eacute;rêt Priv&eacute;">
-              T&eacute;l&eacute;charger l&rsquo;Appel &agrave; Manifestation d&rsquo;Int&eacute;rêt Priv&eacute; (pdf)
+              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger l&rsquo;Appel &agrave; Manifestation d'Int&eacute;r&ecirc;t Priv&eacute;">
+              T&eacute;l&eacute;charger l&rsquo;Appel &agrave; Manifestation d&rsquo;Int&eacute;r&ecirc;t Priv&eacute; (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-              Appel &agrave; manifestation d&rsquo;int&eacute;rêt pour les acteurs &agrave; statut priv&eacute;
+              Appel &agrave; manifestation d&rsquo;int&eacute;r&ecirc;t pour les acteurs &agrave; statut priv&eacute;
             </span>
           </p>
         </div>
@@ -116,7 +116,7 @@ export default function Documents() {
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/Guide%20employeur%20public.pdf"
-              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger le guide de l'employeur - Public">
+              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger le guide de l&rsquo;employeur - Public">
               T&eacute;l&eacute;charger le guide employeur (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
@@ -127,7 +127,7 @@ export default function Documents() {
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/Guide%20employeur%20prive.pdf"
-              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger le guide de l'employeur - Priv&eacute;">
+              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger le guide de l&rsquo;employeur - Priv&eacute;">
               T&eacute;l&eacute;charger le guide employeur (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
