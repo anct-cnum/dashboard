@@ -6,17 +6,11 @@ function Exports() {
     <div className="exportsPrefet" style={{ position: 'relative' }}>
       <div className="spinnerCustom">
         <Oval
-          height={80}
-          width={80}
-          color="#4fa94d"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={false}
-          ariaLabel="oval-loading"
-          secondaryColor="#4fa94d"
-          strokeWidth={2}
-          strokeWidthSecondary={2}
-
+          height={100}
+          width={100}
+          color="#060091"
+          secondaryColor="white"
+          visible={exports?.loading === true}
         />
       </div>
       <p>

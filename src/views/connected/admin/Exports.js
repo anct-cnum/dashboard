@@ -33,7 +33,8 @@ function Exports() {
         <Oval
           height={100}
           width={100}
-          color="#00BFFF"
+          color="#060091"
+          secondaryColor="white"
           visible={exports?.loading === true}
         />
       </div>
@@ -65,11 +66,6 @@ function Exports() {
       <p>
         <a className="fr-link" href="#" onClick={() => getFile('cnfs-without-cra')}>
             Export CnFS 0 CRA M+2
-        </a>
-      </p>
-      <p>
-        <a className="fr-link" href="#">
-            Exporter les conseillers
         </a>
       </p>
     </div>

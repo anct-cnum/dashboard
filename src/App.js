@@ -9,10 +9,17 @@ import './assets/js';
 import './assets/sass/main.scss';
 import Header from './components/Header';
 import Documents from './views/connected/Documents';
+import { useSelector } from 'react-redux';
 
 function App() {
+
+  const exports = useSelector(state => state.exports);
+
   return (
     <div className="App">
+      { exports?.loading === true &&
+      <div className="wrapperModal"></div>
+      }
       <Router history={history}>
         <Header />
         <Routes>
