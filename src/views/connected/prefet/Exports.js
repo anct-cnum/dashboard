@@ -50,6 +50,9 @@ function Exports() {
             Liste des candidats embauchés
         </span>
       </p>
+      { (error !== undefined && error !== false) &&
+          <span className="labelError">Une erreur est survenue : {error?.toString()}</span>
+      }
     </div>
   );
 }

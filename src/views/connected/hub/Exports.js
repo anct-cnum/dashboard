@@ -39,11 +39,14 @@ function Exports() {
         />
       </div>
       <p>
-        <a className="fr-link" href="#" onClick={() => getFile('conseillers')}>Exporter les conseillers</a>
+        <a className="fr-link" href="#" onClick={() => getFile('cnfs-hub')}>Exporter les conseillers</a>
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
             Exporter de la liste des conseillers
         </span>
       </p>
+      { (error !== undefined && error !== false) &&
+          <span className="labelError">Une erreur est survenue : {error?.toString()}</span>
+      }
     </div>
   );
 }

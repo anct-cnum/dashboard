@@ -68,6 +68,9 @@ function Exports() {
             Export CnFS 0 CRA M+2
         </a>
       </p>
+      { (error !== undefined && error !== false) &&
+          <span className="labelError">Une erreur est survenue : {error?.toString()}</span>
+      }
     </div>
   );
 }
