@@ -8,7 +8,8 @@ function Exports() {
   const dispatch = useDispatch();
   const exports = useSelector(state => state.exports);
   const error = useSelector(state => state.exports?.error);
-
+  const user = useSelector(state => state.authentication?.user?.user);
+  
   useEffect(() => {
     if (exports?.blob !== null && exports?.blob !== undefined && (error === undefined || error === false)) {
       const url = window.URL.createObjectURL(new Blob(['\ufeff', exports?.blob], { type: 'text/plain' })); //ufeff pour BOM UTF-8
@@ -23,8 +24,8 @@ function Exports() {
 
   }, [exports]);
 
-  const getFile = nameFile => {
-    dispatch(exportsActions.exportFile(nameFile));
+  const getFile = (nameFile, hubName) => {
+    dispatch(exportsActions.exportFile(nameFile, hubName));
   };
 
   return (
@@ -39,7 +40,7 @@ function Exports() {
         />
       </div>
       <p>
-        <a className="fr-link" href="#" onClick={() => getFile('cnfs-hub')}>Exporter les conseillers</a>
+        <a className="fr-link" href="#" onClick={() => getFile('cnfs-hub', user?.hub)}>Exporter les conseillers</a>
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
             Exporter de la liste des conseillers
         </span>

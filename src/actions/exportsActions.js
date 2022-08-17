@@ -6,13 +6,13 @@ export const exportsActions = {
   resetFile
 };
 
-function exportFile(nameFile) {
+function exportFile(nameFile, hubName) {
   return dispatch => {
     dispatch(request());
 
     exportsService.getFile(nameFile)
     .then(
-      blob => dispatch(success(blob, nameFile)),
+      blob => dispatch(success(blob, nameFile, hubName)),
       error => dispatch(failure(error))
     );
   };
@@ -20,12 +20,15 @@ function exportFile(nameFile) {
   function request() {
     return { type: 'EXPORT_FILE_REQUEST' };
   }
-  function success(blob, nameFile) {
+  function success(blob, nameFile, hubName) {
     if (nameFile === 'ruptures') {
       nameFile = `demandes_${nameFile}_${dayjs(new Date()).format('DD-MM-YYYY')}`;
     }
     if (nameFile === 'cnfs-without-cra') {
       nameFile = 'export_cnfs_m2';
+    }
+    if (nameFile === 'cnfs-hub') {
+      nameFile = `export-cnfs_${dayjs(new Date()).format('DD-MM-YYYY')}_${hubName}`;
     }
     return { type: 'EXPORT_FILE_SUCCESS', blob, nameFile };
   }
