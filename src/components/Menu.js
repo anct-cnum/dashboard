@@ -7,6 +7,8 @@ function Menu() {
 
   const dispatch = useDispatch();
   const location = useLocation();
+  
+  const urlAide = process.env.REACT_APP_AIDE_HOSTNAME;
 
   const burgerMenuHidden = useSelector(state => state.menu?.hiddenBurgerMenu);
   const [activeMenu, setActiveMenu] = useState(null);
@@ -116,18 +118,25 @@ function Menu() {
                 className="fr-nav__btn"
                 aria-expanded={ activeMenu === 'recrutement' }
                 aria-controls="menu-recrutement"
+                {...(location.pathname.startsWith(`/certifications`) || location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
                   Infos recrutement
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'recrutement' ? 'fr-collapse--expanded' : ''}`} id="menu-recrutement">
                 <ul className="fr-menu__list">
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link
+                      className="fr-nav__link"
+                      to="/formation"
+                      {...(location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}>
                       &bull;&nbsp;Inscription en formation
                     </Link>
                   </li>
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link
+                      className="fr-nav__link"
+                      to="/certifications"
+                      {...(location.pathname.startsWith(`/certifications`) ? { 'aria-current': 'page' } : {})}>
                         &bull;&nbsp;Certifications
                     </Link>
                   </li>
@@ -146,7 +155,7 @@ function Menu() {
               <div className={`fr-collapse fr-menu ${activeMenu === 'aide' ? 'fr-collapse--expanded' : ''}`} id="menu-aide">
                 <ul className="fr-menu__list">
                   <li>
-                    <a className="fr-nav__link" href="https://aide.conseiller-numerique.gouv.fr/fr" target="blank" rel="noreferrer">
+                    <a className="fr-nav__link" href={urlAide} target="blank" rel="noreferrer noopener">
                       &bull;&nbsp;FAQ
                     </a>
                   </li>
