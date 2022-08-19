@@ -3,7 +3,7 @@ import { Oval } from 'react-loader-spinner';
 
 function Exports() {
   return (
-    <div className="exportsPrefet" style={{ position: 'relative' }}>
+    <div className="exportsCoordinateur" style={{ position: 'relative' }}>
       <div className="spinnerCustom">
         <Oval
           height={100}

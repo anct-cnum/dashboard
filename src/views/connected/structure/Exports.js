@@ -27,20 +27,14 @@ function Exports() {
     dispatch(exportsActions.exportFile(nameFile));
   };
   return (
-    <div className="exportsPrefet" style={{ position: 'relative' }}>
+    <div className="exportsStructure" style={{ position: 'relative' }}>
       <div className="spinnerCustom">
         <Oval
-          height={80}
-          width={80}
-          color="#4fa94d"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={false}
-          ariaLabel="oval-loading"
-          secondaryColor="#4fa94d"
-          strokeWidth={2}
-          strokeWidthSecondary={2}
-
+          height={100}
+          width={100}
+          color="#060091"
+          secondaryColor="white"
+          visible={exports?.loading === true}
         />
       </div>
       <p>
@@ -49,6 +43,9 @@ function Exports() {
           Export des emails, noms, prénoms de la liste des candidats
         </span>
       </p>
+      { (error !== undefined && error !== false) &&
+          <span className="labelError">Une erreur est survenue : {error?.toString()}</span>
+      }
     </div>
   );
 }
