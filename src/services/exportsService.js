@@ -7,14 +7,13 @@ export const exportsService = {
 
 function getFile(name) {
   const requestOptions = {
-    method: 'POST',
-    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
-    body: JSON.stringify({ 'roleActivated': roleActivated() })
+    method: 'GET',
+    headers: Object.assign(authHeader())
   };
 
   const apiUrlRoot = process.env.REACT_APP_API_URL;
 
-  return fetch(`${apiUrlRoot}/exports/${name}-csv`, requestOptions).then(handleResponse);
+  return fetch(`${apiUrlRoot}/exports/${name}-csv?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
