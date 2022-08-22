@@ -45,7 +45,7 @@ function Exports() {
         </span>
       </p>
       <p>
-        <a className="fr-link" href="#" onClick={() => getFile('embauches')}>Export des conseiller embauchés</a>
+        <a className="fr-link" href="#" onClick={() => getFile('embauches')}>Export des conseillers embauchés</a>
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
             Liste des candidats embauchés
         </span>

@@ -42,7 +42,7 @@ function Exports() {
       <p>
         <a className="fr-link" href="#" onClick={() => getFile('cnfs-hub', user?.hub)}>Exporter les conseillers</a>
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-            Exporter de la liste des conseillers
+            Export de la liste des conseillers de votre hub
         </span>
       </p>
       { (error !== undefined && error !== false) &&

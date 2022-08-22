@@ -7,7 +7,6 @@ export default function Structure() {
 
   return (
     <>
-      <p>Vous pouvez accéder à la route : <Link to="/structure/informations">Test accès structure uniquement</Link></p>
       <Routes>
         <Route path="/structure/informations" element={<Informations />} /> {/* Routes spécifiques avec /structure */}
         <Route path="/structure/exports" element={<Exports />} />
