@@ -6,13 +6,14 @@ export const statistiquesService = {
 };
 
 function getStatistiquesNationale(dateDebut, dateFin) {
-  const apiUrlRoot = process.env.REACT_APP_API;
+ 
+  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
   const requestOptions = {
     method: 'GET',
     headers: authHeader(),
   };
 
-  return fetch(`${apiUrlRoot}/stats/nationales/cra?dateDebut=${dateDebut}&dateFin=${dateFin}`,
+  return fetch(`${apiUrlRoot}/nationales/cra?dateDebut=${dateDebut}&dateFin=${dateFin}`,
     requestOptions).then(handleResponse);
 }
 

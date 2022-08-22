@@ -6,7 +6,7 @@ import HighchartsReact from 'highcharts-react-official';
 
 import labelsCorrespondance from './data/labelsCorrespondance.json';
 
-function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutres }) {
+function ElementHighcharts({ donneesStats, variablesGraphique, listeAutres }) {
 
   const isReoriente = variablesGraphique.titre.optionTitre === 'Usager.ères réorienté.es';
   const { typeGraphique, largeurGraphique, hauteurGraphique,
@@ -41,11 +41,11 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
     const type = typeGraphique === 'stacked' ? 'bar' : typeGraphique;
 
     let chart = {
-      width: print ? 700 : largeurGraphique,
+      width: largeurGraphique,
       height: hauteurGraphique,
       marginLeft: margeGaucheGraphique,
       marginRight: margeDroiteGraphique,
-      backgroundColor: print ? '#fff' : '#1e1e1e',
+      backgroundColor: '#fff',
       spacing: [0, 0, 0, 0],
 
       style: {
@@ -76,7 +76,7 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
       width: 300,
       align: 'left',
       style: {
-        color: print ? '#1e1e1e' : '#fff',
+        color: '#1e1e1e',
         fontSize: '16px',
         fontWeight: 'bold',
         lineHeight: '24px'
@@ -103,7 +103,7 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
           name: labelsCorrespondance.find(label => label.nom === element.nom)?.correspondance ?? element.nom,
           data: [element.valeur],
           color: couleursGraphique[i],
-          borderColor: print ? '#fff' : '#1e1e1e',
+          borderColor: '#fff',
           borderWidth: 1,
         });
       } else if (typeGraphique === 'pie') {
@@ -182,7 +182,7 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
 
       case 'pie':
         if (isReoriente) {
-          const x = print ? -100 : -165;
+          const x = -165;
           legende = {
             title: optionResponsive ? {} : {
               text: '<span>Lieux</span>',
@@ -190,7 +190,7 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
                 fontFamily: 'Marianne',
                 fontWeight: 'bold',
                 fontSize: '16px',
-                color: print ? '#1e1e1e' : '#fff',
+                color: '#1e1e1e',
               }
             },
             itemMarginBottom: 5,
@@ -202,12 +202,12 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
             width: optionResponsive ? '100%' : '30%',
             maxHeight: '450px',
             itemStyle: {
-              color: print ? '#1e1e1e' : '#fff',
+              color: '#1e1e1e',
               fontWeight: 400,
               lineHeight: '20px',
             },
             itemHoverStyle: {
-              color: print ? '#1e1e1e' : '#fff'
+              color: '#1e1e1e'
             },
           };
         } else {
@@ -219,12 +219,12 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
             y: 0,
             width: '100%',
             itemStyle: {
-              color: print ? '#1e1e1e' : '#fff',
+              color: '#1e1e1e',
               fontWeight: 400,
               lineHeight: '20px'
             },
             itemHoverStyle: {
-              color: print ? '#1e1e1e' : '#fff'
+              color: '#1e1e1e'
             },
           };
         }
@@ -245,11 +245,11 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
           itemMarginBottom: 5,
           align: 'left',
           itemStyle: {
-            color: print ? '#1e1e1e' : '#fff',
+            color: '#1e1e1e',
             fontWeight: 400,
           },
           itemHoverStyle: {
-            color: print ? '#1e1e1e' : '#fff'
+            color: '#1e1e1e'
           },
         };
 
@@ -265,10 +265,10 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
           y: -60,
           itemMarginBottom: 5,
           itemStyle: {
-            color: print ? '#1e1e1e' : '#fff',
+            color: '#1e1e1e'
           },
           itemHoverStyle: {
-            color: print ? '#1e1e1e' : '#fff'
+            color: '#1e1e1e'
           },
           navigation: {
             enabled: false,
@@ -310,7 +310,6 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
             text: null
           },
           gridLineWidth: 0,
-          labels: '',
           fontSize: '12px',
         };
 
@@ -328,7 +327,7 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
             text: null
           },
           tickWidth: 1,
-          tickColor: print ? '#1e1e1e' : '#fff',
+          tickColor: '#1e1e1e',
           gridLineWidth: 0,
 
           labels: {
@@ -337,7 +336,7 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
             format: '{value}',
             style: {
               fontSize: '12px',
-              color: print ? '#1e1e1e' : '#fff',
+              color: '#1e1e1e',
             }
           }
         };
@@ -410,7 +409,7 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
             x: -8,
             format: '{value}',
             style: {
-              color: print ? '#1e1e1e' : '#fff',
+              color: '#1e1e1e',
               fontSize: '12px',
             }
           },
@@ -445,7 +444,7 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
             format: '<b>{value}</b>',
             style: {
               fontSize: '12px',
-              color: print ? '#1e1e1e' : '#fff',
+              color: '#1e1e1e',
             }
           },
         };
@@ -459,7 +458,7 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
           lineWidth: 0,
           labels: {
             style: {
-              color: print ? '#1e1e1e' : '#fff',
+              color: '#1e1e1e',
               fontSize: '12px'
             }
           }
@@ -491,7 +490,7 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
         optionsTrace.bar = {
           borderRadius: 6,
           borderWidth: 2,
-          borderColor: print ? '#fff' : '#1e1e1e',
+          borderColor: '#fff',
           pointWidth: 12,
           pointPadding: 25,
           series: {
@@ -709,7 +708,6 @@ function ElementHighcharts({ donneesStats, variablesGraphique, print, listeAutre
 ElementHighcharts.propTypes = {
   donneesStats: PropTypes.array,
   variablesGraphique: PropTypes.object,
-  print: PropTypes.bool,
   listeAutres: PropTypes.array,
 };
 

@@ -23,7 +23,7 @@ function getStatsNationale(dateDebut, dateFin) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getStatsCraNationale(formatDate(dateDebut), formatDate(dateFin))
+    statistiquesService.getStatistiquesNationale(formatDate(dateDebut), formatDate(dateFin))
     .then(
       statsNationales => {
         dispatch(success(statsNationales));

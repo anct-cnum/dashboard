@@ -1,14 +1,22 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import LeftPage from './Components/LeftPage';
 import RightPage from './Components/RightPage';
 import BottomPage from './Components/BottomPage';
 import StatisticsPeriod from './Components/StatisticsPeriod';
+import { statistiquesActions } from '../../../actions';
 
 export default function GraphiqueNationale() {
+  const dispatch = useDispatch();
 
   let dateDebut = useSelector(state => state.statistiques?.dateDebut);
   let dateFin = useSelector(state => state.statistiques?.dateFin);
+  
+  const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
+
+  useEffect(() => {
+    dispatch(statistiquesActions.getStatsNationale(dateDebut, dateFin));
+  }, [dateDebut, dateFin]);
   
   return (
     <div className="statistiques">
@@ -24,12 +32,13 @@ export default function GraphiqueNationale() {
             <hr className="fr-hr fr-mt-3v"/>
           </div>
         </div>
-
-        <div className="fr-grid-row">
-          <LeftPage donneesStats={null} print={false} />
-          <RightPage donneesStats={null} print={false} />
-          <BottomPage donneesStats={null} print={false} />
-        </div>
+        { donneesStatistiques !== undefined &&
+          <div className="fr-grid-row">
+            <LeftPage donneesStats={donneesStatistiques} print={false} />
+            <RightPage donneesStats={donneesStatistiques} print={false} />
+            <BottomPage donneesStats={donneesStatistiques} print={false} />
+          </div>
+        }
       </div>
     </div>
   );
