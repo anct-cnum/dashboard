@@ -85,7 +85,8 @@ function Menu() {
               <div className={`fr-collapse fr-menu ${activeMenu === 'statistiques' ? 'fr-collapse--expanded' : ''}`} id="menu-statistiques">
                 <ul className="fr-menu__list">
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link className="fr-nav__link" to={`/statistiques-nationales`}
+                      {...(location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}>
                       &bull;&nbsp;Statistiques nationales
                     </Link>
                   </li>

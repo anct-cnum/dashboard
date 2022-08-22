@@ -1,0 +1,217 @@
+[
+  {
+    "nom": "equipement informatique",
+    "correspondance": "Prendre en main un &eacute;quipement"
+  },
+  {
+    "nom": "vocabulaire",
+    "correspondance": "Connaître le vocabulaire num&eacute;rique"
+  },
+  {
+    "nom": "internet",
+    "correspondance": "Naviguer sur Internet"
+  },
+  {
+    "nom": "courriel",
+    "correspondance": "Courriels"
+  },
+  {
+    "nom": "securite",
+    "correspondance" : "S&eacute;curiser un &eacute;quipement" },
+  {
+    "nom": "smartphone",
+    "correspondance": "Applications smartphone"
+  },
+  {
+    "nom": "contenus numeriques",
+    "correspondance": "Gestion de contenus num&eacute;riques"
+  },
+  {
+    "nom": "traitement texte",
+    "correspondance": "Traitement de texte"
+  },
+  {
+    "nom": "echanger",
+    "correspondance": "&Eacute;changer avec ses proches"
+  },
+  {
+    "nom": "trouver emploi",
+    "correspondance": "Emploi, formation"
+  },
+  {
+    "nom": "accompagner enfant",
+    "correspondance": "Accompagner un aidant"
+  },
+  {
+    "nom": "tpe/pme",
+    "correspondance": "Num&eacute;rique et TPE/PME"
+  },
+  {
+    "nom": "demarche en ligne",
+    "correspondance": "D&eacute;marche en ligne"
+  },
+  {
+    "nom": "fraude et harcelement",
+    "correspondance": "Fraude et harc&egrave;lement"
+  },
+  {
+    "nom": "sante",
+    "correspondance": "Sant&eacute;"
+  },
+  {
+    "nom": "autre",
+    "correspondance": "Autre"
+  },
+  {
+    "nom": "domicile",
+    "correspondance": "&Agrave; domicile"
+  },
+  {
+    "nom": "distance",
+    "correspondance": "&Agrave; distance"
+  },
+  {
+    "nom": "rattachement",
+    "correspondance": "Lieu de ratachement"
+  },
+  {
+    "nom": "autre",
+    "correspondance": "Autre lieu"
+  },
+  {
+    "nom": "0-30",
+    "correspondance": "0 &agrave; 30 min."
+  },
+  {
+    "nom": "30-60",
+    "correspondance": "30 min. &agrave; 1h"
+  },
+  {
+    "nom": "60-120",
+    "correspondance": "1h &agrave; 2h"
+  },
+  {
+    "nom": "120+",
+    "correspondance": "2h et plus"
+  },
+  {
+    "nom": "-12",
+    "correspondance": "-12 ans"
+  },
+  {
+    "nom": "12-18",
+    "correspondance": "12-18 ans"
+  },
+  {
+    "nom": "18-35",
+    "correspondance": "18-35 ans"
+  },
+  {
+    "nom": "35-60",
+    "correspondance": "35-60 ans"
+  },
+  {
+    "nom": "+60",
+    "correspondance": "60 ans et plus"
+  },
+  {
+    "nom": "etudiant",
+    "correspondance": "Scolarisé(e)"
+  },
+  {
+    "nom": "sans emploi",
+    "correspondance": "Sans emploi"
+  },
+  {
+    "nom": "en emploi",
+    "correspondance": "En emploi"
+  },
+  {
+    "nom": "retraite",
+    "correspondance": "Retrait&eacute;"
+  },
+  {
+    "nom": "heterogene",
+    "correspondance": "Non renseign&eacute;"
+  },
+  {
+    "nom": "ANTS",
+    "correspondance": "ANTS"
+  },
+  {
+    "nom": "Assistante sociale",
+    "correspondance": "Assistante sociale"
+  },
+  {
+    "nom": "CAF",
+    "correspondance": "CAF"
+  },
+  {
+    "nom": "CARSAT",
+    "correspondance": "CARSAT"
+  },
+  {
+    "nom": "CCAS",
+    "correspondance": "CCAS"
+  },
+  {
+    "nom": "CEFS",
+    "correspondance": "CEFS"
+  },
+  {
+    "nom": "CIP",
+    "correspondance": "CIP"
+  },
+  {
+    "nom": "CPAM",
+    "correspondance": "CPAM"
+  },
+  {
+    "nom": "DGFIP",
+    "correspondance": "DGFIP"
+  },
+  {
+    "nom": "France Services",
+    "correspondance": "France Services"
+  },
+  {
+    "nom": "Mairie",
+    "correspondance": "Mairie"
+  },
+  {
+    "nom": "Médiathèque",
+    "correspondance": "M&eacute;diath&egrave;que"
+  },
+  {
+    "nom": "Mission locale",
+    "correspondance": "Mission locale"
+  },
+  {
+    "nom": "Pôle emploi",
+    "correspondance": "Pôle emploi"
+  },
+  {
+    "nom": "Préfecture",
+    "correspondance": "Pr&eacute;fecture"
+  },
+  {
+    "nom": "Sous-préfecture",
+    "correspondance": "Sous-pr&eacute;fecture"
+  },
+  {
+    "nom": "Service de police",
+    "correspondance": "Service de police"
+  },
+  {
+    "nom": "Gendarmerie",
+    "correspondance": "Gendarmerie"
+  },
+  {
+    "nom": "Tiers-lieu / Fablab",
+    "correspondance": "Tiers-lieu / Fablab"
+  },
+  {
+    "nom": "Autres&#0;",
+    "correspondance": "Autres"
+  }
+]

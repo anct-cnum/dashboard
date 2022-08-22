@@ -9,6 +9,11 @@ import './assets/js';
 import './assets/sass/main.scss';
 import Header from './components/Header';
 import Documents from './views/connected/Documents';
+import GraphiqueNationale from './views/connected/statistiques/GraphiqueNationale';
+import GraphiqueStructure from './views/connected/statistiques/GraphiqueStructure';
+import GraphiqueTerritoire from './views/connected/statistiques/GraphiqueTerritoire';
+import TableauStructures from './views/connected/statistiques/TableauStructures';
+import TableauTerritoires from './views/connected/statistiques/TableauTerritoires';
 
 function App() {
   return (
@@ -18,7 +23,14 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<PrivateRoute/>}>
-            <Route path="/documents" element={<Documents />} /> {/* routes communes ici */}
+            <Route path="/documents" element={<Documents />} />
+            <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
+            <Route path="/statistiques-structures" element={<TableauStructures />} />
+            <Route path="/statistiques-structure" element={<GraphiqueStructure />} />
+            <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
+            <Route path="/statistiques-territoire" element={<GraphiqueTerritoire />} />
+            
+            {/* routes communes ici */}
             <Route index element={<Accueil />}/>
             <Route path="*" element={<Accueil />}/>
           </Route>
