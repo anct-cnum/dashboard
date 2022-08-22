@@ -47,11 +47,13 @@ function Exports() {
       <p>
         <a className="fr-link" href="#" onClick={() => getFile('embauches')}>Export des conseillers embauchés</a>
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-            Liste des candidats embauchés
+          Liste des conseillers embauchés
         </span>
       </p>
-      { (error !== undefined && error !== false) &&
-          <span className="labelError">Une erreur est survenue : {error?.toString()}</span>
+      {(error !== undefined && error !== false) &&
+        <div className="fr-alert fr-alert--error fr-alert--sm">
+          <p>Une erreur est survenue : {error?.toString()}</p>
+        </div>
       }
     </div>
   );

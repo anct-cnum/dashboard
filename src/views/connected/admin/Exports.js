@@ -69,7 +69,9 @@ function Exports() {
         </a>
       </p>
       { (error !== undefined && error !== false) &&
-          <span className="labelError">Une erreur est survenue : {error?.toString()}</span>
+        <div className="fr-alert fr-alert--error fr-alert--sm">
+          <p>Une erreur est survenue : {error?.toString()}</p>
+        </div>
       }
     </div>
   );
