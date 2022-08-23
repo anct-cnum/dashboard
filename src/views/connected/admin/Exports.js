@@ -21,6 +21,10 @@ function Exports() {
     dispatch(exportsActions.exportFile(nameFile));
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [error]);
+
   return (
     <div className="exportsAdmin" style={{ position: 'relative' }}>
       <div className="spinnerCustom">
@@ -34,17 +38,17 @@ function Exports() {
       </div>
       <p>
         <a className="fr-link" href="#" onClick={() => getFile('candidats')}>
-            Fichier &laquo;&nbsp;Je recrute&nbsp;&raquo; (candidats validés + embauchés)
+            Fichier &laquo;&nbsp;Je recrute&nbsp;&raquo; (candidats valid&eacute;s + embauch&eacute;s)
         </a>
       </p>
       <p>
         <a className="fr-link" href="#" onClick={() => getFile('candidatsValidesStructure')}>
-            Liste des candidatures validées par la structure
+            Liste des candidatures valid&eacute;es par la structure
         </a>
       </p>
       <p>
         <a className="fr-link" href="#" onClick={() => getFile('embauches')}>
-            Liste des candidats embauchés
+            Liste des candidats embauch&eacute;s
         </a>
       </p>
       <p>

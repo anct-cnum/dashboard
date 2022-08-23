@@ -20,6 +20,11 @@ function Exports() {
   const getFile = nameFile => {
     dispatch(exportsActions.exportFile(nameFile));
   };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [error]);
+  
   return (
     <div className="exportsStructure" style={{ position: 'relative' }}>
       <div className="spinnerCustom">
@@ -34,7 +39,7 @@ function Exports() {
       <p>
         <a className="fr-link" href="#" onClick={() => getFile('candidatsByStructure')}>Export des candidats</a>
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-          Export des emails, noms, prénoms de la liste des candidats
+          Export des emails, noms, pr&eacute;noms de la liste des candidats
         </span>
       </p>
       { (error !== undefined && error !== false) &&

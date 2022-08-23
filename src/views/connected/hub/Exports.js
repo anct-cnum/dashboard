@@ -22,6 +22,10 @@ function Exports() {
     dispatch(exportsActions.exportFile(nameFile, hubName));
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [error]);
+
   return (
     <div className="exportsHub" style={{ position: 'relative' }}>
       <div className="spinnerCustom">

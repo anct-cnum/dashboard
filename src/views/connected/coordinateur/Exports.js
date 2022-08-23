@@ -16,7 +16,7 @@ function Exports() {
       <p>
         <a className="fr-link" href="#">Export de vos conseillers</a>
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-          Export des emails, noms, prénoms de la liste de vos conseillers
+          Export des emails, noms, pr&eacute;noms de la liste de vos conseillers
         </span>
       </p>
     </div>

@@ -21,6 +21,10 @@ function Exports() {
     dispatch(exportsActions.exportFile(nameFile));
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [error]);
+
   return (
     <div className="exportsPrefet" style={{ position: 'relative' }}>
       <div className="spinnerCustom">
@@ -39,9 +43,9 @@ function Exports() {
         </span>
       </p>
       <p>
-        <a className="fr-link" href="#" onClick={() => getFile('embauches')}>Export des conseillers embauchés</a>
+        <a className="fr-link" href="#" onClick={() => getFile('embauches')}>Export des conseillers embauch&eacute;s</a>
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-          Liste des conseillers embauchés
+          Liste des conseillers embauch&eacute;s
         </span>
       </p>
       {(error !== undefined && error !== false) &&
