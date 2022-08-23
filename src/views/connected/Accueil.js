@@ -26,7 +26,7 @@ export default function Accueil() {
       { roleActivated === 'structure' &&
         <Structure />
       }
-      { roleActivated === 'coordinateur' &&
+      { roleActivated === 'coordinateur_coop' &&
         <Coordinateur />
       }
     </div>

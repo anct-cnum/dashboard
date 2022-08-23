@@ -8,8 +8,8 @@ export default function Coordinateur() {
   return (
     <>
       <Routes>
-        <Route path="/coordinateur/informations" element={<Informations />} /> {/* Routes spécifiques avec /coordinateur */}
-        <Route path="/coordinateur/exports" element={<Exports />} />
+        <Route path="/coordinateur_coop/informations" element={<Informations />} /> {/* Routes spécifiques avec /coordinateur */}
+        <Route path="/coordinateur_coop/exports" element={<Exports />} />
       </Routes>
     </>
   );
