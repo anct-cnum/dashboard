@@ -5,6 +5,7 @@ export const statistiquesActions = {
   changeDateDebut,
   changeDateFin,
   getStatsNationale,
+  updateListeAutresReorientations,
 };
 
 const formatDate = date => {
@@ -43,4 +44,8 @@ function getStatsNationale(dateDebut, dateFin) {
   function failure(error) {
     return { type: 'GET_STATS_CRA_NATIONALES_FAILURE', error };
   }
+}
+
+function updateListeAutresReorientations(listeAutresReorientations) {
+  return { type: 'UPDATE_AUTRES_REORIENTATIONS', listeAutresReorientations };
 }

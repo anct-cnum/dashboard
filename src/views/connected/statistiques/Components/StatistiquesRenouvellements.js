@@ -52,7 +52,7 @@ function StatistiquesRenouvellements(props) {
           showCount={false} />} classe="texts"/>
       </div>
       <div className="fr-col-12">
-        <div className="fr-m-lg-6w"></div>
+        <div className="fr-m-6w"></div>
       </div>
     </div>
   );

@@ -36,6 +36,11 @@ export default function statistiques(state = initialState, action) {
         statsDataError: action.error,
         statsDataLoading: false,
       };
+    case 'UPDATE_AUTRES_REORIENTATIONS':
+      return {
+        ...state,
+        listeAutresReorientations: action.listeAutresReorientations
+      };
     default:
       return state;
   }

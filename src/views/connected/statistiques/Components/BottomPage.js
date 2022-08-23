@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import ElementHighcharts from './ElementHighcharts';
 import { sortByMonthAndYear } from './utils/functionsSort';
+import { getStyle } from './utils/functionsStyle';
 import labelsCorrespondance from './data/labelsCorrespondance.json';
 import { statistiquesActions } from '../../../../actions';
 require('dayjs/locale/fr');
@@ -12,12 +13,9 @@ function BottomPage({ donneesStats }) {
 
   const dispatch = useDispatch();
 
-  const tabColorAge = ['#ff007a', '#6945bd', '#c6c9ae', '#ff5e3b', '#00ba8e'];
-  const tabColorStatut = ['#a2b4b1', '#ffdbd2', '#a3a6bc', '#ddb094', '#fff480'];
-  const tabColorLieux = [
-    '#ff007a', '#6945bd', '#c6c9ae', '#ff5e3b', '#00ba8e', '#a2b4b1', '#ffdbd2', '#a3a6bc', '#ddb094', '#fff480',
-    '#cac5b0', '#abb8df', '#fdcf41', '#169b62', '#80d5c6', '#ff8d7e', '#714753', '#956052', '#ffed33', '#be9b31'
-  ];
+  const tabColorAge = getStyle('age');
+  const tabColorStatut = getStyle('statut');
+  const tabColorReorientation = getStyle('reorientation');
 
   const get4lastMonths = (month, year) => {
     let monthToPrint = [month];
@@ -33,7 +31,7 @@ function BottomPage({ donneesStats }) {
     return [monthToPrint, yearAssociated];
   };
 
-  const { statsLieux, statsEvolutions, statsUsagers, statsAges, statsReorientations } = donneesStats;
+  const { statsEvolutions, statsUsagers, statsAges, statsReorientations } = donneesStats;
 
   //Map des stats evolutions pour ajouter les données nécessaires pour le graph (label mois année, valeur)
   let statsEvolutionsMapped = [];
@@ -69,58 +67,44 @@ function BottomPage({ donneesStats }) {
   statsEvolutionsFiltered.sort(sortByMonthAndYear);
 
   //Tri liste des réorientations autres
-  if (statsReorientations?.length > 0) {
-    let listeAutres = [];
-    let listDelete = [];
-    let donneesAutre = {
-      nom: 'Autres&#0;',
-      valeur: 0
-    };
-    statsReorientations.forEach((donnees, i) => {
-      if (labelsCorrespondance.find(label => label.nom === donnees.nom)?.correspondance === undefined) {
-        donneesAutre.valeur += donnees.valeur;
-        listeAutres.push(donnees.nom);
-        listDelete.push(i);
-      }
-    });
-    if (!statsReorientations.find(stats => stats?.nom === 'Autres&#0;')) {
-      statsReorientations.push(donneesAutre);
-      listDelete.forEach(i => {
-        delete statsReorientations[i];
+  useEffect(() => {
+    if (statsReorientations?.length > 0) {
+      let listeAutres = [];
+      let listDelete = [];
+      let donneesAutre = {
+        nom: 'Autres&#0;',
+        valeur: 0
+      };
+      statsReorientations.forEach((donnees, i) => {
+        if (labelsCorrespondance.find(label => label.nom === donnees.nom)?.correspondance === undefined) {
+          donneesAutre.valeur += donnees.valeur;
+          listeAutres.push(donnees.nom);
+          listDelete.push(i);
+        }
       });
-      dispatch(statistiquesActions.updateListeAutresReorientations(listeAutres));
+  
+      if (!statsReorientations.find(stats => stats?.nom === 'Autres&#0;')) {
+        statsReorientations.push(donneesAutre);
+        listDelete.forEach(i => {
+          delete statsReorientations[i];
+        });
+        dispatch(statistiquesActions.updateListeAutresReorientations(listeAutres));
+      }
     }
-  }
-
-  const pieGraphique = {
-    graphique: {
-      typeGraphique: 'pie',
-      largeurGraphique: 360,
-      hauteurGraphique: 320,
-      margeGaucheGraphique: 0,
-      margeDroiteGraphique: 300,
-      optionResponsive: false,
-      couleursGraphique: tabColorLieux
-    },
-    titre: {
-      optionTitre: 'Lieux des accompagnements',
-      margeTitre: 48,
-      placementTitre: 0
-    }
-  };
+  }, [statsReorientations]);
 
   const graphiqueEvolution = {
     graphique: {
       typeGraphique: 'xy',
-      largeurGraphique: 360,
-      hauteurGraphique: 320,
-      margeGaucheGraphique: 30,
-      margeDroiteGraphique: 330,
+      largeurGraphique: 320,
+      hauteurGraphique: 310,
+      margeGaucheGraphique: 40,
+      margeDroiteGraphique: 70,
       optionResponsive: false,
       couleursGraphique: tabColorAge
     },
     titre: {
-      optionTitre: '&Eacute;volution des comptes rendus d&rsquo;activit&eacute',
+      optionTitre: '&Eacute;volution des comptes rendus d&rsquo;activit&eacute;',
       margeTitre: 48,
     }
   };
@@ -136,7 +120,7 @@ function BottomPage({ donneesStats }) {
       couleursGraphique: tabColorAge
     },
     titre: {
-      optionTitre: 'Tranches d\'âge des usagers',
+      optionTitre: 'Tranches d&rsquo;&acirc;ge des usagers',
       margeTitre: 34,
     }
   };
@@ -161,51 +145,40 @@ function BottomPage({ donneesStats }) {
     graphique: {
       typeGraphique: 'pie',
       hauteurGraphique: 555,
-      margeGaucheGraphique: -315,
+      margeGaucheGraphique: -419,
       optionResponsive: false,
-      couleursGraphique: tabColorLieux
+      couleursGraphique: tabColorReorientation
     },
     titre: {
-      optionTitre: 'Usager.ères réorienté.es',
+      optionTitre: 'Usager.&egrave;res r&eacute;orient&eacute;.es',
       margeTitre: 48,
       placementTitre: 0
     }
   };
 
   return (
-    <div className="fr-col-12">
-      <div className="fr-grid-row">
-        <div className="fr-col-12">
-          <div className="fr-mt-6w fr-mb-5w"><hr/></div>
-        </div>
-        <div className="fr-col-5">
-          <ElementHighcharts donneesStats={statsLieux} variablesGraphique={pieGraphique}/>
-        </div>
-
-        <div className="fr-col-1"></div>
-
-        <div className="fr-col-5">
-          <ElementHighcharts donneesStats={statsEvolutionsFiltered} variablesGraphique={graphiqueEvolution}/>
-        </div>
-
-        <div className="fr-col-5">
-          <div className="fr-mt-6w fr-mb-5w"><hr/></div>
-          <ElementHighcharts donneesStats={statsAges} variablesGraphique={graphiqueAge}/>
-        </div>
-
-        <div className="fr-col-1"></div>
-
-        <div className="fr-col-5">
-          <div className="fr-mt-6w fr-mb-5w"><hr/></div>
-          <ElementHighcharts donneesStats={statsUsagers} variablesGraphique={graphiqueStatut}/>
-        </div>
-        <div className="fr-col-12" >
-          {statsReorientations?.length > 0 &&
-            <ElementHighcharts donneesStats={statsReorientations} variablesGraphique={graphiqueReorientations} listeAutres={[]}/>
-          }
-        </div>
+    <>
+      <div className="fr-col-12 fr-col-md-3">
+        <div className="fr-mt-6w fr-mb-5w"><hr/></div>
+        <ElementHighcharts donneesStats={statsEvolutionsFiltered} variablesGraphique={graphiqueEvolution}/>
       </div>
-    </div>
+
+      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-3">
+        <div className="fr-mt-6w fr-mb-5w"><hr/></div>
+        <ElementHighcharts donneesStats={statsAges} variablesGraphique={graphiqueAge}/>
+      </div>
+
+      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-3">
+        <div className="fr-mt-6w fr-mb-5w"><hr/></div>
+        <ElementHighcharts donneesStats={statsUsagers} variablesGraphique={graphiqueStatut}/>
+      </div>
+      <div className="fr-col-12 fr-col-offset-md-4 fr-col-md-8 fr-mt-6w" >
+        {statsReorientations?.length > 0 &&
+          <ElementHighcharts donneesStats={statsReorientations} variablesGraphique={graphiqueReorientations} listeAutres={[]}/>
+        }
+        <div className="fr-m-no-reorientation"></div>
+      </div>
+    </>
   );
 }
 

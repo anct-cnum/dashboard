@@ -8,7 +8,7 @@ import labelsCorrespondance from './data/labelsCorrespondance.json';
 
 function ElementHighcharts({ donneesStats, variablesGraphique, listeAutres }) {
 
-  const isReoriente = variablesGraphique.titre.optionTitre === 'Usager.ères réorienté.es';
+  const isReoriente = variablesGraphique.titre.optionTitre === 'Usager.&egrave;res r&eacute;orient&eacute;.es';
   const { typeGraphique, largeurGraphique, hauteurGraphique,
     margeGaucheGraphique, margeDroiteGraphique, optionResponsive, couleursGraphique } = variablesGraphique.graphique;
   const { optionTitre, margeTitre, placementTitre } = variablesGraphique.titre;

@@ -9,9 +9,9 @@ function StatistiquesAccompagnementsPersonnel({ nbAccompagnementPerso, nbDemande
 
   return (
     <div className="fr-grid-row">
-      <div className="fr-col-3"><ElementNumber nombre={nbAccompagnementPerso}
+      <div className="fr-col-12 fr-col-md-3"><ElementNumber nombre={nbAccompagnementPerso}
         classe="numbers"/></div>
-      <div className="fr-col-9"><ElementText textePluralize={
+      <div className="fr-col-12 fr-col-md-9"><ElementText textePluralize={
         <Pluralize
           zero={'accompagnement individuel'}
           singular={'accompagnement individuel'}
@@ -19,9 +19,9 @@ function StatistiquesAccompagnementsPersonnel({ nbAccompagnementPerso, nbDemande
           count={nbAccompagnementPerso}
           showCount={false} />
       } classe="text"/><br/></div>
-      <div className="fr-col-3"><ElementNumber nombre={nbDemandePonctuel}
+      <div className="fr-col-12 fr-col-md-3"><ElementNumber nombre={nbDemandePonctuel}
         classe="numbers"/></div>
-      <div className="fr-col-9"><ElementText textePluralize={
+      <div className="fr-col-12 fr-col-md-9"><ElementText textePluralize={
         <Pluralize
           zero={'demande ponctuelle'}
           singular={'demande ponctuelle'}

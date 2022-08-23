@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ElementHighcharts from './ElementHighcharts';
+import { getStyle } from './utils/functionsStyle';
 
 function RightPage({ donneesStats }) {
 
-  const tabColorTheme = ['#cac5b0', '#abb8df', '#fdcf41', '#169b62', '#80d5c6', '#ff8d7e', '#714753', '#956052', '#ddb094', '#5770be', '#ffed33', '#be9b31'];
-  const tabColorDuree = ['#abcdf5', '#abcdf5', '#abcdf5', '#abcdf5'];
+  const tabColorTheme = getStyle('theme');
+  const tabColorDuree = getStyle('duree');
+  const tabColorLieux = getStyle('lieux');
 
-  const { statsThemes, statsDurees } = donneesStats;
+  const { statsThemes, statsDurees, statsLieux } = donneesStats;
 
   const barGraphique = {
     graphique: {
@@ -22,6 +24,23 @@ function RightPage({ donneesStats }) {
     titre: {
       optionTitre: 'Th&egrave;mes des accompagnements',
       margeTitre: 38,
+      placementTitre: 0
+    }
+  };
+
+  const pieGraphique = {
+    graphique: {
+      typeGraphique: 'pie',
+      largeurGraphique: 300,
+      hauteurGraphique: 320,
+      margeGaucheGraphique: 0,
+      margeDroiteGraphique: 10,
+      optionResponsive: false,
+      couleursGraphique: tabColorLieux
+    },
+    titre: {
+      optionTitre: 'Lieux des accompagnements',
+      margeTitre: 48,
       placementTitre: 0
     }
   };
@@ -45,19 +64,20 @@ function RightPage({ donneesStats }) {
 
   return (
     <>
-      <div className="fr-col-12 fr-col-md-5 fr-col-lg-7">
-        <div className="fr-container-fluid">
+      <div className="fr-col-12 fr-col-md-9">
+        <div className="fr-container fr-ml-md-19v">
           <div className="fr-grid-row ">
-            <div className="fr-col-12">
+            <div className="fr-col-12 fr-col-md-10">
               <ElementHighcharts donneesStats={statsThemes} variablesGraphique={barGraphique}/>
             </div>
-
-            <div className="fr-col-12">
-              <div className="fr-mb-6w" style={{ marginTop: '3.8rem' }}><hr/></div>
+            <div className="fr-col-12 fr-col-md-10">
+              <div className="fr-my-6w fr-mr-md-1w"><hr/></div>
             </div>
-
-            <div className="fr-col-12">
-              <div className="fr-ml-md-6w">
+            <div className="fr-col-12 fr-col-md-5">
+              <ElementHighcharts donneesStats={statsLieux} variablesGraphique={pieGraphique}/>
+            </div>
+            <div className="fr-col-12 fr-col-md-5">
+              <div className="fr-ml-md-11v">
                 <ElementHighcharts donneesStats={statsDurees} variablesGraphique={columnGraphique}/>
               </div>
             </div>
