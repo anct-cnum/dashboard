@@ -25,7 +25,7 @@ function handleResponse(response) {
         authenticationService.logout();
         history.push('/');
       }
-      const error = (data && data.message) || response.statusText;
+      const error = (data && data.message) || { 'message': response.statusText, 'statut': response.status };
       return Promise.reject(error);
     }
 

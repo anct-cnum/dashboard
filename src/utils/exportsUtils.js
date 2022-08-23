@@ -7,3 +7,7 @@ export function downloadFile(exports) {
   link.click();
   link.parentNode.removeChild(link);
 }
+
+export function scrollTopWindow() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}

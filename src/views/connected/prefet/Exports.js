@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Oval } from 'react-loader-spinner';
 import { exportsActions } from '../../../actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { downloadFile } from '../../../utils/exportsUtils';
+import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
 
 function Exports() {
 
@@ -22,11 +22,23 @@ function Exports() {
   };
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (error !== undefined && error !== false) {
+      scrollTopWindow();
+    }
   }, [error]);
 
   return (
     <div className="exportsPrefet" style={{ position: 'relative' }}>
+      {(error !== undefined && error !== false && error?.statut !== 404) &&
+        <div className="fr-alert fr-alert--error fr-alert--sm fr-mb-4w">
+          <p>Une erreur est survenue : {error.message.toString()}</p>
+        </div>
+      }
+      {(error !== undefined && error !== false && error?.statut === 404) &&
+        <div className="fr-alert fr-alert--info fr-alert--sm fr-mb-4w">
+          <p>Information : {error.message.toString()}</p>
+        </div>
+      }
       <div className="spinnerCustom">
         <Oval
           height={100}
@@ -48,11 +60,6 @@ function Exports() {
           Liste des conseillers embauch&eacute;s
         </span>
       </p>
-      {(error !== undefined && error !== false) &&
-        <div className="fr-alert fr-alert--error fr-alert--sm">
-          <p>Une erreur est survenue : {error?.toString()}</p>
-        </div>
-      }
     </div>
   );
 }
