@@ -296,7 +296,7 @@ export default function Documents() {
                 comment accompagner les usagers dans leurs d&eacute;marches administratives en ligne&nbsp;?&nbsp;&raquo; (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-              Cette note propose des pistes aux Conseillers num&eacute;riques et à leurs employeurs pour accueillir les demandes
+              Cette note propose des pistes aux Conseillers num&eacute;riques et &agrave; leurs employeurs pour accueillir les demandes
               d&rsquo;accompagnement des usagers aux d&eacute;marches en ligne, notamment ceux en situation de rupture
               d&rsquo;acc&egrave;s aux droits, dans le respect de l&rsquo;AMI et en compl&eacute;mentarit&eacute; avec le r&eacute;seau
               des agents France Services.
