@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import LeftPage from './Components/LeftPage';
-import StatisticsPeriod from './Components/StatisticsPeriod';
+import LeftPage from './Components/graphiques/LeftPage';
+import StatisticsPeriod from './Components/graphiques/StatisticsPeriod';
 
 export default function GraphiqueStructure() {
 
@@ -13,7 +13,7 @@ export default function GraphiqueStructure() {
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <h1 className="titre">Statistiques Nationales</h1>
+            <h1 className="titre">Statistiques structure</h1>
           </div>
           <div className="fr-col-4">
             <StatisticsPeriod dateDebut={dateDebut} dateFin={dateFin}/>

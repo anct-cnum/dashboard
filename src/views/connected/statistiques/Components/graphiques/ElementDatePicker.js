@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
-import { statistiquesActions } from '../../../../actions/statistiquesActions';
+import { statistiquesActions } from '../../../../../actions/statistiquesActions';
 
 registerLocale('fr', fr);
 function ElementDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin }) {

@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import LeftPage from './Components/LeftPage';
-import RightPage from './Components/RightPage';
-import BottomPage from './Components/BottomPage';
-import StatisticsPeriod from './Components/StatisticsPeriod';
+import LeftPage from './Components/graphiques/LeftPage';
+import RightPage from './Components/graphiques/RightPage';
+import BottomPage from './Components/graphiques/BottomPage';
+import StatisticsPeriod from './Components/graphiques/StatisticsPeriod';
+//import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 import { statistiquesActions } from '../../../actions';
 
 export default function GraphiqueNationale() {
@@ -37,6 +38,10 @@ export default function GraphiqueNationale() {
             <LeftPage donneesStats={donneesStatistiques} print={false} />
             <RightPage donneesStats={donneesStatistiques} print={false} />
             <BottomPage donneesStats={donneesStatistiques} print={false} />
+            {/* TODO
+              <StatistiquesBanniere />
+             */
+            }
           </div>
         }
         {!donneesStatistiques &&

@@ -210,6 +210,16 @@
     margin: 7.5rem 0;
   }
 
+  @media (min-width: 1200px) {
+    .hide-graphique-xs {
+      display:none;
+    }
+  }
+  @media (max-width: 1199px) {
+    .hide-graphique-lg {
+      display:none;
+    }
+  }
   @media (min-width: 991px) {
     .graphique-responsive-md{
       display:none;
@@ -239,6 +249,12 @@
     }
     .graphique-responsive-lg {
       display:none;
+    }
+    .col-offset-md-1 {
+      margin-left: 8.33333%;
+    }
+    .lieux-autres {
+      position: static;
     }
   }
   @media (min-width: 768px) {
@@ -275,6 +291,9 @@
     }
     .highcharts-container {
       margin: 0 auto;
+    }
+    .col-offset-md-1 {
+      margin-left: 0;
     }
   }
 

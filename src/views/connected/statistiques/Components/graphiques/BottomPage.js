@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import ElementHighcharts from './ElementHighcharts';
-import { sortByMonthAndYear } from './utils/functionsSort';
-import { getStyle } from './utils/functionsStyle';
-import labelsCorrespondance from './data/labelsCorrespondance.json';
-import { statistiquesActions } from '../../../../actions';
+import { sortByMonthAndYear } from '../utils/functionsSort';
+import { getStyle } from '../utils/functionsStyle';
+import { getGraphiqueEvolution, getGraphiqueStacked, getGraphiquePie } from '../utils/functionsGraphique';
+import largeurEcran from '../utils/functionsLargeurEcran';
+import labelsCorrespondance from '../data/labelsCorrespondance.json';
+import { statistiquesActions } from '../../../../../actions';
 require('dayjs/locale/fr');
 
 function BottomPage({ donneesStats }) {
@@ -16,6 +18,7 @@ function BottomPage({ donneesStats }) {
   const tabColorAge = getStyle('age');
   const tabColorStatut = getStyle('statut');
   const tabColorReorientation = getStyle('reorientation');
+  const largeur = largeurEcran();
 
   const get4lastMonths = (month, year) => {
     let monthToPrint = [month];
@@ -93,88 +96,38 @@ function BottomPage({ donneesStats }) {
     }
   }, [statsReorientations]);
 
-  const graphiqueEvolution = {
-    graphique: {
-      typeGraphique: 'xy',
-      largeurGraphique: 320,
-      hauteurGraphique: 310,
-      margeGaucheGraphique: 40,
-      margeDroiteGraphique: 70,
-      optionResponsive: false,
-      couleursGraphique: tabColorAge
-    },
-    titre: {
-      optionTitre: '&Eacute;volution des comptes rendus d&rsquo;activit&eacute;',
-      margeTitre: 48,
-    }
-  };
-
-  const graphiqueAge = {
-    graphique: {
-      typeGraphique: 'stacked',
-      largeurGraphique: 300,
-      hauteurGraphique: 300,
-      margeGaucheGraphique: 0,
-      margeDroiteGraphique: 0,
-      optionResponsive: false,
-      couleursGraphique: tabColorAge
-    },
-    titre: {
-      optionTitre: 'Tranches d&rsquo;&acirc;ge des usagers',
-      margeTitre: 34,
-    }
-  };
-
-  const graphiqueStatut = {
-    graphique: {
-      typeGraphique: 'stacked',
-      largeurGraphique: 300,
-      hauteurGraphique: 300,
-      margeGaucheGraphique: 0,
-      margeDroiteGraphique: 0,
-      optionResponsive: false,
-      couleursGraphique: tabColorStatut
-    },
-    titre: {
-      optionTitre: 'Statut des usagers',
-      margeTitre: 34,
-    }
-  };
-
-  const graphiqueReorientations = {
-    graphique: {
-      typeGraphique: 'pie',
-      hauteurGraphique: 555,
-      margeGaucheGraphique: -419,
-      optionResponsive: false,
-      couleursGraphique: tabColorReorientation
-    },
-    titre: {
-      optionTitre: 'Usager.&egrave;res r&eacute;orient&eacute;.es',
-      margeTitre: 48,
-      placementTitre: 0
-    }
-  };
+  const graphiqueEvolution = getGraphiqueEvolution(tabColorAge, '&Eacute;volution des comptes rendus d&rsquo;activit&eacute;');
+  const graphiqueAge = getGraphiqueStacked(tabColorAge, 'Tranches d&rsquo;&acirc;ge des usagers');
+  const graphiqueStatut = getGraphiqueStacked(tabColorStatut, 'Statut des usagers');
+  const graphiqueReorientations = getGraphiquePie(tabColorReorientation, 'Usager.&egrave;res r&eacute;orient&eacute;.es', largeur, true);
 
   return (
     <>
-      <div className="fr-col-12 fr-col-md-3">
+      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
         <ElementHighcharts donneesStats={statsEvolutionsFiltered} variablesGraphique={graphiqueEvolution}/>
       </div>
 
-      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-3">
+      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 fr-col-lg-3">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
         <ElementHighcharts donneesStats={statsAges} variablesGraphique={graphiqueAge}/>
       </div>
 
-      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-3">
+      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 fr-col-offset-lg-1">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
         <ElementHighcharts donneesStats={statsUsagers} variablesGraphique={graphiqueStatut}/>
       </div>
-      <div className="fr-col-12 fr-col-offset-md-4 fr-col-md-8 fr-mt-6w" >
+
+      <div className="fr-col-lg-11 hide-graphique-lg">
+        <div className="fr-mt-6w"><hr/></div>
+      </div>
+
+      <div className="fr-col-12 col-offset-md-1 fr-col-md-5 fr-col-lg-11 fr-mt-6w" >
         {statsReorientations?.length > 0 &&
+        <>
+          <div className="fr-mb-5w hide-graphique-xs"><hr/></div>
           <ElementHighcharts donneesStats={statsReorientations} variablesGraphique={graphiqueReorientations} listeAutres={[]}/>
+        </>
         }
         <div className="fr-m-no-reorientation"></div>
       </div>
