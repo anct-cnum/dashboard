@@ -249,11 +249,7 @@ export default function Documents() {
         <div className="fr-grid-row">
           <p>
             <a href={`${urlSiteVitrine}/kit-communication`}
-              id="btn-kit-communication"
-              target="blank"
-              rel="noreferrer noopener"
-              className="fr-btn big-btn fr-text--lg fr-text--bold"
-              title="Kit de communication">
+              className="fr-link" target="blank" rel="noreferrer noopener" title="kit de communication V2">
               kit de communication V2
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
