@@ -34,7 +34,7 @@ function App() {
             <Route path="/statistiques-structure" element={<GraphiqueStructure />} />
             <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
             <Route path="/statistiques-territoire" element={<GraphiqueTerritoire />} />
-
+            
             <Route index element={<Accueil />}/>
             <Route path="*" element={<Accueil />}/>
           </Route>

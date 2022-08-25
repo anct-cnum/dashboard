@@ -93,12 +93,14 @@ function Menu() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link className="fr-nav__link" to="/statistiques-territoires"
+                      {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}>
                         &bull;&nbsp;Statistiques par territoire
                     </Link>
                   </li>
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link className="fr-nav__link" to="/statistiques-structures"
+                      {...(location.pathname.startsWith(`/statistiques-structures`) ? { 'aria-current': 'page' } : {})}>
                       &bull;&nbsp;Statistiques par structure
                     </Link>
                   </li>
