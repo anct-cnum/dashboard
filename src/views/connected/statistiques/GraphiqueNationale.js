@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import LeftPage from './Components/graphiques/LeftPage';
 import RightPage from './Components/graphiques/RightPage';
 import BottomPage from './Components/graphiques/BottomPage';
-import StatisticsPeriod from './Components/graphiques/StatisticsPeriod';
+import BlockDatePickers from './Components/commun/BlockDatePickers';
 //import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 import { statistiquesActions } from '../../../actions';
 
@@ -16,7 +16,7 @@ export default function GraphiqueNationale() {
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
 
   useEffect(() => {
-    dispatch(statistiquesActions.getStatsNationale(dateDebut, dateFin));
+    dispatch(statistiquesActions.getStatistiquesNationale(dateDebut, dateFin));
   }, [dateDebut, dateFin]);
   
   return (
@@ -27,7 +27,7 @@ export default function GraphiqueNationale() {
             <h1 className="titre">Statistiques Nationales</h1>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w">
-            <StatisticsPeriod dateDebut={dateDebut} dateFin={dateFin}/>
+            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-7">
             <hr className="fr-hr fr-mt-3v"/>

@@ -33,7 +33,7 @@ function App() {
             <Route path="/statistiques-structures" element={<TableauStructures />} />
             <Route path="/statistiques-structure" element={<GraphiqueStructure />} />
             <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
-            <Route path="/statistiques-territoire" element={<GraphiqueTerritoire />} />
+            <Route path="/statistiques-territoire/:codeTerritoire" element={<GraphiqueTerritoire />} />
             
             <Route index element={<Accueil />}/>
             <Route path="*" element={<Accueil />}/>

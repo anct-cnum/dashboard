@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import BlockDatePickers from './Components/commun/BlockDatePickers';
 import LeftPage from './Components/graphiques/LeftPage';
-import StatisticsPeriod from './Components/graphiques/StatisticsPeriod';
 
 export default function GraphiqueStructure() {
 
@@ -16,7 +16,7 @@ export default function GraphiqueStructure() {
             <h1 className="titre">Statistiques structure</h1>
           </div>
           <div className="fr-col-4">
-            <StatisticsPeriod dateDebut={dateDebut} dateFin={dateFin}/>
+            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
           </div>
           <div className="fr-col-8">
             <hr className="fr-hr fr-mt-3v"/>

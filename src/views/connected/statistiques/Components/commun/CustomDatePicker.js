@@ -3,10 +3,11 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
-import { statistiquesActions } from '../../../../../actions/statistiquesActions';
+import { statistiquesActions } from '../../../../../actions';
 
 registerLocale('fr', fr);
-function ElementDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin }) {
+
+function CustomDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin }) {
   const dispatch = useDispatch();
 
   const setDate = date => {
@@ -47,7 +48,7 @@ function ElementDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin }) {
   );
 }
 
-ElementDatePicker.propTypes = {
+CustomDatePicker.propTypes = {
   idDate: PropTypes.string,
   nomDate: PropTypes.string,
   initDate: PropTypes.instanceOf(Date),
@@ -57,4 +58,4 @@ ElementDatePicker.propTypes = {
   onClick: PropTypes.string,
 };
 
-export default ElementDatePicker;
+export default CustomDatePicker;

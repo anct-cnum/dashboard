@@ -41,6 +41,78 @@ export default function statistiques(state = initialState, action) {
         ...state,
         listeAutresReorientations: action.listeAutresReorientations
       };
+    case 'GET_DATAS_TERRITOIRES_REQUEST':
+      return {
+        ...state,
+        statsTerritoiresLoading: true,
+        statsTerritoiresError: false,
+      };
+    case 'GET_DATAS_TERRITOIRES_SUCCESS':
+      return {
+        ...state,
+        statsTerritoires: action.statsTerritoires,
+        statsTerritoiresLoading: false,
+      };
+    case 'GET_DATAS_TERRITOIRES_FAILURE':
+      return {
+        ...state,
+        statsTerritoiresError: action.error,
+        statsTerritoiresLoading: false,
+      };
+    case 'GET_TERRITOIRE_REQUEST':
+      return {
+        ...state,
+        territoireLoading: true,
+        territoireError: false,
+      };
+    case 'GET_TERRITOIRE_SUCCESS':
+      return {
+        ...state,
+        territoire: action.territoire,
+        territoireLoading: false,
+      };
+    case 'GET_TERRITOIRE_FAILURE':
+      return {
+        ...state,
+        territoireError: action.error,
+        territoireLoading: false,
+      };
+    case 'GET_STATS_CRA_TERRITOIRE_REQUEST':
+      return {
+        ...state,
+        statsDataLoading: true,
+        statsDataError: false,
+      };
+    case 'GET_STATS_CRA_TERRITOIRE_SUCCESS':
+      return {
+        ...state,
+        statsData: action.statsTerritoire,
+        statsDataLoading: false,
+      };
+    case 'GET_STATS_CRA_TERRITOIRE_FAILURE':
+      return {
+        ...state,
+        statsDataError: action.error,
+        statsDataLoading: false,
+      };
+    case 'GET_STATS_CRA_STRUCTURE_REQUEST':
+      return {
+        ...state,
+        statsDataLoading: true,
+        statsDataError: false,
+      };
+    case 'GET_STATS_CRA_STRUCTURE_SUCCESS':
+      return {
+        ...state,
+        statsData: action.statsStructure,
+        statsDataLoading: false,
+      };
+    case 'GET_STATS_CRA_STRUCTURE_FAILURE':
+      return {
+        ...state,
+        statsDataError: action.error,
+        statsDataLoading: false,
+      };
     default:
       return state;
   }
