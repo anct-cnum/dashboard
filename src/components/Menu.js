@@ -164,6 +164,15 @@ function Menu() {
                 </ul>
               </div>
             </li>
+            <li className="fr-nav__item">
+              <Link
+                to={`/admin/invitation`}
+                className="fr-nav__link"
+                {...(location.pathname.startsWith(`/admin/invitation`) ? { 'aria-current': 'page' } : {})}>
+                Invitation
+              </Link>
+            </li>
+            
             {/* Exemple conservé pour les aria-current notamment
             <li className="fr-nav__item">
               <button
