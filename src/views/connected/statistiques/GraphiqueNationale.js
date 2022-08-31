@@ -1,18 +1,24 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { statistiquesActions } from '../../../actions';
+
+import BlockSpinner from '../../anonymous/BlockSpinner';
+import BlockAlerte from '../../anonymous/BlockAlerte';
 import LeftPage from './Components/graphiques/LeftPage';
 import RightPage from './Components/graphiques/RightPage';
 import BottomPage from './Components/graphiques/BottomPage';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
 //import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
-import { statistiquesActions } from '../../../actions';
 
 export default function GraphiqueNationale() {
   const dispatch = useDispatch();
 
   let dateDebut = useSelector(state => state.statistiques?.dateDebut);
   let dateFin = useSelector(state => state.statistiques?.dateFin);
-  
+
+  const donneesStatistiquesLoading = useSelector(state => state.statistiques?.statsDataLoading);
+  const donneesStatistiquesError = useSelector(state => state.statistiques?.statsDataError);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
 
   useEffect(() => {
@@ -21,6 +27,10 @@ export default function GraphiqueNationale() {
   
   return (
     <div className="statistiques">
+      <BlockSpinner loading={donneesStatistiquesLoading} />
+      {donneesStatistiquesError &&
+        <BlockAlerte type="error" titre="Les statistiques n'ont pas pu être chargées !"/>
+      }
       <div className="nationales fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">

@@ -5,6 +5,7 @@ import authenticationReducer from './authenticationReducer';
 import statistiquesReducer from './statistiquesReducer';
 import filtresEtTrisReducer from './filtresEtTrisReducer';
 import paginationReducer from './paginationReducer';
+import structuresReducer from './structuresReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   statistiques: statistiquesReducer,
   filtresEtTris: filtresEtTrisReducer,
   pagination: paginationReducer,
+  structures: structuresReducer,
 });
 
 export default rootReducer;

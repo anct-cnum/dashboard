@@ -1,15 +1,14 @@
-import { structureService } from '../services/structureService';
+import { structuresService } from '../services/structuresService';
 
 
-export const structureActions = {
+export const structuresActions = {
   getStructure,
 };
 
 function getStructure(idStructure) {
   return dispatch => {
     dispatch(request());
-
-    structureService.getStructure(idStructure)
+    structuresService.getStructure(idStructure)
     .then(
       structure => {
         dispatch(success(structure));

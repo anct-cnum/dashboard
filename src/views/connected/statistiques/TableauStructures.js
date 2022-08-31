@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { statistiquesActions } from '../../../actions';
+import BlockAlerte from '../../anonymous/BlockAlerte';
+import BlockSpinner from '../../anonymous/BlockSpinner';
 import Pagination from './Components/tableaux/Pagination';
 import Structure from './Components/tableaux/Structure';
 
@@ -48,6 +50,10 @@ export default function TableauStructures() {
 
   return (
     <div className="statistiques">
+      <BlockSpinner loading={statistiquesStructuresLoading} />
+      {statistiquesStructuresError &&
+        <BlockAlerte type="error" titre="Les statistiques n'ont pas pu être chargées !"/>
+      }
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { filtresEtTrisActions, statistiquesActions } from '../../../actions';
+import BlockAlerte from '../../anonymous/BlockAlerte';
+import BlockSpinner from '../../anonymous/BlockSpinner';
 import FiltresEtTris from './Components/tableaux/FiltresEtTris';
 import Pagination from './Components/tableaux/Pagination';
 import Territoire from './Components/tableaux/Territoire';
@@ -49,6 +51,10 @@ export default function TableauTerritoires() {
 
   return (
     <div className="statistiques">
+      <BlockSpinner loading={statsTerritoiresLoading} />
+      {statsTerritoiresError &&
+        <BlockAlerte type="error" titre="Les statistiques n'ont pas pu être chargées !"/>
+      }
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">

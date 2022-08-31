@@ -1,7 +1,7 @@
 import { authenticationService } from './authentificationService';
 import { authHeader } from '../helpers';
 
-export const structureService = {
+export const structuresService = {
   getStructure,
 };
 

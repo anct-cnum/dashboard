@@ -3,12 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import download from 'downloadjs';
-//import Spinner from 'react-loader-spinner';
-import BlockDatePickers from '../commun/BlockDatePickers';
 import { conseillerActions, filtresEtTrisActions, statistiquesActions } from '../../../../../actions';
-
-
 import codeRegions from '../data/code_region.json';
+
+import BlockDatePickers from '../commun/BlockDatePickers';
 
 function currentPage(pagination, location) {
   return pagination?.resetPage === false && location.currentPage !== undefined ? location.currentPage : 1;
@@ -183,17 +181,6 @@ function FiltresEtTris({ resetPage, user }) {
           <span className="labelError">Une erreur est survenue : {exportTerritoireFileError}</span>
         }
       </div>
-      {/*
-      <div className="spinnerCustom">
-        <Spinner
-          type="Oval"
-          color="#00BFFF"
-          height={100}
-          width={100}
-          visible={downloading === true || downloadingExportCnfs === true || loadingCSV === true}
-        />
-      </div>
-      */}
     </div>
   );
 }
