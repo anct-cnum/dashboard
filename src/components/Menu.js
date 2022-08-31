@@ -98,12 +98,14 @@ function Menu() {
                         &bull;&nbsp;Statistiques par territoire
                     </Link>
                   </li>
+                  {(roleActivated === 'admin' || roleActivated === 'prefet') &&
                   <li>
                     <Link className="fr-nav__link" to="/statistiques-structures"
                       {...(location.pathname.startsWith(`/statistiques-structures`) ? { 'aria-current': 'page' } : {})}>
                       &bull;&nbsp;Statistiques par structure
                     </Link>
                   </li>
+                  }
                 </ul>
               </div>
             </li>

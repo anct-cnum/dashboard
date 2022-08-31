@@ -8,10 +8,12 @@ export default function TableauStructures() {
   
   const dispatch = useDispatch();
 
-  const structures = useSelector(state => state.structures);
-  const statistiquesStructures = useSelector(state => state.statistiquesPrefet?.statistiquesStructures);
-  const dateFinStats = useSelector(state => state.filterDate?.filterDateEnd);
-  const dateDebutStats = useSelector(state => state.filterDate?.filterDateStart);
+  const statistiquesStructures = useSelector(state => state.statistiques?.statistiquesStructures);
+  const statistiquesStructuresLoading = useSelector(state => state.statistiques?.statistiquesStructuresLoading);
+  const statistiquesStructuresError = useSelector(state => state.statistiques?.statistiquesStructuresError);
+  
+  const dateDebut = useSelector(state => state.filtresEtTris?.dateDebut);
+  const dateFin = useSelector(state => state.filtresEtTris?.dateFin);
   const pagination = useSelector(state => state.pagination);
 
   const [pageCount, setPageCount] = useState(0);
@@ -19,7 +21,15 @@ export default function TableauStructures() {
 
   const navigate = page => {
     setPage(page);
-    dispatch(statistiquesActions.getStatistiquesStructures(dateDebutStats, dateFinStats, page));
+    dispatch(statistiquesActions.getDatasStructures(dateDebut, dateFin, page));
+  };
+
+  const update = () => {
+    if (pagination?.resetPage === false && location.currentPage !== undefined) {
+      navigate(page);
+    } else {
+      dispatch(statistiquesActions.getDatasStructures(dateDebut, dateFin, page));
+    }
   };
 
   useEffect(() => {
@@ -27,50 +37,47 @@ export default function TableauStructures() {
       const count = statistiquesStructures.items.limit ? Math.floor(statistiquesStructures.items.total / statistiquesStructures.items.limit) : 0;
       setPageCount(statistiquesStructures.items.total % statistiquesStructures.items.limit === 0 ? count : count + 1);
     }
-  }, [statistiquesStructures]);
 
-  const update = () => {
-    if (pagination?.resetPage === false && location.currentPage !== undefined) {
-      navigate(page);
-    } else {
-      dispatch(statistiquesActions.getStatistiquesStructures(dateDebutStats, dateFinStats, page));
-    }
-  };
-
-  useEffect(() => {
     if (!statistiquesStructures) {
       update();
     }
+  }, [statistiquesStructures]);
+
+  useEffect(() => {
   });
+
   return (
     <div className="statistiques">
-      <h3>Statistiques des structures</h3>
-      
-      <div className="fr-container fr-container--fluid">
-        <div className="fr-grid-row fr-grid-row--end">
-          <div className="fr-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Siret</th>
-                  <th>Nom de la structure</th>
-                  <th>Code postal</th>
-                  <th>CRA enregistr&eacute;s</th>
-                  <th>Personnes accompagn&eacute;es</th>
-                  <th>Afficher</th>
-                </tr>
-              </thead>
-              <tbody>
-                {!structures.error && !structures.loading && statistiquesStructures?.items && statistiquesStructures?.items?.data.map((structure, idx) => {
-                  return (<Structure key={idx} structure={structure} />);
-                })
-                }
-              </tbody>
-            </table>
+      <div className="fr-container fr-my-10w">
+        <div className="fr-grid-row">
+          <div className="fr-col-12">
+            <h3>Statistiques des structures</h3>
           </div>
-
-          <Pagination current={page} pageCount={pageCount} navigate={navigate} />
+          <div className="fr-col-12">
+            <div className="fr-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Siret</th>
+                    <th>Nom de la structure</th>
+                    <th>Code postal</th>
+                    <th>CRA enregistr&eacute;s</th>
+                    <th>Personnes accompagn&eacute;es</th>
+                    <th>Afficher</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {!statistiquesStructuresError && !statistiquesStructuresLoading && statistiquesStructures?.items &&
+                    statistiquesStructures?.items?.data.map((structure, idx) => {
+                      return (<Structure key={idx} structure={structure} />);
+                    })
+                  }
+                </tbody>
+              </table>
+            </div>
+            <Pagination current={page} pageCount={pageCount} navigate={navigate} />
+          </div>
         </div>
       </div>
     </div>

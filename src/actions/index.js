@@ -4,4 +4,4 @@ export * from './statistiquesActions';
 export * from './paginationActions';
 export * from './filtresEtTrisActions';
 export * from './conseillerActions';
-
+export * from './structureActions';

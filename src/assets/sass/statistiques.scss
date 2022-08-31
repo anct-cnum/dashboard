@@ -25,6 +25,7 @@
   }
   code-postal-select {
     max-width: 344px;
+    margin-top: -5px;
     &:focus, &:hover, &:visited, &:link, &:active {
       outline: none;
     }

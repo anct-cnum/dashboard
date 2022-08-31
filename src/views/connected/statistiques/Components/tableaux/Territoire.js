@@ -20,7 +20,7 @@ function Territoire({ territoire, filtreTerritoire }) {
         <td data-tip="CnFS en attente d'activation">{territoire?.cnfsInactives ?? 0}</td>
         <td data-tip="Taux d'activation">{territoire?.tauxActivation ?? 0} %</td>
         <td>
-          <Link className="fr-btn details-btn" style={{ boxShadow: 'none' }} to={{
+          <Link className="fr-btn details-btn fr-fi-eye-line fr-btn--icon-left" style={{ boxShadow: 'none' }} to={{
             pathname: '/statistiques-territoire/' + codeTerritoire }} >
               D&eacute;tails
           </Link>

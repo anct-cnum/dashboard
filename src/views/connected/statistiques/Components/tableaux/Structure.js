@@ -13,14 +13,14 @@ export default function Structure({ structure, currentPage }) {
       <td>{structure.CRAEnregistres}</td>
       <td>{structure.personnesAccompagnees}</td>
       <td>
-        <Link className="fr-btn fr-fi-eye-line fr-btn--icon-left" style={{ boxShadow: 'none' }}
+        <Link className="fr-btn details-btn fr-fi-eye-line fr-btn--icon-left" style={{ boxShadow: 'none' }}
           to={{
-            pathname: `/admin/structure/statistiques/${structure?._id}`,
+            pathname: `/statistiques-structure/${structure?._id}`,
             currentPage: currentPage,
             origin: `/admin/statistiques`,
             idStructure: structure?._id,
           }}>
-            Statistiques
+            D&eacute;tails
         </Link>
       </td>
     </tr>

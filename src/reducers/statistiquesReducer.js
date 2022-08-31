@@ -18,6 +18,29 @@ export default function statistiques(state = initialState, action) {
         ...state,
         dateFin: action.dateFin,
       };
+    case 'CHANGE_CODE_POSTAL_STATS':
+      return {
+        ...state,
+        codePostalStats: action.codePostal,
+      };
+    case 'GET_CODES_POSTAUX_CRA_REQUEST':
+      return {
+        ...state,
+        codesPostauxLoading: true,
+        codesPostauxError: false,
+      };
+    case 'GET_CODES_POSTAUX_CRA_SUCCESS':
+      return {
+        ...state,
+        listeCodesPostaux: action.listeCodesPostaux,
+        codesPostauxLoading: false,
+      };
+    case 'GET_CODES_POSTAUX_CRA_FAILURE':
+      return {
+        ...state,
+        codesPostauxLoading: false,
+        codesPostauxError: true,
+      };
     case 'GET_STATS_CRA_NATIONALES_REQUEST':
       return {
         ...state,
@@ -40,6 +63,24 @@ export default function statistiques(state = initialState, action) {
       return {
         ...state,
         listeAutresReorientations: action.listeAutresReorientations
+      };
+    case 'GET_DATAS_STRUCTURES_REQUEST':
+      return {
+        ...state,
+        statistiquesStructuresLoading: true,
+        statistiquesStructuresError: false,
+      };
+    case 'GET_DATAS_STRUCTURES_SUCCESS':
+      return {
+        ...state,
+        statistiquesStructures: action.statsStructure,
+        statistiquesStructuresLoading: false,
+      };
+    case 'GET_DATAS_STRUCTURES_FAILURE':
+      return {
+        ...state,
+        statistiquesStructuresError: action.error,
+        statistiquesStructuresLoading: false,
       };
     case 'GET_DATAS_TERRITOIRES_REQUEST':
       return {

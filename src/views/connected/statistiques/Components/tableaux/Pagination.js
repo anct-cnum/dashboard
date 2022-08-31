@@ -55,11 +55,11 @@ function Pagination({ pageCount, current, navigate }) {
           </li>
           <li>
             {isFirstPage &&
-            <a className="fr-pagination__link number" aria-current="page" onClick={e => onClick(e, 1)} role="link" aria-label="Page 1" title="Page 1"
+            <a className="fr-pagination__link" aria-current="page" onClick={e => onClick(e, 1)} role="link" aria-label="Page 1" title="Page 1"
               href="/#">1</a>
             }
             {!isFirstPage &&
-            <a className="fr-pagination__link number" onClick={e => onClick(e, 1)} aria-disabled="false" role="link" aria-label="Page 1" title="Page 1"
+            <a className="fr-pagination__link" onClick={e => onClick(e, 1)} aria-disabled="false" role="link" aria-label="Page 1" title="Page 1"
               href="/#">1</a>
             }
           </li>
@@ -71,7 +71,7 @@ function Pagination({ pageCount, current, navigate }) {
           }
           {showPrevious &&
             <li>
-              <a className="fr-pagination__link number" href="/#"
+              <a className="fr-pagination__link" href="/#"
                 onClick={e => onClick(e, previousPage)}>{previousPage}
               </a>
             </li>
@@ -79,14 +79,14 @@ function Pagination({ pageCount, current, navigate }) {
           {
             (!isFirstPage && !isLastPage) &&
             <li>
-              <a className="fr-pagination__link number" href="/#" aria-current="page" onClick={e => onClick(e, current)}>{current}
+              <a className="fr-pagination__link" href="/#" aria-current="page" onClick={e => onClick(e, current)}>{current}
               </a>
             </li>
           }
           {
             (nextPage < lastPage) &&
             <li>
-              <a href="/#" className="fr-pagination__link number" onClick={e => onClick(e, nextPage)}>{nextPage}</a>
+              <a href="/#" className="fr-pagination__link" onClick={e => onClick(e, nextPage)}>{nextPage}</a>
             </li>
           }
           {
@@ -97,10 +97,10 @@ function Pagination({ pageCount, current, navigate }) {
           }
           <li>
             {isLastPage &&
-            <a className="fr-pagination__link number" aria-current="page">{lastPage}</a>
+            <a className="fr-pagination__link" aria-current="page">{lastPage}</a>
             }
             {!isLastPage &&
-            <a href="/#" className="fr-pagination__link number" onClick={e => onClick(e, lastPage)}>{lastPage}</a>
+            <a href="/#" className="fr-pagination__link" onClick={e => onClick(e, lastPage)}>{lastPage}</a>
             }
           </li>
           <li>

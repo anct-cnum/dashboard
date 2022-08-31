@@ -31,7 +31,7 @@ function App() {
             <Route path="/formation" element={<InscriptionFormation />} />
             <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
             <Route path="/statistiques-structures" element={<TableauStructures />} />
-            <Route path="/statistiques-structure" element={<GraphiqueStructure />} />
+            <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
             <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
             <Route path="/statistiques-territoire/:codeTerritoire" element={<GraphiqueTerritoire />} />
             

@@ -3,10 +3,12 @@ import { authenticationService } from './authentificationService';
 
 export const statistiquesService = {
   getTerritoire,
+  getDatasStructures,
   getDatasTerritoires,
   getStatistiquesTerritoire,
   getStatistiquesStructure,
   getStatistiquesNationale,
+  getCodesPostauxCrasConseillerStructure,
 };
 
 function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page) {
@@ -30,6 +32,19 @@ function getTerritoire(typeTerritoire, idTerritoire, date) {
   };
   return fetch(
     `${apiUrlRoot}/admincoop/territoire?typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&dateFin=${date}`,
+    requestOptions
+  ).then(handleResponse);
+}
+
+function getDatasStructures(dateDebut, dateFin, page) {
+  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
+  };
+
+  return fetch(
+    `${apiUrlRoot}/prefet/structures?dateDebut=${dateDebut}&dateFin=${dateFin}&page=${page}`,
     requestOptions
   ).then(handleResponse);
 }
@@ -69,7 +84,6 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal) {
 }
 
 function getStatistiquesNationale(dateDebut, dateFin) {
- 
   const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
   const requestOptions = {
     method: 'GET',
@@ -78,6 +92,16 @@ function getStatistiquesNationale(dateDebut, dateFin) {
 
   return fetch(`${apiUrlRoot}/nationales/cra?dateDebut=${dateDebut}&dateFin=${dateFin}`,
     requestOptions).then(handleResponse);
+}
+
+function getCodesPostauxCrasConseillerStructure(idStructure) {
+  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader(),
+  };
+
+  return fetch(`${apiUrlRoot}/cra/codesPostaux/structure/${idStructure}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

@@ -4,11 +4,15 @@ import dayjs from 'dayjs';
 export const statistiquesActions = {
   changeDateDebut,
   changeDateFin,
+  changeCodePostalStats,
   updateListeAutresReorientations,
-  getDatasTerritoires,
   getTerritoire,
+  getDatasStructures,
+  getDatasTerritoires,
+  getStatistiquesStructure,
   getStatistiquesTerritoire,
   getStatistiquesNationale,
+  getCodesPostauxCrasConseillerStructure,
 };
 
 const formatDate = date => {
@@ -22,6 +26,11 @@ function changeDateDebut(dateDebut) {
 function changeDateFin(dateFin) {
   return { type: 'CHANGE_DATE_FIN', dateFin };
 }
+
+function changeCodePostalStats(codePostal) {
+  return { type: 'CHANGE_CODE_POSTAL_STATS', codePostal };
+}
+
 
 function getStatistiquesNationale(dateDebut, dateFin) {
   return dispatch => {
@@ -125,5 +134,80 @@ function getStatistiquesTerritoire(dateDebutStats, dateFinStats, typeTerritoire,
   }
   function failure(error) {
     return { type: 'GET_STATS_CRA_TERRITOIRE_FAILURE', error };
+  }
+}
+function getDatasStructures(dateDebut, dateFin, page) {
+  return dispatch => {
+    dispatch(request());
+    statistiquesService.getDatasStructures(formatDate(dateDebut), formatDate(dateFin), page)
+    .then(
+      statsStructures => {
+        dispatch(success(statsStructures));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_DATAS_STRUCTURES_REQUEST' };
+  }
+  function success(statsStructure) {
+    return { type: 'GET_DATAS_STRUCTURES_SUCCESS', statsStructure };
+  }
+  function failure(error) {
+    return { type: 'GET_DATAS_STRUCTURES_FAILURE', error };
+  }
+}
+
+function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal = null) {
+  return dispatch => {
+    dispatch(request());
+    statistiquesService.getStatistiquesStructure(formatDate(dateDebut), formatDate(dateFin), idStructure, codePostal)
+    .then(
+      statsStructure => {
+        dispatch(success(statsStructure));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_STATS_CRA_STRUCTURE_REQUEST' };
+  }
+  function success(statsStructure) {
+    return { type: 'GET_STATS_CRA_STRUCTURE_SUCCESS', statsStructure };
+  }
+  function failure(error) {
+    return { type: 'GET_STATS_CRA_STRUCTURE_FAILURE', error };
+  }
+}
+
+function getCodesPostauxCrasConseillerStructure(idStructure) {
+  return dispatch => {
+    dispatch(request());
+
+    statistiquesService.getCodesPostauxCrasConseillerStructure(idStructure)
+    .then(
+      listeCodesPostaux => {
+        dispatch(success(listeCodesPostaux));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CODES_POSTAUX_CRA_REQUEST' };
+  }
+  function success(listeCodesPostaux) {
+    return { type: 'GET_CODES_POSTAUX_CRA_SUCCESS', listeCodesPostaux };
+  }
+  function failure(error) {
+    return { type: 'GET_CODES_POSTAUX_CRA_FAILURE', error };
   }
 }

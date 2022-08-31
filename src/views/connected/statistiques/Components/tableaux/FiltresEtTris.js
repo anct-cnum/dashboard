@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import download from 'downloadjs';
-import Spinner from 'react-loader-spinner';
+//import Spinner from 'react-loader-spinner';
 import BlockDatePickers from '../commun/BlockDatePickers';
 import { conseillerActions, filtresEtTrisActions, statistiquesActions } from '../../../../../actions';
 
@@ -36,10 +36,10 @@ function FiltresEtTris({ resetPage, user }) {
   const exportTerritoireFileError = useSelector(state => state.statistique?.exportTerritoireFileError);
   const exportCnfsFileBlob = useSelector(state => state.conseiller?.exportCnfsFileBlob);
   const exportCnfsFileError = useSelector(state => state.conseiller?.exportCnfsFileError);
-  const downloading = useSelector(state => state.statistique?.downloading);
-  const downloadingExportCnfs = useSelector(state => state.conseiller?.downloadingExportCnfs);
+  //const downloading = useSelector(state => state.statistique?.downloading);
+  //const downloadingExportCnfs = useSelector(state => state.conseiller?.downloadingExportCnfs);
   const conseillerBeforeFilter = useSelector(state => state.conseiller?.conseillersBeforeFilter);
-  const loadingCSV = useSelector(state => state.conseiller?.loadingCSV);
+  //const loadingCSV = useSelector(state => state.conseiller?.loadingCSV);
 
   const has = value => value !== null && value !== undefined;
 
