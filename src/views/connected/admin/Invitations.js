@@ -20,17 +20,7 @@ export default function Invitations() {
         <p className="fr-alert__title">Erreur : titre du message</p>
         <p>Description</p>
       </div>
-      {/* routes distinctes en fonction des rôles dans les composants */}
-      { roleActivated === 'admin' &&
-        <Invitation />
-      }
-      { roleActivated === 'structure' &&
-        <InvitationStructure />
-      }
-      { roleActivated === 'prefet' &&
-        <h2>Vous n`avez pas accès à cette fonctionnalité</h2>
-      }
-      
+      <Invitation />
     </div>
   );
 }

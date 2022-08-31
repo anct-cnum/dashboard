@@ -1,48 +1,54 @@
-import { authenticationService } from './authentificationService';
+import { authenticationService } from './authenticationService';
 import { authHeader, history } from '../helpers';
 
 export const invitationService = {
   inviteAccountsPrefet,
   inviteAccountAdmin,
-  inviteAccountMulticompteSA
+  inviteAccountMulticompteSA,
 };
 
 function inviteAccountsPrefet(data) {
   const apiUrl = `${process.env.REACT_APP_API}/inviteAccountsPrefet`;
-  
+
   const requestOptions = {
     method: 'POST',
-    headers: Object.assign({ 'Content-Type': 'application/json' }, authHeader()),
-    body: JSON.stringify(data)
+    headers: Object.assign(
+      { 'Content-Type': 'application/json' },
+      authHeader()
+    ),
+    body: JSON.stringify(data),
   };
-  
-  return fetch(apiUrl, requestOptions)
-  .then(handleResponse);
+
+  return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 
 function inviteAccountAdmin(email) {
   const apiUrl = `${process.env.REACT_APP_API}/inviteAdmin`;
-  
+
   const requestOptions = {
     method: 'POST',
-    headers: Object.assign({ 'Content-Type': 'application/json' }, authHeader()),
-    body: JSON.stringify({ email })
+    headers: Object.assign(
+      { 'Content-Type': 'application/json' },
+      authHeader()
+    ),
+    body: JSON.stringify({ email }),
   };
-  
-  return fetch(apiUrl, requestOptions)
-  .then(handleResponse);
+
+  return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 function inviteAccountMulticompteSA(email) {
   const apiUrl = `${process.env.REACT_APP_API}/inviteMulticompteStructure`;
-  
+
   const requestOptions = {
     method: 'POST',
-    headers: Object.assign({ 'Content-Type': 'application/json' }, authHeader()),
-    body: JSON.stringify({ email })
+    headers: Object.assign(
+      { 'Content-Type': 'application/json' },
+      authHeader()
+    ),
+    body: JSON.stringify({ email }),
   };
-  
-  return fetch(apiUrl, requestOptions)
-  .then(handleResponse);
+
+  return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
@@ -54,13 +60,11 @@ function handleResponse(response) {
         authenticationService.logout();
         history.push('/');
       }
-  
+
       const error = (data && data.message) || response.statusText;
       return Promise.reject(error);
     }
-  
+
     return data;
   });
 }
-  
-  

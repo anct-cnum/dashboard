@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { InvitationActions } from '../../../actions/invitationAction';
+import { InvitationActions } from '../../../actions/invitationActions';
 
 export default function InvitationMulticompteStructure() {
   const dispatch = useDispatch();
@@ -20,6 +20,15 @@ export default function InvitationMulticompteStructure() {
 
   return (
     <div style={{ width: '50%' }}>
+      <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }}>
+        {/* <div className="fr-alert fr-alert--success" style={{ float: 'right', width: '50%' }}> */}
+        <p className="fr-alert__title">Succès de l&#39;envoi</p>
+        <p>Description</p>
+      </div>
+      <div className="fr-alert fr-alert--error" style={{ marginBottom: '2rem' }}>
+        <p className="fr-alert__title">Erreur : titre du message</p>
+        <p>Description</p>
+      </div>
       <div className="fr-my-3w">
         <label className="fr-label">Email</label>
         <input className="fr-input" type="email" id="text-input-text" name="email" value={email} onChange={e => setEmail(e.target.value)} />

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Departement from '../../../../data/departements-region.json';
 import Region from '../../../../data/code_region.json';
-import { InvitationActions } from '../../../../actions/invitationAction';
+import { InvitationActions } from '../../../../actions/invitationActions';
 
 export default function InvitationPrefet({ option }) {
   const dispatch = useDispatch();
@@ -19,7 +19,8 @@ export default function InvitationPrefet({ option }) {
   };
   //   const handleSubmit = () => dispatch(InvitationActions.inviteAccountsPrefet({ emails, ...localite }));
   const handleChange = e => setEmail(e.target.value);
-  const handleRemoveEmail = email => setEmails(emails.filter(item => item !== email));
+  const handleRemoveEmail = email =>
+    setEmails(emails.filter(item => item !== email));
 
   const handleAddEmail = () => {
     setEmails([...emails, email]);
@@ -37,58 +38,88 @@ export default function InvitationPrefet({ option }) {
 
   return (
     <div style={{ width: '50%' }}>
-      {option === 'prefet-departement' && <div>
-        <label className="fr-label">Adresse préfecture par département : </label>
-        <span>
-          <select className="fr-select" onChange={e => setLocalite({ departement: e.target.value })}>
-            {Departement.map((region, idx) =>
-              <option key={idx} value={region.num_dep}>{region.num_dep} - {region.dep_name}</option>
-            )}
-          </select>
-        </span>
-      </div>}
-      {option === 'prefet-region' && <div>
-        <label className="fr-label">Adresse préfecture par région :</label>
-        <span>
-          <select className="fr-select" onChange={e => setLocalite({ departement: e.target.value }) }>
-            {Region.map((region, idx) =>
-              <option key={idx} value={region.code}>{region.code} - {region.nom}</option>
-            )}
-          </select>
-        </span>
-      </div>}
+      {option === 'prefet-departement' && (
+        <div>
+          <label className="fr-label">
+            Adresse préfecture par département :{' '}
+          </label>
+          <span>
+            <select
+              className="fr-select"
+              onChange={e => setLocalite({ departement: e.target.value })}
+            >
+              {Departement.map((region, idx) => (
+                <option key={idx} value={region.num_dep}>
+                  {region.num_dep} - {region.dep_name}
+                </option>
+              ))}
+            </select>
+          </span>
+        </div>
+      )}
+      {option === 'prefet-region' && (
+        <div>
+          <label className="fr-label">Adresse préfecture par région :</label>
+          <span>
+            <select
+              className="fr-select"
+              onChange={e => setLocalite({ departement: e.target.value })}
+            >
+              {Region.map((region, idx) => (
+                <option key={idx} value={region.code}>
+                  {region.code} - {region.nom}
+                </option>
+              ))}
+            </select>
+          </span>
+        </div>
+      )}
       <div className="fr-my-3w">
         <label className="fr-label">Adresse email à ajouter</label>
         <ul>
-          {emails.map((email, idx) =>
+          {emails.map((email, idx) => (
             <li key={idx}>
               {email}
               <button
                 className="fr-btn fr-fi-delete-line fr-btn--icon-left fr-btn--secondary fr-btn--sm fr-ml-1w"
-                onClick={handleRemoveEmail.bind(this, email)}>
-                        Retirer
+                onClick={handleRemoveEmail.bind(this, email)}
+              >
+                Retirer
               </button>
-            </li>)}
+            </li>
+          ))}
         </ul>
-        <input name="email"
+        <input
+          name="email"
           type="text"
           value={email}
           onChange={handleChange}
-          className="fr-input" />
-        { email && !checkEmail(email) &&
-            <span>L&apos;adresse email doit être du nom de domaine <strong>gouv.fr</strong>.</span>
-        }
-        { email && !checkEmailNotExist(email) &&
-            <span>L&apos;adresse email a déjà été ajoutée.</span>
-        }
-        <button className="fr-btn fr-mt-1w"
+          className="fr-input"
+        />
+        {email && !checkEmail(email) && (
+          <span>
+            L&apos;adresse email doit être du nom de domaine{' '}
+            <strong>gouv.fr</strong>.
+          </span>
+        )}
+        {email && !checkEmailNotExist(email) && (
+          <span>L&apos;adresse email a déjà été ajoutée.</span>
+        )}
+        <button
+          className="fr-btn fr-mt-1w"
           onClick={handleAddEmail}
-          disabled={ !email || !checkEmail(email) || !checkEmailNotExist(email)}>
-                Ajouter l&apos;utilisateur
+          disabled={!email || !checkEmail(email) || !checkEmailNotExist(email)}
+        >
+          Ajouter l&apos;utilisateur
         </button>
       </div>
-      <button style={{ float: 'right' }} className="fr-btn fr-fi-checkbox-line fr-btn--icon-left" onClick={handleSubmit} disabled={emails.length === 0}>
-          Valider
+      <button
+        style={{ float: 'right' }}
+        className="fr-btn fr-fi-checkbox-line fr-btn--icon-left"
+        onClick={handleSubmit}
+        disabled={emails.length === 0}
+      >
+        Valider
       </button>
     </div>
   );
@@ -96,5 +127,3 @@ export default function InvitationPrefet({ option }) {
 InvitationPrefet.propTypes = {
   option: PropTypes.string,
 };
-
-

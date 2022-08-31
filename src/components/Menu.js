@@ -105,7 +105,10 @@ function Menu() {
               </div>
             </li>
             <li className="fr-nav__item">
-              <Link className="fr-nav__link" to="">
+              <Link
+                to={`${roleActivated}/exports`}
+                className="fr-nav__link"
+                {...(location.pathname.startsWith(`/${roleActivated}/exports`) ? { 'aria-current': 'page' } : {})}>
                 Exports
               </Link>
             </li>
@@ -115,9 +118,13 @@ function Menu() {
                 className="fr-nav__btn"
                 aria-expanded={ activeMenu === 'recrutement' }
                 aria-controls="menu-recrutement"
-                {...(location.pathname.startsWith(`/certifications`) || location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}
-                onClick={onClickMenu}>
-                  Infos recrutement
+                {...(location.pathname.startsWith(`/certifications`) ||
+                location.pathname.startsWith(`/formation`) ?
+                  { 'aria-current': 'page' } :
+                  {})}
+                onClick={onClickMenu}
+              >
+                Infos recrutement
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'recrutement' ? 'fr-collapse--expanded' : ''}`} id="menu-recrutement">
                 <ul className="fr-menu__list">
@@ -166,9 +173,9 @@ function Menu() {
             </li>
             <li className="fr-nav__item">
               <Link
-                to={`/admin/invitation`}
+                to={`/${roleActivated}/invitation`}
                 className="fr-nav__link"
-                {...(location.pathname.startsWith(`/admin/invitation`) ? { 'aria-current': 'page' } : {})}>
+                {...(location.pathname.startsWith(`/${roleActivated}/invitation`) ? { 'aria-current': 'page' } : {})}>
                 Invitation
               </Link>
             </li>
