@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Invitation from './invitation';
-import InvitationStructure from '../structure/InvitationStructure';
   
 export default function Invitations() {
   

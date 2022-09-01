@@ -10,8 +10,6 @@ export default function Prefet() {
       <Routes>
         <Route path="/prefet/informations" element={<Informations />} /> {/* Routes spécifiques avec /prefet */}
         <Route path="/prefet/exports" element={<Exports />} />
-        {/* <Route path="/prefet/invitation" element={</>} /> */}
-
       </Routes>
     </>
   );

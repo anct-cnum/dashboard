@@ -171,14 +171,16 @@ function Menu() {
                 </ul>
               </div>
             </li>
-            <li className="fr-nav__item">
-              <Link
-                to={`/${roleActivated}/invitation`}
-                className="fr-nav__link"
-                {...(location.pathname.startsWith(`/${roleActivated}/invitation`) ? { 'aria-current': 'page' } : {})}>
-                Invitation
-              </Link>
-            </li>
+            { ['structure', 'admin'].includes(roleActivated) &&
+                <li className="fr-nav__item">
+                  <Link
+                    to={`/${roleActivated}/invitation`}
+                    className="fr-nav__link"
+                    {...(location.pathname.startsWith(`/${roleActivated}/invitation`) ? { 'aria-current': 'page' } : {})}>
+                    Invitation
+                  </Link>
+                </li>
+            }
             
             {/* Exemple conservé pour les aria-current notamment
             <li className="fr-nav__item">
