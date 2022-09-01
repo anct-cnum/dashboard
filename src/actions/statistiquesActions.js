@@ -13,6 +13,8 @@ export const statistiquesActions = {
   getStatistiquesTerritoire,
   getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
+  exportDonneesTerritoire,
+  resetExportDonneesTerritoire
 };
 
 const formatDate = date => {
@@ -210,4 +212,27 @@ function getCodesPostauxCrasConseillerStructure(idStructure) {
   function failure(error) {
     return { type: 'GET_CODES_POSTAUX_CRA_FAILURE', error };
   }
+}
+
+function exportDonneesTerritoire(territoire = 'departement', dateDebut, dateFin, nomOrdre = 'code', ordre = 1) {
+  return async dispatch => {
+    dispatch(request());
+    await statistiquesService.getExportDonneesTerritoire(territoire, formatDate(dateDebut), formatDate(dateFin), nomOrdre, ordre)
+    .then(exportTerritoireFileBlob => dispatch(success(exportTerritoireFileBlob)))
+    .catch(exportTerritoireFileError => dispatch(failure(exportTerritoireFileError)));
+  };
+
+  function request() {
+    return { type: 'GET_EXPORT_TERRITOIRE_REQUEST' };
+  }
+  function success(exportTerritoireFileBlob) {
+    return { type: 'GET_EXPORT_TERRITOIRE_SUCCESS', exportTerritoireFileBlob };
+  }
+  function failure(exportTerritoireFileError) {
+    return { type: 'GET_EXPORT_TERRITOIRE_FAILURE', exportTerritoireFileError };
+  }
+}
+
+function resetExportDonneesTerritoire() {
+  return { type: 'EXPORT_TERRITOIRE_RESET' };
 }

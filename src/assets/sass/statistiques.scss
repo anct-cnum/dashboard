@@ -210,7 +210,11 @@
   .fr-m-no-reorientation {
     margin: 7.5rem 0;
   }
-
+  .not-found {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
   @media (min-width: 1200px) {
     .hide-graphique-xs {
       display:none;

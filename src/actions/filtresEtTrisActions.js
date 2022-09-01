@@ -11,7 +11,7 @@ export const filtresEtTrisActions = {
   changeStructureId,
   saveSearchInput,
   changeFiltreRegion,
-  resetFiltre
+  resetFiltre,
 };
 
 function updateOrder(order) {

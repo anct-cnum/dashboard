@@ -154,6 +154,32 @@ export default function statistiques(state = initialState, action) {
         statsDataError: action.error,
         statsDataLoading: false,
       };
+    case 'GET_EXPORT_TERRITOIRE_REQUEST':
+      return {
+        ...state,
+        downloading: true,
+      };
+    case 'GET_EXPORT_TERRITOIRE_SUCCESS':
+      return {
+        ...state,
+        exportTerritoireFileBlob: action.exportTerritoireFileBlob,
+        downloading: false,
+      };
+    case 'GET_EXPORT_TERRITOIRE_FAILURE':
+      return {
+        ...state,
+        exportTerritoireFileError: action.error,
+        downloading: false,
+      };
+    case 'EXPORT_TERRITOIRE_RESET': {
+      const {
+        exportTerritoireFileBlob: _file,
+        exportTerritoireFileError: _error,
+        ...nextState
+      } = state;
+
+      return nextState;
+    }
     default:
       return state;
   }

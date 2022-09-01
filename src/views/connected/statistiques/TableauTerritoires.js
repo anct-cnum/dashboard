@@ -163,10 +163,10 @@ export default function TableauTerritoires() {
                             currentPage={page}/>);
                         })
                         }
-                        { (!territoires?.items || !territoires?.items?.data) &&
+                        { (!territoires?.items || territoires?.items?.total === 0) &&
                           <tr>
                             <td colSpan="9" className="not-found pair">
-                              {filtreTerritoire === 'codeDepartement' ? 'Aucun d&eacute;partement ' : 'Aucune r&eacute;gion ' } trouv&eacute;
+                              {filtreTerritoire === 'codeDepartement' ? `Aucun département ` : 'Aucune région ' } trouv&eacute;
                             </td>
                           </tr>
                         }
