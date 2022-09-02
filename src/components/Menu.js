@@ -51,9 +51,9 @@ function Menu() {
           <ul className="fr-nav__list">
             <li className="fr-nav__item">
               <Link
-                to={`${roleActivated}/informations`}
+                to={'informations'}
                 className="fr-nav__link"
-                {...(location.pathname.startsWith(`/${roleActivated}/informations`) ? { 'aria-current': 'page' } : {})}>
+                {...(location.pathname.startsWith('/informations') ? { 'aria-current': 'page' } : {})}>
                   Mes informations
               </Link>
             </li>

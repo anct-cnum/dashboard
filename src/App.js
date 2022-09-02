@@ -12,6 +12,7 @@ import Documents from './views/connected/Documents';
 import Certifications from './views/connected/Certifications';
 import InscriptionFormation from './views/connected/InscriptionFormation';
 import { useSelector } from 'react-redux';
+import MesInformations from './views/connected/MesInformations';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/" element={<PrivateRoute/>}>
             <Route path="/documents" element={<Documents />} />
             <Route path="/certifications" element={<Certifications />} />
+            <Route path="/informations" element={<MesInformations/>} />
             <Route path="/formation" element={<InscriptionFormation />} />
             <Route index element={<Accueil />}/>
             <Route path="*" element={<Accueil />}/>

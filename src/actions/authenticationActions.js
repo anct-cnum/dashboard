@@ -3,7 +3,7 @@ import { authenticationService } from '../services/authenticationService';
 export const authenticationActions = {
   login,
   logout,
-  changeRoleActivated
+  changeRoleActivated,
 };
 
 function login(username, password) {

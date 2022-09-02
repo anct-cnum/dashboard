@@ -1,8 +1,9 @@
-import { roleActivated, rolesUser } from '../helpers';
+import { roleActivated, rolesUser, getUser } from '../helpers';
 
 const initialState = {
   roleActivated: roleActivated(),
-  rolesAllowed: rolesUser()
+  rolesAllowed: rolesUser(),
+  user: getUser()
 };
 
 export default function authentication(state = initialState, action) {
@@ -14,7 +15,7 @@ export default function authentication(state = initialState, action) {
       };
     case 'LOGIN_SUCCESS':
       return {
-        user: action.user,
+        user: getUser(),
         rolesAllowed: rolesUser(),
         roleActivated: roleActivated()
       };
