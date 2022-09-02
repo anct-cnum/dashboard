@@ -177,9 +177,52 @@ export default function statistiques(state = initialState, action) {
         exportTerritoireFileError: _error,
         ...nextState
       } = state;
-
       return nextState;
     }
+    case 'GET_STATS_PDF_REQUEST':
+      return {
+        ...state,
+        loadingPDF: true,
+        errorPDF: false
+      };
+    case 'GET_STATS_PDF_SUCCESS':
+      return {
+        ...state,
+        blob: action.data,
+        statistiquesPDF: action.download,
+        loadingPDF: false,
+        errorPDF: false
+      };
+    case 'GET_STATS_PDF_FAILURE':
+      return {
+        ...state,
+        blob: null,
+        loadingPDF: false,
+        errorPDF: action.error
+      };
+    case 'GET_STATS_CSV_REQUEST':
+      return {
+        ...state,
+        loadingCSV: true,
+        error: false
+      };
+    case 'GET_STATS_CSV_SUCCESS':
+      return {
+        ...state,
+        blob: action.data,
+        statistiquesCSV: action.download,
+        loadingCSV: false
+      };
+    case 'GET_STATS_CSV_FAILURE':
+      return {
+        ...state,
+        error: action.error
+      };
+    case 'RESET_FILE':
+      return {
+        ...state,
+        blob: null,
+      };
     default:
       return state;
   }

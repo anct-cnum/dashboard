@@ -10,6 +10,8 @@ export const statistiquesService = {
   getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
   getExportDonneesTerritoire,
+  getStatistiquesPDF,
+  getStatistiquesCSV,
 };
 
 function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page) {
@@ -120,6 +122,30 @@ async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrd
   return handleFileResponse(
     await fetch(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}`, requestOptions)
   );
+}
+
+function getStatistiquesPDF(dateDebut, dateFin, type, idType, codePostal) {
+  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
+  };
+  
+  // eslint-disable-next-line max-len
+  return fetch(`${apiUrlRoot}/admincoop/statistiques.pdf?dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}`,
+    requestOptions).then(response => !response.ok ? handleResponse(response) : handleFileResponse(response));
+}
+
+function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal) {
+  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
+  };
+
+  // eslint-disable-next-line max-len
+  return fetch(`${apiUrlRoot}/statistiques.csv?dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&conseillerIds=${conseillerIds}`,
+    requestOptions).then(handleFileResponse);
 }
 
 function handleResponse(response) {

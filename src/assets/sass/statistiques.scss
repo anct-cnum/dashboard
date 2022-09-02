@@ -215,6 +215,18 @@
     font-size: 16px;
     font-weight: 600;
   }
+  .statistiques-btn {
+    background-color: transparent;
+    border: 1px solid #1e1e1e;
+    line-height: 1.25rem;
+    border-radius: 40px;
+    text-align:center;
+    box-shadow: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #1e1e1e;
+    padding: 21px;
+  }
   @media (min-width: 1200px) {
     .hide-graphique-xs {
       display:none;
@@ -289,7 +301,7 @@
         display: none;
       }
     }
-    .statistiques_nationales-btn {
+    .statistiques-btn {
       margin: 30px 0;
       padding: 12px 24px;
       float: left;

@@ -10,7 +10,7 @@ import BlockDatePickers from './Components/commun/BlockDatePickers';
 import LeftPage from './Components/graphiques/LeftPage';
 import RightPage from './Components/graphiques/RightPage';
 import BottomPage from './Components/graphiques/BottomPage';
-//import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
+import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 
 export default function GraphiqueTerritoire() {
 
@@ -28,11 +28,12 @@ export default function GraphiqueTerritoire() {
   const territoire = useSelector(state => state.statistiques?.territoire);
 
   useEffect(() => {
-    if (!territoire && codeTerritoire) {
+    if (codeTerritoire && !territoire || (territoire?.codeDepartement !== codeTerritoire && territoire?.codeRegion !== codeTerritoire)) {
       dispatch(statistiquesActions.getTerritoire(typeTerritoire, codeTerritoire, dateFin));
     }
+
     if (territoire) {
-      dispatch(statistiquesActions.getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, territoire.conseillerIds));
+      dispatch(statistiquesActions.getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, territoire?.conseillerIds));
     }
     dispatch(paginationActions.resetPage(false));
   }, [dateDebut, dateFin, codeTerritoire, territoire]);
@@ -60,10 +61,7 @@ export default function GraphiqueTerritoire() {
             <LeftPage donneesStats={donneesStatistiques} print={false} />
             <RightPage donneesStats={donneesStatistiques} print={false} />
             <BottomPage donneesStats={donneesStatistiques} print={false} />
-            {/* TODO
-              <StatistiquesBanniere />
-             */
-            }
+            <StatistiquesBanniere dateDebut={dateDebut} dateFin={dateFin} id={codeTerritoire} typeStats="territoire"/>
           </div>
         }
         {!donneesStatistiques &&

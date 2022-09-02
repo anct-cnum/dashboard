@@ -61,7 +61,7 @@ function FiltresEtTris({ resetPage }) {
     <>
       <BlockSpinner loading={downloading}/>
       {exportTerritoireFileError &&
-        <BlockAlerte type="error" titre={exportTerritoireFileError}/>
+        <BlockAlerte type="error" titre={exportTerritoireFileError} fluid={'--fluid'}/>
       }
       <div className="fr-container--fluid">
         <div className="fr-grid-row fr-grid-row--end">

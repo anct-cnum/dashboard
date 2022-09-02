@@ -5,17 +5,17 @@ import { statistiquesActions } from '../../../actions';
 
 import BlockSpinner from '../../anonymous/BlockSpinner';
 import BlockAlerte from '../../anonymous/BlockAlerte';
+import BlockDatePickers from './Components/commun/BlockDatePickers';
 import LeftPage from './Components/graphiques/LeftPage';
 import RightPage from './Components/graphiques/RightPage';
 import BottomPage from './Components/graphiques/BottomPage';
-import BlockDatePickers from './Components/commun/BlockDatePickers';
-//import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
+import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 
 export default function GraphiqueNationale() {
   const dispatch = useDispatch();
 
-  let dateDebut = useSelector(state => state.statistiques?.dateDebut);
-  let dateFin = useSelector(state => state.statistiques?.dateFin);
+  const dateDebut = useSelector(state => state.statistiques?.dateDebut);
+  const dateFin = useSelector(state => state.statistiques?.dateFin);
 
   const donneesStatistiquesLoading = useSelector(state => state.statistiques?.statsDataLoading);
   const donneesStatistiquesError = useSelector(state => state.statistiques?.statsDataError);
@@ -48,10 +48,7 @@ export default function GraphiqueNationale() {
             <LeftPage donneesStats={donneesStatistiques} print={false} />
             <RightPage donneesStats={donneesStatistiques} print={false} />
             <BottomPage donneesStats={donneesStatistiques} print={false} />
-            {/* TODO
-              <StatistiquesBanniere />
-             */
-            }
+            <StatistiquesBanniere dateDebut={dateDebut} dateFin={dateFin} typeStats="nationales" />
           </div>
         }
         {!donneesStatistiques &&
