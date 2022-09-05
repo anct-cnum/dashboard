@@ -8,7 +8,7 @@ export const invitationService = {
 };
 
 function inviteAccountsPrefet(data) {
-  const apiUrl = `${process.env.REACT_APP_API}/inviteAccountsPrefet`;
+  const apiUrl = `${process.env.REACT_APP_API_URL}/inviteAccountsPrefet`;
 
   const requestOptions = {
     method: 'POST',
@@ -23,7 +23,7 @@ function inviteAccountsPrefet(data) {
 }
 
 function inviteAccountAdmin(email) {
-  const apiUrl = `${process.env.REACT_APP_API}/inviteAdmin`;
+  const apiUrl = `${process.env.REACT_APP_API_URL}/inviteAdmin`;
 
   const requestOptions = {
     method: 'POST',
@@ -37,7 +37,7 @@ function inviteAccountAdmin(email) {
   return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 function inviteAccountMulticompteSA(email) {
-  const apiUrl = `${process.env.REACT_APP_API}/inviteMulticompteStructure`;
+  const apiUrl = `${process.env.REACT_APP_API_URL}/inviteMulticompteStructure`;
 
   const requestOptions = {
     method: 'POST',

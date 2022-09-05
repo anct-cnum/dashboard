@@ -16,10 +16,10 @@ import { useSelector } from 'react-redux';
 function App() {
 
   const exports = useSelector(state => state.exports);
-
+  const loadingAccountPrefet = useSelector(state => state.invitation.loadingAccountPrefet);
   return (
     <div className="App">
-      { exports?.loading === true &&
+      { (exports?.loading === true) || (loadingAccountPrefet === true) &&
       <div className="wrapperModal"></div>
       }
       <Router history={history}>

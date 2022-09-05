@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Departement from '../../../../data/departements-region.json';
 import Region from '../../../../data/code_region.json';
@@ -8,24 +8,25 @@ import { InvitationActions } from '../../../../actions/invitationActions';
 export default function InvitationPrefet({ option }) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
-  const [emails, setEmails] = useState([]);
   const [localite, setLocalite] = useState({});
-  const checkEmail = email => email.endsWith('.gouv.fr');
+  const [activeMessage, setActiveMessage] = useState(false);
+  const valideEmail = new RegExp(/^[a-zA-Z0-9-._]+@[a-zA-Z0-9-._]{2,}[.][a-zA-Z]{2,3}$/);
+  const roleActivated = useSelector(state => state.authentication.roleActivated);
 
-  const checkEmailNotExist = email => !emails.includes(email);
-
-  const handleSubmit = () => {
-    return console.log({ emails, ...localite });
-  };
-  //   const handleSubmit = () => dispatch(InvitationActions.inviteAccountsPrefet({ emails, ...localite }));
   const handleChange = e => setEmail(e.target.value);
-  const handleRemoveEmail = email =>
-    setEmails(emails.filter(item => item !== email));
-
-  const handleAddEmail = () => {
-    setEmails([...emails, email]);
-    setEmail('');
+  const checkEmail = email => email.endsWith('.gouv.fr');
+  const handleSubmit = () => {
+    if (!valideEmail.test(email)) {
+      setActiveMessage(true);
+    }
+    dispatch(InvitationActions.inviteAccountsPrefet({ roleActivated, email, ...localite }));
+    setActiveMessage(false);
+    window.scrollTo(0, 0);
+    setTimeout(() => {
+      dispatch(InvitationActions.resetInvitation());
+    }, 5000);
   };
+  //   const handleSubmit = () => dispatch(InvitationActions.inviteAccountsPrefet({ email, ...localite }));
 
   useEffect(() => {
     if (option === 'prefet-departement') {
@@ -76,19 +77,6 @@ export default function InvitationPrefet({ option }) {
       )}
       <div className="fr-my-3w">
         <label className="fr-label">Adresse email à ajouter</label>
-        <ul>
-          {emails.map((email, idx) => (
-            <li key={idx}>
-              {email}
-              <button
-                className="fr-btn fr-fi-delete-line fr-btn--icon-left fr-btn--secondary fr-btn--sm fr-ml-1w"
-                onClick={handleRemoveEmail.bind(this, email)}
-              >
-                Retirer
-              </button>
-            </li>
-          ))}
-        </ul>
         <input
           name="email"
           type="text"
@@ -102,22 +90,21 @@ export default function InvitationPrefet({ option }) {
             <strong>gouv.fr</strong>.
           </span>
         )}
-        {email && !checkEmailNotExist(email) && (
-          <span>L&apos;adresse email a déjà été ajoutée.</span>
+        {email && !checkEmail(email) && (
+          <span>
+            L&apos;adresse email doit être du nom de domaine{' '}
+            <strong>gouv.fr</strong>.
+          </span>
         )}
-        <button
-          className="fr-btn fr-mt-1w"
-          onClick={handleAddEmail}
-          disabled={!email || !checkEmail(email) || !checkEmailNotExist(email)}
-        >
-          Ajouter l&apos;utilisateur
-        </button>
+        { email && !valideEmail.test(email) && activeMessage &&
+          <div className="invalid">Le format de l&rsquo;email saisi est invalide.</div>
+        }
       </div>
       <button
         style={{ float: 'right' }}
         className="fr-btn fr-fi-checkbox-line fr-btn--icon-left"
         onClick={handleSubmit}
-        disabled={emails.length === 0}
+        disabled={!email || !checkEmail(email)}
       >
         Valider
       </button>

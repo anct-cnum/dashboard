@@ -1,18 +1,28 @@
-export default function menu(state = [], action) {
+const initState = {
+  succesInvitPrefet: null,
+  errorInvitPrefet: null,
+  loadingAccountPrefet: null
+};
+export default function invitation(state = initState, action) {
   switch (action.type) {
     case 'INVITING_PREFET_REQUEST':
       return {
-        invitingAccountsPrefet: true
+        ...state,
+        loadingAccountPrefet: true,
+        succesInvitPrefet: null,
+        errorInvitPrefet: null,
       };
     case 'INVITING_PREFET_SUCCESS':
       return {
-        accountsPrefetInvited: true,
-        user: action.user
+        ...state,
+        loadingAccountPrefet: false,
+        succesInvitPrefet: action.succesInvitePrefet,
       };
     case 'INVITING_PREFET_FAILURE':
       return {
-        accountsPrefetInvited: false,
-        error: action.error
+        ...state,
+        loadingAccountPrefet: false,
+        errorInvitPrefet: action.error,
       };
     case 'INVITING_ADMIN_REQUEST':
       return {
@@ -41,6 +51,12 @@ export default function menu(state = [], action) {
       return {
         accountMulticompteStructureInvited: false,
         error: action.error
+      };
+    case 'RESET_INVITATION':
+      return {
+        succesInvitPrefet: null,
+        errorInvitPrefet: null,
+        loadingAccountPrefet: null
       };
     default:
       return state;

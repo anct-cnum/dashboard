@@ -1,23 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Invitation from './invitation';
-  
+import { Oval } from 'react-loader-spinner';
+
 export default function Invitations() {
+  const error = useSelector(state => state.invitation.errorInvitPrefet);
+  const success = useSelector(state => state.invitation?.succesInvitPrefet);
+  const loadingAccountPrefet = useSelector(state => state.invitation.loadingAccountPrefet);
   
-  const roleActivated = useSelector(state => state.authentication.roleActivated);
-  // const error = useSelector(state => state.invitation.error);
-  // const success = useSelector(state => state.invitation.error);
   return (
     <div className="fr-container fr-my-10w">
       <p>INVITATION DE COMPTE</p>
-      <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }}>
-        {/* <div className="fr-alert fr-alert--success" style={{ float: 'right', width: '50%' }}> */}
-        <p className="fr-alert__title">Succès de l&#39;envoi</p>
-        <p>Description</p>
-      </div>
-      <div className="fr-alert fr-alert--error" style={{ marginBottom: '2rem' }}>
-        <p className="fr-alert__title">Erreur : titre du message</p>
-        <p>Description</p>
+      {success &&
+        <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
+          <p className="fr-alert__title">{success}</p>
+        </div>
+      }
+      {error &&
+        <div className="fr-alert fr-alert--error" style={{ marginBottom: '2rem' }}>
+          <p className="fr-alert__title">{error}</p>
+        </div>
+      }
+      <div className="spinnerCustom">
+        <Oval
+          height={100}
+          width={100}
+          color="#060091"
+          secondaryColor="white"
+          visible={loadingAccountPrefet === true}
+        />
       </div>
       <Invitation />
     </div>

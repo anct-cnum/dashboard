@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { InvitationActions } from "../../../../actions/invitationActions";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { InvitationActions } from '../../../../actions/invitationActions';
 
 export default function InvitationAdmin() {
   const dispatch = useDispatch();
   const valideEmail = new RegExp(
     /^[a-zA-Z0-9-._]+@[a-zA-Z0-9-._]{2,}[.][a-zA-Z]{2,3}$/
   );
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
 
   const sendInvitation = () => {
@@ -21,7 +21,7 @@ export default function InvitationAdmin() {
   };
 
   return (
-    <div style={{ width: "50%" }}>
+    <div style={{ width: '50%' }}>
       <div className="fr-my-3w">
         <label className="fr-label">Email</label>
         <input
@@ -30,7 +30,7 @@ export default function InvitationAdmin() {
           id="text-input-text"
           name="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
         />
         {email && !valideEmail.test(email) && activeMessage && (
           <div className="invalid">
@@ -39,16 +39,16 @@ export default function InvitationAdmin() {
         )}
       </div>
       <button
-        onClick={() => setEmail("")}
-        disabled={email.length === 0 ? "disabled" : ""}
+        onClick={() => setEmail('')}
+        disabled={email.length === 0 ? 'disabled' : ''}
         className="fr-btn"
       >
         Annuler
       </button>
       <button
-        style={{ float: "right" }}
+        style={{ float: 'right' }}
         className="fr-btn"
-        disabled={!valideEmail.test(email) ? "disabled" : ""}
+        disabled={!valideEmail.test(email) ? 'disabled' : ''}
         onClick={sendInvitation}
       >
         Envoyer

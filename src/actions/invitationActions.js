@@ -3,7 +3,8 @@ import { invitationService } from '../services/invitationService';
 export const InvitationActions = {
   inviteAccountsPrefet,
   inviteAccountAdmin,
-  inviteAccountMulticompteSA
+  inviteAccountMulticompteSA,
+  resetInvitation
 };
 function inviteAccountsPrefet(emails, niveau) {
   return dispatch => {
@@ -11,20 +12,17 @@ function inviteAccountsPrefet(emails, niveau) {
   
     invitationService.inviteAccountsPrefet(emails, niveau)
     .then(
-      () => {
-        dispatch(success());
+      succesInvitePrefet => {
+        dispatch(success(succesInvitePrefet));
       },
-      error => {
-        dispatch(failure(error));
-      }
-    );
+      error => dispatch(failure(error)));
   };
   
   function request() {
     return { type: 'INVITING_PREFET_REQUEST' };
   }
-  function success() {
-    return { type: 'INVITING_PREFET_SUCCESS' };
+  function success(succesInvitePrefet) {
+    return { type: 'INVITING_PREFET_SUCCESS', succesInvitePrefet };
   }
   function failure(error) {
     return { type: 'INVITING_PREFET_FAILURE', error };
@@ -81,4 +79,9 @@ function inviteAccountMulticompteSA(email) {
   function failure(error) {
     return { type: 'INVITING_MULTICOMPTE_STRUCTURE_FAILURE', error };
   }
+}
+
+
+function resetInvitation() {
+  return { type: 'RESET_INVITATION' };
 }
