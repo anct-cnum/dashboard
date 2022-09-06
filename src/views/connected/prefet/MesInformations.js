@@ -10,10 +10,11 @@ function MesInformations() {
   const user = useSelector(state => state?.user);
   const [email, setEmail] = useState(userAuth.name);
   const [flashMessage, setFlashMessage] = useState(false);
-  const roleActivated = useSelector(state => state.authentication.roleActivated);
+
   const handleForm = event => {
     setEmail(event.target.value);
   };
+  
   const updateEmail = () => {
     dispatch(userActions.updateUserEmail({ id: userAuth._id, newEmail: email }));
     setForm(false);
@@ -44,7 +45,7 @@ function MesInformations() {
       {form === false ?
         <>
           <p>Email :<strong> {userAuth?.name}</strong></p>
-          <button className={roleActivated === 'admin' ? 'fr-btn rfmt-2w fr-mt-5w' : 'fr-btn'} onClick={() => setForm(true)}>
+          <button className="fr-btn" onClick={() => setForm(true)}>
             Modifier mon adresse e-mail &ensp;
             <span style={{ color: 'white' }} className="fr-fi-edit-line" aria-hidden="true" />
           </button>
