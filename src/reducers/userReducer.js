@@ -3,7 +3,7 @@ export default function user(state = null, action) {
   switch (action.type) {
     case 'UPDATE_USER_EMAIL_REQUEST':
       return {
-        flashMessage: false,
+        flashMessage: true,
         error: false
       };
     case 'UPDATE_USER_EMAIL_SUCCESS':
