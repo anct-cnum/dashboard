@@ -46,12 +46,12 @@ function RightPage({ donneesStats }) {
       <div className="fr-col-12 fr-col-md-11 hide-graphique-xs">
         <div className="fr-mb-6w fr-mr-md-1w"><hr/></div>
       </div>
-      <div className="fr-col-12 fr-col-md-5 hide-graphique-xs">
+      <div className="fr-col-12 fr-col-md-5 hide-graphique-xs print-graphique">
         <ElementHighcharts donneesStats={statsLieux} variablesGraphique={pieGraphique}/>
       </div>
-      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 hide-graphique-xs">
+      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 hide-graphique-xs print-graphique">
         <div className="fr-mt-6w fr-mb-5w hr-md-hide"><hr/></div>
-        <div className="">
+        <div className="duree">
           <ElementHighcharts donneesStats={statsDurees} variablesGraphique={columnGraphique}/>
         </div>
       </div>

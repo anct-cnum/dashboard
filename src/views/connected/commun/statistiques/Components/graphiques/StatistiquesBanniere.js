@@ -36,7 +36,8 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     const type = getTypeStatistique(typeStats);
     if (extension === 'pdf') {
-      dispatch(statistiquesActions.getStatistiquesPDF(dateDebut, dateFin, type, id, codePostal));
+      window.print();
+      //dispatch(statistiquesActions.getStatistiquesPDF(dateDebut, dateFin, type, id, codePostal));
     } else if (extension === 'csv') {
       const conseillerIds = territoire?.conseillerIds ?? undefined;
       dispatch(statistiquesActions.getStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal));

@@ -103,26 +103,29 @@ function BottomPage({ donneesStats }) {
 
   return (
     <>
-      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3">
+      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 print-graphique">
+        <div className="print-blank"></div>
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
         <ElementHighcharts donneesStats={statsEvolutionsFiltered} variablesGraphique={graphiqueEvolution}/>
       </div>
 
-      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 fr-col-lg-3">
+      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 fr-col-lg-3 print-graphique">
+        <div className="print-blank"></div>
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
         <ElementHighcharts donneesStats={statsAges} variablesGraphique={graphiqueAge}/>
       </div>
 
-      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 fr-col-offset-lg-1">
+      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 fr-col-offset-lg-1 print-graphique">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
         <ElementHighcharts donneesStats={statsUsagers} variablesGraphique={graphiqueStatut}/>
+        <div className="print-blank"></div>
       </div>
-
       <div className="fr-col-lg-11 hide-graphique-lg">
         <div className="fr-mt-6w"><hr/></div>
       </div>
       {statsReorientations?.length > 0 &&
       <div className="fr-col-12 col-offset-md-1 fr-col-md-5 fr-col-lg-11 fr-mt-6w" >
+        <div className="print-blank"></div>
         <div className="fr-mb-5w hide-graphique-xs"><hr/></div>
         <ElementHighcharts donneesStats={statsReorientations} variablesGraphique={graphiqueReorientations} listeAutres={[]}/>
         <div className="fr-m-no-reorientation"></div>

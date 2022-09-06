@@ -343,10 +343,35 @@
   }
 }
 @media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    -moz-print-color-adjust: exact;
+    -ms-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
   header, footer, .no-print {
     display: none;
   }
-  .highcharts-plot-background {
-    background-color: #fff;
+  .nationales{
+    margin-top:0px !important;
   }
+  .fr-mb-6w, .fr-m-7w, .fr-mb-5w, .fr-mt-3v {
+    margin: 1rem !important;
+  }
+  .print-graphique.fr-col-12{
+    flex: 0 0 100%;
+    max-width: 50%;
+    width: 50%;
+    .duree {
+      margin-top:-3.5rem !important;
+    }
+  }
+  .print-blank {
+    margin-top: 15rem !important;
+  }
+}
+@page 
+{
+  size: auto;
+  margin: 0mm; 
 }
