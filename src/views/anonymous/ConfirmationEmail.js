@@ -10,14 +10,15 @@ function EmailConfirmer() {
   const user = useSelector(state => state?.user);
 
   useEffect(() => {
-    dispatch(userActions.confirmeUserEmail(token));
+    dispatch(userActions.verifyToken(token));
   }, []);
 
   useEffect(() => {
     if (user?.tokenVerified === true) {
+      dispatch(userActions.confirmeUserEmail(token));
       setTimeout(() => {
         navigate('/login');
-      }, 4000);
+      }, 6000);
     }
   }, [user?.tokenVerified]);
 

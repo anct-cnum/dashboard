@@ -33,8 +33,8 @@ function MesInformations() {
           </div>
           }
           {(error !== undefined && error !== false) &&
-        <div className="fr-alertfr-alert--error fr-alert--sm fr-mb-4w">
-          <p>Information : {error.message}</p>
+        <div className="fr-alert fr-alert--error fr-alert--sm fr-mb-4w">
+          <p>Information : {error}</p>
         </div>
           }
         </div> :

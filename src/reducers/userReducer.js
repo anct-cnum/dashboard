@@ -3,8 +3,8 @@ export default function user(state = null, action) {
   switch (action.type) {
     case 'UPDATE_USER_EMAIL_REQUEST':
       return {
-        loading: true,
-        flashMessage: true
+        flashMessage: false,
+        error: false
       };
     case 'UPDATE_USER_EMAIL_SUCCESS':
       return {
@@ -15,25 +15,22 @@ export default function user(state = null, action) {
     case 'UPDATE_USER_EMAIL_FAILURE':
       return {
         ...state,
-        patchError: action.error,
+        error: action.error,
         flashMessage: true
       };
     case 'CONFIRMATION_UPDATE_USER_EMAIL_REQUEST':
       return {
-        loading: true,
+        ...state,
       };
     case 'CONFIRMATION_UPDATE_USER_EMAIL_SUCCESS':
       return {
         ...state,
-        tokenVerified: true,
-        loading: false,
-        userConnected: action.user,
+        user: action.user,
       };
     case 'CONFIRMATION_UPDATE_USER_EMAIL_FAILURE':
       return {
+        ...state,
         patchError: action.error,
-        tokenVerified: false,
-        loading: false,
       };
     case 'GET_USERS_REQUEST':
       return {
@@ -51,20 +48,19 @@ export default function user(state = null, action) {
       };
     case 'VERIFY_TOKEN_REQUEST':
       return {
-        loading: true,
         verifyingToken: true,
         user: action.user
       };
     case 'VERIFY_TOKEN_SUCCESS':
       return {
         tokenVerified: true,
-        loading: false,
+        verifyingToken: false,
         resultVerifyToken: action.resultVerifyToken
       };
     case 'VERIFY_TOKEN_FAILURE':
       return {
         tokenVerified: false,
-        loading: false,
+        verifyingToken: false,
         error: action.error
       };
     default:
