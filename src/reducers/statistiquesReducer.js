@@ -4,6 +4,8 @@ const initialState = {
   dateFin: new Date(),
   codePostalStats: '',
   listeAutresReorientations: [],
+  statsDataError: false,
+  statsDataLoading: false,
 };
 
 export default function statistiques(state = initialState, action) {

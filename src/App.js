@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { history } from './helpers';
 import PrivateRoute from './views/connected/PrivateRoute';
@@ -11,15 +12,21 @@ import Header from './components/Header';
 import Documents from './views/connected/Documents';
 import Certifications from './views/connected/Certifications';
 import InscriptionFormation from './views/connected/InscriptionFormation';
-import GraphiqueNationale from './views/connected/statistiques/GraphiqueNationale';
-import GraphiqueStructure from './views/connected/statistiques/GraphiqueStructure';
-import GraphiqueTerritoire from './views/connected/statistiques/GraphiqueTerritoire';
-import TableauStructures from './views/connected/statistiques/TableauStructures';
-import TableauTerritoires from './views/connected/statistiques/TableauTerritoires';
+import GraphiqueNationale from './views/connected/commun/statistiques/GraphiqueNationale';
+import GraphiqueStructure from './views/connected/commun/statistiques/GraphiqueStructure';
+import GraphiqueTerritoire from './views/connected/commun/statistiques/GraphiqueTerritoire';
+import TableauStructures from './views/connected/commun/statistiques/TableauStructures';
+import TableauTerritoires from './views/connected/commun/statistiques/TableauTerritoires';
 
 function App() {
+
+  const exports = useSelector(state => state.exports);
+
   return (
     <div className="App">
+      { exports?.loading === true &&
+      <div className="wrapperModal"></div>
+      }
       <Router history={history}>
         <Header />
         <Routes>
@@ -34,7 +41,6 @@ function App() {
             <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
             <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
             <Route path="/statistiques-territoire/:codeTerritoire" element={<GraphiqueTerritoire />} />
-            
             <Route index element={<Accueil />}/>
             <Route path="*" element={<Accueil />}/>
           </Route>

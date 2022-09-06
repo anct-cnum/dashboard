@@ -1,4 +1,4 @@
-import { authenticationService } from './authentificationService';
+import { authenticationService } from './authenticationService';
 import { authHeader } from '../helpers';
 
 export const structuresService = {

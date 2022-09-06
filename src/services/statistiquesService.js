@@ -1,5 +1,5 @@
 import { authHeader } from '../helpers';
-import { authenticationService } from './authentificationService';
+import { authenticationService } from './authenticationService';
 
 export const statistiquesService = {
   getTerritoire,
