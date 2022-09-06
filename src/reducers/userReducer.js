@@ -21,18 +21,19 @@ export default function user(state = null, action) {
     case 'CONFIRMATION_UPDATE_USER_EMAIL_REQUEST':
       return {
         loading: true,
-        flashMessage: true
       };
     case 'CONFIRMATION_UPDATE_USER_EMAIL_SUCCESS':
       return {
         ...state,
+        tokenVerified: true,
+        loading: false,
         userConnected: action.user,
-        flashMessage: true
       };
     case 'CONFIRMATION_UPDATE_USER_EMAIL_FAILURE':
       return {
         patchError: action.error,
-        flashMessage: true
+        tokenVerified: false,
+        loading: false,
       };
     case 'GET_USERS_REQUEST':
       return {
@@ -47,6 +48,24 @@ export default function user(state = null, action) {
       return {
         ...state,
         userError: action.error
+      };
+    case 'VERIFY_TOKEN_REQUEST':
+      return {
+        loading: true,
+        verifyingToken: true,
+        user: action.user
+      };
+    case 'VERIFY_TOKEN_SUCCESS':
+      return {
+        tokenVerified: true,
+        loading: false,
+        resultVerifyToken: action.resultVerifyToken
+      };
+    case 'VERIFY_TOKEN_FAILURE':
+      return {
+        tokenVerified: false,
+        loading: false,
+        error: action.error
       };
     default:
       return state;

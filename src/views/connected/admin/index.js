@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import MesInformations from './MesInformations';
 import Exports from './Exports';
 
 export default function Admin() {
@@ -8,6 +9,7 @@ export default function Admin() {
     <>
       <Routes>
         <Route path="/admin/exports" element={<Exports />} />
+        <Route path="/admin/informations" element={<MesInformations />} />
       </Routes>
     </>
   );

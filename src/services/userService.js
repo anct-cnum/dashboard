@@ -3,7 +3,8 @@ import { roleActivated, authHeader } from '../helpers';
 
 export const userService = {
   confirmeUserEmail,
-  updateUserEmail
+  updateUserEmail,
+  verifyToken
 };
 
 function confirmeUserEmail(token) {
@@ -24,7 +25,17 @@ function updateUserEmail(id, newEmail) {
     body: JSON.stringify({ name: newEmail })
   };
   
-  let uri = `${apiUrlRoot}/users/sendEmailUpdate/${id}`;
+  let uri = `${apiUrlRoot}/users/sendEmailUpdate/${id}?role=${roleActivated()}`;
+  return fetch(uri, requestOptions).then(handleResponse);
+}
+
+function verifyToken(token) {
+  const apiUrlRoot = process.env.REACT_APP_API_URL;
+  const requestOptions = {
+    method: 'GET'
+  };
+
+  let uri = `${apiUrlRoot}/users/verifyToken/${token}`;
   return fetch(uri, requestOptions).then(handleResponse);
 }
 

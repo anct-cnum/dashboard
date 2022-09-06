@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { history } from './helpers';
 import PrivateRoute from './views/connected/PrivateRoute';
 import Login from './views/anonymous/Login';
+import EmailConfirmer from './views/anonymous/ConfirmationEmail';
+
 import Accueil from './views/connected/Accueil';
 import Footer from './components/Footer';
 import './assets/js';
@@ -12,7 +14,6 @@ import Documents from './views/connected/Documents';
 import Certifications from './views/connected/Certifications';
 import InscriptionFormation from './views/connected/InscriptionFormation';
 import { useSelector } from 'react-redux';
-import MesInformations from './views/connected/MesInformations';
 
 function App() {
 
@@ -27,10 +28,10 @@ function App() {
         <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/confirmation-email/:token" element={<EmailConfirmer />} />
           <Route path="/" element={<PrivateRoute/>}>
             <Route path="/documents" element={<Documents />} />
             <Route path="/certifications" element={<Certifications />} />
-            <Route path="/informations" element={<MesInformations/>} />
             <Route path="/formation" element={<InscriptionFormation />} />
             <Route index element={<Accueil />}/>
             <Route path="*" element={<Accueil />}/>

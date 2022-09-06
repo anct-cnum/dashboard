@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../../actions';
+import { userActions } from '../../../actions';
 
 function MesInformations() {
   const dispatch = useDispatch();
@@ -44,10 +44,12 @@ function MesInformations() {
       {form === false ?
         <>
           <p>Email :<strong> {userAuth?.name}</strong></p>
+          {!userAuth.name.includes('@conseiller-numerique.fr') &&
           <button className={roleActivated === 'admin' ? 'fr-btn rfmt-2w fr-mt-5w' : 'fr-btn'} onClick={() => setForm(true)}>
             Modifier mon adresse e-mail &ensp;
             <span style={{ color: 'white' }} className="fr-fi-edit-line" aria-hidden="true" />
           </button>
+          }
         </> :
         <div className="fr-container--fluid">
           <div className="fr-my-3w fr-col-lg-3 fr-col-3 fr-col-sm-8">

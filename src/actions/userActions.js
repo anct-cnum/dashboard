@@ -2,7 +2,8 @@ import { userService } from '../services/userService';
 
 export const userActions = {
   updateUserEmail,
-  confirmeUserEmail
+  confirmeUserEmail,
+  verifyToken
 };
 
 function updateUserEmail({ id, newEmail }) {
@@ -47,5 +48,33 @@ function confirmeUserEmail(token) {
   }
   function failure(error) {
     return { type: 'CONFIRMATION_UPDATE_USER_EMAIL_FAILURE', error };
+  }
+}
+
+function verifyToken(token) {
+  return dispatch => {
+    dispatch(request(token));
+
+    userService.verifyToken(token)
+    .then(
+      resultVerifyToken => {
+        resultVerifyToken.role = resultVerifyToken.roles[0];
+        delete resultVerifyToken.roles;
+        dispatch(success(resultVerifyToken));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request(token) {
+    return { type: 'VERIFY_TOKEN_REQUEST', token };
+  }
+  function success(resultVerifyToken) {
+    return { type: 'VERIFY_TOKEN_SUCCESS', resultVerifyToken };
+  }
+  function failure(error) {
+    return { type: 'VERIFY_TOKEN_FAILURE', error };
   }
 }
