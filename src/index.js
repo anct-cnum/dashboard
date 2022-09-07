@@ -6,6 +6,17 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
+import * as Sentry from '@sentry/react';
+import { Integrations } from '@sentry/tracing';
+
+if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
+  Sentry.init({
+    dsn: process.env.REACT_APP_SENTRY_DSN,
+    environment: process.env.REACT_APP_SENTRY_ENVIRONMENT,
+    integrations: [new Integrations.BrowserTracing()],
+    tracesSampleRate: process.env.REACT_APP_SENTRY_TRACE_RATE,
+  });
+}
 
 const store = configureStore({
   reducer: rootReducer,
