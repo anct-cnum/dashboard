@@ -1,16 +1,16 @@
 import { invitationService } from '../services/invitationService';
 
 export const InvitationActions = {
-  inviteAccountsPrefet,
+  inviteAccountPrefet,
   inviteAccountAdmin,
-  inviteAccountMulticompteSA,
+  inviteStructure,
   resetInvitation
 };
-function inviteAccountsPrefet(emails, niveau) {
+function inviteAccountPrefet(emails, niveau) {
   return dispatch => {
     dispatch(request());
   
-    invitationService.inviteAccountsPrefet(emails, niveau)
+    invitationService.inviteAccountPrefet(emails, niveau)
     .then(
       succesInvitePrefet => {
         dispatch(success(succesInvitePrefet));
@@ -35,8 +35,8 @@ function inviteAccountAdmin(email) {
   
     invitationService.inviteAccountAdmin(email)
     .then(
-      () => {
-        dispatch(success());
+      succesInviteAdmin => {
+        dispatch(success(succesInviteAdmin));
       },
       error => {
         dispatch(failure(error));
@@ -47,22 +47,22 @@ function inviteAccountAdmin(email) {
   function request() {
     return { type: 'INVITING_ADMIN_REQUEST' };
   }
-  function success() {
-    return { type: 'INVITING_ADMIN_SUCCESS' };
+  function success(succesInviteAdmin) {
+    return { type: 'INVITING_ADMIN_SUCCESS', succesInviteAdmin };
   }
   function failure(error) {
     return { type: 'INVITING_ADMIN_FAILURE', error };
   }
 }
 
-function inviteAccountMulticompteSA(email) {
+function inviteStructure(email) {
   return dispatch => {
     dispatch(request());
   
-    invitationService.inviteAccountMulticompteSA(email)
+    invitationService.inviteStructure(email)
     .then(
-      () => {
-        dispatch(success());
+      succesInviteAccountMulticompteSA => {
+        dispatch(success(succesInviteAccountMulticompteSA));
       },
       error => {
         dispatch(failure(error));
@@ -71,13 +71,13 @@ function inviteAccountMulticompteSA(email) {
   };
   
   function request() {
-    return { type: 'INVITING_MULTICOMPTE_STRUCTURE_REQUEST' };
+    return { type: 'INVITING_STRUCTURE_REQUEST' };
   }
-  function success() {
-    return { type: 'INVITING_MULTICOMPTE_STRUCTURE_SUCCESS' };
+  function success(succesInviteAccountMulticompteSA) {
+    return { type: 'INVITING_STRUCTURE_SUCCESS', succesInviteAccountMulticompteSA };
   }
   function failure(error) {
-    return { type: 'INVITING_MULTICOMPTE_STRUCTURE_FAILURE', error };
+    return { type: 'INVITING_STRUCTURE_FAILURE', error };
   }
 }
 

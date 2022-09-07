@@ -1,14 +1,14 @@
 import { authenticationService } from './authenticationService';
-import { authHeader, history } from '../helpers';
+import { authHeader, history, roleActivated } from '../helpers';
 
 export const invitationService = {
-  inviteAccountsPrefet,
+  inviteAccountPrefet,
   inviteAccountAdmin,
-  inviteAccountMulticompteSA,
+  inviteStructure,
 };
 
-function inviteAccountsPrefet(data) {
-  const apiUrl = `${process.env.REACT_APP_API_URL}/inviteAccountsPrefet`;
+function inviteAccountPrefet(data) {
+  const apiUrl = `${process.env.REACT_APP_API_URL}/inviteAccountPrefet?role=${roleActivated()}`;
 
   const requestOptions = {
     method: 'POST',
@@ -23,7 +23,7 @@ function inviteAccountsPrefet(data) {
 }
 
 function inviteAccountAdmin(email) {
-  const apiUrl = `${process.env.REACT_APP_API_URL}/inviteAdmin`;
+  const apiUrl = `${process.env.REACT_APP_API_URL}/inviteAccountAdmin?role=${roleActivated()}`;
 
   const requestOptions = {
     method: 'POST',
@@ -36,8 +36,8 @@ function inviteAccountAdmin(email) {
 
   return fetch(apiUrl, requestOptions).then(handleResponse);
 }
-function inviteAccountMulticompteSA(email) {
-  const apiUrl = `${process.env.REACT_APP_API_URL}/inviteMulticompteStructure`;
+function inviteStructure(email) {
+  const apiUrl = `${process.env.REACT_APP_API_URL}/inviteStructure?role=${roleActivated()}`;
 
   const requestOptions = {
     method: 'POST',

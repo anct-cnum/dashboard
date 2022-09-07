@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { InvitationActions } from '../../../actions/invitationActions';
+import { Oval } from 'react-loader-spinner';
 
 export default function InvitationMulticompteStructure() {
   const dispatch = useDispatch();
@@ -8,26 +9,42 @@ export default function InvitationMulticompteStructure() {
   const [email, setEmail] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
   const sendInvitation = () => {
-    if (valideEmail.test(email)) {
-      // dispatch(InvitationActions.inviteAccountMulticompteSA(email));
-      setActiveMessage(false);
-      window.scrollTo(0, 0);
-    } else {
+    if (!valideEmail.test(email)) {
       setActiveMessage(true);
     }
-    
+    dispatch(InvitationActions.inviteStructure(email));
+    setActiveMessage(false);
+    window.scrollTo(0, 0);
+    setTimeout(() => {
+      dispatch(InvitationActions.resetInvitation());
+    }, 10000);
   };
+  const { error, success, loading } = useSelector(state => state.invitation);
 
   return (
     <div style={{ width: '50%' }}>
-      <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }}>
-        {/* <div className="fr-alert fr-alert--success" style={{ float: 'right', width: '50%' }}> */}
-        <p className="fr-alert__title">Succès de l&#39;envoi</p>
-        <p>Description</p>
-      </div>
-      <div className="fr-alert fr-alert--error" style={{ marginBottom: '2rem' }}>
-        <p className="fr-alert__title">Erreur : titre du message</p>
-        <p>Description</p>
+      {success &&
+        <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
+          <p className="fr-alert__title">
+            {success}
+          </p>
+        </div>
+      }
+      {error &&
+        <div className="fr-alert fr-alert--error" style={{ marginBottom: '2rem' }}>
+          <p className="fr-alert__title">
+            {error}
+          </p>
+        </div>
+      }
+      <div className="spinnerCustom">
+        <Oval
+          height={100}
+          width={100}
+          color="#060091"
+          secondaryColor="white"
+          visible={loading === true}
+        />
       </div>
       <div className="fr-my-3w">
         <label className="fr-label">Email</label>

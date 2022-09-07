@@ -1,62 +1,61 @@
 const initState = {
-  succesInvitPrefet: null,
-  errorInvitPrefet: null,
-  loadingAccountPrefet: null
+  loading: false,
+  success: false,
+  error: false
 };
 export default function invitation(state = initState, action) {
   switch (action.type) {
     case 'INVITING_PREFET_REQUEST':
       return {
         ...state,
-        loadingAccountPrefet: true,
-        succesInvitPrefet: null,
-        errorInvitPrefet: null,
+        loading: true
       };
     case 'INVITING_PREFET_SUCCESS':
       return {
         ...state,
-        loadingAccountPrefet: false,
-        succesInvitPrefet: action.succesInvitePrefet,
+        loading: false,
+        success: action.succesInvitePrefet,
       };
     case 'INVITING_PREFET_FAILURE':
       return {
         ...state,
-        loadingAccountPrefet: false,
-        errorInvitPrefet: action.error,
+        loading: false,
+        error: action.error
       };
     case 'INVITING_ADMIN_REQUEST':
       return {
-        invitingAccountAdmin: true
+        ...state,
+        loading: true
       };
     case 'INVITING_ADMIN_SUCCESS':
       return {
-        accountAdminInvited: true,
-        user: action.user
+        loading: false,
+        success: action.succesInviteAdmin
       };
     case 'INVITING_ADMIN_FAILURE':
       return {
-        accountAdminInvited: false,
-        error: action.error
+        loading: false,
+        error: action.error,
       };
-    case 'INVITING_MULTICOMPTE_STRUCTURE_REQUEST':
+    case 'INVITING_STRUCTURE_REQUEST':
       return {
-        invitingAccountMulticompteStructure: true
+        ...state,
+        loading: true
       };
-    case 'INVITING_MULTICOMPTE_STRUCTURE_SUCCESS':
+    case 'INVITING_STRUCTURE_SUCCESS':
       return {
-        accountMulticompteStructureInvited: true,
-        user: action.user
+        loading: false,
+        success: action.succesInviteAccountMulticompteSA,
       };
-    case 'INVITING_MULTICOMPTE_STRUCTURE_FAILURE':
+    case 'INVITING_STRUCTURE_FAILURE':
       return {
-        accountMulticompteStructureInvited: false,
+        loading: false,
         error: action.error
       };
     case 'RESET_INVITATION':
       return {
-        succesInvitPrefet: null,
-        errorInvitPrefet: null,
-        loadingAccountPrefet: null
+        sucess: false,
+        error: false,
       };
     default:
       return state;

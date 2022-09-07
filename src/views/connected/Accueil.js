@@ -29,7 +29,6 @@ export default function Accueil() {
       { roleActivated === 'coordinateur_coop' &&
         <Coordinateur />
       }
-
     </div>
   );
 }

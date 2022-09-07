@@ -10,7 +10,7 @@ export default function Admin() {
       <Routes>
         <Route path="/admin/informations" element={<Informations />} /> {/* Routes spécifiques avec /admin */}
         <Route path="/admin/exports" element={<Exports />} />
-        <Route path="/admin/invitation" element={<Invitations />} />
+        <Route path="/admin/invitations" element={<Invitations />} />
       </Routes>
     </>
   );

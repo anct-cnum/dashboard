@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Departement from '../../../../data/departements-region.json';
 import Region from '../../../../data/code_region.json';
@@ -11,7 +11,6 @@ export default function InvitationPrefet({ option }) {
   const [localite, setLocalite] = useState({});
   const [activeMessage, setActiveMessage] = useState(false);
   const valideEmail = new RegExp(/^[a-zA-Z0-9-._]+@[a-zA-Z0-9-._]{2,}[.][a-zA-Z]{2,3}$/);
-  const roleActivated = useSelector(state => state.authentication.roleActivated);
 
   const handleChange = e => setEmail(e.target.value);
   const checkEmail = email => email.endsWith('.gouv.fr');
@@ -19,14 +18,13 @@ export default function InvitationPrefet({ option }) {
     if (!valideEmail.test(email)) {
       setActiveMessage(true);
     }
-    dispatch(InvitationActions.inviteAccountsPrefet({ roleActivated, email, ...localite }));
+    dispatch(InvitationActions.inviteAccountPrefet({ email, ...localite }));
     setActiveMessage(false);
     window.scrollTo(0, 0);
     setTimeout(() => {
       dispatch(InvitationActions.resetInvitation());
-    }, 5000);
+    }, 10000);
   };
-  //   const handleSubmit = () => dispatch(InvitationActions.inviteAccountsPrefet({ email, ...localite }));
 
   useEffect(() => {
     if (option === 'prefet-departement') {

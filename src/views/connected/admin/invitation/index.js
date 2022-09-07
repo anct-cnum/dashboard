@@ -6,16 +6,15 @@ export default function Invation() {
   const [option, setOption] = useState('');
   const arrayOption = [
     { value: 'admin', label: 'Admin' },
-    { value: 'prefet-region', label: 'Prefet par région' },
-    { value: 'prefet-departement', label: 'Prefet par département' }
+    { value: 'prefet-region', label: 'Préfet par région' },
+    { value: 'prefet-departement', label: 'Préfet par département' }
   ];
   return (
     <>
-      <p>Accès OK ADMINNN</p>
       <div className="fr-form-group">
         <fieldset className="fr-fieldset fr-fieldset--inline">
           <legend className="fr-fieldset__legend fr-text--regular" id="radio-inline-legend">
-            Légende pour l’ensemble de champs
+          L&eacute;gende pour l&rsquo;ensemble de champs
           </legend>
           <div className="fr-fieldset__content">
             {arrayOption.map((option, key) =>

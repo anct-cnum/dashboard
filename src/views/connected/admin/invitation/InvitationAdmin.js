@@ -11,13 +11,15 @@ export default function InvitationAdmin() {
   const [activeMessage, setActiveMessage] = useState(false);
 
   const sendInvitation = () => {
-    if (valideEmail.test(email)) {
-      // dispatch(InvitationActions.inviteAccountAdmin(email));
-      setActiveMessage(false);
-      window.scrollTo(0, 0);
-    } else {
+    if (!valideEmail.test(email)) {
       setActiveMessage(true);
     }
+    dispatch(InvitationActions.inviteAccountAdmin(email));
+    setActiveMessage(false);
+    window.scrollTo(0, 0);
+    setTimeout(() => {
+      dispatch(InvitationActions.resetInvitation());
+    }, 10000);
   };
 
   return (
