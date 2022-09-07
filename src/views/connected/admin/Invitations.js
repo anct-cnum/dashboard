@@ -4,7 +4,7 @@ import Invitation from './invitation';
 import { Oval } from 'react-loader-spinner';
 
 export default function Invitations() {
-  const { error, success, loading } = useSelector(state => state.invitation);
+  const { error, success, loading } = useSelector(state => state.invitations);
   
   return (
     <div className="fr-container fr-my-10w">

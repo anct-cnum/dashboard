@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 function App() {
 
   const exports = useSelector(state => state.exports);
-  const loading = useSelector(state => state.invitation.loading);
+  const loading = useSelector(state => state.invitations.loading);
   return (
     <div className="App">
       { (exports?.loading === true) || (loading === true) &&

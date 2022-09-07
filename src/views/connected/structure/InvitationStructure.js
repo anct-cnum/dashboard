@@ -19,7 +19,7 @@ export default function InvitationMulticompteStructure() {
       dispatch(InvitationActions.resetInvitation());
     }, 10000);
   };
-  const { error, success, loading } = useSelector(state => state.invitation);
+  const { error, success, loading } = useSelector(state => state.invitations);
 
   return (
     <div style={{ width: '50%' }}>
