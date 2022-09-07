@@ -40,7 +40,7 @@ export default function InvitationPrefet({ option }) {
       {option === 'prefet-departement' && (
         <div>
           <label className="fr-label">
-            Adresse préfecture par département :{' '}
+            Adresse pr&eacute;fecture par d&eacute;partement :{' '}
           </label>
           <span>
             <select
@@ -58,7 +58,7 @@ export default function InvitationPrefet({ option }) {
       )}
       {option === 'prefet-region' && (
         <div>
-          <label className="fr-label">Adresse préfecture par région :</label>
+          <label className="fr-label">Adresse pr&eacute;fecture par région :</label>
           <span>
             <select
               className="fr-select"
@@ -74,7 +74,7 @@ export default function InvitationPrefet({ option }) {
         </div>
       )}
       <div className="fr-my-3w">
-        <label className="fr-label">Adresse email à ajouter</label>
+        <label className="fr-label">Adresse mail à ajouter</label>
         <input
           name="email"
           type="text"
@@ -82,12 +82,6 @@ export default function InvitationPrefet({ option }) {
           onChange={handleChange}
           className="fr-input"
         />
-        {email && !checkEmail(email) && (
-          <span>
-            L&apos;adresse email doit &ecirc;tre du nom de domaine{' '}
-            <strong>gouv.fr</strong>.
-          </span>
-        )}
         {email && !checkEmail(email) && (
           <span>
             L&apos;adresse email doit &ecirc;tre du nom de domaine{' '}

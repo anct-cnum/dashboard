@@ -50,7 +50,7 @@ export default function InvitationMulticompteStructure() {
         <label className="fr-label">Email</label>
         <input className="fr-input" type="email" id="text-input-text" name="email" value={email} onChange={e => setEmail(e.target.value)} />
         { email && !valideEmail.test(email) && activeMessage &&
-          <div className="invalid">Le format de l&rsquo;email saisi est invalide.</div>
+          <div className="invalid">Le format de l&rsquo;adresse mail saisi est invalide.</div>
         }
       </div>
       <button onClick={() => setEmail('')} className="fr-btn">Annuler</button>

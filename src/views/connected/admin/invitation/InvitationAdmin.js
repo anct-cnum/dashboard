@@ -36,7 +36,7 @@ export default function InvitationAdmin() {
         />
         {email && !valideEmail.test(email) && activeMessage && (
           <div className="invalid">
-            Le format de l&rsquo;email saisi est invalide.
+            Le format de l&rsquo;adresse mail saisi est invalide.
           </div>
         )}
       </div>
