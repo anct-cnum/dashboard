@@ -84,13 +84,13 @@ export default function InvitationPrefet({ option }) {
         />
         {email && !checkEmail(email) && (
           <span>
-            L&apos;adresse email doit être du nom de domaine{' '}
+            L&apos;adresse email doit &ecirc;tre du nom de domaine{' '}
             <strong>gouv.fr</strong>.
           </span>
         )}
         {email && !checkEmail(email) && (
           <span>
-            L&apos;adresse email doit être du nom de domaine{' '}
+            L&apos;adresse email doit &ecirc;tre du nom de domaine{' '}
             <strong>gouv.fr</strong>.
           </span>
         )}
