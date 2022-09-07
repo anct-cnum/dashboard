@@ -8,9 +8,9 @@ import ElementText from './ElementText';
 function StatistiquesAccompagnements({ nbAccompagnement }) {
   return (
     <div className="fr-grid-row">
-      <div className="fr-col-12 fr-col-md-3"><ElementNumber nombre={nbAccompagnement}
+      <div className="fr-col-12 fr-col-md-3 print-chiffre"><ElementNumber nombre={nbAccompagnement}
         classe="numbers"/></div>
-      <div className="fr-col-12 fr-col-md-9"><ElementText textePluralize={
+      <div className="fr-col-12 fr-col-md-9 print-texte"><ElementText textePluralize={
         <Pluralize
           zero={'accompagnement total enregistré (dont récurrent)'}
           singular={'accompagnement total enregistré (dont récurrent)'}

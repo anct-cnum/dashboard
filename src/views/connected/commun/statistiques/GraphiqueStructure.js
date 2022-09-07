@@ -41,15 +41,15 @@ export default function GraphiqueTerritoire() {
     <div className="statistiques">
       <Spinner loading={donneesStatistiquesLoading} />
       <Alerte display={donneesStatistiquesError} type="error" titre="Les statistiques n'ont pas pu être chargées !"/>
-      <div className="nationales fr-container fr-my-10w">
+      <div className="structure fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
             <h1 className="titre">Statistiques - {structure?.nom}</h1>
           </div>
-          <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w">
+          <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w print-graphique">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
           </div>
-          <div className="fr-col-12 fr-col-md-6 fr-col-lg-3 fr-mb-6w">
+          <div className="fr-col-12 fr-col-md-6 fr-col-lg-3 fr-mb-6w print-graphique">
             {idStructure !== undefined &&
               <ElementCodePostal idStructure={idStructure} />
             }

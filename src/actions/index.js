@@ -5,3 +5,4 @@ export * from './paginationActions';
 export * from './filtresEtTrisActions';
 export * from './structuresActions';
 export * from './exportsActions';
+export * from './alerteEtSpinnerActions';

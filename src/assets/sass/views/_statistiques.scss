@@ -352,11 +352,8 @@
   header, footer, .no-print {
     display: none;
   }
-  .nationales{
-    margin-top:0px !important;
-  }
   .fr-mb-6w, .fr-m-7w, .fr-mb-5w, .fr-mt-3v {
-    margin: 1rem !important;
+    margin: 1rem 0 !important;
   }
   .print-graphique.fr-col-12{
     flex: 0 0 100%;
@@ -369,9 +366,29 @@
   .print-blank {
     margin-top: 15rem !important;
   }
+  .nationales, .structure, .territoire {
+    margin-top:0px !important;
+  }
+  .structure, .territoire {
+    .print-chiffre {
+      flex: 0 0 100%;
+      max-width: 100%;
+      width: 100%;
+      .numbers-renewal, .many-numbers, .number, .numbers {
+        text-align: left !important;
+      }
+    }
+    .print-texte {
+      flex: 0 0 100%;
+      max-width: 100%;
+      width: 100%;
+    }
+    .fr-m-5w {
+      margin: 1.5rem 0 !important;
+    }
+  }
 }
-@page 
-{
+@page {
   size: auto;
   margin: 0mm; 
 }

@@ -9,9 +9,9 @@ function StatistiquesAteliers({ nbAteliers, nbTotalParticipant }) {
 
   return (
     <div className="fr-grid-row">
-      <div className="fr-col-12 fr-col-md-3"><ElementNumber nombre={nbAteliers}
+      <div className="fr-col-12 fr-col-md-3 print-chiffre"><ElementNumber nombre={nbAteliers}
         classe="numbers"/></div>
-      <div className="fr-col-12 fr-col-md-9"><ElementText textePluralize={
+      <div className="fr-col-12 fr-col-md-9 print-texte"><ElementText textePluralize={
         <Pluralize
           zero={'atelier réalisé, dont :'}
           singular={'atelier réalisé, dont :'}
@@ -19,9 +19,9 @@ function StatistiquesAteliers({ nbAteliers, nbTotalParticipant }) {
           count={nbAteliers}
           showCount={false} />
       } classe="text"/><br/></div>
-      <div className="fr-col-12 fr-col-md-3"><ElementNumber nombre={nbTotalParticipant}
+      <div className="fr-col-12 fr-col-md-3 print-chiffre"><ElementNumber nombre={nbTotalParticipant}
         classe="numbers"/></div>
-      <div className="fr-col-12 fr-col-md-9"><ElementText textePluralize={
+      <div className="fr-col-12 fr-col-md-9 print-texte"><ElementText textePluralize={
         <Pluralize
           zero={'participant au total'}
           singular={'participant au total'}
