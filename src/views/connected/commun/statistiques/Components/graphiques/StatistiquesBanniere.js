@@ -53,9 +53,17 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
   return (
     <div className="fr-col-11 no-print">
       <div className="fr-container-fluid">
-        <div className="fr-grid-row fr-grid-row--center">
-          <div className="fr-col-xs-6 fr-col-sm-6 fr-col-md-5 fr-col-lg-4 fr-mt-5w centrerTexte">
-            <div className="fr-mb-2v">Exporter cette page</div>
+        <div className={`${typeStats !== 'nationales' ? 'fr-grid-row' : 'fr-grid-row--center'}`}>
+          {typeStats !== 'nationales' &&
+            <div className="fr-col-12 fr-col-md-3 fr-mt-6w">
+              <Link to={linkTo}>
+                <i className="fr-fi-arrow-left-line"/> Page pr&eacute;c&eacute;dente
+              </Link>
+            </div>
+          }
+          
+          <div className={`centrerTexte ${typeStats !== 'nationales' ? 'fr-col-12 fr-col-md-6' : 'fr-col-xs-6 fr-col-sm-6 fr-col-md-5 fr-col-lg-4 fr-mt-5w'}`}>
+            <div className="fr-mb-2v ">Exporter cette page</div>
             <button className="statistiques-btn" onClick={() => {
               save('pdf');
             }}>Format PDF</button>
@@ -65,21 +73,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
             }}>Format CSV</button>
           </div>
         </div>
-        {typeStats !== 'nationales' &&
-          <div className="fr-grid-row fr-grid-row--center">
-            <div className="fr-col-xs-6 fr-col-sm-6 fr-col-md-7 fr-col-lg-8 afficher-etapes">
-              <ul className="fr-footer__bottom-list liste-action">
-                <li className="fr-footer__bottom-item">
-                  <Link className="fr-footer__bottom-link fr-pr-sm-1w" style={{ boxShadow: 'none', color: '#8585F6', fontSize: '16px' }}
-                    to={linkTo}>
-                    <span style={{ paddingLeft: '8px' }}>Page pr&eacute;c&eacute;dente</span>
-                  </Link>
-                </li>
-              </ul>
-              <div className="fr-m-5w"></div>
-            </div>
-          </div>
-        }
+
       </div>
     </div>
   );
