@@ -55,11 +55,11 @@ function inviteAccountAdmin(email) {
   }
 }
 
-function inviteStructure(email) {
+function inviteStructure(body) {
   return dispatch => {
     dispatch(request());
   
-    invitationService.inviteStructure(email)
+    invitationService.inviteStructure(body)
     .then(
       succesInviteAccountMulticompteSA => {
         dispatch(success(succesInviteAccountMulticompteSA));

@@ -12,7 +12,7 @@ export default function InvitationMulticompteStructure() {
     if (!valideEmail.test(email)) {
       setActiveMessage(true);
     }
-    dispatch(InvitationActions.inviteStructure(email));
+    dispatch(InvitationActions.inviteStructure({ email, structureId: '604218a24959f620858b9248' }));
     setActiveMessage(false);
     window.scrollTo(0, 0);
     setTimeout(() => {

@@ -36,7 +36,7 @@ function inviteAccountAdmin(email) {
 
   return fetch(apiUrl, requestOptions).then(handleResponse);
 }
-function inviteStructure(email) {
+function inviteStructure(body) {
   const apiUrl = `${process.env.REACT_APP_API_URL}/inviteStructure?role=${roleActivated()}`;
 
   const requestOptions = {
@@ -45,7 +45,7 @@ function inviteStructure(email) {
       { 'Content-Type': 'application/json' },
       authHeader()
     ),
-    body: JSON.stringify({ email }),
+    body: JSON.stringify(body),
   };
 
   return fetch(apiUrl, requestOptions).then(handleResponse);

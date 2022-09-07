@@ -62,7 +62,7 @@ export default function InvitationPrefet({ option }) {
           <span>
             <select
               className="fr-select"
-              onChange={e => setLocalite({ departement: e.target.value })}
+              onChange={e => setLocalite({ region: e.target.value })}
             >
               {Region.map((region, idx) => (
                 <option key={idx} value={region.code}>
