@@ -6,8 +6,7 @@ function MesInformations() {
   const dispatch = useDispatch();
   const userAuth = useSelector(state => state.authentication.user);
   const [form, setForm] = useState(false);
-  const error = useSelector(state => state?.user?.patchError);
-  const user = useSelector(state => state?.user);
+  const error = useSelector(state => state?.user?.error);
   const [email, setEmail] = useState(userAuth.name);
   const [flashMessage, setFlashMessage] = useState(false);
 
@@ -26,16 +25,16 @@ function MesInformations() {
 
   return (
     <div className="fr-mt-5w fr-mb-5w">
-      {flashMessage === true && user.flashMessage === true ?
+      {flashMessage === true ?
         <div>
           {(error === undefined || error === false) &&
           <div className="fr-alert fr-alert--success fr-alert--sm fr-mb-4w">
-            <p>Nous vous avons envoyé un mail à : <strong style={{ color: 'black' }}>{email}</strong> pour confirmation</p>
+            <p>Un mail de confirmation a &eacute;t&eacute; envoy&eacute; sur l&rsquo;email <strong style={{ color: 'black' }}>{email}</strong></p>
           </div>
           }
           {(error !== undefined && error !== false) &&
         <div className="fr-alert fr-alert--error fr-alert--sm fr-mb-4w">
-          <p>Information : {error}</p>
+          <p>Erreur : {error}</p>
         </div>
           }
         </div> :

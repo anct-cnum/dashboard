@@ -8,8 +8,8 @@ export default function Hub() {
   return (
     <>
       <Routes>
-        <Route path="/hub_coop/exports" element={<Exports />} />
         <Route path="/hub_coop/informations" element={<MesInformations />} />
+        <Route path="/hub_coop/exports" element={<Exports />} />
       </Routes>
     </>
   );

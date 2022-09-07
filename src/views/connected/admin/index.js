@@ -8,8 +8,8 @@ export default function Admin() {
   return (
     <>
       <Routes>
-        <Route path="/admin/exports" element={<Exports />} />
         <Route path="/admin/informations" element={<MesInformations />} />
+        <Route path="/admin/exports" element={<Exports />} />
       </Routes>
     </>
   );

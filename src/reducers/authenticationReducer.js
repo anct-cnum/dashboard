@@ -1,5 +1,5 @@
-import { roleActivated, rolesUser, getUser } from '../helpers';
-
+import { roleActivated, rolesUser } from '../helpers';
+import { getUser } from '../helpers/getUser';
 const initialState = {
   roleActivated: roleActivated(),
   rolesAllowed: rolesUser(),

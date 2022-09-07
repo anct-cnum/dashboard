@@ -1,5 +1,6 @@
 import { authenticationService } from './authenticationService';
 import { roleActivated, authHeader } from '../helpers';
+import apiUrlRoot from '../helpers/apiUrl';
 
 export const userService = {
   confirmeUserEmail,
@@ -8,7 +9,6 @@ export const userService = {
 };
 
 function confirmeUserEmail(token) {
-  const apiUrlRoot = process.env.REACT_APP_API_URL;
   const requestOptions = {
     method: 'PATCH',
     headers: authHeader(),
@@ -18,7 +18,6 @@ function confirmeUserEmail(token) {
 }
 
 function updateUserEmail(id, newEmail) {
-  const apiUrlRoot = process.env.REACT_APP_API_URL;
   const requestOptions = {
     method: 'PATCH',
     headers: Object.assign({ 'Content-Type': 'application/json' }, authHeader()),
@@ -30,7 +29,6 @@ function updateUserEmail(id, newEmail) {
 }
 
 function verifyToken(token) {
-  const apiUrlRoot = process.env.REACT_APP_API_URL;
   const requestOptions = {
     method: 'GET'
   };

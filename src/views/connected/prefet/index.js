@@ -8,8 +8,8 @@ export default function Prefet() {
   return (
     <>
       <Routes>
-        <Route path="/prefet/exports" element={<Exports />} />
         <Route path="/prefet/informations" element={<MesInformations />} />
+        <Route path="/prefet/exports" element={<Exports />} />
       </Routes>
     </>
   );

@@ -8,8 +8,8 @@ export default function Structure() {
   return (
     <>
       <Routes>
-        <Route path="/structure/exports" element={<Exports />} />
         <Route path="/structure/informations" element={<MesInformations />} />
+        <Route path="/structure/exports" element={<Exports />} />
       </Routes>
     </>
   );

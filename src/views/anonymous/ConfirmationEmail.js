@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../actions';
 import { useParams, useNavigate } from 'react-router-dom';
 
-function EmailConfirmer() {
+function ConfirmationEmail() {
   const { token } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,24 +24,20 @@ function EmailConfirmer() {
 
   return (
     <div className="fr-container fr-my-10w">
-      <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
+      <div className="fr-grid-row fr-grid-row--center">
         <div className="fr-grid-row fr-grid-row--center fr-mt-3w">
           <div style={{ textAlign: 'center' }}>
             {user?.tokenVerified === true &&
-              <div>
-                <p className="fr-label flashBag" style={{ fontSize: '16px' }}>
-                  La confirmation de votre e-mail a été effectuée avec succès
-                  &nbsp;
-                  <i className="ri-check-line ri-xl" style={{ verticalAlign: 'middle' }}></i>
-                </p>
-                <h3>Nous allons vous rediriger sur la page de connexion...</h3>
+              <div className="fr-alert fr-alert--success">
+                <p className="fr-alert__title">La confirmation de votre e-mail a &eacute;t&eacute; effectu&eacute;e avec succ&egrave;s</p>
+                <p>Nous allons vous rediriger sur la page de connexion...</p>
               </div>
             }
             {user?.tokenVerified === false &&
-              <p className="fr-label flashBag labelError" style={{ fontSize: '16px' }}>
-                La confirmation de votre e-mail a échoué, <br />
-                veuillez réessayer plus tard
-              </p>
+              <div className="fr-alert fr-alert--error">
+                <p className="fr-alert__title">La confirmation de votre e-mail a &eacute;chou&eacute;</p>
+                <p>Veuillez r&eacute;essayer plus tard</p>
+              </div>
             }
           </div>
         </div>
@@ -50,4 +46,4 @@ function EmailConfirmer() {
   );
 }
 
-export default EmailConfirmer;
+export default ConfirmationEmail;
