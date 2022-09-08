@@ -89,14 +89,3 @@ jobs:
           FOLDER: build
           SSH_PRIVATE_KEY: ${{ secrets.CLEVER_CLOUD_DEPLOY_PRIVATE_KEY }}
           KNOWN_HOSTS_FILE: resources/known_hosts
-      - uses: actions/checkout@v2
-      - name: Create Sentry release
-        uses: getsentry/action-release@v1
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_PILOTAGE_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_BETA_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PILOTAGE_PROJECT }}
-          SENTRY_URL: ${{ secrets.SENTRY_BETA_URL }}
-        with:
-          environment: recette
-          ignore_missing: true
