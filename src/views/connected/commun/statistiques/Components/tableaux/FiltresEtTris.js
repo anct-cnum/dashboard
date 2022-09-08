@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
-import download from 'downloadjs';
 
-import { filtresEtTrisActions, statistiquesActions } from '../../../../../../actions';
+import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
+import { exportsActions, filtresEtTrisActions, statistiquesActions } from '../../../../../../actions';
 
 import Spinner from '../../../../../../components/Spinner';
 import BlockDatePickers from '../commun/BlockDatePickers';
@@ -25,19 +25,33 @@ function FiltresEtTris({ resetPage }) {
   const ordre = useSelector(state => state.filtresEtTris?.ordre);
   const pagination = useSelector(state => state.pagination);
 
-  const exportTerritoireFileBlob = useSelector(state => state.statistiques?.exportTerritoireFileBlob);
-  const exportTerritoireFileError = useSelector(state => state.statistiques?.exportTerritoireFileError);
-  const downloading = useSelector(state => state.statistiques?.downloading);
+  const exportTerritoireFileBlob = useSelector(state => state.exports);
+  const exportTerritoireFileError = useSelector(state => state.exports?.error);
+  const loading = useSelector(state => state.exports?.loading);
 
   const has = value => value !== null && value !== undefined;
 
+  const handleTerritoire = e => {
+    dispatch(filtresEtTrisActions.changeTerritoire(e.target.value));
+  };
+
+  const exportDonneesTerritoire = () => {
+    dispatch(exportsActions.exportDonneesTerritoire(territoire, dateDebut, dateFin, ordreNom, ordre ? 1 : -1));
+  };
+
   useEffect(() => {
-    if (!has(exportTerritoireFileBlob) || has(exportTerritoireFileError)) {
-      return;
+    if (has(exportTerritoireFileBlob?.blob) && exportTerritoireFileError === false) {
+      exportTerritoireFileBlob.nameFile = 'statistiques-territoires';
+      downloadFile(exportTerritoireFileBlob);
+      dispatch(exportsActions.resetFile());
     }
-    download(exportTerritoireFileBlob, 'export-territoires.csv');
-    dispatch(statistiquesActions.resetExportDonneesTerritoire());
-  }, [exportTerritoireFileBlob, exportTerritoireFileError]);
+  }, [exportTerritoireFileBlob]);
+
+  useEffect(() => {
+    if (exportTerritoireFileError !== false) {
+      scrollTopWindow();
+    }
+  }, [exportTerritoireFileError]);
 
   useEffect(() => {
     if (location.pathname === '/statistiques-territoires') {
@@ -47,18 +61,9 @@ function FiltresEtTris({ resetPage }) {
     }
 
   }, [dateDebut, dateFin, territoire]);
-
-  const handleTerritoire = e => {
-    dispatch(filtresEtTrisActions.changeTerritoire(e.target.value));
-  };
-
-  const exportDonneesTerritoire = () => {
-    dispatch(statistiquesActions.exportDonneesTerritoire(territoire, dateDebut, dateFin, ordreNom, ordre ? 1 : -1));
-  };
-
   return (
     <>
-      <Spinner loading={downloading}/>
+      <Spinner loading={loading}/>
       <div className="fr-container--fluid">
         <div className="fr-grid-row fr-grid-row--end">
           { location.pathname === '/statistiques-territoires' &&

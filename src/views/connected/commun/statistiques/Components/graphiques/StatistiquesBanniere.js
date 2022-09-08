@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { statistiquesActions } from '../../../../../../actions';
 
 function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal }) {
@@ -34,7 +35,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
   }
 
   function save(extension) {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    scrollTopWindow();
     const type = getTypeStatistique(typeStats);
     if (extension === 'pdf') {
       window.print();

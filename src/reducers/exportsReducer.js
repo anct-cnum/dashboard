@@ -1,5 +1,6 @@
 const initialState = {
   loading: false,
+  error: false,
   blob: null
 };
   
@@ -39,7 +40,7 @@ export default function exports(state = initialState, action) {
     case 'EXPORT_TERRITOIRE_SUCCESS':
       return {
         ...state,
-        exportTerritoireFileBlob: action.exportTerritoireFileBlob,
+        blob: action.exportTerritoireFileBlob,
         loading: false,
       };
     case 'EXPORT_TERRITOIRE_FAILURE':
@@ -50,7 +51,7 @@ export default function exports(state = initialState, action) {
       };
     case 'EXPORT_TERRITOIRE_RESET': {
       const {
-        exportTerritoireFileBlob: _file,
+        blob: _file,
         error: _error,
         ...nextState
       } = state;
