@@ -24,9 +24,9 @@ function CustomDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin }) {
 
   const CustomDateInput = forwardRef(
     ({ value, onClick }, ref) => (
-      <span className={active ? 'date-btn date-active' : 'date-btn' } onClick={onClick} ref={ref}>
+      <span className={`date-btn ${active ?? 'date-active'}` } onClick={onClick} ref={ref}>
         <b>{value}</b>
-        <i className={active ? 'fr-icon-arrow-up-s-line chevron-stats' : 'fr-icon-arrow-down-s-line chevron-stats' }></i>
+        <i className={`chevron-stats ${active ? 'fr-icon-arrow-up-s-line' : 'fr-icon-arrow-down-s-line chevron-stats'}` }></i>
       </span>
     ),
   );

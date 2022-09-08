@@ -19,10 +19,10 @@ export default function Alerte() {
       }, 5000);
     }
   }, [alerte]);
-
+  
   return (
     <>
-      { alerte?.type !== null &&
+      { alerte?.type &&
         <div className={'fr-my-6w fr-container'} >
           <div className="fr-grid-row">
             <div className="fr-col-12">
