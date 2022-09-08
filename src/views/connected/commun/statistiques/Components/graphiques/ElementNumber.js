@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function ElementNumber(props) {
-
-  let chaine = (props.caracteresSpeciaux) ? props.caracteresSpeciaux : '';
   return (
-    <div className={props.classe}>{props.nombre}{chaine}</div>
+    <div className={props.classe}>{props.nombre}{props.caracteresSpeciaux ?? ''}</div>
   );
 }
 

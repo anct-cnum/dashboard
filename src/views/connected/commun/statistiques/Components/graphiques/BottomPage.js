@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import ElementHighcharts from './ElementHighcharts';
-import { sortByMonthAndYear } from '../utils/functionsSort';
+import { sortByMonthAndYear, get4lastMonths } from '../utils/functionsSort';
 import { getStyle } from '../utils/functionsStyle';
 import { getGraphiqueEvolution, getGraphiqueStacked, getGraphiquePie } from '../utils/functionsGraphique';
 import largeurEcran from '../utils/functionsLargeurEcran';
@@ -19,20 +19,6 @@ function BottomPage({ donneesStats }) {
   const tabColorStatut = getStyle('statut');
   const tabColorReorientation = getStyle('reorientation');
   const largeur = largeurEcran();
-
-  const get4lastMonths = (month, year) => {
-    let monthToPrint = [month];
-    let yearAssociated = [year];
-    let lastInsertedMonth = month;
-    let lastInsertedYear = year;
-    for (let i = 0; i < 3; i++) {
-      lastInsertedYear = lastInsertedMonth - 1 === -1 ? lastInsertedYear - 1 : lastInsertedYear;
-      lastInsertedMonth = lastInsertedMonth - 1 === -1 ? 11 : lastInsertedMonth - 1; //11 = décembre dans Date
-      monthToPrint.push(lastInsertedMonth);
-      yearAssociated.push(lastInsertedYear.toString());
-    }
-    return [monthToPrint, yearAssociated];
-  };
 
   const { statsEvolutions, statsUsagers, statsAges, statsReorientations } = donneesStats;
 

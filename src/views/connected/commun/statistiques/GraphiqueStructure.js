@@ -32,20 +32,28 @@ export default function GraphiqueStructure() {
   const dateFin = useSelector(state => state.statistiques?.dateFin);
 
   useEffect(() => {
-    if (!structureError && !statistiquesError) {
-      if (!structure) {
-        dispatch(structuresActions.getStructure(idStructure));
-      } else if (structure && !donneesStatistiques) {
-        dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal));
-      }
-    } else {
+    if (!structureError && !structure) {
+      dispatch(structuresActions.getStructure(idStructure));
+    } else if (structureError) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: structure ? 'Les statistiques n\'ont pas pu être chargés !' : 'La structure n\'a pas pu être chargée !',
+        message: 'La structure n\'a pas pu être chargée !',
         status: null, description: null
       }));
     }
-  }, [structureError, statistiquesError]);
+  }, [structure, structureError]);
+
+  useEffect(() => {
+    if (!statistiquesError && structure) {
+      dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal));
+    } else if (statistiquesError) {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'Les statistiques n\'ont pas pu être chargés !',
+        status: null, description: null
+      }));
+    }
+  }, [dateDebut, dateFin, idStructure, codePostal, statistiquesError, structure]);
 
   return (
     <div className="statistiques">
