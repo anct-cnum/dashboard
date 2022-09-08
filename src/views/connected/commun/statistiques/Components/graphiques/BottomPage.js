@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import ElementHighcharts from './ElementHighcharts';
 import { sortByMonthAndYear, get4lastMonths } from '../utils/functionsSort';
@@ -14,6 +14,8 @@ require('dayjs/locale/fr');
 function BottomPage({ donneesStats }) {
 
   const dispatch = useDispatch();
+
+  const listeAutres = useSelector(states => states.statistiques?.listeAutresReorientations);
 
   const tabColorAge = getStyle('age');
   const tabColorStatut = getStyle('statut');
@@ -113,7 +115,7 @@ function BottomPage({ donneesStats }) {
       <div className="fr-col-12 col-offset-md-1 fr-col-md-5 fr-col-lg-11 fr-mt-6w" >
         <div className="print-blank"></div>
         <div className="fr-mb-5w hide-graphique-xs"><hr/></div>
-        <ElementHighcharts donneesStats={statsReorientations} variablesGraphique={graphiqueReorientations} listeAutres={[]}/>
+        <ElementHighcharts donneesStats={statsReorientations} variablesGraphique={graphiqueReorientations} listeAutres={listeAutres}/>
         <div className="fr-m-no-reorientation"></div>
       </div>
       }
