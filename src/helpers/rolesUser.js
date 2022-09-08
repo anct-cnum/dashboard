@@ -1,6 +1,6 @@
 export function rolesUser() {
   const user = JSON.parse(localStorage.getItem('user'));
-  return user?.user?.roles ?? {};
+  return user?.user?.roles ?? [];
 }
 
 export function roleActivated() {
