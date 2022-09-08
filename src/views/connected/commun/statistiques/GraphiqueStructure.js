@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { paginationActions, statistiquesActions, structuresActions } from '../../../../actions';
+import { alerteEtSpinnerActions, statistiquesActions, structuresActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
-import Alerte from '../../../../components/Alerte';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
 import ElementCodePostal from './Components/graphiques/ElementCodePostal';
 import LeftPage from './Components/graphiques/LeftPage';
@@ -13,34 +12,44 @@ import RightPage from './Components/graphiques/RightPage';
 import BottomPage from './Components/graphiques/BottomPage';
 import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 
-export default function GraphiqueTerritoire() {
+export default function GraphiqueStructure() {
 
   const dispatch = useDispatch();
   const location = useLocation();
 
   const idStructure = location.pathname.split('/')[2];
 
-  const donneesStatistiquesLoading = useSelector(state => state.statistiques?.statsDataLoading);
-  const donneesStatistiquesError = useSelector(state => state.statistiques?.statsDataError);
+  const structureLoading = useSelector(state => state.structures?.loading);
+  const structureError = useSelector(state => state.structures?.error);
+  const structure = useSelector(state => state.structures?.structure);
+
+  const statistiquesLoading = useSelector(state => state.statistiques?.loading);
+  const statistiquesError = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
+
   const codePostal = useSelector(state => state.statistique?.codePostalStats);
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
   const dateFin = useSelector(state => state.statistiques?.dateFin);
-  const structure = useSelector(state => state.structures?.structure);
 
   useEffect(() => {
-    if (structure) {
-      dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal));
+    if (!structureError && !statistiquesError) {
+      if (!structure) {
+        dispatch(structuresActions.getStructure(idStructure));
+      } else if (structure && !donneesStatistiques) {
+        dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal));
+      }
     } else {
-      dispatch(structuresActions.getStructure(idStructure));
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: structure ? 'Les statistiques n\'ont pas pu être chargés !' : 'La structure n\'a pas pu être chargée !',
+        status: null, description: null
+      }));
     }
-    dispatch(paginationActions.resetPage(false));
-  }, [dateDebut, dateFin, codePostal, structure]);
+  }, [structureError, statistiquesError]);
 
   return (
     <div className="statistiques">
-      <Spinner loading={donneesStatistiquesLoading} />
-      <Alerte display={donneesStatistiquesError} type="error" titre="Les statistiques n'ont pas pu être chargées !"/>
+      <Spinner loading={statistiquesLoading && structureLoading} />
       <div className="structure fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
@@ -50,7 +59,7 @@ export default function GraphiqueTerritoire() {
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-3 fr-mb-6w print-graphique">
-            {idStructure !== undefined &&
+            {structure !== undefined &&
               <ElementCodePostal idStructure={idStructure} />
             }
           </div>

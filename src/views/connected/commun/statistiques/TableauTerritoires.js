@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { filtresEtTrisActions, statistiquesActions } from '../../../../actions';
+import { alerteEtSpinnerActions, filtresEtTrisActions, statistiquesActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
-import Alerte from '../../../../components/Alerte';
 import Pagination from '../../../../components/Pagination';
 import FiltresEtTris from './Components/tableaux/FiltresEtTris';
 import Territoire from './Components/tableaux/Territoire';
@@ -15,9 +14,9 @@ export default function TableauTerritoires() {
   const dispatch = useDispatch();
   const location = useLocation();
 
+  const loading = useSelector(state => state.statistiques?.loading);
+  const error = useSelector(state => state.statistiques?.error);
   const territoires = useSelector(state => state.statistiques?.statsTerritoires);
-  const statsTerritoiresLoading = useSelector(state => state.statistiques?.statsTerritoiresLoading);
-  const statsTerritoiresError = useSelector(state => state.statistiques?.statsTerritoiresError);
   const pagination = useSelector(state => state.pagination);
 
   const dateDebut = useSelector(state => state.filtresEtTris?.dateDebut);
@@ -46,15 +45,23 @@ export default function TableauTerritoires() {
   }, [territoires]);
 
   useEffect(() => {
-    const page = (pagination?.resetPage === false && location.currentPage !== undefined) ? location.currentPage : 1;
-    dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, page, ordreNom, ordre ? 1 : -1));
+    if (!error) {
+      const page = (pagination?.resetPage === false && location.currentPage !== undefined) ? location.currentPage : 1;
+      dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, page, ordreNom, ordre ? 1 : -1));
+    } else {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'Les statistiques n\'ont pas pu être chargées !',
+        status: null, description: null
+      }));
+    }
 
-  }, [ordre, ordreNom]);
+
+  }, [ordre, ordreNom, error]);
 
   return (
     <div className="statistiques">
-      <Spinner loading={statsTerritoiresLoading} />
-      <Alerte display={statsTerritoiresError} type="error" titre="Les statistiques n'ont pas pu être chargées !"/>
+      <Spinner loading={loading} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
@@ -158,7 +165,7 @@ export default function TableauTerritoires() {
                         </tr>
                       </thead>
                       <tbody>
-                        {!statsTerritoiresError && !statsTerritoiresLoading && territoires?.items?.data?.map((territoire, idx) => {
+                        {!error && !loading && territoires?.items?.data?.map((territoire, idx) => {
                           return (<Territoire key={idx} territoire={territoire} filtreTerritoire={filtreTerritoire}
                             currentPage={page}/>);
                         })

@@ -9,9 +9,6 @@ export const statistiquesService = {
   getStatistiquesStructure,
   getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
-  getExportDonneesTerritoire,
-  getStatistiquesPDF,
-  getStatistiquesCSV,
 };
 
 function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page) {
@@ -107,47 +104,6 @@ function getCodesPostauxCrasConseillerStructure(idStructure) {
   return fetch(`${apiUrlRoot}/cra/codesPostaux/structure/${idStructure}`, requestOptions).then(handleResponse);
 }
 
-async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrdre, ordre) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports`;
-  const requestOptions = {
-    method: 'GET',
-    headers: Object.assign(
-      authHeader(), {
-        'Accept': 'text/plain',
-        'Content-Type': 'text/plain'
-      })
-  };
-
-  const exportTerritoiresRoute = '/territoires.csv/';
-  return handleFileResponse(
-    await fetch(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}`, requestOptions)
-  );
-}
-
-function getStatistiquesPDF(dateDebut, dateFin, type, idType, codePostal) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
-  const requestOptions = {
-    method: 'GET',
-    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
-  };
-  
-  // eslint-disable-next-line max-len
-  return fetch(`${apiUrlRoot}/admincoop/statistiques.pdf?dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}`,
-    requestOptions).then(response => !response.ok ? handleResponse(response) : handleFileResponse(response));
-}
-
-function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
-  const requestOptions = {
-    method: 'GET',
-    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
-  };
-
-  // eslint-disable-next-line max-len
-  return fetch(`${apiUrlRoot}/statistiques.csv?dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&conseillerIds=${conseillerIds}`,
-    requestOptions).then(handleFileResponse);
-}
-
 function handleResponse(response) {
   return response.text().then(text => {
     const data = text && JSON.parse(text);
@@ -164,19 +120,4 @@ function handleResponse(response) {
   });
 }
 
-function handleFileResponse(response) {
-  return response.blob().then(blob => {
-    if (!response.ok) {
-      if (response.status === 401) {
-        // auto logout if 401 response returned from api
-        authenticationService.logout();
-        history.push('/');
-      }
-      const error = (blob && blob.message) || response.statusText;
-      return Promise.reject(error);
-    }
-    
-    return blob;
-  });
-}
 

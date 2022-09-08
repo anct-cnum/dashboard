@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import { statistiquesActions } from '../../../../../../actions';
 
 function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal }) {
@@ -37,7 +38,6 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
     const type = getTypeStatistique(typeStats);
     if (extension === 'pdf') {
       window.print();
-      //dispatch(statistiquesActions.getStatistiquesPDF(dateDebut, dateFin, type, id, codePostal));
     } else if (extension === 'csv') {
       const conseillerIds = territoire?.conseillerIds ?? undefined;
       dispatch(statistiquesActions.getStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal));
@@ -61,8 +61,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
               </Link>
             </div>
           }
-          
-          <div className={`centrerTexte ${typeStats !== 'nationales' ? 'fr-col-12 fr-col-md-6' : 'fr-col-xs-6 fr-col-sm-6 fr-col-md-5 fr-col-lg-4 fr-mt-5w'}`}>
+          <div className={`centrerTexte ${typeStats !== 'nationales' ? 'fr-col-12 fr-col-md-6' : 'fr-col-12'}`}>
             <div className="fr-mb-2v ">Exporter cette page</div>
             <button className="statistiques-btn" onClick={() => {
               save('pdf');
@@ -73,7 +72,6 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
             }}>Format CSV</button>
           </div>
         </div>
-
       </div>
     </div>
   );

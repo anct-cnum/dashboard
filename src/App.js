@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import './assets/js';
 import './assets/sass/main.scss';
 import Header from './components/Header';
+import Alerte from './components/Alerte';
 import Documents from './views/connected/Documents';
 import Certifications from './views/connected/Certifications';
 import InscriptionFormation from './views/connected/InscriptionFormation';
@@ -18,17 +19,19 @@ import GraphiqueTerritoire from './views/connected/commun/statistiques/Graphique
 import TableauStructures from './views/connected/commun/statistiques/TableauStructures';
 import TableauTerritoires from './views/connected/commun/statistiques/TableauTerritoires';
 
+
 function App() {
 
-  const exports = useSelector(state => state.exports);
+  const isLoading = useSelector(state => state.alerteEtSpinner?.isLoading);
 
   return (
     <div className="App">
-      { exports?.loading === true &&
+      { isLoading === true &&
       <div className="wrapperModal"></div>
       }
       <Router history={history}>
         <Header />
+        <Alerte />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<PrivateRoute/>}>

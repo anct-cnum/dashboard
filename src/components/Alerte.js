@@ -1,33 +1,34 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function Alerte({ type, titre, description, fluid = '', display }) {
-  let messageType = '';
-  switch (type) {
-    case 'error':
-      messageType = 'Erreur';
-      break;
-    case 'warning':
-      messageType = 'Attention';
-      break;
-    case 'success':
-      messageType = 'Succès';
-      break;
-    case 'information':
-      messageType = 'Information';
-      break;
-    default:
-      break;
-  }
+import { alerteEtSpinnerActions } from '../actions';
+import codeAlertes from '../data/code_alertes.json';
+
+export default function Alerte() {
+  
+  const dispatch = useDispatch();
+
+  const alerte = useSelector(state => state.alerteEtSpinner?.alerte);
+
+  let messageType = codeAlertes.find(alert => alert.code === alerte?.type)?.correspondance;
+
+  useEffect(() => {
+    if (alerte?.type) {
+      setTimeout(() => {
+        dispatch(alerteEtSpinnerActions.resetMessageAlerte());
+      }, 5000);
+    }
+  }, [alerte]);
+
   return (
     <>
-      { display &&
-        <div className={'fr-my-6w fr-container' + fluid} >
+      { alerte?.type !== null &&
+        <div className={'fr-my-6w fr-container'} >
           <div className="fr-grid-row">
             <div className="fr-col-12">
-              <div className={'fr-alert fr-alert--' + type}>
-                <p className="fr-alert__title">{messageType} : {titre}</p>
-                <p>{description}</p>
+              <div className={'fr-alert fr-alert--' + alerte?.type}>
+                <p className="fr-alert__title">{messageType} : {alerte?.message}</p>
+                <p>{alerte?.description}</p>
               </div>
             </div>
           </div>
@@ -36,11 +37,3 @@ export default function Alerte({ type, titre, description, fluid = '', display }
     </>
   );
 }
-
-Alerte.propTypes = {
-  type: PropTypes.string,
-  titre: PropTypes.string,
-  description: PropTypes.string,
-  fluid: PropTypes.string,
-  display: PropTypes.bool,
-};

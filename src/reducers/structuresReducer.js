@@ -1,4 +1,7 @@
-const initialState = { };
+const initialState = {
+  loading: false,
+  error: false,
+};
 
 export default function structures(state = initialState, action) {
 
@@ -6,19 +9,19 @@ export default function structures(state = initialState, action) {
     case 'GET_STRUCTURE_REQUEST':
       return {
         ...state,
-        structureLoading: true,
-        structureError: false
+        loading: true,
+        error: false
       };
     case 'GET_STRUCTURE_SUCCESS':
       return {
         ...state,
         structure: action.structure,
-        structureLoading: false,
+        loading: false,
       };
     case 'GET_STRUCTURE_FAILURE':
       return {
-        structureError: action.error,
-        structureLoading: false,
+        error: action.error,
+        loading: false,
       };
     default:
       return state;

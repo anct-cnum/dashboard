@@ -4,8 +4,8 @@ const initialState = {
   dateFin: new Date(),
   codePostalStats: '',
   listeAutresReorientations: [],
-  statsDataError: false,
-  statsDataLoading: false,
+  error: false,
+  loading: false,
 };
 
 export default function statistiques(state = initialState, action) {
@@ -28,38 +28,38 @@ export default function statistiques(state = initialState, action) {
     case 'GET_CODES_POSTAUX_CRA_REQUEST':
       return {
         ...state,
-        codesPostauxLoading: true,
-        codesPostauxError: false,
+        loading: true,
+        error: false,
       };
     case 'GET_CODES_POSTAUX_CRA_SUCCESS':
       return {
         ...state,
         listeCodesPostaux: action.listeCodesPostaux,
-        codesPostauxLoading: false,
+        loading: false,
       };
     case 'GET_CODES_POSTAUX_CRA_FAILURE':
       return {
         ...state,
-        codesPostauxLoading: false,
-        codesPostauxError: true,
+        loading: false,
+        error: true,
       };
     case 'GET_STATS_CRA_NATIONALES_REQUEST':
       return {
         ...state,
-        statsDataLoading: true,
-        statsDataError: false,
+        loading: true,
+        error: false,
       };
     case 'GET_STATS_CRA_NATIONALES_SUCCESS':
       return {
         ...state,
         statsData: action.statsNationales,
-        statsDataLoading: false,
+        loading: false,
       };
     case 'GET_STATS_CRA_NATIONALES_FAILURE':
       return {
         ...state,
-        statsDataError: action.error,
-        statsDataLoading: false,
+        error: action.error,
+        loading: false,
       };
     case 'UPDATE_AUTRES_REORIENTATIONS':
       return {
@@ -69,161 +69,92 @@ export default function statistiques(state = initialState, action) {
     case 'GET_DATAS_STRUCTURES_REQUEST':
       return {
         ...state,
-        statistiquesStructuresLoading: true,
-        statistiquesStructuresError: false,
+        loading: true,
+        error: false,
       };
     case 'GET_DATAS_STRUCTURES_SUCCESS':
       return {
         ...state,
         statistiquesStructures: action.statsStructure,
-        statistiquesStructuresLoading: false,
+        loading: false,
       };
     case 'GET_DATAS_STRUCTURES_FAILURE':
       return {
         ...state,
-        statistiquesStructuresError: action.error,
-        statistiquesStructuresLoading: false,
+        error: action.error,
+        loading: false,
       };
     case 'GET_DATAS_TERRITOIRES_REQUEST':
       return {
         ...state,
-        statsTerritoiresLoading: true,
-        statsTerritoiresError: false,
+        loading: true,
+        error: false,
       };
     case 'GET_DATAS_TERRITOIRES_SUCCESS':
       return {
         ...state,
         statsTerritoires: action.statsTerritoires,
-        statsTerritoiresLoading: false,
+        loading: false,
       };
     case 'GET_DATAS_TERRITOIRES_FAILURE':
       return {
         ...state,
-        statsTerritoiresError: action.error,
-        statsTerritoiresLoading: false,
+        error: action.error,
+        loading: false,
       };
     case 'GET_TERRITOIRE_REQUEST':
       return {
         ...state,
-        territoireLoading: true,
-        territoireError: false,
+        loading: true,
+        error: false,
       };
     case 'GET_TERRITOIRE_SUCCESS':
       return {
         ...state,
         territoire: action.territoire,
-        territoireLoading: false,
+        loading: false,
       };
     case 'GET_TERRITOIRE_FAILURE':
       return {
         ...state,
-        territoireError: action.error,
-        territoireLoading: false,
+        error: action.error,
+        loading: false,
       };
     case 'GET_STATS_CRA_TERRITOIRE_REQUEST':
       return {
         ...state,
-        statsDataLoading: true,
-        statsDataError: false,
+        loading: true,
+        error: false,
       };
     case 'GET_STATS_CRA_TERRITOIRE_SUCCESS':
       return {
         ...state,
         statsData: action.statsTerritoire,
-        statsDataLoading: false,
+        loading: false,
       };
     case 'GET_STATS_CRA_TERRITOIRE_FAILURE':
       return {
         ...state,
-        statsDataError: action.error,
-        statsDataLoading: false,
+        error: action.error,
+        loading: false,
       };
     case 'GET_STATS_CRA_STRUCTURE_REQUEST':
       return {
         ...state,
-        statsDataLoading: true,
-        statsDataError: false,
+        loading: true,
+        error: false,
       };
     case 'GET_STATS_CRA_STRUCTURE_SUCCESS':
       return {
         ...state,
         statsData: action.statsStructure,
-        statsDataLoading: false,
+        loading: false,
       };
     case 'GET_STATS_CRA_STRUCTURE_FAILURE':
       return {
         ...state,
-        statsDataError: action.error,
-        statsDataLoading: false,
-      };
-    case 'GET_EXPORT_TERRITOIRE_REQUEST':
-      return {
-        ...state,
-        downloading: true,
-      };
-    case 'GET_EXPORT_TERRITOIRE_SUCCESS':
-      return {
-        ...state,
-        exportTerritoireFileBlob: action.exportTerritoireFileBlob,
-        downloading: false,
-      };
-    case 'GET_EXPORT_TERRITOIRE_FAILURE':
-      return {
-        ...state,
-        exportTerritoireFileError: action.error,
-        downloading: false,
-      };
-    case 'EXPORT_TERRITOIRE_RESET': {
-      const {
-        exportTerritoireFileBlob: _file,
-        exportTerritoireFileError: _error,
-        ...nextState
-      } = state;
-      return nextState;
-    }
-    case 'GET_STATS_PDF_REQUEST':
-      return {
-        ...state,
-        loadingPDF: true,
-        errorPDF: false
-      };
-    case 'GET_STATS_PDF_SUCCESS':
-      return {
-        ...state,
-        blob: action.data,
-        statistiquesPDF: action.download,
-        loadingPDF: false,
-        errorPDF: false
-      };
-    case 'GET_STATS_PDF_FAILURE':
-      return {
-        ...state,
-        blob: null,
-        loadingPDF: false,
-        errorPDF: action.error
-      };
-    case 'GET_STATS_CSV_REQUEST':
-      return {
-        ...state,
-        loadingCSV: true,
-        error: false
-      };
-    case 'GET_STATS_CSV_SUCCESS':
-      return {
-        ...state,
-        blob: action.data,
-        statistiquesCSV: action.download,
-        loadingCSV: false
-      };
-    case 'GET_STATS_CSV_FAILURE':
-      return {
-        ...state,
-        error: action.error
-      };
-    case 'RESET_FILE':
-      return {
-        ...state,
-        blob: null,
+        error: action.error,
+        loading: false,
       };
     default:
       return state;

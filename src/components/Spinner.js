@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { TailSpin } from 'react-loader-spinner';
+import { Oval } from 'react-loader-spinner';
+
+import { alerteEtSpinnerActions } from '../actions';
 
 export default function Spinner({ loading }) {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(alerteEtSpinnerActions.isLoading(loading));
+  }, [loading]);
+
   return (
     <>
       { loading &&
       <div className="spinnerCustom">
-        <TailSpin
+        <Oval
           height="80"
           width="80"
           radius="9"

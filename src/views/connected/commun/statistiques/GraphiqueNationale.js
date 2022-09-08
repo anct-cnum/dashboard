@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { statistiquesActions } from '../../../../actions';
+import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
-import Alerte from '../../../../components/Alerte';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
 import LeftPage from './Components/graphiques/LeftPage';
 import RightPage from './Components/graphiques/RightPage';
@@ -17,18 +16,25 @@ export default function GraphiqueNationale() {
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
   const dateFin = useSelector(state => state.statistiques?.dateFin);
 
-  const donneesStatistiquesLoading = useSelector(state => state.statistiques?.statsDataLoading);
-  const donneesStatistiquesError = useSelector(state => state.statistiques?.statsDataError);
+  const loading = useSelector(state => state.statistiques?.loading);
+  const error = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
 
   useEffect(() => {
-    dispatch(statistiquesActions.getStatistiquesNationale(dateDebut, dateFin));
-  }, [dateDebut, dateFin]);
+    if (!error) {
+      dispatch(statistiquesActions.getStatistiquesNationale(dateDebut, dateFin));
+    } else {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'Les statistiques n\'ont pas pu être chargées !',
+        status: null, description: null
+      }));
+    }
+  }, [dateDebut, dateFin, error]);
   
   return (
     <div className="statistiques">
-      <Spinner loading={donneesStatistiquesLoading} />
-      <Alerte display={donneesStatistiquesError} type="error" titre="Les statistiques n'ont pas pu être chargées !" />
+      <Spinner loading={loading} />
       <div className="nationales fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">

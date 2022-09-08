@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { exportsActions } from '../../../actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Oval } from 'react-loader-spinner';
+
+import { exportsActions } from '../../../actions';
 import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
+
+import Spinner from '../../../components/Spinner';
 
 function Exports() {
   const dispatch = useDispatch();
@@ -34,15 +36,7 @@ function Exports() {
           <p>Information : {error.message.toString()}</p>
         </div>
       }
-      <div className="spinnerCustom">
-        <Oval
-          height={100}
-          width={100}
-          color="#060091"
-          secondaryColor="white"
-          visible={exports?.loading === true}
-        />
-      </div>
+      <Spinner loading={exports?.loading} />
       <p>
         <a className="fr-link" href="#">Export de vos conseillers</a>
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>

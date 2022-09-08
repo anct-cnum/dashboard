@@ -7,7 +7,6 @@ import download from 'downloadjs';
 import { filtresEtTrisActions, statistiquesActions } from '../../../../../../actions';
 
 import Spinner from '../../../../../../components/Spinner';
-import Alerte from '../../../../../../components/Alerte';
 import BlockDatePickers from '../commun/BlockDatePickers';
 
 
@@ -60,7 +59,6 @@ function FiltresEtTris({ resetPage }) {
   return (
     <>
       <Spinner loading={downloading}/>
-      <Alerte display={exportTerritoireFileError} type="error" titre={exportTerritoireFileError} fluid={'--fluid'}/>
       <div className="fr-container--fluid">
         <div className="fr-grid-row fr-grid-row--end">
           { location.pathname === '/statistiques-territoires' &&
