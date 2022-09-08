@@ -4,17 +4,15 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { scrollTopWindow } from '../../../../../../utils/exportsUtils';
-import { statistiquesActions } from '../../../../../../actions';
+import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
 function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal }) {
 
   const dispatch = useDispatch();
 
-  const downloadError = useSelector(state => state.statistiques?.downloadError);
-  const blob = useSelector(state => state.statistiques?.blob);
+  const error = useSelector(state => state.exports?.error);
   const typeTerritoire = useSelector(state => state.filtresEtTris?.territoire);
   const territoire = useSelector(state => state.statistiques?.territoire);
-
 
   const linkTo = { pathname: '/statistiques-' + typeStats + 's' };
 
@@ -41,15 +39,19 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
       window.print();
     } else if (extension === 'csv') {
       const conseillerIds = territoire?.conseillerIds ?? undefined;
-      dispatch(statistiquesActions.getStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal));
+      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal));
     }
   }
   
   useEffect(() => {
-    if (blob !== null && blob !== undefined && (downloadError === undefined || downloadError === false)) {
-      dispatch(statistiquesActions.resetStatistiquesPDFFile());
+    if (error) {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'L\'export n\'a pas pu être réalisé correctement !',
+        status: null, description: null
+      }));
     }
-  }, [blob, downloadError]);
+  }, [error]);
 
   return (
     <div className="fr-col-11 no-print">
