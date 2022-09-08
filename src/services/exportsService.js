@@ -1,5 +1,6 @@
 import { authenticationService } from './authenticationService';
 import { roleActivated, authHeader } from '../helpers';
+import apiUrlRoot from '../helpers/apiUrl';
 
 export const exportsService = {
   getFile,
@@ -12,8 +13,6 @@ function getFile(name) {
     method: 'GET',
     headers: Object.assign(authHeader())
   };
-
-  const apiUrlRoot = process.env.REACT_APP_API_URL;
 
   return fetch(`${apiUrlRoot}/exports/${name}-csv?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }

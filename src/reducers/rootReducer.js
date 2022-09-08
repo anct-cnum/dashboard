@@ -8,6 +8,7 @@ import paginationReducer from './paginationReducer';
 import structuresReducer from './structuresReducer';
 import exportsReducer from './exportsReducer';
 import alerteEtSpinnerReducer from './alerteEtSpinnerReducer';
+import userReducer from './userReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   structures: structuresReducer,
   exports: exportsReducer,
   alerteEtSpinner: alerteEtSpinnerReducer,
+  user: userReducer
 });
 
 export default rootReducer;

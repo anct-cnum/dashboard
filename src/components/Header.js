@@ -11,8 +11,9 @@ function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const roles = useSelector(state => state.authentication.rolesAllowed);
-  const roleActivated = useSelector(state => state.authentication.roleActivated);
+  //TODO supprimer le filter quand la migration finale aura eu lieue
+  const roles = useSelector(state => state.authentication?.rolesAllowed)?.filter(role => !['admin_coop', 'structure_coop'].includes(role));
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const toggleBurgerMenu = () => {
     dispatch(menuActions.toggleBurgerMenu());

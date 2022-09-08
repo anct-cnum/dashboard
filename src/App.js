@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { history } from './helpers';
 import PrivateRoute from './views/connected/PrivateRoute';
 import Login from './views/anonymous/Login';
+import ConfirmationEmail from './views/anonymous/ConfirmationEmail';
 import Accueil from './views/connected/Accueil';
 import Footer from './components/Footer';
 import './assets/js';
@@ -34,6 +35,7 @@ function App() {
         <Alerte />
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/confirmation-email/:token" element={<ConfirmationEmail />} />
           <Route path="/" element={<PrivateRoute/>}>
             {/* routes communes ici */}
             <Route path="/documents" element={<Documents />} />
@@ -45,6 +47,7 @@ function App() {
             <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
             <Route path="/statistiques-territoire/:codeTerritoire" element={<GraphiqueTerritoire />} />
             <Route index element={<Accueil />}/>
+            <Route index element={<Navigate to="/accueil" />} /> {/* pour fixer le warning du react router */}
             <Route path="*" element={<Accueil />}/>
           </Route>
         </Routes>
