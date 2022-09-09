@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-import labelsCorrespondance from '../../../../../../data/labelsCorrespondance.json';
+import labelsCorrespondance from '../../../../../../datas/labelsCorrespondance.json';
 import { setCategoriesStatistiques, setStatistiquesGraphique, setStatistiquesTitre, setStatistiquesDonnees, setStatistiquesLegende,
   setStatistiquesAxeY, setStatistiquesAxeX, setStatistiquesOptionsTrace } from '../utils/functionsGraphique';
 

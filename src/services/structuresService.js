@@ -1,18 +1,18 @@
 import { authenticationService } from './authenticationService';
 import { authHeader } from '../helpers';
+import apiUrlRoot from '../helpers/apiUrl';
 
 export const structuresService = {
   getStructure,
 };
 
 function getStructure(idStructure) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/structures`;
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
   };
   return fetch(
-    `${apiUrlRoot}/${idStructure}`,
+    `${apiUrlRoot}/structures/${idStructure}`,
     requestOptions
   ).then(handleResponse);
 }

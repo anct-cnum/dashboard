@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { exportsActions } from '../../../actions';
 import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
 

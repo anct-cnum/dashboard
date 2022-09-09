@@ -7,7 +7,7 @@ import { sortByMonthAndYear, get4lastMonths } from '../utils/functionsSort';
 import { getStyle } from '../utils/functionsStyle';
 import { getGraphiqueEvolution, getGraphiqueStacked, getGraphiquePie } from '../utils/functionsGraphique';
 import largeurEcran from '../utils/functionsLargeurEcran';
-import labelsCorrespondance from '../../../../../../data/labelsCorrespondance.json';
+import labelsCorrespondance from '../../../../../../datas/labelsCorrespondance.json';
 import { statistiquesActions } from '../../../../../../actions';
 require('dayjs/locale/fr');
 

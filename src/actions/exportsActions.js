@@ -1,6 +1,7 @@
 import { exportsService } from '../services/exportsService';
 import download from 'downloadjs';
 import dayjs from 'dayjs';
+import { formatDate, formatFileName } from '../utils/formatagesUtils';
 
 export const exportsActions = {
   exportFile,
@@ -45,17 +46,6 @@ function resetFile() {
   return { type: 'RESET_FILE' };
 }
 
-const formatDate = date => {
-  return dayjs(date).format('YYYY-MM-DD');
-};
-
-const removeCodePrefix = type =>
-  type.startsWith('code') ? type.substring('code'.length) : type;
-
-const statistiquesFileName = (dateDebut, dateFin, type, idType, codePostal) =>
-  `Statistiques_${removeCodePrefix(type)}${
-    codePostal ? `_${codePostal}` : ''}${idType ? `_${idType}` : ''}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
-
 function exportDonneesTerritoire(territoire = 'departement', dateDebut, dateFin, nomOrdre = 'code', ordre = 1) {
   return async dispatch => {
     dispatch(request());
@@ -84,7 +74,7 @@ function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, 
     dispatch(request());
     exportsService.getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal)
     .then(
-      data => dispatch(success(data, download(data, `${statistiquesFileName(dateDebut, dateFin, type, idType, codePostal)}.csv`))),
+      data => dispatch(success(data, download(data, `${formatFileName(dateDebut, dateFin, type, idType, codePostal)}.csv`))),
       error => dispatch(failure(error))
     );
   };

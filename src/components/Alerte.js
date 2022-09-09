@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { alerteEtSpinnerActions } from '../actions';
-import codeAlertes from '../data/code_alertes.json';
+import codeAlertes from '../datas/code_alertes.json';
 
 export default function Alerte() {
   
@@ -10,7 +10,7 @@ export default function Alerte() {
 
   const alerte = useSelector(state => state.alerteEtSpinner?.alerte);
 
-  let messageType = codeAlertes.find(alert => alert.code === alerte?.type)?.correspondance;
+  const messageType = codeAlertes.find(alert => alert.code === alerte?.type)?.correspondance;
 
   useEffect(() => {
     if (alerte?.type) {

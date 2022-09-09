@@ -1,3 +1,5 @@
+@import '../colors/colors';
+
 .statistiques {
   .titre {
     font-weight: 100;
@@ -16,7 +18,7 @@
   }
   .date-btn {
     &:hover, &:active {
-      color:#5398ff;
+      color: $blue-sky;
       cursor: pointer;
     }
   }  
@@ -34,7 +36,7 @@
     text-align: center;
   }
   .date-active{
-    color:#5398ff;
+    color: $blue-sky;
   }
   .react-datepicker-wrapper {
     width: auto;
@@ -42,7 +44,7 @@
   .react-datepicker{
     font-family: Marianne;
     background-color: #fff;
-    border: 1px solid #5398ff;
+    border: 1px solid $blue-sky;
     border-radius: 1.4rem;
     color: #fff;
 
@@ -69,37 +71,37 @@
     }
     .react-datepicker__header {
       background-color: #fff;
-      color: #1e1e1e;
+      color: $black;
       border-top-left-radius: 1.4rem;
       border-top-right-radius: 1.4rem;
 
       .react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {
-        color: #1e1e1e;
+        color: $black;
       }
       .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
-        color: #1e1e1e;
+        color: $black;
       }
       .react-datepicker__month {
-        color: #1e1e1e;
+        color: $black;
       }
     }
     .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
       font-size: 16px;
-      color: #1e1e1e;
+      color: $black;
       width: 28px;
       height: 28px;
       margin: 7px;
     }
     .react-datepicker__day--outside-month {
-      color: #909090;
+      color: $grey;
     }
     .react-datepicker__day:hover, .react-datepicker__month-text:hover, .react-datepicker__quarter-text:hover, .react-datepicker__year-text:hover{
-      background-color: #5398ff;
+      background-color: $blue-sky;
       color: #fff;
     }
     .react-datepicker__day--selected, .react-datepicker__day--keyboard-selected {
       color: #fff;
-      background-color: #1e1e1e;
+      background-color: $black;
     }
     .react-date-picker__calendar--open {
       top: 100% !important;
@@ -181,7 +183,7 @@
     padding: 0px;
   }
   .lieux-autres {
-    color: #1e1e1e;
+    color: $black;
     font-size: 16px;
     font-weight: bold;
     padding-left: 18px;
@@ -190,13 +192,13 @@
     top: -509px;
     left: 70%;
     ul, span {
-      color: #FFA500;
+      color: $orange;
       font-size: 12px;
       font-weight: 500;
     }
     ul {
       list-style: none;
-      color: #1e1e1e;
+      color: $black;
       line-height: 20px;
       margin: 0;
       padding: 0;
@@ -217,14 +219,14 @@
   }
   .statistiques-btn {
     background-color: transparent;
-    border: 1px solid #1e1e1e;
+    border: 1px solid $black;
     line-height: 1.25rem;
     border-radius: 40px;
     text-align:center;
     box-shadow: none;
     font-size: 16px;
     cursor: pointer;
-    color: #1e1e1e;
+    color: $black;
     padding: 21px;
   }
   @media (min-width: 1200px) {

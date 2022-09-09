@@ -1,5 +1,6 @@
 import { authHeader } from '../helpers';
 import { authenticationService } from './authenticationService';
+import apiUrlRoot from '../helpers/apiUrl';
 
 export const statistiquesService = {
   getTerritoire,
@@ -25,83 +26,76 @@ function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, 
 }
 
 function getTerritoire(typeTerritoire, idTerritoire, date) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
   };
   return fetch(
-    `${apiUrlRoot}/admincoop/territoire?typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&dateFin=${date}`,
+    `${apiUrlRoot}/stats/admincoop/territoire?typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&dateFin=${date}`,
     requestOptions
   ).then(handleResponse);
 }
 
 function getDatasStructures(dateDebut, dateFin, page) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
   };
 
   return fetch(
-    `${apiUrlRoot}/prefet/structures?dateDebut=${dateDebut}&dateFin=${dateFin}&page=${page}`,
+    `${apiUrlRoot}/stats/prefet/structures?dateDebut=${dateDebut}&dateFin=${dateFin}&page=${page}`,
     requestOptions
   ).then(handleResponse);
 }
 
 function getDatasTerritoires(territoire, dateDebut, dateFin, page, nomOrdre, ordre) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
   };
 
   return fetch(
-    `${apiUrlRoot}/admincoop/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page)}`,
+    `${apiUrlRoot}/stats/admincoop/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page)}`,
     requestOptions
   ).then(handleResponse);
 }
 
 function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, conseillerIds) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
   };
   conseillerIds = JSON.stringify(conseillerIds);
-  return fetch(`${apiUrlRoot}/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&typeTerritoire=${typeTerritoire}&conseillerIds=${conseillerIds}`,
+  return fetch(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&typeTerritoire=${typeTerritoire}&conseillerIds=${conseillerIds}`,
     requestOptions).then(handleResponse);
 }
 
 function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
   };
-  return fetch(`${apiUrlRoot}/structure/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&idStructure=${idStructure}&codePostal=${codePostal}`,
+  return fetch(`${apiUrlRoot}/stats/structure/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&idStructure=${idStructure}&codePostal=${codePostal}`,
     requestOptions).then(handleResponse);
 }
 
 function getStatistiquesNationale(dateDebut, dateFin) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
   const requestOptions = {
     method: 'GET',
     headers: authHeader(),
   };
 
-  return fetch(`${apiUrlRoot}/nationales/cra?dateDebut=${dateDebut}&dateFin=${dateFin}`,
+  return fetch(`${apiUrlRoot}/stats/nationales/cra?dateDebut=${dateDebut}&dateFin=${dateFin}`,
     requestOptions).then(handleResponse);
 }
 
 function getCodesPostauxCrasConseillerStructure(idStructure) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
   const requestOptions = {
     method: 'GET',
     headers: authHeader(),
   };
 
-  return fetch(`${apiUrlRoot}/cra/codesPostaux/structure/${idStructure}`, requestOptions).then(handleResponse);
+  return fetch(`${apiUrlRoot}/stats/cra/codesPostaux/structure/${idStructure}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

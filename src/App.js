@@ -46,7 +46,6 @@ function App() {
             <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
             <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
             <Route path="/statistiques-territoire/:codeTerritoire" element={<GraphiqueTerritoire />} />
-            <Route index element={<Accueil />}/>
             <Route index element={<Navigate to="/accueil" />} /> {/* pour fixer le warning du react router */}
             <Route path="*" element={<Accueil />}/>
           </Route>

@@ -19,9 +19,7 @@ export default function alerteEtSpinner(state = initialState, action) {
         alerte: action.alerte
       };
     case 'RESET_MESSAGE_ALERTE':
-      return {
-        ...initialState
-      };
+      return initialState;
     default:
       return state;
   }
