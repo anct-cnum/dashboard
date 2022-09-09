@@ -1,21 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
-import PropTypes from 'prop-types';
-
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { exportsActions, filtresEtTrisActions, statistiquesActions } from '../../../../../../actions';
 
 import Spinner from '../../../../../../components/Spinner';
 import BlockDatePickers from '../commun/BlockDatePickers';
 
-
-function currentPage(pagination, location) {
-  return pagination?.resetPage === false && location.currentPage !== undefined ? location.currentPage : 1;
-}
-
-function FiltresEtTris({ resetPage }) {
-  const location = useLocation();
+function FiltresEtTris() {
   const dispatch = useDispatch();
 
   const territoire = useSelector(state => state.filtresEtTris?.territoire);
@@ -23,7 +14,7 @@ function FiltresEtTris({ resetPage }) {
   const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
   const dateFin = useSelector(state => state.statistiques?.dateFin);
   const ordre = useSelector(state => state.filtresEtTris?.ordre);
-  const pagination = useSelector(state => state.pagination);
+  const currentPage = useSelector(state => state.pagination?.currentPage);
 
   const exportTerritoireFileBlob = useSelector(state => state.exports);
   const exportTerritoireFileError = useSelector(state => state.exports?.error);
@@ -55,12 +46,11 @@ function FiltresEtTris({ resetPage }) {
 
   useEffect(() => {
     if (location.pathname === '/statistiques-territoires') {
-      const page = currentPage(pagination, location);
-      dispatch(statistiquesActions.getDatasTerritoires(territoire, dateDebut, dateFin, page, ordreNom, ordre ? 1 : -1));
-      resetPage(page);
+      dispatch(statistiquesActions.getDatasTerritoires(territoire, dateDebut, dateFin, currentPage, ordreNom, ordre ? 1 : -1));
     }
 
-  }, [dateDebut, dateFin, territoire]);
+  }, [dateDebut, dateFin, currentPage, territoire]);
+
   return (
     <>
       <Spinner loading={loading}/>
@@ -89,9 +79,5 @@ function FiltresEtTris({ resetPage }) {
     </>
   );
 }
-
-FiltresEtTris.propTypes = {
-  resetPage: PropTypes.func,
-};
 
 export default FiltresEtTris;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
+import { alerteEtSpinnerActions, paginationActions, statistiquesActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
@@ -17,32 +17,22 @@ export default function TableauStructures() {
   
   const dateDebut = useSelector(state => state.filtresEtTris?.dateDebut);
   const dateFin = useSelector(state => state.filtresEtTris?.dateFin);
-  const pagination = useSelector(state => state.pagination);
-
-  const [pageCount, setPageCount] = useState(0);
+  const currentPage = useSelector(state => state.pagination?.currentPage);
   const [page, setPage] = useState(1);
-
-  const navigate = page => {
-    setPage(page);
-    dispatch(statistiquesActions.getDatasStructures(dateDebut, dateFin, page));
-  };
-
-  const update = () => {
-    if (pagination?.resetPage === false && location.currentPage !== undefined) {
-      navigate(page);
-    } else {
-      dispatch(statistiquesActions.getDatasStructures(dateDebut, dateFin, page));
-    }
-  };
 
   useEffect(() => {
     if (!error) {
       if (statistiquesStructures?.items) {
         const count = statistiquesStructures.items.limit ? Math.floor(statistiquesStructures.items.total / statistiquesStructures.items.limit) : 0;
-        setPageCount(statistiquesStructures.items.total % statistiquesStructures.items.limit === 0 ? count : count + 1);
+        dispatch(paginationActions.setPageCount(statistiquesStructures.items.total % statistiquesStructures.items.limit === 0 ? count : count + 1));
       }
       if (!statistiquesStructures) {
-        update();
+        dispatch(paginationActions.setPage(1));
+        dispatch(statistiquesActions.getDatasStructures(dateDebut, dateFin, page));
+      }
+      if (page !== currentPage) {
+        setPage(currentPage);
+        dispatch(statistiquesActions.getDatasStructures(dateDebut, dateFin, currentPage));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -51,7 +41,7 @@ export default function TableauStructures() {
         status: null, description: null
       }));
     }
-  }, [statistiquesStructures, error]);
+  }, [statistiquesStructures, currentPage, error]);
 
   return (
     <div className="statistiques">
@@ -87,7 +77,7 @@ export default function TableauStructures() {
                   </tbody>
                 </table>
               </div>
-              <Pagination current={page} pageCount={pageCount} navigate={navigate} />
+              <Pagination />
             </div>
           }
         </div>

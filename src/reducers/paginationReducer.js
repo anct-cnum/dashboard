@@ -1,12 +1,19 @@
 const initialState = {
-  resetPage: true
+  currentPage: 1,
+  pageCount: 0,
 };
 
 export default function menu(state = initialState, action) {
   switch (action.type) {
-    case 'RESET_PAGE':
+    case 'SET_PAGE':
       return {
-        resetPage: action.toggle,
+        ...state,
+        currentPage: action.page,
+      };
+    case 'SET_PAGE_COUNT':
+      return {
+        ...state,
+        pageCount: action.pageCount,
       };
     default:
       return state;

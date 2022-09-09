@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-
-import { alerteEtSpinnerActions, filtresEtTrisActions, statistiquesActions } from '../../../../actions';
+import { alerteEtSpinnerActions, filtresEtTrisActions, paginationActions, statistiquesActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
@@ -12,42 +10,37 @@ import Territoire from './Components/tableaux/Territoire';
 export default function TableauTerritoires() {
 
   const dispatch = useDispatch();
-  const location = useLocation();
 
+  const filtreTerritoire = useSelector(state => state.filtresEtTris?.territoire);
+  const dateDebut = useSelector(state => state.filtresEtTris?.dateDebut);
+  const dateFin = useSelector(state => state.filtresEtTris?.dateFin);
+  const ordre = useSelector(state => state.filtresEtTris?.ordre);
+  const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
   const loading = useSelector(state => state.statistiques?.loading);
   const error = useSelector(state => state.statistiques?.error);
   const territoires = useSelector(state => state.statistiques?.statsTerritoires);
-  const pagination = useSelector(state => state.pagination);
-
-  const dateDebut = useSelector(state => state.filtresEtTris?.dateDebut);
-  const dateFin = useSelector(state => state.filtresEtTris?.dateFin);
-  const filtreTerritoire = useSelector(state => state.filtresEtTris?.territoire);
-  const ordre = useSelector(state => state.filtresEtTris?.ordre);
-  const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
-
-  let [page, setPage] = (pagination?.resetPage === false && location.currentPage !== undefined) ? useState(location.currentPage) : useState(1);
-  const [pageCount, setPageCount] = useState(0);
-
-  const navigate = page => {
-    setPage(page);
-    dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, page, ordreNom, ordre ? 1 : -1));
-  };
+  const currentPage = useSelector(state => state.pagination?.currentPage);
+  const [page, setPage] = useState(1);
   
   const ordreColonne = e => {
     dispatch(filtresEtTrisActions.changeOrdre(e.target.id));
   };
 
   useEffect(() => {
-    if (territoires?.items) {
-      const count = territoires.items.limit ? Math.floor(territoires.items.total / territoires.items.limit) : 0;
-      setPageCount(territoires.items.total % territoires.items.limit === 0 ? count : count + 1);
-    }
-  }, [territoires]);
-
-  useEffect(() => {
     if (!error) {
-      const page = (pagination?.resetPage === false && location.currentPage !== undefined) ? location.currentPage : 1;
-      dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, page, ordreNom, ordre ? 1 : -1));
+      if (territoires?.items) {
+        const count = territoires.items.limit ? Math.floor(territoires.items.total / territoires.items.limit) : 0;
+        dispatch(paginationActions.setPageCount(territoires.items.total % territoires.items.limit === 0 ? count : count + 1));
+      }
+      if (!territoires) {
+        dispatch(paginationActions.setPage(1));
+        dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, page, ordreNom, ordre ? 1 : -1));
+      }
+      if (page !== currentPage) {
+        setPage(currentPage);
+        dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, currentPage, ordreNom, ordre ? 1 : -1));
+      }
+
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
@@ -57,7 +50,7 @@ export default function TableauTerritoires() {
     }
 
 
-  }, [ordre, ordreNom, error]);
+  }, [ordre, ordreNom, territoires, error]);
 
   return (
     <div className="statistiques">
@@ -68,7 +61,7 @@ export default function TableauTerritoires() {
             <h1 className="titre">Statistiques par territoire</h1>
           </div>
           <div className="fr-col-12">
-            <FiltresEtTris resetPage={setPage}/>
+            <FiltresEtTris/>
             <div className="fr-container--fluid fr-mt-2w">
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
@@ -181,7 +174,7 @@ export default function TableauTerritoires() {
                     </table>
                   </div>
                 </div>
-                <Pagination current={page} pageCount={pageCount} navigate={navigate}/>
+                <Pagination />
               </div>
             </div>
           </div>

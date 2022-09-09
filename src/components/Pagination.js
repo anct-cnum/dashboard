@@ -1,22 +1,24 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { paginationActions } from '../actions';
 
-import PropTypes from 'prop-types';
+function Pagination() {
+  const dispatch = useDispatch();
+  const pagination = useSelector(state => state.pagination);
 
-function Pagination({ pageCount, current, navigate }) {
-
-  let previousPage = current - 1;
-  let nextPage = current + 1;
-  let lastPage = pageCount;
-  let isFirstPage = current === 1;
-  let isLastPage = current === lastPage;
-  let showPrevious = current > 2;
+  let previousPage = pagination.currentPage - 1;
+  let nextPage = pagination.currentPage + 1;
+  let lastPage = pagination.pageCount;
+  let isFirstPage = pagination.currentPage === 1;
+  let isLastPage = pagination.currentPage === lastPage;
+  let showPrevious = pagination.currentPage > 2;
 
   const onClick = (e, page) => {
     e.preventDefault();
-    navigate(page);
+    dispatch(paginationActions.setPage(page));
   };
 
-  if (pageCount <= 1) {
+  if (pagination.pageCount <= 1) {
     return (<ul className="pagination" />);
   }
 
@@ -51,7 +53,6 @@ function Pagination({ pageCount, current, navigate }) {
                 Page pr&eacute;c&eacute;dente
               </a>
             }
-
           </li>
           <li>
             {isFirstPage &&
@@ -64,7 +65,7 @@ function Pagination({ pageCount, current, navigate }) {
             }
           </li>
           {
-            (pageCount > 5 && current > 3) &&
+            (pagination.pageCount > 5 && pagination.currentPage > 3) &&
             <li>
               <a className="fr-pagination__link fr-displayed-lg">...</a>
             </li>
@@ -79,7 +80,7 @@ function Pagination({ pageCount, current, navigate }) {
           {
             (!isFirstPage && !isLastPage) &&
             <li>
-              <a className="fr-pagination__link" href="/#" aria-current="page" onClick={e => onClick(e, current)}>{current}
+              <a className="fr-pagination__link" href="/#" aria-current="page" onClick={e => onClick(e, pagination.currentPage)}>{pagination.currentPage}
               </a>
             </li>
           }
@@ -90,7 +91,7 @@ function Pagination({ pageCount, current, navigate }) {
             </li>
           }
           {
-            (current < pageCount - 2) &&
+            (pagination.currentPage < pagination.pageCount - 2) &&
             <li>
               <a href="/#" className="fr-pagination__link fr-displayed-lg">...</a>
             </li>
@@ -134,11 +135,5 @@ function Pagination({ pageCount, current, navigate }) {
     </div>
   );
 }
-
-Pagination.propTypes = {
-  pageCount: PropTypes.number,
-  current: PropTypes.number,
-  navigate: PropTypes.func
-};
 
 export default Pagination;
