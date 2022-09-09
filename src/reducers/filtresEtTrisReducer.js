@@ -51,7 +51,7 @@ export default function filtresEtTris(state = initialState, action) {
         ...state,
         certifie: action.dataCertifie
       };
-    case 'CHANGE_GROUPECRA':
+    case 'CHANGE_GROUPE_CRA':
       return {
         ...state,
         groupeCRA: action.dataGroupeCRA
