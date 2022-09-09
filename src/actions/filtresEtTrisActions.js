@@ -45,7 +45,7 @@ function changeCertifie(dataCertifie) {
 }
 
 function changeGroupeCRA(dataGroupeCRA) {
-  return { type: 'CHANGE_GROUPECRA', dataGroupeCRA };
+  return { type: 'CHANGE_GROUPE_CRA', dataGroupeCRA };
 }
 
 function changeNom(nom) {
