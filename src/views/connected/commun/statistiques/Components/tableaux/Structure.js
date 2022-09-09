@@ -7,7 +7,7 @@ export default function Structure({ structure, currentPage }) {
   return (
     <tr>
       <td>{structure.idPG}</td>
-      <td> {structure.siret !== null ? structure.siret : 'non renseigné' } </td>
+      <td>{structure.siret !== null ? structure.siret : 'non renseigné' }</td>
       <td className="capitalizeFirstLetter">{structure.nom}</td>
       <td>{structure.codePostal}</td>
       <td>{structure.CRAEnregistres}</td>
