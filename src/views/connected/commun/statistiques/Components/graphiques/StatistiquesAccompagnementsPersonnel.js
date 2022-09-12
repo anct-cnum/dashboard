@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Pluralize from 'react-pluralize';
-
+import { pluralize } from '../../../../../../utils/formatagesUtils';
 import ElementNumber from './ElementNumber';
 import ElementText from './ElementText';
 
@@ -11,24 +10,24 @@ function StatistiquesAccompagnementsPersonnel({ nbAccompagnementPerso, nbDemande
     <div className="fr-grid-row">
       <div className="fr-col-12 fr-col-md-3 print-chiffre"><ElementNumber nombre={nbAccompagnementPerso}
         classe="numbers"/></div>
-      <div className="fr-col-12 fr-col-md-9 print-texte"><ElementText textePluralize={
-        <Pluralize
-          zero={'accompagnement individuel'}
-          singular={'accompagnement individuel'}
-          plural={'accompagnements individuels'}
-          count={nbAccompagnementPerso}
-          showCount={false} />
-      } classe="text"/><br/></div>
+      <div className="fr-col-12 fr-col-md-9 print-texte">
+        <ElementText classe="text" textePluralize={pluralize(
+          'accompagnement individuel',
+          'accompagnement individuel',
+          'accompagnements individuels',
+          nbAccompagnementPerso
+        )}/><br/>
+      </div>
       <div className="fr-col-12 fr-col-md-3 print-chiffre"><ElementNumber nombre={nbDemandePonctuel}
         classe="numbers"/></div>
-      <div className="fr-col-12 fr-col-md-9 print-texte"><ElementText textePluralize={
-        <Pluralize
-          zero={'demande ponctuelle'}
-          singular={'demande ponctuelle'}
-          plural={'demandes ponctuelles'}
-          count={nbDemandePonctuel}
-          showCount={false} />
-      } classe="text"/></div>
+      <div className="fr-col-12 fr-col-md-9 print-texte">
+        <ElementText classe="text" textePluralize={pluralize(
+          'demande ponctuelle',
+          'demande ponctuelle',
+          'demandes ponctuelles',
+          nbDemandePonctuel
+        )}/>
+      </div>
     </div>
   );
 }

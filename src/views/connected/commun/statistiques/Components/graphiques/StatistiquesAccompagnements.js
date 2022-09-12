@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Pluralize from 'react-pluralize';
-
+import { pluralize } from '../../../../../../utils/formatagesUtils';
 import ElementNumber from './ElementNumber';
 import ElementText from './ElementText';
 
@@ -10,14 +9,14 @@ function StatistiquesAccompagnements({ nbAccompagnement }) {
     <div className="fr-grid-row">
       <div className="fr-col-12 fr-col-md-3 print-chiffre"><ElementNumber nombre={nbAccompagnement}
         classe="numbers"/></div>
-      <div className="fr-col-12 fr-col-md-9 print-texte"><ElementText textePluralize={
-        <Pluralize
-          zero={'accompagnement total enregistré (dont récurrent)'}
-          singular={'accompagnement total enregistré (dont récurrent)'}
-          plural={'accompagnements total enregistrés (dont récurrent)'}
-          count={nbAccompagnement}
-          showCount={false} />
-      } classe="text"/></div>
+      <div className="fr-col-12 fr-col-md-9 print-texte">
+        <ElementText textePluralize={pluralize(
+          'accompagnement total enregistré (dont récurrent)',
+          'accompagnement total enregistré (dont récurrent)',
+          'accompagnements total enregistrés (dont récurrent)',
+          nbAccompagnement
+        )} classe="text"/>
+      </div>
     </div>
   );
 }

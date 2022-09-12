@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Pluralize from 'react-pluralize';
-
+import { pluralize } from '../../../../../../utils/formatagesUtils';
 import ElementNumber from './ElementNumber';
 import ElementText from './ElementText';
 
@@ -13,14 +12,13 @@ function StatistiquesRenouvellements(props) {
         <ElementNumber nombre={props.nbUsagersBeneficiantSuivi} classe="numbers-renewal"/>
       </div>
       <div className="fr-col-12 fr-col-md-10 fr-col-lg-9 print-texte">
-        <ElementText textePluralize={
-          <Pluralize
-            zero={'Accompagnement avec suivi, soit :'}
-            singular={'Accompagnement avec suivi, soit :'}
-            plural={'Accompagnements avec suivi, soit :'}
-            count={props.nbUsagersBeneficiantSuivi}
-            showCount={false} />
-        } classe="text"/><br/>
+        <ElementText classe="text" textePluralize={pluralize(
+          'Accompagnement avec suivi, soit :',
+          'Accompagnement avec suivi, soit :',
+          'Accompagnements avec suivi, soit :',
+          props.nbUsagersBeneficiantSuivi
+        )}/>
+        <br/>
       </div>
       <div className="fr-col-12 fr-col-md-2 fr-col-lg-3 print-chiffre">
         <ElementNumber nombre={props.tauxTotalUsagersAccompagnes} caracteresSpeciaux={props.caracteresSpeciaux} classe="many-numbers"/>
@@ -44,12 +42,12 @@ function StatistiquesRenouvellements(props) {
         <ElementNumber nombre={props.nbReconduction} classe="many-numbers"/>
       </div>
       <div className="fr-col-12 fr-col-md-10 fr-col-lg-9 print-texte">
-        <ElementText textePluralize={<Pluralize
-          zero={'redirection vers une autre structure agréée'}
-          singular={'redirection vers une autre structure agréée'}
-          plural={'redirections vers une autre structure agréée'}
-          count={props.nbReconduction}
-          showCount={false} />} classe="texts"/>
+        <ElementText classe="texts" textePluralize={pluralize(
+          'redirection vers une autre structure agréée',
+          'redirection vers une autre structure agréée',
+          'redirections vers une autre structure agréée',
+          props.nbReconduction
+        )}/>
       </div>
       <div className="fr-col-12">
         <div className="fr-m-6w"></div>

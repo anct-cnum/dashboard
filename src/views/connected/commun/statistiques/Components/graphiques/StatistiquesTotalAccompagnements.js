@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Pluralize from 'react-pluralize';
-
+import { pluralize } from '../../../../../../utils/formatagesUtils';
 import ElementNumber from './ElementNumber';
 import ElementText from './ElementText';
 
@@ -13,14 +12,12 @@ function StatistiquesTotalAccompagnements({ nbTotalAccompagnements }) {
         <ElementNumber nombre={nbTotalAccompagnements} classe="number"/>
       </div>
       <div className="fr-col-12 fr-col-md-9 print-texte">
-        <ElementText textePluralize={
-          <Pluralize
-            zero={'personne totale accompagnée durant cette période'}
-            singular={'personne totale accompagnée durant cette période'}
-            plural={'personnes totales accompagnées durant cette période'}
-            count={nbTotalAccompagnements}
-            showCount={false} />
-        } classe="text"/>
+        <ElementText classe="text" textePluralize={pluralize(
+          'personne totale accompagnée durant cette période',
+          'personne totale accompagnée durant cette période',
+          'personnes totales accompagnées durant cette période',
+          nbTotalAccompagnements
+        )}/>
       </div>
     </div>
   );
