@@ -21,7 +21,12 @@
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.4.1",
     "sass": "^1.54.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "react-datepicker": "^4.8.0",
+    "dayjs": "^1.10.4",
+    "downloadjs": "^1.4.7",
+    "remixicon": "^2.5.0",
+    "moment": "^2.29.1"
   },
   "scripts": {
     "start": "react-scripts start",

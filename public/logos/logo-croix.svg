@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 11</title>
+    <defs>
+        <polygon id="path-1" points="0 0 13.9999562 0 13.9999562 14.0000875 0 14.0000875"></polygon>
+        <polygon id="path-3" points="4.37500007e-05 0.0406875 14 0.0406875 14 14.04025 4.37500007e-05 14.04025"></polygon>
+    </defs>
+    <g id="Outil-CRA" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="stats-tablette-repères-copy" transform="translate(-244.000000, -1995.000000)">
+            <g id="Group-11" transform="translate(244.000000, 1995.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-2"></g>
+                <path d="M1.1053,14.0004375 C0.822675,14.0004375 0.54005,13.8919375 0.323925,13.6766875 C-0.108325,13.2444375 -0.108325,12.5453125 0.323925,12.1139375 L12.113675,0.3241875 C12.54505,-0.1080625 13.24505,-0.1080625 13.676425,0.3241875 C14.1078,0.7555625 14.1078,1.4546875 13.676425,1.8869375 L1.886675,13.6766875 C1.67055,13.8919375 1.387925,14.0004375 1.1053,14.0004375" id="Fill-1" fill="#FFFFFF" mask="url(#mask-2)"></path>
+                <mask id="mask-4" fill="white">
+                    <use xlink:href="#path-3"></use>
+                </mask>
+                <g id="Clip-5"></g>
+                <path d="M12.113325,13.7165 L0.323575,1.92675 C-0.1078,1.495375 -0.1078,0.79625 0.323575,0.364 C0.75495,-0.067375 1.45495,-0.067375 1.886325,0.364 L13.676075,12.15375 C14.108325,12.586 14.108325,13.285125 13.676075,13.7165 C13.45995,13.932625 13.177325,14.04025 12.8947,14.04025 C12.612075,14.04025 12.32945,13.932625 12.113325,13.7165 Z" id="Fill-4" fill="#FFFFFF" mask="url(#mask-4)"></path>
+            </g>
+        </g>
+    </g>
+</svg>
