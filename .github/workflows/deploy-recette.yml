@@ -100,3 +100,4 @@ jobs:
         with:
           environment: recette
           ignore_missing: true
+          ignore_empty: true
