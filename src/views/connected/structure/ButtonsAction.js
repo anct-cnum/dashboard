@@ -4,7 +4,7 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { conseillerActions } from '../../../actions/conseiller.actions';
 import { useDispatch } from 'react-redux';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import PopinConfirmationAnnulation from './popins/popinConfirmationAnnulation';
 
 //Print datePicker calendar in FR
@@ -29,12 +29,12 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId, dateRecrutement
 
   const updateDateRecrutement = date => {
     window.scrollTo(0, 0); //permet de remonter pour visualiser le message date embauche enregistrée
-    date = moment(date);
+    date = dayjs(date);
     dispatch(conseillerActions.updateDateRecrutement({ id: miseEnRelationId, date }));
   };
 
   const updateDateRupture = date => {
-    date = moment(date);
+    date = dayjs(date);
     dispatch(conseillerActions.updateDateRupture({ id: miseEnRelationId, date }));
   };
 

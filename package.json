@@ -23,10 +23,8 @@
     "sass": "^1.54.0",
     "web-vitals": "^2.1.4",
     "react-datepicker": "^4.8.0",
-    "dayjs": "^1.10.4",
     "downloadjs": "^1.4.7",
-    "remixicon": "^2.5.0",
-    "moment": "^2.29.1"
+    "remixicon": "^2.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
