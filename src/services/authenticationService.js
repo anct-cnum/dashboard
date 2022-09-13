@@ -1,3 +1,5 @@
+import apiUrlRoot from '../helpers/apiUrl';
+
 export const authenticationService = {
   login,
   logout
@@ -6,7 +8,7 @@ export const authenticationService = {
 function login(username, password) {
 
   const strategy = process.env.REACT_APP_STRATEGYAUTH;
-  const apiUrlAuth = `${process.env.REACT_APP_API_URL}/authentication`;
+  const apiUrlAuth = `${apiUrlRoot}/authentication`;
 
   const requestOptions = {
     method: 'POST',

@@ -3,13 +3,13 @@ import { Route, Routes } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import Exports from './Exports';
 
-export default function Admin() {
+export default function Structure() {
 
   return (
     <>
       <Routes>
-        <Route path="/admin/informations" element={<MesInformations />} />
-        <Route path="/admin/exports" element={<Exports />} />
+        <Route path="/structure/informations" element={<MesInformations />} />
+        <Route path="/structure/exports" element={<Exports />} />
       </Routes>
     </>
   );
