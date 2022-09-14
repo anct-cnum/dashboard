@@ -97,7 +97,7 @@ function Footer() {
           <div className="fr-footer__partners-logos">
             <div className="fr-footer__partners-main">
               <a className="footer__partners-link" href="https://agence-cohesion-territoires.gouv.fr">
-                <img className="fr-footer__logo" style={{ height: '4.625rem' }} src={logoANCT} alt="Agence Nationale de la Coh&eacute;sion des Territoires" />
+                <img className="fr-footer__logo" style={{ height: '4.5rem' }} src={logoANCT} alt="Agence Nationale de la Coh&eacute;sion des Territoires" />
               </a>
             </div>
             <div className="fr-footer__partners-sub" style={{ order: 1 }}>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../../actions';
+import { authenticationActions, userActions } from '../../actions';
 import { useParams, useNavigate } from 'react-router-dom';
 
 function ConfirmationEmail() {
@@ -15,6 +15,7 @@ function ConfirmationEmail() {
 
   useEffect(() => {
     if (user?.tokenVerified === true) {
+      dispatch(authenticationActions.logout());
       dispatch(userActions.confirmeUserEmail(token));
       setTimeout(() => {
         navigate('/login');
