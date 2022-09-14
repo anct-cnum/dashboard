@@ -4,7 +4,8 @@ export const userActions = {
   updateUserEmail,
   confirmeUserEmail,
   verifyToken,
-  choosePassword
+  choosePassword,
+  inputEmailNotValid
 };
 
 function updateUserEmail({ id, newEmail }) {
@@ -80,6 +81,7 @@ function verifyToken(token) {
   }
 }
 
+
 function choosePassword(token, password) {
   return dispatch => {
     dispatch(request(token));
@@ -104,4 +106,9 @@ function choosePassword(token, password) {
   function failure(error) {
     return { type: 'CHOOSE_PASSWORD_FAILURE', error };
   }
+}
+
+function inputEmailNotValid() {
+  const error = 'Le format de l\'email est invalide';
+  return { type: 'INPUT_EMAIL_NOT_VALID', error };
 }

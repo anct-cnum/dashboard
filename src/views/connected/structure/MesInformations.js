@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../../actions';
+import { valideInputEmail } from '../../../utils/formatagesUtils';
 
 function MesInformations() {
   const dispatch = useDispatch();
@@ -15,12 +16,20 @@ function MesInformations() {
   };
   
   const updateEmail = () => {
-    dispatch(userActions.updateUserEmail({ id: userAuth._id, newEmail: email }));
-    setForm(false);
-    setFlashMessage(true);
-    setTimeout(() => {
-      setFlashMessage(false);
-    }, 10000);
+    if (valideInputEmail(email)) {
+      dispatch(userActions.updateUserEmail({ id: userAuth._id, newEmail: email }));
+      setForm(false);
+      setFlashMessage(true);
+      setTimeout(() => {
+        setFlashMessage(false);
+      }, 10000);
+    } else {
+      dispatch(userActions.inputEmailNotValid(email));
+      setFlashMessage(true);
+      setTimeout(() => {
+        setFlashMessage(false);
+      }, 10000);
+    }
   };
 
   return (

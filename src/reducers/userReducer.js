@@ -69,7 +69,11 @@ export default function user(state = initialState, action) {
     case 'CHOOSE_PASSWORD_FAILURE':
       return {
         choosingPassword: false,
-        passwordChoosen: false,
+        passwordChoosen: false
+      },
+    case 'INPUT_EMAIL_NOT_VALID':
+      return {
+        ...state,
         error: action.error
       };
     default:

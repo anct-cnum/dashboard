@@ -21,7 +21,7 @@ function Exports() {
       scrollTopWindow();
     }
   }, [error]);
-  
+
   return (
     <div className="exportsCoordinateur" style={{ position: 'relative' }}>
       {(error !== undefined && error !== false && error?.statut !== 404) &&
@@ -43,12 +43,15 @@ function Exports() {
           visible={exports?.loading === true}
         />
       </div>
-      <p>
-        <a className="fr-link" href="#">Export de vos conseillers</a>
-        <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-          Export des emails, noms, pr&eacute;noms de la liste de vos conseillers
-        </span>
-      </p>
+      <div className="fr-notice fr-notice--info">
+        <div className="fr-container">
+          <div className="fr-notice__body">
+            <p className="fr-notice__title">
+              Vous ne poss&eacute;dez aucun export pour le moment
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

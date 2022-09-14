@@ -49,6 +49,10 @@ jobs:
         with:
           envkey_REACT_APP_API_URL: ${{ secrets.REACT_ADMIN_API_RECETTE }}
           envkey_REACT_APP_STRATEGYAUTH: "local"
+          envkey_REACT_APP_SENTRY_ENABLED: "true"
+          envkey_REACT_APP_SENTRY_ENVIRONMENT: "recette"
+          envkey_REACT_APP_SENTRY_DSN: ${{ secrets.SENTRY_PILOTAGE_DSN }}
+          envkey_REACT_APP_SENTRY_TRACE_RATE: "0.01"
           envkey_REACT_APP_FRANCE_COMPETENCES_HOSTNAME: "https://www.francecompetences.fr/recherche/rncp/34137"
           envkey_REACT_APP_PIX_CERTIFIER_HOSTNAME: "https://pix.fr/se-certifier"
           envkey_REACT_APP_AIDE_HOSTNAME: "https://aide.conseiller-numerique.gouv.fr/fr"
@@ -85,3 +89,15 @@ jobs:
           FOLDER: build
           SSH_PRIVATE_KEY: ${{ secrets.CLEVER_CLOUD_DEPLOY_PRIVATE_KEY }}
           KNOWN_HOSTS_FILE: resources/known_hosts
+      - uses: actions/checkout@v2
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_BETA_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_BETA_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PILOTAGE_PROJECT }}
+          SENTRY_URL: ${{ secrets.SENTRY_BETA_URL }}
+        with:
+          environment: recette
+          ignore_missing: true
+          ignore_empty: true
