@@ -9,7 +9,6 @@ import PopinInteressee from './popins/popinInteressee';
 import PopinRecrutee from './popins/popinRecrutee';
 import PopinNouvelleRupture from './popins/popinNouvelleRupture';
 import { Oval } from 'react-loader-spinner';
-import 'moment/locale/fr';
 
 function ConseillerDetails() {
 
