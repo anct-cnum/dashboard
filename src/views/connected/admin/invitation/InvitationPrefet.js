@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import Departement from '../../../../data/departements-region.json';
-import Region from '../../../../data/code_region.json';
-import { InvitationActions } from '../../../../actions/invitationActions';
+import Departement from '../../../../datas/departements-region.json';
+import Region from '../../../../datas/code_region.json';
+import { InvitationsActions } from '../../../../actions/invitationsActions';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { valideEmail } from '../../../../utils/validationsUtils';
 
 export default function InvitationPrefet({ option }) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [localite, setLocalite] = useState({});
   const [activeMessage, setActiveMessage] = useState(false);
-  const valideEmail = new RegExp(/^[a-zA-Z0-9-._]+@[a-zA-Z0-9-._]{2,}[.][a-zA-Z]{2,3}$/);
 
   const handleChange = e => setEmail(e.target.value);
   const checkEmail = email => email.endsWith('.gouv.fr');
@@ -18,11 +19,11 @@ export default function InvitationPrefet({ option }) {
     if (!valideEmail.test(email)) {
       setActiveMessage(true);
     }
-    dispatch(InvitationActions.inviteAccountPrefet({ email, ...localite }));
+    dispatch(InvitationsActions.inviteAccountPrefet({ email, ...localite }));
     setActiveMessage(false);
-    window.scrollTo(0, 0);
+    scrollTopWindow();
     setTimeout(() => {
-      dispatch(InvitationActions.resetInvitation());
+      dispatch(InvitationsActions.resetInvitation());
     }, 10000);
   };
 
@@ -40,7 +41,7 @@ export default function InvitationPrefet({ option }) {
       {option === 'prefet-departement' && (
         <div>
           <label className="fr-label">
-            Adresse pr&eacute;fecture par d&eacute;partement :{' '}
+            Adresse pr&eacute;fecture par d&eacute;partement :
           </label>
           <span>
             <select
@@ -84,7 +85,7 @@ export default function InvitationPrefet({ option }) {
         />
         {email && !checkEmail(email) && (
           <span>
-            L&apos;adresse email doit &ecirc;tre du nom de domaine{' '}
+            L&apos;adresse email doit &ecirc;tre du nom de domaine
             <strong>gouv.fr</strong>.
           </span>
         )}

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { InvitationActions } from '../../../../actions/invitationActions';
+import { InvitationsActions } from '../../../../actions/invitationsActions';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { valideEmail } from '../../../../utils/validationsUtils';
 
 export default function InvitationAdmin() {
   const dispatch = useDispatch();
-  const valideEmail = new RegExp(
-    /^[a-zA-Z0-9-._]+@[a-zA-Z0-9-._]{2,}[.][a-zA-Z]{2,3}$/
-  );
   const [email, setEmail] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
 
@@ -14,11 +13,11 @@ export default function InvitationAdmin() {
     if (!valideEmail.test(email)) {
       setActiveMessage(true);
     }
-    dispatch(InvitationActions.inviteAccountAdmin(email));
+    dispatch(InvitationsActions.inviteAccountAdmin(email));
     setActiveMessage(false);
-    window.scrollTo(0, 0);
+    scrollTopWindow();
     setTimeout(() => {
-      dispatch(InvitationActions.resetInvitation());
+      dispatch(InvitationsActions.resetInvitation());
     }, 10000);
   };
 

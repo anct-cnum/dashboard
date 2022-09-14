@@ -3,7 +3,8 @@ import { userService } from '../services/userService';
 export const userActions = {
   updateUserEmail,
   confirmeUserEmail,
-  verifyToken
+  verifyToken,
+  choosePassword
 };
 
 function updateUserEmail({ id, newEmail }) {
@@ -76,5 +77,31 @@ function verifyToken(token) {
   }
   function failure(error) {
     return { type: 'VERIFY_TOKEN_FAILURE', error };
+  }
+}
+
+function choosePassword(token, password) {
+  return dispatch => {
+    dispatch(request(token));
+
+    userService.choosePassword(token, password)
+    .then(
+      resultChoosePassword => {
+        dispatch(success(resultChoosePassword));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request(token) {
+    return { type: 'CHOOSE_PASSWORD_REQUEST', token };
+  }
+  function success(resultChoosePassword) {
+    return { type: 'CHOOSE_PASSWORD_SUCCESS', resultChoosePassword };
+  }
+  function failure(error) {
+    return { type: 'CHOOSE_PASSWORD_FAILURE', error };
   }
 }

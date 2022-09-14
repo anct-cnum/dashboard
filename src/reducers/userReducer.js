@@ -1,4 +1,8 @@
-export default function user(state = null, action) {
+const initialState = {
+  verifyingToken: false,
+  error: false
+};
+export default function user(state = initialState, action) {
 
   switch (action.type) {
     case 'UPDATE_USER_EMAIL_REQUEST':
@@ -49,6 +53,23 @@ export default function user(state = null, action) {
       return {
         tokenVerified: false,
         verifyingToken: false,
+        error: action.error
+      };
+    case 'CHOOSE_PASSWORD_REQUEST':
+      return {
+        choosingPassword: true,
+        user: action.user
+      };
+    case 'CHOOSE_PASSWORD_SUCCESS':
+      return {
+        choosingPassword: false,
+        passwordChoosen: true,
+        resultChoosePassword: action.resultChoosePassword
+      };
+    case 'CHOOSE_PASSWORD_FAILURE':
+      return {
+        choosingPassword: false,
+        passwordChoosen: false,
         error: action.error
       };
     default:

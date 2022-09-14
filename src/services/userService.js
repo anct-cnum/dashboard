@@ -5,7 +5,8 @@ import apiUrlRoot from '../helpers/apiUrl';
 export const userService = {
   confirmeUserEmail,
   updateUserEmail,
-  verifyToken
+  verifyToken,
+  choosePassword
 };
 
 function confirmeUserEmail(token) {
@@ -34,6 +35,19 @@ function verifyToken(token) {
   };
 
   let uri = `${apiUrlRoot}/users/verifyToken/${token}`;
+  return fetch(uri, requestOptions).then(handleResponse);
+}
+
+function choosePassword(token, password) {
+  const requestOptions = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ password })
+  };
+
+  let uri = `${apiUrlRoot}/users/choosePassword/${token}`;
   return fetch(uri, requestOptions).then(handleResponse);
 }
 

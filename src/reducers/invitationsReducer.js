@@ -3,12 +3,13 @@ const initState = {
   success: false,
   error: false
 };
-export default function invitation(state = initState, action) {
+export default function invitations(state = initState, action) {
   switch (action.type) {
     case 'INVITING_PREFET_REQUEST':
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: false
       };
     case 'INVITING_PREFET_SUCCESS':
       return {
@@ -25,7 +26,8 @@ export default function invitation(state = initState, action) {
     case 'INVITING_ADMIN_REQUEST':
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: false
       };
     case 'INVITING_ADMIN_SUCCESS':
       return {
@@ -40,7 +42,8 @@ export default function invitation(state = initState, action) {
     case 'INVITING_STRUCTURE_REQUEST':
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: false
       };
     case 'INVITING_STRUCTURE_SUCCESS':
       return {

@@ -13,6 +13,7 @@ import Documents from './views/connected/Documents';
 import Certifications from './views/connected/Certifications';
 import InscriptionFormation from './views/connected/InscriptionFormation';
 import { useSelector } from 'react-redux';
+import ChoosePassword from './views/anonymous/ChoosePassword';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/inscription/:token" element={<ChoosePassword />} />
           <Route path="/confirmation-email/:token" element={<ConfirmationEmail />} />
           <Route path="/" element={<PrivateRoute/>}>
             <Route path="/documents" element={<Documents />} />

@@ -1,16 +1,16 @@
-import { invitationService } from '../services/invitationService';
+import { invitationsService } from '../services/invitationsService';
 
-export const InvitationActions = {
+export const InvitationsActions = {
   inviteAccountPrefet,
   inviteAccountAdmin,
   inviteStructure,
   resetInvitation
 };
-function inviteAccountPrefet(emails, niveau) {
+function inviteAccountPrefet(emails, maille) {
   return dispatch => {
     dispatch(request());
   
-    invitationService.inviteAccountPrefet(emails, niveau)
+    invitationsService.inviteAccountPrefet(emails, maille)
     .then(
       succesInvitePrefet => {
         dispatch(success(succesInvitePrefet));
@@ -33,7 +33,7 @@ function inviteAccountAdmin(email) {
   return dispatch => {
     dispatch(request());
   
-    invitationService.inviteAccountAdmin(email)
+    invitationsService.inviteAccountAdmin(email)
     .then(
       succesInviteAdmin => {
         dispatch(success(succesInviteAdmin));
@@ -55,11 +55,11 @@ function inviteAccountAdmin(email) {
   }
 }
 
-function inviteStructure(body) {
+function inviteStructure({ email, structureId }) {
   return dispatch => {
     dispatch(request());
   
-    invitationService.inviteStructure(body)
+    invitationsService.inviteStructure({ email, structureId })
     .then(
       succesInviteAccountMulticompteSA => {
         dispatch(success(succesInviteAccountMulticompteSA));

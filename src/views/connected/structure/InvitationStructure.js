@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { InvitationActions } from '../../../actions/invitationActions';
+import { InvitationsActions } from '../../../actions/invitationsActions';
 import { Oval } from 'react-loader-spinner';
+import { scrollTopWindow } from '../../../utils/exportsUtils';
+import { valideEmail } from '../../../utils/validationsUtils';
 
-export default function InvitationMulticompteStructure() {
+export default function InvitationStructure() {
   const dispatch = useDispatch();
-  const valideEmail = new RegExp(/^[a-zA-Z0-9-._]+@[a-zA-Z0-9-._]{2,}[.][a-zA-Z]{2,3}$/);
   const [email, setEmail] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
+  const { error, success, loading } = useSelector(state => state.invitations);
+  const { entity } = useSelector(state => state.authentication.user);
+
   const sendInvitation = () => {
     if (!valideEmail.test(email)) {
       setActiveMessage(true);
     }
-    dispatch(InvitationActions.inviteStructure({ email, structureId: '604218a24959f620858b9248' }));
+    dispatch(InvitationsActions.inviteStructure({ email, structureId: entity['$id'] }));
     setActiveMessage(false);
-    window.scrollTo(0, 0);
+    scrollTopWindow();
     setTimeout(() => {
-      dispatch(InvitationActions.resetInvitation());
+      dispatch(InvitationsActions.resetInvitation());
     }, 10000);
   };
-  const { error, success, loading } = useSelector(state => state.invitations);
 
   return (
     <div style={{ width: '50%' }}>

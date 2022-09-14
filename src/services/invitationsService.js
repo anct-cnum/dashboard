@@ -1,13 +1,13 @@
 import { authenticationService } from './authenticationService';
 import { authHeader, history, roleActivated } from '../helpers';
 
-export const invitationService = {
+export const invitationsService = {
   inviteAccountPrefet,
   inviteAccountAdmin,
   inviteStructure,
 };
 
-function inviteAccountPrefet(data) {
+function inviteAccountPrefet(emails, maille) {
   const apiUrl = `${process.env.REACT_APP_API_URL}/inviteAccountPrefet?role=${roleActivated()}`;
 
   const requestOptions = {
@@ -16,7 +16,7 @@ function inviteAccountPrefet(data) {
       { 'Content-Type': 'application/json' },
       authHeader()
     ),
-    body: JSON.stringify(data),
+    body: JSON.stringify({ emails, maille }),
   };
 
   return fetch(apiUrl, requestOptions).then(handleResponse);
@@ -36,7 +36,7 @@ function inviteAccountAdmin(email) {
 
   return fetch(apiUrl, requestOptions).then(handleResponse);
 }
-function inviteStructure(body) {
+function inviteStructure({ email, structureId }) {
   const apiUrl = `${process.env.REACT_APP_API_URL}/inviteStructure?role=${roleActivated()}`;
 
   const requestOptions = {
@@ -45,7 +45,7 @@ function inviteStructure(body) {
       { 'Content-Type': 'application/json' },
       authHeader()
     ),
-    body: JSON.stringify(body),
+    body: JSON.stringify({ email, structureId }),
   };
 
   return fetch(apiUrl, requestOptions).then(handleResponse);
