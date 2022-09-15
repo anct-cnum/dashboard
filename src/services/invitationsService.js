@@ -1,5 +1,6 @@
 import { authenticationService } from './authenticationService';
 import { authHeader, history, roleActivated } from '../helpers';
+import apiUrlRoot from '../helpers/apiUrl';
 
 export const invitationsService = {
   inviteAccountPrefet,
@@ -8,7 +9,7 @@ export const invitationsService = {
 };
 
 function inviteAccountPrefet(emails, maille) {
-  const apiUrl = `${process.env.REACT_APP_API_URL}/inviteAccountPrefet?role=${roleActivated()}`;
+  const apiUrl = `${apiUrlRoot}/inviteAccountPrefet?role=${roleActivated()}`;
 
   const requestOptions = {
     method: 'POST',
@@ -23,7 +24,7 @@ function inviteAccountPrefet(emails, maille) {
 }
 
 function inviteAccountAdmin(email) {
-  const apiUrl = `${process.env.REACT_APP_API_URL}/inviteAccountAdmin?role=${roleActivated()}`;
+  const apiUrl = `${apiUrlRoot}/inviteAccountAdmin?role=${roleActivated()}`;
 
   const requestOptions = {
     method: 'POST',
@@ -37,7 +38,7 @@ function inviteAccountAdmin(email) {
   return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 function inviteStructure({ email, structureId }) {
-  const apiUrl = `${process.env.REACT_APP_API_URL}/inviteStructure?role=${roleActivated()}`;
+  const apiUrl = `${apiUrlRoot}/inviteStructure?role=${roleActivated()}`;
 
   const requestOptions = {
     method: 'POST',

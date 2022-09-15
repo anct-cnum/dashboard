@@ -70,7 +70,7 @@ export default function user(state = initialState, action) {
       return {
         choosingPassword: false,
         passwordChoosen: false
-      },
+      };
     case 'INPUT_EMAIL_NOT_VALID':
       return {
         ...state,

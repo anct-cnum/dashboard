@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { InvitationsActions } from '../../../actions/invitationsActions';
 import { Oval } from 'react-loader-spinner';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
-import { valideEmail } from '../../../utils/validationsUtils';
+import { valideInputEmail } from '../../../utils/formatagesUtils';
 
 export default function InvitationStructure() {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function InvitationStructure() {
   const { entity } = useSelector(state => state.authentication.user);
 
   const sendInvitation = () => {
-    if (!valideEmail.test(email)) {
+    if (!valideInputEmail(email)) {
       setActiveMessage(true);
     }
     dispatch(InvitationsActions.inviteStructure({ email, structureId: entity['$id'] }));
@@ -52,7 +52,7 @@ export default function InvitationStructure() {
       <div className="fr-my-3w">
         <label className="fr-label">Email</label>
         <input className="fr-input" type="email" id="text-input-text" name="email" value={email} onChange={e => setEmail(e.target.value)} />
-        { email && !valideEmail.test(email) && activeMessage &&
+        { email && !valideInputEmail(email) && activeMessage &&
           <div className="invalid">Le format de l&rsquo;adresse mail saisi est invalide.</div>
         }
       </div>

@@ -5,7 +5,7 @@ import Departement from '../../../../datas/departements-region.json';
 import Region from '../../../../datas/code_region.json';
 import { InvitationsActions } from '../../../../actions/invitationsActions';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import { valideEmail } from '../../../../utils/validationsUtils';
+import { valideInputEmail } from '../../../../utils/formatagesUtils';
 
 export default function InvitationPrefet({ option }) {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export default function InvitationPrefet({ option }) {
   const handleChange = e => setEmail(e.target.value);
   const checkEmail = email => email.endsWith('.gouv.fr');
   const handleSubmit = () => {
-    if (!valideEmail.test(email)) {
+    if (!valideInputEmail(email)) {
       setActiveMessage(true);
     }
     dispatch(InvitationsActions.inviteAccountPrefet({ email, ...localite }));
@@ -89,7 +89,7 @@ export default function InvitationPrefet({ option }) {
             <strong>gouv.fr</strong>.
           </span>
         )}
-        { email && !valideEmail.test(email) && activeMessage &&
+        { email && !valideInputEmail(email) && activeMessage &&
           <div className="invalid">Le format de l&rsquo;email saisi est invalide.</div>
         }
       </div>

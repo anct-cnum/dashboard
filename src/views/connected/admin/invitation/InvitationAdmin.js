@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { InvitationsActions } from '../../../../actions/invitationsActions';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import { valideEmail } from '../../../../utils/validationsUtils';
+import { valideInputEmail } from '../../../../utils/formatagesUtils';
 
 export default function InvitationAdmin() {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ export default function InvitationAdmin() {
   const [activeMessage, setActiveMessage] = useState(false);
 
   const sendInvitation = () => {
-    if (!valideEmail.test(email)) {
+    if (!valideInputEmail(email)) {
       setActiveMessage(true);
     }
     dispatch(InvitationsActions.inviteAccountAdmin(email));
@@ -33,7 +33,7 @@ export default function InvitationAdmin() {
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
-        {email && !valideEmail.test(email) && activeMessage && (
+        {email && !valideInputEmail(email) && activeMessage && (
           <div className="invalid">
             Le format de l&rsquo;adresse mail saisi est invalide.
           </div>
@@ -49,7 +49,7 @@ export default function InvitationAdmin() {
       <button
         style={{ float: 'right' }}
         className="fr-btn"
-        disabled={!valideEmail.test(email) ? 'disabled' : ''}
+        disabled={!valideInputEmail(email) ? 'disabled' : ''}
         onClick={sendInvitation}
       >
         Envoyer
