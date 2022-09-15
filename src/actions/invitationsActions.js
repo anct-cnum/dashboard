@@ -6,11 +6,11 @@ export const InvitationsActions = {
   inviteStructure,
   resetInvitation
 };
-function inviteAccountPrefet(emails, maille) {
+function inviteAccountPrefet(email, maille) {
   return dispatch => {
     dispatch(request());
   
-    invitationsService.inviteAccountPrefet(emails, maille)
+    invitationsService.inviteAccountPrefet(email, maille)
     .then(
       succesInvitePrefet => {
         dispatch(success(succesInvitePrefet));

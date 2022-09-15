@@ -18,10 +18,10 @@ import ChoosePassword from './views/anonymous/ChoosePassword';
 function App() {
 
   const exports = useSelector(state => state.exports);
-  const loading = useSelector(state => state.invitations.loading);
+  const invitations = useSelector(state => state.invitations);
   return (
     <div className="App">
-      { (exports?.loading === true) || (loading === true) &&
+      { (exports?.loading === true) || (invitations?.loading === true) &&
       <div className="wrapperModal"></div>
       }
       <Router history={history}>

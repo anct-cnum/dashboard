@@ -8,7 +8,7 @@ export const invitationsService = {
   inviteStructure,
 };
 
-function inviteAccountPrefet(emails, maille) {
+function inviteAccountPrefet(email, maille) {
   const apiUrl = `${apiUrlRoot}/inviteAccountPrefet?role=${roleActivated()}`;
 
   const requestOptions = {
@@ -17,7 +17,7 @@ function inviteAccountPrefet(emails, maille) {
       { 'Content-Type': 'application/json' },
       authHeader()
     ),
-    body: JSON.stringify({ emails, maille }),
+    body: JSON.stringify({ ...email, ...maille }),
   };
 
   return fetch(apiUrl, requestOptions).then(handleResponse);

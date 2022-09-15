@@ -14,7 +14,7 @@ export default function Invation() {
       <div className="fr-form-group">
         <fieldset className="fr-fieldset fr-fieldset--inline">
           <legend className="fr-fieldset__legend fr-text--regular" id="radio-inline-legend">
-          L&eacute;gende pour l&rsquo;ensemble de champs
+              Veuillez sélectionner l&rsquo;un des champs pour invité un :
           </legend>
           <div className="fr-fieldset__content">
             {arrayOption.map((option, key) =>
@@ -27,8 +27,10 @@ export default function Invation() {
           </div>
         </fieldset>
       </div>
-      {['prefet-region', 'prefet-departement'].includes(option) && <InvitationPrefet option={option} /> }
-      {['admin'].includes(option) && <InvitationAdmin/> }
+      <div className="fr-col-md-12 fr-col-lg-6">
+        {['prefet-region', 'prefet-departement'].includes(option) && <InvitationPrefet option={option} /> }
+        {['admin'].includes(option) && <InvitationAdmin/> }
+      </div>
     </>
   );
 }

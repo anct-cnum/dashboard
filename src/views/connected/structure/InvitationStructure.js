@@ -15,6 +15,7 @@ export default function InvitationStructure() {
   const sendInvitation = () => {
     if (!valideInputEmail(email)) {
       setActiveMessage(true);
+      return;
     }
     dispatch(InvitationsActions.inviteStructure({ email, structureId: entity['$id'] }));
     setActiveMessage(false);
@@ -25,7 +26,7 @@ export default function InvitationStructure() {
   };
 
   return (
-    <div style={{ width: '50%' }}>
+    <div>
       {success &&
         <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
           <p className="fr-alert__title">
@@ -49,15 +50,31 @@ export default function InvitationStructure() {
           visible={loading === true}
         />
       </div>
-      <div className="fr-my-3w">
-        <label className="fr-label">Email</label>
-        <input className="fr-input" type="email" id="text-input-text" name="email" value={email} onChange={e => setEmail(e.target.value)} />
-        { email && !valideInputEmail(email) && activeMessage &&
-          <div className="invalid">Le format de l&rsquo;adresse mail saisi est invalide.</div>
+      <div className={`fr-input-group ${email && !valideInputEmail(email) && activeMessage ? 'fr-input-group--error' : ''}`}>
+        <label className="fr-label" htmlFor="email-structure-input">
+                Adresse mail &agrave; ajouter :
+        </label>
+        <input
+          className={`fr-input ${email && !valideInputEmail(email) && activeMessage ? 'fr-input--error' : ''}`}
+          aria-describedby="email-structure-error"
+          type="text"
+          id="email-structure-input"
+          name="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)} />
+        {email && !valideInputEmail(email) && activeMessage &&
+            <p id="email-prefet-error" className="fr-error-text">
+              Le format de l&rsquo;email saisi est invalide.
+            </p>
         }
       </div>
-      <button onClick={() => setEmail('')} className="fr-btn">Annuler</button>
-      <button style={{ float: 'right' }} className="fr-btn" disabled={!valideEmail.test(email) ? 'disabled' : ''} onClick={sendInvitation}>
+      <button onClick={() => setEmail('')}
+        disabled={email.length === 0 ? 'disabled' : ''}
+        className="fr-btn"
+      >
+        Annuler
+      </button>
+      <button style={{ float: 'right' }} className="fr-btn" onClick={sendInvitation}>
           Envoyer
       </button>
     </div>
