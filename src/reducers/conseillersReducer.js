@@ -2,11 +2,13 @@ export default function conseillers(state = [], action) {
   switch (action.type) {
     case 'GETALL_REQUEST':
       return {
-        loading: true
+        loading: true,
+        error: false
       };
     case 'GETALL_SUCCESS':
       return {
-        items: action.conseillers
+        items: action.conseillers,
+        loading: false
       };
     case 'GETALL_FAILURE':
       return {

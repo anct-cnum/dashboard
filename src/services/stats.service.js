@@ -1,10 +1,9 @@
 import { authHeader, history, userEntityId } from '../helpers';
-import { userService } from './user.service';
+import { userService } from './userService';
 
 export const statsService = {
   getMisesEnRelationStats,
-  getConseillersFinalisee,
-  getStatsTerritoires
+  getConseillersFinalisee
 };
 
 function getMisesEnRelationStats(id) {
@@ -27,19 +26,6 @@ function getConseillersFinalisee() {
   const apiUrlRoot = process.env.REACT_APP_API_URL;
 
   return fetch(`${apiUrlRoot}/stats/conseillers/finalisees`, requestOptions).then(handleResponse);
-}
-
-function getStatsTerritoires(territoire, dateDebut, dateFin) {
-  const apiUrlRoot = process.env.REACT_APP_API_URL;
-  const requestOptions = {
-    method: 'GET',
-    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
-  };
-
-  return fetch(
-    `${apiUrlRoot}/stats/prefet/territoires?territoire=${territoire}&dateDebut=${dateDebut}&dateFin=${dateFin}`,
-    requestOptions
-  ).then(handleResponse);
 }
 
 function handleResponse(response) {

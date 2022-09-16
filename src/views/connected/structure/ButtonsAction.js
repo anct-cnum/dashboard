@@ -6,6 +6,7 @@ import { conseillerActions } from '../../../actions/conseiller.actions';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import PopinConfirmationAnnulation from './popins/popinConfirmationAnnulation';
+import { scrollTopWindow } from '../../../utils/exportsUtils';
 
 //Print datePicker calendar in FR
 registerLocale('fr', fr);
@@ -28,7 +29,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId, dateRecrutement
   };
 
   const updateDateRecrutement = date => {
-    window.scrollTo(0, 0); //permet de remonter pour visualiser le message date embauche enregistrée
+    scrollTopWindow(); //permet de remonter pour visualiser le message date embauche enregistrée
     date = dayjs(date);
     dispatch(conseillerActions.updateDateRecrutement({ id: miseEnRelationId, date }));
   };

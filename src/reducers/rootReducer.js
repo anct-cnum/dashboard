@@ -1,4 +1,3 @@
-
 import { combineReducers } from 'redux';
 import menuReducer from './menuReducer';
 import authenticationReducer from './authenticationReducer';
@@ -8,6 +7,7 @@ import conseillersReducer from './conseillersReducer';
 import conseillerReducer from './conseillerReducer';
 import searchReducer from './searchReducer';
 import statsReducer from './statsReducer';
+import filtersAndSorts from './filtersAndSortsReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -17,7 +17,8 @@ const rootReducer = combineReducers({
   conseillers: conseillersReducer,
   conseiller: conseillerReducer,
   stats: statsReducer,
-  search: searchReducer
+  search: searchReducer,
+  filtersAndSorts: filtersAndSorts
 });
 
 export default rootReducer;

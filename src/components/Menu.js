@@ -58,7 +58,7 @@ function Menu() {
               </Link>
             </li>
             <li className="fr-nav__item">
-              <Link className="fr-nav__link" to="/structure/conseillers">
+              <Link className="fr-nav__link" to="`/${roleActivated}/conseillers`">
                 Liste des conseillers
               </Link>
             </li>

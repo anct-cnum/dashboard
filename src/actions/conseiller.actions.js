@@ -11,12 +11,8 @@ export const conseillerActions = {
   updateMotifRupture,
   preSelectionner,
   verifyCandidateToken,
-  verifySondageToken,
   getCurriculumVitae,
-  resetFile,
-  getStructureByIdConseiller,
-  suppressionCandidat,
-  resendInvitCandidatConseiller
+  getStructureByIdConseiller
 };
 
 function get(id) {
@@ -245,32 +241,6 @@ function verifyCandidateToken(token) {
   }
 }
 
-function verifySondageToken(token) {
-  return dispatch => {
-    dispatch(request(token));
-
-    conseillerService.verifySondageToken(token)
-    .then(
-      result => {
-        dispatch(success(result.isValid, result.conseiller));
-      },
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
-
-  function request(token) {
-    return { type: 'VERIFY_SONDAGE_TOKEN_REQUEST', token };
-  }
-  function success(isValid, conseiller) {
-    return { type: 'VERIFY_SONDAGE_TOKEN_SUCCESS', isValid, conseiller };
-  }
-  function failure(error) {
-    return { type: 'VERIFY_SONDAGE_TOKEN_FAILURE', error };
-  }
-}
-
 function getCurriculumVitae(id, candidat) {
 
   return dispatch => {
@@ -292,11 +262,6 @@ function getCurriculumVitae(id, candidat) {
     return { type: 'GET_CURRICULUM_VITAE_FAILURE', error };
   }
 }
-
-function resetFile() {
-  return { type: 'RESET_FILE' };
-}
-
 
 function getStructureByIdConseiller(id) {
   return dispatch => {
@@ -321,52 +286,5 @@ function getStructureByIdConseiller(id) {
   }
   function failure(error) {
     return { type: 'GET_STRUCTURE_EMPLOYER_FAILURE', error };
-  }
-}
-
-function suppressionCandidat({ id, motif, actionUser }) {
-  return dispatch => {
-    dispatch(request());
-
-    conseillerService.suppressionCandidat({ id, motif, actionUser })
-    .then(
-      deleteSuccess => dispatch(success(deleteSuccess)),
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
-
-  function request() {
-    return { type: 'DELETE_CONSEILLER_REQUEST' };
-  }
-  function success(deleteSuccess) {
-    return { type: 'DELETE_CONSEILLER_SUCCESS', deleteSuccess };
-  }
-  function failure(error) {
-    return { type: 'DELETE_CONSEILLER_FAILURE', error };
-  }
-
-}
-
-function resendInvitCandidatConseiller(id) {
-  return dispatch => {
-    dispatch(request());
-
-    conseillerService.resendInvitCandidatConseiller(id)
-    .then(
-      user => dispatch(success(user)),
-      error => dispatch(failure(error))
-    );
-  };
-
-  function request() {
-    return { type: 'RESUBMIT_INSCRIPTION_CANDIDAT_REQUEST' };
-  }
-  function success(user) {
-    return { type: 'RESUBMIT_INSCRIPTION_CANDIDAT_SUCCESS', user };
-  }
-  function failure(error) {
-    return { type: 'RESUBMIT_INSCRIPTION_CANDIDAT_FAILURE', error };
   }
 }

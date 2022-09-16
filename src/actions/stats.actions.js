@@ -1,14 +1,8 @@
 import { statsService } from '../services/stats.service.js';
-import dayjs from 'dayjs';
 
 export const statsActions = {
   getMisesEnRelationStats,
-  getConseillersFinalisee,
-  getStatsTerritoires
-};
-
-const formatDate = date => {
-  return dayjs(date).format('YYYY-MM-DD');
+  getConseillersFinalisee
 };
 
 function getMisesEnRelationStats(id = null) {
@@ -64,30 +58,5 @@ function getConseillersFinalisee() {
   }
   function failure(error) {
     return { type: 'GET_CONSEILLERS_FINALISEE_FAILURE', error };
-  }
-}
-
-function getStatsTerritoires(territoire = 'departement', dateDebut, dateFin) {
-  return dispatch => {
-    dispatch(request());
-    statsService.getStatsTerritoires(territoire, formatDate(dateDebut), formatDate(dateFin))
-    .then(
-      statsTerritoires => {
-        dispatch(success(statsTerritoires));
-      },
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
-
-  function request() {
-    return { type: 'GET_STATS_TERRITOIRES_REQUEST' };
-  }
-  function success(statsTerritoires) {
-    return { type: 'GET_STATS_TERRITOIRES_SUCCESS', statsTerritoires };
-  }
-  function failure(error) {
-    return { type: 'GET_STATS_TERRITOIRES_FAILURE', error };
   }
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Oval } from 'react-loader-spinner';
 import Candidat from './Candidat';
-import ConseillerNonMisEnRelation from './ConseillerNonMisEnRelation';
+import CandidatNonMisEnRelation from './CandidatNonMisEnRelation';
 import { conseillerActions, statsActions, searchActions } from '../../../actions';
 import Pagination from '../../../components/Pagination';
 import FiltersAndSorts from './FiltersAndSorts';
@@ -179,7 +179,7 @@ function Candidats({ location }) {
                 return (
                   conseiller.conseillerObj ?
                     <Candidat key={idx} miseEnRelation={conseiller} currentPage={page} currentFilter={filter} search={search !== ''} /> :
-                    <ConseillerNonMisEnRelation key={idx} conseiller={conseiller} search={search !== ''} update={update} />
+                    <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={search !== ''} update={update} />
                 );
               })
               }

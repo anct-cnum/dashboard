@@ -1,6 +1,6 @@
 import { authHeader, history, userEntityId } from '../helpers';
 
-import { userService } from './user.service';
+import { userService } from './userService';
 
 const apiUrlRoot = process.env.REACT_APP_API_URL;
 
@@ -13,12 +13,7 @@ export const conseillerService = {
   updateDateRupture,
   updateMotifRupture,
   preSelectionner,
-  verifyCandidateToken,
-  verifySondageToken,
-  getCurriculumVitae,
-  getStructureByIdConseiller,
-  suppressionCandidat,
-  resendInvitCandidatConseiller
+  getCurriculumVitae
 };
 
 function get(id) {
@@ -145,26 +140,6 @@ function updateMotifRupture(id, motif) {
   return fetch(`${apiUrlRoot}/misesEnRelation/${id}`, requestOptions).then(handleResponse);
 }
 
-function verifyCandidateToken(token) {
-  const apiUrlRoot = process.env.REACT_APP_API;
-  const requestOptions = {
-    method: 'GET'
-  };
-
-  let uri = `${apiUrlRoot}/conseillers/verifyCandidateToken/${token}`;
-  return fetch(uri, requestOptions).then(handleResponse);
-}
-
-function verifySondageToken(token) {
-  const apiUrlRoot = process.env.REACT_APP_API;
-  const requestOptions = {
-    method: 'GET'
-  };
-
-  let uri = `${apiUrlRoot}/conseillers/verifySondageToken/${token}`;
-  return fetch(uri, requestOptions).then(handleResponse);
-}
-
 function getCurriculumVitae(id) {
   const requestOptions = {
     method: 'GET',
@@ -172,34 +147,6 @@ function getCurriculumVitae(id) {
   };
 
   return fetch(`${apiUrlRoot}/conseillers/${id}/cv`, requestOptions).then(handleFileResponse);
-}
-
-function getStructureByIdConseiller(id) {
-  const apiUrlRoot = process.env.REACT_APP_API;
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
-  };
-
-  let uri = `${apiUrlRoot}/conseillers/${id}/employeur`;
-  return fetch(uri, requestOptions).then(handleResponse);
-}
-function suppressionCandidat({ id, motif, actionUser }) {
-  const requestOptions = {
-    method: 'DELETE',
-    headers: authHeader(),
-  };
-
-  return fetch(`${apiUrlRoot}/conseillers/${id}/candidature?motif=${motif}&actionUser=${actionUser}`, requestOptions).then(handleResponse);
-}
-
-function resendInvitCandidatConseiller(id) {
-  const requestOptions = {
-    method: 'POST',
-    headers: authHeader()
-  };
-
-  return fetch(`${apiUrlRoot}/conseillers/${id}/relance-invitation`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
