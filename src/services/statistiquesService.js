@@ -1,4 +1,4 @@
-import { authHeader } from '../helpers';
+import { roleActivated, authHeader } from '../helpers';
 import { authenticationService } from './authenticationService';
 import apiUrlRoot from '../helpers/apiUrl';
 
@@ -85,7 +85,7 @@ function getStatistiquesNationale(dateDebut, dateFin) {
     headers: authHeader(),
   };
 
-  return fetch(`${apiUrlRoot}/stats/nationales/cra?dateDebut=${dateDebut}&dateFin=${dateFin}`,
+  return fetch(`${apiUrlRoot}/stats/nationales/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}`,
     requestOptions).then(handleResponse);
 }
 
