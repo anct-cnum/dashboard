@@ -5,8 +5,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { checkComplexity } from '../../utils/formatagesUtils';
 
 function ChoosePassword() {
-  //Sécurité mot de passe :  Au moins 8 caratères (moins de 200) ayant au moins 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial
-
   const { token } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,7 +39,7 @@ function ChoosePassword() {
       dispatch(userActions.choosePassword(token, password));
       setTimeout(() => {
         navigate('/login');
-      }, 6000);
+      }, 10000);
     }
   }
 
@@ -51,6 +49,20 @@ function ChoosePassword() {
         <div className="fr-grid-row fr-grid-row--center fr-mt-3w">
           <div style={{ textAlign: 'center' }}>
             {verifyingToken && <span className="fr-h2">Chargement...</span>}
+            {resultChoosePassword &&
+              <div className="fr-alert fr-alert--success">
+                <p className="fr-alert__title">L&apos;activation de votre espace a &eacute;t&eacute; effectu&eacute;e avec succ&egrave;s</p>
+                <p>Nous allons vous rediriger sur la page de connexion...</p>
+              </div>
+            }
+            {tokenVerified === false &&
+              <div className="fr-alert fr-alert--error">
+                <p className="fr-alert__title">
+                D&eacute;sol&eacute; mais le lien est invalide ou a d&eacute;j&agrave; &eacute;t&eacute; utilis&eacute;.
+                Veuillez contactez le support si besoin.
+                </p>
+              </div>
+            }
             {tokenVerified === true && !resultChoosePassword &&
               <div>
                 <div>
@@ -78,7 +90,7 @@ function ChoosePassword() {
                   <p
                     id="text-input-valid-desc-valid"
                     className="fr-valid-text"
-                    style={!checkComplexity.test(password) ? { color: 'grey' } : {}}>
+                    style={!checkComplexity(password) ? { color: 'grey' } : {}}>
                     Mot de passe correspond aux exigences de sécurité
                   </p>
                   {submitted && !password &&
@@ -86,7 +98,7 @@ function ChoosePassword() {
                       Mot de passe requis
                     </p>
                   }
-                  {submitted && password && !checkComplexity.test(password) &&
+                  {submitted && password && !checkComplexity(password) &&
                     <p id="text-input-error-desc-error" className="fr-error-text" >
                       Le mot de passe ne correspond pas aux exigences de
                       sécurité.
