@@ -3,7 +3,7 @@ const initialState = {
   pageCount: 0,
 };
 
-export default function menu(state = initialState, action) {
+export default function pagination(state = initialState, action) {
   switch (action.type) {
     case 'SET_PAGE':
       return {

@@ -51,6 +51,11 @@ export default function user(state = null, action) {
         verifyingToken: false,
         error: action.error
       };
+    case 'INPUT_EMAIL_NOT_VALID':
+      return {
+        ...state,
+        error: action.error
+      };
     default:
       return state;
   }

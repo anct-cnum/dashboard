@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { exportsActions } from '../../../actions';
 import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
 
-import Spinner from '../../../components/Spinner';
-
 function Exports() {
   const dispatch = useDispatch();
   const exports = useSelector(state => state.exports);
@@ -23,7 +21,7 @@ function Exports() {
       scrollTopWindow();
     }
   }, [error]);
-  
+
   return (
     <div className="exportsCoordinateur" style={{ position: 'relative' }}>
       {(error !== undefined && error !== false && error?.statut !== 404) &&
@@ -36,13 +34,15 @@ function Exports() {
           <p>Information : {error.message.toString()}</p>
         </div>
       }
-      <Spinner loading={exports?.loading} />
-      <p>
-        <a className="fr-link" href="#">Export de vos conseillers</a>
-        <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-          Export des emails, noms, pr&eacute;noms de la liste de vos conseillers
-        </span>
-      </p>
+      <div className="fr-notice fr-notice--info">
+        <div className="fr-container">
+          <div className="fr-notice__body">
+            <p className="fr-notice__title">
+              Vous ne poss&eacute;dez aucun export pour le moment
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
