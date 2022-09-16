@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../actions';
 import { useParams, useNavigate } from 'react-router-dom';
+import { checkComplexity } from '../../utils/formatagesUtils';
 
 function ChoosePassword() {
   //Sécurité mot de passe :  Au moins 8 caratères (moins de 200) ayant au moins 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial
-  const checkComplexity = new RegExp(
-    /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,199})/
-  );
+
   const { token } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ function ChoosePassword() {
     if (
       password &&
       confirmPassword === password &&
-      checkComplexity.test(password)
+      checkComplexity(password)
     ) {
       dispatch(userActions.choosePassword(token, password));
       setTimeout(() => {
