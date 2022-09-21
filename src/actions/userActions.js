@@ -5,7 +5,8 @@ export const userActions = {
   confirmeUserEmail,
   verifyToken,
   choosePassword,
-  inputEmailNotValid
+  inputEmailNotValid,
+  usersByStructure
 };
 
 function updateUserEmail({ id, newEmail }) {
@@ -111,4 +112,30 @@ function choosePassword(token, password) {
 function inputEmailNotValid() {
   const error = 'Le format de l\'email est invalide';
   return { type: 'INPUT_EMAIL_NOT_VALID', error };
+}
+
+function usersByStructure(structureId) {
+  return dispatch => {
+    dispatch(request(structureId));
+
+    userService.usersByStructure(structureId)
+    .then(
+      users => {
+        dispatch(success(users));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request(structureId) {
+    return { type: 'GET_USERS_REQUEST', structureId };
+  }
+  function success(users) {
+    return { type: 'GET_USERS_SUCCESS', users };
+  }
+  function failure(error) {
+    return { type: 'GET_USERS_FAILURE', error };
+  }
 }

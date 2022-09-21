@@ -6,7 +6,8 @@ export const userService = {
   confirmeUserEmail,
   updateUserEmail,
   verifyToken,
-  choosePassword
+  choosePassword,
+  usersByStructure
 };
 
 function confirmeUserEmail(token) {
@@ -65,4 +66,13 @@ function handleResponse(response) {
 
     return data;
   });
+}
+
+function usersByStructure(idStructure) {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+  let uri = `${apiUrlRoot}/users/listByIdStructure/${idStructure}?role=${roleActivated()}`;
+  return fetch(uri, requestOptions).then(handleResponse);
 }

@@ -171,7 +171,7 @@ function Menu() {
                 </ul>
               </div>
             </li>
-            { ['structure', 'admin'].includes(roleActivated) &&
+            { ['admin'].includes(roleActivated) &&
                 <li className="fr-nav__item">
                   <Link
                     to={`/${roleActivated}/invitations`}
