@@ -48,12 +48,12 @@ export default function InvitationAdmin() {
         disabled={email.length === 0 ? 'disabled' : ''}
         className="fr-btn"
       >
-        Annuler
+          Annuler
       </button>
       <button style={{ float: 'right' }}
         className="fr-btn" onClick={sendInvitation}
       >
-        Envoyer
+          Envoyer
       </button>
     </div>
   );

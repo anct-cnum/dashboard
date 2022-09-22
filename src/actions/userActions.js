@@ -116,7 +116,7 @@ function inputEmailNotValid() {
 
 function usersByStructure(structureId) {
   return dispatch => {
-    dispatch(request(structureId));
+    dispatch(request());
 
     userService.usersByStructure(structureId)
     .then(
@@ -130,7 +130,7 @@ function usersByStructure(structureId) {
   };
 
   function request(structureId) {
-    return { type: 'GET_USERS_REQUEST', structureId };
+    return { type: 'GET_USERS_REQUEST'};
   }
   function success(users) {
     return { type: 'GET_USERS_SUCCESS', users };

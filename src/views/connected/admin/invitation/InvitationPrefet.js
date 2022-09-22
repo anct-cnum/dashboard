@@ -63,7 +63,7 @@ export default function InvitationPrefet({ option }) {
         }
         {option === 'prefet-region' &&
           <div>
-            <label className="fr-label">Adresse pr&eacute;fecture par région :</label>
+            <label className="fr-label">Adresse pr&eacute;fecture par r&eacute;gion :</label>
             <span>
               <select
                 className="fr-select"
@@ -105,14 +105,14 @@ export default function InvitationPrefet({ option }) {
           disabled={email.length === 0 ? 'disabled' : ''}
           className="fr-btn"
         >
-        Annuler
+          Annuler
         </button>
         <button
           style={{ float: 'right' }}
           className="fr-btn fr-fi-checkbox-line fr-btn--icon-left"
           onClick={handleSubmit}
         >
-        Valider
+          Valider
         </button>
       </div>
     </div>
