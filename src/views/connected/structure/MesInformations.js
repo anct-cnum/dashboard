@@ -88,13 +88,15 @@ function MesInformations() {
           </p>
         </div>
       }
-      <Oval
-        height={100}
-        width={100}
-        color="#060091"
-        secondaryColor="white"
-        visible={loading === true}
-      />
+      <div className="spinnerCustom">
+        <Oval
+          height={100}
+          width={100}
+          color="#060091"
+          secondaryColor="white"
+          visible={loading === true}
+        />
+      </div>
       <div className="fr-container">
         <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--left">
           <div className="fr-col fr-col-md-6">

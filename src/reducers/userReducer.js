@@ -1,5 +1,6 @@
 const initialState = {
   verifyingToken: false,
+  loading: false,
   error: false,
   userError: false
 };
@@ -58,18 +59,18 @@ export default function user(state = initialState, action) {
       };
     case 'CHOOSE_PASSWORD_REQUEST':
       return {
-        choosingPassword: true,
+        loading: true,
         user: action.user
       };
     case 'CHOOSE_PASSWORD_SUCCESS':
       return {
-        choosingPassword: false,
+        loading: false,
         passwordChoosen: true,
         resultChoosePassword: action.resultChoosePassword
       };
     case 'CHOOSE_PASSWORD_FAILURE':
       return {
-        choosingPassword: false,
+        loading: false,
         passwordChoosen: false
       };
     case 'INPUT_EMAIL_NOT_VALID':

@@ -19,9 +19,11 @@ function App() {
 
   const exports = useSelector(state => state.exports);
   const invitations = useSelector(state => state.invitations);
+  const choosingPassword = useSelector(state => state.user);
+
   return (
     <div className="App">
-      { (exports?.loading === true) || (invitations?.loading === true) &&
+      { [exports?.loading, invitations?.loading, choosingPassword?.loading].includes(true) &&
       <div className="wrapperModal"></div>
       }
       <Router history={history}>

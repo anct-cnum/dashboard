@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../../actions';
+import { authenticationActions, userActions } from '../../actions';
 import { useParams, useNavigate } from 'react-router-dom';
 import { checkComplexity } from '../../utils/formatagesUtils';
+import { Oval } from 'react-loader-spinner';
+import { scrollTopWindow } from '../../utils/exportsUtils';
 
 function ChoosePassword() {
   const { token } = useParams();
@@ -14,7 +16,7 @@ function ChoosePassword() {
   const resultChoosePassword = useSelector(
     state => state.user.resultChoosePassword
   );
-  const { tokenVerified, verifyingToken, choosingPassword, error } =
+  const { tokenVerified, verifyingToken, loading, error } =
     useSelector(state => state?.user);
   const [submitted, setSubmitted] = useState(false);
   const [inputs, setInputs] = useState({
@@ -23,6 +25,7 @@ function ChoosePassword() {
   });
   const { password, confirmPassword } = inputs;
   useEffect(() => {
+    dispatch(authenticationActions.logout());
     dispatch(userActions.verifyToken(token));
   }, []);
   function handleChange(e) {
@@ -36,6 +39,7 @@ function ChoosePassword() {
       confirmPassword === password &&
       checkComplexity(password)
     ) {
+      scrollTopWindow();
       dispatch(userActions.choosePassword(token, password));
       setTimeout(() => {
         navigate('/login');
@@ -63,6 +67,15 @@ function ChoosePassword() {
                 </p>
               </div>
             }
+            <div className="spinnerCustom">
+              <Oval
+                height={100}
+                width={100}
+                color="#060091"
+                secondaryColor="white"
+                visible={loading === true}
+              />
+            </div>
             {tokenVerified === true && !resultChoosePassword &&
               <div>
                 <div>
@@ -130,7 +143,7 @@ function ChoosePassword() {
                 <button className="fr-btn" onClick={handleSubmit}>
                   Valider
                 </button>
-                {choosingPassword && <span>Chargement...</span>}
+                {loading && <span>Chargement...</span>}
               </div>
             }
           </div>
