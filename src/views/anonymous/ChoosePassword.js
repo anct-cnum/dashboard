@@ -83,9 +83,9 @@ function ChoosePassword() {
                 </div>
                 <div className="fr-alert fr-alert--info">
                   <p className="fr-alert__title">Choisissez votre mot de passe </p>
-                  <span>Celui-ci doit contenir au moins 8 caractères dont une
-                    minuscule, une majuscule, un chiffre et un caractère
-                    spécial(!@#$%^&amp;*)</span>
+                  <span>Celui-ci doit contenir au moins 8 caract&egrave;res dont une
+                    minuscule, une majuscule, un chiffre et un caract&egrave;re
+                    sp&eacute;cial(!@#$%^&amp;*)</span>
                 </div>
                 <div className="fr-my-3w">
                   <label className="fr-label">Votre adresse mail:</label>
@@ -104,7 +104,7 @@ function ChoosePassword() {
                     id="text-input-valid-desc-valid"
                     className="fr-valid-text"
                     style={!checkComplexity(password) ? { color: 'grey' } : {}}>
-                    Mot de passe correspond aux exigences de sécurité
+                    Mot de passe correspond aux exigences de s&eacute;curit&eacute;
                   </p>
                   {submitted && !password &&
                     <p id="text-input-error-desc-error" className="fr-error-text">
@@ -114,7 +114,7 @@ function ChoosePassword() {
                   {submitted && password && !checkComplexity(password) &&
                     <p id="text-input-error-desc-error" className="fr-error-text" >
                       Le mot de passe ne correspond pas aux exigences de
-                      sécurité.
+                      s&eacute;curit&eacute;.
                     </p>
                   }
                 </div>
@@ -129,7 +129,7 @@ function ChoosePassword() {
                   />
                   {submitted && password !== confirmPassword &&
                     <p id="text-input-error-desc-error" className="fr-error-text">
-                      Mot de passe doit être identique
+                      Mot de passe doit  &ecirc;tre identique
                     </p>
                   }
                   <p
