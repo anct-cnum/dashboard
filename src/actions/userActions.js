@@ -130,7 +130,7 @@ function usersByStructure(structureId) {
   };
 
   function request(structureId) {
-    return { type: 'GET_USERS_REQUEST', structureId };
+    return { type: 'GET_USERS_REQUEST'};
   }
   function success(users) {
     return { type: 'GET_USERS_SUCCESS', users };
