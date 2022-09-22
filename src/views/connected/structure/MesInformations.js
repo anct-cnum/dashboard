@@ -25,7 +25,7 @@ function MesInformations() {
     }
   }, [entity]);
 
-  const handleForm = event => setEmailUser(event.target.value);
+  const handleForm = event => setEmailUser(event.target.value.trim());
   
   const updateEmail = () => {
     if (valideInputEmail(email)) {
@@ -154,7 +154,7 @@ function MesInformations() {
                 id="email-structure-input"
                 name="email"
                 value={email}
-                onChange={e => setEmail(e.target.value)} />
+                onChange={e => setEmail(e.target.value.trim())} />
               {email && !valideInputEmail(email) && activeMessage &&
             <p id="email-prefet-error" className="fr-error-text">
               Le format de l&rsquo;email saisi est invalide.

@@ -13,7 +13,7 @@ export default function InvitationPrefet({ option }) {
   const [localite, setLocalite] = useState({});
   const [activeMessage, setActiveMessage] = useState(false);
 
-  const handleChange = e => setEmail(e.target.value);
+  const handleChange = e => setEmail(e.target.value.trim());
   const checkEmail = email => email.endsWith('.gouv.fr');
   const handleSubmit = () => {
     if (!valideInputEmail(email)) {

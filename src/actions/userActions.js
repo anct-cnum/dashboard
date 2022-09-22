@@ -129,8 +129,8 @@ function usersByStructure(structureId) {
     );
   };
 
-  function request(structureId) {
-    return { type: 'GET_USERS_REQUEST'};
+  function request() {
+    return { type: 'GET_USERS_REQUEST' };
   }
   function success(users) {
     return { type: 'GET_USERS_SUCCESS', users };

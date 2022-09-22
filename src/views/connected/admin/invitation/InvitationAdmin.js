@@ -36,11 +36,11 @@ export default function InvitationAdmin() {
             id="username-input"
             name="username"
             value={email}
-            onChange={e => setEmail(e.target.value)} />
+            onChange={e => setEmail(e.target.value.trim())} />
           {email && !valideInputEmail(email) && activeMessage &&
-                <p id="username-error" className="fr-error-text">
-                      Le format de l&rsquo;adresse mail saisi est invalide.
-                </p>
+                  <p id="username-error" className="fr-error-text">
+                        Le format de l&rsquo;adresse mail saisi est invalide.
+                  </p>
           }
         </div>
       </div>

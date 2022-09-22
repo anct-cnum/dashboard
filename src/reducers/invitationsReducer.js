@@ -57,7 +57,7 @@ export default function invitations(state = initState, action) {
       };
     case 'RESET_INVITATION':
       return {
-       ...initState
+        ...initState
       };
     default:
       return state;
