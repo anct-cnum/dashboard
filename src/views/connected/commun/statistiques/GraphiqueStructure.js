@@ -27,7 +27,7 @@ export default function GraphiqueStructure() {
   const statistiquesError = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
 
-  const codePostal = useSelector(state => state.statistique?.codePostalStats);
+  const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
   const dateFin = useSelector(state => state.statistiques?.dateFin);
 
@@ -83,7 +83,7 @@ export default function GraphiqueStructure() {
             <LeftPage donneesStats={donneesStatistiques}/>
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
-            <StatistiquesBanniere dateDebut={dateDebut} dateFin={dateFin} typeStats="structure" id={idStructure} codePostal={codePostal}/>
+            <StatistiquesBanniere dateDebut={new Date('2020-09-01')} dateFin={dateFin} typeStats="structure" id={idStructure} codePostal={codePostal}/>
           </div>
         }
       </div>

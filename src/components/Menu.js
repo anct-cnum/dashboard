@@ -9,6 +9,7 @@ function Menu() {
   const location = useLocation();
   
   const urlAide = process.env.REACT_APP_AIDE_HOSTNAME;
+  const rolesStatistiquesStructures = ['admin', 'prefet', 'hub_coop', 'grandReseau'];
 
   const burgerMenuHidden = useSelector(state => state.menu?.hiddenBurgerMenu);
   const [activeMenu, setActiveMenu] = useState(null);
@@ -99,7 +100,7 @@ function Menu() {
                         &bull;&nbsp;Statistiques par territoire
                     </Link>
                   </li>
-                  {(roleActivated === 'admin' || roleActivated === 'prefet') &&
+                  {(rolesStatistiquesStructures.includes(roleActivated)) &&
                   <li>
                     <Link className="fr-nav__link" to="/statistiques-structures"
                       {...(location.pathname.startsWith(`/statistiques-structures`) ? { 'aria-current': 'page' } : {})}>
@@ -111,7 +112,7 @@ function Menu() {
                   <li>
                     <Link className="fr-nav__link" to={`/statistiques-structure/${authenticationUser}`}
                       {...(location.pathname.startsWith(`/statistiques-structure`) ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Statistiques par structure
+                      &bull;&nbsp;Mes Statistiques structure
                     </Link>
                   </li>
                   }

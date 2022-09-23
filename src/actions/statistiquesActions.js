@@ -1,5 +1,5 @@
 import { statistiquesService } from '../services/statistiquesService';
-import dayjs from 'dayjs';
+import { formatDate } from '../utils/formatagesUtils';
 
 export const statistiquesActions = {
   changeDateDebut,
@@ -14,10 +14,6 @@ export const statistiquesActions = {
   getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
 
-};
-
-const formatDate = date => {
-  return dayjs(date).format('YYYY-MM-DD');
 };
 
 function changeDateDebut(dateDebut) {

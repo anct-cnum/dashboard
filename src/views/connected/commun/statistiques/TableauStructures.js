@@ -6,6 +6,7 @@ import { alerteEtSpinnerActions, paginationActions, statistiquesActions } from '
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Structure from './Components/tableaux/Structure';
+import FiltresEtTris from './Components/tableaux/FiltresEtTris';
 
 export default function TableauStructures() {
   
@@ -55,6 +56,8 @@ export default function TableauStructures() {
             <h2 className="centrerTexte">Il n&rsquo;y a aucune statistique pour le moment</h2>
           }
           {!loading && !error &&
+          <>
+            <FiltresEtTris/>
             <div className="fr-col-12">
               <div className="fr-table">
                 <table>
@@ -79,6 +82,7 @@ export default function TableauStructures() {
               </div>
               <Pagination />
             </div>
+          </>
           }
         </div>
       </div>

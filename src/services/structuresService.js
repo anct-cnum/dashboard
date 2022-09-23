@@ -1,5 +1,5 @@
 import { authenticationService } from './authenticationService';
-import { authHeader } from '../helpers';
+import { roleActivated, authHeader } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 
 export const structuresService = {
@@ -12,7 +12,7 @@ function getStructure(idStructure) {
     headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
   };
   return fetch(
-    `${apiUrlRoot}/structures/${idStructure}`,
+    `${apiUrlRoot}/structure?role=${roleActivated()}&id=${idStructure}`,
     requestOptions
   ).then(handleResponse);
 }

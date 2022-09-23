@@ -39,11 +39,11 @@ function getTerritoire(typeTerritoire, idTerritoire, date) {
 function getDatasStructures(dateDebut, dateFin, page) {
   const requestOptions = {
     method: 'GET',
-    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
+    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' })
   };
 
   return fetch(
-    `${apiUrlRoot}/stats/prefet/structures?dateDebut=${dateDebut}&dateFin=${dateFin}&page=${page}`,
+    `${apiUrlRoot}/stats/datas/structures?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&page=${page}`,
     requestOptions
   ).then(handleResponse);
 }
@@ -75,7 +75,8 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal) {
     method: 'GET',
     headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
   };
-  return fetch(`${apiUrlRoot}/stats/structure/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&idStructure=${idStructure}&codePostal=${codePostal}`,
+  return fetch(
+    `${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idStructure=${idStructure}&codePostal=${codePostal}`,
     requestOptions).then(handleResponse);
 }
 
@@ -85,7 +86,7 @@ function getStatistiquesNationale(dateDebut, dateFin) {
     headers: authHeader(),
   };
 
-  return fetch(`${apiUrlRoot}/stats/nationales/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}`,
+  return fetch(`${apiUrlRoot}/stats/nationales/cras?role=anonyme&dateDebut=${dateDebut}&dateFin=${dateFin}`,
     requestOptions).then(handleResponse);
 }
 
@@ -95,7 +96,7 @@ function getCodesPostauxCrasConseillerStructure(idStructure) {
     headers: authHeader(),
   };
 
-  return fetch(`${apiUrlRoot}/stats/cra/codesPostaux/structure/${idStructure}`, requestOptions).then(handleResponse);
+  return fetch(`${apiUrlRoot}/cras/codesPostaux/structure?role=${roleActivated()}&&id=${idStructure}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

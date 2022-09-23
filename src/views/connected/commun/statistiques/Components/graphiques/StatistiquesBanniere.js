@@ -9,11 +9,10 @@ import { alerteEtSpinnerActions, exportsActions } from '../../../../../../action
 function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal }) {
 
   const dispatch = useDispatch();
-
+  
   const error = useSelector(state => state.exports?.error);
   const typeTerritoire = useSelector(state => state.filtresEtTris?.territoire);
   const territoire = useSelector(state => state.statistiques?.territoire);
-
   const linkTo = { pathname: '/statistiques-' + typeStats + 's' };
 
   function getTypeStatistique(type) {
