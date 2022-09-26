@@ -48,14 +48,13 @@ async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrd
 }
 
 function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/stats`;
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
   };
 
   // eslint-disable-next-line max-len
-  return fetch(`${apiUrlRoot}/statistiques.csv?dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&conseillerIds=${conseillerIds}`,
+  return fetch(`${apiUrlRoot}/exports/statistiques-csv?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&conseillerIds=${conseillerIds}`,
     requestOptions).then(handleResponse);
 }
 
