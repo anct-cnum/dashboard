@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../../../actions';
+import { userActions, structureActions } from '../../../actions';
 import { valideInputEmail } from '../../../utils/formatagesUtils';
-import { structureActions } from '../../../actions/structureActions';
 import dayjs from 'dayjs';
 import StructureContactForm from '../../../components/StructureContactForm';
 
@@ -71,12 +70,12 @@ function MesInformations() {
         <div>
           {(errorStructure === undefined || errorStructure === false) &&
             <div className="fr-alert fr-alert--success fr-alert--sm fr-mb-4w">
-              <p>La mise à jour a été effectuée avec succès</p>
+              <p>La mise &agrave; jour a &eacute;t&eacute; effectu&eacute;e avec succ&egrave;s</p>
             </div>
           }
           {(errorStructure !== undefined && errorStructure !== false) &&
             <div className="fr-alert fr-alert--error fr-alert--sm fr-mb-4w">
-              <p>La mise à jour a échoué, veuillez réessayer plus tard</p>
+              <p>La mise &agrave; jour a &eacute;chou&eacute;, veuillez r&eacute;essayer plus tard</p>
             </div>
           }
         </div> :
@@ -111,7 +110,7 @@ function MesInformations() {
         </div>
         <div className="fr-col-12 fr-mb-3w fr-col-lg-6 fr-col-xl-4 fr-mb-lg-0w">
           <h2>Structure</h2>
-          <p>Nom :<strong> {structure?.structure?.nom}</strong></p>
+          <p>Nom :<strong>{structure?.structure?.nom}</strong></p>
           <p>Siret : {structure?.structure?.siret}</p>
           <p>Date d&apos;inscription : {dayjs(structure?.structure?.dateDebutMission).format('DD/MM/YYYY')}</p>
           <p>Code Postal : {structure?.structure?.codePostal}</p>
@@ -122,10 +121,10 @@ function MesInformations() {
           </h2>
           {formInformationContact === false &&
             <div className="">
-              <p>Nom : {structure?.structure?.contact.nom}</p>
-              <p>Prénom : {structure?.structure?.contact.prenom}</p>
-              <p>Fonction : {structure?.structure?.contact.fonction}</p>
-              <p>Téléphone : {structure?.structure?.contact.telephone}</p>
+              <p>Nom : {structure?.structure?.contact?.nom}</p>
+              <p>Prénom : {structure?.structure?.contact?.prenom}</p>
+              <p>Fonction : {structure?.structure?.contact?.fonction}</p>
+              <p>Téléphone : {structure?.structure?.contact?.telephone}</p>
               <div className="fr-mt-5w">
                 <button className="fr-btn" onClick={() => setFormInformationContact(true)}>
                   Modifier les informations de contact

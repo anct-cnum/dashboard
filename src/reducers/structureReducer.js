@@ -3,7 +3,7 @@ export default function structure(state = null, action) {
     case 'GET_STRUCTURE_REQUEST':
       return {
         ...state,
-        flashMessage: false
+        error: false
       };
     case 'GET_STRUCTURE_SUCCESS':
       return {
@@ -16,6 +16,7 @@ export default function structure(state = null, action) {
       };
     case 'PATCH_STRUCTURE_REQUEST':
       return {
+        error: false,
         flashMessage: false
       };
     case 'PATCH_STRUCTURE_SUCCESS':
