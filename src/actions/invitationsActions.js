@@ -4,7 +4,8 @@ export const InvitationsActions = {
   inviteAccountPrefet,
   inviteAccountAdmin,
   inviteStructure,
-  resetInvitation
+  resetInvitation,
+  inviteAccountHub
 };
 function inviteAccountPrefet(email, maille) {
   return dispatch => {
@@ -12,8 +13,8 @@ function inviteAccountPrefet(email, maille) {
   
     invitationsService.inviteAccountPrefet(email, maille)
     .then(
-      succesInvitePrefet => {
-        dispatch(success(succesInvitePrefet));
+      successInvitePrefet => {
+        dispatch(success(successInvitePrefet));
       },
       error => dispatch(failure(error)));
   };
@@ -21,8 +22,8 @@ function inviteAccountPrefet(email, maille) {
   function request() {
     return { type: 'INVITING_PREFET_REQUEST' };
   }
-  function success(succesInvitePrefet) {
-    return { type: 'INVITING_PREFET_SUCCESS', succesInvitePrefet };
+  function success(successInvitePrefet) {
+    return { type: 'INVITING_PREFET_SUCCESS', successInvitePrefet };
   }
   function failure(error) {
     return { type: 'INVITING_PREFET_FAILURE', error };
@@ -35,8 +36,8 @@ function inviteAccountAdmin(email) {
   
     invitationsService.inviteAccountAdmin(email)
     .then(
-      succesInviteAdmin => {
-        dispatch(success(succesInviteAdmin));
+      successInviteAdmin => {
+        dispatch(success(successInviteAdmin));
       },
       error => {
         dispatch(failure(error));
@@ -47,8 +48,8 @@ function inviteAccountAdmin(email) {
   function request() {
     return { type: 'INVITING_ADMIN_REQUEST' };
   }
-  function success(succesInviteAdmin) {
-    return { type: 'INVITING_ADMIN_SUCCESS', succesInviteAdmin };
+  function success(successInviteAdmin) {
+    return { type: 'INVITING_ADMIN_SUCCESS', successInviteAdmin };
   }
   function failure(error) {
     return { type: 'INVITING_ADMIN_FAILURE', error };
@@ -61,8 +62,8 @@ function inviteStructure({ email, structureId }) {
   
     invitationsService.inviteStructure({ email, structureId })
     .then(
-      succesInviteAccountMulticompteSA => {
-        dispatch(success(succesInviteAccountMulticompteSA));
+      successInviteAccountMulticompteSA => {
+        dispatch(success(successInviteAccountMulticompteSA));
       },
       error => {
         dispatch(failure(error));
@@ -73,11 +74,37 @@ function inviteStructure({ email, structureId }) {
   function request() {
     return { type: 'INVITING_STRUCTURE_REQUEST' };
   }
-  function success(succesInviteAccountMulticompteSA) {
-    return { type: 'INVITING_STRUCTURE_SUCCESS', succesInviteAccountMulticompteSA };
+  function success(successInviteAccountMulticompteSA) {
+    return { type: 'INVITING_STRUCTURE_SUCCESS', successInviteAccountMulticompteSA };
   }
   function failure(error) {
     return { type: 'INVITING_STRUCTURE_FAILURE', error };
+  }
+}
+
+function inviteAccountHub({ hub, nom, prenom, email }) {
+  return dispatch => {
+    dispatch(request());
+  
+    invitationsService.inviteAccountHub({ hub, nom, prenom, email })
+    .then(
+      successInviteHub => {
+        dispatch(success(successInviteHub));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+  
+  function request() {
+    return { type: 'INVITING_HUB_REQUEST' };
+  }
+  function success(successInviteHub) {
+    return { type: 'INVITING_HUB_SUCCESS', successInviteHub };
+  }
+  function failure(error) {
+    return { type: 'INVITING_HUB_FAILURE', error };
   }
 }
 

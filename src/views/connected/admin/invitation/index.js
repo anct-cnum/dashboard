@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import InvitationPrefet from './InvitationPrefet';
 import InvitationAdmin from './InvitationAdmin';
+import InvitationHub from './InvitationHub';
 
 export default function Invation() {
   const [option, setOption] = useState('');
   const arrayOption = [
     { value: 'admin', label: 'Admin' },
     { value: 'prefet-region', label: 'Préfet par région' },
-    { value: 'prefet-departement', label: 'Préfet par département' }
+    { value: 'prefet-departement', label: 'Préfet par département' },
+    { value: 'hub', label: 'Hub' }
   ];
   return (
     <>
@@ -30,6 +32,7 @@ export default function Invation() {
       <div className="fr-col-md-12 fr-col-lg-6">
         {['prefet-region', 'prefet-departement'].includes(option) && <InvitationPrefet option={option} /> }
         {['admin'].includes(option) && <InvitationAdmin/> }
+        {['hub'].includes(option) && <InvitationHub/> }
       </div>
     </>
   );

@@ -100,6 +100,11 @@ export default function InvitationPrefet({ option }) {
                     Le format de l&rsquo;email saisi est invalide.
                 </p>
           }
+          {email === '' && activeMessage &&
+                  <p id="username-error" className="fr-error-text">
+                      Veuillez saisir une adresse mail.
+                  </p>
+          }
         </div>
         <button onClick={() => setEmail('')}
           disabled={email.length === 0 ? 'disabled' : ''}

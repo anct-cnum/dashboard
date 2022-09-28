@@ -6,6 +6,7 @@ export const invitationsService = {
   inviteAccountPrefet,
   inviteAccountAdmin,
   inviteStructure,
+  inviteAccountHub
 };
 
 function inviteAccountPrefet(email, maille) {
@@ -37,6 +38,7 @@ function inviteAccountAdmin(email) {
 
   return fetch(apiUrl, requestOptions).then(handleResponse);
 }
+
 function inviteStructure({ email, structureId }) {
   const apiUrl = `${apiUrlRoot}/inviteStructure?role=${roleActivated()}`;
 
@@ -52,6 +54,20 @@ function inviteStructure({ email, structureId }) {
   return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 
+function inviteAccountHub({ hub, nom, prenom, email }) {
+  const apiUrl = `${apiUrlRoot}/inviteAccountHub?role=${roleActivated()}`;
+
+  const requestOptions = {
+    method: 'POST',
+    headers: Object.assign(
+      { 'Content-Type': 'application/json' },
+      authHeader()
+    ),
+    body: JSON.stringify({ hub, nom, prenom, email }),
+  };
+
+  return fetch(apiUrl, requestOptions).then(handleResponse);
+}
 function handleResponse(response) {
   return response.text().then(text => {
     const data = text && JSON.parse(text);

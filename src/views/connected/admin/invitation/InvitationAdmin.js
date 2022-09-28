@@ -42,6 +42,11 @@ export default function InvitationAdmin() {
                         Le format de l&rsquo;adresse mail saisi est invalide.
                   </p>
           }
+          {email === '' && activeMessage &&
+                  <p id="username-error" className="fr-error-text">
+                      Veuillez saisir une adresse mail.
+                  </p>
+          }
         </div>
       </div>
       <button onClick={() => setEmail('')}
