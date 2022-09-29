@@ -52,9 +52,9 @@ function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, cod
     method: 'GET',
     headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
   };
-
+  const role = type === 'nationales' ? 'anonyme' : roleActivated();
   // eslint-disable-next-line max-len
-  return fetch(`${apiUrlRoot}/exports/statistiques-csv?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&conseillerIds=${conseillerIds}`,
+  return fetch(`${apiUrlRoot}/exports/statistiques-csv?role=${role}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&conseillerIds=${conseillerIds}`,
     requestOptions).then(handleResponse);
 }
 

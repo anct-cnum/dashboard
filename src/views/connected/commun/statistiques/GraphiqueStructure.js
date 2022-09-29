@@ -57,7 +57,7 @@ export default function GraphiqueStructure() {
 
   return (
     <div className="statistiques">
-      <Spinner loading={statistiquesLoading && structureLoading} />
+      <Spinner loading={statistiquesLoading || structureLoading} />
       <div className="structure fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">

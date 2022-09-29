@@ -8,9 +8,9 @@ function StatistiquesAccompagnementsPersonnel({ nbAccompagnementPerso, nbDemande
 
   return (
     <div className="fr-grid-row">
-      <div className="fr-col-12 fr-col-md-3 print-chiffre"><ElementNumber nombre={nbAccompagnementPerso}
-        classe="numbers"/></div>
-      <div className="fr-col-12 fr-col-md-9 print-texte">
+      <div className={`fr-col-12 ${nbAccompagnementPerso.toString().length <= 4 ? 'fr-col-md-3' : ''} print-chiffre`}>
+        <ElementNumber nombre={nbAccompagnementPerso} classe="numbers"/></div>
+      <div className={`fr-col-12 ${nbAccompagnementPerso.toString().length <= 4 ? 'fr-col-md-9' : ''} print-texte`}>
         <ElementText classe="text" textePluralize={pluralize(
           'accompagnement individuel',
           'accompagnement individuel',
@@ -18,9 +18,9 @@ function StatistiquesAccompagnementsPersonnel({ nbAccompagnementPerso, nbDemande
           nbAccompagnementPerso
         )}/><br/>
       </div>
-      <div className="fr-col-12 fr-col-md-3 print-chiffre"><ElementNumber nombre={nbDemandePonctuel}
-        classe="numbers"/></div>
-      <div className="fr-col-12 fr-col-md-9 print-texte">
+      <div className={`fr-col-12 ${nbDemandePonctuel.toString().length <= 4 ? 'fr-col-md-3' : ''} print-chiffre`}>
+        <ElementNumber nombre={nbDemandePonctuel} classe="numbers"/></div>
+      <div className={`fr-col-12 ${nbDemandePonctuel.toString().length <= 4 ? 'fr-col-md-9' : ''} print-texte`}>
         <ElementText classe="text" textePluralize={pluralize(
           'demande ponctuelle',
           'demande ponctuelle',

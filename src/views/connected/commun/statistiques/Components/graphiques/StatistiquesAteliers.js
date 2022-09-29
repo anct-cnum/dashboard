@@ -8,19 +8,20 @@ function StatistiquesAteliers({ nbAteliers, nbTotalParticipant }) {
 
   return (
     <div className="fr-grid-row">
-      <div className="fr-col-12 fr-col-md-3 print-chiffre"><ElementNumber nombre={nbAteliers}
+      <div className={`fr-col-12 ${nbAteliers.toString().length <= 4 ? 'fr-col-md-3' : ''} print-chiffre`}><ElementNumber nombre={nbAteliers}
         classe="numbers"/></div>
-      <div className="fr-col-12 fr-col-md-9 print-texte"><ElementText textePluralize={
-        pluralize(
-          'atelier réalisé, dont :',
-          'atelier réalisé, dont :',
-          'ateliers réalisés, dont :',
-          nbAteliers
-        )} classe="text"/><br/>
+      <div className={`fr-col-12 ${nbAteliers.toString().length <= 4 ? 'fr-col-md-9' : ''} print-texte`}>
+        <ElementText textePluralize={
+          pluralize(
+            'atelier réalisé, dont :',
+            'atelier réalisé, dont :',
+            'ateliers réalisés, dont :',
+            nbAteliers
+          )} classe="text"/><br/>
       </div>
-      <div className="fr-col-12 fr-col-md-3 print-chiffre"><ElementNumber nombre={nbTotalParticipant}
+      <div className={`fr-col-12 ${nbAteliers.toString().length <= 4 ? 'fr-col-md-3' : ''} print-chiffre`}><ElementNumber nombre={nbTotalParticipant}
         classe="numbers"/></div>
-      <div className="fr-col-12 fr-col-md-9 print-texte">
+      <div className={`fr-col-12 ${nbAteliers.toString().length <= 4 ? 'fr-col-md-9' : ''} print-texte`}>
         <ElementText classe="text" textePluralize={pluralize(
           'participant au total',
           'participant au total',
