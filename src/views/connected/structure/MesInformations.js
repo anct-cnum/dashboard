@@ -88,7 +88,7 @@ function MesInformations() {
           </h2>
           {formCompte === false &&
             <div className="">
-              <p>Email :<strong> {userAuth?.name}</strong></p>
+              <p>Email : <strong>{userAuth?.name}</strong></p>
               <button className="fr-btn" onClick={() => setFormCompte(true)}>
                 Modifier mon adresse e-mail &ensp;
                 <span style={{ color: 'white' }} className="fr-fi-edit-line" aria-hidden="true" />
@@ -110,7 +110,7 @@ function MesInformations() {
         </div>
         <div className="fr-col-12 fr-mb-3w fr-col-lg-6 fr-col-xl-4 fr-mb-lg-0w">
           <h2>Structure</h2>
-          <p>Nom :<strong>{structure?.structure?.nom}</strong></p>
+          <p>Nom : <strong>{structure?.structure?.nom}</strong></p>
           <p>Siret : {structure?.structure?.siret}</p>
           <p>Date d&apos;inscription : {dayjs(structure?.structure?.dateDebutMission).format('DD/MM/YYYY')}</p>
           <p>Code Postal : {structure?.structure?.codePostal}</p>
