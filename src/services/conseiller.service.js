@@ -1,4 +1,4 @@
-import { authHeader, history, userEntityId, roleActivated} from '../helpers';
+import { authHeader, history, userEntityId, roleActivated } from '../helpers';
 
 import { userService } from './userService';
 
