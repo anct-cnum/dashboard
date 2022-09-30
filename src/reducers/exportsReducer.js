@@ -34,6 +34,7 @@ export default function exports(state = initialState, action) {
     case 'EXPORT_TERRITOIRE_REQUEST':
       return {
         ...state,
+        blob: null,
         loading: true,
         error: false,
       };
@@ -41,6 +42,7 @@ export default function exports(state = initialState, action) {
       return {
         ...state,
         blob: action.exportTerritoireFileBlob,
+        nameFile: action.nameFile,
         loading: false,
       };
     case 'EXPORT_TERRITOIRE_FAILURE':
@@ -61,13 +63,14 @@ export default function exports(state = initialState, action) {
       return {
         ...state,
         loading: true,
-        error: false
+        error: false,
+        blob: null
       };
     case 'EXPORT_STATISTIQUES_CSV_SUCCESS':
       return {
         ...state,
         blob: action.data,
-        statistiquesCSV: action.download,
+        nameFile: action.nameFile,
         loading: false
       };
     case 'EXPORT_STATISTIQUES_CSV_FAILURE':
@@ -75,7 +78,6 @@ export default function exports(state = initialState, action) {
         ...state,
         error: action.error,
         loading: false,
-        blob: null
       };
     default:
       return state;

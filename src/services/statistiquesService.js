@@ -31,7 +31,7 @@ function getTerritoire(typeTerritoire, idTerritoire, date) {
     headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
   };
   return fetch(
-    `${apiUrlRoot}/stats/admincoop/territoire?typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&dateFin=${date}`,
+    `${apiUrlRoot}/stats/territoire?typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&dateFin=${date}&role=${roleActivated()}`,
     requestOptions
   ).then(handleResponse);
 }
@@ -55,7 +55,7 @@ function getDatasTerritoires(territoire, dateDebut, dateFin, page, nomOrdre, ord
   };
 
   return fetch(
-    `${apiUrlRoot}/stats/admincoop/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page)}`,
+    `${apiUrlRoot}/stats/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page)}&role=${roleActivated()}`,
     requestOptions
   ).then(handleResponse);
 }
@@ -66,7 +66,7 @@ function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, conseille
     headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
   };
   conseillerIds = JSON.stringify(conseillerIds);
-  return fetch(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&typeTerritoire=${typeTerritoire}&conseillerIds=${conseillerIds}`,
+  return fetch(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&conseillerIds=${conseillerIds}&role=${roleActivated()}`,
     requestOptions).then(handleResponse);
 }
 

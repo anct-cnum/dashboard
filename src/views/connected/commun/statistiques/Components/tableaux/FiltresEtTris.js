@@ -32,7 +32,6 @@ function FiltresEtTris() {
 
   useEffect(() => {
     if (has(exportTerritoireFileBlob?.blob) && exportTerritoireFileError === false) {
-      exportTerritoireFileBlob.nameFile = 'statistiques-territoires';
       downloadFile(exportTerritoireFileBlob);
       dispatch(exportsActions.resetFile());
     }
@@ -59,9 +58,9 @@ function FiltresEtTris() {
           { location.pathname === '/statistiques-territoires' &&
           <>
             <div className="fr-col-3">
-              <select className="fr-select" id="select" name="select" defaultValue={territoire} >
-                <option value="codeDepartement" onClick={handleTerritoire} >Affichage par d&eacute;partement</option>
-                <option value="codeRegion" onClick={handleTerritoire} >Affichage par r&eacute;gion</option>
+              <select className="fr-select" id="select" name="select" defaultValue={territoire} onChange={handleTerritoire} >
+                <option value="codeDepartement">Affichage par d&eacute;partement</option>
+                <option value="codeRegion">Affichage par r&eacute;gion</option>
               </select>
             </div>
             <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-4 fr-mb-4w fr-mb-md-0">
