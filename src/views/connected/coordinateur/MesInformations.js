@@ -61,10 +61,10 @@ function MesInformations() {
             <>
               <p>Email :<strong> {userAuth?.name}</strong></p>
               {!userAuth.name.includes('@conseiller-numerique.fr') &&
-                <button className="fr-btn" onClick={() => setForm(true)}>
-                  Modifier mon adresse e-mail &ensp;
-                  <span style={{ color: 'white' }} className="fr-fi-edit-line" aria-hidden="true" />
-                </button>
+              <button className="fr-btn" onClick={() => setForm(true)}>
+                Modifier mon adresse e-mail &ensp;
+                <span style={{ color: 'white' }} className="fr-fi-edit-line" aria-hidden="true" />
+              </button>
               }
             </> :
             <div className="fr-container--fluid">
