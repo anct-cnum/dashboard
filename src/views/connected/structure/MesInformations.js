@@ -117,7 +117,7 @@ function MesInformations() {
         </div>
         <div className="fr-col-12 fr-col-lg-6 fr-col-xl-4 fr-mb-lg-0w">
           <h2>
-            Informations de contact
+            Correspondant principal
           </h2>
           {formInformationContact === false &&
             <div className="">
