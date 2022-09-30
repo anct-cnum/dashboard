@@ -8,6 +8,7 @@ import conseillerReducer from './conseillerReducer';
 import searchReducer from './searchReducer';
 import statsReducer from './statsReducer';
 import filtersAndSorts from './filtersAndSortsReducer';
+import structureReducer from './structureReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   conseiller: conseillerReducer,
   stats: statsReducer,
   search: searchReducer,
-  filtersAndSorts: filtersAndSorts
+  filtersAndSorts: filtersAndSorts,
+  structure: structureReducer
 });
 
 export default rootReducer;
