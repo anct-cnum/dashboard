@@ -58,7 +58,8 @@ function exportDonneesTerritoire(territoire = 'departement', dateDebut, dateFin,
     return { type: 'EXPORT_TERRITOIRE_REQUEST' };
   }
   function success(exportTerritoireFileBlob) {
-    return { type: 'EXPORT_TERRITOIRE_SUCCESS', exportTerritoireFileBlob };
+    const nameFile = `export-territoires_${territoire}_entre_${dayjs(dateDebut).format('YYYY-MM-DD')}_et_${dayjs(dateFin).format('YYYY-MM-DD')}`;
+    return { type: 'EXPORT_TERRITOIRE_SUCCESS', exportTerritoireFileBlob, nameFile };
   }
   function failure(exportTerritoireFileError) {
     return { type: 'EXPORT_TERRITOIRE_FAILURE', exportTerritoireFileError };
@@ -74,7 +75,7 @@ function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, 
     dispatch(request());
     exportsService.getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal)
     .then(
-      data => dispatch(success(data, download(data, `${formatFileName(dateDebut, dateFin, type, idType, codePostal)}.csv`))),
+      data => dispatch(success(data)),
       error => dispatch(failure(error))
     );
   };
@@ -82,8 +83,9 @@ function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, 
   function request() {
     return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
   }
-  function success(data, download) {
-    return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, download };
+  function success(data) {
+    const nameFile = `${formatFileName(dateDebut, dateFin, type, idType, codePostal)}`;
+    return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
   }
   function failure(error) {
     return { type: 'EXPORT_STATISTIQUES_CSV_FAILURE', error };

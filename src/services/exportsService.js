@@ -41,9 +41,10 @@ async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrd
       })
   };
 
-  const exportTerritoiresRoute = '/territoires.csv/';
+  const exportTerritoiresRoute = '/territoires-csv';
   return handleResponse(
-    await fetch(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}`, requestOptions)
+    // eslint-disable-next-line max-len
+    await fetch(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`, requestOptions)
   );
 }
 
