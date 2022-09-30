@@ -8,23 +8,26 @@ import Pagination from '../../../components/Pagination';
 import FiltersAndSorts from './FiltersAndSorts';
 import {
   Link,
-  useParams
+  useParams,
+  useLocation
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SearchBox from '../../../components/SearchBox';
 
-function Candidats({ location }) {
+function Candidats() {
   const dispatch = useDispatch();
 
   const { search } = useSelector(state => state.search);
   const conseillers = useSelector(state => state.conseillers);
   const stats = useSelector(state => state.stats);
   const downloading = useSelector(state => state?.conseiller?.downloading);
+  const location = useLocation();
 
   let [page, setPage] = useState(1);
   let savePage = null;
-  if (location?.currentPage) {
-    savePage = location.currentPage;
+  const { currentPage, currentFilter } = location.state || {};
+  if (currentPage) {
+    savePage = currentPage;
   }
 
   const [pageCount, setPageCount] = useState(0);
@@ -54,7 +57,6 @@ function Candidats({ location }) {
   const update = () => {
     if (savePage !== null) {
       navigate(savePage);
-      delete location.currentPage;
     } else {
       dispatch(conseillerActions.getAll({
         misesEnRelation: true,
@@ -125,6 +127,8 @@ function Candidats({ location }) {
           <Link className={`fr-tag ${tab.filter === filter ? 'current' : ''}`}
             to={{
               pathname: `/structure/candidats/${tab.filter}`,
+            }}
+            state={{
               currentPage: 1
             }}>
             {tab.name}&nbsp;({ stats?.stats !== undefined && stats?.stats[tab.filter] !== undefined ? stats?.stats[tab.filter] : 0 })
