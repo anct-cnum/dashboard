@@ -82,8 +82,8 @@ function MesInformations() {
         <div className="fr-col-12 fr-mb-3w fr-col-lg-6 fr-mb-lg-0w">
           <h2>Mes informations</h2>
           <p>Nom : <strong>{coordinateur?.coordinateur?.nom}</strong></p>
-          <p>Prénom : {coordinateur?.coordinateur?.prenom}</p>
-          <p>Téléphone professionnelle : {coordinateur?.coordinateur?.telephonePro}</p>
+          <p>Pr&eacute;nom : {coordinateur?.coordinateur?.prenom}</p>
+          <p>T&eacute;l&eacute;phone professionnel : {coordinateur?.coordinateur?.telephonePro}</p>
         </div>
       </div>
     </div>
