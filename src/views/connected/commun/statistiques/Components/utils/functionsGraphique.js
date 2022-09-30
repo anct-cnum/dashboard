@@ -158,7 +158,7 @@ export function setStatistiquesLegende(typeGraphique, isReoriente, optionRespons
 
     case 'pie':
       if (isReoriente) {
-        const x = -165;
+        const x = -260;
         legende = {
           title: optionResponsive ? {} : {
             text: '<span>Lieux</span>',
@@ -175,7 +175,7 @@ export function setStatistiquesLegende(typeGraphique, isReoriente, optionRespons
           align: optionResponsive ? 'left' : 'right',
           x: optionResponsive ? 0 : x,
           y: optionResponsive ? 0 : 65,
-          width: optionResponsive ? '100%' : '30%',
+          width: optionResponsive ? '100%' : '20%',
           maxHeight: '450px',
           itemStyle: {
             color: '#1e1e1e',

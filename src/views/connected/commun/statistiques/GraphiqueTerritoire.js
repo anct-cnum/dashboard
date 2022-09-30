@@ -25,6 +25,7 @@ export default function GraphiqueTerritoire() {
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const typeTerritoire = useSelector(state => state.filtresEtTris?.territoire);
   const territoire = useSelector(state => state.statistiques?.territoire);
+  const loadingExport = useSelector(state => state.exports?.loading);
 
   useEffect(() => {
     if (!error) {
@@ -44,7 +45,7 @@ export default function GraphiqueTerritoire() {
 
   return (
     <div className="statistiques">
-      <Spinner loading={loading} />
+      <Spinner loading={loading || loadingExport} />
       <div className="nationales fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
@@ -65,7 +66,7 @@ export default function GraphiqueTerritoire() {
             <LeftPage donneesStats={donneesStatistiques}/>
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
-            <StatistiquesBanniere dateDebut={dateDebut} dateFin={dateFin} id={codeTerritoire} typeStats="territoire"/>
+            <StatistiquesBanniere dateDebut={new Date('2020-09-01')} dateFin={dateFin} id={codeTerritoire} typeStats="territoire"/>
           </div>
         }
       </div>

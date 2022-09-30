@@ -116,8 +116,10 @@ function BottomPage({ donneesStats }) {
         <div className="print-blank"></div>
         <div className="fr-mb-5w hide-graphique-xs"><hr/></div>
         <ElementHighcharts donneesStats={statsReorientations} variablesGraphique={graphiqueReorientations} listeAutres={listeAutres}/>
-        <div className="fr-m-no-reorientation"></div>
       </div>
+      }
+      {statsReorientations?.length === 0 &&
+        <div className="fr-m-no-reorientation"></div>
       }
     </>
   );

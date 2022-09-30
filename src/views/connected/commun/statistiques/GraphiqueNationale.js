@@ -19,6 +19,7 @@ export default function GraphiqueNationale() {
   const loading = useSelector(state => state.statistiques?.loading);
   const error = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
+  const loadingExport = useSelector(state => state.exports?.loading);
 
   useEffect(() => {
     if (!error) {
@@ -34,7 +35,7 @@ export default function GraphiqueNationale() {
   
   return (
     <div className="statistiques">
-      <Spinner loading={loading} />
+      <Spinner loading={loading || loadingExport} />
       <div className="nationales fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
@@ -55,7 +56,7 @@ export default function GraphiqueNationale() {
             <LeftPage donneesStats={donneesStatistiques}/>
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
-            <StatistiquesBanniere dateDebut={dateDebut} dateFin={dateFin} typeStats="nationales"/>
+            <StatistiquesBanniere dateDebut={new Date('2020-09-01')} dateFin={dateFin} typeStats="nationales"/>
           </div>
         }
       </div>

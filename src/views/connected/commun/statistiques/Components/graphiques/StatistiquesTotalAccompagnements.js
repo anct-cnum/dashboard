@@ -5,13 +5,12 @@ import ElementNumber from './ElementNumber';
 import ElementText from './ElementText';
 
 function StatistiquesTotalAccompagnements({ nbTotalAccompagnements }) {
-
   return (
     <div className="fr-grid-row">
-      <div className="fr-col-12 fr-col-md-3 print-chiffre">
+      <div className={`fr-col-12 ${nbTotalAccompagnements.toString().length <= 4 ? 'fr-col-md-3' : ''} print-chiffre`}>
         <ElementNumber nombre={nbTotalAccompagnements} classe="number"/>
       </div>
-      <div className="fr-col-12 fr-col-md-9 print-texte">
+      <div className={`fr-col-12 ${nbTotalAccompagnements.toString().length <= 4 ? 'fr-col-md-9' : ''} print-texte`}>
         <ElementText classe="text" textePluralize={pluralize(
           'personne totale accompagnée durant cette période',
           'personne totale accompagnée durant cette période',

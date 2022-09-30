@@ -56,7 +56,7 @@ function ElementHighcharts({ donneesStats, variablesGraphique, listeAutres }) {
           <div className="fr-mt-list">Autres <span>(écrits manuellement)</span></div>
           <ul>
             {listeAutres?.map((autres, idx) => {
-              return (<li key={idx}>{autres}</li>);
+              return (<li key={idx}>. {autres}</li>);
             })}
           </ul>
         </div>

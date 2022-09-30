@@ -129,6 +129,9 @@
     letter-spacing: 0;
     margin-right: 1rem;
   }
+  .text-left .numbers-renewal {
+    text-align: left !important;
+  }
   .many-numbers {
     font-size: 16px;
     font-weight: 600;
@@ -197,6 +200,10 @@
       font-weight: 500;
     }
     ul {
+      position: absolute;
+      height: 475px;
+      max-height: 475px;
+      overflow: auto;
       list-style: none;
       color: $black;
       line-height: 20px;
@@ -274,6 +281,9 @@
     }
     .lieux-autres {
       position: static;
+      height: 475px;
+      max-height: 475px;
+      overflow: auto;
     }
   }
   @media (min-width: 768px) {
@@ -387,6 +397,9 @@
     .fr-m-5w {
       margin: 1.5rem 0 !important;
     }
+  }
+  .lieux-autres {
+    display: none;
   }
 }
 @page {

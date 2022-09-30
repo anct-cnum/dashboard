@@ -6,6 +6,7 @@ import { alerteEtSpinnerActions, paginationActions, statistiquesActions } from '
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Structure from './Components/tableaux/Structure';
+import BlockDatePickers from './Components/commun/BlockDatePickers';
 
 export default function TableauStructures() {
   
@@ -42,6 +43,10 @@ export default function TableauStructures() {
       }));
     }
   }, [statistiquesStructures, currentPage, error]);
+  
+  useEffect(() => {
+    dispatch(statistiquesActions.getDatasStructures(dateDebut, dateFin, currentPage));
+  }, [dateDebut, dateFin]);
 
   return (
     <div className="statistiques">
@@ -55,6 +60,12 @@ export default function TableauStructures() {
             <h2 className="centrerTexte">Il n&rsquo;y a aucune statistique pour le moment</h2>
           }
           {!loading && !error &&
+          <>
+            <div className="fr-col-12">
+              <b>
+                <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+              </b>
+            </div>
             <div className="fr-col-12">
               <div className="fr-table">
                 <table>
@@ -79,6 +90,7 @@ export default function TableauStructures() {
               </div>
               <Pagination />
             </div>
+          </>
           }
         </div>
       </div>
