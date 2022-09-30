@@ -25,7 +25,7 @@ function Candidats() {
 
   let [page, setPage] = useState(1);
   let savePage = null;
-  const { currentPage, currentFilter } = location.state || {};
+  const { currentPage } = location.state || {};
   if (currentPage) {
     savePage = currentPage;
   }
