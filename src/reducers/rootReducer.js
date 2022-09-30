@@ -9,6 +9,7 @@ import structuresReducer from './structuresReducer';
 import exportsReducer from './exportsReducer';
 import alerteEtSpinnerReducer from './alerteEtSpinnerReducer';
 import userReducer from './userReducer';
+import structureReducer from './structureReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   exports: exportsReducer,
   alerteEtSpinner: alerteEtSpinnerReducer,
   user: userReducer
+  structure: structureReducer
 });
 
 export default rootReducer;
