@@ -19,6 +19,7 @@ export default function GraphiqueNationale() {
   const loading = useSelector(state => state.statistiques?.loading);
   const error = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
+  const loadingExport = useSelector(state => state.exports?.loading);
 
   useEffect(() => {
     if (!error) {
@@ -34,7 +35,7 @@ export default function GraphiqueNationale() {
   
   return (
     <div className="statistiques">
-      <Spinner loading={loading} />
+      <Spinner loading={loading || loadingExport} />
       <div className="nationales fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">

@@ -26,6 +26,7 @@ export default function GraphiqueStructure() {
   const statistiquesLoading = useSelector(state => state.statistiques?.loading);
   const statistiquesError = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
+  const loadingExport = useSelector(state => state.exports?.loading);
 
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
@@ -57,7 +58,7 @@ export default function GraphiqueStructure() {
 
   return (
     <div className="statistiques">
-      <Spinner loading={statistiquesLoading || structureLoading} />
+      <Spinner loading={statistiquesLoading || structureLoading || loadingExport} />
       <div className="structure fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">

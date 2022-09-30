@@ -25,6 +25,7 @@ export default function GraphiqueTerritoire() {
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const typeTerritoire = useSelector(state => state.filtresEtTris?.territoire);
   const territoire = useSelector(state => state.statistiques?.territoire);
+  const loadingExport = useSelector(state => state.exports?.loading);
 
   useEffect(() => {
     if (!error) {
@@ -44,7 +45,7 @@ export default function GraphiqueTerritoire() {
 
   return (
     <div className="statistiques">
-      <Spinner loading={loading} />
+      <Spinner loading={loading || loadingExport} />
       <div className="nationales fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
