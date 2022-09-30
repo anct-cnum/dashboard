@@ -1,4 +1,4 @@
-import { authHeader, history, userEntityId } from '../helpers';
+import { authHeader, history, userEntityId, roleActivated} from '../helpers';
 
 import { userService } from './userService';
 
@@ -63,7 +63,7 @@ function getAllMisesEnRelation(departement, region, com, structureId, search, pa
   const filterSearch = search !== '' ? `&$search=${search}` : '';
   const filterSort = search === '' ? `&$sort[${sortData}]=${sortOrder}` : '';
   let uri = `${apiUrlRoot}/structures/${structureId ? structureId : userEntityId()}/misesEnRelation?\
-$skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filterSearch}`;
+$skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filterSearch}&role=${roleActivated()}`;
 
   if (filter) {
     uri += `&filter=${filter}`;
