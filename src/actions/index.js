@@ -8,3 +8,4 @@ export * from './exportsActions';
 export * from './alerteEtSpinnerActions';
 export * from './userActions';
 export * from './structureActions';
+export * from './conseillerActions';
