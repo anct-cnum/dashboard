@@ -1,4 +1,4 @@
-export const filtresEtTrisActions = {
+export const filtresEtTrisStatsActions = {
   updateOrder,
   changeDateDebut,
   changeDateFin,

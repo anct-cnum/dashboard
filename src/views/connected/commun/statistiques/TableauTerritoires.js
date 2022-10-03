@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, filtresEtTrisActions, paginationActions, statistiquesActions } from '../../../../actions';
+import { alerteEtSpinnerActions, filtresEtTrisStatsActions, paginationActions, statistiquesActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
@@ -23,7 +23,7 @@ export default function TableauTerritoires() {
   const [page, setPage] = useState(1);
   
   const ordreColonne = e => {
-    dispatch(filtresEtTrisActions.changeOrdre(e.target.id));
+    dispatch(filtresEtTrisStatsActions.changeOrdre(e.target.id));
   };
 
   useEffect(() => {

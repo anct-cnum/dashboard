@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
-import { exportsActions, filtresEtTrisActions, statistiquesActions } from '../../../../../../actions';
+import { exportsActions, filtresEtTrisStatsActions, statistiquesActions } from '../../../../../../actions';
 
 import Spinner from '../../../../../../components/Spinner';
 import BlockDatePickers from '../commun/BlockDatePickers';
@@ -23,7 +23,7 @@ function FiltresEtTris() {
   const has = value => value !== null && value !== undefined;
 
   const handleTerritoire = e => {
-    dispatch(filtresEtTrisActions.changeTerritoire(e.target.value));
+    dispatch(filtresEtTrisStatsActions.changeTerritoire(e.target.value));
   };
 
   const exportDonneesTerritoire = () => {
