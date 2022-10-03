@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { scrollTopWindow } from '../../../../../../utils/exportsUtils';
+import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
 function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal }) {
 
   const dispatch = useDispatch();
   
+  const exports = useSelector(state => state.exports);
   const error = useSelector(state => state.exports?.error);
   const typeTerritoire = useSelector(state => state.filtresEtTris?.territoire);
   const territoire = useSelector(state => state.statistiques?.territoire);
@@ -52,6 +53,13 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
     }
   }, [error]);
 
+  useEffect(() => {
+    if (exports?.blob !== null && exports?.blob !== undefined && (error === undefined || error === false)) {
+      downloadFile(exports);
+      dispatch(exportsActions.resetFile());
+    }
+  }, [exports]);
+  
   return (
     <div className="fr-col-11 no-print">
       <div className="fr-container-fluid">
