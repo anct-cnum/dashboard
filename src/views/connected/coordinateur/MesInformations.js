@@ -68,11 +68,11 @@ function MesInformations() {
               }
             </> :
             <div className="fr-container--fluid">
-              <div className="fr-my-3w fr-col-lg-3 fr-col-3 fr-col-sm-8">
+              <div className="fr-my-3w fr-col-12 fr-col-sm-8 fr-col-lg-9">
                 <label className="fr-label">E-mail</label>
                 <input className="fr-input" type="text" id="text-input-text" name="name" value={email} onChange={handleForm} />
               </div>
-              <div className="fr-col-lg-3 fr-col-3 fr-col-sm-8">
+              <div className="fr-col-12 fr-col-sm-8 fr-col-lg-9">
                 <button onClick={() => setForm(false)} className="fr-btn">Annuler </button>
                 <button className="fr-btn fr-m-auto" style={{ float: 'right' }} onClick={updateEmail}>Valider</button>
               </div>
