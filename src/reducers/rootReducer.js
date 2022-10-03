@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   structures: structuresReducer,
   exports: exportsReducer,
   alerteEtSpinner: alerteEtSpinnerReducer,
-  user: userReducer
+  user: userReducer,
   structure: structureReducer
 });
 

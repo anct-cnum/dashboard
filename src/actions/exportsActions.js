@@ -1,5 +1,4 @@
 import { exportsService } from '../services/exportsService';
-import download from 'downloadjs';
 import dayjs from 'dayjs';
 import { formatDate, formatFileName } from '../utils/formatagesUtils';
 

@@ -20,7 +20,7 @@ export default function GraphiqueNationale() {
   const error = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const loadingExport = useSelector(state => state.exports?.loading);
-
+  
   useEffect(() => {
     if (!error) {
       dispatch(statistiquesActions.getStatistiquesNationale(dateDebut, dateFin));
