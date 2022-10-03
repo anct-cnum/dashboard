@@ -2,7 +2,7 @@ import { authHeader, roleActivated } from '../helpers';
 import { authenticationService } from './authenticationService';
 import apiUrlRoot from '../helpers/apiUrl';
 
-export const coordinateurService = {
+export const conseillerService = {
   get,
 };
 

@@ -1,16 +1,16 @@
-export default function coordinateur(state = null, action) {
+export default function conseiller(state = null, action) {
   switch (action.type) {
-    case 'GET_COORDINATEUR_REQUEST':
+    case 'GET_CONSEILLER_REQUEST':
       return {
         ...state,
         error: false
       };
-    case 'GET_COORDINATEUR_SUCCESS':
+    case 'GET_CONSEILLER_SUCCESS':
       return {
         ...state,
-        coordinateur: action.coordinateur
+        conseiller: action.conseiller
       };
-    case 'GET_COORDINATEUR_FAILURE':
+    case 'GET_CONSEILLER_FAILURE':
       return {
         error: action.error
       };

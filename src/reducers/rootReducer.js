@@ -5,7 +5,7 @@ import authenticationReducer from './authenticationReducer';
 import exportsReducer from './exportsReducer';
 import userReducer from './userReducer';
 import structureReducer from './structureReducer';
-import coordinateurReducer from './coordinateurReducer';
+import conseillerReducer from './conseillerReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   exports: exportsReducer,
   user: userReducer,
   structure: structureReducer,
-  coordinateur: coordinateurReducer
+  conseiller: conseillerReducer
 });
 
 export default rootReducer;

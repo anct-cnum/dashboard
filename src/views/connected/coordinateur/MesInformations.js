@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { coordinateurActions, userActions } from '../../../actions';
+import { conseillerActions, userActions } from '../../../actions';
 import { valideInputEmail } from '../../../utils/formatagesUtils';
 
 function MesInformations() {
@@ -10,14 +10,14 @@ function MesInformations() {
   const error = useSelector(state => state?.user?.error);
   const [email, setEmail] = useState(userAuth.name);
   const [flashMessage, setFlashMessage] = useState(false);
-  const coordinateur = useSelector(state => state.coordinateur);
+  const conseiller = useSelector(state => state.conseiller);
 
   const handleForm = event => {
     setEmail(event.target.value);
   };
 
   useEffect(() => {
-    dispatch(coordinateurActions.get(userAuth?.entity.$id));
+    dispatch(conseillerActions.get(userAuth?.entity.$id));
   }, []);
 
   const updateEmail = () => {
@@ -81,9 +81,9 @@ function MesInformations() {
         </div>
         <div className="fr-col-12 fr-mb-3w fr-col-lg-6 fr-mb-lg-0w">
           <h2>Mes informations</h2>
-          <p>Nom : <strong>{coordinateur?.coordinateur?.nom}</strong></p>
-          <p>Pr&eacute;nom : {coordinateur?.coordinateur?.prenom}</p>
-          <p>T&eacute;l&eacute;phone professionnel : {coordinateur?.coordinateur?.telephonePro}</p>
+          <p>Nom : <strong>{conseiller?.conseiller?.nom}</strong></p>
+          <p>Pr&eacute;nom : {conseiller?.conseiller?.prenom}</p>
+          <p>T&eacute;l&eacute;phone professionnel : {conseiller?.conseiller?.telephonePro}</p>
         </div>
       </div>
     </div>
