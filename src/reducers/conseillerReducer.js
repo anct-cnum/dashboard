@@ -2,6 +2,7 @@ export default function conseiller(state = null, action) {
   switch (action.type) {
     case 'GET_CONSEILLER_REQUEST':
       return {
+        ...state,
         loading: true,
         error: false
       };

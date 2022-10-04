@@ -1,8 +1,6 @@
 import { authHeader, history, userEntityId, roleActivated } from '../helpers';
-
-import { userService } from './userService';
-
-const apiUrlRoot = process.env.REACT_APP_API_URL;
+import { authenticationService } from './authenticationService';
+import apiUrlRoot from '../helpers/apiUrl';
 
 export const conseillerService = {
   get,
@@ -19,10 +17,9 @@ export const conseillerService = {
 function get(id) {
   const requestOptions = {
     method: 'GET',
-    headers: authHeader()
+    headers: Object.assign(authHeader())
   };
-
-  return fetch(`${apiUrlRoot}/conseillers/${id}`, requestOptions).then(handleResponse);
+  return fetch(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
 function getAll(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
@@ -154,14 +151,13 @@ function handleResponse(response) {
     const data = text && JSON.parse(text);
     if (!response.ok) {
       if (response.status === 401) {
-        // auto logout if 401 response returned from api
-        userService.logout();
-        history.push('/');
+        authenticationService.logout();
+        return Promise.reject({ error: 'Identifiants incorrects' });
       }
       const error = (data && data.message) || response.statusText;
       return Promise.reject(error);
     }
-
+  
     return data;
   });
 }
@@ -171,7 +167,7 @@ function handleFileResponse(response) {
     if (!response.ok) {
       if (response.status === 401) {
         // auto logout if 401 response returned from api
-        userService.logout();
+        authenticationService.logout();
         history.push('/');
       }
       const error = (blob && blob.message) || response.statusText;

@@ -1,4 +1,4 @@
-import { conseillerService } from '../services/conseiller.service.js';
+import { conseillerService } from '../services/conseillerService.js';
 import { statsActions, searchActions } from '../actions';
 import download from 'downloadjs';
 

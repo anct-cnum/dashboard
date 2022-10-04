@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
-import { conseillerActions } from '../../../actions/conseiller.actions';
+import { conseillerActions } from '../../../actions/conseillerActions';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import PopinConfirmationAnnulation from './popins/popinConfirmationAnnulation';
