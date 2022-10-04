@@ -25,8 +25,7 @@ export default function conseiller(state = null, action) {
     case 'UPDATE_STATUS_SUCCESS':
       return {
         ...state,
-        miseEnRelation: action.miseEnRelation,
-        errorUpdateStatus: false
+        miseEnRelation: action.miseEnRelation
       };
     case 'UPDATE_STATUS_FAILURE':
       return {
