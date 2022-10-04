@@ -1,4 +1,4 @@
-export const filtersAndSortsActions = {
+export const filtresCandidatures = {
   updateOrder,
   updatePix,
   updateDiplome,
