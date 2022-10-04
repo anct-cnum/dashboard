@@ -80,7 +80,7 @@ function filtersAndSorts({ resetPage }) {
       <div className="fr-grid-row">
         <div className="fr-col-12" >
           <div className="fr-form-group" style={{ float: 'left' }}>
-            <fieldset className="fr-fieldset fr-fieldset--inline fr-co">
+            <fieldset className="fr-fieldset fr-fieldset--inline fr-co filtresCandidature">
               <div className="fr-mr-2w fr-mt-2w boxPix">
                 <label className="labelPix">Niveau(x) Pix</label>
                 <div className="fr-fieldset__content">

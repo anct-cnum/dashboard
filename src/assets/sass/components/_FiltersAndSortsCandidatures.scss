@@ -1,8 +1,10 @@
-.boxPix {
-  display: flex;
-  align-items: baseline;
-  text-align: center;
-  justify-content: flex-start;
+.filtresCandidature {
+  .boxPix {
+    display: flex;
+    align-items: baseline;
+    text-align: center;
+    justify-content: flex-start;
+  }
 }
 .selectOption{
   display: flex;
