@@ -49,7 +49,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId, dateRecrutement
         {statut === 'nouvelle' &&
           <div className="fr-col-3">
             <button onClick={updateStatut.bind(this, 'interessee')} className="fr-btn fr-fi-checkbox-line fr-btn--icon-left" title="Pré sélectionner">
-              Pré sélectionner
+              Pr&eacute; s&eacute;lectionner
             </button>
           </div>
         }
