@@ -57,20 +57,6 @@ export default function conseiller(state = null, action) {
       return {
         error: action.error
       };
-    case 'VERIFY_CANDIDATE_TOKEN_REQUEST':
-      return {
-        verifyingToken: true
-      };
-    case 'VERIFY_CANDIDATE_TOKEN_SUCCESS':
-      return {
-        tokenVerified: true,
-        conseiller: action.conseiller
-      };
-    case 'VERIFY_CANDIDATE_TOKEN_FAILURE':
-      return {
-        tokenVerified: false,
-        error: action.error
-      };
     case 'GET_CURRICULUM_VITAE_REQUEST':
       return {
         conseiller: state?.conseiller,
