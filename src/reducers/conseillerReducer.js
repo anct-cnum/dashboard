@@ -46,7 +46,8 @@ export default function conseiller(state = null, action) {
       };
     case 'PRESELECTIONNER_CONSEILLER_REQUEST':
       return {
-        loading: true
+        loading: true,
+        error: false,
       };
     case 'PRESELECTIONNER_CONSEILLER_SUCCESS':
       return {
