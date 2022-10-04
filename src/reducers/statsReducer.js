@@ -38,24 +38,6 @@ export default function stats(state = initialState, action) {
       return {
         error: action.error
       };
-    case 'GET_STATS_TERRITOIRES_REQUEST':
-      return {
-        ...state,
-        statsTerritoiresLoading: true,
-        statsTerritoiresError: false,
-      };
-    case 'GET_STATS_TERRITOIRES_SUCCESS':
-      return {
-        ...state,
-        statsTerritoires: action.statsTerritoires,
-        statsTerritoiresLoading: false,
-      };
-    case 'GET_STATS_TERRITOIRES_FAILURE':
-      return {
-        ...state,
-        statsTerritoiresError: action.error,
-        statsTerritoiresLoading: false,
-      };
     default:
       return state;
   }
