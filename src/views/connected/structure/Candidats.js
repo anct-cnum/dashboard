@@ -4,7 +4,7 @@ import { Oval } from 'react-loader-spinner';
 import Candidat from './Candidat';
 import CandidatNonMisEnRelation from './CandidatNonMisEnRelation';
 import { conseillerActions, statsActions, searchActions } from '../../../actions';
-import Pagination from '../../../components/Pagination';
+import Pagination from '../../../components/PaginationCandidatures';
 import FiltersAndSorts from './FiltersAndSorts';
 import {
   Link,
