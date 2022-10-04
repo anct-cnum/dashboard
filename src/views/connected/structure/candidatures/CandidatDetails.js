@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { conseillerActions } from '../../../actions';
+import { conseillerActions } from '../../../../actions';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import ButtonsAction from './ButtonsAction';
-import PopinInteressee from './popins/popinInteressee';
-import PopinRecrutee from './popins/popinRecrutee';
-import PopinNouvelleRupture from './popins/popinNouvelleRupture';
+import PopinInteressee from '../popins/popinInteressee';
+import PopinRecrutee from '../popins/popinRecrutee';
+import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
 import { Oval } from 'react-loader-spinner';
 
 function ConseillerDetails() {

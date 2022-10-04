@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { conseillerActions } from '../../../actions';
+import { conseillerActions } from '../../../../actions';
 
 function Candidat({ miseEnRelation, currentPage, currentFilter, search }) {
 

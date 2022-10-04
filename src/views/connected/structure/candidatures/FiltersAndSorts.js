@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filtresCandidatures, conseillerActions } from '../../../actions';
+import { filtresCandidatures, conseillerActions } from '../../../../actions';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 

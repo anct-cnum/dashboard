@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Oval } from 'react-loader-spinner';
-import Candidat from './Candidat';
-import CandidatNonMisEnRelation from './CandidatNonMisEnRelation';
+import Candidat from './candidatures/Candidat';
+import CandidatNonMisEnRelation from './candidatures/CandidatNonMisEnRelation';
 import { conseillerActions, statsActions, searchActions } from '../../../actions';
 import Pagination from '../../../components/PaginationCandidatures';
-import FiltersAndSorts from './FiltersAndSorts';
+import FiltersAndSorts from './candidatures/FiltersAndSorts';
 import {
   Link,
   useParams,

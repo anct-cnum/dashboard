@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
-import { conseillerActions } from '../../../actions/conseillerActions';
+import { conseillerActions } from '../../../../actions/conseillerActions';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
-import PopinConfirmationAnnulation from './popins/popinConfirmationAnnulation';
-import { scrollTopWindow } from '../../../utils/exportsUtils';
+import PopinConfirmationAnnulation from '../popins/popinConfirmationAnnulation';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 //Print datePicker calendar in FR
 registerLocale('fr', fr);

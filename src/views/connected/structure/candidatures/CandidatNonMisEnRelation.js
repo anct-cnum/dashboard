@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { conseillerActions } from '../../../actions';
-import { history } from '../../../helpers';
+import { conseillerActions } from '../../../../actions';
+import { history } from '../../../../helpers';
 import PropTypes from 'prop-types';
 
 function ConseillerNonMisEnRelation({ conseiller, search, update }) {
