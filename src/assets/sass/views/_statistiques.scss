@@ -1,0 +1,408 @@
+@import '../colors/colors';
+
+.statistiques {
+  .titre {
+    font-weight: 100;
+    font-size: 56px;
+    letter-spacing: 0;
+    line-height: 64px;
+  }
+  .chevron-stats {
+    margin: 0px 2px 0px 4px;
+    position: relative;
+    font-size: 1.3rem;
+    top: 1px;
+  }
+  .chevron {
+    position: absolute;
+  }
+  .date-btn {
+    &:hover, &:active {
+      color: $blue-sky;
+      cursor: pointer;
+    }
+  }  
+  .periode-xs {
+    display: none;
+  }
+  code-postal-select {
+    max-width: 344px;
+    margin-top: -5px;
+    &:focus, &:hover, &:visited, &:link, &:active {
+      outline: none;
+    }
+  }
+  .centrerTexte {
+    text-align: center;
+  }
+  .date-active{
+    color: $blue-sky;
+  }
+  .react-datepicker-wrapper {
+    width: auto;
+  }
+  .react-datepicker{
+    font-family: Marianne;
+    background-color: #fff;
+    border: 1px solid $blue-sky;
+    border-radius: 1.4rem;
+    color: #fff;
+
+    .react-datepicker__triangle {
+      display: none;
+    }
+    .react-datepicker__navigation-icon--previous,
+    .react-datepicker__navigation--previous {
+      background: url(../../../assets/icons/datePicker/logo-chevron-gauche.svg) no-repeat;
+      margin-left: 15px;
+      margin-top: 10px;
+      border: none;
+      height: 16px;
+      width: 10px;
+    }
+    .react-datepicker__navigation-icon--next,
+    .react-datepicker__navigation--next {
+      background: url(../../../assets/icons/datePicker/logo-chevron-droit.svg) no-repeat;
+      margin-right: 15px;
+      margin-top: 10px;
+      border: none;
+      height: 16px;
+      width: 10px;
+    }
+    .react-datepicker__header {
+      background-color: #fff;
+      color: $black;
+      border-top-left-radius: 1.4rem;
+      border-top-right-radius: 1.4rem;
+
+      .react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {
+        color: $black;
+      }
+      .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
+        color: $black;
+      }
+      .react-datepicker__month {
+        color: $black;
+      }
+    }
+    .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
+      font-size: 16px;
+      color: $black;
+      width: 28px;
+      height: 28px;
+      margin: 7px;
+    }
+    .react-datepicker__day--outside-month {
+      color: $grey;
+    }
+    .react-datepicker__day:hover, .react-datepicker__month-text:hover, .react-datepicker__quarter-text:hover, .react-datepicker__year-text:hover{
+      background-color: $blue-sky;
+      color: #fff;
+    }
+    .react-datepicker__day--selected, .react-datepicker__day--keyboard-selected {
+      color: #fff;
+      background-color: $black;
+    }
+    .react-date-picker__calendar--open {
+      top: 100% !important;
+      bottom: unset !important;
+    }
+  }
+  .react-datepicker__tab-loop {
+    position: absolute;
+    top: 0px;
+    left: -93px;
+  }
+  .number {
+    margin-right: 1rem;
+    text-align: right;
+    line-height: 32px;
+    letter-spacing: 0;
+    font-weight: 600;
+    font-size: 32px;
+  }
+  .numbers, .numbers-renewal {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: right;
+    line-height: 22px;
+    letter-spacing: 0;
+    margin-right: 1rem;
+  }
+  .text-left .numbers-renewal {
+    text-align: left !important;
+  }
+  .many-numbers {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: right;
+    margin-right: 1rem;
+  }
+  .nationales, .region, .departement {
+    .number {
+      margin-right: 0rem;
+      text-align: left;
+    }
+    .numbers {
+      text-align: left;
+    }
+  }
+  .text {
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 20px;
+    font-weight: 500;
+  }
+  .texts {
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: 20px;
+  }
+
+  .titre-legende,.titre-legende-bis, .valeur-legende {
+    display:inline-block;
+    font-weight: 400;
+    height: 20px;
+  }
+  .titre-legende {
+    width: 80px;
+  }
+  .titre-legende-bis{
+    width: 82px;
+  }
+  .valeur-legende {
+    text-align: right;
+    width: 35px;
+  }
+  .highcharts-legend-item.highcharts-line-series.highcharts-color-undefined.highcharts-series-1 path.highcharts-graph {
+    stroke-width: 0;
+  }
+  .theme-valeur {
+    margin: 0 12px;
+  }
+  .liste-action {
+    padding: 0px;
+  }
+  .lieux-autres {
+    color: $black;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 18px;
+    position: relative;
+    width: 200px;
+    top: -509px;
+    left: 70%;
+    ul, span {
+      color: $orange;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    ul {
+      position: absolute;
+      height: 475px;
+      max-height: 475px;
+      overflow: auto;
+      list-style: none;
+      color: $black;
+      line-height: 20px;
+      margin: 0;
+      padding: 0;
+    }
+    .fr-mt-list {
+      margin-top: 1.4rem;
+      margin-bottom: 5px;
+      width: 200px;
+    }
+  }
+  .fr-m-no-reorientation {
+    margin: 7.5rem 0;
+  }
+  .not-found {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .statistiques-btn {
+    background-color: transparent;
+    border: 1px solid $black;
+    line-height: 1.25rem;
+    border-radius: 40px;
+    text-align:center;
+    box-shadow: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: $black;
+    padding: 21px;
+  }
+  @media (min-width: 1200px) {
+    .hide-graphique-xs {
+      display:none;
+    }
+  }
+  @media (max-width: 1199px) {
+    .hide-graphique-lg {
+      display:none;
+    }
+  }
+  @media (min-width: 991px) {
+    .graphique-responsive-md{
+      display:none;
+    }
+    .fr-mt-lg-13w {
+      margin-top: 6.5rem !important;
+    }
+    .fr-m-lg-15w {
+      margin: 7.5rem 0 !important;
+    }
+    .fr-mt-md-n15w {
+      margin-top: -7rem;
+    }
+  }
+  @media (max-width: 991px) {
+    .number {
+      font-size: 28px;
+    }
+    .fr-m-xs-to-md-7v {
+      margin: 1.75rem 0 !important;
+    }
+    .afficher-export {
+      display: none;
+    }
+    .hr-lg-hide {
+      display: block;
+    }
+    .graphique-responsive-lg {
+      display:none;
+    }
+    .col-offset-md-1 {
+      margin-left: 8.33333%;
+    }
+    .lieux-autres {
+      position: static;
+      height: 475px;
+      max-height: 475px;
+      overflow: auto;
+    }
+  }
+  @media (min-width: 768px) {
+    .hr-md-hide, .graphique-responsive-sm {
+      display: none;
+    }
+  }
+  @media (max-width: 767px) {
+    .numbers-renewal, .many-numbers {
+      text-align: left;
+    }
+    .graphique-responsive-md-lg {
+      display:none;
+    }
+    .hr-sm-hide {
+      display: none;
+    }
+    .fr-m-sm-4w {
+      margin: 2rem 0 !important;
+    }
+    .fr-footer__bottom-link {
+      font-size: 16px;
+    }
+    .fr-footer__bottom-item{
+      display: inline-block;
+      &::before{
+        display: none;
+      }
+    }
+    .statistiques-btn {
+      margin: 30px 0;
+      padding: 12px 24px;
+    }
+    .highcharts-container {
+      margin: 0 auto;
+    }
+    .col-offset-md-1 {
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 575px) {
+    .titre {
+      font-size: 28px;
+      text-align: center;
+      line-height: 2rem;
+    }
+  }
+  @media (max-width: 557) {
+    .highcharts-title{
+      margin-bottom: 1rem !important;
+    }
+  }
+  @media (max-width: 349px) {
+    .periode-xs {
+      display: block;
+    }
+    .chevron {
+      bottom: 75px;
+      right: 16px;
+    }
+    #span-datePickerDebut .react-datepicker__tab-loop {
+      left: -10px;
+    }
+    #span-datePickerFin .react-datepicker__tab-loop {
+      left: -122px;
+    }
+  }
+}
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    -moz-print-color-adjust: exact;
+    -ms-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  header, footer, .no-print {
+    display: none;
+  }
+  .fr-mb-6w, .fr-m-7w, .fr-mb-5w, .fr-mt-3v {
+    margin: 1rem 0 !important;
+  }
+  .print-graphique.fr-col-12{
+    flex: 0 0 100%;
+    max-width: 50%;
+    width: 50%;
+    .duree {
+      margin-top:-3.5rem !important;
+    }
+  }
+  .print-blank {
+    margin-top: 15rem !important;
+  }
+  .nationales, .structure, .territoire {
+    margin-top:0px !important;
+  }
+  .structure, .territoire {
+    .print-chiffre {
+      flex: 0 0 100%;
+      max-width: 100%;
+      width: 100%;
+      .numbers-renewal, .many-numbers, .number, .numbers {
+        text-align: left !important;
+      }
+    }
+    .print-texte {
+      flex: 0 0 100%;
+      max-width: 100%;
+      width: 100%;
+    }
+    .fr-m-5w {
+      margin: 1.5rem 0 !important;
+    }
+  }
+  .lieux-autres {
+    display: none;
+  }
+}
+@page {
+  size: auto;
+  margin: 0mm; 
+}
