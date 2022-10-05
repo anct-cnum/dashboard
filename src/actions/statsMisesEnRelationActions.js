@@ -1,4 +1,4 @@
-import { statsService } from '../services/stats.service.js';
+import { statsService } from '../services/statsService.js';
 
 export const statsActions = {
   getMisesEnRelationStats

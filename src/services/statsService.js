@@ -1,5 +1,6 @@
 import { authHeader, history, userEntityId } from '../helpers';
-import { userService } from './userService';
+import { authenticationService } from './authenticationService';
+import apiUrlRoot from '../helpers/apiUrl';
 
 export const statsService = {
   getMisesEnRelationStats,
@@ -12,8 +13,6 @@ function getMisesEnRelationStats(id) {
     headers: authHeader()
   };
 
-  const apiUrlRoot = process.env.REACT_APP_API_URL;
-
   return fetch(`${apiUrlRoot}/structures/${id === null ? userEntityId() : id}/misesEnRelation/stats`, requestOptions).then(handleResponse);
 }
 
@@ -22,8 +21,6 @@ function getConseillersFinalisee() {
     method: 'GET',
     headers: authHeader()
   };
-
-  const apiUrlRoot = process.env.REACT_APP_API_URL;
 
   return fetch(`${apiUrlRoot}/stats/conseillers/finalisees`, requestOptions).then(handleResponse);
 }
@@ -34,7 +31,7 @@ function handleResponse(response) {
     if (!response.ok) {
       if (response.status === 401) {
         // auto logout if 401 response returned from api
-        userService.logout();
+        authenticationService.logout();
         history.push('/');
       }
 
