@@ -4,6 +4,8 @@ import apiUrlRoot from '../helpers/apiUrl';
 
 export const exportsService = {
   getFile,
+  getExportDonneesTerritoire,
+  getStatistiquesCSV,
 };
 
 function getFile(name) {
@@ -13,6 +15,48 @@ function getFile(name) {
   };
 
   return fetch(`${apiUrlRoot}/exports/${name}-csv?role=${roleActivated()}`, requestOptions).then(handleResponse);
+}
+
+function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page) {
+  if (nomOrdre === 'code') {
+    nomOrdre = territoire;
+  } else if (nomOrdre === 'nom') {
+    //Afin d'obtenir nomDepartemement ou nomRegion
+    nomOrdre += territoire.slice(4);
+  }
+  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
+  const pageIfDefined = page ? '&page=' + page : '';
+
+  return `?territoire=${territoire}&dateDebut=${dateDebut}&dateFin=${dateFin}${pageIfDefined}${ordreColonne}`;
+}
+
+async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrdre, ordre) {
+  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports`;
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(
+      authHeader(), {
+        'Accept': 'text/plain',
+        'Content-Type': 'text/plain'
+      })
+  };
+
+  const exportTerritoiresRoute = '/territoires-csv';
+  return handleResponse(
+    // eslint-disable-next-line max-len
+    await fetch(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`, requestOptions)
+  );
+}
+
+function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal) {
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
+  };
+  const role = type === 'nationales' ? 'anonyme' : roleActivated();
+  // eslint-disable-next-line max-len
+  return fetch(`${apiUrlRoot}/exports/statistiques-csv?role=${role}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&conseillerIds=${conseillerIds}`,
+    requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
