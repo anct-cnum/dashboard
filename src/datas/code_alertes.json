@@ -1,0 +1,18 @@
+[
+  {
+    "code": "error",
+    "correspondance": "Erreur"
+  },
+  {
+    "code": "warning",
+    "correspondance": "Attention"
+  },
+  {
+    "code": "success",
+    "correspondance": "Succès"
+  },
+  {
+    "code": "information",
+    "correspondance": "Information"
+  }
+]
