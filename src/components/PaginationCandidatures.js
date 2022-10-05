@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-function Pagination({ pageCount, current, navigate }) {
+function PaginationCandidatures({ pageCount, current, navigate }) {
   let previousPage = current - 1;
   let nextPage = current + 1;
   let lastPage = pageCount;
@@ -105,10 +105,10 @@ function Pagination({ pageCount, current, navigate }) {
   );
 }
 
-Pagination.propTypes = {
+PaginationCandidatures.propTypes = {
   pageCount: PropTypes.number,
   current: PropTypes.number,
   navigate: PropTypes.func
 };
 
-export default Pagination;
+export default PaginationCandidatures;
