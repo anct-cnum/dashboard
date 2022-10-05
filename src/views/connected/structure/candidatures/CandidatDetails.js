@@ -9,9 +9,9 @@ import PopinInteressee from '../popins/popinInteressee';
 import PopinRecrutee from '../popins/popinRecrutee';
 import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
 import { Oval } from 'react-loader-spinner';
-import pixUtilisation from '../../../../assets/icons/pix-utilisation.svg';
-import pixRessources from '../../../../assets/icons/pix-ressources.svg';
-import pixCitoyen from '../../../../assets/icons/pix-citoyen.svg';
+import pixUtilisation from '../../../../assets/icons/pix-utilisation.png';
+import pixRessources from '../../../../assets/icons/pix-ressources.png';
+import pixCitoyen from '../../../../assets/icons/pix-citoyen.png';
 
 function ConseillerDetails() {
 
