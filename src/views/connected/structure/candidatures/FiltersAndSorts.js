@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filtresCandidatures, conseillerActions } from '../../../../actions';
+import { filtresCandidaturesActions, conseillerActions } from '../../../../actions';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -25,7 +25,7 @@ function filtersAndSorts({ resetPage }) {
 
     if (name === 'orderByDateStart') {
       let order = e.target.checked ? 'conseillerObj.dateDisponibilite' : 'conseillerObj.createdAt';
-      dispatch(filtresCandidatures.updateOrder(order));
+      dispatch(filtresCandidaturesActions.updateOrder(order));
     }
 
     if (name === 'pixLevel1' || name === 'pixLevel2' || name === 'pixLevel3') {
@@ -40,7 +40,7 @@ function filtersAndSorts({ resetPage }) {
         pix.push(3);
       }
 
-      dispatch(filtresCandidatures.updatePix(pix));
+      dispatch(filtresCandidaturesActions.updatePix(pix));
     }
 
     if (name === 'selectDiplome') {
@@ -50,7 +50,7 @@ function filtersAndSorts({ resetPage }) {
       if (value !== '') {
         diplome = value === 'true';
       }
-      dispatch(filtresCandidatures.updateDiplome(diplome));
+      dispatch(filtresCandidaturesActions.updateDiplome(diplome));
     }
 
     if (name === 'selectCV') {
@@ -60,7 +60,7 @@ function filtersAndSorts({ resetPage }) {
       if (value !== '') {
         cv = value === 'true';
       }
-      dispatch(filtresCandidatures.updateCV(cv));
+      dispatch(filtresCandidaturesActions.updateCV(cv));
     }
 
     setFilters(inputs => ({ ...inputs, [name]: value }));
