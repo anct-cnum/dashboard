@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions } from '../../../../actions';
 import { history } from '../../../../helpers';
 import PropTypes from 'prop-types';
+import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
+import logoPix from '../../../../assets/icons/logo-pix.svg';
 
 function ConseillerNonMisEnRelation({ conseiller, search, update }) {
   const structure = useSelector(state => state.structure);
@@ -44,7 +46,7 @@ function ConseillerNonMisEnRelation({ conseiller, search, update }) {
       { !search && <td>
         { conseiller?.pix?.partage &&
           <div className="tooltip">
-            <img src="/logos/logo-pix.svg" alt="logo Pix" style={{ height: '36px' }}/>
+            <img src={logoPix} alt="logo Pix" style={{ height: '36px' }}/>
             <span className="tooltiptext">A partagé ses résultats Pix</span>
           </div>
         }
@@ -52,7 +54,7 @@ function ConseillerNonMisEnRelation({ conseiller, search, update }) {
       <td>
         {conseiller?.cv?.file &&
         <button className="downloadCVBtn" onClick={downloadCV}>
-          <img src="/logos/icone-telecharger.svg" alt="Télécharger le CV" style={{ height: '26px' }}/>
+          <img src={iconeTelechargement} alt="Télécharger le CV" style={{ height: '26px' }}/>
         </button>
         }
         {!conseiller?.cv?.file &&

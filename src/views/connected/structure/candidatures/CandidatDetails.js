@@ -9,6 +9,9 @@ import PopinInteressee from '../popins/popinInteressee';
 import PopinRecrutee from '../popins/popinRecrutee';
 import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
 import { Oval } from 'react-loader-spinner';
+import pixUtilisation from '../../../../assets/icons/pix-utilisation.png';
+import pixRessources from '../../../../assets/icons/pix-ressources.png';
+import pixCitoyen from '../../../../assets/icons/pix-citoyen.png';
 
 function ConseillerDetails() {
 
@@ -157,21 +160,21 @@ function ConseillerDetails() {
                 {renderStars(conseiller?.conseiller?.pix?.palier)}
                 <p>
                   { conseiller?.conseiller?.pix?.competence1 &&
-                    <img src="/logos/pix-utilisation.png"
+                    <img src={pixUtilisation}
                       alt="Utilisation du numérique"
                       title="Utilisation du numérique dans la vie professionnelle"
                       className="fr-mr-2w"
                     />
                   }
                   { conseiller?.conseiller?.pix?.competence2 &&
-                    <img src="/logos/pix-ressources.png"
+                    <img src={pixRessources}
                       alt="Production de ressources"
                       title="Production de ressources"
                       className="fr-mr-2w"
                     />
                   }
                   { conseiller?.conseiller?.pix?.competence3 &&
-                  <img src="/logos/pix-citoyen.png"
+                  <img src={pixCitoyen}
                     alt="Compétences numériques en lien avec la e-citoyenneté"
                     title="Compétences numériques en lien avec la e-citoyenneté"
                     className="fr-mr-2w"

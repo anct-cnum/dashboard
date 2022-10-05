@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 function filtersAndSorts({ resetPage }) {
 
   const dispatch = useDispatch();
-  let filtersAndSorts = useSelector(state => state.filtersAndSorts);
+  let filtersAndSorts = useSelector(state => state.filtresCandidatures);
   const { search } = useSelector(state => state.search);
   let { filter } = useParams();
 

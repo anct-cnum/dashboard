@@ -33,7 +33,7 @@ function Candidats() {
   const [pageCount, setPageCount] = useState(0);
   const [constructorHasRun, setConstructorHasRun] = useState(false);
   let { filter } = useParams();
-  const filtersAndSorts = useSelector(state => state.filtersAndSorts);
+  const filtersAndSorts = useSelector(state => state.filtresCandidatures);
 
   const navigate = page => {
     setPage(page);
