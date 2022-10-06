@@ -60,8 +60,13 @@ function Menu() {
               </Link>
             </li>
             <li className="fr-nav__item">
-              <Link className="fr-nav__link" to="">
+              <Link className="fr-nav__link" to="`/${roleActivated}/conseillers`">
                 Liste des conseillers
+              </Link>
+            </li>
+            <li className="fr-nav__item">
+              <Link className="fr-nav__link" to="/${roleActivated}/candidats/nouvelle">
+                Liste des candidats
               </Link>
             </li>
             <li className="fr-nav__item">
