@@ -51,7 +51,7 @@ export default function GraphiqueNationale() {
         {!donneesStatistiques &&
           <h2 className="centrerTexte">Il n&rsquo;y a aucune statistique pour le moment</h2>
         }
-        { donneesStatistiques !== undefined &&
+        {donneesStatistiques &&
           <div className="fr-grid-row">
             <LeftPage donneesStats={donneesStatistiques}/>
             <RightPage donneesStats={donneesStatistiques}/>
