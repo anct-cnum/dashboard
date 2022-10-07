@@ -38,38 +38,48 @@ function get(id) {
 
 }
 
-function getAll({
-  departement = null,
-  region = null,
-  com = null,
-  structureId = null,
-  misesEnRelation,
-  search = '',
-  page = 0,
-  filter,
-  sortData = 'conseillerObj.createdAt',
-  sortOrder = 1,
-  persoFilters }) {
+// function getAll({
+//   departement = null,
+//   region = null,
+//   com = null,
+//   structureId = null,
+//   misesEnRelation,
+//   search = '',
+//   page = 0,
+//   filter,
+//   sortData = 'conseillerObj.createdAt',
+//   sortOrder = 1,
+//   persoFilters }) {
+//   return dispatch => {
+//     dispatch(request());
+
+//     let promises = [];
+//     if (misesEnRelation) {
+//       let promise = conseillerService.getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters);
+//       promises.push(promise);
+//     }
+
+//     let isSearch = search.length > 0;
+//     if (!misesEnRelation || isSearch) {
+//       let promise = conseillerService.getAll(departement, region, com, search, page, isSearch ? '' : filter, sortData, sortOrder, persoFilters);
+//       promises.push(promise);
+//     }
+// }
+
+function getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, nomOrdre = 'prenom', ordre = 1) {
   return dispatch => {
     dispatch(request());
-
     let promises = [];
-    if (misesEnRelation) {
-      let promise = conseillerService.getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters);
-      promises.push(promise);
-    }
-
-    let isSearch = search.length > 0;
-    if (!misesEnRelation || isSearch) {
-      let promise = conseillerService.getAll(departement, region, com, search, page, isSearch ? '' : filter, sortData, sortOrder, persoFilters);
-      promises.push(promise);
-    }
+    // eslint-disable-next-line max-len
+    let promise = conseillerService.getAll(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom, nomOrdre, ordre);
+    promises.push(promise);
 
     let conseillers = null;
     Promise.all(promises).then(items => {
       conseillers = items[0];
       if (items.length > 1) {
-        conseillers.data = [...items[0].data, ...items[1].data];
+        // conseillers.data = [...items[0].data, ...items[1].data];
+        conseillers.data = [...items[0].data];
       }
       dispatch(success(conseillers));
     }).catch(error => {

@@ -22,32 +22,51 @@ function get(id) {
   return fetch(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
-function getAll(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
+function getAll(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom, nomOrdre, ordre) {
   const requestOptions = {
     method: 'GET',
-    headers: authHeader()
+    headers: Object.assign(authHeader())
   };
-  const filterDepartement = departement !== null ? `&codeDepartement=${departement}` : '';
-  const filterRegion = region !== null ? `&codeRegion=${region}` : '';
-  const filterCom = com !== null ? `&codeCom=${com}` : '';
-  const filterSearch = search !== '' ? `&$search=${search}&$limit=100` : '';
-  const filterSort = search === '' ? `&$sort[${sortData}]=${sortOrder}` : '';
+  let {
+    ordreColonne,
+    filterDateStart,
+    filterDateEnd,
+    rupture,
+    filterByName,
+    coordinateur,
+  } = cnfsQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreRupture, filtreCoordinateur);
 
-  let uri = `${apiUrlRoot}/conseillers?$skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filterSearch}`;
-
-  if (persoFilters) {
-    //Recrutés ?
-    if (persoFilters?.recrutes !== undefined && persoFilters?.recrutes !== '') {
-      uri += `&statut=${persoFilters?.recrutes}`;
-    }
-  }
-
-  if (filter) {
-    uri += `&filter=${filter}`;
-  }
+  let uri = `${apiUrlRoot}/conseillers?$skip=${page}${filterByName}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}`;
 
   return fetch(uri, requestOptions).then(handleResponse);
 }
+
+// function getAll(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
+//   const requestOptions = {
+//     method: 'GET',
+//     headers: authHeader()
+//   };
+//   const filterDepartement = departement !== null ? `&codeDepartement=${departement}` : '';
+//   const filterRegion = region !== null ? `&codeRegion=${region}` : '';
+//   const filterCom = com !== null ? `&codeCom=${com}` : '';
+//   const filterSearch = search !== '' ? `&$search=${search}&$limit=100` : '';
+//   const filterSort = search === '' ? `&$sort[${sortData}]=${sortOrder}` : '';
+
+//   let uri = `${apiUrlRoot}/conseillers?$skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filterSearch}`;
+
+//   if (persoFilters) {
+//     //Recrutés ?
+//     if (persoFilters?.recrutes !== undefined && persoFilters?.recrutes !== '') {
+//       uri += `&statut=${persoFilters?.recrutes}`;
+//     }
+//   }
+
+//   if (filter) {
+//     uri += `&filter=${filter}`;
+//   }
+
+//   return fetch(uri, requestOptions).then(handleResponse);
+// }
 
 function getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters) {
   const requestOptions = {
@@ -144,6 +163,46 @@ function getCurriculumVitae(id) {
   };
 
   return fetch(`${apiUrlRoot}/conseillers/${id}/cv`, requestOptions).then(handleFileResponse);
+}
+
+function cnfsQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreRupture, filtreCoordinateur) {
+
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const filterByName = filtreParNom ? `&$search=${filtreParNom}` : '';
+  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
+
+  let coordinateur = '';
+  switch (filtreCoordinateur) {
+    case 'tous':
+      coordinateur = '';
+      break;
+    case 'true':
+      coordinateur = `&coordinateur=true`;
+      break;
+    case 'false':
+      coordinateur = `&coordinateur=false`;
+      break;
+    default:
+      break;
+  }
+  let rupture = '';
+  switch (filtreRupture) {
+    case 'tous':
+      rupture = '';
+      break;
+    case 'true':
+      rupture = `&rupture=true`;
+      break;
+    case 'false':
+      rupture = `&rupture=false`;
+      break;
+    default:
+      break;
+  }
+
+  return { ordreColonne, filterDateStart, filterDateEnd, filterByName, rupture, coordinateur };
+
 }
 
 function handleResponse(response) {

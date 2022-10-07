@@ -113,7 +113,32 @@ export default function conseiller(state = null, action) {
       return {
         ...state,
         loading: false,
-        errorUpdateStatus: action.error
+        errorUpdateStatus: action.error,
+        conseiller: action.conseiller
+      };
+    case 'GETALL_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'GETALL_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: action.conseillers
+      };
+    case 'GETALL_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
+    case 'GET_ALL_CONSEILLER_SEARCH_BAR':
+      return {
+        ...state,
+        initConseiller: true,
+        conseillersBeforeFilter: action.conseillers?.data
       };
     default:
       return state;
