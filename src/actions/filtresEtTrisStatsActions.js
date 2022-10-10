@@ -11,6 +11,8 @@ export const filtresEtTrisStatsActions = {
   changeStructureId,
   saveSearchInput,
   changeFiltreRegion,
+  changeCoordinateur,
+  changeRupture,
   resetFiltre,
 };
 
@@ -66,6 +68,14 @@ function saveSearchInput(searchInput, region) {
 
 function changeFiltreRegion(region) {
   return { type: 'CHANGE_REGION', region };
+}
+
+function changeCoordinateur(dataCoordinateur) {
+  return { type: 'CHANGE_COORDINATEUR', dataCoordinateur };
+}
+
+function changeRupture(dataRupture) {
+  return { type: 'CHANGE_RUPTURE', dataRupture };
 }
 
 function resetFiltre() {

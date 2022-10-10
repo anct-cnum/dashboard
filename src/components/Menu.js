@@ -60,7 +60,8 @@ function Menu() {
               </Link>
             </li>
             <li className="fr-nav__item">
-              <Link className="fr-nav__link" to="`/${roleActivated}/conseillers`">
+              <Link className="fr-nav__link" to="liste-conseillers"
+                {...(location.pathname.startsWith(`/liste-conseillers`) ? { 'aria-current': 'page' } : {})}>
                 Liste des conseillers
               </Link>
             </li>

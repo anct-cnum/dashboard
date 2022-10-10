@@ -69,22 +69,15 @@ function get(id) {
 function getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, nomOrdre = 'prenom', ordre = 1) {
   return dispatch => {
     dispatch(request());
-    let promises = [];
-    // eslint-disable-next-line max-len
-    let promise = conseillerService.getAll(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom, nomOrdre, ordre);
-    promises.push(promise);
-
-    let conseillers = null;
-    Promise.all(promises).then(items => {
-      conseillers = items[0];
-      if (items.length > 1) {
-        // conseillers.data = [...items[0].data, ...items[1].data];
-        conseillers.data = [...items[0].data];
+    conseillerService.getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, nomOrdre, ordre)
+    .then(
+      conseillers => {
+        dispatch(success(conseillers));
+      },
+      error => {
+        dispatch(failure(error));
       }
-      dispatch(success(conseillers));
-    }).catch(error => {
-      dispatch(failure(error));
-    });
+    );
   };
 
   function request() {

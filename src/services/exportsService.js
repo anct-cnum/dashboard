@@ -6,6 +6,7 @@ export const exportsService = {
   getFile,
   getExportDonneesTerritoire,
   getStatistiquesCSV,
+  getExportDonneesConseiller
 };
 
 function getFile(name) {
@@ -30,6 +31,44 @@ function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, 
   return `?territoire=${territoire}&dateDebut=${dateDebut}&dateFin=${dateFin}${pageIfDefined}${ordreColonne}`;
 }
 
+function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const filterByName = filtreParNom ? `&$search=${filtreParNom}` : '';
+  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
+
+  let coordinateur = '';
+  switch (filtreCoordinateur) {
+    case 'tous':
+      coordinateur = '';
+      break;
+    case 'true':
+      coordinateur = `&coordinateur=true`;
+      break;
+    case 'false':
+      coordinateur = `&coordinateur=false`;
+      break;
+    default:
+      break;
+  }
+  let rupture = '';
+  switch (filtreRupture) {
+    case 'tous':
+      rupture = '';
+      break;
+    case 'true':
+      rupture = `&rupture=true`;
+      break;
+    case 'false':
+      rupture = `&rupture=false`;
+      break;
+    default:
+      break;
+  }
+
+  return { ordreColonne, filterDateStart, filterDateEnd, filterByName, rupture, coordinateur };
+}
+
 async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrdre, ordre) {
   const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports`;
   const requestOptions = {
@@ -45,6 +84,32 @@ async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrd
   return handleResponse(
     // eslint-disable-next-line max-len
     await fetch(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`, requestOptions)
+  );
+}
+
+async function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, nomOrdre, ordre) {
+  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports`;
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(
+      authHeader(), {
+        'Accept': 'text/plain',
+        'Content-Type': 'text/plain'
+      })
+  };
+
+  const exportConseillersRoute = '/conseillers-csv';
+  let {
+    ordreColonne,
+    filterDateStart,
+    filterDateEnd,
+    rupture,
+    filterByName,
+    coordinateur,
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreRupture, filtreCoordinateur);
+  return handleResponse(
+    // eslint-disable-next-line max-len
+    await fetch(`${apiUrlRoot}${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}`, requestOptions)
   );
 }
 

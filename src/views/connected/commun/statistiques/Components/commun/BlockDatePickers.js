@@ -10,8 +10,8 @@ function BlockDatePickers({ dateDebut, dateFin }) {
       <span id="span-datePickerDebut" >
         <CustomDatePicker initDate={dateDebut} dateFin={dateFin} idDate="datePickerDebut" nomDate="datePickerDebut"/>
       </span>
-      <span id="span-datePickerFin" >
-        &nbsp;au&nbsp;
+      <span>&nbsp;au&nbsp;</span>
+      <span id="span-datePickerFin">
         <CustomDatePicker initDate={dateFin} dateDebut={dateDebut} idDate="datePickerFin" nomDate="datePickerFin"/>
       </span>
     </>

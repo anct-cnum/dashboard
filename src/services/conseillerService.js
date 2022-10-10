@@ -34,9 +34,10 @@ function getAll(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, fil
     rupture,
     filterByName,
     coordinateur,
-  } = cnfsQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreRupture, filtreCoordinateur);
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreRupture, filtreCoordinateur);
 
-  let uri = `${apiUrlRoot}/conseillers?$skip=${page}${filterByName}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}`;
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/conseillers?skip=${page}${filterByName}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}&role=${roleActivated()}`;
 
   return fetch(uri, requestOptions).then(handleResponse);
 }
@@ -165,7 +166,7 @@ function getCurriculumVitae(id) {
   return fetch(`${apiUrlRoot}/conseillers/${id}/cv`, requestOptions).then(handleFileResponse);
 }
 
-function cnfsQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreRupture, filtreCoordinateur) {
+function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreRupture, filtreCoordinateur) {
 
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
@@ -177,10 +178,10 @@ function cnfsQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtrePa
     case 'tous':
       coordinateur = '';
       break;
-    case 'true':
+    case 'est-coordinateur':
       coordinateur = `&coordinateur=true`;
       break;
-    case 'false':
+    case 'non-coordinateur':
       coordinateur = `&coordinateur=false`;
       break;
     default:
@@ -191,10 +192,10 @@ function cnfsQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtrePa
     case 'tous':
       rupture = '';
       break;
-    case 'true':
+    case 'rupture':
       rupture = `&rupture=true`;
       break;
-    case 'false':
+    case 'contrat':
       rupture = `&rupture=false`;
       break;
     default:
@@ -202,7 +203,6 @@ function cnfsQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtrePa
   }
 
   return { ordreColonne, filterDateStart, filterDateEnd, filterByName, rupture, coordinateur };
-
 }
 
 function handleResponse(response) {

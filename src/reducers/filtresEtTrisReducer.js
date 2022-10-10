@@ -56,6 +56,16 @@ export default function filtresEtTris(state = initialState, action) {
         ...state,
         groupeCRA: action.dataGroupeCRA
       };
+    case 'CHANGE_COORDINATEUR':
+      return {
+        ...state,
+        coordinateur: action.dataCoordinateur
+      };
+    case 'CHANGE_RUPTURE':
+      return {
+        ...state,
+        rupture: action.dataRupture
+      };
     case 'CHANGE_TERRITOIRE':
       return {
         ...state,
