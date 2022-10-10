@@ -33,7 +33,7 @@ export default function GraphiqueStructure() {
   const dateFin = useSelector(state => state.statistiques?.dateFin);
 
   useEffect(() => {
-    if (!structureError && !structure) {
+    if (!structureError && !structure || structure?._id !== idStructure) {
       dispatch(structuresActions.getStructure(idStructure));
     } else if (structureError) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
