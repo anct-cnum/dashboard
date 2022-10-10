@@ -46,6 +46,7 @@ export default function statistiques(state = initialState, action) {
     case 'GET_STATS_CRA_NATIONALES_REQUEST':
       return {
         ...state,
+        statsData: null,
         loading: true,
         error: false,
       };
@@ -69,6 +70,7 @@ export default function statistiques(state = initialState, action) {
     case 'GET_DATAS_STRUCTURES_REQUEST':
       return {
         ...state,
+        statistiquesStructures: null,
         loading: true,
         error: false,
       };
@@ -87,6 +89,7 @@ export default function statistiques(state = initialState, action) {
     case 'GET_DATAS_TERRITOIRES_REQUEST':
       return {
         ...state,
+        statsTerritoires: null,
         loading: true,
         error: false,
       };
@@ -123,6 +126,7 @@ export default function statistiques(state = initialState, action) {
     case 'GET_STATS_CRA_TERRITOIRE_REQUEST':
       return {
         ...state,
+        statsData: null,
         loading: true,
         error: false,
       };
@@ -141,6 +145,7 @@ export default function statistiques(state = initialState, action) {
     case 'GET_STATS_CRA_STRUCTURE_REQUEST':
       return {
         ...state,
+        statsData: null,
         loading: true,
         error: false,
       };

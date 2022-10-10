@@ -366,6 +366,10 @@
   .fr-mb-6w, .fr-m-7w, .fr-mb-5w, .fr-mt-3v {
     margin: 1rem 0 !important;
   }
+  .fr-hr {
+    margin: 1rem !important;
+    padding: 0 !important;
+  }
   .print-graphique.fr-col-12{
     flex: 0 0 100%;
     max-width: 50%;
@@ -377,6 +381,15 @@
   .print-blank {
     margin-top: 15rem !important;
   }
+  .print-blank-other {
+    margin-top: 6rem !important;
+  }
+  @supports (-moz-appearance:none) {
+    .print-blank-firefox {
+      margin-top: 15rem !important;
+    }
+  }
+
   .nationales, .structure, .territoire {
     margin-top:0px !important;
   }
@@ -402,6 +415,8 @@
     display: none;
   }
 }
+
+
 @page {
   size: auto;
   margin: 0mm; 
