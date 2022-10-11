@@ -355,6 +355,7 @@
 }
 @media print {
   body {
+    width: 800px;
     -webkit-print-color-adjust: exact;
     -moz-print-color-adjust: exact;
     -ms-print-color-adjust: exact;
@@ -367,7 +368,7 @@
     margin: 1rem 0 !important;
   }
   .fr-hr {
-    margin: 1rem !important;
+    margin: 1.3rem !important;
     padding: 0 !important;
   }
   .print-graphique.fr-col-12{
