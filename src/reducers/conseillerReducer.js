@@ -1,4 +1,11 @@
-export default function conseiller(state = null, action) {
+const anneeEnCours = new Date().getFullYear();
+const initialState = {
+  dateDebut: new Date(anneeEnCours + '/01/01'),
+  dateFin: new Date(),
+  initConseiller: false,
+  conseillersBeforeFilter: []
+};
+export default function conseiller(state = initialState, action) {
   switch (action.type) {
     case 'GET_CONSEILLER_REQUEST':
       return {

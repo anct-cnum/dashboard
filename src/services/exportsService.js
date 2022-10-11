@@ -31,10 +31,11 @@ function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, 
   return `?territoire=${territoire}&dateDebut=${dateDebut}&dateFin=${dateFin}${pageIfDefined}${ordreColonne}`;
 }
 
-function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom) {
+function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom, filtreParRegion) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
-  const filterByName = filtreParNom ? `&$search=${filtreParNom}` : '';
+  const filterByName = filtreParNom ? `&search=${filtreParNom}` : '';
+  const filterByRegion = filtreParRegion !== 'tous' ? `&region=${filtreParRegion}` : '';
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
 
   let coordinateur = '';
@@ -66,7 +67,7 @@ function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, fi
       break;
   }
 
-  return { ordreColonne, filterDateStart, filterDateEnd, filterByName, rupture, coordinateur };
+  return { ordreColonne, filterDateStart, filterDateEnd, rupture, coordinateur, filterByName, filterByRegion };
 }
 
 async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrdre, ordre) {
@@ -87,7 +88,7 @@ async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrd
   );
 }
 
-async function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, nomOrdre, ordre) {
+async function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, filtreParRegion, nomOrdre, ordre) {
   const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports`;
   const requestOptions = {
     method: 'GET',
@@ -104,12 +105,13 @@ async function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, fil
     filterDateStart,
     filterDateEnd,
     rupture,
-    filterByName,
     coordinateur,
-  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreRupture, filtreCoordinateur);
+    filterByName,
+    filterByRegion
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom, filtreParRegion);
   return handleResponse(
     // eslint-disable-next-line max-len
-    await fetch(`${apiUrlRoot}${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}`, requestOptions)
+    await fetch(`${apiUrlRoot}${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}`, requestOptions)
   );
 }
 

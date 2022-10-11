@@ -10,7 +10,8 @@ export const conseillerActions = {
   updateDateRupture,
   updateMotifRupture,
   preSelectionner,
-  getCurriculumVitae
+  getCurriculumVitae,
+  saveConseillerBeforeFilter
 };
 
 function get(id) {
@@ -66,10 +67,11 @@ function get(id) {
 //     }
 // }
 
-function getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, nomOrdre = 'prenom', ordre = 1) {
+// eslint-disable-next-line max-len
+function getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, filtreParRegion, filtreParStructureId, nomOrdre = 'prenom', ordre = 1) {
   return dispatch => {
     dispatch(request());
-    conseillerService.getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, nomOrdre, ordre)
+    conseillerService.getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, filtreParRegion, filtreParStructureId, nomOrdre, ordre)
     .then(
       conseillers => {
         dispatch(success(conseillers));
@@ -236,4 +238,8 @@ function getCurriculumVitae(id, candidat) {
   function failure(error) {
     return { type: 'GET_CURRICULUM_VITAE_FAILURE', error };
   }
+}
+
+function saveConseillerBeforeFilter(conseillers) {
+  return { type: 'GET_ALL_CONSEILLER_SEARCH_BAR', conseillers };
 }

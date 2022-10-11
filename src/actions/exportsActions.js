@@ -66,11 +66,11 @@ function exportDonneesTerritoire(territoire = 'departement', dateDebut, dateFin,
   }
 }
 
-function exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, nomOrdre = 'prenom', ordre = 1) {
+function exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, filtreParRegion, nomOrdre = 'prenom', ordre = 1) {
   return async dispatch => {
     dispatch(request());
     // eslint-disable-next-line max-len
-    await exportsService.getExportDonneesConseiller(formatDate(dateDebut), formatDate(dateFin), filtreRupture, filtreCoordinateur, filtreParNom, nomOrdre, ordre)
+    await exportsService.getExportDonneesConseiller(formatDate(dateDebut), formatDate(dateFin), filtreRupture, filtreCoordinateur, filtreParNom, filtreParRegion, nomOrdre, ordre)
     .then(exportConseillerFileBlob => dispatch(success(exportConseillerFileBlob)))
     .catch(exportConseillerFileError => dispatch(failure(exportConseillerFileError)));
   };

@@ -10,15 +10,16 @@ function FiltresEtTrisConseillers() {
   const dispatch = useDispatch();
 
   const conseillerBeforeFilter = useSelector(state => state.conseiller?.conseillersBeforeFilter);
-  const dateDebut = useSelector(state => state.statistiques?.dateDebut);
+  const dateDebut = useSelector(state => state.conseiller?.dateDebut);
   const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
   const filtreCoordinateur = useSelector(state => state.filtresEtTris?.coordinateur);
   const filtreRupture = useSelector(state => state.filtresEtTris?.rupture);
   const filtreParNom = useSelector(state => state.filtresEtTris?.nom);
+  const filtreParStructureId = useSelector(state => state.filtresEtTris?.structureId);
+  const filtreRegion = useSelector(state => state.filtresEtTris?.region);
   let searchInput = useSelector(state => state.filtresEtTris?.searchInput);
 
-  const filtreRegion = useSelector(state => state.filtresEtTris?.region);
-  const dateFin = useSelector(state => state.statistiques?.dateFin);
+  const dateFin = useSelector(state => state.conseiller?.dateFin);
   const ordre = useSelector(state => state.filtresEtTris?.ordre);
   const currentPage = useSelector(state => state.pagination?.currentPage);
 
@@ -31,7 +32,7 @@ function FiltresEtTrisConseillers() {
   const selectFiltreRegion = e => dispatch(filtresEtTrisStatsActions.changeFiltreRegion(e.target.value));
 
   const exportDonneesConseiller = () => {
-    dispatch(exportsActions.exportDonneesConseiller(dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom, ordreNom,
+    dispatch(exportsActions.exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, filtreRegion, ordreNom,
       ordre ? 1 : -1));
   };
 
@@ -53,7 +54,6 @@ function FiltresEtTrisConseillers() {
     } else {
       dispatch(filtresEtTrisStatsActions.changeNom(value));
     }
-    return dispatch(filtresEtTrisStatsActions.saveSearchInput(value, filtreRegion));
   };
 
   useEffect(() => {
@@ -70,19 +70,9 @@ function FiltresEtTrisConseillers() {
   }, [exportConseillerFileError]);
 
   useEffect(() => {
-    dispatch(conseillerActions.getAll(currentPage, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom, ordreNom,
-      ordre ? 1 : -1));
-  }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNom, ordreNom, ordre]);
-
-  function handleKeyDown(e) {
-    if (e.target.value === '') {
-      dispatch(filtresEtTrisStatsActions.changeNom(e.target.value));
-    }
-    if (e.key === 'Enter' || (e.type === 'click' && searchInput === '')) {
-      rechercheParNomOuNomStructure(e);
-    }
-    return;
-  }
+    dispatch(conseillerActions.getAll(currentPage, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom, filtreRegion, filtreParStructureId,
+      ordreNom, ordre ? 1 : -1));
+  }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNom, ordreNom, ordre, filtreRegion, filtreParStructureId]);
 
   return (
     <>
@@ -99,8 +89,8 @@ function FiltresEtTrisConseillers() {
           </div>
           <div className="fr-ml-auto fr-col-12 fr-col-md-4 fr-mb-4w fr-mb-md-0">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
-              <input className="fr-input" defaultValue={searchInput ?? ''} onKeyDown={handleKeyDown}
-                placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" onChange={handleKeyDown} />
+              <input className="fr-input" defaultValue={searchInput ?? ''}
+                placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
               <button className="fr-btn" onClick={rechercheParNomOuNomStructure} title="Rechercher par nom">
                 Rechercher
               </button>

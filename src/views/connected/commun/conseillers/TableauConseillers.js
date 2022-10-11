@@ -15,6 +15,7 @@ export default function TableauConseillers() {
   const dateFin = useSelector(state => state.filtresEtTris?.dateFin);
   const ordre = useSelector(state => state.filtresEtTris?.ordre);
   const [basculerFiltreRupture, setBasculerFiltreRupture] = useState(false);
+  const initConseiller = useSelector(state => state.conseiller?.initConseiller);
   const [basculerFiltreCoordinateur, setBasculerFiltreCoordinateur] = useState(false);
   const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
   const loading = useSelector(state => state.conseiller?.loading);
@@ -49,24 +50,14 @@ export default function TableauConseillers() {
     dispatch(filtresEtTrisStatsActions.changeOrdre(e.target.id));
   };
 
-  // useEffect(() => {
-  //   if (conseillers?.items) {
-  //     const count = Math.floor(conseillers.items.total / conseillers.items.limit);
-  //     dispatch(paginationActions.setPageCount(conseillers.items.total % conseillers.items.limit === 0 ? count : count + 1));
-  //     if (initConseiller === false) {
-  //       dispatch(conseillerActions.saveConseillerBeforeFilter(conseillers.items));
-  //     }
-  //   }
-  // }, [conseillers]);
-
   useEffect(() => {
     if (!error) {
       if (conseillers?.items) {
         const count = Math.floor(conseillers.items.total / conseillers.items.limit);
         dispatch(paginationActions.setPageCount(conseillers.items.total % conseillers.items.limit === 0 ? count : count + 1));
-        // if (initConseiller === false) {
-        //   dispatch(conseillerActions.saveConseillerBeforeFilter(conseillers.items));
-        // }
+        if (initConseiller === false) {
+          dispatch(conseillerActions.saveConseillerBeforeFilter(conseillers.items));
+        }
       }
       if (!conseillers) {
         dispatch(paginationActions.setPage(1));
@@ -80,7 +71,7 @@ export default function TableauConseillers() {
         status: null, description: null
       }));
     }
-  }, [conseillers, error, filtreParNom, filtreCoordinateur, filtreRupture, ordreNom, ordre]);
+  }, [conseillers, error]);
 
   return (
     <div className="conseillers">
@@ -216,7 +207,7 @@ export default function TableauConseillers() {
                         }
                         {(!conseillers?.items || conseillers?.items?.total === 0) &&
                           <tr>
-                            <td colSpan="9" className="not-found pair">
+                            <td colSpan="12" className="not-found pair">
                               Aucun conseillers trouv&eacute;
                             </td>
                           </tr>
@@ -225,7 +216,9 @@ export default function TableauConseillers() {
                     </table>
                   </div>
                 </div>
-                <Pagination />
+                {conseillers?.items?.total !== 0 &&
+                  <Pagination />
+                }
               </div>
             </div>
           </div>
