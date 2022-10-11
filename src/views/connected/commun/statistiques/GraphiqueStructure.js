@@ -33,7 +33,7 @@ export default function GraphiqueStructure() {
   const dateFin = useSelector(state => state.statistiques?.dateFin);
 
   useEffect(() => {
-    if (!structureError && !structure) {
+    if (!structureError && !structure || structure?._id !== idStructure) {
       dispatch(structuresActions.getStructure(idStructure));
     } else if (structureError) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -62,7 +62,7 @@ export default function GraphiqueStructure() {
       <div className="structure fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <h1 className="titre">Statistiques - {structure?.nom}</h1>
+            <h1 className={`titre ${structure?.nom.length > 50 ? 'titre-long' : ''}`} >Statistiques - {structure?.nom}</h1>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w print-graphique">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>

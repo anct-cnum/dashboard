@@ -1,7 +1,7 @@
 @import '../colors/colors';
 
 .statistiques {
-  .titre {
+  .titre, .titre-structure {
     font-weight: 100;
     font-size: 56px;
     letter-spacing: 0;
@@ -355,6 +355,7 @@
 }
 @media print {
   body {
+    width: 800px;
     -webkit-print-color-adjust: exact;
     -moz-print-color-adjust: exact;
     -ms-print-color-adjust: exact;
@@ -367,7 +368,7 @@
     margin: 1rem 0 !important;
   }
   .fr-hr {
-    margin: 1rem !important;
+    margin: 1.3rem !important;
     padding: 0 !important;
   }
   .print-graphique.fr-col-12{
@@ -410,6 +411,15 @@
     .fr-m-5w {
       margin: 1.5rem 0 !important;
     }
+  }
+  .titre {
+    font-weight: 700 !important;
+    font-size: 22px !important;
+    line-height: 30px !important;
+    margin-top: 25px !important;
+  } 
+  .titre-long {
+    margin-top: 0px !important;
   }
   .lieux-autres {
     display: none;
