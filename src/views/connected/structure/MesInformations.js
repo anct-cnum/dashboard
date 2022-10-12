@@ -200,7 +200,7 @@ function MesInformations() {
                    {users.length === 0 && <p>Aucun compte crée.</p>}
                    {users && users.map((user, idx) => {
                      return (
-                       <p key={idx} className={!user.passwordCreated ? 'inactif' : 'actif'}
+                       <p key={idx} style={!user.passwordCreated ? { color: '#a9a9a9a9' } : {}}
                          title={!user.passwordCreated ? 'Compte inactif pour le moment' : ''} >{user.name}</p>
                      );
                    })
