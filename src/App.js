@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { history } from './helpers';
 import PrivateRoute from './views/connected/PrivateRoute';
@@ -9,33 +10,45 @@ import Footer from './components/Footer';
 import './assets/js';
 import './assets/sass/main.scss';
 import Header from './components/Header';
+import Alerte from './components/Alerte';
 import Documents from './views/connected/Documents';
 import Certifications from './views/connected/Certifications';
 import InscriptionFormation from './views/connected/InscriptionFormation';
-import { useSelector } from 'react-redux';
 import ChoosePassword from './views/anonymous/ChoosePassword';
+
+import GraphiqueNationale from './views/connected/commun/statistiques/GraphiqueNationale';
+import GraphiqueStructure from './views/connected/commun/statistiques/GraphiqueStructure';
+import GraphiqueTerritoire from './views/connected/commun/statistiques/GraphiqueTerritoire';
+import TableauStructures from './views/connected/commun/statistiques/TableauStructures';
+import TableauTerritoires from './views/connected/commun/statistiques/TableauTerritoires';
+
 
 function App() {
 
-  const exports = useSelector(state => state.exports);
-  const invitations = useSelector(state => state.invitations);
-  const choosingPassword = useSelector(state => state.user);
+  const isLoading = useSelector(state => state.alerteEtSpinner?.isLoading);
 
   return (
     <div className="App">
-      { [exports?.loading, invitations?.loading, choosingPassword?.loading].includes(true) &&
+      { isLoading === true &&
       <div className="wrapperModal"></div>
       }
       <Router history={history}>
         <Header />
+        <Alerte />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/inscription/:token" element={<ChoosePassword />} />
           <Route path="/confirmation-email/:token" element={<ConfirmationEmail />} />
           <Route path="/" element={<PrivateRoute/>}>
+            {/* routes communes ici */}
             <Route path="/documents" element={<Documents />} />
             <Route path="/certifications" element={<Certifications />} />
             <Route path="/formation" element={<InscriptionFormation />} />
+            <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
+            <Route path="/statistiques-structures" element={<TableauStructures />} />
+            <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
+            <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
+            <Route path="/statistiques-territoire/:codeTerritoire" element={<GraphiqueTerritoire />} />
             <Route index element={<Navigate to="/accueil" />} /> {/* pour fixer le warning du react router */}
             <Route path="*" element={<Accueil />}/>
           </Route>

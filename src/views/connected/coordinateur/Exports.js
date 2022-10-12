@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { exportsActions } from '../../../actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Oval } from 'react-loader-spinner';
+
+import { exportsActions } from '../../../actions';
 import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
 
 function Exports() {
@@ -34,15 +34,6 @@ function Exports() {
           <p>Information : {error.message.toString()}</p>
         </div>
       }
-      <div className="spinnerCustom">
-        <Oval
-          height={100}
-          width={100}
-          color="#060091"
-          secondaryColor="white"
-          visible={exports?.loading === true}
-        />
-      </div>
       <div className="fr-notice fr-notice--info">
         <div className="fr-container">
           <div className="fr-notice__body">

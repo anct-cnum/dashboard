@@ -9,12 +9,14 @@ function Menu() {
   const location = useLocation();
   
   const urlAide = process.env.REACT_APP_AIDE_HOSTNAME;
+  const rolesStatistiquesStructures = ['admin', 'prefet', 'hub_coop', 'grandReseau'];
 
   const burgerMenuHidden = useSelector(state => state.menu?.hiddenBurgerMenu);
   const [activeMenu, setActiveMenu] = useState(null);
   const [changedMenu, setIsChangedMenu] = useState(false);
 
   const roleActivated = useSelector(state => state.authentication.roleActivated);
+  const authenticationUser = useSelector(state => state.authentication?.user?.entity?.$id);
 
   const toggleBurgerMenu = () => {
     dispatch(menuActions.toggleBurgerMenu());
@@ -58,8 +60,13 @@ function Menu() {
               </Link>
             </li>
             <li className="fr-nav__item">
-              <Link className="fr-nav__link" to="">
+              <Link className="fr-nav__link" to={`/${roleActivated}/conseillers`}>
                 Liste des conseillers
+              </Link>
+            </li>
+            <li className="fr-nav__item">
+              <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}>
+                Liste des candidats
               </Link>
             </li>
             <li className="fr-nav__item">
@@ -87,20 +94,33 @@ function Menu() {
               <div className={`fr-collapse fr-menu ${activeMenu === 'statistiques' ? 'fr-collapse--expanded' : ''}`} id="menu-statistiques">
                 <ul className="fr-menu__list">
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link className="fr-nav__link" to={`/statistiques-nationales`}
+                      {...(location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}>
                       &bull;&nbsp;Statistiques nationales
                     </Link>
                   </li>
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link className="fr-nav__link" to="/statistiques-territoires"
+                      {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}>
                         &bull;&nbsp;Statistiques par territoire
                     </Link>
                   </li>
+                  {(rolesStatistiquesStructures.includes(roleActivated)) &&
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link className="fr-nav__link" to="/statistiques-structures"
+                      {...(location.pathname.startsWith(`/statistiques-structures`) ? { 'aria-current': 'page' } : {})}>
                       &bull;&nbsp;Statistiques par structure
                     </Link>
                   </li>
+                  }
+                  {roleActivated === 'structure' &&
+                  <li>
+                    <Link className="fr-nav__link" to={`/statistiques-structure/${authenticationUser}`}
+                      {...(location.pathname.startsWith(`/statistiques-structure`) ? { 'aria-current': 'page' } : {})}>
+                      &bull;&nbsp;Mes Statistiques structure
+                    </Link>
+                  </li>
+                  }
                 </ul>
               </div>
             </li>
