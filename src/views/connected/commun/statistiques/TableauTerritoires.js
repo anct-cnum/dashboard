@@ -21,6 +21,8 @@ export default function TableauTerritoires() {
   const territoires = useSelector(state => state.statistiques?.statsTerritoires);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [page, setPage] = useState(1);
+  const [filterOrder, setFilterOrder] = useState(true);
+  const [filterOrderName, setFilterOrderName] = useState(undefined);
   
   const ordreColonne = e => {
     dispatch(filtresEtTrisStatsActions.changeOrdre(e.target.id));
@@ -32,13 +34,14 @@ export default function TableauTerritoires() {
         const count = territoires.items.limit ? Math.floor(territoires.items.total / territoires.items.limit) : 0;
         dispatch(paginationActions.setPageCount(territoires.items.total % territoires.items.limit === 0 ? count : count + 1));
       }
-      if (!territoires) {
+      if (ordreNom !== filterOrderName || ordre !== filterOrder) {
         dispatch(paginationActions.setPage(1));
-        dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, page, ordreNom, ordre ? 1 : -1));
+        setFilterOrder(ordre);
+        setFilterOrderName(ordreNom);
+        dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, 1, ordreNom, ordre ? 1 : -1));
       }
       if (page !== currentPage) {
         setPage(currentPage);
-        dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, currentPage, ordreNom, ordre ? 1 : -1));
       }
 
     } else {
@@ -69,86 +72,86 @@ export default function TableauTerritoires() {
                     <table>
                       <thead>
                         <tr>
-                          <th>
-                            <button className="filtre-btn" onClick={ordreColonne}>
-                              <span id="code" >Code
+                          <th id="code">
+                            <button id="code" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Code
                                 { (ordreNom !== 'code' || ordreNom === 'code' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
+                                  <i id="code" className="ri-arrow-down-s-line chevron icone"></i>
                                 }
                                 { (ordreNom === 'code' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
+                                  <i id="code" className="ri-arrow-up-s-line chevron icone"></i>
                                 }
                               </span>
                             </button>
                           </th>
-                          <th>
-                            <button className="filtre-btn" onClick={ordreColonne}>
+                          <th id="nom">
+                            <button id="nom" className="filtre-btn" onClick={ordreColonne}>
                               <span id="nom">Nom
                                 { (ordreNom !== 'nom' || ordreNom === 'nom' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
+                                  <i id="nom" className="ri-arrow-down-s-line chevron icone"></i>
                                 }
                                 { (ordreNom === 'nom' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
+                                  <i id="nom" className="ri-arrow-up-s-line chevron icone"></i>
                                 }
                               </span>
                             </button>
                           </th>
-                          <th>
+                          <th id="personnesAccompagnees">
                             <span id="personnesAccompagnees">CRA enregistr&eacute;s</span>
                           </th>
                           <th>
                             <span id="personnesAccompagnees">Personnes accompagn&eacute;es</span>
                           </th>
                           <th>
-                            <button className="filtre-btn" onClick={ordreColonne}>
+                            <button id="nombreConseillersCoselec" className="filtre-btn" onClick={ordreColonne}>
                               <span id="nombreConseillersCoselec">Dotation de conseillers
                                 { (ordreNom !== 'nombreConseillersCoselec' || ordreNom === 'nombreConseillersCoselec' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone-2"></i>
+                                  <i id="nombreConseillersCoselec" className="ri-arrow-down-s-line chevron icone-2"></i>
                                 }
                                 { (ordreNom === 'nombreConseillersCoselec' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone-2"></i>
+                                  <i id="nombreConseillersCoselec" className="ri-arrow-up-s-line chevron icone-2"></i>
                                 }
                               </span>
                             </button>
                           </th>
-                          <th>
-                            <button className="filtre-btn" onClick={ordreColonne}>
+                          <th id="cnfsActives">
+                            <button id="cnfsActives" className="filtre-btn" onClick={ordreColonne}>
                               <span id="cnfsActives">CnFS activ&eacute;s
                                 { (ordreNom !== 'cnfsActives' || ordreNom === 'cnfsActives' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone-2"></i>
+                                  <i id="cnfsActives" className="ri-arrow-down-s-line chevron icone-2"></i>
                                 }
                                 { (ordreNom === 'cnfsActives' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone-2"></i>
+                                  <i id="cnfsActives" className="ri-arrow-up-s-line chevron icone-2"></i>
                                 }
                               </span>
                             </button>
                           </th>
-                          <th>
-                            <button className="filtre-btn" onClick={ordreColonne}>
+                          <th id="cnfsInactives">
+                            <button id="cnfsInactives" className="filtre-btn" onClick={ordreColonne}>
                               <span id="cnfsInactives">CnFS en attente d&rsquo;activation
                                 { (ordreNom !== 'cnfsInactives' || ordreNom === 'cnfsInactives' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone-3"></i>
+                                  <i id="cnfsInactives" className="ri-arrow-down-s-line chevron icone-3"></i>
                                 }
                                 { (ordreNom === 'cnfsInactives' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone-3"></i>
+                                  <i id="cnfsInactives" className="ri-arrow-up-s-line chevron icone-3"></i>
                                 }
                               </span>
                             </button>
                           </th>
-                          <th>
+                          <th id="tauxActivation">
                             { filtreTerritoire === 'codeRegion' &&
                               <button className="filtre-btn">
                                 <span id="personnesAccompagnees">Taux d&rsquo;activation</span>
                               </button>
                             }
                             { filtreTerritoire === 'codeDepartement' &&
-                              <button className="filtre-btn" onClick={ordreColonne}>
+                              <button id="tauxActivation" className="filtre-btn" onClick={ordreColonne}>
                                 <span id="tauxActivation">Taux d&rsquo;activation
                                   { (ordreNom !== 'tauxActivation' || ordreNom === 'tauxActivation' && ordre) &&
-                                    <i className="ri-arrow-down-s-line chevron icone-2"></i>
+                                    <i id="tauxActivation" className="ri-arrow-down-s-line chevron icone-2"></i>
                                   }
                                   { (ordreNom === 'tauxActivation' && !ordre) &&
-                                    <i className="ri-arrow-up-s-line chevron icone-2"></i>
+                                    <i id="tauxActivation" className="ri-arrow-up-s-line chevron icone-2"></i>
                                   }
                                 </span>
                               </button>
@@ -159,8 +162,7 @@ export default function TableauTerritoires() {
                       </thead>
                       <tbody>
                         {!error && !loading && territoires?.items?.data?.map((territoire, idx) => {
-                          return (<Territoire key={idx} territoire={territoire} filtreTerritoire={filtreTerritoire}
-                            currentPage={page}/>);
+                          return (<Territoire key={idx} territoire={territoire} filtreTerritoire={filtreTerritoire} />);
                         })
                         }
                         { (!territoires?.items || territoires?.items?.total === 0) &&
