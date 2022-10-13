@@ -33,8 +33,7 @@ function Territoire({ territoire, filtreTerritoire }) {
 
 Territoire.propTypes = {
   territoire: PropTypes.object,
-  filtreTerritoire: PropTypes.string,
-  currentPage: PropTypes.number,
+  filtreTerritoire: PropTypes.string
 };
 
 export default Territoire;
