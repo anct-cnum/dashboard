@@ -139,9 +139,7 @@ function Menu() {
                 aria-expanded={ activeMenu === 'recrutement' }
                 aria-controls="menu-recrutement"
                 {...(location.pathname.startsWith(`/certifications`) ||
-                location.pathname.startsWith(`/formation`) ?
-                  { 'aria-current': 'page' } :
-                  {})}
+                location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}
               >
                 Infos recrutement

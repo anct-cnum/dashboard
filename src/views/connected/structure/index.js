@@ -5,7 +5,6 @@ import Exports from './Exports';
 import Candidatures from './Candidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
 
-
 export default function Structure() {
   return (
     <>
