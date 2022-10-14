@@ -66,7 +66,7 @@ function Menu() {
               </Link>
             </li>
             <li className="fr-nav__item">
-              <Link className="fr-nav__link" to="/${roleActivated}/candidats/nouvelle">
+              <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}>
                 Liste des candidats
               </Link>
             </li>
