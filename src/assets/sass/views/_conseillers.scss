@@ -160,4 +160,37 @@
         font-size: 16px;
         font-weight: 600;
     }
+
+    @media (max-width: 825px) {
+        #menu-rupture,
+        #menu-coordinateur {
+            width: 221px !important;
+            background-color: #2b2b2b;
+            padding: 0;
+            top: 0;
+            margin-top: 0;
+            ul.fr-menu__list {
+                position: absolute;
+                width: 221px;
+                height: 155px;
+                border: 1px solid #3a3a3a;
+                margin-bottom: 0;
+            }
+            .admin-select-option,
+            .admin-select-hr {
+                margin: 0;
+            }
+        }
+        .fr-nav__btn {
+            justify-content: normal;
+        }
+        #navigation-sort-coordinateur > .fr-nav__list {
+            width: 0rem;
+            padding-right: 8rem;
+        }
+        #navigation-sort-rupture > .fr-nav__list {
+            width: 0rem;
+            padding-right: 6rem;
+        }
+    }
 }
