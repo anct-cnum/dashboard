@@ -38,15 +38,18 @@ export default function TableauConseillers() {
   };
 
   const handleSortCoordinateur = e => {
+    dispatch(paginationActions.setPage(1));
     dispatch(filtresEtTrisStatsActions.changeCoordinateur(e.target.id));
     setBasculerFiltreCoordinateur(false);
   };
   const handleSortRupture = e => {
+    dispatch(paginationActions.setPage(1));
     dispatch(filtresEtTrisStatsActions.changeRupture(e.target.id));
     setBasculerFiltreRupture(false);
   };
 
   const ordreColonne = e => {
+    dispatch(paginationActions.setPage(1));
     dispatch(filtresEtTrisStatsActions.changeOrdre(e.currentTarget?.id));
   };
 
@@ -170,7 +173,8 @@ export default function TableauConseillers() {
                                       aria-controls="menu-coordinateur" aria-current="true" id="coordinateur" onClick={filtreClick}>
                                       Coordinateur
                                     </button>
-                                    <div className={basculerFiltreCoordinateur === true ? 'fr-collapse--expanded fr-menu' : 'fr-collapse fr-nav--expanded fr-menu'}
+                                    <div
+                                      className={basculerFiltreCoordinateur === true ? 'fr-collapse--expanded fr-menu' : 'fr-collapse fr-nav--expanded fr-menu'}
                                       id="menu-coordinateur">
                                       <ul className="fr-menu__list">
                                         <li className={filtreCoordinateur === 'tous' ? 'selected' : ''} >

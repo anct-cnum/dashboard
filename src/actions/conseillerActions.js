@@ -65,6 +65,16 @@ function getAllCandidats({
       let promise = conseillerService.getAllCandidats(departement, region, com, search, page, isSearch ? '' : filter, sortData, sortOrder, persoFilters);
       promises.push(promise);
     }
+    let conseillers = null;
+    Promise.all(promises).then(items => {
+      conseillers = items[0];
+      if (items.length > 1) {
+        conseillers.data = [...items[0].data, ...items[1].data];
+      }
+      dispatch(success(conseillers));
+    }).catch(error => {
+      dispatch(failure(error));
+    });
   };
   function request() {
     return { type: 'GETALL_CANDIDATS_REQUEST' };

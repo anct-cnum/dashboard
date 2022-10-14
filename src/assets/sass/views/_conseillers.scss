@@ -4,13 +4,13 @@
     #menu-rupture,
     #menu-coordinateur {
         width: 221px !important;
-        border: 1px solid #9a9aff;
         background-color: #2b2b2b;
         padding: 0;
         top: 0;
         margin-top: 6rem;
         ul.fr-menu__list {
             width: 0;
+            border: 1px solid #3a3a3a;
             margin-bottom: 0;
         }
         .admin-select-option,
@@ -18,11 +18,28 @@
             margin: 0;
         }
     }
+    .fr-nav__btn {
+        font-weight: bold !important;
+        font-size: 0.875rem !important;
+        color: #161616;
+        background-color: #eeeeee !important;
+        &:hover {
+            background-color: #eeeeee !important;
+            color: #1616166e;
+        }
+        &:active {
+            background-color: #eeeeee !important;
+        }
+    }
+    .fr-nav__btn[aria-current]::before {
+        height: 0px !important;
+    }
     .admin-select-option {
-        background-color: #2b2b2b;
+        background-color: #eeeeee;
         text-align: left;
-        color: #ffffff;
+        color: #383838;
         font-size: 14px;
+        font-weight: 600;
         cursor: pointer;
         width: 219px;
         height: 47px;
@@ -33,12 +50,12 @@
         margin: 0 15px;
     }
     .admin-select-hr {
-        background-color: #8585f6;
+        background-color: #3a3a3a;
         width: 220px;
         height: 2px;
     }
     .selected button {
-        color: #9a9aff !important;
+        color: #1616166e !important;
         font-weight: 600;
     }
     .date-btn {
@@ -50,6 +67,11 @@
     }
     .date-active {
         color: $blue-sky;
+    }
+    .filtre-btn {
+        &:hover {
+            color: #1616166e;
+        }
     }
     .react-datepicker {
         font-family: Marianne;
@@ -137,5 +159,5 @@
         text-align: center;
         font-size: 16px;
         font-weight: 600;
-      }
+    }
 }
