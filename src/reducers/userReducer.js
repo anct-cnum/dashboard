@@ -9,6 +9,7 @@ export default function user(state = initialState, action) {
   switch (action.type) {
     case 'UPDATE_USER_EMAIL_REQUEST':
       return {
+        ...state,
         error: false,
         loading: true
       };
