@@ -11,7 +11,7 @@ export const conseillerActions = {
   updateMotifRupture,
   preSelectionner,
   getCurriculumVitae,
-  saveConseillerBeforeFilter
+  getAllCandidats,
 };
 
 function get(id) {
@@ -39,39 +39,50 @@ function get(id) {
 
 }
 
-// function getAll({
-//   departement = null,
-//   region = null,
-//   com = null,
-//   structureId = null,
-//   misesEnRelation,
-//   search = '',
-//   page = 0,
-//   filter,
-//   sortData = 'conseillerObj.createdAt',
-//   sortOrder = 1,
-//   persoFilters }) {
-//   return dispatch => {
-//     dispatch(request());
-
-//     let promises = [];
-//     if (misesEnRelation) {
-//       let promise = conseillerService.getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters);
-//       promises.push(promise);
-//     }
-
-//     let isSearch = search.length > 0;
-//     if (!misesEnRelation || isSearch) {
-//       let promise = conseillerService.getAll(departement, region, com, search, page, isSearch ? '' : filter, sortData, sortOrder, persoFilters);
-//       promises.push(promise);
-//     }
-// }
-
-// eslint-disable-next-line max-len
-function getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, filtreParRegion, filtreParStructureId, nomOrdre = 'prenom', ordre = 1) {
+function getAllCandidats({
+  departement = null,
+  region = null,
+  com = null,
+  structureId = null,
+  misesEnRelation,
+  search = '',
+  page = 0,
+  filter,
+  sortData = 'conseillerObj.createdAt',
+  sortOrder = 1,
+  persoFilters }) {
   return dispatch => {
     dispatch(request());
-    conseillerService.getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, filtreParRegion, filtreParStructureId, nomOrdre, ordre)
+
+    let promises = [];
+    if (misesEnRelation) {
+      let promise = conseillerService.getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters);
+      promises.push(promise);
+    }
+
+    let isSearch = search.length > 0;
+    if (!misesEnRelation || isSearch) {
+      let promise = conseillerService.getAllCandidats(departement, region, com, search, page, isSearch ? '' : filter, sortData, sortOrder, persoFilters);
+      promises.push(promise);
+    }
+  };
+  function request() {
+    return { type: 'GETALL_CANDIDATS_REQUEST' };
+  }
+  function success(conseillers) {
+    return { type: 'GETALL_CANDIDATS_SUCCESS', conseillers };
+  }
+  function failure(error) {
+    return { type: 'GETALL_CANDIDATS_FAILURE', error };
+  }
+}
+
+// eslint-disable-next-line max-len
+function getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+  return dispatch => {
+    dispatch(request());
+    // eslint-disable-next-line max-len
+    conseillerService.getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre)
     .then(
       conseillers => {
         dispatch(success(conseillers));
@@ -238,8 +249,4 @@ function getCurriculumVitae(id, candidat) {
   function failure(error) {
     return { type: 'GET_CURRICULUM_VITAE_FAILURE', error };
   }
-}
-
-function saveConseillerBeforeFilter(conseillers) {
-  return { type: 'GET_ALL_CONSEILLER_SEARCH_BAR', conseillers };
 }

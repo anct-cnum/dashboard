@@ -12,7 +12,7 @@ function Conseiller({ conseiller, currentPage }) {
         <td>{conseiller?.idPG}</td>
         <td>{conseiller?.nom}</td>
         <td>{conseiller?.prenom}</td>
-        <td>{conseiller?.emailCN?.address}</td>
+        <td style={{ paddingRight: '2.3rem' }}>{conseiller?.emailCN?.address}</td>
         <td className="center-text">
           {conseiller?.rupture ? 'Oui' : 'Non' }
         </td>
@@ -20,7 +20,7 @@ function Conseiller({ conseiller, currentPage }) {
           {conseiller?.estCoordinateur ? 'Oui' : 'Non' }
         </td>
         <td>{conseiller?.craCount}</td>
-        <td>
+        <td style={{ paddingLeft: '2.1rem' }}>
           <Link className="fr-btn details-btn" target="_blank" style={{ boxShadow: 'none' }} to={{
             pathname: `/conseiller/${conseiller?._id}`,
             currentPage: currentPage,

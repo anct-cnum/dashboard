@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { conseillerActions, exportsActions, filtresEtTrisStatsActions } from '../../../../actions';
+import { conseillerActions, exportsActions, filtresEtTrisStatsActions, paginationActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
 import BlockDatePickers from '../statistiques/Components/commun/BlockDatePickers';
@@ -9,17 +9,18 @@ import codeRegions from '../../../../datas/code_region.json';
 function FiltresEtTrisConseillers() {
   const dispatch = useDispatch();
 
-  const conseillerBeforeFilter = useSelector(state => state.conseiller?.conseillersBeforeFilter);
-  const dateDebut = useSelector(state => state.conseiller?.dateDebut);
+  const [searchByStructure, setSearchByStructure] = useState(false);
+  const dateDebut = useSelector(state => state.filtresEtTris?.dateDebut);
   const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
   const filtreCoordinateur = useSelector(state => state.filtresEtTris?.coordinateur);
   const filtreRupture = useSelector(state => state.filtresEtTris?.rupture);
-  const filtreParNom = useSelector(state => state.filtresEtTris?.nom);
-  const filtreParStructureId = useSelector(state => state.filtresEtTris?.structureId);
+  const filtreParNomConseiller = useSelector(state => state.filtresEtTris?.nomConseiller);
+  const filtreParNomStructure = useSelector(state => state.filtresEtTris?.nomStructure);
   const filtreRegion = useSelector(state => state.filtresEtTris?.region);
   let searchInput = useSelector(state => state.filtresEtTris?.searchInput);
+  const conseillers = useSelector(state => state.conseiller);
 
-  const dateFin = useSelector(state => state.conseiller?.dateFin);
+  const dateFin = useSelector(state => state.filtresEtTris?.dateFin);
   const ordre = useSelector(state => state.filtresEtTris?.ordre);
   const currentPage = useSelector(state => state.pagination?.currentPage);
 
@@ -29,30 +30,23 @@ function FiltresEtTrisConseillers() {
 
   const has = value => value !== null && value !== undefined;
 
-  const selectFiltreRegion = e => dispatch(filtresEtTrisStatsActions.changeFiltreRegion(e.target.value));
-
-  const exportDonneesConseiller = () => {
-    dispatch(exportsActions.exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNom, filtreRegion, ordreNom,
-      ordre ? 1 : -1));
+  const selectFiltreRegion = e => {
+    dispatch(paginationActions.setPage(1));
+    dispatch(filtresEtTrisStatsActions.changeFiltreRegion(e.target.value));
   };
 
-  const formatNomStructure = nomStructure => nomStructure
-  .replaceAll('.', '')
-  .replaceAll('-', ' ')
-  .replaceAll('à', 'a')
-  .replaceAll('ù', 'u')
-  .replaceAll('ç', 'c')
-  .replaceAll('è', 'e')
-  .replaceAll('é', 'e');
+  const exportDonneesConseiller = () => {
+    dispatch(exportsActions.exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
+      filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+  };
 
   const rechercheParNomOuNomStructure = e => {
+    dispatch(paginationActions.setPage(1));
     const value = (e.key === 'Enter' ? e.target?.value : e.target.previousSibling?.value) ?? '';
-    const conseillerByStructure = conseillerBeforeFilter.find(conseiller =>
-      formatNomStructure(conseiller.nomStructure.toLowerCase()) === formatNomStructure(value.toLowerCase()));
-    if (conseillerByStructure) {
-      dispatch(filtresEtTrisStatsActions.changeStructureId(conseillerByStructure.structureId));
+    if (searchByStructure === true) {
+      dispatch(filtresEtTrisStatsActions.changeNomStructure(value));
     } else {
-      dispatch(filtresEtTrisStatsActions.changeNom(value));
+      dispatch(filtresEtTrisStatsActions.changeNomConseiller(value));
     }
   };
 
@@ -70,14 +64,28 @@ function FiltresEtTrisConseillers() {
   }, [exportConseillerFileError]);
 
   useEffect(() => {
-    dispatch(conseillerActions.getAll(currentPage, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom, filtreRegion, filtreParStructureId,
-      ordreNom, ordre ? 1 : -1));
-  }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNom, ordreNom, ordre, filtreRegion, filtreParStructureId]);
+    if (conseillers?.items) {
+      dispatch(conseillerActions.getAll(currentPage, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreRegion,
+        filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+    }
+  }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filtreParNomStructure]);
+
+  const handleChangeToggle = e => {
+    setSearchByStructure(e.target.checked);
+  };
 
   return (
     <>
-      <Spinner loading={loading}/>
+      <Spinner loading={loading} />
       <div className="fr-container--fluid">
+        <div className="fr-grid-row">
+          <div className="fr-toggle fr-ml-auto fr-toggle--label-left">
+            <input type="checkbox" onChange={handleChangeToggle} className="fr-toggle__input" aria-describedby="toggle-698-hint-text" id="toggle-698" />
+            <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
+             Sélectionner le type de recherche
+            </label>
+          </div>
+        </div>
         <div className="fr-grid-row">
           <div className="fr-select-group" id="filtre-region">
             <select className="fr-select" onChange={selectFiltreRegion}>

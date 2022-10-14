@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, filtresEtTrisStatsActions, paginationActions, conseillerActions } from '../../../../actions';
@@ -15,7 +14,6 @@ export default function TableauConseillers() {
   const dateFin = useSelector(state => state.filtresEtTris?.dateFin);
   const ordre = useSelector(state => state.filtresEtTris?.ordre);
   const [basculerFiltreRupture, setBasculerFiltreRupture] = useState(false);
-  const initConseiller = useSelector(state => state.conseiller?.initConseiller);
   const [basculerFiltreCoordinateur, setBasculerFiltreCoordinateur] = useState(false);
   const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
   const loading = useSelector(state => state.conseiller?.loading);
@@ -23,9 +21,11 @@ export default function TableauConseillers() {
   const conseillers = useSelector(state => state.conseiller);
   const filtreCoordinateur = useSelector(state => state.filtresEtTris?.coordinateur);
   const filtreRupture = useSelector(state => state.filtresEtTris?.rupture);
-  const filtreParNom = useSelector(state => state.filtresEtTris?.nom);
+  const filtreParNomConseiller = useSelector(state => state.filtresEtTris?.nomConseiller);
+  const filtreParNomStructure = useSelector(state => state.filtresEtTris?.nomStructure);
+  const filtreRegion = useSelector(state => state.filtresEtTris?.region);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  const [page, setPage] = useState(1);
+  const [initConseiller, setInitConseiller] = useState(false);
 
   const filtreClick = e => {
     if (e.target.id === 'coordinateur') {
@@ -47,22 +47,23 @@ export default function TableauConseillers() {
   };
 
   const ordreColonne = e => {
-    dispatch(filtresEtTrisStatsActions.changeOrdre(e.target.id));
+    dispatch(filtresEtTrisStatsActions.changeOrdre(e.currentTarget?.id));
   };
 
   useEffect(() => {
+    if (conseillers?.items) {
+      const count = Math.floor(conseillers.items.total / conseillers.items.limit);
+      dispatch(paginationActions.setPageCount(conseillers.items.total % conseillers.items.limit === 0 ? count : count + 1));
+    }
+  }, [conseillers]);
+
+  useEffect(() => {
     if (!error) {
-      if (conseillers?.items) {
-        const count = Math.floor(conseillers.items.total / conseillers.items.limit);
-        dispatch(paginationActions.setPageCount(conseillers.items.total % conseillers.items.limit === 0 ? count : count + 1));
-        if (initConseiller === false) {
-          dispatch(conseillerActions.saveConseillerBeforeFilter(conseillers.items));
-        }
-      }
-      if (!conseillers) {
+      if (initConseiller === false) {
         dispatch(paginationActions.setPage(1));
-        dispatch(conseillerActions.getAll(currentPage, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom, ordreNom,
-          ordre ? 1 : -1));
+        dispatch(conseillerActions.getAll(currentPage, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
+          filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+        setInitConseiller(true);
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -71,7 +72,7 @@ export default function TableauConseillers() {
         status: null, description: null
       }));
     }
-  }, [conseillers, error]);
+  }, [error]);
 
   return (
     <div className="conseillers">
@@ -83,13 +84,13 @@ export default function TableauConseillers() {
             <div className="fr-container--fluid fr-mt-2w">
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
-                  <div className="fr-table">
+                  <div className="fr-table" style={{ borderCollapse: 'collapse' }}>
                     <table>
                       <thead>
                         <tr>
                           <th>
-                            <button className="filtre-btn" onClick={ordreColonne}>
-                              <span id="idPG" >Id
+                            <button id="idPG" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Id
                                 {(ordreNom !== 'idPG' || ordreNom === 'idPG' && ordre) &&
                                   <i className="ri-arrow-down-s-line chevron icone"></i>
                                 }
@@ -100,8 +101,8 @@ export default function TableauConseillers() {
                             </button>
                           </th>
                           <th>
-                            <button className="filtre-btn" onClick={ordreColonne}>
-                              <span id="nom">Nom
+                            <button id="nom" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Nom
                                 {(ordreNom !== 'nom' || ordreNom === 'nom' && ordre) &&
                                   <i className="ri-arrow-down-s-line chevron icone"></i>
                                 }
@@ -112,8 +113,8 @@ export default function TableauConseillers() {
                             </button>
                           </th>
                           <th>
-                            <button className="filtre-btn" onClick={ordreColonne}>
-                              <span id="prenom">Pr&eacute;nom
+                            <button id="prenom" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Pr&eacute;nom
                                 {(ordreNom !== 'prenom' || ordreNom === 'prenom' && ordre) &&
                                   <i className="ri-arrow-down-s-line chevron icone"></i>
                                 }
@@ -124,11 +125,11 @@ export default function TableauConseillers() {
                             </button>
                           </th>
                           <th>Email professionelle</th>
-                          <th>
+                          <th style={{ paddingRight: '2.1rem' }}>
                             <nav className="fr-nav" id="navigation-sort-rupture" role="navigation">
                               <ul className="fr-nav__list">
                                 <li className={conseillers?.items?.data.length <= 2 ? 'no-result fr-nav__item' : 'fr-nav__item'}>
-                                  <span >
+                                  <span>
                                     <button className="fr-nav__btn admin-select" aria-expanded={basculerFiltreRupture}
                                       aria-controls="menu-rupture" aria-current="true" id="rupture" onClick={filtreClick}>
                                       Rupture
@@ -197,18 +198,20 @@ export default function TableauConseillers() {
                             </nav>
                           </th>
                           <th>CRA saisis</th>
-                          <th>D&eacute;tails</th>
+                          <th style={{ paddingLeft: '2.1rem' }}>D&eacute;tails</th>
                         </tr>
                       </thead>
                       <tbody>
                         {!error && !loading && conseillers?.items?.data?.map((conseiller, idx) => {
-                          return (<Conseiller key={idx} conseiller={conseiller} currentPage={page} />);
+                          return (<Conseiller key={idx} conseiller={conseiller} currentPage={currentPage} />);
                         })
                         }
                         {(!conseillers?.items || conseillers?.items?.total === 0) &&
                           <tr>
-                            <td colSpan="12" className="not-found pair">
-                              Aucun conseillers trouv&eacute;
+                            <td colSpan="12" style={{ width: '75rem' }}>
+                              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <span className="not-found pair">Aucun conseillers trouv&eacute;</span>
+                              </div>
                             </td>
                           </tr>
                         }

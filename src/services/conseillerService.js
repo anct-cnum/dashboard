@@ -5,6 +5,7 @@ import apiUrlRoot from '../helpers/apiUrl';
 export const conseillerService = {
   get,
   getAll,
+  getAllCandidats,
   getAllMisesEnRelation,
   updateStatus,
   updateDateRecrutement,
@@ -22,7 +23,7 @@ function get(id) {
   return fetch(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
-function getAll(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNom, filtreParRegion, filtreParStructureId, nomOrdre, ordre) {
+function getAll(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre) {
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(authHeader())
@@ -31,46 +32,46 @@ function getAll(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, fil
     ordreColonne,
     filterDateStart,
     filterDateEnd,
-    filterByName,
+    filterByNameConseiller,
     rupture,
     coordinateur,
     filterByRegion,
-    filterByStructureId,
+    filterByNameStructure,
   // eslint-disable-next-line max-len
-  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParStructureId);
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParNomStructure);
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/conseillers?skip=${page}${filterByName}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByStructureId}&role=${roleActivated()}`;
+  let uri = `${apiUrlRoot}/conseillers?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}&role=${roleActivated()}`;
 
   return fetch(uri, requestOptions).then(handleResponse);
 }
 
-// function getAll(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
-//   const requestOptions = {
-//     method: 'GET',
-//     headers: authHeader()
-//   };
-//   const filterDepartement = departement !== null ? `&codeDepartement=${departement}` : '';
-//   const filterRegion = region !== null ? `&codeRegion=${region}` : '';
-//   const filterCom = com !== null ? `&codeCom=${com}` : '';
-//   const filterSearch = search !== '' ? `&$search=${search}&$limit=100` : '';
-//   const filterSort = search === '' ? `&$sort[${sortData}]=${sortOrder}` : '';
+function getAllCandidats(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+  const filterDepartement = departement !== null ? `&codeDepartement=${departement}` : '';
+  const filterRegion = region !== null ? `&codeRegion=${region}` : '';
+  const filterCom = com !== null ? `&codeCom=${com}` : '';
+  const filterSearch = search !== '' ? `&$search=${search}&$limit=100` : '';
+  const filterSort = search === '' ? `&$sort[${sortData}]=${sortOrder}` : '';
 
-//   let uri = `${apiUrlRoot}/conseillers?$skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filterSearch}`;
+  let uri = `${apiUrlRoot}/conseillers?$skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filterSearch}`;
 
-//   if (persoFilters) {
-//     //Recrutés ?
-//     if (persoFilters?.recrutes !== undefined && persoFilters?.recrutes !== '') {
-//       uri += `&statut=${persoFilters?.recrutes}`;
-//     }
-//   }
+  if (persoFilters) {
+    //Recrutés ?
+    if (persoFilters?.recrutes !== undefined && persoFilters?.recrutes !== '') {
+      uri += `&statut=${persoFilters?.recrutes}`;
+    }
+  }
 
-//   if (filter) {
-//     uri += `&filter=${filter}`;
-//   }
+  if (filter) {
+    uri += `&filter=${filter}`;
+  }
 
-//   return fetch(, requestOptions).then(handleResponse);
-// }
+  return fetch(uri, requestOptions).then(handleResponse);
+}
 
 function getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters) {
   const requestOptions = {
@@ -170,13 +171,13 @@ function getCurriculumVitae(id) {
 }
 
 // eslint-disable-next-line max-len
-function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParStructureId) {
+function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParNomStructure) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
-  const filterByName = filtreParNom ? `&search=${filtreParNom}` : '';
+  const filterByNameConseiller = filtreParNomConseiller ? `&searchByConseiller=${filtreParNomConseiller}` : '';
   const filterByRegion = filtreParRegion !== 'tous' && filtreParRegion !== undefined ? `&region=${filtreParRegion}` : '';
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
-  const filterByStructureId = filtreParStructureId ? `&structureId=${filtreParStructureId}` : '';
+  const filterByNameStructure = filtreParNomStructure ? `&searchByStructure=${filtreParNomStructure}` : '';
 
 
   let coordinateur = '';
@@ -208,7 +209,7 @@ function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, fi
       break;
   }
 
-  return { ordreColonne, filterDateStart, filterDateEnd, filterByName, rupture, coordinateur, filterByRegion, filterByStructureId };
+  return { ordreColonne, filterDateStart, filterDateEnd, filterByNameConseiller, rupture, coordinateur, filterByRegion, filterByNameStructure };
 }
 
 function handleResponse(response) {

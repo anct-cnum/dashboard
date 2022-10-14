@@ -37,7 +37,7 @@ function Candidats() {
 
   const navigate = page => {
     setPage(page);
-    dispatch(conseillerActions.getAll({
+    dispatch(conseillerActions.getAllCandidats({
       misesEnRelation: true,
       search,
       page: conseillers.items ? (page - 1) * conseillers.items.limit : 0,

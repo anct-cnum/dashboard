@@ -2,8 +2,7 @@ const anneeEnCours = new Date().getFullYear();
 const initialState = {
   dateDebut: new Date(anneeEnCours + '/01/01'),
   dateFin: new Date(),
-  initConseiller: false,
-  conseillersBeforeFilter: []
+  error: false,
 };
 export default function conseiller(state = initialState, action) {
   switch (action.type) {
@@ -140,12 +139,6 @@ export default function conseiller(state = initialState, action) {
         ...state,
         loading: false,
         error: action.error
-      };
-    case 'GET_ALL_CONSEILLER_SEARCH_BAR':
-      return {
-        ...state,
-        initConseiller: true,
-        conseillersBeforeFilter: action.conseillers?.data
       };
     default:
       return state;
