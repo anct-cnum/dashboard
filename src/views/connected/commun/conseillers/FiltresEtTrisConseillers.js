@@ -79,7 +79,7 @@ function FiltresEtTrisConseillers() {
       <Spinner loading={loading} />
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
-          <div className="fr-toggle fr-ml-auto fr-toggle--label-left">
+          <div className="fr-toggle fr-ml-md-auto fr-toggle--label-left">
             <input type="checkbox" onChange={handleChangeToggle} className="fr-toggle__input" aria-describedby="toggle-698-hint-text" id="toggle-698" />
             <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
              Sélectionner le type de recherche

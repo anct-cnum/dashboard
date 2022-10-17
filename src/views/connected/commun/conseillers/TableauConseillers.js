@@ -87,7 +87,7 @@ export default function TableauConseillers() {
             <div className="fr-container--fluid fr-mt-2w">
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
-                  <div className="fr-table" style={{ borderCollapse: 'collapse' }}>
+                  <div className="fr-table">
                     <table>
                       <thead>
                         <tr>
@@ -128,7 +128,7 @@ export default function TableauConseillers() {
                             </button>
                           </th>
                           <th>Email professionelle</th>
-                          <th style={{ paddingRight: '2.1rem' }}>
+                          <th>
                             <nav className="fr-nav" id="navigation-sort-rupture" role="navigation">
                               <ul className="fr-nav__list">
                                 <li className={conseillers?.items?.data.length <= 2 ? 'no-result fr-nav__item' : 'fr-nav__item'}>
@@ -202,7 +202,8 @@ export default function TableauConseillers() {
                             </nav>
                           </th>
                           <th>CRA saisis</th>
-                          <th style={{ paddingLeft: '2.1rem' }}>D&eacute;tails</th>
+                          <th>D&eacute;tails</th>
+                          <th>Statistiques</th>
                         </tr>
                       </thead>
                       <tbody>

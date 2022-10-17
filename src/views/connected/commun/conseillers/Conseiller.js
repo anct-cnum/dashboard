@@ -12,7 +12,7 @@ function Conseiller({ conseiller, currentPage }) {
         <td>{conseiller?.idPG}</td>
         <td>{conseiller?.nom}</td>
         <td>{conseiller?.prenom}</td>
-        <td style={{ paddingRight: '2.3rem' }}>{conseiller?.emailCN?.address}</td>
+        <td>{conseiller?.emailCN?.address}</td>
         <td className="center-text">
           {conseiller?.rupture ? 'Oui' : 'Non' }
         </td>
@@ -20,12 +20,21 @@ function Conseiller({ conseiller, currentPage }) {
           {conseiller?.estCoordinateur ? 'Oui' : 'Non' }
         </td>
         <td>{conseiller?.craCount}</td>
-        <td style={{ paddingLeft: '2.1rem' }}>
+        <td>
           <Link className="fr-btn details-btn" target="_blank" style={{ boxShadow: 'none' }} to={{
             pathname: `/conseiller/${conseiller?._id}`,
             currentPage: currentPage,
-            origin: '/accueil' }}>
+            origin: '/liste-conseillers' }}>
               Afficher
+          </Link>
+          <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
+        </td>
+        <td>
+          <Link className="fr-btn details-btn" target="_blank" style={{ boxShadow: 'none' }} to={{
+            pathname: `/statistiques/conseiller/${conseiller?._id}`,
+            currentPage: currentPage,
+            origin: '/liste-conseillers' }}>
+              Voir
           </Link>
           <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
         </td>
