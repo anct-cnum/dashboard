@@ -60,20 +60,37 @@ function Menu() {
               </Link>
             </li>
             <li className="fr-nav__item">
-              <Link className="fr-nav__link" to="liste-conseillers"
-                {...(location.pathname.startsWith(`/liste-conseillers`) ? { 'aria-current': 'page' } : {})}>
-                Liste des conseillers
-              </Link>
-            </li>
-            <li className="fr-nav__item">
-              <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}>
-                Liste des candidats
-              </Link>
-            </li>
-            <li className="fr-nav__item">
-              <Link className="fr-nav__link" to="">
-                Liste des structures
-              </Link>
+              <button
+                id="listes"
+                className="fr-nav__btn"
+                aria-expanded={ activeMenu === 'listes' }
+                aria-controls="menu-listes"
+                onClick={onClickMenu}>
+                  Listes
+              </button>
+              <div className={`fr-collapse fr-menu ${activeMenu === 'listes' ? 'fr-collapse--expanded' : ''}`} id="menu-listes">
+                <ul className="fr-menu__list">
+                  <li>
+                    <Link className="fr-nav__link" to="liste-conseillers"
+                      {...(location.pathname.startsWith(`/liste-conseillers`) ? { 'aria-current': 'page' } : {})}>
+                      Liste des conseillers
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}>
+                      Liste des candidats
+                    </Link>
+                  </li>
+                  {roleActivated === 'structure' &&
+                  <li>
+                    <Link className="fr-nav__link" to="">
+                      Liste des structures
+                    </Link>
+                  </li>
+                  }
+                </ul>
+              </div>
             </li>
             <li className="fr-nav__item">
               <Link
