@@ -72,9 +72,7 @@ export default function invitations(state = initState, action) {
         error: action.error,
       };
     case 'RESET_INVITATION':
-      return {
-        ...initState
-      };
+      return initState;
     default:
       return state;
   }

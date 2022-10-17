@@ -44,8 +44,7 @@ function MesInformations() {
         message: success,
         status: null, description: null
       }));
-    }
-    if (error) {
+    } else if (error) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
         message: error,
@@ -59,8 +58,7 @@ function MesInformations() {
           message: 'La mise à jour a échoué, veuillez réessayer plus tard',
           status: null, description: null
         }));
-      }
-      if (errorStructure === undefined || errorStructure === false) {
+      } else if (errorStructure === undefined || errorStructure === false) {
         dispatch(alerteEtSpinnerActions.getMessageAlerte({
           type: 'success',
           message: 'La mise à jour a été effectuée avec succès',
@@ -75,8 +73,7 @@ function MesInformations() {
           message: `Un mail de confirmation a été envoyé sur l'email ${myEmail}`,
           status: null, description: null
         }));
-      }
-      if (errorUser !== undefined && errorUser !== false) {
+      } else if (errorUser !== undefined && errorUser !== false) {
         dispatch(alerteEtSpinnerActions.getMessageAlerte({
           type: 'error',
           message: errorUser,

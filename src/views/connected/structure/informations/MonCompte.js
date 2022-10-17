@@ -32,7 +32,7 @@ function MonCompte({ setFlashMessage, myEmail, setMyEmail }) {
   return (
     <div>
       <h2>
-            Mon compte
+        Mon compte
       </h2>
       {formCompte === false &&
             <div className="">
@@ -50,7 +50,7 @@ function MonCompte({ setFlashMessage, myEmail, setMyEmail }) {
                 <input className="fr-input" type="text" name="name" value={myEmail} onChange={handleFormMyEmail} />
               </div>
               <div className="fr-col-lg-9 fr-col-md-10 fr-col-12">
-                <button onClick={() => setFormCompte(false)} className="fr-btn">Annuler </button>
+                <button onClick={() => setFormCompte(false)} className="fr-btn">Annuler</button>
                 <button className="fr-btn fr-m-auto" style={{ float: 'right' }} onClick={updateEmail}>Valider</button>
               </div>
             </>

@@ -15,9 +15,9 @@ function ContactStructure() {
       {formInformationContact === false &&
             <div className="">
               <p>Nom : {structure?.structure?.contact?.nom}</p>
-              <p>Prénom : {structure?.structure?.contact?.prenom}</p>
+              <p>Pr&eacute;nom  : {structure?.structure?.contact?.prenom}</p>
               <p>Fonction : {structure?.structure?.contact?.fonction}</p>
-              <p>Téléphone : {structure?.structure?.contact?.telephone}</p>
+              <p>T&eacute;l&eacute;phone : {structure?.structure?.contact?.telephone}</p>
               <div className="fr-mt-5w fr-mb-5w">
                 <button className="fr-btn" onClick={() => setFormInformationContact(true)}>
                   Modifier les informations de contact
