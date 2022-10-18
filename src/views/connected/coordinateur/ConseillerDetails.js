@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import { conseillerActions, structureActions, userActions } from '../../../actions';
+import { conseillerActions, structureActions } from '../../../actions';
 
 function ConseillerDetails() {
 
@@ -11,8 +11,6 @@ function ConseillerDetails() {
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const structure = useSelector(state => state.structure?.structure);
   const error = useSelector(state => state.conseiller?.error);
-  const isSubordonne = useSelector(state => state?.conseiller?.isSubordonne);
-  const loadedIsSubordonee = useSelector(state => state?.conseiller?.loaded);
 
   useEffect(() => {
     if (conseiller?._id !== idConseiller) {
@@ -25,13 +23,6 @@ function ConseillerDetails() {
       dispatch(structureActions.get(conseiller?.structureId));
     }
   }, [conseiller]);
-
-  useEffect(() => {
-    if (loadedIsSubordonee && conseiller?._id !== idConseiller && !isSubordonne) {
-      dispatch(conseillerActions.resetIsSubordonne());
-      dispatch(userActions.logout());
-    }
-  }, [isSubordonne, loadedIsSubordonee, conseiller]);
 
   return (
     <div className="fr-container conseillerDetails">
