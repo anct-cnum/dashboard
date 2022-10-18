@@ -7,7 +7,7 @@ import { conseillerActions, structureActions } from '../../../actions';
 function ConseillerDetails() {
 
   const dispatch = useDispatch();
-  let { idConseiller } = useParams();
+  const { idConseiller } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const structure = useSelector(state => state.structure?.structure);
   const error = useSelector(state => state.conseiller?.error);
