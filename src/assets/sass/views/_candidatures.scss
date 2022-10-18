@@ -14,3 +14,15 @@
     visibility: visible;
   }
 }
+
+.conseillers {
+  .fr-tag.current {
+    font-weight: 600;
+    color: white;
+    background-color: #5770BE;
+}
+
+  .fr-tag:not(.current):hover {
+    background-color: #D5DBEF;
+  }
+}
