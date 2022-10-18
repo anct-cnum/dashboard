@@ -1,6 +1,7 @@
 import { authHeader, history, userEntityId, roleActivated } from '../helpers';
 import { authenticationService } from './authenticationService';
 import apiUrlRoot from '../helpers/apiUrl';
+import { conseillerQueryStringParameters } from '../utils/queryUtils';
 
 export const conseillerService = {
   get,
@@ -168,48 +169,6 @@ function getCurriculumVitae(id) {
   };
 
   return fetch(`${apiUrlRoot}/conseillers/${id}/cv`, requestOptions).then(handleFileResponse);
-}
-
-// eslint-disable-next-line max-len
-function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParNomStructure) {
-  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
-  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
-  const filterByNameConseiller = filtreParNomConseiller ? `&searchByConseiller=${filtreParNomConseiller}` : '';
-  const filterByRegion = filtreParRegion !== 'tous' && filtreParRegion !== undefined ? `&region=${filtreParRegion}` : '';
-  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
-  const filterByNameStructure = filtreParNomStructure ? `&searchByStructure=${filtreParNomStructure}` : '';
-
-
-  let coordinateur = '';
-  switch (filtreCoordinateur) {
-    case 'tous':
-      coordinateur = '';
-      break;
-    case 'est-coordinateur':
-      coordinateur = `&coordinateur=true`;
-      break;
-    case 'non-coordinateur':
-      coordinateur = `&coordinateur=false`;
-      break;
-    default:
-      break;
-  }
-  let rupture = '';
-  switch (filtreRupture) {
-    case 'tous':
-      rupture = '';
-      break;
-    case 'rupture':
-      rupture = `&rupture=true`;
-      break;
-    case 'contrat':
-      rupture = `&rupture=false`;
-      break;
-    default:
-      break;
-  }
-
-  return { ordreColonne, filterDateStart, filterDateEnd, filterByNameConseiller, rupture, coordinateur, filterByRegion, filterByNameStructure };
 }
 
 function handleResponse(response) {

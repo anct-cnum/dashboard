@@ -42,7 +42,7 @@ function FiltresEtTrisConseillers() {
 
   const rechercheParNomOuNomStructure = e => {
     dispatch(paginationActions.setPage(1));
-    const value = (e.key === 'Enter' ? e.target?.value : e.target.previousSibling?.value) ?? '';
+    const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
     if (searchByStructure === true) {
       dispatch(filtresEtTrisStatsActions.changeNomStructure(value));
     } else {
@@ -71,7 +71,7 @@ function FiltresEtTrisConseillers() {
   }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filtreParNomStructure]);
 
   const handleChangeToggle = e => {
-    setSearchByStructure(e.target.checked);
+    setSearchByStructure(e.target?.checked);
   };
 
   return (
@@ -82,7 +82,7 @@ function FiltresEtTrisConseillers() {
           <div className="fr-toggle fr-ml-md-auto fr-toggle--label-left">
             <input type="checkbox" onChange={handleChangeToggle} className="fr-toggle__input" aria-describedby="toggle-698-hint-text" id="toggle-698" />
             <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
-             Sélectionner le type de recherche
+              S&eacute;lectionner le type de recherche
             </label>
           </div>
         </div>

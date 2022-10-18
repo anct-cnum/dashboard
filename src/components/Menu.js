@@ -65,6 +65,8 @@ function Menu() {
                 className="fr-nav__btn"
                 aria-expanded={ activeMenu === 'listes' }
                 aria-controls="menu-listes"
+                // eslint-disable-next-line max-len
+                {...(location.pathname.startsWith(`/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
                   Listes
               </button>

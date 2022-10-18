@@ -28,7 +28,7 @@ export default function TableauConseillers() {
   const [initConseiller, setInitConseiller] = useState(false);
 
   const filtreClick = e => {
-    if (e.target.id === 'coordinateur') {
+    if (e.target?.id === 'coordinateur') {
       setBasculerFiltreCoordinateur(!basculerFiltreCoordinateur);
       setBasculerFiltreRupture(false);
     } else {
@@ -131,7 +131,7 @@ export default function TableauConseillers() {
                           <th>
                             <nav className="fr-nav" id="navigation-sort-rupture" role="navigation">
                               <ul className="fr-nav__list">
-                                <li className={conseillers?.items?.data.length <= 2 ? 'no-result fr-nav__item' : 'fr-nav__item'}>
+                                <li className={conseillers?.items?.data?.length <= 2 ? 'no-result fr-nav__item' : 'fr-nav__item'}>
                                   <span>
                                     <button className="fr-nav__btn admin-select" aria-expanded={basculerFiltreRupture}
                                       aria-controls="menu-rupture" aria-current="true" id="rupture" onClick={filtreClick}>
@@ -167,7 +167,7 @@ export default function TableauConseillers() {
                           <th>
                             <nav className="fr-nav" id="navigation-sort-coordinateur" role="navigation">
                               <ul className="fr-nav__list">
-                                <li className={conseillers?.items?.data.length <= 2 ? 'no-result fr-nav__item' : 'fr-nav__item'}>
+                                <li className={conseillers?.items?.data?.length <= 2 ? 'no-result fr-nav__item' : 'fr-nav__item'}>
                                   <span >
                                     <button className="fr-nav__btn admin-select" aria-expanded={basculerFiltreCoordinateur}
                                       aria-controls="menu-coordinateur" aria-current="true" id="coordinateur" onClick={filtreClick}>
@@ -215,7 +215,7 @@ export default function TableauConseillers() {
                           <tr>
                             <td colSpan="12" style={{ width: '75rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <span className="not-found pair">Aucun conseillers trouv&eacute;</span>
+                                <span className="not-found pair">Aucun conseiller trouv&eacute;</span>
                               </div>
                             </td>
                           </tr>

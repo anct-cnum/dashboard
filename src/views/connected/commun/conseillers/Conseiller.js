@@ -21,7 +21,7 @@ function Conseiller({ conseiller, currentPage }) {
         </td>
         <td>{conseiller?.craCount}</td>
         <td>
-          <Link className="fr-btn details-btn" target="_blank" style={{ boxShadow: 'none' }} to={{
+          <Link className="fr-btn details-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }} to={{
             pathname: `/conseiller/${conseiller?._id}`,
             currentPage: currentPage,
             origin: '/liste-conseillers' }}>
@@ -30,7 +30,7 @@ function Conseiller({ conseiller, currentPage }) {
           <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
         </td>
         <td>
-          <Link className="fr-btn details-btn" target="_blank" style={{ boxShadow: 'none' }} to={{
+          <Link className="fr-btn details-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }} to={{
             pathname: `/statistiques/conseiller/${conseiller?._id}`,
             currentPage: currentPage,
             origin: '/liste-conseillers' }}>

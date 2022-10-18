@@ -1,6 +1,7 @@
 import { authenticationService } from './authenticationService';
 import { roleActivated, authHeader } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
+import { conseillerQueryStringParameters, territoireQueryString } from '../utils/queryUtils';
 
 export const exportsService = {
   getFile,
@@ -16,61 +17,6 @@ function getFile(name) {
   };
 
   return fetch(`${apiUrlRoot}/exports/${name}-csv?role=${roleActivated()}`, requestOptions).then(handleResponse);
-}
-
-function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page) {
-  if (nomOrdre === 'code') {
-    nomOrdre = territoire;
-  } else if (nomOrdre === 'nom') {
-    //Afin d'obtenir nomDepartemement ou nomRegion
-    nomOrdre += territoire.slice(4);
-  }
-  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
-  const pageIfDefined = page ? '&page=' + page : '';
-
-  return `?territoire=${territoire}&dateDebut=${dateDebut}&dateFin=${dateFin}${pageIfDefined}${ordreColonne}`;
-}
-
-// eslint-disable-next-line max-len
-function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreParRegion, filtreParNomStructure) {
-  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
-  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
-  const filterByNameConseiller = filtreParNomConseiller ? `&searchByConseiller=${filtreParNomConseiller}` : '';
-  const filterByNameStructure = filtreParNomStructure ? `&searchByStructure=${filtreParNomStructure}` : '';
-
-  const filterByRegion = filtreParRegion !== 'tous' ? `&region=${filtreParRegion}` : '';
-  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
-
-  let coordinateur = '';
-  switch (filtreCoordinateur) {
-    case 'tous':
-      coordinateur = '';
-      break;
-    case 'true':
-      coordinateur = `&coordinateur=true`;
-      break;
-    case 'false':
-      coordinateur = `&coordinateur=false`;
-      break;
-    default:
-      break;
-  }
-  let rupture = '';
-  switch (filtreRupture) {
-    case 'tous':
-      rupture = '';
-      break;
-    case 'true':
-      rupture = `&rupture=true`;
-      break;
-    case 'false':
-      rupture = `&rupture=false`;
-      break;
-    default:
-      break;
-  }
-
-  return { ordreColonne, filterDateStart, filterDateEnd, rupture, coordinateur, filterByNameConseiller, filterByRegion, filterByNameStructure };
 }
 
 async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrdre, ordre) {
