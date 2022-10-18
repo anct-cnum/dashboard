@@ -1,0 +1,16 @@
+.ConseillerDetails {
+  .flashBag {
+    background-color: white;
+    color: #008941;
+    padding: 30px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid;
+    border-radius: 20px;
+  }
+  /* Modal Gestion */
+  .modalOpened {
+    opacity: 1;
+    visibility: visible;
+  }
+}
