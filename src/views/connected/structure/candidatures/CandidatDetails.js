@@ -100,9 +100,9 @@ function ConseillerDetails() {
         Retour à la liste
       </Link>
       <div>
-        <PopinInteressee statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : location.state.miseEnRelation?.statut}/>
-        <PopinRecrutee statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : location.state.miseEnRelation?.statut}/>
-        <PopinNouvelleRupture statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : location.state.miseEnRelation?.statut}/>
+        <PopinInteressee statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : miseEnRelation?.statut}/>
+        <PopinRecrutee statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : miseEnRelation?.statut}/>
+        <PopinNouvelleRupture statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : miseEnRelation?.statut}/>
         <h2>
           <span className="capitalizeFirstLetter">
             {conseiller?.conseiller?.prenom}&nbsp;{conseiller?.conseiller?.nom}</span>
