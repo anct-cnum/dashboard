@@ -93,9 +93,9 @@ function ConseillerDetails() {
       <Link
         style={{ boxShadow: 'none' }}
         to={{
-          pathname: linkUrl,
-          currentPage: currentPage
+          pathname: linkUrl
         }}
+        state={{ currentPage: currentPage }}
         className="fr-link fr-fi-arrow-left-line fr-link--icon-left">
         Retour à la liste
       </Link>
