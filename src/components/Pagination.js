@@ -112,7 +112,7 @@ function Pagination() {
             }
             {!isLastPage &&
             <a className="fr-pagination__link fr-pagination__link--next fr-pagination__link--lg-label" aria-label="Page suivante"
-              title="Page suivante" href="/#" onClick={e => onClick(e, lastPage)}>
+              title="Page suivante" href="/#" onClick={e => onClick(e, nextPage)}>
               Page suivante
             </a>
             }

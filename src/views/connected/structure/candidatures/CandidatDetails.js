@@ -27,7 +27,7 @@ function ConseillerDetails() {
   let { id } = useParams();
 
   const updateStatut = statut => {
-    dispatch(conseillerActions.updateStatus({ id: location.miseEnRelation?._id, statut }));
+    dispatch(conseillerActions.updateStatus({ id: miseEnRelation?._id, statut }));
   };
 
   useEffect(() => {
@@ -76,7 +76,6 @@ function ConseillerDetails() {
   }, [errorUpdateStatus]);
 
   const linkUrl = location.origin ?? `/structure/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}`;
-
   return (
     <div className="ConseillerDetails">
       { (errorUpdateStatus !== undefined && errorUpdateStatus !== false) &&
@@ -94,16 +93,16 @@ function ConseillerDetails() {
       <Link
         style={{ boxShadow: 'none' }}
         to={{
-          pathname: linkUrl,
-          currentPage: currentPage
+          pathname: linkUrl
         }}
+        state={{ currentPage: currentPage }}
         className="fr-link fr-fi-arrow-left-line fr-link--icon-left">
         Retour à la liste
       </Link>
       <div>
-        <PopinInteressee statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : location.miseEnRelation?.statut}/>
-        <PopinRecrutee statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : location.miseEnRelation?.statut}/>
-        <PopinNouvelleRupture statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : location.miseEnRelation?.statut}/>
+        <PopinInteressee statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : miseEnRelation?.statut}/>
+        <PopinRecrutee statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : miseEnRelation?.statut}/>
+        <PopinNouvelleRupture statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : miseEnRelation?.statut}/>
         <h2>
           <span className="capitalizeFirstLetter">
             {conseiller?.conseiller?.prenom}&nbsp;{conseiller?.conseiller?.nom}</span>
@@ -199,15 +198,17 @@ function ConseillerDetails() {
       </div>
       <br/>
       <ButtonsAction
-        statut={miseEnRelation?.statut ? miseEnRelation?.statut : miseEnRelation?.statut}
-        miseEnRelationId = {miseEnRelation?._id ? miseEnRelation?._id : miseEnRelation?._id}
+        statut={conseiller?.miseEnRelation?.statut ?
+          conseiller?.miseEnRelation?.statut : miseEnRelation?.statut}
+        miseEnRelationId = { conseiller?.miseEnRelation?._id ?
+          conseiller?.miseEnRelation?._id : miseEnRelation?._id}
         updateStatut={updateStatut}
-        dateRecrutement={miseEnRelation?.dateRecrutement !== undefined ?
-          miseEnRelation?.dateRecrutement : miseEnRelation?.dateRecrutement}
-        dateRupture={miseEnRelation?.dateRupture !== undefined ?
-          miseEnRelation?.dateRupture : miseEnRelation?.dateRupture}
-        motifRupture={miseEnRelation?.motifRupture !== undefined ?
-          miseEnRelation?.motifRupture : miseEnRelation?.motifRupture} />
+        dateRecrutement={ conseiller?.miseEnRelation?.dateRecrutement !== undefined ?
+          conseiller?.miseEnRelation?.dateRecrutement : miseEnRelation?.dateRecrutement}
+        dateRupture={ conseiller?.miseEnRelation?.dateRupture !== undefined ?
+          conseiller?.miseEnRelation?.dateRupture : miseEnRelation?.dateRupture}
+        motifRupture={ conseiller?.miseEnRelation?.motifRupture !== undefined ?
+          conseiller?.miseEnRelation?.motifRupture : miseEnRelation?.motifRupture} />
     </div>
   );
 }

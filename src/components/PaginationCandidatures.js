@@ -23,81 +23,109 @@ function PaginationCandidatures({ pageCount, current, navigate }) {
     <div className="fr-container fr-mt-2w">
       <nav className="fr-pagination fr-grid-row fr-grid-row--center" aria-label="Pagination navigation">
         <ul className="fr-pagination__list fr-col-8">
-          <li className={`fr-pagination__item--first fr-pagination__item ${isFirstPage ? 'fr-pagination__item--disabled' : ''}`}>
-            <a className="fr-pagination__link"
-              href="#"
-              onClick={e => !isFirstPage ? onClick(e, 1) : () => { }}
-              aria-label="Première page"
-              title="Première page">
+          <li>
+            {isFirstPage &&
+            <a className="fr-pagination__link fr-pagination__link--first" aria-disabled="true"
+              aria-label="Premi&egrave;re page" role="link" title="Premi&egrave;re page">
+                Premi&egrave;re page
             </a>
-          </li>
-          <li className={`fr-pagination__item--prev fr-pagination__item ${isFirstPage ? 'fr-pagination__item--disabled' : ''}`}>
-            <a className="fr-pagination__link" onClick={e => !isFirstPage ? onClick(e, previousPage) : () => { }}
-              href="#"
-              aria-label="Page précédente"
-              title="Page précédente">
-              <span className="fr-pagination__label">Page précédente</span>
+            }
+            {!isFirstPage &&
+            <a className="fr-pagination__link fr-pagination__link--first" href="/#" onClick={e => onClick(e, 1)}
+              aria-label="Premi&egrave;re page" role="link" title="Premi&egrave;re page">
+                Premi&egrave;re page
             </a>
+            }
           </li>
-          <li className={`fr-pagination__item ${isFirstPage ? 'fr-pagination__item--active' : ''}`}>
-            <a href="/#" className="fr-pagination__link" onClick={e => onClick(e, 1)}>1</a>
+          <li>
+            {isFirstPage &&
+              <a className="fr-pagination__link fr-pagination__link--prev fr-pagination__link--lg-label" aria-disabled="true"
+                aria-label="Page pr&eacute;c&eacute;dente" title="Page pr&eacute;c&eacute;dente">
+                Page pr&eacute;c&eacute;dente
+              </a>
+            }
+            {!isFirstPage &&
+              <a className="fr-pagination__link fr-pagination__link--prev fr-pagination__link--lg-label" href="#" aria-disabled="false"
+                onClick={e => onClick(e, previousPage)} aria-label="Page pr&eacute;c&eacute;dente" title="Page pr&eacute;c&eacute;dente">
+                Page pr&eacute;c&eacute;dente
+              </a>
+            }
+          </li>
+          <li>
+            {isFirstPage &&
+            <a className="fr-pagination__link" aria-current="page" onClick={e => onClick(e, 1)} role="link" aria-label="Page 1" title="Page 1"
+              href="/#">1</a>
+            }
+            {!isFirstPage &&
+            <a className="fr-pagination__link" onClick={e => onClick(e, 1)} aria-disabled="false" role="link" aria-label="Page 1" title="Page 1"
+              href="/#">1</a>
+            }
           </li>
           {
             (pageCount > 5 && current > 3) &&
-            <li className="fr-pagination__item fr-pagination__item--from-md">
-              <a href="/#" className="fr-pagination__link">...</a>
+            <li>
+              <a className="fr-pagination__link fr-displayed-lg">...</a>
             </li>
           }
-          {
-            showPrevious &&
-            <li className="fr-pagination__item">
-              <a
-                href="/#"
-                className="fr-pagination__link"
+          {showPrevious &&
+            <li>
+              <a className="fr-pagination__link" href="/#"
                 onClick={e => onClick(e, previousPage)}>{previousPage}
               </a>
             </li>
           }
           {
             (!isFirstPage && !isLastPage) &&
-            <li className="fr-pagination__item fr-pagination__item--active">
-              <a
-                href="/#"
-                className="fr-pagination__link"
-                onClick={e => onClick(e, current)}>{current}
+            <li>
+              <a className="fr-pagination__link" href="/#" aria-current="page" onClick={e => onClick(e, current)}>{current}
               </a>
             </li>
           }
           {
             (nextPage < lastPage) &&
-            <li className="fr-pagination__item">
+            <li>
               <a href="/#" className="fr-pagination__link" onClick={e => onClick(e, nextPage)}>{nextPage}</a>
             </li>
           }
           {
             (current < pageCount - 2) &&
-            <li className="fr-pagination__item fr-pagination__item--from-md">
-              <a href="/#" className="fr-pagination__link">...</a>
+            <li>
+              <a href="/#" className="fr-pagination__link fr-displayed-lg">...</a>
             </li>
           }
-          <li className={`fr-pagination__item ${isLastPage && 'fr-pagination__item--active'}`}>
+          <li>
+            {isLastPage &&
+            <a className="fr-pagination__link" aria-current="page">{lastPage}</a>
+            }
+            {!isLastPage &&
             <a href="/#" className="fr-pagination__link" onClick={e => onClick(e, lastPage)}>{lastPage}</a>
+            }
           </li>
-          <li className={`fr-pagination__item--next fr-pagination__item ${isLastPage ? 'fr-pagination__item--disabled' : ''}`}>
-            <a className="fr-pagination__link"
-              onClick={e => !isLastPage ? onClick(e, nextPage) : () => { }}
-              href="#"
-              aria-label="Page suivante"
-              title="Page suivante">
-              <span className="fr-pagination__label">Page suivante</span>
+          <li>
+            {isLastPage &&
+            <a className="fr-pagination__link fr-pagination__link--next fr-pagination__link--lg-label" aria-label="Page suivante" title="Page suivante">
+              Page suivante
             </a>
+            }
+            {!isLastPage &&
+            <a className="fr-pagination__link fr-pagination__link--next fr-pagination__link--lg-label" aria-label="Page suivante"
+              title="Page suivante" href="/#" onClick={e => onClick(e, nextPage)}>
+              Page suivante
+            </a>
+            }
           </li>
-          <li className={`fr-pagination__item--last fr-pagination__item ${isLastPage ? 'fr-pagination__item--disabled' : ''}`}>
-            <a className="fr-pagination__link"
-              href="#" onClick={e => !isLastPage ? onClick(e, lastPage) : () => { }}
-              aria-label="Dernière page"
-              title="Dernière page">
-            </a>
+          <li>
+            {isLastPage &&
+              <a className="fr-pagination__link fr-pagination__link--last" aria-label="Derni&egrave;re page" title="Derni&egrave;re page">
+                Derni&egrave;re page
+              </a>
+            }
+            {!isLastPage &&
+              <a className="fr-pagination__link fr-pagination__link--last" href="/#" onClick={e => onClick(e, lastPage)}
+                aria-label="Derni&egrave;re page" title="Derni&egrave;re page">
+                  Derni&egrave;re page
+              </a>
+            }
           </li>
         </ul>
       </nav>

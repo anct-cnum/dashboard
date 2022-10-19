@@ -1,8 +1,15 @@
-export default function conseiller(state = null, action) {
+const initialState = {
+  miseEnRelation: undefined,
+  currentPage: undefined,
+  currentFilter: undefined
+};
+
+
+export default function conseiller(state = initialState, action) {
   switch (action.type) {
     case 'GET_CONSEILLER_REQUEST':
       return {
-        ...state,
+        ...initialState,
         loading: true,
         error: false
       };
