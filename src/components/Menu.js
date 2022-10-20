@@ -78,7 +78,7 @@ function Menu() {
                       Liste des conseillers
                     </Link>
                   </li>
-                  {roleActivated === 'structure' || roleActivated === 'admin' &&
+                  { (roleActivated === 'structure' || roleActivated === 'admin') &&
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}
                       {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}>
