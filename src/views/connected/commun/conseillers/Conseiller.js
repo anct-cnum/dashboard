@@ -3,8 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import { useSelector } from 'react-redux';
 
 function Conseiller({ conseiller, currentPage }) {
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   return (
     <>
@@ -21,10 +23,8 @@ function Conseiller({ conseiller, currentPage }) {
         </td>
         <td>{conseiller?.craCount}</td>
         <td>
-          <Link className="fr-btn details-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }} to={{
-            pathname: `/conseiller/${conseiller?._id}`,
-            currentPage: currentPage,
-            origin: '/liste-conseillers' }}>
+          <Link className="fr-btn details-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }}
+            to={`/${roleActivated}/conseiller/${conseiller?._id}`}>
               Afficher
           </Link>
           <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
