@@ -1,0 +1,62 @@
+.filtresCandidature {
+  .boxPix {
+    display: flex;
+    align-items: baseline;
+    text-align: center;
+    justify-content: flex-start;
+  }
+}
+.selectOption{
+  display: flex;
+  align-items: baseline;
+  text-align: center;
+  select {
+    width: 97px;
+  }
+}
+.labelPix {
+  margin-right: 0.5rem;
+  font-weight: normal;
+}
+.labelDiplome {
+  font-weight: normal;
+}
+
+.fr-table {
+  th {
+    .filtre-btn {
+      padding-left: 0;
+      text-align: left;
+      border: none !important;
+      cursor: pointer;
+      color: #383838;
+      background-color: transparent;
+      font-weight: 700;
+      font-family: "Marianne",arial,sans-serif;
+
+      .icone {
+        margin: 2px 5px;
+      }
+      .icone-2 {
+        margin: -7px 0 0 15px;
+      }
+      .icone-3 {
+        margin: -7px 0 0 35px;
+      }
+    }
+  }
+}
+.fr-fieldset--inline .fr-checkbox-group:not(:last-child) {
+  margin-right: 0.75rem;
+}
+.tri-en-ligne {
+  display: inline-block;
+  .fr-toggle {
+    width: 336px;
+  }
+  .fr-toggle--label-left .fr-toggle__label::before {
+    margin-left: 0rem;
+    margin-right: -3rem;
+  }
+}
+

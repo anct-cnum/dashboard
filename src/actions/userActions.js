@@ -3,7 +3,8 @@ import { userService } from '../services/userService';
 export const userActions = {
   updateUserEmail,
   confirmeUserEmail,
-  verifyToken
+  verifyToken,
+  inputEmailNotValid
 };
 
 function updateUserEmail({ id, newEmail }) {
@@ -77,4 +78,9 @@ function verifyToken(token) {
   function failure(error) {
     return { type: 'VERIFY_TOKEN_FAILURE', error };
   }
+}
+
+function inputEmailNotValid() {
+  const error = 'Le format de l\'email est invalide';
+  return { type: 'INPUT_EMAIL_NOT_VALID', error };
 }

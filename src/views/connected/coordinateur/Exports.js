@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { exportsActions } from '../../../actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Oval } from 'react-loader-spinner';
+
+import { exportsActions } from '../../../actions';
 import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
 
 function Exports() {
@@ -21,7 +21,7 @@ function Exports() {
       scrollTopWindow();
     }
   }, [error]);
-  
+
   return (
     <div className="exportsCoordinateur" style={{ position: 'relative' }}>
       {(error !== undefined && error !== false && error?.statut !== 404) &&
@@ -34,21 +34,15 @@ function Exports() {
           <p>Information : {error.message.toString()}</p>
         </div>
       }
-      <div className="spinnerCustom">
-        <Oval
-          height={100}
-          width={100}
-          color="#060091"
-          secondaryColor="white"
-          visible={exports?.loading === true}
-        />
+      <div className="fr-notice fr-notice--info">
+        <div className="fr-container">
+          <div className="fr-notice__body">
+            <p className="fr-notice__title">
+              Vous ne poss&eacute;dez aucun export pour le moment
+            </p>
+          </div>
+        </div>
       </div>
-      <p>
-        <a className="fr-link" href="#">Export de vos conseillers</a>
-        <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-          Export des emails, noms, pr&eacute;noms de la liste de vos conseillers
-        </span>
-      </p>
     </div>
   );
 }
