@@ -64,7 +64,7 @@ export default function TableauConseillers() {
     if (!error) {
       if (initConseiller === false) {
         dispatch(paginationActions.setPage(1));
-        dispatch(conseillerActions.getAll(currentPage, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
+        dispatch(conseillerActions.getAllRecruter(currentPage, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
           filtreParNomStructure, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
