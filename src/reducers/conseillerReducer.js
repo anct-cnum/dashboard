@@ -1,9 +1,12 @@
+const anneeEnCours = new Date().getFullYear();
 const initialState = {
+  dateDebut: new Date(anneeEnCours + '/01/01'),
+  dateFin: new Date(),
+  error: false,
   miseEnRelation: undefined,
   currentPage: undefined,
   currentFilter: undefined
 };
-
 
 export default function conseiller(state = initialState, action) {
   switch (action.type) {
@@ -120,7 +123,44 @@ export default function conseiller(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        errorUpdateStatus: action.error
+        errorUpdateStatus: action.error,
+        conseiller: action.conseiller
+      };
+    case 'GETALL_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'GETALL_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: action.conseillers
+      };
+    case 'GETALL_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
+    case 'GETALL_CANDIDATS_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'GETALL_CANDIDATS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: action.conseillers
+      };
+    case 'GETALL_CANDIDATS_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error
       };
     default:
       return state;

@@ -10,7 +10,8 @@ export const conseillerActions = {
   updateDateRupture,
   updateMotifRupture,
   preSelectionner,
-  getCurriculumVitae
+  getCurriculumVitae,
+  getAllCandidats,
 };
 
 function get(id) {
@@ -38,7 +39,7 @@ function get(id) {
 
 }
 
-function getAll({
+function getAllCandidats({
   departement = null,
   region = null,
   com = null,
@@ -61,10 +62,9 @@ function getAll({
 
     let isSearch = search.length > 0;
     if (!misesEnRelation || isSearch) {
-      let promise = conseillerService.getAll(departement, region, com, search, page, isSearch ? '' : filter, sortData, sortOrder, persoFilters);
+      let promise = conseillerService.getAllCandidats(departement, region, com, search, page, isSearch ? '' : filter, sortData, sortOrder, persoFilters);
       promises.push(promise);
     }
-
     let conseillers = null;
     Promise.all(promises).then(items => {
       conseillers = items[0];
@@ -75,6 +75,32 @@ function getAll({
     }).catch(error => {
       dispatch(failure(error));
     });
+  };
+  function request() {
+    return { type: 'GETALL_CANDIDATS_REQUEST' };
+  }
+  function success(conseillers) {
+    return { type: 'GETALL_CANDIDATS_SUCCESS', conseillers };
+  }
+  function failure(error) {
+    return { type: 'GETALL_CANDIDATS_FAILURE', error };
+  }
+}
+
+// eslint-disable-next-line max-len
+function getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+  return dispatch => {
+    dispatch(request());
+    // eslint-disable-next-line max-len
+    conseillerService.getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre)
+    .then(
+      conseillers => {
+        dispatch(success(conseillers));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
   };
 
   function request() {

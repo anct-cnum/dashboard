@@ -7,10 +7,12 @@ export const filtresEtTrisStatsActions = {
   changeCertifie,
   changeTerritoire,
   changeGroupeCRA,
-  changeNom,
-  changeStructureId,
+  changeNomConseiller,
+  changeNomStructure,
   saveSearchInput,
   changeFiltreRegion,
+  changeCoordinateur,
+  changeRupture,
   resetFiltre,
 };
 
@@ -48,12 +50,12 @@ function changeGroupeCRA(dataGroupeCRA) {
   return { type: 'CHANGE_GROUPE_CRA', dataGroupeCRA };
 }
 
-function changeNom(nom) {
-  return { type: 'CHANGE_NOM', nom };
+function changeNomConseiller(nomConseiller) {
+  return { type: 'CHANGE_NOM_CONSEILLER', nomConseiller };
 }
 
-function changeStructureId(structureId) {
-  return { type: 'CHANGE_STRUCTURE_ID', structureId };
+function changeNomStructure(nomStructure) {
+  return { type: 'CHANGE_NOM_STRUCTURE', nomStructure };
 }
 
 function changeTerritoire(territoire) {
@@ -66,6 +68,14 @@ function saveSearchInput(searchInput, region) {
 
 function changeFiltreRegion(region) {
   return { type: 'CHANGE_REGION', region };
+}
+
+function changeCoordinateur(dataCoordinateur) {
+  return { type: 'CHANGE_COORDINATEUR', dataCoordinateur };
+}
+
+function changeRupture(dataRupture) {
+  return { type: 'CHANGE_RUPTURE', dataRupture };
 }
 
 function resetFiltre() {
