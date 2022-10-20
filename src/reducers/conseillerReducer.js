@@ -3,12 +3,16 @@ const initialState = {
   dateDebut: new Date(anneeEnCours + '/01/01'),
   dateFin: new Date(),
   error: false,
+  miseEnRelation: undefined,
+  currentPage: undefined,
+  currentFilter: undefined
 };
+
 export default function conseiller(state = initialState, action) {
   switch (action.type) {
     case 'GET_CONSEILLER_REQUEST':
       return {
-        ...state,
+        ...initialState,
         loading: true,
         error: false
       };
