@@ -4,7 +4,7 @@ import download from 'downloadjs';
 
 export const conseillerActions = {
   get,
-  getAll,
+  getAllRecruter,
   updateStatus,
   updateDateRecrutement,
   updateDateRupture,
@@ -88,11 +88,11 @@ function getAllCandidats({
 }
 
 // eslint-disable-next-line max-len
-function getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
   return dispatch => {
     dispatch(request());
     // eslint-disable-next-line max-len
-    conseillerService.getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre)
+    conseillerService.getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre)
     .then(
       conseillers => {
         dispatch(success(conseillers));
@@ -104,13 +104,13 @@ function getAll(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, fil
   };
 
   function request() {
-    return { type: 'GETALL_REQUEST' };
+    return { type: 'GETALL_RECRUTER_REQUEST' };
   }
   function success(conseillers) {
-    return { type: 'GETALL_SUCCESS', conseillers };
+    return { type: 'GETALL_RECRUTER_SUCCESS', conseillers };
   }
   function failure(error) {
-    return { type: 'GETALL_FAILURE', error };
+    return { type: 'GETALL_RECRUTER_FAILURE', error };
   }
 }
 

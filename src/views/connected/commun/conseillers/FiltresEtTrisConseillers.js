@@ -65,7 +65,7 @@ function FiltresEtTrisConseillers() {
 
   useEffect(() => {
     if (conseillers?.items) {
-      dispatch(conseillerActions.getAll(currentPage, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreRegion,
+      dispatch(conseillerActions.getAllRecruter(currentPage, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreRegion,
         filtreParNomStructure, ordreNom, ordre ? 1 : -1));
     }
   }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filtreParNomStructure]);
