@@ -126,19 +126,19 @@ export default function conseiller(state = initialState, action) {
         errorUpdateStatus: action.error,
         conseiller: action.conseiller
       };
-    case 'GETALL_REQUEST':
+    case 'GETALL_RECRUTER_REQUEST':
       return {
         ...state,
         error: false,
         loading: true
       };
-    case 'GETALL_SUCCESS':
+    case 'GETALL_RECRUTER_SUCCESS':
       return {
         ...state,
         loading: false,
         items: action.conseillers
       };
-    case 'GETALL_FAILURE':
+    case 'GETALL_RECRUTER_FAILURE':
       return {
         ...state,
         loading: false,
