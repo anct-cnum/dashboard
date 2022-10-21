@@ -4,6 +4,7 @@ import apiUrlRoot from '../helpers/apiUrl';
 
 export const structureService = {
   get,
+  getAll,
   patch,
 };
 
@@ -14,6 +15,15 @@ function get(id) {
   };
 
   return fetch(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
+}
+
+function getAll(page, dateDebut, dateFin, nomOrdre, ordre) {
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(authHeader())
+  };
+
+  return fetch(`${apiUrlRoot}/structure/${page}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
 function patch({ id, contact }) {
