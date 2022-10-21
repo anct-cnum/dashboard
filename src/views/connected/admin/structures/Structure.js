@@ -11,15 +11,10 @@ function Structure({ structure, currentPage }) {
       <tr>
         <td>{structure?.idPG}</td>
         <td>{structure?.nom}</td>
-        <td>{structure?.prenom}</td>
-        <td>{structure?.emailCN?.address}</td>
-        <td className="center-text">
-          {structure?.rupture ? 'Oui' : 'Non' }
-        </td>
-        <td className="center-text">
-          {structure?.estCoordinateur ? 'Oui' : 'Non' }
-        </td>
-        <td>{structure?.craCount}</td>
+        <td>{structure?.contact.nom}</td>
+        <td>{structure?.contact.prenom}</td>
+        <td>{structure?.contact?.email}</td>
+        <td>{structure?.contact?.telephone}</td>
         <td>
           <Link className="fr-btn details-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }} to={{
             pathname: `/structure/${structure?._id}`,
@@ -34,7 +29,16 @@ function Structure({ structure, currentPage }) {
             pathname: `/statistiques/structure/${structure?._id}`,
             currentPage: currentPage,
             origin: '/liste-conseillers' }}>
-              Voir
+              Instruction
+          </Link>
+          <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
+        </td>
+        <td>
+          <Link className="fr-btn details-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }} to={{
+            pathname: `/statistiques/structure/${structure?._id}`,
+            currentPage: currentPage,
+            origin: '/liste-conseillers' }}>
+              Subvention
           </Link>
           <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
         </td>

@@ -1,11 +1,12 @@
 import { authHeader, roleActivated } from '../helpers';
 import { authenticationService } from './authenticationService';
 import apiUrlRoot from '../helpers/apiUrl';
+import { structureQueryStringParameters } from '../utils/queryUtils';
 
 export const structureService = {
   get,
   getAll,
-  patch,
+  patch
 };
 
 function get(id) {
@@ -17,13 +18,25 @@ function get(id) {
   return fetch(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
-function getAll(page, dateDebut, dateFin, nomOrdre, ordre) {
+function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre) {
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(authHeader())
   };
 
-  return fetch(`${apiUrlRoot}/structure/${page}?role=${roleActivated()}`, requestOptions).then(handleResponse);
+  const {
+    ordreColonne,
+    filterDateStart,
+    filterDateEnd,
+    filterByName,
+    filterByType,
+    filterByStatut,
+    filterByRegion,
+    filterByDepartement
+  } = structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut);
+
+  // eslint-disable-next-line max-len
+  return fetch(`${apiUrlRoot}/structures/?skip=${page}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}&role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
 function patch({ id, contact }) {

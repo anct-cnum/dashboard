@@ -88,7 +88,8 @@ function Menu() {
                   }
                   {roleActivated !== 'structure' &&
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link className="fr-nav__link" to={`/${roleActivated}/liste-structures`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}>
                       Liste des structures
                     </Link>
                   </li>

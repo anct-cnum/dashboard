@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { alerteEtSpinnerActions, statistiquesActions, structuresActions } from '../../../../actions';
+import { alerteEtSpinnerActions, statistiquesActions, structureActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
@@ -34,7 +34,7 @@ export default function GraphiqueStructure() {
 
   useEffect(() => {
     if (!structureError && !structure || structure?._id !== idStructure) {
-      dispatch(structuresActions.getStructure(idStructure));
+      dispatch(structureActions.get(idStructure));
     } else if (structureError) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',

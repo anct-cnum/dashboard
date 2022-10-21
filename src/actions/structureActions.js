@@ -7,13 +7,13 @@ export const structureActions = {
   hiddenMessageError
 };
 
-function getAll(page, dateDebut, dateFin, nomOrdre = 'prenom', ordre = 1) {
+function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre = 'prenom', ordre = 1) {
   return dispatch => {
     dispatch(request());
 
-    structureService.getAll(page, dateDebut, dateFin, nomOrdre, ordre)
+    structureService.getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre)
     .then(
-      structure => dispatch(success(structure)),
+      structures => dispatch(success(structures)),
       error => {
         dispatch(failure(error));
       }
@@ -21,13 +21,13 @@ function getAll(page, dateDebut, dateFin, nomOrdre = 'prenom', ordre = 1) {
   };
 
   function request() {
-    return { type: 'GET_ALL_STRUCTURE_REQUEST' };
+    return { type: 'GETALL_STRUCTURE_REQUEST' };
   }
-  function success(structure) {
-    return { type: 'GET_ALL_STRUCTURE_SUCCESS', structure };
+  function success(structures) {
+    return { type: 'GETALL_STRUCTURE_SUCCESS', structures };
   }
   function failure(error) {
-    return { type: 'GET_ALL_STRUCTURE_FAILURE', error };
+    return { type: 'GETALL_STRUCTURE_FAILURE', error };
   }
 }
 

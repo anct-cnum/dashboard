@@ -11,7 +11,7 @@ export default function Admin() {
     <>
       <Routes>
         <Route path="/admin/informations" element={<MesInformations />} />
-        <Route path="/liste-structures" element={<TableauStructures />} />
+        <Route path="/admin/liste-structures" element={<TableauStructures />} />
         <Route path="/admin/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/admin/exports" element={<Exports />} />
       </Routes>
