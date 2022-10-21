@@ -1,10 +1,12 @@
 import { authHeader, history, userEntityId, roleActivated } from '../helpers';
 import { authenticationService } from './authenticationService';
 import apiUrlRoot from '../helpers/apiUrl';
+import { conseillerQueryStringParameters } from '../utils/queryUtils';
 
 export const conseillerService = {
   get,
-  getAll,
+  getAllRecruter,
+  getAllCandidats,
   getAllMisesEnRelation,
   updateStatus,
   updateDateRecrutement,
@@ -22,7 +24,31 @@ function get(id) {
   return fetch(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
-function getAll(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
+// eslint-disable-next-line max-len
+function getAllRecruter(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre) {
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(authHeader())
+  };
+  let {
+    ordreColonne,
+    filterDateStart,
+    filterDateEnd,
+    filterByNameConseiller,
+    rupture,
+    coordinateur,
+    filterByRegion,
+    filterByNameStructure,
+  // eslint-disable-next-line max-len
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParNomStructure);
+
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/conseillers-recruter?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}&role=${roleActivated()}`;
+
+  return fetch(uri, requestOptions).then(handleResponse);
+}
+
+function getAllCandidats(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
   const requestOptions = {
     method: 'GET',
     headers: authHeader()

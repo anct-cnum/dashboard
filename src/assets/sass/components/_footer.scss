@@ -4,6 +4,10 @@
     background-image: none;
   }
 
+  .fr-enlarge-link a:before {
+    z-index: 0!important;
+  }
+
   .logoFranceRelance {
     height: 80px;
     width: 80px;

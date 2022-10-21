@@ -2,10 +2,10 @@ const initialState = {
   dateDebut: new Date(1605571200000),
   dateFin: new Date(),
   profil: 'tous',
-  nom: undefined,
+  nomStructure: undefined,
+  nomConseiller: undefined,
   ordre: true,
   ordreNom: undefined,
-  structureId: null,
   searchInput: undefined,
   territoire: 'codeDepartement',
   region: 'tous',
@@ -18,17 +18,17 @@ export default function filtresEtTris(state = initialState, action) {
         ...state,
         dateDebut: action.dateDebut,
       };
-    case 'CHANGE_NOM':
+    case 'CHANGE_NOM_CONSEILLER':
       return {
         ...state,
-        nom: action.nom,
-        structureId: undefined
+        nomConseiller: action.nomConseiller,
+        nomStructure: undefined
       };
-    case 'CHANGE_STRUCTURE_ID':
+    case 'CHANGE_NOM_STRUCTURE':
       return {
         ...state,
-        structureId: action.structureId,
-        nom: undefined
+        nomStructure: action.nomStructure,
+        nomConseiller: undefined
       };
     case 'CHANGE_DATE_FIN':
       return {
@@ -55,6 +55,16 @@ export default function filtresEtTris(state = initialState, action) {
       return {
         ...state,
         groupeCRA: action.dataGroupeCRA
+      };
+    case 'CHANGE_COORDINATEUR':
+      return {
+        ...state,
+        coordinateur: action.dataCoordinateur
+      };
+    case 'CHANGE_RUPTURE':
+      return {
+        ...state,
+        rupture: action.dataRupture
       };
     case 'CHANGE_TERRITOIRE':
       return {
