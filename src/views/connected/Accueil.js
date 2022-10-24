@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Admin from './admin';
 import Coordinateur from './coordinateur';
+import GrandReseau from './grandReseau';
 import Hub from './hub';
 import Prefet from './prefet';
 import Structure from './structure';
@@ -36,6 +37,9 @@ export default function Accueil() {
       }
       { roleActivated === 'coordinateur_coop' &&
         <Coordinateur />
+      }
+      { roleActivated === 'grandReseau' &&
+        <GrandReseau />
       }
     </div>
   );
