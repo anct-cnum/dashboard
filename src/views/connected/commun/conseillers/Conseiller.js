@@ -14,7 +14,11 @@ function Conseiller({ conseiller, currentPage }) {
         <td>{conseiller?.idPG}</td>
         <td>{conseiller?.nom}</td>
         <td>{conseiller?.prenom}</td>
-        <td>{conseiller?.emailCN?.address}</td>
+        <td>
+          <a className="email"href={'mailto:' + conseiller?.emailCN?.address}>
+            {conseiller?.emailCN?.address}
+          </a>
+        </td>
         <td className="center-text">
           {conseiller?.rupture ? 'Oui' : 'Non' }
         </td>

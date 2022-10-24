@@ -29,6 +29,14 @@ function Header() {
     navigate('/');
   };
 
+  const formatRoleMenu = role => {
+    const formatRole = role.charAt(0).toUpperCase() + role.slice(1);
+    if (formatRole === 'GrandReseau') {
+      return 'Grand réseau';
+    }
+    return formatRole.split('_')[0];
+  };
+
   return (
     <header role="banner" className="fr-header">
       <div className="fr-header__body">
@@ -79,7 +87,7 @@ function Header() {
                         <div className="fr-select-group">
                           <select className="fr-select" id="select" name="select" value={roleActivated} onChange={changeRoleActivated}>
                             {roles?.map((role, idx) => {
-                              return (<option key={idx} value={role}>{role}</option>);
+                              return (<option key={idx} value={role}>{formatRoleMenu(role)}</option>);
                             })}
                           </select>
                         </div>

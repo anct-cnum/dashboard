@@ -68,24 +68,24 @@ function Menu() {
                 // eslint-disable-next-line max-len
                 {...(location.pathname.startsWith(`/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
-                  Listes
+                  Suivis
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'listes' ? 'fr-collapse--expanded' : ''}`} id="menu-listes">
                 <ul className="fr-menu__list">
+                  { (roleActivated === 'structure' || roleActivated === 'admin') &&
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}>
+                      Liste des candidatures
+                    </Link>
+                  </li>
+                  }
                   <li>
                     <Link className="fr-nav__link" to="liste-conseillers"
                       {...(location.pathname.startsWith(`/liste-conseillers`) ? { 'aria-current': 'page' } : {})}>
                       Liste des conseillers
                     </Link>
                   </li>
-                  { (roleActivated === 'structure' || roleActivated === 'admin') &&
-                  <li>
-                    <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}>
-                      Liste des candidats
-                    </Link>
-                  </li>
-                  }
                   {roleActivated !== 'structure' &&
                   <li>
                     <Link className="fr-nav__link" to="">
@@ -95,14 +95,6 @@ function Menu() {
                   }
                 </ul>
               </div>
-            </li>
-            <li className="fr-nav__item">
-              <Link
-                to={`/documents`}
-                className="fr-nav__link"
-                {...(location.pathname.startsWith(`/documents`) ? { 'aria-current': 'page' } : {})}>
-                  Documents
-              </Link>
             </li>
             <li className="fr-nav__item">
               <button
@@ -184,6 +176,14 @@ function Menu() {
                   </li>
                 </ul>
               </div>
+            </li>
+            <li className="fr-nav__item">
+              <Link
+                to={`/documents`}
+                className="fr-nav__link"
+                {...(location.pathname.startsWith(`/documents`) ? { 'aria-current': 'page' } : {})}>
+                  Documents
+              </Link>
             </li>
             <li className="fr-nav__item">
               <button
