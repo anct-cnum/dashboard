@@ -6,6 +6,7 @@ const initialState = {
   ordre: true,
   ordreNom: undefined,
   region: 'tous',
+  coms: 'tous',
   type: 'tous',
   statut: 'tous',
 };
@@ -47,6 +48,11 @@ export default function filtresStructures(state = initialState, action) {
       return {
         ...state,
         departement: action.departement
+      };
+    case 'CHANGE_COMS':
+      return {
+        ...state,
+        coms: action.coms
       };
     case 'SAVE_SEARCH_INPUT':
       return {

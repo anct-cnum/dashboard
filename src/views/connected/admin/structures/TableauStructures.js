@@ -20,6 +20,7 @@ export default function TableauStructures() {
   const filtreParNomConseiller = useSelector(state => state.filtresStructures?.nomConseiller);
   const filtreRegion = useSelector(state => state.filtresStructures?.region);
   const filterDepartement = useSelector(state => state.filtresStructures?.departement);
+  const filtreComs = useSelector(state => state.filtresStructures?.coms);
   const filtreType = useSelector(state => state.filtresStructures?.type);
   const filtreStatut = useSelector(state => state.filtresStructures?.statut);
   const currentPage = useSelector(state => state.pagination?.currentPage);
@@ -42,7 +43,7 @@ export default function TableauStructures() {
       if (initConseiller === false) {
         dispatch(paginationActions.setPage(1));
         dispatch(structureActions.getAll(currentPage, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreType, filtreRegion,
-          filtreStatut, ordreNom, ordre ? 1 : -1));
+          filtreStatut, filtreComs, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
     } else {

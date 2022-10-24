@@ -18,7 +18,7 @@ function get(id) {
   return fetch(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
-function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre) {
+function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre) {
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(authHeader())
@@ -32,11 +32,12 @@ function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, fi
     filterByType,
     filterByStatut,
     filterByRegion,
-    filterByDepartement
-  } = structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut);
-
+    filterByComs,
+    filterByDepartement,
   // eslint-disable-next-line max-len
-  return fetch(`${apiUrlRoot}/structures/?skip=${page}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}&role=${roleActivated()}`, requestOptions).then(handleResponse);
+  } = structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs);
+  // eslint-disable-next-line max-len
+  return fetch(`${apiUrlRoot}/structures/?skip=${page}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}${filterByComs}&role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
 function patch({ id, contact }) {

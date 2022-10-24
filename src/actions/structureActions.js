@@ -7,11 +7,13 @@ export const structureActions = {
   hiddenMessageError
 };
 
-function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre = 'prenom', ordre = 1) {
+// eslint-disable-next-line max-len
+function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre = 'prenom', ordre = 1) {
   return dispatch => {
     dispatch(request());
 
-    structureService.getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre)
+    // eslint-disable-next-line max-len
+    structureService.getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre)
     .then(
       structures => dispatch(success(structures)),
       error => {

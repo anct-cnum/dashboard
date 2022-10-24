@@ -18,6 +18,7 @@ function FiltresEtTrisStructures() {
   const filtreType = useSelector(state => state.filtresStructures?.type);
   const filtreParNomStructure = useSelector(state => state.filtresStructures?.nomStructure);
   const filtreRegion = useSelector(state => state.filtresStructures?.region);
+  const filtreComs = useSelector(state => state.filtresStructures?.coms);
   let searchInput = useSelector(state => state.filtresStructures?.searchInput);
   const structures = useSelector(state => state.structure);
   const dateFin = useSelector(state => state.filtresStructures?.dateFin);
@@ -33,12 +34,16 @@ function FiltresEtTrisStructures() {
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresStructuresActions.changeFiltreRegion(e.target.value));
-    dispatch(filtresStructuresActions.changeFiltreDepartement(undefined));
+    dispatch(filtresStructuresActions.changeFiltreDepartement('tous'));
   };
 
   const selectFiltreDepartement = e => {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresStructuresActions.changeFiltreDepartement(e.target.value));
+  };
+  const selectFiltreComs = e => {
+    dispatch(paginationActions.setPage(1));
+    dispatch(filtresStructuresActions.changeFiltreComs(e.target.value));
   };
 
   const selectFiltreStatut = e => {
@@ -51,14 +56,9 @@ function FiltresEtTrisStructures() {
     dispatch(filtresStructuresActions.changeFiltreType(e.target.value));
   };
 
-  const selectFiltreCom = e => {
-    dispatch(paginationActions.setPage(1));
-    dispatch(filtresStructuresActions.changeFiltreType(e.target.value));
-  };
-
-  const exportDonneesConseiller = () => {
-    // dispatch(exportsActions.exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
-    //   filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+  const exportDonneesStructures = () => {
+    dispatch(exportsActions.exportDonneesStructure(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreType, filtreRegion,
+      filtreStatut, filtreComs, ordreNom, ordre ? 1 : -1));
   };
 
   const rechercheParNomStructure = e => {
@@ -67,9 +67,12 @@ function FiltresEtTrisStructures() {
     dispatch(filtresStructuresActions.changeNomStructure(value));
   };
 
-  function getDepartements() {
-    return departementsRegionList.filter(region => filtreRegion !== undefined ? region.region_name === codeRegions.find(r => r.code === filtreRegion) : true);
-  }
+  const getDepartements = () => {
+    if (filtreRegion !== 'tous') {
+      return departementsRegionList.filter(region => region.region_name === codeRegions.find(r => r.code === filtreRegion).nom);
+    }
+    return departementsRegionList;
+  };
 
   useEffect(() => {
     if (has(exportConseillerFileBlob?.blob) && exportConseillerFileError === false) {
@@ -87,18 +90,18 @@ function FiltresEtTrisStructures() {
   useEffect(() => {
     if (structures?.items) {
       dispatch(structureActions.getAll(currentPage, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreType, filtreRegion,
-        filtreStatut, ordreNom, ordre ? 1 : -1));
+        filtreStatut, filtreComs, ordreNom, ordre ? 1 : -1));
     }
-  }, [dateDebut, dateFin, currentPage, filtreStatut, filtreType, filterDepartement, ordreNom, ordre, filtreRegion, filtreParNomStructure]);
+  }, [dateDebut, dateFin, currentPage, filtreStatut, filtreType, filterDepartement, ordreNom, ordre, filtreRegion, filtreParNomStructure, filtreComs]);
 
   return (
     <>
       <Spinner loading={loading} />
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
-          <div className="fr-select-group" id="filtre-region">
+          <div className="fr-select-group fr-col-4" id="filtre-region">
             <select className="fr-select" onChange={selectFiltreRegion}>
-              <option value={'tous'}>Toute région</option>
+              <option value={'tous'}>Toute r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
                 <option key={idx} value={region.code}>{region.nom}</option>
               )}
@@ -115,47 +118,47 @@ function FiltresEtTrisStructures() {
           </div>
         </div>
         <div className="fr-grid-row fr-grid-row--end">
-          <div className="fr-select-group" id="filtre-region">
+          <div className="fr-select-group fr-col-4" id="filtre-departement">
             <select className="fr-select" onChange={selectFiltreDepartement}>
-              <option value={'tous'}>Tout département</option>
-              {getDepartements().map((region, idx) =>
-                <option key={idx} value={region.code}>{region.code} - {region.nom}</option>
+              <option value={'tous'}>Tout d&eacute;partement</option>
+              {getDepartements().map((departement, idx) =>
+                <option key={idx} value={departement.num_dep}>{departement.num_dep} - {departement.dep_name}</option>
               )}
             </select>
           </div>
-          <div className="fr-select-group fr-ml-auto fr-col-4" id="filtre-region">
+          <div className="fr-select-group fr-ml-auto fr-col-4" id="filtre-type">
             <select className="fr-select" onChange={selectFiltreType}>
               <option value="">Tout type</option>
               <option value="PUBLIC">Publique</option>
-              <option value="PRIVATE">Privée</option>
+              <option value="PRIVATE">Priv&eacute;e</option>
             </select>
           </div>
         </div>
         <div className="fr-grid-row fr-grid-row--end">
-          <div className="fr-select-group" id="filtre-region">
-            <select className="fr-select" onChange={selectFiltreCom}>
-              <option value={'tous'}>Toute collectivité d&quot;outre-mer</option>
+          <div className="fr-select-group fr-col-4" id="filtre-com">
+            <select className="fr-select" onChange={selectFiltreComs}>
+              <option value={'tous'}>Toute collectivit&eacute; d&rsquo;outre-mer</option>
               {coms.map((com, idx) =>
                 <option key={idx} value={com.num_com}>{com.num_com} - {com.com_name}</option>
               )}
             </select>
           </div>
-          <div className="fr-select-group fr-ml-auto fr-col-4" id="filtre-region">
+          <div className="fr-select-group fr-ml-auto fr-col-4" id="filtre-statut">
             <select className="fr-select" onChange={selectFiltreStatut}>
               <option value="">Tous statut</option>
-              <option value="VALIDATION_COSELEC">Validée</option>
-              <option value="CREEE">Non traitée</option>
-              <option value="ABANDON">Abandonnée</option>
+              <option value="VALIDATION_COSELEC">Valid&eacute;e</option>
+              <option value="CREEE">Non trait&eacute;e</option>
+              <option value="ABANDON">Abandonn&eacute;e</option>
               <option value="ANNULEE">Annulée</option>
             </select>
           </div>
         </div>
         <div className="fr-grid-row fr-grid-row--end">
           <div className="fr-col-12 fr-col-md-8 fr-mb-4w fr-mb-md-0 fr-grid-row">
-            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
           </div>
           <div className="fr-ml-auto">
-            <button className="fr-btn fr-btn--secondary" onClick={exportDonneesConseiller}>Exporter les donn&eacute;es</button>
+            <button className="fr-btn fr-btn--secondary" onClick={exportDonneesStructures}>Exporter les donn&eacute;es</button>
           </div>
         </div>
       </div>
