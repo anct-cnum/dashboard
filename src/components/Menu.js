@@ -66,7 +66,7 @@ function Menu() {
                 aria-expanded={ activeMenu === 'listes' }
                 aria-controls="menu-listes"
                 // eslint-disable-next-line max-len
-                {...(location.pathname.startsWith(`/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}
+                {...(location.pathname.startsWith(`/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) || location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
                   Suivis
               </button>
