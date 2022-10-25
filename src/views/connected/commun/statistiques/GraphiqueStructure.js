@@ -19,9 +19,9 @@ export default function GraphiqueStructure() {
 
   const idStructure = location.pathname.split('/')[2];
 
-  const structureLoading = useSelector(state => state.structures?.loading);
-  const structureError = useSelector(state => state.structures?.error);
-  const structure = useSelector(state => state.structures?.structure);
+  const structureLoading = useSelector(state => state.structure?.loading);
+  const structureError = useSelector(state => state.structure?.error);
+  const structure = useSelector(state => state.structure?.structure);
 
   const statistiquesLoading = useSelector(state => state.statistiques?.loading);
   const statistiquesError = useSelector(state => state.statistiques?.error);
