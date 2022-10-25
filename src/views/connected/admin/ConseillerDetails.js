@@ -26,9 +26,9 @@ function ConseillerDetails() {
   return (
     <div className="fr-container conseillerDetails">
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-12w fr-pb-9w">
-        <div className="fr-grid-row fr-mt-6w fr-mb-8w">
+        <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
-            <h1>Profil</h1>
+            <h1>Information CnFS</h1>
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
@@ -98,7 +98,7 @@ function ConseillerDetails() {
             <hr style={{ borderWidth: '0.5px' }}/>
           </div>
         </div>
-        <div className="fr-grid-row fr-mt-6w fr-mb-8w">
+        <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
             <h1>Informations de la structure</h1>
           </div>
@@ -106,7 +106,7 @@ function ConseillerDetails() {
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-6">
             <div className="fr-mb-3w">
-              <strong>Mail</strong><br/>
+              <strong>Email</strong><br/>
               {structure?.contact?.email &&
               <a className="email"href={'mailto:' + structure?.contact?.email}>
                 {structure?.contact?.email}
@@ -150,9 +150,30 @@ function ConseillerDetails() {
             </div>
           </div>
         </div>
-        <div className="fr-grid-row fr-mt-5w fr-mb-2w">
+        <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
             <hr style={{ borderWidth: '0.5px' }}/>
+          </div>
+        </div>
+        <div className="fr-grid-row fr-mt-6w fr-mb-4w">
+          <div className="fr-col-12 titreCol">
+            <h1>Activit&eacute;</h1>
+          </div>
+        </div>
+        <div className="fr-grid-row fr-col-12">
+          <div className="fr-col-5">
+            <div className="fr-mb-3w">
+              <strong>Date d&lsquo;entrée en formation</strong><br/>
+              {conseiller?.datePrisePoste ?
+                <span>{dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}</span> : <span>-</span>
+              }
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Date de sortie de formation</strong><br/>
+              {conseiller?.dateFinFormation ?
+                <span>{dayjs(conseiller?.dateFinFormation).format('DD/MM/YYYY')}</span> : <span>-</span>
+              }
+            </div>
           </div>
         </div>
       </div>

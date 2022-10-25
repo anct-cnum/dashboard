@@ -31,21 +31,21 @@ function ConseillerDetails() {
         </div>
       }
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-12w fr-pb-9w">
-        <div className="fr-grid-row fr-mt-6w fr-mb-8w">
+        <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
-            <h1>Profil</h1>
+            <h1>Information CnFS</h1>
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-6">
             <div className="fr-mb-3w">
-              <strong>Email professionel</strong><br/>
-              {conseiller?.emailCN?.address &&
-              <a className="email"href={'mailto:' + conseiller?.emailCN?.address}>
-                {conseiller?.emailCN?.address}
+              <strong>Email personnel</strong><br/>
+              {conseiller?.email &&
+              <a className="email"href={'mailto:' + conseiller?.email}>
+                {conseiller?.email}
               </a>
               }
-              {!conseiller?.emailCN?.address &&
+              {!conseiller?.email &&
               <span>-</span>
               }
             </div>
@@ -78,7 +78,7 @@ function ConseillerDetails() {
             <hr style={{ borderWidth: '0.5px' }}/>
           </div>
         </div>
-        <div className="fr-grid-row fr-mt-6w fr-mb-8w">
+        <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
             <h1>Activit&eacute;</h1>
           </div>

@@ -127,7 +127,7 @@ export default function TableauConseillers() {
                               </span>
                             </button>
                           </th>
-                          <th>Email professionelle</th>
+                          <th>Email professionnel</th>
                           <th>
                             <nav className="fr-nav" id="navigation-sort-rupture" role="navigation">
                               <ul className="fr-nav__list">
@@ -148,13 +148,13 @@ export default function TableauConseillers() {
                                         </li>
                                         <li className={filtreRupture === 'rupture' ? 'selected' : ''}>
                                           <button id="rupture" className="admin-select-option border-no-result" onClick={handleSortRupture}>
-                                            Profils en rupture uniquement
+                                            En cours de traitement
                                           </button>
                                           <hr className="admin-select-hr" />
                                         </li>
                                         <li className={filtreRupture === 'contrat' ? 'selected' : ''}>
                                           <button id="contrat" className="admin-select-option" onClick={handleSortRupture}>
-                                            Profils en contrat uniquement
+                                            Sous contrat
                                           </button>
                                         </li>
                                       </ul>

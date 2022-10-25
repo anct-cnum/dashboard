@@ -32,9 +32,9 @@ function ConseillerDetails() {
         </div>
       }
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-12w fr-pb-9w">
-        <div className="fr-grid-row fr-mt-6w fr-mb-8w">
+        <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
-            <h1>Profil</h1>
+            <h1>Information CnFS</h1>
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
@@ -96,7 +96,7 @@ function ConseillerDetails() {
             <hr style={{ borderWidth: '0.5px' }}/>
           </div>
         </div>
-        <div className="fr-grid-row fr-mt-6w fr-mb-8w">
+        <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
             <h1>Information de la structure</h1>
           </div>
@@ -104,7 +104,7 @@ function ConseillerDetails() {
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-6">
             <div className="fr-mb-3w">
-              <strong>Mail</strong><br/>
+              <strong>Email</strong><br/>
               {structure?.contact?.email &&
               <a className="email"href={'mailto:' + structure?.contact?.email}>
                 {structure?.contact?.email}
@@ -153,7 +153,7 @@ function ConseillerDetails() {
             <hr style={{ borderWidth: '0.5px' }}/>
           </div>
         </div>
-        <div className="fr-grid-row fr-mt-6w fr-mb-8w">
+        <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
             <h1>Activit&eacute;</h1>
           </div>
