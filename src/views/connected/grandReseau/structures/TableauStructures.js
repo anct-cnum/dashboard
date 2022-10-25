@@ -69,7 +69,7 @@ export default function TableauStructures() {
                     <table>
                       <thead>
                         <tr>
-                          <th>
+                          <th colSpan="12">
                             <button id="nom-structure" className="filtre-btn" onClick={ordreColonne}>
                               <span>Nom de la structure
                                 {(ordreNom !== 'nom-structure' || ordreNom === 'nom-structure' && ordre) &&

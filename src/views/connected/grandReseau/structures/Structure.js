@@ -9,7 +9,7 @@ function Structure({ structure, currentPage }) {
   return (
     <>
       <tr>
-        <td>{structure?.nom}</td>
+        <td colSpan="12" style={{ width: '25rem' }}>{structure?.nom}</td>
         <td>{structure?.contact.nom}</td>
         <td>{structure?.contact.prenom}</td>
         <td>{structure?.contact?.email}</td>
