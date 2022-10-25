@@ -44,7 +44,7 @@ function Header() {
           <div className="fr-header__body-row">
             <div className="fr-header__brand fr-enlarge-link">
               <div className="fr-header__brand-top">
-                <div className="fr-header__logo">
+                <div className="fr-header__logo" style={{ paddingRight: '0.7rem', marginRight: '0' }}>
                   <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique France services">
                     <p className="fr-logo">
                         R&eacute;publique
@@ -53,7 +53,7 @@ function Header() {
                     </p>
                   </Link>
                 </div>
-                <div className="fr-header__operator">
+                <div className="fr-header__operator" style={{ paddingLeft: '0' }}>
                   <img src={logo} className="fr-responsive-img" alt="Logo Conseiller num&eacute;rique" />
                 </div>
                 <div className="fr-header__navbar">
