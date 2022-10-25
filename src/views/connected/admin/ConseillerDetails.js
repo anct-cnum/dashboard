@@ -45,7 +45,7 @@ function ConseillerDetails() {
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>T&eacute;l&eacute;phone professionelle</strong><br/>
+              <strong>T&eacute;l&eacute;phone professionnel</strong><br/>
               <span>
                 {conseiller?.telephonePro ?
                   /* espace tous les 2 chiffres après l'indicatif*/

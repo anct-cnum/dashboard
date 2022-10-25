@@ -20,7 +20,7 @@ function Conseiller({ conseiller, currentPage }) {
           </a>
         </td>
         <td className="center-text">
-          {conseiller?.rupture ? 'Oui' : 'Non' }
+          {conseiller.rupture}
         </td>
         <td className="center-text">
           {conseiller?.estCoordinateur ? 'Oui' : 'Non' }
