@@ -128,7 +128,7 @@ function FiltresEtTrisStructures() {
           </div>
           <div className="fr-select-group fr-ml-auto fr-col-4" id="filtre-type">
             <select className="fr-select" onChange={selectFiltreType}>
-              <option value="">Tout type</option>
+              <option value={'tous'}>Tout type</option>
               <option value="PUBLIC">Publique</option>
               <option value="PRIVATE">Priv&eacute;e</option>
             </select>
@@ -145,7 +145,7 @@ function FiltresEtTrisStructures() {
           </div>
           <div className="fr-select-group fr-ml-auto fr-col-4" id="filtre-statut">
             <select className="fr-select" onChange={selectFiltreStatut}>
-              <option value="">Tous statut</option>
+              <option value={'tous'}>Tous statut</option>
               <option value="VALIDATION_COSELEC">Valid&eacute;e</option>
               <option value="CREEE">Non trait&eacute;e</option>
               <option value="ABANDON">Abandonn&eacute;e</option>
