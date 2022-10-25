@@ -86,7 +86,7 @@ function Menu() {
                       Liste des conseillers
                     </Link>
                   </li>
-                  {roleActivated !== 'structure' &&
+                  {(roleActivated !== 'structure' && roleActivated !== 'coordinateur_coop') &&
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/liste-structures`}
                       {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}>
