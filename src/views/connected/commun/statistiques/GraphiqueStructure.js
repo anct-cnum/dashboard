@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { alerteEtSpinnerActions, statistiquesActions, structuresActions } from '../../../../actions';
+import { alerteEtSpinnerActions, statistiquesActions, structureActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
@@ -19,9 +19,9 @@ export default function GraphiqueStructure() {
 
   const idStructure = location.pathname.split('/')[2];
 
-  const structureLoading = useSelector(state => state.structures?.loading);
-  const structureError = useSelector(state => state.structures?.error);
-  const structure = useSelector(state => state.structures?.structure);
+  const structureLoading = useSelector(state => state.structure?.loading);
+  const structureError = useSelector(state => state.structure?.error);
+  const structure = useSelector(state => state.structure?.structure);
 
   const statistiquesLoading = useSelector(state => state.statistiques?.loading);
   const statistiquesError = useSelector(state => state.statistiques?.error);
@@ -34,7 +34,7 @@ export default function GraphiqueStructure() {
 
   useEffect(() => {
     if (!structureError && !structure || structure?._id !== idStructure) {
-      dispatch(structuresActions.getStructure(idStructure));
+      dispatch(structureActions.get(idStructure));
     } else if (structureError) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',

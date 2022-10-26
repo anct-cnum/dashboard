@@ -8,7 +8,8 @@ export const exportsActions = {
   exportDonneesTerritoire,
   resetExportDonneesTerritoire,
   exportStatistiquesCSV,
-  exportDonneesConseiller
+  exportDonneesConseiller,
+  exportDonneesStructure,
 };
 
 function exportFile(nameFile, hubName) {
@@ -85,6 +86,28 @@ function exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordi
   }
   function failure(exportConseillerFileError) {
     return { type: 'EXPORT_CONSEILLER_FAILURE', exportConseillerFileError };
+  }
+}
+
+// eslint-disable-next-line max-len
+function exportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre = 'nom', ordre = 1) {
+  return async dispatch => {
+    dispatch(request());
+    // eslint-disable-next-line max-len
+    await exportsService.getExportDonneesStructure(formatDate(dateDebut), formatDate(dateFin), filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre)
+    .then(exportStructureFileBlob => dispatch(success(exportStructureFileBlob)))
+    .catch(exportStructureFileError => dispatch(failure(exportStructureFileError)));
+  };
+
+  function request() {
+    return { type: 'EXPORT_STRUCTURE_REQUEST' };
+  }
+  function success(exportStructureFileBlob) {
+    const nameFile = `export-structures_entre_${dayjs(dateDebut).format('YYYY-MM-DD')}_et_${dayjs(dateFin).format('YYYY-MM-DD')}`;
+    return { type: 'EXPORT_STRUCTURE_SUCCESS', exportStructureFileBlob, nameFile };
+  }
+  function failure(exportStructureFileError) {
+    return { type: 'EXPORT_STRUCTURE_FAILURE', exportStructureFileError };
   }
 }
 

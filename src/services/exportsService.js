@@ -1,13 +1,14 @@
 import { authenticationService } from './authenticationService';
 import { roleActivated, authHeader } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
-import { conseillerQueryStringParameters, territoireQueryString } from '../utils/queryUtils';
+import { conseillerQueryStringParameters, territoireQueryString, structureQueryStringParameters } from '../utils/queryUtils';
 
 export const exportsService = {
   getFile,
   getExportDonneesTerritoire,
   getStatistiquesCSV,
-  getExportDonneesConseiller
+  getExportDonneesConseiller,
+  getExportDonneesStructure
 };
 
 function getFile(name) {
@@ -39,7 +40,6 @@ async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrd
 
 // eslint-disable-next-line max-len
 async function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports`;
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(
@@ -63,7 +63,37 @@ async function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, fil
   } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreParRegion, filtreParNomStructure);
   return handleResponse(
     // eslint-disable-next-line max-len
-    await fetch(`${apiUrlRoot}${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}`, requestOptions)
+    await fetch(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}`, requestOptions)
+  );
+}
+
+// eslint-disable-next-line max-len
+async function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre) {
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(
+      authHeader(), {
+        'Accept': 'text/plain',
+        'Content-Type': 'text/plain'
+      })
+  };
+
+  const exportConseillersRoute = '/liste-structures-csv';
+  const {
+    ordreColonne,
+    filterDateStart,
+    filterDateEnd,
+    filterByName,
+    filterByType,
+    filterByStatut,
+    filterByRegion,
+    filterByComs,
+    filterByDepartement,
+  // eslint-disable-next-line max-len
+  } = structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs);
+  return handleResponse(
+    // eslint-disable-next-line max-len
+    await fetch(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}${filterByComs}`, requestOptions)
   );
 }
 
