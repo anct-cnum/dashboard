@@ -2,7 +2,6 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 
 function Structure({ structure, currentPage }) {
 
@@ -39,7 +38,6 @@ function Structure({ structure, currentPage }) {
             origin: '/liste-conseillers' }}>
               Subvention
           </Link>
-          <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
         </td>
       </tr>
     </>
