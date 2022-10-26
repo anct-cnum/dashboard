@@ -40,7 +40,6 @@ async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrd
 
 // eslint-disable-next-line max-len
 async function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports`;
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(
@@ -64,13 +63,12 @@ async function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, fil
   } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreParRegion, filtreParNomStructure);
   return handleResponse(
     // eslint-disable-next-line max-len
-    await fetch(`${apiUrlRoot}${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}`, requestOptions)
+    await fetch(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}`, requestOptions)
   );
 }
 
 // eslint-disable-next-line max-len
 async function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports`;
   const requestOptions = {
     method: 'GET',
     headers: Object.assign(
@@ -95,7 +93,7 @@ async function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtr
   } = structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs);
   return handleResponse(
     // eslint-disable-next-line max-len
-    await fetch(`${apiUrlRoot}${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}${filterByComs}`, requestOptions)
+    await fetch(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}${filterByComs}`, requestOptions)
   );
 }
 

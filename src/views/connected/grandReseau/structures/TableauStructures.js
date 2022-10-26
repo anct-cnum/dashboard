@@ -82,7 +82,7 @@ export default function TableauStructures() {
                             </button>
                           </th>
                           <th>Nom</th>
-                          <th>Prénom</th>
+                          <th>Pr&eacute;nom</th>
                           <th>Email</th>
                           <th>T&eacute;l&eacute;phone</th>
                           <th>D&eacute;tails</th>
@@ -97,7 +97,7 @@ export default function TableauStructures() {
                           <tr>
                             <td colSpan="12" style={{ width: '75rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <span className="not-found pair">Aucune structure trouv&eacute;</span>
+                                <span className="not-found pair">Aucune structure trouv&eacute;e</span>
                               </div>
                             </td>
                           </tr>

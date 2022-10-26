@@ -10,8 +10,8 @@ function Structure({ structure, currentPage }) {
     <>
       <tr>
         <td colSpan="12" style={{ width: '25rem' }}>{structure?.nom}</td>
-        <td>{structure?.contact.nom}</td>
-        <td>{structure?.contact.prenom}</td>
+        <td>{structure?.contact?.nom}</td>
+        <td>{structure?.contact?.prenom}</td>
         <td>{structure?.contact?.email}</td>
         <td>{structure?.contact?.telephone}</td>
         <td>
@@ -21,7 +21,6 @@ function Structure({ structure, currentPage }) {
             origin: '/liste-structures' }}>
               Afficher
           </Link>
-          <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
         </td>
       </tr>
     </>

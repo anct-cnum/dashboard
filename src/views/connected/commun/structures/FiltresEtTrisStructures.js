@@ -33,27 +33,27 @@ function FiltresEtTrisStructures() {
 
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresStructuresActions.changeFiltreRegion(e.target.value));
+    dispatch(filtresStructuresActions.changeFiltreRegion(e.target?.value));
     dispatch(filtresStructuresActions.changeFiltreDepartement('tous'));
   };
 
   const selectFiltreDepartement = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresStructuresActions.changeFiltreDepartement(e.target.value));
+    dispatch(filtresStructuresActions.changeFiltreDepartement(e.target?.value));
   };
   const selectFiltreComs = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresStructuresActions.changeFiltreComs(e.target.value));
+    dispatch(filtresStructuresActions.changeFiltreComs(e.target?.value));
   };
 
   const selectFiltreStatut = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresStructuresActions.changeFiltreStatut(e.target.value));
+    dispatch(filtresStructuresActions.changeFiltreStatut(e.target?.value));
   };
 
   const selectFiltreType = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresStructuresActions.changeFiltreType(e.target.value));
+    dispatch(filtresStructuresActions.changeFiltreType(e.target?.value));
   };
 
   const exportDonneesStructures = () => {
@@ -149,7 +149,7 @@ function FiltresEtTrisStructures() {
               <option value="VALIDATION_COSELEC">Valid&eacute;e</option>
               <option value="CREEE">Non trait&eacute;e</option>
               <option value="ABANDON">Abandonn&eacute;e</option>
-              <option value="ANNULEE">Annulée</option>
+              <option value="ANNULEE">Annul&eacute;e</option>
             </select>
           </div>
         </div>
