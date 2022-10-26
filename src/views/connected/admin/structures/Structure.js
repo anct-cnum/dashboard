@@ -29,7 +29,6 @@ function Structure({ structure, currentPage }) {
             origin: '/liste-conseillers' }}>
               Instruction
           </Link>
-          <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
         </td>
         <td>
           <Link className="fr-btn details-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }} to={{
