@@ -71,6 +71,26 @@ export default function exports(state = initialState, action) {
         error: action.error,
         loading: false,
       };
+    case 'EXPORT_STRUCTURE_REQUEST':
+      return {
+        ...state,
+        blob: null,
+        loading: true,
+        error: false,
+      };
+    case 'EXPORT_STRUCTURE_SUCCESS':
+      return {
+        ...state,
+        blob: action.exportStructureFileBlob,
+        nameFile: action.nameFile,
+        loading: false,
+      };
+    case 'EXPORT_STRUCTURE_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
     case 'EXPORT_TERRITOIRE_RESET': {
       const {
         blob: _file,

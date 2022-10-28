@@ -66,7 +66,7 @@ function Menu() {
                 aria-expanded={ activeMenu === 'listes' }
                 aria-controls="menu-listes"
                 // eslint-disable-next-line max-len
-                {...(location.pathname.startsWith(`/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}
+                {...(location.pathname.startsWith(`/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) || location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
                   Suivis
               </button>
@@ -86,9 +86,10 @@ function Menu() {
                       Liste des conseillers
                     </Link>
                   </li>
-                  {roleActivated !== 'structure' &&
+                  {(roleActivated !== 'structure' && roleActivated !== 'coordinateur_coop') &&
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link className="fr-nav__link" to={`/${roleActivated}/liste-structures`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}>
                       Liste des structures
                     </Link>
                   </li>
