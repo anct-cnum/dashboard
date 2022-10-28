@@ -39,12 +39,12 @@ export default function TableauConseillers() {
 
   const handleSortCoordinateur = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresConseillersActions.changeCoordinateur(e.target.id));
+    dispatch(filtresConseillersActions.changeCoordinateur(e.target?.id));
     setBasculerFiltreCoordinateur(false);
   };
   const handleSortRupture = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresConseillersActions.changeRupture(e.target.id));
+    dispatch(filtresConseillersActions.changeRupture(e.target?.id));
     setBasculerFiltreRupture(false);
   };
 

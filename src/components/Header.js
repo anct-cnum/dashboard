@@ -72,7 +72,7 @@ function Header() {
               <div className="fr-header__service">
                 <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique France services">
                   <p className="fr-header__service-title">
-                    Tableau de bord - Conseiller num&eacute;rique France services
+                    Tableau de pilotage - conseiller numerique
                   </p>
                 </Link>
               </div>

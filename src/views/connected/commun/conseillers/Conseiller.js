@@ -15,8 +15,8 @@ function Conseiller({ conseiller, currentPage }) {
         <td>{conseiller?.nom}</td>
         <td>{conseiller?.prenom}</td>
         <td>
-          <a className="email"href={'mailto:' + conseiller?.emailCN?.address}>
-            {conseiller?.emailCN?.address}
+          <a className="email"href={'mailto:' + conseiller?.address}>
+            {conseiller?.address}
           </a>
         </td>
         <td className="center-text">
