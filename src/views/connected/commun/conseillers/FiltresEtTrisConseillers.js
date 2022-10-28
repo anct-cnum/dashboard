@@ -79,11 +79,14 @@ function FiltresEtTrisConseillers() {
       <Spinner loading={loading} />
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
-          <div className="fr-toggle fr-ml-md-auto fr-toggle--label-left">
-            <input type="checkbox" onChange={handleChangeToggle} className="fr-toggle__input" aria-describedby="toggle-698-hint-text" id="toggle-698" />
-            <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
-              S&eacute;lectionner le type de recherche
-            </label>
+          <div className="fr-ml-auto fr-col-12 fr-col-md-4 fr-mb-4w fr-mb-md-0">
+            <div className="fr-search-bar fr-search-bar" id="search" role="search" >
+              <input className="fr-input" defaultValue={searchInput ?? ''}
+                placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
+              <button className="fr-btn" onClick={rechercheParNomOuNomStructure} title="Rechercher par nom">
+                Rechercher
+              </button>
+            </div>
           </div>
         </div>
         <div className="fr-grid-row">
@@ -95,14 +98,11 @@ function FiltresEtTrisConseillers() {
               )}
             </select>
           </div>
-          <div className="fr-ml-auto fr-col-12 fr-col-md-4 fr-mb-4w fr-mb-md-0">
-            <div className="fr-search-bar fr-search-bar" id="search" role="search" >
-              <input className="fr-input" defaultValue={searchInput ?? ''}
-                placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
-              <button className="fr-btn" onClick={rechercheParNomOuNomStructure} title="Rechercher par nom">
-                Rechercher
-              </button>
-            </div>
+          <div className="fr-toggle fr-ml-md-auto fr-toggle--label-left">
+            <input type="checkbox" onChange={handleChangeToggle} className="fr-toggle__input" aria-describedby="toggle-698-hint-text" id="toggle-698" />
+            <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
+              S&eacute;lectionner le type de recherche
+            </label>
           </div>
         </div>
         <div className="fr-grid-row fr-grid-row--end">

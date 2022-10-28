@@ -1,8 +1,6 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { useSelector } from 'react-redux';
 
 function Conseiller({ conseiller, currentPage }) {
@@ -14,7 +12,7 @@ function Conseiller({ conseiller, currentPage }) {
         <td>{conseiller?.idPG}</td>
         <td>{conseiller?.nom}</td>
         <td>{conseiller?.prenom}</td>
-        <td>
+        <td colSpan="12" style={{ width: '28rem' }}>
           <a className="email"href={'mailto:' + conseiller?.address}>
             {conseiller?.address}
           </a>
@@ -26,21 +24,15 @@ function Conseiller({ conseiller, currentPage }) {
           {conseiller?.estCoordinateur ? 'Oui' : 'Non' }
         </td>
         <td>{conseiller?.craCount}</td>
-        <td>
-          <Link className="fr-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }}
-            to={`/${roleActivated}/conseiller/${conseiller?._id}`}>
-              Afficher
-          </Link>
-          <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
-        </td>
-        <td>
-          <Link className="fr-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }} to={{
-            pathname: `/statistiques/conseiller/${conseiller?._id}`,
-            currentPage: currentPage,
-            origin: '/liste-conseillers' }}>
-              Voir
-          </Link>
-          <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
+        <td className="btn-actions-conseillers">
+          <div className="fr-grid-row">
+            <button className="fr-btn fr-icon-eye-line fr-mr-2w" onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
+            <Link className="fr-btn fr-icon-table-line" target="_blank" rel="noopener noreferrer" to={{
+              pathname: `/statistiques/conseiller/${conseiller?._id}`,
+              currentPage: currentPage,
+              origin: '/liste-conseillers' }}>
+            </Link>
+          </div>
         </td>
       </tr>
     </>

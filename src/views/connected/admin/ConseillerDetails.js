@@ -25,7 +25,12 @@ function ConseillerDetails() {
 
   return (
     <div className="fr-container conseillerDetails">
-      <div className="fr-grid-row fr-grid-row--bottom fr-pt-12w fr-pb-9w">
+      <button
+        onClick={() => window.close()}
+        className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--secondary">
+        Retour &agrave; la liste
+      </button>
+      <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
             <h1>Information CnFS</h1>
