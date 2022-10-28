@@ -34,7 +34,7 @@ export function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, date
       rupture = `&rupture=nouvelle_rupture`;
       break;
     case 'contrat':
-      rupture = `&rupture=no_rupture`;
+      rupture = `&rupture=contrat`;
       break;
     default:
       break;
