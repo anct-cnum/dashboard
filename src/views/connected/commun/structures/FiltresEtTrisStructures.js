@@ -99,7 +99,7 @@ function FiltresEtTrisStructures() {
       <Spinner loading={loading} />
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
-          <div className="fr-select-group fr-col-4" id="filtre-region">
+          <div className="fr-select-group fr-col-5" id="filtre-region">
             <select className="fr-select" onChange={selectFiltreRegion}>
               <option value={'tous'}>Toute r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
@@ -107,7 +107,7 @@ function FiltresEtTrisStructures() {
               )}
             </select>
           </div>
-          <div className="fr-ml-auto fr-col-12 fr-col-md-4 fr-mb-4w fr-mb-md-0">
+          <div className="fr-ml-auto fr-col-12 fr-col-md-5 fr-mb-4w fr-mb-md-0">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
               <input className="fr-input" defaultValue={searchInput ?? ''}
                 placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
@@ -118,7 +118,7 @@ function FiltresEtTrisStructures() {
           </div>
         </div>
         <div className="fr-grid-row fr-grid-row--end">
-          <div className="fr-select-group fr-col-4" id="filtre-departement">
+          <div className="fr-select-group fr-col-5" id="filtre-departement">
             <select className="fr-select" onChange={selectFiltreDepartement}>
               <option value={'tous'}>Tout d&eacute;partement</option>
               {getDepartements().map((departement, idx) =>
@@ -126,7 +126,7 @@ function FiltresEtTrisStructures() {
               )}
             </select>
           </div>
-          <div className="fr-select-group fr-ml-auto fr-col-4" id="filtre-type">
+          <div className="fr-select-group fr-ml-auto fr-col-5" id="filtre-type">
             <select className="fr-select" onChange={selectFiltreType}>
               <option value={'tous'}>Tout type</option>
               <option value="PUBLIC">Publique</option>
@@ -135,7 +135,7 @@ function FiltresEtTrisStructures() {
           </div>
         </div>
         <div className="fr-grid-row fr-grid-row--end">
-          <div className="fr-select-group fr-col-4" id="filtre-com">
+          <div className="fr-select-group fr-col-5" id="filtre-com">
             <select className="fr-select" onChange={selectFiltreComs}>
               <option value={'tous'}>Toute collectivit&eacute; d&rsquo;outre-mer</option>
               {coms.map((com, idx) =>
@@ -143,13 +143,16 @@ function FiltresEtTrisStructures() {
               )}
             </select>
           </div>
-          <div className="fr-select-group fr-ml-auto fr-col-4" id="filtre-statut">
+          <div className="fr-select-group fr-ml-auto fr-col-5" id="filtre-statut">
             <select className="fr-select" onChange={selectFiltreStatut}>
-              <option value={'tous'}>Tous statut</option>
+              <option value={'tous'}>Tout statut</option>
               <option value="VALIDATION_COSELEC">Valid&eacute;e</option>
+              <option value="EXAMEN_COMPLEMENTAIRE_COSELEC">Examen complémentaire</option>
+              <option value="REFUS_COSELEC">Refus</option>
               <option value="CREEE">Non trait&eacute;e</option>
               <option value="ABANDON">Abandonn&eacute;e</option>
               <option value="ANNULEE">Annul&eacute;e</option>
+              <option value="DOUBLON">Doublon</option>
             </select>
           </div>
         </div>
