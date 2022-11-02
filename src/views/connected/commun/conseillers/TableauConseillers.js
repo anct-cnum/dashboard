@@ -208,7 +208,7 @@ export default function TableauConseillers() {
                             </nav>
                           </th>
                           <th>CRA saisis</th>
-                          <th>Actions</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
