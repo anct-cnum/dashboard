@@ -1,9 +1,11 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
+import ReactDOMServer from 'react-dom/server';
+import { useSelector } from 'react-redux';
 
-function Structure({ structure, currentPage }) {
+function Structure({ structure }) {
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   return (
     <>
@@ -15,28 +17,29 @@ function Structure({ structure, currentPage }) {
         <td>{structure?.contact?.email}</td>
         <td>{structure?.contact?.telephone}</td>
         <td>
-          <Link className="fr-btn details-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }} to={{
-            pathname: `/structure/${structure?._id}`,
-            currentPage: currentPage,
-            origin: '/liste-structures' }}>
-              Afficher
-          </Link>
+          <button className="fr-btn fr-icon-eye-line" onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}/>
         </td>
         <td>
-          <Link className="fr-btn details-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }} to={{
-            pathname: `/statistiques/structure/${structure?._id}`,
-            currentPage: currentPage,
-            origin: '/liste-conseillers' }}>
-              Instruction
-          </Link>
+          <button
+            data-html={true} data-tip={ReactDOMServer.renderToString(
+              <div>
+              Cette fonctionnalit&eacute; est en cours de conception et sera prochainement livr&eacute;e.
+              </div>
+            )}
+            style={{ opacity: '30%', cursor: 'not-allowed' }}
+            className="fr-btn fr-icon-edit-box-line"/>
+          <ReactTooltip html={true} arrowColor="white"/>
         </td>
         <td>
-          <Link className="fr-btn details-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }} to={{
-            pathname: `/statistiques/structure/${structure?._id}`,
-            currentPage: currentPage,
-            origin: '/liste-conseillers' }}>
-              Subvention
-          </Link>
+          <button
+            data-html={true} data-tip={ReactDOMServer.renderToString(
+              <div>
+              Cette fonctionnalit&eacute; est en cours de conception et sera prochainement livr&eacute;e.
+              </div>
+            )}
+            style={{ opacity: '30%', cursor: 'not-allowed' }}
+            className="fr-btn fr-icon-edit-box-line"/>
+          <ReactTooltip html={true} arrowColor="white"/>
         </td>
       </tr>
     </>
@@ -45,7 +48,6 @@ function Structure({ structure, currentPage }) {
 
 Structure.propTypes = {
   structure: PropTypes.object,
-  currentPage: PropTypes.number,
 };
 
 export default Structure;

@@ -104,7 +104,7 @@ export default function TableauStructures() {
                       </thead>
                       <tbody>
                         {!error && !loading && structures?.items?.data?.map((structure, idx) => {
-                          return (<Structure key={idx} structure={structure} currentPage={currentPage} />);
+                          return (<Structure key={idx} structure={structure} />);
                         })
                         }
                         {(!structures?.items || structures?.items?.total === 0) &&
