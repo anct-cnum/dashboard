@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { conseillerActions, exportsActions, filtresEtTrisStatsActions, paginationActions } from '../../../../actions';
+import { conseillerActions, exportsActions, filtresConseillersActions, paginationActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
 import BlockDatePickers from '../statistiques/Components/commun/BlockDatePickers';
@@ -10,18 +10,18 @@ function FiltresEtTrisConseillers() {
   const dispatch = useDispatch();
 
   const [searchByStructure, setSearchByStructure] = useState(false);
-  const dateDebut = useSelector(state => state.filtresEtTris?.dateDebut);
-  const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
-  const filtreCoordinateur = useSelector(state => state.filtresEtTris?.coordinateur);
-  const filtreRupture = useSelector(state => state.filtresEtTris?.rupture);
-  const filtreParNomConseiller = useSelector(state => state.filtresEtTris?.nomConseiller);
-  const filtreParNomStructure = useSelector(state => state.filtresEtTris?.nomStructure);
-  const filtreRegion = useSelector(state => state.filtresEtTris?.region);
-  let searchInput = useSelector(state => state.filtresEtTris?.searchInput);
+  const dateDebut = useSelector(state => state.filtresConseillers?.dateDebut);
+  const ordreNom = useSelector(state => state.filtresConseillers?.ordreNom);
+  const filtreCoordinateur = useSelector(state => state.filtresConseillers?.coordinateur);
+  const filtreRupture = useSelector(state => state.filtresConseillers?.rupture);
+  const filtreParNomConseiller = useSelector(state => state.filtresConseillers?.nomConseiller);
+  const filtreParNomStructure = useSelector(state => state.filtresConseillers?.nomStructure);
+  const filtreRegion = useSelector(state => state.filtresConseillers?.region);
+  let searchInput = useSelector(state => state.filtresConseillers?.searchInput);
   const conseillers = useSelector(state => state.conseiller);
 
-  const dateFin = useSelector(state => state.filtresEtTris?.dateFin);
-  const ordre = useSelector(state => state.filtresEtTris?.ordre);
+  const dateFin = useSelector(state => state.filtresConseillers?.dateFin);
+  const ordre = useSelector(state => state.filtresConseillers?.ordre);
   const currentPage = useSelector(state => state.pagination?.currentPage);
 
   const exportConseillerFileBlob = useSelector(state => state.exports);
@@ -32,7 +32,7 @@ function FiltresEtTrisConseillers() {
 
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresEtTrisStatsActions.changeFiltreRegion(e.target.value));
+    dispatch(filtresConseillersActions.changeFiltreRegion(e.target.value));
   };
 
   const exportDonneesConseiller = () => {
@@ -44,9 +44,9 @@ function FiltresEtTrisConseillers() {
     dispatch(paginationActions.setPage(1));
     const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
     if (searchByStructure === true) {
-      dispatch(filtresEtTrisStatsActions.changeNomStructure(value));
+      dispatch(filtresConseillersActions.changeNomStructure(value));
     } else {
-      dispatch(filtresEtTrisStatsActions.changeNomConseiller(value));
+      dispatch(filtresConseillersActions.changeNomConseiller(value));
     }
   };
 
@@ -79,11 +79,14 @@ function FiltresEtTrisConseillers() {
       <Spinner loading={loading} />
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
-          <div className="fr-toggle fr-ml-md-auto fr-toggle--label-left">
-            <input type="checkbox" onChange={handleChangeToggle} className="fr-toggle__input" aria-describedby="toggle-698-hint-text" id="toggle-698" />
-            <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
-              S&eacute;lectionner le type de recherche
-            </label>
+          <div className="fr-ml-auto fr-col-12 fr-col-md-4 fr-mb-4w fr-mb-md-0">
+            <div className="fr-search-bar fr-search-bar" id="search" role="search" >
+              <input className="fr-input" defaultValue={searchInput ?? ''}
+                placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
+              <button className="fr-btn" onClick={rechercheParNomOuNomStructure} title="Rechercher par nom">
+                Rechercher
+              </button>
+            </div>
           </div>
         </div>
         <div className="fr-grid-row">
@@ -95,14 +98,11 @@ function FiltresEtTrisConseillers() {
               )}
             </select>
           </div>
-          <div className="fr-ml-auto fr-col-12 fr-col-md-4 fr-mb-4w fr-mb-md-0">
-            <div className="fr-search-bar fr-search-bar" id="search" role="search" >
-              <input className="fr-input" defaultValue={searchInput ?? ''}
-                placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
-              <button className="fr-btn" onClick={rechercheParNomOuNomStructure} title="Rechercher par nom">
-                Rechercher
-              </button>
-            </div>
+          <div className="fr-toggle fr-ml-md-auto fr-toggle--label-left">
+            <input type="checkbox" onChange={handleChangeToggle} className="fr-toggle__input" aria-describedby="toggle-698-hint-text" id="toggle-698" />
+            <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
+              S&eacute;lectionner le type de recherche
+            </label>
           </div>
         </div>
         <div className="fr-grid-row fr-grid-row--end">
