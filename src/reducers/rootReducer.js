@@ -12,6 +12,7 @@ import conseillerReducer from './conseillerReducer';
 import searchReducer from './searchReducer';
 import statsReducer from './statsReducer';
 import structureReducer from './structureReducer';
+import filtresConseillers from './filtresConseillersReducer';
 import filtresStructuresReducer from './filtresStructuresReducer';
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   statistiques: statistiquesReducer,
   filtresEtTris: filtresEtTrisReducer,
   filtresCandidatures: filtresCandidatures,
+  filtresConseillers: filtresConseillers,
   pagination: paginationReducer,
   exports: exportsReducer,
   alerteEtSpinner: alerteEtSpinnerReducer,
