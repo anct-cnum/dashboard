@@ -26,7 +26,10 @@ function Conseiller({ conseiller, currentPage }) {
         <td>{conseiller?.craCount}</td>
         <td className="btn-actions-conseillers">
           <div className="fr-grid-row">
-            <button className="fr-btn fr-icon-eye-line fr-mr-2w" title="Détail" onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
+            <button
+              className="fr-btn fr-icon-eye-line fr-mr-2w"
+              title="D&eacute;tail"
+              onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
             <Link className="fr-btn fr-icon-line-chart-line" title="Statistiques" target="_blank" rel="noopener noreferrer" to={{
               pathname: `/statistiques/conseiller/${conseiller?._id}`,
               currentPage: currentPage,
