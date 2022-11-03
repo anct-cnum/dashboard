@@ -30,7 +30,12 @@ function ConseillerDetails() {
           <p>Information : {error?.toString()}</p>
         </div>
       }
-      <div className="fr-grid-row fr-grid-row--bottom fr-pt-12w fr-pb-9w">
+      <button
+        onClick={() => window.close()}
+        className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--secondary">
+        Retour &agrave; la liste
+      </button>
+      <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
             <h1>Information CnFS</h1>
@@ -50,7 +55,7 @@ function ConseillerDetails() {
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>T&eacute;l&eacute;phone professionelle</strong><br/>
+              <strong>T&eacute;l&eacute;phone professionnel</strong><br/>
               <span>
                 {conseiller?.telephonePro ?
                   /* espace tous les 2 chiffres après l'indicatif*/

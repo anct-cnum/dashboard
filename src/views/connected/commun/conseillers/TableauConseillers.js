@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, filtresEtTrisStatsActions, paginationActions, conseillerActions } from '../../../../actions';
+import { alerteEtSpinnerActions, filtresConseillersActions, paginationActions, conseillerActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Conseiller from './Conseiller';
@@ -10,20 +10,20 @@ export default function TableauConseillers() {
 
   const dispatch = useDispatch();
 
-  const dateDebut = useSelector(state => state.filtresEtTris?.dateDebut);
-  const dateFin = useSelector(state => state.filtresEtTris?.dateFin);
-  const ordre = useSelector(state => state.filtresEtTris?.ordre);
+  const dateDebut = useSelector(state => state.filtresConseillers?.dateDebut);
+  const dateFin = useSelector(state => state.filtresConseillers?.dateFin);
+  const ordre = useSelector(state => state.filtresConseillers?.ordre);
   const [basculerFiltreRupture, setBasculerFiltreRupture] = useState(false);
   const [basculerFiltreCoordinateur, setBasculerFiltreCoordinateur] = useState(false);
-  const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
+  const ordreNom = useSelector(state => state.filtresConseillers?.ordreNom);
   const loading = useSelector(state => state.conseiller?.loading);
   const error = useSelector(state => state.conseiller?.error);
   const conseillers = useSelector(state => state.conseiller);
-  const filtreCoordinateur = useSelector(state => state.filtresEtTris?.coordinateur);
-  const filtreRupture = useSelector(state => state.filtresEtTris?.rupture);
-  const filtreParNomConseiller = useSelector(state => state.filtresEtTris?.nomConseiller);
-  const filtreParNomStructure = useSelector(state => state.filtresEtTris?.nomStructure);
-  const filtreRegion = useSelector(state => state.filtresEtTris?.region);
+  const filtreCoordinateur = useSelector(state => state.filtresConseillers?.coordinateur);
+  const filtreRupture = useSelector(state => state.filtresConseillers?.rupture);
+  const filtreParNomConseiller = useSelector(state => state.filtresConseillers?.nomConseiller);
+  const filtreParNomStructure = useSelector(state => state.filtresConseillers?.nomStructure);
+  const filtreRegion = useSelector(state => state.filtresConseillers?.region);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
 
@@ -39,18 +39,18 @@ export default function TableauConseillers() {
 
   const handleSortCoordinateur = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresEtTrisStatsActions.changeCoordinateur(e.target.id));
+    dispatch(filtresConseillersActions.changeCoordinateur(e.target?.id));
     setBasculerFiltreCoordinateur(false);
   };
   const handleSortRupture = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresEtTrisStatsActions.changeRupture(e.target.id));
+    dispatch(filtresConseillersActions.changeRupture(e.target?.id));
     setBasculerFiltreRupture(false);
   };
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresEtTrisStatsActions.changeOrdre(e.currentTarget?.id));
+    dispatch(filtresConseillersActions.changeOrdre(e.currentTarget?.id));
   };
 
   useEffect(() => {
@@ -127,7 +127,7 @@ export default function TableauConseillers() {
                               </span>
                             </button>
                           </th>
-                          <th>Email professionnel</th>
+                          <th colSpan={conseillers?.items?.total > 0 ? '12' : ''}>Email professionnel</th>
                           <th>
                             <nav className="fr-nav" id="navigation-sort-rupture" role="navigation">
                               <ul className="fr-nav__list">
@@ -146,15 +146,21 @@ export default function TableauConseillers() {
                                           </button>
                                           <hr className="admin-select-hr" />
                                         </li>
-                                        <li className={filtreRupture === 'rupture' ? 'selected' : ''}>
-                                          <button id="rupture" className="admin-select-option border-no-result" onClick={handleSortRupture}>
+                                        <li className={filtreRupture === 'contrat' ? 'selected' : ''}>
+                                          <button id="contrat" className="admin-select-option" onClick={handleSortRupture}>
+                                            Sous contrat
+                                          </button>
+                                          <hr className="admin-select-hr" />
+                                        </li>
+                                        <li className={filtreRupture === 'en-cours' ? 'selected' : ''}>
+                                          <button id="en-cours" className="admin-select-option border-no-result" onClick={handleSortRupture}>
                                             En cours de traitement
                                           </button>
                                           <hr className="admin-select-hr" />
                                         </li>
-                                        <li className={filtreRupture === 'contrat' ? 'selected' : ''}>
-                                          <button id="contrat" className="admin-select-option" onClick={handleSortRupture}>
-                                            Sous contrat
+                                        <li className={filtreRupture === 'rupture' ? 'selected' : ''}>
+                                          <button id="rupture" className="admin-select-option" onClick={handleSortRupture}>
+                                            Valid&eacute;
                                           </button>
                                         </li>
                                       </ul>
@@ -202,8 +208,7 @@ export default function TableauConseillers() {
                             </nav>
                           </th>
                           <th>CRA saisis</th>
-                          <th>D&eacute;tails</th>
-                          <th>Statistiques</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>

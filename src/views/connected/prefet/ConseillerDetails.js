@@ -31,10 +31,15 @@ function ConseillerDetails() {
           <p>Information : {error?.toString()}</p>
         </div>
       }
-      <div className="fr-grid-row fr-grid-row--bottom fr-pt-12w fr-pb-9w">
+      <button
+        onClick={() => window.close()}
+        className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--secondary">
+        Retour &agrave; la liste
+      </button>
+      <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
-            <h1>Information CnFS</h1>
+            <h1>Informations CnFS</h1>
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
@@ -51,7 +56,7 @@ function ConseillerDetails() {
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>T&eacute;l&eacute;phone professionelle</strong><br/>
+              <strong>T&eacute;l&eacute;phone professionnel</strong><br/>
               <span>
                 {conseiller?.telephonePro ?
                   /* espace tous les 2 chiffres après l'indicatif*/
@@ -87,11 +92,35 @@ function ConseillerDetails() {
         </div>
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
-            <h1>Information de la structure</h1>
+            <h1>Informations de la structure</h1>
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-6">
+            <div className="fr-mb-3w">
+              <strong>Nom de la structure</strong><br/>
+              <span>{structure?.nom ?? '-'}</span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Id</strong><br/>
+              <span>{structure?.idPG ?? '-'}</span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>T&eacute;l&eacute;phone</strong><br/>
+              <span>
+                {structure?.contact?.telephone ?
+                  /* espace tous les 2 chiffres après l'indicatif*/
+                  structure?.contact?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
+                  <>-</>
+                }
+              </span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Siret</strong><br/>
+              <span>{structure?.siret ?? '-'}</span>
+            </div>
+          </div>
+          <div className="fr-col-3">
             <div className="fr-mb-3w">
               <strong>Email</strong><br/>
               {structure?.contact?.email &&
@@ -114,26 +143,6 @@ function ConseillerDetails() {
             <div className="fr-mb-3w">
               <strong>Fonction</strong><br/>
               <span>{structure?.contact?.fonction ?? '-'}</span>
-            </div>
-          </div>
-          <div className="fr-col-3">
-            <div className="fr-mb-3w">
-              <strong>Id</strong><br/>
-              <span>{structure?.idPG ?? '-'}</span>
-            </div>
-            <div className="fr-mb-3w">
-              <strong>T&eacute;l&eacute;phone</strong><br/>
-              <span>
-                {structure?.contact?.telephone ?
-                  /* espace tous les 2 chiffres après l'indicatif*/
-                  structure?.contact?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
-                  <>-</>
-                }
-              </span>
-            </div>
-            <div className="fr-mb-3w">
-              <strong>Siret</strong><br/>
-              <span>{structure?.siret ?? '-'}</span>
             </div>
           </div>
         </div>

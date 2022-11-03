@@ -81,7 +81,7 @@ export default function TableauStructures() {
                               </span>
                             </button>
                           </th>
-                          <th>
+                          <th colSpan={structures?.items?.total > 0 ? '12' : ''}>
                             <button id="nom-structure" className="filtre-btn" onClick={ordreColonne}>
                               <span>Nom de la structure
                                 {(ordreNom !== 'nom-structure' || ordreNom === 'nom-structure' && ordre) &&
@@ -95,7 +95,7 @@ export default function TableauStructures() {
                           </th>
                           <th>Nom</th>
                           <th>Pr&eacute;nom</th>
-                          <th>Email</th>
+                          <th colSpan={structures?.items?.total > 0 ? '12' : ''}>Email</th>
                           <th>T&eacute;l&eacute;phone</th>
                           <th>D&eacute;tails</th>
                           <th>Instruction</th>
@@ -104,7 +104,7 @@ export default function TableauStructures() {
                       </thead>
                       <tbody>
                         {!error && !loading && structures?.items?.data?.map((structure, idx) => {
-                          return (<Structure key={idx} structure={structure} currentPage={currentPage} />);
+                          return (<Structure key={idx} structure={structure} />);
                         })
                         }
                         {(!structures?.items || structures?.items?.total === 0) &&

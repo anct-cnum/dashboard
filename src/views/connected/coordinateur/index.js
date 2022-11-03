@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import Exports from './Exports';
 import ConseillerDetails from './ConseillerDetails';
+import TableauStructures from './structures/TableauStructures';
 
 export default function Coordinateur() {
 
@@ -10,6 +11,7 @@ export default function Coordinateur() {
     <>
       <Routes>
         <Route path="/coordinateur_coop/informations" element={<MesInformations />} />
+        <Route path="/coordinateur_coop/liste-structures" element={<TableauStructures />} />
         <Route path="/coordinateur_coop/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/coordinateur_coop/exports" element={<Exports />} />
       </Routes>
