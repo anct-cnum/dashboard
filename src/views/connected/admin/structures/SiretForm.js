@@ -52,9 +52,9 @@ function SiretForm({ setDisplaySiretForm, structureId, structureSiret }) {
                     <div className="fr-modal__content">
                       <h1 id="fr-modal-2-title" className="fr-modal__title">
                         <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                            Voulez-vous mettre à jour le SIRET de la structure ?
+                            Voulez-vous mettre &agrave; jour le SIRET de la structure ?
                       </h1>
-                      <p>Le SIRET demandé fait référence à cette structure :</p>
+                      <p>Le SIRET demand&eacute; fait r&eacute;f&eacute;rence &agrave; cette structure :</p>
                       <p><b>{siretValid}</b></p>
                     </div>
                     <div className="fr-modal__footer">
