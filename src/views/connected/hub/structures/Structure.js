@@ -14,7 +14,7 @@ function Structure({ structure }) {
         <td colSpan="12" style={{ width: '20rem' }}>{structure?.contact?.email}</td>
         <td>{structure?.contact?.telephone}</td>
         <td>
-          <button className="fr-btn fr-icon-eye-line" onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}/>
+          <button title="D&eacute;tail" className="fr-btn fr-icon-eye-line" onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}/>
         </td>
       </tr>
     </>
