@@ -4,6 +4,10 @@ export const structureActions = {
   get,
   getAll,
   patch,
+  updateStructureEmail,
+  updateStructureSiret,
+  verifyStructureSiret,
+  cancelStructureSiret,
   hiddenMessageError
 };
 
@@ -78,6 +82,91 @@ function patch(id, info) {
   }
   function failure(error) {
     return { type: 'PATCH_STRUCTURE_FAILURE', error };
+  }
+}
+
+function verifyStructureSiret(siret) {
+
+  return dispatch => {
+    dispatch(request());
+
+    structureService.verifyStructureSiret(siret)
+    .then(
+      result => dispatch(success(result.nomStructure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'VERIFY_STRUCTURE_SIRET_REQUEST' };
+  }
+  function success(nomStructure) {
+    return { type: 'VERIFY_STRUCTURE_SIRET_SUCCESS', nomStructure };
+  }
+  function failure(error) {
+    return { type: 'VERIFY_STRUCTURE_SIRET_FAILURE', error };
+  }
+}
+
+function updateStructureEmail(email, structureId) {
+
+  return dispatch => {
+    dispatch(request());
+
+    structureService.updateStructureEmail(email, structureId)
+    .then(
+      structure => dispatch(success(structure.emailUpdated)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_STRUCTURE_EMAIL_REQUEST' };
+  }
+  function success(emailUpdated) {
+    return { type: 'UPDATE_STRUCTURE_EMAIL_SUCCESS', emailUpdated };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_STRUCTURE_EMAIL_FAILURE', error };
+  }
+}
+
+function updateStructureSiret(siret, structureId) {
+
+  return dispatch => {
+    dispatch(request());
+
+    structureService.updateStructureSiret(siret, structureId)
+    .then(
+      structure => dispatch(success(structure.siretUpdated)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_STRUCTURE_SIRET_REQUEST' };
+  }
+  function success(siretUpdated) {
+    return { type: 'UPDATE_STRUCTURE_SIRET_SUCCESS', siretUpdated };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_STRUCTURE_SIRET_FAILURE', error };
+  }
+}
+
+function cancelStructureSiret() {
+  return dispatch => {
+    dispatch(request());
+  };
+
+  function request() {
+    return { type: 'CANCEL_STRUCTURE_SIRET_REQUEST' };
   }
 }
 

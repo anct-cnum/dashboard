@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { structureActions } from '../../../../actions';
+import SiretForm from './SiretForm';
+import EmailForm from './EmailForm';
 
 function StructureDetails() {
 
@@ -10,6 +12,8 @@ function StructureDetails() {
   const { idStructure } = useParams();
   const structure = useSelector(state => state.structure?.structure);
   const [displaySiretForm, setDisplaySiretForm] = useState(false);
+  const [displayFormEmail, setDisplayFormEmail] = useState(false);
+  const error = useSelector(state => state.structure?.error);
 
   useEffect(() => {
     if (structure?._id !== idStructure) {
@@ -18,11 +22,26 @@ function StructureDetails() {
   }, [structure]);
 
   return (
-    <div className="fr-container conseillerDetails">
-      <div className="fr-grid-row fr-grid-row--bottom fr-pt-12w fr-pb-9w">
+    <div className="fr-container structureDetails">
+      {(error !== undefined && error !== false && error?.statut !== 404) &&
+        <div className="fr-alert fr-alert--error fr-alert--sm fr-mb-4w">
+          <p>Une erreur est survenue : {error.message}</p>
+        </div>
+      }
+      {(error !== undefined && error !== false && error?.statut === 404) &&
+        <div className="fr-alert fr-alert--info fr-alert--sm fr-mb-4w">
+          <p>Information : {error.message}</p>
+        </div>
+      }
+      <button
+        onClick={() => window.close()}
+        className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--secondary">
+        Retour &agrave; la liste
+      </button>
+      <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
-            <h1>Information Structure</h1>
+            <h1>Informations Structure</h1>
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
@@ -33,10 +52,17 @@ function StructureDetails() {
             </div>
             <div className="fr-mb-3w">
               <strong>Siret</strong><br/>
-              <button onClick={() => setDisplaySiretForm(true)} className="fr-grid-row fr-text--md">
-                <span>{structure?.siret ?? '-'}</span>
-                <span className="fr-icon-edit-line"></span>
-              </button>
+              {displaySiretForm === true ?
+                <div style={{ width: '320px' }}>
+                  <SiretForm setDisplaySiretForm={setDisplaySiretForm} structureId={structure?._id} structureSiret={structure?.siret}/>
+                </div> :
+                <div>
+                  <span>{structure?.siret ?? '-'}</span>
+                  <button onClick={() => setDisplaySiretForm(true)} className="fr-grid fr-ml-1w">
+                    <span className="fr-icon-edit-line"></span>
+                  </button>
+                </div>
+              }
             </div>
             <div className="fr-mb-3w">
               <strong>Code Postal</strong><br/>
@@ -44,7 +70,7 @@ function StructureDetails() {
             </div>
             <div className="fr-mb-3w">
               <strong>Adresse</strong><br/>
-              <span>{structure?.type ?? '-'}</span>
+              <span>{structure?.adresseFormat ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Type</strong><br/>
@@ -60,13 +86,24 @@ function StructureDetails() {
           <div className="fr-col-3">
             <div className="fr-mb-3w">
               <strong>Email</strong><br/>
-              {structure?.contact?.email &&
-              <a className="email"href={'mailto:' + structure?.contact?.email}>
-                {structure?.contact?.email}
-              </a>
-              }
-              {!structure?.contact?.email &&
+              {displayFormEmail === true ?
+                <div style={{ width: '320px' }}>
+                  <EmailForm setDisplayFormEmail={setDisplayFormEmail} structureId={structure?._id} structureEmail={structure?.contact?.email} />
+                </div> : <div>
+                  {structure?.contact?.email &&
+                  <div>
+                    <a className="email"href={'mailto:' + structure?.contact?.email}>
+                      {structure?.contact?.email}
+                    </a>
+                    <button onClick={() => setDisplayFormEmail(true)} className="fr-grid fr-ml-1w">
+                      <span className="fr-icon-edit-line"></span>
+                    </button>
+                  </div>
+                  }
+                  {!structure?.contact?.email &&
               <span>-</span>
+                  }
+                </div>
               }
             </div>
             <div className="fr-mb-3w">
@@ -104,7 +141,7 @@ function StructureDetails() {
           <div className="fr-col-5">
             <div className="fr-mb-3w">
               <strong>Nombre de cra total cumul&eacute;s</strong><br/>
-              <span>-</span>
+              <span>{structure?.craCount ?? '-'}</span>
             </div>
           </div>
         </div>

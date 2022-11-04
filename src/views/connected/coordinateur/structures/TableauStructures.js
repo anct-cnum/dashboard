@@ -85,7 +85,7 @@ export default function TableauStructures() {
                           <th>Pr&eacute;nom</th>
                           <th colSpan={structures?.items?.total > 0 ? '12' : ''}>Email</th>
                           <th>T&eacute;l&eacute;phone</th>
-                          <th>D&eacute;tails</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
