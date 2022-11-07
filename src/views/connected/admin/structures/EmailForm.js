@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { structureActions } from '../../../../actions';
+import { valideInputEmail } from '../../../../utils/formatagesUtils';
 
 function EmailForm({ setDisplayFormEmail, structureId, structureEmail }) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState(structureEmail);
-  const valideEmail = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
 
   const handleForm = e => {
     const { value } = e.target;
@@ -14,7 +14,7 @@ function EmailForm({ setDisplayFormEmail, structureId, structureEmail }) {
   };
   const ChangeEmail = () => {
     if (structureId) {
-      dispatch(structureActions.updateStructureEmail(email.toLocaleLowerCase(), structureId));
+      dispatch(structureActions.updateStructureEmail(email.toLocaleLowerCase().trim(), structureId));
       setDisplayFormEmail(false);
     }
   };
@@ -26,7 +26,7 @@ function EmailForm({ setDisplayFormEmail, structureId, structureEmail }) {
       </div>
       <button onClick={() => setDisplayFormEmail(false)} className="fr-btn fr-btn--secondary">Annuler</button>
       <button className="fr-btn" onClick={ChangeEmail}
-        disabled={(!valideEmail.test(email) || email === structureEmail) ? 'disabled' : ''}
+        disabled={(!valideInputEmail(email) || email === structureEmail) ? 'disabled' : ''}
         style={{ float: 'right' }}>
         Valider
       </button>

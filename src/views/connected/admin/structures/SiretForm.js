@@ -2,18 +2,15 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { structureActions } from '../../../../actions';
+import { validInputSiret } from '../../../../utils/formatagesUtils';
 
 function SiretForm({ setDisplaySiretForm, structureId, structureSiret }) {
   const dispatch = useDispatch();
   const siretValid = useSelector(state => state.structure?.nomStructure);
 
   const [siret, setSiret] = useState(structureSiret);
-  const reg = new RegExp('^[0-9]{14}$');
 
-  const filtreValue = value => {
-    //eslint-disable-next-line
-    return value.replace(/\s/g,'');
-  };
+  const filtreValue = value => value.replace(/\s/g, '');
 
   const handleForm = e => {
     let { value } = e.target;
@@ -22,7 +19,7 @@ function SiretForm({ setDisplaySiretForm, structureId, structureSiret }) {
   };
 
   const verifySiret = () => {
-    if (siret?.length === 14 && reg.test(siret) && structureId) {
+    if (validInputSiret(siret) && structureId) {
       dispatch(structureActions.verifyStructureSiret(siret));
     }
   };
@@ -52,9 +49,9 @@ function SiretForm({ setDisplaySiretForm, structureId, structureSiret }) {
                     <div className="fr-modal__content">
                       <h1 id="fr-modal-2-title" className="fr-modal__title">
                         <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                            Voulez-vous mettre &agrave; jour le SIRET de la structure ?
+                            Voulez-vous mettre &agrave; jour le SIRET de la structure&nbsp;?
                       </h1>
-                      <p>Le SIRET demand&eacute; fait r&eacute;f&eacute;rence &agrave; cette structure :</p>
+                      <p>Le SIRET demand&eacute; fait r&eacute;f&eacute;rence &agrave; cette structure&nbsp;:</p>
                       <p><b>{siretValid}</b></p>
                     </div>
                     <div className="fr-modal__footer">
@@ -81,7 +78,7 @@ function SiretForm({ setDisplaySiretForm, structureId, structureSiret }) {
       </div>
       <button onClick={() => setDisplaySiretForm(false)} className="fr-btn fr-btn--secondary">Annuler</button>
       <button style={{ float: 'right' }} className="fr-btn" onClick={verifySiret}
-        disabled={(!reg.test(siret) || siret === structureSiret) ? 'disabled' : ''}>Valider</button>
+        disabled={(!validInputSiret(siret) || siret === structureSiret) ? 'disabled' : ''}>Valider</button>
     </div>
   );
 }

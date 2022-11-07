@@ -36,3 +36,9 @@ export const valideInputEmail = email => {
   
   return regexValidEmail.test(email);
 };
+
+export const validInputSiret = siret => {
+  const regexValidSiret = new RegExp(/^[0-9]{14}$/);
+  
+  return regexValidSiret.test(siret);
+};
