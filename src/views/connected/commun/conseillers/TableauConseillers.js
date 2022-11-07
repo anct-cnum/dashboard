@@ -61,6 +61,7 @@ export default function TableauConseillers() {
   }, [conseillers]);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if (!error) {
       if (initConseiller === false) {
         dispatch(paginationActions.setPage(1));
