@@ -30,10 +30,11 @@ function Conseiller({ conseiller, currentPage }) {
               className="fr-btn fr-icon-eye-line fr-mr-2w"
               title="D&eacute;tail"
               onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
-            <Link className="fr-btn fr-icon-line-chart-line" title="Statistiques" target="_blank" rel="noopener noreferrer" to={{
-              pathname: `/statistiques/conseiller/${conseiller?._id}`,
+            <Link className="fr-btn fr-icon-line-chart-line" title="Statistiques" to={{
+              pathname: `/statistiques-conseiller/${conseiller?._id}`,
               currentPage: currentPage,
-              origin: '/liste-conseillers' }}>
+              origin: `/liste-conseillers`,
+              idConseiller: conseiller?._id }}>
             </Link>
           </div>
         </td>

@@ -2,51 +2,49 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { alerteEtSpinnerActions, statistiquesActions, structureActions } from '../../../../actions';
+import { alerteEtSpinnerActions, statistiquesActions, conseillerActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
-import ElementCodePostal from './Components/graphiques/ElementCodePostal';
 import LeftPage from './Components/graphiques/LeftPage';
 import RightPage from './Components/graphiques/RightPage';
 import BottomPage from './Components/graphiques/BottomPage';
 import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 
-export default function GraphiqueStructure() {
+export default function GraphiqueConseiller() {
 
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const idStructure = location.pathname.split('/')[2];
+  const idConseiller = location.pathname.split('/')[2];
 
-  const structureLoading = useSelector(state => state.structure?.loading);
-  const structureError = useSelector(state => state.structure?.error);
-  const structure = useSelector(state => state.structure?.structure);
+  const conseillerLoading = useSelector(state => state.conseiller?.loading);
+  const conseillerError = useSelector(state => state.conseiller?.error);
+  const conseiller = useSelector(state => state.conseiller?.conseiller);
 
   const statistiquesLoading = useSelector(state => state.statistiques?.loading);
   const statistiquesError = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const loadingExport = useSelector(state => state.exports?.loading);
 
-  const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
   const dateFin = useSelector(state => state.statistiques?.dateFin);
 
   useEffect(() => {
-    if (!structureError && !structure || structure?._id !== idStructure) {
-      dispatch(structureActions.get(idStructure));
-    } else if (structureError) {
+    if (!conseillerError && !conseiller || conseiller?._id !== idConseiller) {
+      dispatch(conseillerActions.get(idConseiller));
+    } else if (conseillerError) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'La structure n\'a pas pu être chargée !',
+        message: 'La conseiller n\'a pas pu être chargée !',
         status: null, description: null
       }));
     }
-  }, [structure, structureError]);
+  }, [conseiller, conseillerError]);
 
   useEffect(() => {
-    if (!statistiquesError && structure) {
-      dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal));
+    if (!statistiquesError && conseiller) {
+      dispatch(statistiquesActions.getStatistiquesConseiller(dateDebut, dateFin, idConseiller));
     } else if (statistiquesError) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
@@ -54,23 +52,25 @@ export default function GraphiqueStructure() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, idStructure, codePostal, statistiquesError, structure]);
+  }, [dateDebut, dateFin, idConseiller, statistiquesError, conseiller]);
+
+  const formatNomStatistiques = () => {
+    const formatNom = conseiller?.nom.charAt(0).toUpperCase() + conseiller?.nom.slice(1);
+    const formatPrenom = conseiller?.prenom.charAt(0).toUpperCase() + conseiller?.prenom.slice(1);
+
+    return `${formatNom} ${formatPrenom}`;
+  };
 
   return (
     <div className="statistiques">
-      <Spinner loading={statistiquesLoading || structureLoading || loadingExport} />
+      <Spinner loading={statistiquesLoading || conseillerLoading || loadingExport} />
       <div className="structure fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <h1 className={`titre ${structure?.nom.length > 50 ? 'titre-long' : ''}`} >Statistiques - {structure?.nom}</h1>
+            <h1 className={`titre ${conseiller?.nom.length > 50 ? 'titre-long' : ''}`} >Statistiques - {formatNomStatistiques()}</h1>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w print-graphique">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
-          </div>
-          <div className="fr-col-12 fr-col-md-6 fr-col-lg-3 fr-mb-6w print-graphique">
-            {structure !== undefined &&
-              <ElementCodePostal idStructure={idStructure} />
-            }
           </div>
           <div className="fr-col-12 fr-col-offset-lg-1 fr-col-lg-4">
             <hr className="fr-hr fr-mt-3v"/>
@@ -87,15 +87,13 @@ export default function GraphiqueStructure() {
             <StatistiquesBanniere
               dateDebut={new Date('2020-09-01')}
               dateFin={dateFin}
-              typeStats="structure"
-              id={idStructure}
-              codePostal={codePostal}
-              previousUrl="/statistiques-structures"
+              previousUrl="/liste-conseillers"
+              typeStats="conseiller"
+              id={idConseiller}
             />
           </div>
         }
       </div>
     </div>
   );
-
 }

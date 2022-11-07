@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal }) {
+function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, previousUrl, codePostal }) {
 
   const dispatch = useDispatch();
   
@@ -14,7 +14,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
   const error = useSelector(state => state.exports?.error);
   const typeTerritoire = useSelector(state => state.filtresEtTris?.territoire);
   const territoire = useSelector(state => state.statistiques?.territoire);
-  const linkTo = { pathname: '/statistiques-' + typeStats + 's' };
+  const linkTo = { pathname: previousUrl };
 
   function getTypeStatistique(type) {
     let typeTarget = '';
@@ -23,6 +23,9 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
         typeTarget = type;
         break;
       case 'structure':
+        typeTarget = type;
+        break;
+      case 'conseiller':
         typeTarget = type;
         break;
       default:
@@ -92,6 +95,7 @@ StatistiquesBanniere.propTypes = {
   dateFin: PropTypes.instanceOf(Date),
   codePostal: PropTypes.string,
   typeStats: PropTypes.string,
+  previousUrl: PropTypes.string,
   id: PropTypes.string,
 };
 
