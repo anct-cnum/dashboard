@@ -4,6 +4,7 @@ import download from 'downloadjs';
 
 export const conseillerActions = {
   get,
+  getCandidat,
   getAllRecruter,
   updateStatus,
   updateDateRecrutement,
@@ -39,6 +40,31 @@ function get(id) {
 
 }
 
+function getCandidat(id) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.getCandidat(id)
+    .then(
+      candidat => dispatch(success(candidat)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CANDIDAT_REQUEST' };
+  }
+  function success(candidat) {
+    return { type: 'GET_CANDIDAT_SUCCESS', candidat };
+  }
+  function failure(error) {
+    return { type: 'GET_CANDIDAT_FAILURE', error };
+  }
+
+}
+
 function getAllCandidats({
   departement = null,
   region = null,
@@ -53,7 +79,6 @@ function getAllCandidats({
   persoFilters }) {
   return dispatch => {
     dispatch(request());
-
     let promises = [];
     if (misesEnRelation) {
       let promise = conseillerService.getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters);

@@ -13,26 +13,26 @@ import pixUtilisation from '../../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../../assets/icons/pix-citoyen.png';
 
-function ConseillerDetails() {
+function CandidatDetails() {
 
   const location = useLocation();
   const { miseEnRelation, currentPage, currentFilter } = location.state;
   const dispatch = useDispatch();
+  let { id } = useParams();
+
+  useEffect(() => {
+    dispatch(conseillerActions.getCandidat(id));
+  }, []);
+
   const conseiller = useSelector(state => state.conseiller);
   const errorUpdateStatus = useSelector(state => state.conseiller?.errorUpdateStatus);
   const downloading = useSelector(state => state.conseiller?.downloading);
   let dateRecrutementUpdated = useSelector(state => state.conseiller?.dateRecrutementUpdated);
   let dateRecrutement = useSelector(state => state.conseiller?.miseEnRelation?.dateRecrutement) ?? null;
 
-  let { id } = useParams();
-
   const updateStatut = statut => {
     dispatch(conseillerActions.updateStatus({ id: miseEnRelation?._id, statut }));
   };
-
-  useEffect(() => {
-    dispatch(conseillerActions.get(id));
-  }, []);
 
   const downloadCV = () => {
     dispatch(conseillerActions.getCurriculumVitae(conseiller?.conseiller?._id, conseiller?.conseiller));
@@ -213,8 +213,8 @@ function ConseillerDetails() {
   );
 }
 
-ConseillerDetails.propTypes = {
+CandidatDetails.propTypes = {
   location: PropTypes.object
 };
 
-export default ConseillerDetails;
+export default CandidatDetails;
