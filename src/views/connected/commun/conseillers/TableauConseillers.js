@@ -155,7 +155,7 @@ export default function TableauConseillers() {
                                         </li>
                                         <li className={filtreRupture === 'en-cours' ? 'selected' : ''}>
                                           <button id="en-cours" className="admin-select-option border-no-result" onClick={handleSortRupture}>
-                                            Rupture demand&eacute;e
+                                            Rupture en cours de traitement
                                           </button>
                                           <hr className="admin-select-hr" />
                                         </li>
