@@ -93,11 +93,8 @@ function handleResponse(response) {
         authenticationService.logout();
         return Promise.reject({ error: 'Identifiants incorrects' });
       }
-      if (data) {
-        return Promise.reject({ message: data.message, statut: response.status });
-      }
-
-      return Promise.reject({ 'message': response.statusText, 'statut': response.status });
+      const error = data || response.statusText;
+      return Promise.reject(error);
     }
   
     return data;

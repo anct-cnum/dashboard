@@ -25,12 +25,12 @@ function StructureDetails() {
     <div className="fr-container structureDetails">
       {(error !== undefined && error !== false && error?.statut !== 404) &&
         <div className="fr-alert fr-alert--error fr-alert--sm fr-mb-4w">
-          <p>Une erreur est survenue : {error.message.toString()}</p>
+          <p>Une erreur est survenue : {error.message?.toString()}</p>
         </div>
       }
       {(error !== undefined && error !== false && error?.statut === 404) &&
         <div className="fr-alert fr-alert--info fr-alert--sm fr-mb-4w">
-          <p>Information : {error.message.toString()}</p>
+          <p>Information : {error.message?.toString()}</p>
         </div>
       }
       <button
@@ -91,7 +91,7 @@ function StructureDetails() {
               }
             </div>
           </div>
-          <div className="fr-col-3">
+          <div className="fr-col-6">
             <div className="fr-mb-3w">
               <strong>Email</strong><br/>
               {displayFormEmail === true ?
