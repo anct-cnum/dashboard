@@ -20,7 +20,7 @@ export const conseillerService = {
 function get(id) {
   const requestOptions = {
     method: 'GET',
-    headers: Object.assign(authHeader())
+    headers: authHeader()
   };
   return fetch(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
@@ -28,7 +28,7 @@ function get(id) {
 function getCandidat(id) {
   const requestOptions = {
     method: 'GET',
-    headers: Object.assign(authHeader())
+    headers: authHeader()
   };
   return fetch(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
@@ -37,7 +37,7 @@ function getCandidat(id) {
 function getAllRecruter(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre) {
   const requestOptions = {
     method: 'GET',
-    headers: Object.assign(authHeader())
+    headers: authHeader()
   };
   let {
     ordreColonne,
