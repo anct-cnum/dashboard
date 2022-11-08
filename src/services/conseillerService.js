@@ -5,6 +5,7 @@ import { conseillerQueryStringParameters } from '../utils/queryUtils';
 
 export const conseillerService = {
   get,
+  getCandidat,
   getAllRecruter,
   getAllCandidats,
   getAllMisesEnRelation,
@@ -22,6 +23,14 @@ function get(id) {
     headers: Object.assign(authHeader())
   };
   return fetch(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
+}
+
+function getCandidat(id) {
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(authHeader())
+  };
+  return fetch(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
 // eslint-disable-next-line max-len
@@ -71,7 +80,6 @@ function getAllCandidats(departement, region, com, search, page, filter, sortDat
   if (filter) {
     uri += `&filter=${filter}`;
   }
-
   return fetch(uri, requestOptions).then(handleResponse);
 }
 
