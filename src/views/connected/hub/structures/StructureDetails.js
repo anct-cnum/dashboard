@@ -8,6 +8,7 @@ function StructureDetails() {
   const dispatch = useDispatch();
   const { idStructure } = useParams();
   const structure = useSelector(state => state.structure?.structure);
+  const error = useSelector(state => state.structure?.error);
 
   useEffect(() => {
     if (structure?._id !== idStructure) {
@@ -17,6 +18,11 @@ function StructureDetails() {
 
   return (
     <div className="fr-container conseillerDetails">
+      {(error !== undefined && error !== false && error?.statut !== 404) &&
+        <div className="fr-alert fr-alert--error fr-alert--sm fr-mb-4w">
+          <p>Une erreur est survenue : {error.message.toString()}</p>
+        </div>
+      }
       <button
         onClick={() => window.close()}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--secondary">

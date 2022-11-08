@@ -25,12 +25,12 @@ function StructureDetails() {
     <div className="fr-container structureDetails">
       {(error !== undefined && error !== false && error?.statut !== 404) &&
         <div className="fr-alert fr-alert--error fr-alert--sm fr-mb-4w">
-          <p>Une erreur est survenue : {error.message}</p>
+          <p>Une erreur est survenue : {error.message.toString()}</p>
         </div>
       }
       {(error !== undefined && error !== false && error?.statut === 404) &&
         <div className="fr-alert fr-alert--info fr-alert--sm fr-mb-4w">
-          <p>Information : {error.message}</p>
+          <p>Information : {error.message.toString()}</p>
         </div>
       }
       <button

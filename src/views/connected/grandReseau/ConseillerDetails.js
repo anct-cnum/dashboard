@@ -40,8 +40,19 @@ function ConseillerDetails() {
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--secondary">
         Retour &agrave; la liste
       </button>
+      <div className="fr-col-12 fr-pt-6w">
+        <h1 className="fr-h1">{formatNomConseiller(conseiller)}</h1>
+      </div>
+      <div className="fr-col-12">
+        <h2 className="fr-h2">Id: {conseiller?.idPG}</h2>
+      </div>
+      <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
+        <div className="fr-col-12">
+          <hr style={{ borderWidth: '0.5px' }}/>
+        </div>
+      </div>
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
-        <div className="fr-grid-row fr-mt-6w fr-mb-4w">
+        <div className="fr-grid-row fr-mt-5w fr-mb-4w">
           <div className="fr-col-12 titreCol">
             <h1>Informations CnFS</h1>
           </div>
