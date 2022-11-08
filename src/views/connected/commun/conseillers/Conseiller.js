@@ -12,11 +12,12 @@ function Conseiller({ conseiller, currentPage }) {
         <td>{conseiller?.idPG}</td>
         <td>{conseiller?.nom}</td>
         <td>{conseiller?.prenom}</td>
-        <td colSpan="12" style={{ width: '28rem' }}>
+        <td>
           <a className="email"href={'mailto:' + conseiller?.address}>
             {conseiller?.address}
           </a>
         </td>
+        <td>{conseiller?.nomStructure}</td>
         <td className="center-text">
           {conseiller.rupture}
         </td>
@@ -24,8 +25,8 @@ function Conseiller({ conseiller, currentPage }) {
           {conseiller?.estCoordinateur ? 'Oui' : 'Non' }
         </td>
         <td>{conseiller?.craCount}</td>
-        <td className="btn-actions-conseillers">
-          <div className="fr-grid-row">
+        <td>
+          <div className="btn-actions-conseillers">
             <button
               className="fr-btn fr-icon-eye-line fr-mr-2w"
               title="D&eacute;tail"

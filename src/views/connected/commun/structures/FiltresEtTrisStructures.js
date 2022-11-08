@@ -99,6 +99,9 @@ function FiltresEtTrisStructures() {
       <Spinner loading={loading} />
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
+          <h3 className="fr-h3">Liste des structures</h3>
+        </div>
+        <div className="fr-grid-row">
           <div className="fr-select-group fr-col-5" id="filtre-region">
             <select className="fr-select" onChange={selectFiltreRegion}>
               <option value={'tous'}>Toute r&eacute;gion</option>

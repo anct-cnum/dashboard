@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { conseillerActions, structureActions } from '../../../actions';
+import { formatNomConseiller } from '../../../utils/formatagesUtils';
 
 function ConseillerDetails() {
 
@@ -25,6 +26,9 @@ function ConseillerDetails() {
 
   return (
     <div className="fr-container conseillerDetails">
+      <div className="fr-col-12 titreCol">
+        <h1>{conseiller?.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}</h1>
+      </div>
       <button
         onClick={() => window.close()}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--secondary">

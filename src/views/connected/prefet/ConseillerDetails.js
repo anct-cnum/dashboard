@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { conseillerActions, structureActions } from '../../../actions';
+import { formatNomConseiller } from '../../../utils/formatagesUtils';
 
 function ConseillerDetails() {
 
@@ -26,6 +27,9 @@ function ConseillerDetails() {
 
   return (
     <div className="fr-container conseillerDetails">
+      <div className="fr-col-12 titreCol">
+        <h1>{conseiller?.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}</h1>
+      </div>
       {error !== undefined && error !== false &&
         <div className="fr-alert fr-alert--info fr-alert--sm ">
           <p>Information : {error?.toString()}</p>

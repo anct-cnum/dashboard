@@ -21,7 +21,6 @@ export default function Accueil() {
 
   return (
     <div className="fr-container fr-my-10w">
-      <p>Bienvenue, vous avez le profil {roleActivated} activé</p>
       {/* routes distinctes en fonction des rôles dans les composants */}
       { roleActivated === 'admin' &&
         <Admin />
