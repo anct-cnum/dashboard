@@ -39,8 +39,8 @@ const signInCallBack = async store => {
     localStorage.setItem('user', JSON.stringify(result?.data));
     localStorage.setItem('roleActivated', result?.data.user.roles[0]);
   })
-  .catch(err => {
-    console.log(err);
+  .catch(error => {
+    dispatch(authenticationActions.failure(error));
     window.location.pathname = '/login';
   });
 };

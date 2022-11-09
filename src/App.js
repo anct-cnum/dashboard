@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import PrivateRoute from './views/connected/PrivateRoute';
 import Login from './views/anonymous/Login';
 import ConfirmationEmail from './views/anonymous/ConfirmationEmail';
@@ -44,30 +44,28 @@ function App() {
       { isLoading === true &&
       <div className="wrapperModal"></div>
       }
-      <Router history={history}>
-        <Header />
-        <Alerte />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/login/:verificationToken" element={<Login />} />
-          <Route path="/confirmation-email/:token" element={<ConfirmationEmail />} />
-          <Route path="/" element={<PrivateRoute/>}>
-            {/* routes communes ici */}
-            <Route path="/documents" element={<Documents />} />
-            <Route path="/certifications" element={<Certifications />} />
-            <Route path="/formation" element={<InscriptionFormation />} />
-            <Route path="/liste-conseillers" element={<TableauConseillers />} />
-            <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
-            <Route path="/statistiques-structures" element={<TableauStructures />} />
-            <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
-            <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
-            <Route path="/statistiques-territoire/:codeTerritoire" element={<GraphiqueTerritoire />} />
-            <Route index element={<Navigate to="/accueil" />} /> {/* pour fixer le warning du react router */}
-            <Route path="*" element={<Accueil />}/>
-          </Route>
-        </Routes>
-        <Footer />
-      </Router>
+      <Header />
+      <Alerte />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/login/:verificationToken" element={<Login />} />
+        <Route path="/confirmation-email/:token" element={<ConfirmationEmail />} />
+        <Route path="/" element={<PrivateRoute/>}>
+          {/* routes communes ici */}
+          <Route path="/documents" element={<Documents />} />
+          <Route path="/certifications" element={<Certifications />} />
+          <Route path="/formation" element={<InscriptionFormation />} />
+          <Route path="/liste-conseillers" element={<TableauConseillers />} />
+          <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
+          <Route path="/statistiques-structures" element={<TableauStructures />} />
+          <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
+          <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
+          <Route path="/statistiques-territoire/:codeTerritoire" element={<GraphiqueTerritoire />} />
+          <Route index element={<Navigate to="/accueil" />} /> {/* pour fixer le warning du react router */}
+          <Route path="*" element={<Accueil />}/>
+        </Route>
+      </Routes>
+      <Footer />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 export const authenticationActions = {
   login,
   changeRoleActivated,
-  refreshToken
+  refreshToken,
+  failure
 };
 
 function login(user) {
@@ -26,4 +27,7 @@ function refreshToken(accessToken) {
   function success(accessToken) {
     return { type: 'REFRESH_TOKEN', accessToken };
   }
+}
+function failure() {
+  return { type: 'LOGIN_FAILURE' };
 }

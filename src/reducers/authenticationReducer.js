@@ -24,6 +24,8 @@ export default function authentication(state = initialState, action) {
       };
     case 'LOGOUT':
       return {};
+    case 'LOGIN_FAILURE':
+      return {};
     case 'CHANGE_ROLE':
       return {
         ...state,
