@@ -1,6 +1,6 @@
-import { authenticationService } from './authenticationService';
-import { roleActivated, authHeader } from '../helpers';
+import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
+import { API } from './api';
 
 export const exportsService = {
   getFile,
@@ -9,12 +9,9 @@ export const exportsService = {
 };
 
 function getFile(name) {
-  const requestOptions = {
-    method: 'GET',
-    headers: Object.assign(authHeader())
-  };
-
-  return fetch(`${apiUrlRoot}/exports/${name}-csv?role=${roleActivated()}`, requestOptions).then(handleResponse);
+  return API.get(`${apiUrlRoot}/exports/${name}-csv?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page) {
@@ -32,46 +29,16 @@ function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, 
 
 async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrdre, ordre) {
   const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports`;
-  const requestOptions = {
-    method: 'GET',
-    headers: Object.assign(
-      authHeader(), {
-        'Accept': 'text/plain',
-        'Content-Type': 'text/plain'
-      })
-  };
-
   const exportTerritoiresRoute = '/territoires-csv';
-  return handleResponse(
-    // eslint-disable-next-line max-len
-    await fetch(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`, requestOptions)
-  );
+  // eslint-disable-next-line max-len
+  const response = await API.get(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`);
+  return response;
 }
 
 function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal) {
-  const requestOptions = {
-    method: 'GET',
-    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
-  };
   const role = type === 'nationales' ? 'anonyme' : roleActivated();
   // eslint-disable-next-line max-len
-  return fetch(`${apiUrlRoot}/exports/statistiques-csv?role=${role}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&conseillerIds=${conseillerIds}`,
-    requestOptions).then(handleResponse);
-}
-
-function handleResponse(response) {
-  return response.blob().then(blob => {
-    const data = blob;
-    if (!response.ok) {
-      if (response.status === 401) {
-        // auto logout if 401 response returned from api
-        authenticationService.logout();
-        history.push('/');
-      }
-      const error = (data && data.message) || { 'message': response.statusText, 'statut': response.status };
-      return Promise.reject(error);
-    }
-
-    return data;
-  });
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&conseillerIds=${conseillerIds}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }

@@ -8,6 +8,13 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
+import { AuthProvider } from 'react-oidc-context';
+import { WebStorageStateStore } from 'oidc-client-ts';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { history } from './helpers';
+import setup from './services/api';
+import signInCallBack from '../src/auth/signInCallBack';
+import apiUrlRoot from './helpers/apiUrl';
 
 if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
   Sentry.init({
@@ -23,12 +30,28 @@ const store = configureStore({
   middleware: [thunk]
 });
 
+const oidcConfig = {
+  client_id: '',
+  client_secret: '',
+  authority: 'https://recette/',
+  redirect_uri: `${apiUrlRoot}/accueil`,
+  post_logout_redirect_uri: `${apiUrlRoot}/login`,
+  userStore: new WebStorageStateStore({ store: window.localStorage }),
+  onSigninCallback: () => signInCallBack(store),
+};
+setup(store);
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <AuthProvider {...oidcConfig}>
+      <Provider store={store}>
+        <Router history={history}>
+          <App />
+        </Router>
+      </Provider>
+    </AuthProvider>
   </React.StrictMode>
 );
 

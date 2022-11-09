@@ -5,7 +5,7 @@ import { valideInputEmail } from '../../../utils/formatagesUtils';
 
 function MesInformations() {
   const dispatch = useDispatch();
-  const userAuth = useSelector(state => state.authentication.user);
+  const userAuth = useSelector(state => state.authentication?.user?.user);
   const [form, setForm] = useState(false);
   const error = useSelector(state => state?.user?.error);
   const [email, setEmail] = useState(userAuth.name);
@@ -31,7 +31,6 @@ function MesInformations() {
       }, 10000);
     }
   };
-
   return (
     <div className="fr-mt-5w fr-mb-5w">
       {flashMessage === true ?

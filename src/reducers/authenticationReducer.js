@@ -7,21 +7,20 @@ const initialState = {
 };
 
 export default function authentication(state = initialState, action) {
-
   switch (action.type) {
-    case 'LOGIN_REQUEST':
-      return {
-        error: false
-      };
+   
     case 'LOGIN_SUCCESS':
       return {
-        user: getUser(),
-        rolesAllowed: rolesUser(),
-        roleActivated: roleActivated()
+        ...state,
+        user: { user: action.user, accessToken: action.accessToken },
+        rolesAllowed: action.user.roles,
+        roleActivated: action.user.roles[0],
+        loading: false
       };
-    case 'LOGIN_FAILURE':
+    case 'REFRESH_TOKEN':
       return {
-        error: action.error
+        ...state,
+        user: { ...state.user, accessToken: action.accessToken }
       };
     case 'LOGOUT':
       return {};

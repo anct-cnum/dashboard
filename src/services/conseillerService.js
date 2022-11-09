@@ -1,6 +1,6 @@
-import { authHeader, history, userEntityId, roleActivated } from '../helpers';
-import { authenticationService } from './authenticationService';
+import { userEntityId, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
+import { API } from './api';
 
 export const conseillerService = {
   get,
@@ -15,18 +15,14 @@ export const conseillerService = {
 };
 
 function get(id) {
-  const requestOptions = {
-    method: 'GET',
-    headers: Object.assign(authHeader())
-  };
-  return fetch(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
+
+  return API.get(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function getAll(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
-  };
+  
   const filterDepartement = departement !== null ? `&codeDepartement=${departement}` : '';
   const filterRegion = region !== null ? `&codeRegion=${region}` : '';
   const filterCom = com !== null ? `&codeCom=${com}` : '';
@@ -46,14 +42,13 @@ function getAll(departement, region, com, search, page, filter, sortData, sortOr
     uri += `&filter=${filter}`;
   }
 
-  return fetch(uri, requestOptions).then(handleResponse);
+  return API.get(uri)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters) {
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
-  };
+ 
   const filterDepartement = departement !== null ? `&codeDepartement=${departement}` : '';
   const filterRegion = region !== null ? `&codeRegion=${region}` : '';
   const filterCom = com !== null ? `&codeCom=${com}` : '';
@@ -77,104 +72,52 @@ $skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filte
     }
   }
 
-  return fetch(uri, requestOptions).then(handleResponse);
+  return API.get(uri)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function updateStatus(id, statut) {
-  const requestOptions = {
-    method: 'PATCH',
-    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
-    body: JSON.stringify({
-      statut: statut
-    })
-  };
-
-  return fetch(`${apiUrlRoot}/misesEnRelation/${id}`, requestOptions).then(handleResponse);
+  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}`, JSON.stringify({
+    statut }))
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function preSelectionner(conseillerId, structureId) {
-  const requestOptions = {
-    method: 'POST',
-    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' })
-  };
-
-  return fetch(`${apiUrlRoot}/structures/${structureId}/preSelectionner/${conseillerId}`, requestOptions).then(handleResponse);
+  return fetch(`${apiUrlRoot}/structures/${structureId}/preSelectionner/${conseillerId}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function updateDateRecrutement(id, date) {
-  const requestOptions = {
-    method: 'PATCH',
-    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
-    body: JSON.stringify({
-      dateRecrutement: date
-    })
-  };
-
-  return fetch(`${apiUrlRoot}/misesEnRelation/${id}`, requestOptions).then(handleResponse);
+  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}`, JSON.stringify({
+    dateRecrutement: date
+  }))
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function updateDateRupture(id, date) {
-  const requestOptions = {
-    method: 'PATCH',
-    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
-    body: JSON.stringify({
-      dateRupture: date
-    })
-  };
-
-  return fetch(`${apiUrlRoot}/misesEnRelation/${id}`, requestOptions).then(handleResponse);
+  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}`, JSON.stringify({
+    dateRupture: date
+  }))
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function updateMotifRupture(id, motif) {
-  const requestOptions = {
-    method: 'PATCH',
-    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
-    body: JSON.stringify({
-      motifRupture: motif
-    })
-  };
-
-  return fetch(`${apiUrlRoot}/misesEnRelation/${id}`, requestOptions).then(handleResponse);
+  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}`, JSON.stringify({
+    motifRupture: motif
+  }))
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function getCurriculumVitae(id) {
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
-  };
-
-  return fetch(`${apiUrlRoot}/conseillers/${id}/cv`, requestOptions).then(handleFileResponse);
-}
-
-function handleResponse(response) {
-  return response.text().then(text => {
-    const data = text && JSON.parse(text);
-    if (!response.ok) {
-      if (response.status === 401) {
-        authenticationService.logout();
-        return Promise.reject({ error: 'Identifiants incorrects' });
-      }
-      const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
-    }
-  
-    return data;
-  });
-}
-
-function handleFileResponse(response) {
-  return response.blob().then(blob => {
-    if (!response.ok) {
-      if (response.status === 401) {
-        // auto logout if 401 response returned from api
-        authenticationService.logout();
-        history.push('/');
-      }
-      const error = (blob && blob.message) || response.statusText;
-      return Promise.reject(error);
-    }
-    return blob;
-  });
+  return API.get(`${apiUrlRoot}/conseillers/${id}/cv`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function haveCV(persoFilters) {
