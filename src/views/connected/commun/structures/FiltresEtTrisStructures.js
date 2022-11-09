@@ -104,7 +104,7 @@ function FiltresEtTrisStructures() {
         <div className="fr-grid-row">
           <div className="fr-select-group fr-col-5" id="filtre-region">
             <select className="fr-select" onChange={selectFiltreRegion}>
-              <option value={'tous'}>Toute r&eacute;gion</option>
+              <option value={'tous'}>S&eacute;lectionner une région</option>
               {codeRegions.map((region, idx) =>
                 <option key={idx} value={region.code}>{region.nom}</option>
               )}
@@ -123,7 +123,7 @@ function FiltresEtTrisStructures() {
         <div className="fr-grid-row fr-grid-row--end">
           <div className="fr-select-group fr-col-5" id="filtre-departement">
             <select className="fr-select" onChange={selectFiltreDepartement}>
-              <option value={'tous'}>Tout d&eacute;partement</option>
+              <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
               {getDepartements().map((departement, idx) =>
                 <option key={idx} value={departement.num_dep}>{departement.num_dep} - {departement.dep_name}</option>
               )}
@@ -131,7 +131,7 @@ function FiltresEtTrisStructures() {
           </div>
           <div className="fr-select-group fr-ml-auto fr-col-5" id="filtre-type">
             <select className="fr-select" onChange={selectFiltreType}>
-              <option value={'tous'}>Tout type</option>
+              <option value={'tous'}>S&eacute;lectionner un type de structure</option>
               <option value="PUBLIC">Publique</option>
               <option value="PRIVATE">Priv&eacute;e</option>
             </select>
@@ -140,7 +140,7 @@ function FiltresEtTrisStructures() {
         <div className="fr-grid-row fr-grid-row--end">
           <div className="fr-select-group fr-col-5" id="filtre-com">
             <select className="fr-select" onChange={selectFiltreComs}>
-              <option value={'tous'}>Toute collectivit&eacute; d&rsquo;outre-mer</option>
+              <option value={'tous'}>S&eacute;lectionner une collectivit&eacute; d&rsquo;outre-mer</option>
               {coms.map((com, idx) =>
                 <option key={idx} value={com.num_com}>{com.num_com} - {com.com_name}</option>
               )}
@@ -148,7 +148,7 @@ function FiltresEtTrisStructures() {
           </div>
           <div className="fr-select-group fr-ml-auto fr-col-5" id="filtre-statut">
             <select className="fr-select" onChange={selectFiltreStatut}>
-              <option value={'tous'}>Tout statut</option>
+              <option value={'tous'}>S&eacute;lectionner le statut de la structure</option>
               <option value="VALIDATION_COSELEC">Valid&eacute;e</option>
               <option value="EXAMEN_COMPLEMENTAIRE_COSELEC">Examen complémentaire</option>
               <option value="REFUS_COSELEC">Refus</option>

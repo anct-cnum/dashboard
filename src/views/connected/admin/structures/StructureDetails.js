@@ -25,7 +25,7 @@ function StructureDetails() {
     <div className="fr-container structureDetails">
       {(error !== undefined && error !== false) &&
         <div className="fr-alert fr-alert--error fr-alert--sm fr-mb-4w">
-          <p>Une erreur est survenue : {error.message?.toString()}</p>
+          <p>Une erreur est survenue : {error?.toString()}</p>
         </div>
       }
       <button
@@ -44,7 +44,7 @@ function StructureDetails() {
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
         <div className="fr-grid-row fr-mt-5w fr-mb-4w">
           <div className="fr-col-12 titreCol">
-            <h1>Informations Structure</h1>
+            <h1>Informations structure</h1>
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
