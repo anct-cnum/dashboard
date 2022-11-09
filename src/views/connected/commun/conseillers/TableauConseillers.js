@@ -127,7 +127,8 @@ export default function TableauConseillers() {
                               </span>
                             </button>
                           </th>
-                          <th colSpan={conseillers?.items?.total > 0 ? '12' : ''}>Email professionnel</th>
+                          <th>Email professionnel</th>
+                          <th>Structure</th>
                           <th>
                             <nav className="fr-nav" id="navigation-sort-rupture" role="navigation">
                               <ul className="fr-nav__list">
@@ -135,7 +136,7 @@ export default function TableauConseillers() {
                                   <span>
                                     <button className="fr-nav__btn admin-select" aria-expanded={basculerFiltreRupture}
                                       aria-controls="menu-rupture" aria-current="true" id="rupture" onClick={filtreClick}>
-                                      Rupture
+                                      Statut
                                     </button>
                                     <div className={basculerFiltreRupture === true ? 'fr-collapse--expanded fr-menu' : 'fr-collapse fr-nav--expanded fr-menu'}
                                       id="menu-rupture">
@@ -148,19 +149,19 @@ export default function TableauConseillers() {
                                         </li>
                                         <li className={filtreRupture === 'contrat' ? 'selected' : ''}>
                                           <button id="contrat" className="admin-select-option" onClick={handleSortRupture}>
-                                            Sous contrat
+                                            En activit&eacute;
                                           </button>
                                           <hr className="admin-select-hr" />
                                         </li>
                                         <li className={filtreRupture === 'en-cours' ? 'selected' : ''}>
                                           <button id="en-cours" className="admin-select-option border-no-result" onClick={handleSortRupture}>
-                                            En cours de traitement
+                                            Rupture en cours de traitement
                                           </button>
                                           <hr className="admin-select-hr" />
                                         </li>
                                         <li className={filtreRupture === 'rupture' ? 'selected' : ''}>
                                           <button id="rupture" className="admin-select-option" onClick={handleSortRupture}>
-                                            Valid&eacute;
+                                            Sans mission
                                           </button>
                                         </li>
                                       </ul>

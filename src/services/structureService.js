@@ -6,7 +6,10 @@ import { structureQueryStringParameters } from '../utils/queryUtils';
 export const structureService = {
   get,
   getAll,
-  patch
+  patch,
+  updateStructureEmail,
+  updateStructureSiret,
+  verifyStructureSiret
 };
 
 function get(id) {
@@ -48,6 +51,38 @@ function patch({ id, contact }) {
   };
 
   return fetch(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
+}
+
+function updateStructureEmail(email, structureId) {
+
+  const requestOptions = {
+    method: 'PATCH',
+    headers: Object.assign({ 'Content-Type': 'application/json' }, authHeader()),
+    body: JSON.stringify({ email })
+  };
+
+  return fetch(`${apiUrlRoot}/structure/email/${structureId}?role=${roleActivated()}`, requestOptions).then(handleResponse);
+}
+
+function verifyStructureSiret(siret) {
+
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(authHeader())
+  };
+
+  return fetch(`${apiUrlRoot}/structure/verify-siret/${siret}`, requestOptions).then(handleResponse);
+}
+
+function updateStructureSiret(siret, structureId) {
+
+  const requestOptions = {
+    method: 'PATCH',
+    headers: Object.assign({ 'Content-Type': 'application/json' }, authHeader()),
+    body: JSON.stringify({ siret })
+  };
+
+  return fetch(`${apiUrlRoot}/structure/siret/${structureId}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
