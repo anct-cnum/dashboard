@@ -14,11 +14,11 @@ import {
 import PropTypes from 'prop-types';
 import SearchBox from '../../../components/SearchBox';
 
-function Candidats() {
+function Candidatures() {
   const dispatch = useDispatch();
 
   const { search } = useSelector(state => state.search);
-  const conseillers = useSelector(state => state.conseillers);
+  const conseillers = useSelector(state => state.conseiller);
   const stats = useSelector(state => state.stats);
   const downloading = useSelector(state => state?.conseiller?.downloading);
   const location = useLocation();
@@ -37,7 +37,7 @@ function Candidats() {
 
   const navigate = page => {
     setPage(page);
-    dispatch(conseillerActions.getAll({
+    dispatch(conseillerActions.getAllCandidats({
       misesEnRelation: true,
       search,
       page: conseillers.items ? (page - 1) * conseillers.items.limit : 0,
@@ -58,7 +58,7 @@ function Candidats() {
     if (savePage !== null) {
       navigate(savePage);
     } else {
-      dispatch(conseillerActions.getAll({
+      dispatch(conseillerActions.getAllCandidats({
         misesEnRelation: true,
         search,
         page: page - 1,
@@ -204,8 +204,8 @@ function Candidats() {
   );
 }
 
-Candidats.propTypes = {
+Candidatures.propTypes = {
   location: PropTypes.object
 };
 
-export default Candidats;
+export default Candidatures;

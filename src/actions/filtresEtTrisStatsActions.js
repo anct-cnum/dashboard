@@ -3,14 +3,7 @@ export const filtresEtTrisStatsActions = {
   changeDateDebut,
   changeDateFin,
   changeOrdre,
-  changeProfil,
-  changeCertifie,
   changeTerritoire,
-  changeGroupeCRA,
-  changeNom,
-  changeStructureId,
-  saveSearchInput,
-  changeFiltreRegion,
   resetFiltre,
 };
 
@@ -36,36 +29,8 @@ function changeOrdre(ordreNom) {
   return { type: 'CHANGE_ORDRE', ordreNom };
 }
 
-function changeProfil(dataProfil) {
-  return { type: 'CHANGE_PROFIL', dataProfil };
-}
-
-function changeCertifie(dataCertifie) {
-  return { type: 'CHANGE_CERTIFIE', dataCertifie };
-}
-
-function changeGroupeCRA(dataGroupeCRA) {
-  return { type: 'CHANGE_GROUPE_CRA', dataGroupeCRA };
-}
-
-function changeNom(nom) {
-  return { type: 'CHANGE_NOM', nom };
-}
-
-function changeStructureId(structureId) {
-  return { type: 'CHANGE_STRUCTURE_ID', structureId };
-}
-
 function changeTerritoire(territoire) {
   return { type: 'CHANGE_TERRITOIRE', territoire };
-}
-
-function saveSearchInput(searchInput, region) {
-  return { type: 'SAVE_SEARCH_INPUT', searchInput, region };
-}
-
-function changeFiltreRegion(region) {
-  return { type: 'CHANGE_REGION', region };
 }
 
 function resetFiltre() {

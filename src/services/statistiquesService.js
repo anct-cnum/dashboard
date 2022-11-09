@@ -1,6 +1,7 @@
 import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
+import { territoireQueryString } from '../utils/queryUtils';
 
 export const statistiquesService = {
   getTerritoire,
@@ -11,19 +12,6 @@ export const statistiquesService = {
   getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
 };
-
-function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page) {
-  if (nomOrdre === 'code') {
-    nomOrdre = territoire;
-  } else if (nomOrdre === 'nom') {
-    //Afin d'obtenir nomDepartemement ou nomRegion
-    nomOrdre += territoire.slice(4);
-  }
-  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
-  const pageIfDefined = page ? '&page=' + page : '';
-
-  return `?territoire=${territoire}&dateDebut=${dateDebut}&dateFin=${dateFin}${pageIfDefined}${ordreColonne}`;
-}
 
 function getTerritoire(typeTerritoire, idTerritoire, date) {
   return API.get(

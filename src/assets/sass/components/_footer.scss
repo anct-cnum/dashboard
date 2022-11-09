@@ -4,9 +4,20 @@
     background-image: none;
   }
 
+  .footerBrandCustom {
+    flex-basis: 50%;
+  }
+
+  .footerBrandCustom:hover, .footerBrandCustom:active, .fr-footer__brand-link:active {
+    background-color: unset;
+  }
+
+  .fr-enlarge-link a:before {
+    z-index: 0!important;
+  }
+
   .logoFranceRelance {
-    height: 80px;
-    width: 80px;
+    width: 100%;
   }
 
   .footerContentCustom {
@@ -26,16 +37,19 @@
   @media (max-width: 992px) {
 
     .fr-footer__brand {
-      flex-basis: 40%;
+      flex-basis: 100%;
     }
 
     .footerContentCustom {
-      flex-basis: 60%;
+      flex-basis: 100%;
     }
 
     .footerListCustom {
       display: flex;
-      flex-direction: column;
+    }
+
+    .footerListCustom li:first-child {
+      margin-top: 0.5rem;
     }
 
   }

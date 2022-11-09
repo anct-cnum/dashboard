@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logoFR from '../assets/brands/logo-france-relance-alt-min.svg';
+import logoFR from '../assets/brands/logo-france-relance-gouv-ue.png';
 import logoANCT from '../assets/brands/logo-anct-min.svg';
 import logoSONUM from '../assets/brands/logo-sonum-min.svg';
 
@@ -15,12 +15,7 @@ function Footer() {
     <footer className="fr-footer" role="contentinfo" id="footer">
       <div className="fr-container">
         <div className="fr-footer__body fr-footer__body--operator">
-          <div className="fr-footer__brand fr-enlarge-link">
-            <p className="fr-logo" title="R&eacute;publique Française">
-              r&eacute;publique
-              <br />
-              fran&ccedil;aise
-            </p>
+          <div className="fr-footer__brand fr-enlarge-link footerBrandCustom">
             <Link className="fr-footer__brand-link" to="/" title="Retour à l&rsquo;accueil" onClick={onClickLink}>
               <img src={logoFR} alt="Logo France Relance" className="logoFranceRelance fr-footer__logo" />
             </Link>

@@ -1,10 +1,13 @@
 import { userEntityId, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
+import { conseillerQueryStringParameters } from '../utils/queryUtils';
 
 export const conseillerService = {
   get,
-  getAll,
+  getCandidat,
+  getAllRecruter,
+  getAllCandidats,
   getAllMisesEnRelation,
   updateStatus,
   updateDateRecrutement,
@@ -21,8 +24,38 @@ function get(id) {
   .catch(error => Promise.reject(error));
 }
 
-function getAll(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
+function getCandidat(id) {
   
+  return API.get(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
+}
+
+// eslint-disable-next-line max-len
+function getAllRecruter(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre) {
+
+  let {
+    ordreColonne,
+    filterDateStart,
+    filterDateEnd,
+    filterByNameConseiller,
+    rupture,
+    coordinateur,
+    filterByRegion,
+    filterByNameStructure,
+  // eslint-disable-next-line max-len
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParNomStructure);
+
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/conseillers-recruter?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}&role=${roleActivated()}`;
+
+  return API.get(uri)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
+}
+
+function getAllCandidats(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
+
   const filterDepartement = departement !== null ? `&codeDepartement=${departement}` : '';
   const filterRegion = region !== null ? `&codeRegion=${region}` : '';
   const filterCom = com !== null ? `&codeCom=${com}` : '';

@@ -29,6 +29,14 @@ function Header() {
     navigate('/');
   };
 
+  const formatRoleMenu = role => {
+    const formatRole = role.charAt(0).toUpperCase() + role.slice(1);
+    if (formatRole === 'GrandReseau') {
+      return 'Grand réseau';
+    }
+    return formatRole.split('_')[0];
+  };
+
   return (
     <header role="banner" className="fr-header">
       <div className="fr-header__body">
@@ -36,7 +44,7 @@ function Header() {
           <div className="fr-header__body-row">
             <div className="fr-header__brand fr-enlarge-link">
               <div className="fr-header__brand-top">
-                <div className="fr-header__logo">
+                <div className="fr-header__logo" style={{ paddingRight: '0.7rem', marginRight: '0' }}>
                   <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique France services">
                     <p className="fr-logo">
                         R&eacute;publique
@@ -45,7 +53,7 @@ function Header() {
                     </p>
                   </Link>
                 </div>
-                <div className="fr-header__operator">
+                <div className="fr-header__operator" style={{ paddingLeft: '0' }}>
                   <img src={logo} className="fr-responsive-img" alt="Logo Conseiller num&eacute;rique" />
                 </div>
                 <div className="fr-header__navbar">
@@ -64,7 +72,7 @@ function Header() {
               <div className="fr-header__service">
                 <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique France services">
                   <p className="fr-header__service-title">
-                    Tableau de bord - Conseiller num&eacute;rique France services
+                    Tableau de pilotage - Conseiller num&eacute;rique France services
                   </p>
                 </Link>
               </div>
@@ -79,7 +87,7 @@ function Header() {
                         <div className="fr-select-group">
                           <select className="fr-select" id="select" name="select" value={roleActivated} onChange={changeRoleActivated}>
                             {roles?.map((role, idx) => {
-                              return (<option key={idx} value={role}>{role}</option>);
+                              return (<option key={idx} value={role}>{formatRoleMenu(role)}</option>);
                             })}
                           </select>
                         </div>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { alerteEtSpinnerActions, statistiquesActions, structuresActions } from '../../../../actions';
+import { alerteEtSpinnerActions, statistiquesActions, structureActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
@@ -19,9 +19,9 @@ export default function GraphiqueStructure() {
 
   const idStructure = location.pathname.split('/')[2];
 
-  const structureLoading = useSelector(state => state.structures?.loading);
-  const structureError = useSelector(state => state.structures?.error);
-  const structure = useSelector(state => state.structures?.structure);
+  const structureLoading = useSelector(state => state.structure?.loading);
+  const structureError = useSelector(state => state.structure?.error);
+  const structure = useSelector(state => state.structure?.structure);
 
   const statistiquesLoading = useSelector(state => state.statistiques?.loading);
   const statistiquesError = useSelector(state => state.statistiques?.error);
@@ -33,8 +33,8 @@ export default function GraphiqueStructure() {
   const dateFin = useSelector(state => state.statistiques?.dateFin);
 
   useEffect(() => {
-    if (!structureError && !structure) {
-      dispatch(structuresActions.getStructure(idStructure));
+    if (!structureError && !structure || structure?._id !== idStructure) {
+      dispatch(structureActions.get(idStructure));
     } else if (structureError) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
@@ -62,7 +62,7 @@ export default function GraphiqueStructure() {
       <div className="structure fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <h1 className="titre">Statistiques - {structure?.nom}</h1>
+            <h1 className={`titre ${structure?.nom.length > 50 ? 'titre-long' : ''}`} >Statistiques - {structure?.nom}</h1>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w print-graphique">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
@@ -79,7 +79,7 @@ export default function GraphiqueStructure() {
         {!donneesStatistiques &&
           <h2 className="centrerTexte">Il n&rsquo;y a aucune statistique pour le moment</h2>
         }
-        { donneesStatistiques !== undefined &&
+        { donneesStatistiques &&
           <div className="fr-grid-row">
             <LeftPage donneesStats={donneesStatistiques}/>
             <RightPage donneesStats={donneesStatistiques}/>

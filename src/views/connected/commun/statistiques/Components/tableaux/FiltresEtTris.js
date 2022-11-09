@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
-import { exportsActions, filtresEtTrisStatsActions, statistiquesActions } from '../../../../../../actions';
+import { exportsActions, filtresEtTrisStatsActions, paginationActions, statistiquesActions } from '../../../../../../actions';
 
 import Spinner from '../../../../../../components/Spinner';
 import BlockDatePickers from '../commun/BlockDatePickers';
@@ -23,6 +23,7 @@ function FiltresEtTris() {
   const has = value => value !== null && value !== undefined;
 
   const handleTerritoire = e => {
+    dispatch(paginationActions.setPage(1));
     dispatch(filtresEtTrisStatsActions.changeTerritoire(e.target.value));
   };
 
