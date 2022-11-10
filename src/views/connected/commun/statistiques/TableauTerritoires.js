@@ -6,6 +6,7 @@ import Pagination from '../../../../components/Pagination';
 import FiltresEtTris from './Components/tableaux/FiltresEtTris';
 import Territoire from './Components/tableaux/Territoire';
 import { useLocation } from 'react-router-dom';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 export default function TableauTerritoires() {
 
@@ -42,6 +43,7 @@ export default function TableauTerritoires() {
   }, [dateDebut, dateFin, ordre, ordreNom, filtreTerritoire, currentPage]);
 
   useEffect(() => {
+    scrollTopWindow();
     if (page === undefined) {
       dispatch(paginationActions.setPage(1));
       setPage(1);

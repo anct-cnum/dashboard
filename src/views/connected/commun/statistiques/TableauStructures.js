@@ -6,6 +6,7 @@ import Pagination from '../../../../components/Pagination';
 import Structure from './Components/tableaux/Structure';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
 import { useLocation } from 'react-router-dom';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 export default function TableauStructures() {
   
@@ -36,6 +37,7 @@ export default function TableauStructures() {
   }, [dateDebut, dateFin, currentPage]);
 
   useEffect(() => {
+    scrollTopWindow();
     if (page === undefined) {
       dispatch(paginationActions.setPage(1));
       setPage(1);
