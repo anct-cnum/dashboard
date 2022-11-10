@@ -177,7 +177,7 @@ function getCurriculumVitae(id) {
     headers: authHeader()
   };
 
-  return fetch(`${apiUrlRoot}/conseillers/${id}/cv`, requestOptions).then(handleFileResponse);
+  return fetch(`${apiUrlRoot}/candidat/${id}/cv`, requestOptions).then(handleFileResponse);
 }
 
 function handleResponse(response) {
