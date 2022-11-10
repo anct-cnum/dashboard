@@ -25,6 +25,9 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
       case 'structure':
         typeTarget = type;
         break;
+      case 'conseiller':
+        typeTarget = type;
+        break;
       default:
         typeTarget = typeTerritoire;
         break;
