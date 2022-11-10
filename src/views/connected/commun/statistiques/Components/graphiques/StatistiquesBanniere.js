@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, previousUrl, codePostal }) {
+function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal }) {
 
   const dispatch = useDispatch();
-  
+  const location = useLocation();
   const exports = useSelector(state => state.exports);
   const error = useSelector(state => state.exports?.error);
   const typeTerritoire = useSelector(state => state.filtresEtTris?.territoire);
   const territoire = useSelector(state => state.statistiques?.territoire);
-  const linkTo = { pathname: previousUrl };
+  const currentPage = useSelector(state => state.pagination?.currentPage);
 
   function getTypeStatistique(type) {
     let typeTarget = '';
@@ -23,9 +23,6 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, previousUrl, 
         typeTarget = type;
         break;
       case 'structure':
-        typeTarget = type;
-        break;
-      case 'conseiller':
         typeTarget = type;
         break;
       default:
@@ -69,7 +66,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, previousUrl, 
         <div className={`${typeStats !== 'nationales' ? 'fr-grid-row' : 'fr-grid-row--center'}`}>
           {typeStats !== 'nationales' &&
             <div className="fr-col-12 fr-col-md-3 fr-mt-6w">
-              <Link to={linkTo}>
+              <Link to={location.state?.origin} state={{ currentPage }}>
                 <i className="fr-fi-arrow-left-line"/> Page pr&eacute;c&eacute;dente
               </Link>
             </div>
@@ -95,7 +92,6 @@ StatistiquesBanniere.propTypes = {
   dateFin: PropTypes.instanceOf(Date),
   codePostal: PropTypes.string,
   typeStats: PropTypes.string,
-  previousUrl: PropTypes.string,
   id: PropTypes.string,
 };
 

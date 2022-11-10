@@ -20,8 +20,12 @@ function Territoire({ territoire, filtreTerritoire }) {
         <td>{territoire?.cnfsInactives ?? 0}</td>
         <td>{territoire?.tauxActivation ?? 0} %</td>
         <td>
-          <Link className="fr-btn details-btn fr-fi-eye-line fr-btn--icon-left" style={{ boxShadow: 'none' }} to={{
-            pathname: '/statistiques-territoire/' + codeTerritoire }} >
+          <Link
+            className="fr-btn details-btn fr-fi-eye-line fr-btn--icon-left"
+            style={{ boxShadow: 'none' }}
+            to={`/statistiques-territoire/${codeTerritoire}`}
+            state={{ origin: '/statistiques-territoires' }}
+          >
               D&eacute;tails
           </Link>
           <ReactTooltip html={true} className="infobulle" arrowColor="white"/>

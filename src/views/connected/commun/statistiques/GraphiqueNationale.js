@@ -60,7 +60,6 @@ export default function GraphiqueNationale() {
               dateDebut={new Date('2020-09-01')}
               dateFin={dateFin}
               typeStats="nationales"
-              previousUrl="/statistiques-nationales"
             />
           </div>
         }

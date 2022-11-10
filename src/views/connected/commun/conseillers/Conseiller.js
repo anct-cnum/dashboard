@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-function Conseiller({ conseiller, currentPage }) {
+function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   return (
@@ -12,11 +12,12 @@ function Conseiller({ conseiller, currentPage }) {
         <td>{conseiller?.idPG}</td>
         <td>{conseiller?.nom}</td>
         <td>{conseiller?.prenom}</td>
-        <td colSpan="12" style={{ width: '28rem' }}>
+        <td>
           <a className="email"href={'mailto:' + conseiller?.address}>
             {conseiller?.address}
           </a>
         </td>
+        <td>{conseiller?.nomStructure}</td>
         <td className="center-text">
           {conseiller.rupture}
         </td>
@@ -24,18 +25,18 @@ function Conseiller({ conseiller, currentPage }) {
           {conseiller?.estCoordinateur ? 'Oui' : 'Non' }
         </td>
         <td>{conseiller?.craCount}</td>
-        <td className="btn-actions-conseillers">
-          <div className="fr-grid-row">
+        <td>
+          <div className="btn-actions-conseillers">
             <button
               className="fr-btn fr-icon-eye-line fr-mr-2w"
               title="D&eacute;tail"
               onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
-            <Link className="fr-btn fr-icon-line-chart-line" title="Statistiques" to={{
-              pathname: `/statistiques-conseiller/${conseiller?._id}`,
-              currentPage: currentPage,
-              origin: `/liste-conseillers`,
-              idConseiller: conseiller?._id }}>
-            </Link>
+            <Link
+              className="fr-btn fr-icon-line-chart-line"
+              title="Statistiques"
+              to={`/statistiques-conseiller/${conseiller?._id}`}
+              state={{ origin: '/liste-conseillers' }}
+            />
           </div>
         </td>
       </tr>
@@ -45,7 +46,6 @@ function Conseiller({ conseiller, currentPage }) {
 
 Conseiller.propTypes = {
   conseiller: PropTypes.object,
-  currentPage: PropTypes.number,
 };
 
 export default Conseiller;

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
 
@@ -14,9 +14,7 @@ import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 export default function GraphiqueTerritoire() {
 
   const dispatch = useDispatch();
-  const location = useLocation();
-
-  const codeTerritoire = location.pathname.split('/')[2];
+  const { codeTerritoire } = useParams();
 
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
   const dateFin = useSelector(state => state.statistiques?.dateFin);
@@ -71,12 +69,10 @@ export default function GraphiqueTerritoire() {
               dateFin={dateFin}
               id={codeTerritoire}
               typeStats="territoire"
-              previousUrl="/statistiques-territoires"
             />
           </div>
         }
       </div>
     </div>
   );
-
 }

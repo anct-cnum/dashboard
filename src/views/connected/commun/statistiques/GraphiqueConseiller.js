@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { alerteEtSpinnerActions, statistiquesActions, conseillerActions } from '../../../../actions';
 
@@ -14,9 +14,7 @@ import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 export default function GraphiqueConseiller() {
 
   const dispatch = useDispatch();
-  const location = useLocation();
-
-  const idConseiller = location.pathname.split('/')[2];
+  const { idConseiller } = useParams();
 
   const conseillerLoading = useSelector(state => state.conseiller?.loading);
   const conseillerError = useSelector(state => state.conseiller?.error);
@@ -87,7 +85,6 @@ export default function GraphiqueConseiller() {
             <StatistiquesBanniere
               dateDebut={new Date('2020-09-01')}
               dateFin={dateFin}
-              previousUrl="/liste-conseillers"
               typeStats="conseiller"
               id={idConseiller}
             />

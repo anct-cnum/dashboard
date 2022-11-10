@@ -5,10 +5,14 @@ import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Conseiller from './Conseiller';
 import FiltresEtTrisConseillers from './FiltresEtTrisConseillers';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { useLocation } from 'react-router-dom';
 
 export default function TableauConseillers() {
 
   const dispatch = useDispatch();
+  const location = useLocation();
+  const [page, setPage] = useState(location.state?.currentPage);
 
   const dateDebut = useSelector(state => state.filtresConseillers?.dateDebut);
   const dateFin = useSelector(state => state.filtresConseillers?.dateFin);
@@ -26,7 +30,7 @@ export default function TableauConseillers() {
   const filtreRegion = useSelector(state => state.filtresConseillers?.region);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
-
+  
   const filtreClick = e => {
     if (e.target?.id === 'coordinateur') {
       setBasculerFiltreCoordinateur(!basculerFiltreCoordinateur);
@@ -61,11 +65,21 @@ export default function TableauConseillers() {
   }, [conseillers]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (initConseiller === true) {
+      dispatch(conseillerActions.getAllRecruter(currentPage, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreRegion,
+        filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+    }
+  }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filtreParNomStructure]);
+
+  useEffect(() => {
+    scrollTopWindow();
+    if (page === undefined) {
+      dispatch(paginationActions.setPage(1));
+      setPage(1);
+    }
     if (!error) {
-      if (initConseiller === false) {
-        dispatch(paginationActions.setPage(1));
-        dispatch(conseillerActions.getAllRecruter(currentPage, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
+      if (initConseiller === false && page !== undefined) {
+        dispatch(conseillerActions.getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
           filtreParNomStructure, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
@@ -76,7 +90,7 @@ export default function TableauConseillers() {
         status: null, description: null
       }));
     }
-  }, [error]);
+  }, [error, page]);
 
   return (
     <div className="conseillers">
@@ -128,7 +142,8 @@ export default function TableauConseillers() {
                               </span>
                             </button>
                           </th>
-                          <th colSpan={conseillers?.items?.total > 0 ? '12' : ''}>Email professionnel</th>
+                          <th>Email professionnel</th>
+                          <th>Structure</th>
                           <th>
                             <nav className="fr-nav" id="navigation-sort-rupture" role="navigation">
                               <ul className="fr-nav__list">
@@ -136,7 +151,7 @@ export default function TableauConseillers() {
                                   <span>
                                     <button className="fr-nav__btn admin-select" aria-expanded={basculerFiltreRupture}
                                       aria-controls="menu-rupture" aria-current="true" id="rupture" onClick={filtreClick}>
-                                      Rupture
+                                      Statut
                                     </button>
                                     <div className={basculerFiltreRupture === true ? 'fr-collapse--expanded fr-menu' : 'fr-collapse fr-nav--expanded fr-menu'}
                                       id="menu-rupture">
@@ -149,19 +164,19 @@ export default function TableauConseillers() {
                                         </li>
                                         <li className={filtreRupture === 'contrat' ? 'selected' : ''}>
                                           <button id="contrat" className="admin-select-option" onClick={handleSortRupture}>
-                                            Sous contrat
+                                            En activit&eacute;
                                           </button>
                                           <hr className="admin-select-hr" />
                                         </li>
                                         <li className={filtreRupture === 'en-cours' ? 'selected' : ''}>
                                           <button id="en-cours" className="admin-select-option border-no-result" onClick={handleSortRupture}>
-                                            En cours de traitement
+                                            Rupture en cours de traitement
                                           </button>
                                           <hr className="admin-select-hr" />
                                         </li>
                                         <li className={filtreRupture === 'rupture' ? 'selected' : ''}>
                                           <button id="rupture" className="admin-select-option" onClick={handleSortRupture}>
-                                            Valid&eacute;
+                                            Sans mission
                                           </button>
                                         </li>
                                       </ul>
@@ -214,7 +229,7 @@ export default function TableauConseillers() {
                       </thead>
                       <tbody>
                         {!error && !loading && conseillers?.items?.data?.map((conseiller, idx) => {
-                          return (<Conseiller key={idx} conseiller={conseiller} currentPage={currentPage} />);
+                          return (<Conseiller key={idx} conseiller={conseiller} />);
                         })
                         }
                         {(!conseillers?.items || conseillers?.items?.total === 0) &&

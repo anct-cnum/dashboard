@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { alerteEtSpinnerActions, statistiquesActions, structureActions } from '../../../../actions';
 
@@ -15,9 +15,7 @@ import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 export default function GraphiqueStructure() {
 
   const dispatch = useDispatch();
-  const location = useLocation();
-
-  const idStructure = location.pathname.split('/')[2];
+  const { idStructure } = useParams();
 
   const structureLoading = useSelector(state => state.structure?.loading);
   const structureError = useSelector(state => state.structure?.error);
@@ -90,12 +88,10 @@ export default function GraphiqueStructure() {
               typeStats="structure"
               id={idStructure}
               codePostal={codePostal}
-              previousUrl="/statistiques-structures"
             />
           </div>
         }
       </div>
     </div>
   );
-
 }
