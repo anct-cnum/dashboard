@@ -70,6 +70,7 @@ function FiltresEtTrisConseillers() {
       <Spinner loading={loading} />
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
+          <h3 className="fr-h3">Liste des conseillers</h3>
           <div className="fr-ml-auto fr-col-12 fr-col-md-4 fr-mb-4w fr-mb-md-0">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
               <input className="fr-input" defaultValue={searchInput ?? ''}
@@ -83,7 +84,7 @@ function FiltresEtTrisConseillers() {
         <div className="fr-grid-row">
           <div className="fr-select-group" id="filtre-region">
             <select className="fr-select" onChange={selectFiltreRegion}>
-              <option value={'tous'}>Tous</option>
+              <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
                 <option key={idx} value={region.code}>{region.nom}</option>
               )}
