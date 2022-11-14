@@ -8,10 +8,11 @@ import ButtonsAction from './ButtonsAction';
 import PopinInteressee from '../popins/popinInteressee';
 import PopinRecrutee from '../popins/popinRecrutee';
 import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
-import { Oval } from 'react-loader-spinner';
 import pixUtilisation from '../../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../../assets/icons/pix-citoyen.png';
+import Spinner from '../../../../components/Spinner';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function CandidatDetails() {
 
@@ -70,17 +71,24 @@ function CandidatDetails() {
   };
 
   useEffect(() => {
-    if (errorUpdateStatus !== undefined && errorUpdateStatus !== false) {
-      window.scrollTo(0, 100); //remonte la page pour visualiser le message flash
+    if ((errorUpdateStatus !== undefined && errorUpdateStatus !== false) ||
+      (conseiller.downloadError !== undefined && conseiller.downloadError !== false)) {
+      scrollTopWindow();
+      
     }
-  }, [errorUpdateStatus]);
+  }, [errorUpdateStatus, conseiller.downloadError]);
 
   const linkUrl = location.origin ?? `/structure/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}`;
   return (
     <div className="ConseillerDetails">
       { (errorUpdateStatus !== undefined && errorUpdateStatus !== false) &&
-      <div className="fr-alert fr-alert--info">
+      <div className="fr-alert fr-alert--info fr-mb-2w">
         <p>{ errorUpdateStatus.toString() }</p>
+      </div>
+      }
+      { (conseiller.downloadError !== undefined && conseiller.downloadError !== false) &&
+      <div className="fr-alert fr-alert--error fr-mb-2w">
+        <p>Le CV n&rsquo;a pas pu &ecirc;tre r&eacute;cup&eacute;r&eacute; !</p>
       </div>
       }
 
@@ -107,14 +115,9 @@ function CandidatDetails() {
           <span className="capitalizeFirstLetter">
             {conseiller?.conseiller?.prenom}&nbsp;{conseiller?.conseiller?.nom}</span>
         </h2>
-        <div className="spinnerCustom">
-          <Oval
-            color="#00BFFF"
-            height={100}
-            width={100}
-            visible={downloading === true}
-          />
-        </div>
+
+        <Spinner loading={downloading} />
+
         <div className="fr-container fr-container--fluid">
           <div className="fr-grid-row">
             { conseiller?.conseiller?.dateRecrutement?.length > 0 &&
