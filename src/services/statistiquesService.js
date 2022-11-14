@@ -9,6 +9,7 @@ export const statistiquesService = {
   getDatasTerritoires,
   getStatistiquesTerritoire,
   getStatistiquesStructure,
+  getStatistiquesConseiller,
   getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
 };
@@ -65,6 +66,16 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal) {
   };
   return fetch(
     `${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idStructure=${idStructure}&codePostal=${codePostal}`,
+    requestOptions).then(handleResponse);
+}
+
+function getStatistiquesConseiller(dateDebut, dateFin, idConseiller) {
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
+  };
+  return fetch(
+    `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idConseiller=${idConseiller}`,
     requestOptions).then(handleResponse);
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { conseillerActions, exportsActions, filtresConseillersActions, paginationActions } from '../../../../actions';
+import { exportsActions, filtresConseillersActions, paginationActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
 import BlockDatePickers from '../statistiques/Components/commun/BlockDatePickers';
@@ -10,6 +10,7 @@ function FiltresEtTrisConseillers() {
   const dispatch = useDispatch();
 
   const [searchByStructure, setSearchByStructure] = useState(false);
+  
   const dateDebut = useSelector(state => state.filtresConseillers?.dateDebut);
   const ordreNom = useSelector(state => state.filtresConseillers?.ordreNom);
   const filtreCoordinateur = useSelector(state => state.filtresConseillers?.coordinateur);
@@ -18,11 +19,8 @@ function FiltresEtTrisConseillers() {
   const filtreParNomStructure = useSelector(state => state.filtresConseillers?.nomStructure);
   const filtreRegion = useSelector(state => state.filtresConseillers?.region);
   let searchInput = useSelector(state => state.filtresConseillers?.searchInput);
-  const conseillers = useSelector(state => state.conseiller);
-
   const dateFin = useSelector(state => state.filtresConseillers?.dateFin);
   const ordre = useSelector(state => state.filtresConseillers?.ordre);
-  const currentPage = useSelector(state => state.pagination?.currentPage);
 
   const exportConseillerFileBlob = useSelector(state => state.exports);
   const exportConseillerFileError = useSelector(state => state.exports?.error);
@@ -62,13 +60,6 @@ function FiltresEtTrisConseillers() {
       scrollTopWindow();
     }
   }, [exportConseillerFileError]);
-
-  useEffect(() => {
-    if (conseillers?.items) {
-      dispatch(conseillerActions.getAllRecruter(currentPage, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreRegion,
-        filtreParNomStructure, ordreNom, ordre ? 1 : -1));
-    }
-  }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filtreParNomStructure]);
 
   const handleChangeToggle = e => {
     setSearchByStructure(e.target?.checked);

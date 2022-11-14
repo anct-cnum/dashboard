@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { alerteEtSpinnerActions, paginationActions, statistiquesActions } from '../../../../actions';
-
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Structure from './Components/tableaux/Structure';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
+import { useLocation } from 'react-router-dom';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 export default function TableauStructures() {
   
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const loading = useSelector(state => state.statistiques?.loading);
   const error = useSelector(state => state.statistiques?.error);
@@ -19,21 +20,32 @@ export default function TableauStructures() {
   const dateDebut = useSelector(state => state.filtresEtTris?.dateDebut);
   const dateFin = useSelector(state => state.filtresEtTris?.dateFin);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  const [page, setPage] = useState(1);
+  const [initStructure, setInitStructure] = useState(false);
+  const [page, setPage] = useState(location.state?.currentPage);
 
   useEffect(() => {
+    if (statistiquesStructures?.items) {
+      const count = statistiquesStructures.items.limit ? Math.floor(statistiquesStructures.items.total / statistiquesStructures.items.limit) : 0;
+      dispatch(paginationActions.setPageCount(statistiquesStructures.items.total % statistiquesStructures.items.limit === 0 ? count : count + 1));
+    }
+  }, [statistiquesStructures]);
+
+  useEffect(() => {
+    if (initStructure === true) {
+      dispatch(statistiquesActions.getDatasStructures(dateDebut, dateFin, currentPage));
+    }
+  }, [dateDebut, dateFin, currentPage]);
+
+  useEffect(() => {
+    scrollTopWindow();
+    if (page === undefined) {
+      dispatch(paginationActions.setPage(1));
+      setPage(1);
+    }
     if (!error) {
-      if (statistiquesStructures?.items) {
-        const count = statistiquesStructures.items.limit ? Math.floor(statistiquesStructures.items.total / statistiquesStructures.items.limit) : 0;
-        dispatch(paginationActions.setPageCount(statistiquesStructures.items.total % statistiquesStructures.items.limit === 0 ? count : count + 1));
-      }
-      if (!statistiquesStructures) {
-        dispatch(paginationActions.setPage(1));
+      if (initStructure === false && page !== undefined) {
         dispatch(statistiquesActions.getDatasStructures(dateDebut, dateFin, page));
-      }
-      if (page !== currentPage) {
-        setPage(currentPage);
-        dispatch(statistiquesActions.getDatasStructures(dateDebut, dateFin, currentPage));
+        setInitStructure(true);
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -42,11 +54,7 @@ export default function TableauStructures() {
         status: null, description: null
       }));
     }
-  }, [statistiquesStructures, currentPage, error]);
-  
-  useEffect(() => {
-    dispatch(statistiquesActions.getDatasStructures(dateDebut, dateFin, currentPage));
-  }, [dateDebut, dateFin]);
+  }, [error, page]);
 
   return (
     <div className="statistiques">
