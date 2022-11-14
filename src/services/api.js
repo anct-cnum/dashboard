@@ -26,13 +26,12 @@ const setup = store => {
         {},
         { withCredentials: true }
       );
-      dispatch(authenticationActions.refreshToken(response.data.accessToken));
-      req.headers.Authorization = `Bearer ${response.data.accessToken}`;
+      dispatch(authenticationActions.refreshToken(response.data?.accessToken));
+      req.headers.Authorization = `Bearer ${response.data?.accessToken}`;
 
       return req;
     } catch (error) {
       signOut();
-      
     }
   });
 };

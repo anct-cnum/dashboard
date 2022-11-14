@@ -22,8 +22,6 @@ export default function authentication(state = initialState, action) {
         ...state,
         user: { ...state.user, accessToken: action.accessToken }
       };
-    case 'LOGOUT':
-      return {};
     case 'LOGIN_FAILURE':
       return {};
     case 'CHANGE_ROLE':

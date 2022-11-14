@@ -19,8 +19,8 @@ const getVerificationToken = () =>
 const signInCallBack = async store => {
   const { dispatch } = store;
   window.history.replaceState({}, document.title, window.location.pathname);
-  const profile = await getProfile();
-  const verificationToken = await getVerificationToken();
+  const profile = getProfile();
+  const verificationToken = getVerificationToken();
   const token = profile?.access_token;
   await axios
   .get(`${apiUrlRoot}/login`, {
@@ -34,13 +34,12 @@ const signInCallBack = async store => {
     },
   })
   .then(result => {
-    dispatch(authenticationActions.login(result.data.user));
-    dispatch(authenticationActions.refreshToken(result.data.accessToken));
+    dispatch(authenticationActions.login(result?.data?.user));
+    dispatch(authenticationActions.refreshToken(result?.data?.accessToken));
     localStorage.setItem('user', JSON.stringify(result?.data));
-    localStorage.setItem('roleActivated', result?.data.user.roles[0]);
+    localStorage.setItem('roleActivated', result?.data?.user?.roles[0]);
   })
-  .catch(error => {
-    dispatch(authenticationActions.failure(error));
+  .catch(() => {
     window.location.pathname = '/login';
   });
 };

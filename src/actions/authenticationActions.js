@@ -2,7 +2,7 @@ export const authenticationActions = {
   login,
   changeRoleActivated,
   refreshToken,
-  failure
+  loginFailure
 };
 
 function login(user) {
@@ -28,6 +28,6 @@ function refreshToken(accessToken) {
     return { type: 'REFRESH_TOKEN', accessToken };
   }
 }
-function failure() {
+function loginFailure() {
   return { type: 'LOGIN_FAILURE' };
 }

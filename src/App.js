@@ -21,17 +21,18 @@ import TableauTerritoires from './views/connected/commun/statistiques/TableauTer
 import { useAuth } from 'react-oidc-context';
 import refreshToken from './auth/refreshToken';
 import TableauConseillers from './views/connected/commun/conseillers/TableauConseillers';
+import { getUser } from './helpers/getUser';
 
 
 function App() {
 
   const isLoading = useSelector(state => state.alerteEtSpinner?.isLoading);
-  const user = useSelector(state => state.authentication?.user) || JSON.parse(localStorage.getItem('user'));
+  const user = useSelector(state => state.authentication?.user) || getUser();
   const dispatch = useDispatch();
   const location = useLocation();
   const auth = useAuth();
 
-  if (location.pathname !== '/login/') {
+  if (location.pathname !== '/login') {
     useEffect(() => {
       refreshToken(auth, dispatch, user);
     }, [location]);

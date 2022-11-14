@@ -19,10 +19,6 @@ function Header() {
     dispatch(menuActions.toggleBurgerMenu());
   };
 
-  const logout = () => {
-    signOut();
-  };
-
   const changeRoleActivated = e => {
     const { value } = e.target;
     dispatch(authenticationActions.changeRoleActivated(value));
@@ -94,7 +90,7 @@ function Header() {
                       </li>
                     }
                     <li>
-                      <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={logout}>
+                      <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={() => signOut()}>
                         D&eacute;connexion
                       </button>
                     </li>

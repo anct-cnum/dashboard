@@ -1,4 +1,4 @@
-import { authenticationService } from './authenticationService';
+import signOut from '../auth/logout';
 import { roleActivated, authHeader } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 
@@ -42,7 +42,7 @@ function handleResponse(response) {
     const data = text && JSON.parse(text);
     if (!response.ok) {
       if (response.status === 401) {
-        authenticationService.logout();
+        signOut();
         return Promise.reject({ error: 'Identifiants incorrects' });
       }
       const error = (data && data.message) || response.statusText;

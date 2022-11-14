@@ -6,7 +6,7 @@ import { authenticationActions } from '../actions/authenticationActions';
 import apiUrlRoot from '../helpers/apiUrl';
 
 const refreshToken = async (auth, dispatch, user) => {
-  if ((user)) {
+  if (user) {
     const decodedToken = jwt_decode(user?.accessToken);
     if (decodedToken.exp * 1000 < new Date().getTime()) {
       let response;
@@ -19,7 +19,6 @@ const refreshToken = async (auth, dispatch, user) => {
         dispatch(authenticationActions.refreshToken(response.data?.accessToken));
       } catch (error) {
         signOut(auth);
-        
       }
     }
   }
