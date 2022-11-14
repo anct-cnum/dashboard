@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
-import { alerteEtSpinnerActions, statistiquesActions, structureActions } from '../../../../actions';
+import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
@@ -15,11 +15,10 @@ import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 export default function GraphiqueStructure() {
 
   const dispatch = useDispatch();
+  const location = useLocation();
   const { idStructure } = useParams();
 
-  const structureLoading = useSelector(state => state.structure?.loading);
-  const structureError = useSelector(state => state.structure?.error);
-  const structure = useSelector(state => state.structure?.structure);
+  const structure = location?.state.structure;
 
   const statistiquesLoading = useSelector(state => state.statistiques?.loading);
   const statistiquesError = useSelector(state => state.statistiques?.error);
@@ -31,19 +30,17 @@ export default function GraphiqueStructure() {
   const dateFin = useSelector(state => state.statistiques?.dateFin);
 
   useEffect(() => {
-    if (!structureError && !structure || structure?._id !== idStructure) {
-      dispatch(structureActions.get(idStructure));
-    } else if (structureError) {
+    if (!structure) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
         message: 'La structure n\'a pas pu être chargée !',
         status: null, description: null
       }));
     }
-  }, [structure, structureError]);
+  }, []);
 
   useEffect(() => {
-    if (!statistiquesError && structure) {
+    if (!statistiquesError && idStructure && !!structure) {
       dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal));
     } else if (statistiquesError) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -52,11 +49,11 @@ export default function GraphiqueStructure() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, idStructure, codePostal, statistiquesError, structure]);
+  }, [dateDebut, dateFin, codePostal, statistiquesError]);
 
   return (
     <div className="statistiques">
-      <Spinner loading={statistiquesLoading || structureLoading || loadingExport} />
+      <Spinner loading={statistiquesLoading || loadingExport} />
       <div className="structure fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">

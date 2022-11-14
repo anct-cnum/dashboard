@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
-import { alerteEtSpinnerActions, statistiquesActions, conseillerActions } from '../../../../actions';
+import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
@@ -14,12 +14,10 @@ import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 export default function GraphiqueConseiller() {
 
   const dispatch = useDispatch();
+  const location = useLocation();
   const { idConseiller } = useParams();
 
-  const conseillerLoading = useSelector(state => state.conseiller?.loading);
-  const conseillerError = useSelector(state => state.conseiller?.error);
-  const conseiller = useSelector(state => state.conseiller?.conseiller);
-
+  const conseiller = location?.state.conseiller;
   const statistiquesLoading = useSelector(state => state.statistiques?.loading);
   const statistiquesError = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
@@ -29,19 +27,17 @@ export default function GraphiqueConseiller() {
   const dateFin = useSelector(state => state.statistiques?.dateFin);
 
   useEffect(() => {
-    if (!conseillerError && !conseiller || conseiller?._id !== idConseiller) {
-      dispatch(conseillerActions.get(idConseiller));
-    } else if (conseillerError) {
+    if (!conseiller) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
         message: 'La conseiller n\'a pas pu être chargée !',
         status: null, description: null
       }));
     }
-  }, [conseiller, conseillerError]);
+  }, []);
 
   useEffect(() => {
-    if (!statistiquesError && conseiller) {
+    if (!statistiquesError && idConseiller && !!conseiller) {
       dispatch(statistiquesActions.getStatistiquesConseiller(dateDebut, dateFin, idConseiller));
     } else if (statistiquesError) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -50,22 +46,24 @@ export default function GraphiqueConseiller() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, idConseiller, statistiquesError, conseiller]);
+  }, [dateDebut, dateFin, statistiquesError]);
 
   const formatNomStatistiques = () => {
-    const formatNom = conseiller?.nom.charAt(0).toUpperCase() + conseiller?.nom.slice(1);
-    const formatPrenom = conseiller?.prenom.charAt(0).toUpperCase() + conseiller?.prenom.slice(1);
-
-    return `${formatNom} ${formatPrenom}`;
+    const formatNom = location?.state.conseiller?.nom.charAt(0).toUpperCase() + location?.state.conseiller?.nom.slice(1);
+    const formatPrenom = location?.state.conseiller?.prenom.charAt(0).toUpperCase() + location?.state.conseiller?.prenom.slice(1);
+    if (formatNom && formatPrenom) {
+      return `${formatNom} ${formatPrenom}`;
+    }
+    return '';
   };
 
   return (
     <div className="statistiques">
-      <Spinner loading={statistiquesLoading || conseillerLoading || loadingExport} />
+      <Spinner loading={statistiquesLoading || loadingExport} />
       <div className="structure fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <h1 className={`titre ${conseiller?.nom.length > 50 ? 'titre-long' : ''}`} >Statistiques - {formatNomStatistiques()}</h1>
+            <h1 className={`titre ${location?.state.conseiller?.nom.length > 50 ? 'titre-long' : ''}`} >Statistiques - {formatNomStatistiques()}</h1>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w print-graphique">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>

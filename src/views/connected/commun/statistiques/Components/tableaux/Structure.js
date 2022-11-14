@@ -17,7 +17,7 @@ export default function Structure({ structure }) {
           className="fr-btn details-btn fr-fi-eye-line fr-btn--icon-left"
           style={{ boxShadow: 'none' }}
           to={`/statistiques-structure/${structure?._id}`}
-          state={{ origin: '/statistiques-structures' }}
+          state={{ 'origin': '/statistiques-structures', 'structure': structure }}
         >
             D&eacute;tails
         </Link>

@@ -35,7 +35,7 @@ function Conseiller({ conseiller }) {
               className="fr-btn fr-icon-line-chart-line"
               title="Statistiques"
               to={`/statistiques-conseiller/${conseiller?._id}`}
-              state={{ origin: '/liste-conseillers' }}
+              state={{ 'origin': '/liste-conseillers', 'conseiller': conseiller }}
             />
           </div>
         </td>
