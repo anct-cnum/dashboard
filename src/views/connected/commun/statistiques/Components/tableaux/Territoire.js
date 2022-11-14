@@ -24,7 +24,7 @@ function Territoire({ territoire, filtreTerritoire }) {
             className="fr-btn details-btn fr-fi-eye-line fr-btn--icon-left"
             style={{ boxShadow: 'none' }}
             to={`/statistiques-territoire/${codeTerritoire}`}
-            state={{ 'origin': '/statistiques-territoires', 'territoire': territoire }}
+            state={{ 'origin': '/statistiques-territoires', territoire }}
           >
               D&eacute;tails
           </Link>

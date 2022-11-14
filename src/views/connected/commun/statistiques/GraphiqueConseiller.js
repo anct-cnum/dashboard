@@ -30,7 +30,7 @@ export default function GraphiqueConseiller() {
     if (!conseiller) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'La conseiller n\'a pas pu être chargée !',
+        message: 'La conseiller n\'a pas pu être chargé !',
         status: null, description: null
       }));
     }
@@ -42,7 +42,7 @@ export default function GraphiqueConseiller() {
     } else if (statistiquesError) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les statistiques n\'ont pas pu être chargés !',
+        message: 'Les statistiques n\'ont pas pu être chargées !',
         status: null, description: null
       }));
     }

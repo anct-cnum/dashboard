@@ -31,7 +31,7 @@ export default function GraphiqueTerritoire() {
     if (!territoire) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Le territoire n\'a pas pu être chargée !',
+        message: 'Le territoire n\'a pas pu être chargé !',
         status: null, description: null
       }));
     }
@@ -43,7 +43,7 @@ export default function GraphiqueTerritoire() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les statistiques n\'ont pas pu être chargés !',
+        message: 'Les statistiques n\'ont pas pu être chargées !',
         status: null, description: null
       }));
     }
