@@ -31,7 +31,7 @@ const rootReducer = combineReducers({
   stats: statsReducer,
   search: searchReducer,
   structure: structureReducer,
-  invitations: invitationsReducer
+  invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,
 });
 
