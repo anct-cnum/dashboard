@@ -103,8 +103,12 @@ function Candidatures() {
       filter: 'finalisee'
     },
     {
-      name: 'Rupture notifiée',
+      name: 'Ruptures notifiées',
       filter: 'nouvelle_rupture'
+    },
+    {
+      name: 'Candidats en rupture',
+      filter: 'finalisee_rupture'
     },
     {
       name: 'Afficher toutes les candidatures',
