@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Oval } from 'react-loader-spinner';
 import Candidat from './candidatures/Candidat';
 import CandidatNonMisEnRelation from './candidatures/CandidatNonMisEnRelation';
-import { conseillerActions, statsActions, searchActions } from '../../../actions';
+import { conseillerActions, statsActions, searchActions, alerteEtSpinnerActions } from '../../../actions';
 import Pagination from '../../../components/PaginationCandidatures';
+import Spinner from '../../../components/Spinner';
 import FiltersAndSorts from './candidatures/FiltersAndSorts';
 import {
   Link,
@@ -13,14 +13,14 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SearchBox from '../../../components/SearchBox';
+import { scrollTopWindow } from '../../../utils/exportsUtils';
 
-function Candidats() {
+function Candidatures() {
   const dispatch = useDispatch();
 
   const { search } = useSelector(state => state.search);
-  const conseillers = useSelector(state => state.conseillers);
+  const conseillers = useSelector(state => state.conseiller);
   const stats = useSelector(state => state.stats);
-  const downloading = useSelector(state => state?.conseiller?.downloading);
   const location = useLocation();
 
   let [page, setPage] = useState(1);
@@ -37,7 +37,7 @@ function Candidats() {
 
   const navigate = page => {
     setPage(page);
-    dispatch(conseillerActions.getAll({
+    dispatch(conseillerActions.getAllCandidats({
       misesEnRelation: true,
       search,
       page: conseillers.items ? (page - 1) * conseillers.items.limit : 0,
@@ -58,7 +58,7 @@ function Candidats() {
     if (savePage !== null) {
       navigate(savePage);
     } else {
-      dispatch(conseillerActions.getAll({
+      dispatch(conseillerActions.getAllCandidats({
         misesEnRelation: true,
         search,
         page: page - 1,
@@ -103,8 +103,12 @@ function Candidats() {
       filter: 'finalisee'
     },
     {
-      name: 'Rupture notifiée',
+      name: 'Ruptures notifiées',
       filter: 'nouvelle_rupture'
+    },
+    {
+      name: 'Candidats en rupture',
+      filter: 'finalisee_rupture'
     },
     {
       name: 'Afficher toutes les candidatures',
@@ -119,6 +123,17 @@ function Candidats() {
     setConstructorHasRun(true);
   };
   constructor();
+
+  useEffect(() => {
+    if (conseillers.downloadError && conseillers.downloadError !== false) {
+      scrollTopWindow();
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'Le CV n\'a pas pu être récupéré !',
+        status: null, description: null
+      }));
+    }
+  }, [conseillers.downloadError]);
 
   return (
     <div className="conseillers">
@@ -154,16 +169,10 @@ function Candidats() {
         </h2>
       }
 
+      <Spinner loading={conseillers.downloading || conseillers.loading}/>
+
       { !conseillers.loading && conseillers.items && conseillers.items.data.length > 0 &&
         <div className="fr-table fr-table--layout-fixed" style={{ overflow: 'auto' }}>
-          <div className="spinnerCustom">
-            <Oval
-              color="#00BFFF"
-              height={100}
-              width={100}
-              visible={downloading === true}
-            />
-          </div>
           <table className="table-conseillers">
             <thead>
               <tr>
@@ -204,8 +213,8 @@ function Candidats() {
   );
 }
 
-Candidats.propTypes = {
+Candidatures.propTypes = {
   location: PropTypes.object
 };
 
-export default Candidats;
+export default Candidatures;

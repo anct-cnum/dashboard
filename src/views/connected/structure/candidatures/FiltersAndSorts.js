@@ -71,7 +71,7 @@ function filtersAndSorts({ resetPage }) {
       diplome: filters.diplome
     };
 
-    dispatch(conseillerActions.getAll({ misesEnRelation: true, search, page: 0, filter, sortData: filtersAndSorts?.order, persoFilters }));
+    dispatch(conseillerActions.getAllCandidats({ misesEnRelation: true, search, page: 0, filter, sortData: filtersAndSorts?.order, persoFilters }));
     resetPage(1);
   };
 

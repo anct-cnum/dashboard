@@ -60,27 +60,42 @@ function Menu() {
               </Link>
             </li>
             <li className="fr-nav__item">
-              <Link className="fr-nav__link" to={`/${roleActivated}/conseillers`}>
-                Liste des conseillers
-              </Link>
-            </li>
-            <li className="fr-nav__item">
-              <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}>
-                Liste des candidats
-              </Link>
-            </li>
-            <li className="fr-nav__item">
-              <Link className="fr-nav__link" to="">
-                Liste des structures
-              </Link>
-            </li>
-            <li className="fr-nav__item">
-              <Link
-                to={`/documents`}
-                className="fr-nav__link"
-                {...(location.pathname.startsWith(`/documents`) ? { 'aria-current': 'page' } : {})}>
-                  Documents
-              </Link>
+              <button
+                id="listes"
+                className="fr-nav__btn"
+                aria-expanded={ activeMenu === 'listes' }
+                aria-controls="menu-listes"
+                // eslint-disable-next-line max-len
+                {...(location.pathname.startsWith(`/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) || location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
+                onClick={onClickMenu}>
+                  Suivis
+              </button>
+              <div className={`fr-collapse fr-menu ${activeMenu === 'listes' ? 'fr-collapse--expanded' : ''}`} id="menu-listes">
+                <ul className="fr-menu__list">
+                  { (roleActivated === 'structure' || roleActivated === 'admin') &&
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}>
+                      Liste des candidatures
+                    </Link>
+                  </li>
+                  }
+                  <li>
+                    <Link className="fr-nav__link" to="liste-conseillers"
+                      {...(location.pathname.startsWith(`/liste-conseillers`) ? { 'aria-current': 'page' } : {})}>
+                      Liste des conseillers
+                    </Link>
+                  </li>
+                  {roleActivated !== 'structure' &&
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/liste-structures`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}>
+                      Liste des structures
+                    </Link>
+                  </li>
+                  }
+                </ul>
+              </div>
             </li>
             <li className="fr-nav__item">
               <button
@@ -164,6 +179,14 @@ function Menu() {
                   </li>
                 </ul>
               </div>
+            </li>
+            <li className="fr-nav__item">
+              <Link
+                to={`/documents`}
+                className="fr-nav__link"
+                {...(location.pathname.startsWith(`/documents`) ? { 'aria-current': 'page' } : {})}>
+                  Documents
+              </Link>
             </li>
             <li className="fr-nav__item">
               <button

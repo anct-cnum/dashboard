@@ -161,6 +161,25 @@ export default function statistiques(state = initialState, action) {
         error: action.error,
         loading: false,
       };
+    case 'GET_STATS_CRA_CONSEILLER_REQUEST':
+      return {
+        ...state,
+        statsData: null,
+        loading: true,
+        error: false,
+      };
+    case 'GET_STATS_CRA_CONSEILLER_SUCCESS':
+      return {
+        ...state,
+        statsData: action.statsConseiller,
+        loading: false,
+      };
+    case 'GET_STATS_CRA_CONSEILLER_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
     default:
       return state;
   }

@@ -1,6 +1,7 @@
 import { roleActivated, authHeader } from '../helpers';
 import { authenticationService } from './authenticationService';
 import apiUrlRoot from '../helpers/apiUrl';
+import { territoireQueryString } from '../utils/queryUtils';
 
 export const statistiquesService = {
   getTerritoire,
@@ -8,22 +9,10 @@ export const statistiquesService = {
   getDatasTerritoires,
   getStatistiquesTerritoire,
   getStatistiquesStructure,
+  getStatistiquesConseiller,
   getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
 };
-
-function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page) {
-  if (nomOrdre === 'code') {
-    nomOrdre = territoire;
-  } else if (nomOrdre === 'nom') {
-    //Afin d'obtenir nomDepartemement ou nomRegion
-    nomOrdre += territoire.slice(4);
-  }
-  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
-  const pageIfDefined = page ? '&page=' + page : '';
-
-  return `?territoire=${territoire}&dateDebut=${dateDebut}&dateFin=${dateFin}${pageIfDefined}${ordreColonne}`;
-}
 
 function getTerritoire(typeTerritoire, idTerritoire, date) {
   const requestOptions = {
@@ -77,6 +66,16 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal) {
   };
   return fetch(
     `${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idStructure=${idStructure}&codePostal=${codePostal}`,
+    requestOptions).then(handleResponse);
+}
+
+function getStatistiquesConseiller(dateDebut, dateFin, idConseiller) {
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(authHeader(), { 'Content-Type': 'application/json' }),
+  };
+  return fetch(
+    `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idConseiller=${idConseiller}`,
     requestOptions).then(handleResponse);
 }
 

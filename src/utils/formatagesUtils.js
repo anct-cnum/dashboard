@@ -45,3 +45,12 @@ export const checkComplexity = password => {
   
   return check.test(password);
 };
+
+export const validInputSiret = siret => {
+  const regexValidSiret = new RegExp(/^[0-9]{14}$/);
+  
+  return regexValidSiret.test(siret);
+};
+
+export const formatNomConseiller = conseiller =>
+  (conseiller?.nom + ' ' + conseiller?.prenom).toLowerCase().replace(/(^\w{1})|([\s,-]+\w{1})/g, letter => letter.toUpperCase());

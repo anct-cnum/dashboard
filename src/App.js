@@ -21,6 +21,8 @@ import GraphiqueStructure from './views/connected/commun/statistiques/GraphiqueS
 import GraphiqueTerritoire from './views/connected/commun/statistiques/GraphiqueTerritoire';
 import TableauStructures from './views/connected/commun/statistiques/TableauStructures';
 import TableauTerritoires from './views/connected/commun/statistiques/TableauTerritoires';
+import TableauConseillers from './views/connected/commun/conseillers/TableauConseillers';
+import GraphiqueConseiller from './views/connected/commun/statistiques/GraphiqueConseiller';
 
 
 function App() {
@@ -44,9 +46,11 @@ function App() {
             <Route path="/documents" element={<Documents />} />
             <Route path="/certifications" element={<Certifications />} />
             <Route path="/formation" element={<InscriptionFormation />} />
+            <Route path="/liste-conseillers" element={<TableauConseillers />} />
             <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
             <Route path="/statistiques-structures" element={<TableauStructures />} />
             <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
+            <Route path="/statistiques-conseiller/:idConseiller" element={<GraphiqueConseiller />} />
             <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
             <Route path="/statistiques-territoire/:codeTerritoire" element={<GraphiqueTerritoire />} />
             <Route index element={<Navigate to="/accueil" />} /> {/* pour fixer le warning du react router */}

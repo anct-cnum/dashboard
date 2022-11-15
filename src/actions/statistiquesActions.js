@@ -10,6 +10,7 @@ export const statistiquesActions = {
   getDatasStructures,
   getDatasTerritoires,
   getStatistiquesStructure,
+  getStatistiquesConseiller,
   getStatistiquesTerritoire,
   getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
@@ -180,6 +181,31 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal = 
   }
   function failure(error) {
     return { type: 'GET_STATS_CRA_STRUCTURE_FAILURE', error };
+  }
+}
+
+function getStatistiquesConseiller(dateDebut, dateFin, idConseiller) {
+  return dispatch => {
+    dispatch(request());
+    statistiquesService.getStatistiquesConseiller(formatDate(dateDebut), formatDate(dateFin), idConseiller)
+    .then(
+      statsConseiller => {
+        dispatch(success(statsConseiller));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_STATS_CRA_CONSEILLER_REQUEST' };
+  }
+  function success(statsConseiller) {
+    return { type: 'GET_STATS_CRA_CONSEILLER_SUCCESS', statsConseiller };
+  }
+  function failure(error) {
+    return { type: 'GET_STATS_CRA_CONSEILLER_FAILURE', error };
   }
 }
 
