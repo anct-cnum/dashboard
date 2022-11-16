@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
 
@@ -15,8 +15,9 @@ export default function GraphiqueTerritoire() {
 
   const dispatch = useDispatch();
   const location = useLocation();
+  const { codeTerritoire } = useParams();
 
-  const codeTerritoire = location.pathname.split('/')[2];
+  const territoire = location?.state.territoire;
 
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
   const dateFin = useSelector(state => state.statistiques?.dateFin);
@@ -24,24 +25,29 @@ export default function GraphiqueTerritoire() {
   const error = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const typeTerritoire = useSelector(state => state.filtresEtTris?.territoire);
-  const territoire = useSelector(state => state.statistiques?.territoire);
   const loadingExport = useSelector(state => state.exports?.loading);
 
   useEffect(() => {
-    if (!error) {
-      if (codeTerritoire && !territoire || (territoire?.codeDepartement !== codeTerritoire && territoire?.codeRegion !== codeTerritoire)) {
-        dispatch(statistiquesActions.getTerritoire(typeTerritoire, codeTerritoire, dateFin));
-      } else if (territoire) {
-        dispatch(statistiquesActions.getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, territoire?.conseillerIds));
-      }
-    } else {
+    if (!territoire) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: territoire ? 'Les statistiques n\'ont pas pu être chargés !' : 'Le territoire n\'a pas pu être chargé !',
+        message: 'Le territoire n\'a pas pu être chargé !',
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, codeTerritoire, territoire, error]);
+  }, []);
+
+  useEffect(() => {
+    if (!error && codeTerritoire && !!territoire) {
+      dispatch(statistiquesActions.getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, territoire?.conseillerIds));
+    } else {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'Les statistiques n\'ont pas pu être chargées !',
+        status: null, description: null
+      }));
+    }
+  }, [dateDebut, dateFin, error]);
 
   return (
     <div className="statistiques">
@@ -66,11 +72,15 @@ export default function GraphiqueTerritoire() {
             <LeftPage donneesStats={donneesStatistiques}/>
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
-            <StatistiquesBanniere dateDebut={new Date('2020-09-01')} dateFin={dateFin} id={codeTerritoire} typeStats="territoire"/>
+            <StatistiquesBanniere
+              dateDebut={new Date('2020-09-01')}
+              dateFin={dateFin}
+              id={codeTerritoire}
+              typeStats="territoire"
+            />
           </div>
         }
       </div>
     </div>
   );
-
 }

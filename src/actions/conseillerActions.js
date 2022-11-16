@@ -4,13 +4,15 @@ import download from 'downloadjs';
 
 export const conseillerActions = {
   get,
-  getAll,
+  getCandidat,
+  getAllRecruter,
   updateStatus,
   updateDateRecrutement,
   updateDateRupture,
   updateMotifRupture,
   preSelectionner,
-  getCurriculumVitae
+  getCurriculumVitae,
+  getAllCandidats,
 };
 
 function get(id) {
@@ -38,7 +40,32 @@ function get(id) {
 
 }
 
-function getAll({
+function getCandidat(id) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.getCandidat(id)
+    .then(
+      candidat => dispatch(success(candidat)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CANDIDAT_REQUEST' };
+  }
+  function success(candidat) {
+    return { type: 'GET_CANDIDAT_SUCCESS', candidat };
+  }
+  function failure(error) {
+    return { type: 'GET_CANDIDAT_FAILURE', error };
+  }
+
+}
+
+function getAllCandidats({
   departement = null,
   region = null,
   com = null,
@@ -52,7 +79,6 @@ function getAll({
   persoFilters }) {
   return dispatch => {
     dispatch(request());
-
     let promises = [];
     if (misesEnRelation) {
       let promise = conseillerService.getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters);
@@ -61,10 +87,9 @@ function getAll({
 
     let isSearch = search.length > 0;
     if (!misesEnRelation || isSearch) {
-      let promise = conseillerService.getAll(departement, region, com, search, page, isSearch ? '' : filter, sortData, sortOrder, persoFilters);
+      let promise = conseillerService.getAllCandidats(departement, region, com, search, page, isSearch ? '' : filter, sortData, sortOrder, persoFilters);
       promises.push(promise);
     }
-
     let conseillers = null;
     Promise.all(promises).then(items => {
       conseillers = items[0];
@@ -76,15 +101,41 @@ function getAll({
       dispatch(failure(error));
     });
   };
-
   function request() {
-    return { type: 'GETALL_REQUEST' };
+    return { type: 'GETALL_CANDIDATS_REQUEST' };
   }
   function success(conseillers) {
-    return { type: 'GETALL_SUCCESS', conseillers };
+    return { type: 'GETALL_CANDIDATS_SUCCESS', conseillers };
   }
   function failure(error) {
-    return { type: 'GETALL_FAILURE', error };
+    return { type: 'GETALL_CANDIDATS_FAILURE', error };
+  }
+}
+
+// eslint-disable-next-line max-len
+function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+  return dispatch => {
+    dispatch(request());
+    // eslint-disable-next-line max-len
+    conseillerService.getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre)
+    .then(
+      conseillers => {
+        dispatch(success(conseillers));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GETALL_RECRUTER_REQUEST' };
+  }
+  function success(conseillers) {
+    return { type: 'GETALL_RECRUTER_SUCCESS', conseillers };
+  }
+  function failure(error) {
+    return { type: 'GETALL_RECRUTER_FAILURE', error };
   }
 }
 

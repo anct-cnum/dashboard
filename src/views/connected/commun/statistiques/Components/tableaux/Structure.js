@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export default function Structure({ structure, currentPage }) {
+export default function Structure({ structure }) {
   return (
     <tr>
       <td>{structure.idPG}</td>
@@ -13,13 +13,12 @@ export default function Structure({ structure, currentPage }) {
       <td>{structure.CRAEnregistres}</td>
       <td>{structure.personnesAccompagnees}</td>
       <td>
-        <Link className="fr-btn details-btn fr-fi-eye-line fr-btn--icon-left" style={{ boxShadow: 'none' }}
-          to={{
-            pathname: `/statistiques-structure/${structure?._id}`,
-            currentPage: currentPage,
-            origin: `/admin/statistiques`,
-            idStructure: structure?._id,
-          }}>
+        <Link
+          className="fr-btn details-btn fr-fi-eye-line fr-btn--icon-left"
+          style={{ boxShadow: 'none' }}
+          to={`/statistiques-structure/${structure?._id}`}
+          state={{ 'origin': '/statistiques-structures', structure }}
+        >
             D&eacute;tails
         </Link>
       </td>
@@ -29,6 +28,5 @@ export default function Structure({ structure, currentPage }) {
 
 Structure.propTypes = {
   structure: PropTypes.object,
-  currentPage: PropTypes.number,
 };
 

@@ -1,10 +1,13 @@
 import { authHeader, history, userEntityId, roleActivated } from '../helpers';
 import { authenticationService } from './authenticationService';
 import apiUrlRoot from '../helpers/apiUrl';
+import { conseillerQueryStringParameters } from '../utils/queryUtils';
 
 export const conseillerService = {
   get,
-  getAll,
+  getCandidat,
+  getAllRecruter,
+  getAllCandidats,
   getAllMisesEnRelation,
   updateStatus,
   updateDateRecrutement,
@@ -17,12 +20,44 @@ export const conseillerService = {
 function get(id) {
   const requestOptions = {
     method: 'GET',
-    headers: Object.assign(authHeader())
+    headers: authHeader()
   };
   return fetch(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
-function getAll(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
+function getCandidat(id) {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+  return fetch(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
+}
+
+// eslint-disable-next-line max-len
+function getAllRecruter(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre) {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+  let {
+    ordreColonne,
+    filterDateStart,
+    filterDateEnd,
+    filterByNameConseiller,
+    rupture,
+    coordinateur,
+    filterByRegion,
+    filterByNameStructure,
+  // eslint-disable-next-line max-len
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParNomStructure);
+
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/conseillers-recruter?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}&role=${roleActivated()}`;
+
+  return fetch(uri, requestOptions).then(handleResponse);
+}
+
+function getAllCandidats(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
   const requestOptions = {
     method: 'GET',
     headers: authHeader()
@@ -45,7 +80,6 @@ function getAll(departement, region, com, search, page, filter, sortData, sortOr
   if (filter) {
     uri += `&filter=${filter}`;
   }
-
   return fetch(uri, requestOptions).then(handleResponse);
 }
 
@@ -143,7 +177,7 @@ function getCurriculumVitae(id) {
     headers: authHeader()
   };
 
-  return fetch(`${apiUrlRoot}/conseillers/${id}/cv`, requestOptions).then(handleFileResponse);
+  return fetch(`${apiUrlRoot}/candidat/${id}/cv`, requestOptions).then(handleFileResponse);
 }
 
 function handleResponse(response) {

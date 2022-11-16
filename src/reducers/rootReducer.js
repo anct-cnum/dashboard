@@ -5,16 +5,16 @@ import statistiquesReducer from './statistiquesReducer';
 import filtresEtTrisReducer from './filtresEtTrisReducer';
 import filtresCandidatures from './filtresCandidaturesReducer';
 import paginationReducer from './paginationReducer';
-import structuresReducer from './structuresReducer';
 import exportsReducer from './exportsReducer';
 import invitationsReducer from './invitationsReducer';
 import alerteEtSpinnerReducer from './alerteEtSpinnerReducer';
 import userReducer from './userReducer';
-import conseillersReducer from './conseillersReducer';
 import conseillerReducer from './conseillerReducer';
 import searchReducer from './searchReducer';
 import statsReducer from './statsReducer';
 import structureReducer from './structureReducer';
+import filtresConseillers from './filtresConseillersReducer';
+import filtresStructuresReducer from './filtresStructuresReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -22,17 +22,17 @@ const rootReducer = combineReducers({
   statistiques: statistiquesReducer,
   filtresEtTris: filtresEtTrisReducer,
   filtresCandidatures: filtresCandidatures,
+  filtresConseillers: filtresConseillers,
   pagination: paginationReducer,
-  structures: structuresReducer,
   exports: exportsReducer,
   alerteEtSpinner: alerteEtSpinnerReducer,
   user: userReducer,
-  conseillers: conseillersReducer,
   conseiller: conseillerReducer,
   stats: statsReducer,
   search: searchReducer,
   structure: structureReducer,
-  invitations: invitationsReducer
+  invitations: invitationsReducer,
+  filtresStructures: filtresStructuresReducer,
 });
 
 export default rootReducer;
