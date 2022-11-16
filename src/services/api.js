@@ -1,9 +1,9 @@
 import axios from 'axios';
-// eslint-disable-next-line camelcase
-import jwt_decode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import { authenticationActions } from '../actions/authenticationActions';
-import signOut from '../auth/logout';
+import signOut from '../services/auth/logout';
 import apiUrlRoot from '../helpers/apiUrl';
+import { getAccessToken } from '../helpers/getAccessToken';
 
 export const API = axios.create({
   baseURL: `${apiUrlRoot}`
@@ -11,11 +11,11 @@ export const API = axios.create({
 
 const setup = store => {
   const { dispatch } = store;
-  let user;
+  let accessToken;
   API.interceptors.request.use(async req => {
-    user = store.getState().authentication.user || JSON.parse(localStorage.getItem('user'));
-    req.headers.Authorization = `Bearer ${user?.accessToken}`;
-    const decodedToken = jwt_decode(user?.accessToken);
+    accessToken = store.getState().authentication.accessToken || getAccessToken();
+    req.headers.Authorization = `Bearer ${accessToken}`;
+    const decodedToken = jwtDecode(accessToken);
     const isExpired = decodedToken.exp * 1000 < new Date().getTime();
     if (!isExpired) {
       return req;

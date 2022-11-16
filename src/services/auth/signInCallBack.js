@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { authenticationActions } from '../actions';
-import apiUrlRoot from '../helpers/apiUrl';
+import { authenticationActions } from '../../actions';
+import apiUrlRoot from '../../helpers/apiUrl';
 
 const getProfile = () =>
   JSON.parse(
     localStorage.getItem(
-      'oidc.user'
+      process.env.REACT_APP_OIDC_USER_KEY
     )
   );
 
@@ -34,7 +34,7 @@ const signInCallBack = async store => {
     },
   })
   .then(result => {
-    dispatch(authenticationActions.login(result?.data?.user));
+    dispatch(authenticationActions.login(result?.data));
     dispatch(authenticationActions.refreshToken(result?.data?.accessToken));
     localStorage.setItem('user', JSON.stringify(result?.data));
     localStorage.setItem('roleActivated', result?.data?.user?.roles[0]);
@@ -43,6 +43,5 @@ const signInCallBack = async store => {
     window.location.pathname = '/login';
   });
 };
-
 
 export default signInCallBack;

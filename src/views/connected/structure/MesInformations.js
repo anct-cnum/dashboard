@@ -7,7 +7,7 @@ import StructureContactForm from '../../../components/StructureContactForm';
 
 function MesInformations() {
   const dispatch = useDispatch();
-  const userAuth = useSelector(state => state.authentication.user.user);
+  const userAuth = useSelector(state => state.authentication.user);
   const [formCompte, setFormCompte] = useState(false);
   const error = useSelector(state => state?.user?.error);
   const [email, setEmail] = useState(userAuth.name);

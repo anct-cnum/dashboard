@@ -1,4 +1,4 @@
-import signOut from '../auth/logout';
+import signOut from '../services/auth/logout';
 import { roleActivated, authHeader } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 

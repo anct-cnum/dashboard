@@ -5,11 +5,11 @@ import { valideInputEmail } from '../../../utils/formatagesUtils';
 
 function MesInformations() {
   const dispatch = useDispatch();
-  const userAuth = useSelector(state => state.authentication.user.user);
+  const userAuth = useSelector(state => state.authentication.user);
   const [form, setForm] = useState(false);
   const error = useSelector(state => state?.user?.error);
-  const [email, setEmail] = useState(userAuth.name);
   const [flashMessage, setFlashMessage] = useState(false);
+  const [email, setEmail] = useState(userAuth.name);
 
   const handleForm = event => {
     setEmail(event.target.value);

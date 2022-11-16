@@ -24,7 +24,6 @@ async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrd
   API.get(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error));
-  
 }
 
 // eslint-disable-next-line max-len
@@ -52,8 +51,6 @@ function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoo
 
 // eslint-disable-next-line max-len
 function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre) {
- 
-
   const exportConseillersRoute = '/liste-structures-csv';
   const {
     ordreColonne,
@@ -71,7 +68,6 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
   fetch(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}${filterByComs}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error));
-  
 }
 
 function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal) {

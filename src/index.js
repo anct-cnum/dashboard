@@ -13,7 +13,7 @@ import { WebStorageStateStore } from 'oidc-client-ts';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { history } from './helpers';
 import setup from './services/api';
-import signInCallBack from '../src/auth/signInCallBack';
+import signInCallBack from '../src/services/auth/signInCallBack';
 import apiUrlRoot from './helpers/apiUrl';
 
 if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
@@ -31,10 +31,10 @@ const store = configureStore({
 });
 
 const oidcConfig = {
-  client_id: '',
-  client_secret: '',
-  authority: 'https://recette/',
-  redirect_uri: `${apiUrlRoot}/accueil`,
+  client_id: process.env.REACT_APP_CLIENT_ID,
+  client_secret: process.env.REACT_APP_CLIENT_SECRET,
+  authority: process.env.REACT_APP_OIDC_AUTHORITY,
+  redirect_uri: process.env.REACT_APP_REDIRECT_URI,
   post_logout_redirect_uri: `${apiUrlRoot}/login`,
   userStore: new WebStorageStateStore({ store: window.localStorage }),
   onSigninCallback: () => signInCallBack(store),

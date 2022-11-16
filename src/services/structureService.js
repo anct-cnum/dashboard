@@ -19,8 +19,6 @@ function get(id) {
 }
 
 function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre) {
- 
-
   const {
     ordreColonne,
     filterDateStart,
@@ -40,32 +38,24 @@ function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, fi
 }
 
 function patch({ id, contact }) {
- 
-
   API.patch(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`, JSON.stringify({ contact }))
   .then(response => response.data)
   .catch(error => Promise.reject(error));
 }
 
 function updateStructureEmail(email, structureId) {
-
-
   API.patch(`${apiUrlRoot}/structure/email/${structureId}?role=${roleActivated()}`, JSON.stringify({ email }))
   .then(response => response.data)
   .catch(error => Promise.reject(error));
 }
 
 function verifyStructureSiret(siret) {
- 
-
   API.get(`${apiUrlRoot}/structure/verify-siret/${siret}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error));
 }
 
 function updateStructureSiret(siret, structureId) {
- 
-
   API.patch(`${apiUrlRoot}/structure/siret/${structureId}?role=${roleActivated()}`, JSON.stringify({ siret }))
   .then(response => response.data)
   .catch(error => Promise.reject(error));

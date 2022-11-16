@@ -2,15 +2,14 @@ export const authenticationActions = {
   login,
   changeRoleActivated,
   refreshToken,
-  loginFailure
 };
 
-function login(user) {
+function login(data) {
   return dispatch => {
-    dispatch(success(user));
+    dispatch(success(data));
   };
-  function success(user) {
-    return { type: 'LOGIN_SUCCESS', user };
+  function success(data) {
+    return { type: 'LOGIN_SUCCESS', data };
   }
 }
 
@@ -27,7 +26,4 @@ function refreshToken(accessToken) {
   function success(accessToken) {
     return { type: 'REFRESH_TOKEN', accessToken };
   }
-}
-function loginFailure() {
-  return { type: 'LOGIN_FAILURE' };
 }

@@ -19,26 +19,26 @@ import GraphiqueTerritoire from './views/connected/commun/statistiques/Graphique
 import TableauStructures from './views/connected/commun/statistiques/TableauStructures';
 import TableauTerritoires from './views/connected/commun/statistiques/TableauTerritoires';
 import { useAuth } from 'react-oidc-context';
-import refreshToken from './auth/refreshToken';
+import refreshToken from './services/auth/refreshToken';
 import TableauConseillers from './views/connected/commun/conseillers/TableauConseillers';
-import { getUser } from './helpers/getUser';
+import { getAccessToken } from './helpers/getAccessToken';
 
 
 function App() {
 
   const isLoading = useSelector(state => state.alerteEtSpinner?.isLoading);
-  const user = useSelector(state => state.authentication?.user) || getUser();
+  const accessToken = useSelector(state => state.authentication?.accessToken) || getAccessToken();
   const dispatch = useDispatch();
   const location = useLocation();
   const auth = useAuth();
 
   if (location.pathname !== '/login') {
     useEffect(() => {
-      refreshToken(auth, dispatch, user);
+      refreshToken(auth, dispatch, accessToken);
     }, [location]);
   
   }
-
+  
 
   return (
     <div className="App">

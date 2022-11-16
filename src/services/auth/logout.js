@@ -1,5 +1,5 @@
 import axios from 'axios';
-import apiUrlRoot from '../helpers/apiUrl';
+import apiUrlRoot from '../../helpers/apiUrl';
 
 const signOut = async () => {
   localStorage.removeItem(

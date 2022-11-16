@@ -1,9 +1,11 @@
 import { roleActivated, rolesUser } from '../helpers';
 import { getUser } from '../helpers/getUser';
+import { getAccessToken } from '../helpers/getAccessToken';
 const initialState = {
   roleActivated: roleActivated(),
   rolesAllowed: rolesUser(),
-  user: getUser()
+  user: getUser(),
+  accessToken: getAccessToken()
 };
 
 export default function authentication(state = initialState, action) {
@@ -12,15 +14,16 @@ export default function authentication(state = initialState, action) {
     case 'LOGIN_SUCCESS':
       return {
         ...state,
-        user: { user: action.user, accessToken: action.accessToken },
-        rolesAllowed: action.user.roles,
-        roleActivated: action.user.roles[0],
+        user: action.data.user,
+        accessToken: action.data.accessToken,
+        rolesAllowed: action.data.user.roles,
+        roleActivated: action.data.user.roles[0],
         loading: false
       };
     case 'REFRESH_TOKEN':
       return {
         ...state,
-        user: { ...state.user, accessToken: action.accessToken }
+        accessToken: action.accessToken
       };
     case 'LOGIN_FAILURE':
       return {};

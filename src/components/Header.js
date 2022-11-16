@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/brands/logo-rf-conseiller-numerique-min.svg';
 import { menuActions, authenticationActions } from '../actions';
 import Menu from './Menu';
-import signOut from '../auth/logout';
+import signOut from '../services/auth/logout';
 
 function Header() {
 

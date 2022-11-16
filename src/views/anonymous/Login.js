@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useAuth } from 'react-oidc-context';
 import { useParams } from 'react-router-dom';
-import logo from '../../assets/brands/logo-inclusionconnect-bouton.svg';
+import logo from '../../assets/brands/logo-inclusionconnect-bouton-min.svg';
 
 export default function Login() {
 
@@ -26,9 +26,7 @@ export default function Login() {
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-6">
-            <div className="fr-my-3w">
-            </div>
-            <button onClick={login}>
+            <button className="fr-my-3w" onClick={login}>
               <img src={logo} className="btn" alt="Logo Inclusion Connect" />
             </button>
             {error &&
