@@ -6,8 +6,9 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function Multicompte() {
   const dispatch = useDispatch();
-  const { entity } = useSelector(state => state.authentication.user);
-  const { users, userError } = useSelector(state => state.user);
+  const entity = useSelector(state => state.authentication?.user?.entity);
+  const users = useSelector(state => state.user?.users);
+  const userError = useSelector(state => state.user?.userError);
   const [email, setEmail] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
 
