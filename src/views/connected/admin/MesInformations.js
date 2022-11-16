@@ -40,7 +40,7 @@ function MesInformations() {
         <div>
           {(errorUser === undefined || errorUser === false) &&
           <div className="fr-alert fr-alert--success fr-alert--sm fr-mb-4w">
-            <p>Un mail de confirmation a &eacute;t&eacute; envoy&eacute; sur l&rsquo;email <strong style={{ color: 'black' }}>{email}</strong></p>
+            <p>Un email d&rsquo;inscription a &eacute;t&eacute; envoy&eacute; sur l&rsquo;adresse <b>{email}</b></p>
           </div>
           }
           {(errorUser !== undefined && errorUser !== false) &&

@@ -14,8 +14,6 @@ import Alerte from './components/Alerte';
 import Documents from './views/connected/Documents';
 import Certifications from './views/connected/Certifications';
 import InscriptionFormation from './views/connected/InscriptionFormation';
-import ChoosePassword from './views/anonymous/ChoosePassword';
-
 import GraphiqueNationale from './views/connected/commun/statistiques/GraphiqueNationale';
 import GraphiqueStructure from './views/connected/commun/statistiques/GraphiqueStructure';
 import GraphiqueTerritoire from './views/connected/commun/statistiques/GraphiqueTerritoire';
@@ -37,7 +35,6 @@ function App() {
         <Alerte />
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/inscription/:token" element={<ChoosePassword />} />
           <Route path="/confirmation-email/:token" element={<ConfirmationEmail />} />
           <Route path="/" element={<PrivateRoute/>}>
             {/* routes communes ici */}

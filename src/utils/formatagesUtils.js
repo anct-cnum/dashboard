@@ -36,12 +36,3 @@ export const valideInputEmail = email => {
   
   return regexValidEmail.test(email);
 };
-
-
-export const checkComplexity = password => {
-  const check = new RegExp(
-    /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,199})/
-  );
-  
-  return check.test(password);
-};

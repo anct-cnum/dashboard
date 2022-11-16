@@ -138,11 +138,9 @@ function Menu() {
                 className="fr-nav__btn"
                 aria-expanded={ activeMenu === 'recrutement' }
                 aria-controls="menu-recrutement"
-                {...(location.pathname.startsWith(`/certifications`) ||
-                location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}
-                onClick={onClickMenu}
-              >
-                Infos recrutement
+                {...(location.pathname.startsWith(`/certifications`) || location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}
+                onClick={onClickMenu}>
+                  Infos recrutement
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'recrutement' ? 'fr-collapse--expanded' : ''}`} id="menu-recrutement">
                 <ul className="fr-menu__list">
@@ -189,39 +187,6 @@ function Menu() {
                 </ul>
               </div>
             </li>
-            {/* Exemple conservé pour les aria-current notamment
-            <li className="fr-nav__item">
-              <button
-                id="documents"
-                className="fr-nav__btn"
-                aria-expanded={ activeMenu === 'documents' }
-                aria-controls="menu-documents"
-                onClick={onClickMenu}
-                {...(location.pathname.startsWith('/documents') || location.pathname === '/' ? { 'aria-current': true } : {})}>
-                  Test sous menu
-              </button>
-              <div className={`fr-collapse fr-menu ${activeMenu === 'documents' ? 'fr-collapse--expanded' : ''}`} id="menu-documents">
-                <ul className="fr-menu__list">
-                  <li>
-                    <Link
-                      to="/"
-                      className="fr-nav__link"
-                      {...(location.pathname === '/' ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Accueil
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/documents"
-                      className="fr-nav__link"
-                      {...(location.pathname.startsWith('/documents') ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Mes documents
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            */}
           </ul>
         </nav>
       </div>

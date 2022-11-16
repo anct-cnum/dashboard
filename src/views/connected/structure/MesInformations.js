@@ -70,7 +70,7 @@ function MesInformations() {
       if (errorUser === undefined || errorUser === false) {
         dispatch(alerteEtSpinnerActions.getMessageAlerte({
           type: 'success',
-          message: `Un mail de confirmation a été envoyé sur l'email ${myEmail}`,
+          message: `Un mail d'inscription a été envoyé sur l'adresse ${myEmail}`,
           status: null, description: null
         }));
       } else if (errorUser !== undefined && errorUser !== false) {
