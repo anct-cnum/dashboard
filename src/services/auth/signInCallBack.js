@@ -5,7 +5,7 @@ import apiUrlRoot from '../../helpers/apiUrl';
 const getProfile = () =>
   JSON.parse(
     localStorage.getItem(
-      process.env.REACT_APP_OIDC_USER_KEY
+      process.env.REACT_APP_AUTH_OIDC_USER_KEY
     )
   );
 
