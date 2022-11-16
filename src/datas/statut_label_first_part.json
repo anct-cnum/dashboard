@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Nombre de candidatures",
+        "key": "nouvelle"
+    },
+    {
+        "name": "Nombre de candidatures pré sélectionnées",
+        "key": "interessee"
+    },
+    {
+        "name": "Nombre de candidatures validées",
+        "key": "recrutee"
+    },
+    {
+        "name": "Nombre de candidats recrutés",
+        "key": "finalisee"
+    }
+]

@@ -45,3 +45,12 @@ export const validInputSiret = siret => {
 
 export const formatNomConseiller = conseiller =>
   (conseiller?.nom + ' ' + conseiller?.prenom).toLowerCase().replace(/(^\w{1})|([\s,-]+\w{1})/g, letter => letter.toUpperCase());
+
+export const formatNomStats = (key, structure) => {
+  const test = structure?.stats.find(stat => stat._id === key);
+  if (test) {
+    return test.count;
+  }
+
+  return '-';
+};

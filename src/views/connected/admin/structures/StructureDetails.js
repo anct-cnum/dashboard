@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { structureActions } from '../../../../actions';
 import SiretForm from './SiretForm';
 import EmailForm from './EmailForm';
 import Spinner from '../../../../components/Spinner';
-import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, formatNomStats } from '../../../../utils/formatagesUtils';
+import statutsLabelFirstPart from '../../../../datas/statut_label_first_part.json';
+import statutsLabelSecondPart from '../../../../datas/statut_label_second_part.json';
 
 function StructureDetails() {
 
@@ -24,70 +26,6 @@ function StructureDetails() {
       dispatch(structureActions.get(idStructure));
     }
   }, [structure]);
-
-  const statutsLabelSecondPart = [
-    {
-      name: 'Nombre de candidatures non retenues',
-      nameSingle: 'Nombre de candidature non retenue',
-      key: 'nonInteressee',
-      order: 1
-    },
-    {
-      name: 'Nombre de candidats déjà recrutés par une autre structure',
-      nameSingle: 'Nombre de candidat déjà recruté par une autre structure',
-      key: 'finalisee_non_disponible',
-      order: 2
-    },
-    {
-      name: 'ruptures notifiées',
-      nameSingle: 'rupture notifiée',
-      key: 'nouvelle_rupture',
-      order: 3
-    },
-    {
-      name: 'ruptures de contrat',
-      nameSingle: 'rupture de contrat',
-      key: 'finalisee_rupture',
-      order: 4
-    },
-  ];
-
-  const statutsLabelFirstPart = [
-    {
-      name: 'Nombre de candidatures',
-      nameSingle: 'Nombre de candidature',
-      key: 'nouvelle',
-      order: 1
-    },
-    {
-      name: 'Nombre de candidatures pré sélectionnées',
-      nameSingle: 'Nombre de candidature pré sélectionnée',
-      key: 'interessee',
-      order: 2
-    },
-    {
-      name: 'Nombre de candidatures validées',
-      nameSingle: 'Nombre de candidature validée',
-      key: 'recrutee',
-      order: 3
-    },
-    {
-      name: 'Nombre de candidats recrutés',
-      nameSingle: 'Nombre de candidat recruté',
-      key: 'finalisee',
-      order: 4
-    },
-  ];
-
-  const formatNomStats = key => {
-    console.log(structure?.stats);
-    const test = structure?.stats.find(stat => stat._id === key);
-    if (test) {
-      return test.count;
-    }
-
-    return '-';
-  };
 
   return (
     <div className="fr-container structureDetails">
@@ -202,7 +140,7 @@ function StructureDetails() {
             <div className="fr-mb-3w">
               <strong>Compte associés à la structure</strong><br />
               <div>
-                { structure?.users.map((user, idx) =>
+                {structure?.users.map((user, idx) =>
                   <>
                     <span key={idx}>{user.name}</span>
                   </>
@@ -229,7 +167,7 @@ function StructureDetails() {
             </div>
           </div>
           <div className="fr-col-4">
-            { statutsLabelFirstPart.map((stat, idx) =>
+            {statutsLabelFirstPart.map((stat, idx) =>
               <>
                 <div className="fr-mb-3w" key={idx}>
                   <strong>{stat.name}</strong><br />
@@ -239,7 +177,7 @@ function StructureDetails() {
             )}
           </div>
           <div className="fr-col-5">
-            { statutsLabelSecondPart.map((stat, idx) =>
+            {statutsLabelSecondPart.map((stat, idx) =>
               <>
                 <div className="fr-mb-3w" key={idx}>
                   <strong>{stat.name}</strong><br />
@@ -272,8 +210,8 @@ function StructureDetails() {
                   </button>
                 </p>
               )}
-              {!structure?.conseillers &&
-                <span>Aucun conseiller trouvé</span>
+              {structure?.conseillers?.length === 0 &&
+                <span>Aucun conseiller trouv&eacute;</span>
               }
             </div>
           </div>
