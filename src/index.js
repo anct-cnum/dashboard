@@ -31,10 +31,10 @@ const store = configureStore({
 });
 
 const oidcConfig = {
-  client_id: process.env.REACT_APP_CLIENT_ID,
-  client_secret: process.env.REACT_APP_CLIENT_SECRET,
-  authority: process.env.REACT_APP_OIDC_AUTHORITY,
-  redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+  client_id: process.env.REACT_APP_AUTH_CLIENT_ID,
+  client_secret: process.env.REACT_APP_AUTH_CLIENT_SECRET,
+  authority: process.env.REACT_APP_AUTH_OIDC_AUTHORITY,
+  redirect_uri: process.env.REACT_APP_AUTH_REDIRECT_URI,
   post_logout_redirect_uri: `${apiUrlRoot}/login`,
   userStore: new WebStorageStateStore({ store: window.localStorage }),
   onSigninCallback: () => signInCallBack(store),
