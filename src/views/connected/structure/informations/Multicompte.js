@@ -30,22 +30,22 @@ function Multicompte() {
     <>
       <h2>Liste des utilisateurs</h2>
       { !userError && users &&
-               <section className="fr-accordion">
-                 <h3 className="fr-accordion__title">
-                   <button className="fr-accordion__btn" aria-expanded="true" aria-controls="accordion-106">
-                     <span>Liste des utilisateurs</span>
-                   </button>
-                 </h3>
-                 <div className="fr-collapse" id="accordion-106">
-                   {users.length === 0 && <p>Aucun compte associé.</p>}
-                   {users && users.map((user, idx) => {
-                     return (
-                       <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
-                     );
-                   })
-                   }
-                 </div>
-               </section>
+        <section className="fr-accordion">
+          <h3 className="fr-accordion__title">
+            <button className="fr-accordion__btn" aria-expanded="true" aria-controls="accordion-106">
+              <span>Liste des utilisateurs</span>
+            </button>
+          </h3>
+          <div className="fr-collapse" id="accordion-106">
+            {users.length === 0 && <p>Aucun compte associé.</p>}
+            {users && users.map((user, idx) => {
+              return (
+                <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
+              );
+            })
+            }
+          </div>
+        </section>
       }
       <div className={`fr-mt-3w fr-input-group ${email && !valideInputEmail(email) && activeMessage ? 'fr-input-group--error' : ''}`}>
         <label className="fr-label" htmlFor="email-structure-input">
