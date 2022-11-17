@@ -104,14 +104,19 @@ export default function InvitationHub() {
           }
         </div>
       </div>
-      <button onClick={() => setEmail('')}
-        disabled={email.length === 0 ? 'disabled' : ''}
-        className="fr-btn"
+      <button onClick={() => {
+        setEmail('');
+        setNom('');
+        setPrenom('');
+      }}
+      disabled={email.length === 0 && nom.length === 0 && prenom.length === 0 ? 'disabled' : ''}
+      className="fr-btn"
       >
           Annuler
       </button>
       <button style={{ float: 'right' }}
         className="fr-btn" onClick={sendInvitation}
+        {...!email || !valideInputEmail(email) || !nom || !prenom ? { 'disabled': true } : {}}
       >
           Envoyer
       </button>

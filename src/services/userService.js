@@ -3,8 +3,18 @@ import { roleActivated, authHeader } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 
 export const userService = {
+  verifyToken,
   usersByStructure
 };
+
+function verifyToken(token) {
+  const requestOptions = {
+    method: 'GET'
+  };
+
+  let uri = `${apiUrlRoot}/users/verifyToken/${token}`;
+  return fetch(uri, requestOptions).then(handleResponse);
+}
 
 function handleResponse(response) {
   return response.text().then(text => {

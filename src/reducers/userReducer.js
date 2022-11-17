@@ -1,6 +1,24 @@
 export default function user(state = null, action) {
 
   switch (action.type) {
+    case 'VERIFY_TOKEN_REQUEST':
+      return {
+        verifyingToken: true,
+        user: action.user,
+        error: false
+      };
+    case 'VERIFY_TOKEN_SUCCESS':
+      return {
+        tokenVerified: true,
+        verifyingToken: false,
+        resultVerifyToken: action.resultVerifyToken
+      };
+    case 'VERIFY_TOKEN_FAILURE':
+      return {
+        tokenVerified: false,
+        verifyingToken: false,
+        error: action.error
+      };
     case 'INPUT_EMAIL_NOT_VALID':
       return {
         ...state,

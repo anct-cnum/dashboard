@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { valideInputEmail } from '../../../../utils/formatagesUtils';
-import { InvitationsActions } from '../../../../actions/invitationsActions';
+import { InvitationsActions, userActions } from '../../../../actions';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function Multicompte() {
@@ -20,6 +20,7 @@ function Multicompte() {
     dispatch(InvitationsActions.inviteStructure({ email, structureId: entity['$id'] }));
     setActiveMessage(false);
     scrollTopWindow();
+    dispatch(userActions.usersByStructure());
     setTimeout(() => {
       dispatch(InvitationsActions.resetInvitation());
     }, 10000);
@@ -31,16 +32,15 @@ function Multicompte() {
       { !userError && users &&
                <section className="fr-accordion">
                  <h3 className="fr-accordion__title">
-                   <button className="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">
+                   <button className="fr-accordion__btn" aria-expanded="true" aria-controls="accordion-106">
                      <span>Liste des utilisateurs</span>
                    </button>
                  </h3>
                  <div className="fr-collapse" id="accordion-106">
-                   {users.length === 0 && <p>Aucun compte crée.</p>}
+                   {users.length === 0 && <p>Aucun compte associé.</p>}
                    {users && users.map((user, idx) => {
                      return (
-                       <p key={idx} style={!user.passwordCreated ? { color: '#a9a9a9a9' } : {}}
-                         title={!user.passwordCreated ? 'Compte inactif pour le moment' : ''} >{user.name}</p>
+                       <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
                      );
                    })
                    }
@@ -76,7 +76,11 @@ function Multicompte() {
       >
             Annuler
       </button>
-      <button style={{ float: 'right' }} className="fr-btn" onClick={sendInvitation}>
+      <button
+        style={{ float: 'right' }}
+        className="fr-btn"
+        onClick={sendInvitation}
+        {...!email || !valideInputEmail(email) ? { 'disabled': true } : {}}>
             Envoyer
       </button>
     </>

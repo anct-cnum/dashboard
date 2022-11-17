@@ -57,6 +57,7 @@ export default function InvitationAdmin() {
       </button>
       <button style={{ float: 'right' }}
         className="fr-btn" onClick={sendInvitation}
+        {...!email || !valideInputEmail(email) ? { 'disabled': true } : {}}
       >
           Envoyer
       </button>

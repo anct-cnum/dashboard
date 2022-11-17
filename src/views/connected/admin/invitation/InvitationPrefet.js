@@ -92,7 +92,7 @@ export default function InvitationPrefet({ option }) {
             onChange={handleChange} />
           {email && !checkEmail(email) &&
               <p className="fr-error-text">
-                  L&apos;adresse email doit &ecirc;tre du nom de domaine&nbsp;<strong>gouv.fr</strong>.
+                  L&apos;adresse email doit &ecirc;tre du nom de domaine&nbsp;<strong>.gouv.fr</strong>.
               </p>
           }
           {email && !valideInputEmail(email) && activeMessage &&
@@ -116,8 +116,9 @@ export default function InvitationPrefet({ option }) {
           style={{ float: 'right' }}
           className="fr-btn fr-fi-checkbox-line fr-btn--icon-left"
           onClick={handleSubmit}
+          {...!email || !valideInputEmail(email) || !checkEmail(email) ? { 'disabled': true } : {}}
         >
-          Valider
+          Envoyer
         </button>
       </div>
     </div>
