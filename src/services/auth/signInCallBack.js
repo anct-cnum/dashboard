@@ -10,10 +10,8 @@ const getProfile = () =>
   );
 
 const getVerificationToken = () =>
-  JSON.parse(
-    localStorage.getItem(
-      'verificationToken'
-    )
+  localStorage.getItem(
+    'verificationToken'
   );
 
 const signInCallBack = async store => {

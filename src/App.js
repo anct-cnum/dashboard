@@ -49,7 +49,7 @@ function App() {
       <Alerte />
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/login/:verificationToken" element={<Login />} />
+        <Route path="/invitation/:verificationToken" element={<Login />} />
         <Route path="/confirmation-email/:token" element={<ConfirmationEmail />} />
         <Route path="/" element={<PrivateRoute/>}>
           {/* routes communes ici */}
