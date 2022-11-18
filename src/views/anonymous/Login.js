@@ -32,7 +32,7 @@ export default function Login() {
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-6">
-            {window.location.pathname === '/login' && <button className="fr-my-3w" onClick={login}>
+            {(window.location.pathname === '/login' || tokenVerified) && <button className="fr-my-3w" onClick={login}>
               <img src={logo} className="btn" alt="Logo Inclusion Connect" />
             </button>}
             {error &&
