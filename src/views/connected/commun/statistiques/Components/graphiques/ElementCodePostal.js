@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { statistiquesActions } from '../../../../../../actions';
-import PropTypes from 'prop-types';
 
-function ElementCodePostal({ idStructure = '' }) {
+function ElementCodePostal() {
 
   const dispatch = useDispatch();
 
@@ -12,12 +11,6 @@ function ElementCodePostal({ idStructure = '' }) {
   const setCodePostal = e => {
     dispatch(statistiquesActions.changeCodePostalStats(e.target.value));
   };
-
-  useEffect(() => {
-    if (!listeCodesPostaux && idStructure) {
-      dispatch(statistiquesActions.getCodesPostauxCrasConseillerStructure(idStructure));
-    }
-  });
 
   return (
     <select className="fr-select code-postal-select" onChange={setCodePostal}>
@@ -29,7 +22,4 @@ function ElementCodePostal({ idStructure = '' }) {
   );
 }
 
-ElementCodePostal.propTypes = {
-  idStructure: PropTypes.string,
-};
 export default ElementCodePostal;

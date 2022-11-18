@@ -16,7 +16,7 @@ function StructureDetails() {
 
   useEffect(() => {
     if (structure?._id !== idStructure) {
-      dispatch(structureActions.get(idStructure));
+      dispatch(structureActions.getDetails(idStructure));
     }
   }, [structure]);
 

@@ -23,7 +23,7 @@ function StructureDetails() {
 
   useEffect(() => {
     if (structure?._id !== idStructure) {
-      dispatch(structureActions.get(idStructure));
+      dispatch(structureActions.getDetails(idStructure));
     }
   }, [structure]);
 
@@ -171,7 +171,7 @@ function StructureDetails() {
               <>
                 <div className="fr-mb-3w" key={idx}>
                   <strong>{stat.name}</strong><br />
-                  <span>{formatNomStats(stat.key)}</span>
+                  <span>{formatNomStats(stat.key, structure)}</span>
                 </div>
               </>
             )}
@@ -181,7 +181,7 @@ function StructureDetails() {
               <>
                 <div className="fr-mb-3w" key={idx}>
                   <strong>{stat.name}</strong><br />
-                  <span>{formatNomStats(stat.key)}</span>
+                  <span>{formatNomStats(stat.key, structure)}</span>
                 </div>
               </>
             )}

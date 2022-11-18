@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 
-import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
+import { alerteEtSpinnerActions, statistiquesActions, conseillerActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
@@ -17,7 +17,12 @@ export default function GraphiqueConseiller() {
   const location = useLocation();
   const { idConseiller } = useParams();
 
-  const conseiller = location?.state.conseiller;
+  const [conseiller, setConseiller] = useState(location?.state?.conseiller);
+
+  const loadingConseiller = useSelector(state => state.conseiller?.loading);
+  const errorConseiller = useSelector(state => state.conseiller?.error);
+  const requestConseiller = useSelector(state => state.conseiller?.conseiller);
+
   const statistiquesLoading = useSelector(state => state.statistiques?.loading);
   const statistiquesError = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
@@ -27,30 +32,39 @@ export default function GraphiqueConseiller() {
   const dateFin = useSelector(state => state.statistiques?.dateFin);
 
   useEffect(() => {
-    if (!conseiller) {
+    if (!errorConseiller) {
+      if (!conseiller) {
+        dispatch(conseillerActions.getCandidat(idConseiller));
+      }
+    } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'La conseiller n\'a pas pu être chargé !',
+        message: 'Le territoire n\'a pas pu être chargé !',
         status: null, description: null
       }));
     }
-  }, []);
+  }, [errorConseiller]);
 
   useEffect(() => {
-    if (!statistiquesError && idConseiller && !!conseiller) {
-      dispatch(statistiquesActions.getStatistiquesConseiller(dateDebut, dateFin, idConseiller));
-    } else if (statistiquesError) {
+    if (!conseiller) {
+      setConseiller(requestConseiller);
+    }
+    if (!statistiquesError) {
+      if (idConseiller && !!conseiller) {
+        dispatch(statistiquesActions.getStatistiquesConseiller(dateDebut, dateFin, idConseiller));
+      }
+    } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
         message: 'Les statistiques n\'ont pas pu être chargées !',
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, statistiquesError]);
+  }, [dateDebut, dateFin, statistiquesError, requestConseiller]);
 
   const formatNomStatistiques = () => {
-    const formatNom = location?.state.conseiller?.nom.charAt(0).toUpperCase() + location?.state.conseiller?.nom.slice(1);
-    const formatPrenom = location?.state.conseiller?.prenom.charAt(0).toUpperCase() + location?.state.conseiller?.prenom.slice(1);
+    const formatNom = conseiller?.nom.charAt(0).toUpperCase() + conseiller?.nom.slice(1);
+    const formatPrenom = conseiller?.prenom.charAt(0).toUpperCase() + conseiller?.prenom.slice(1);
     if (formatNom && formatPrenom) {
       return `${formatNom} ${formatPrenom}`;
     }
@@ -59,11 +73,11 @@ export default function GraphiqueConseiller() {
 
   return (
     <div className="statistiques">
-      <Spinner loading={statistiquesLoading || loadingExport} />
+      <Spinner loading={statistiquesLoading || loadingExport || loadingConseiller} />
       <div className="structure fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <h1 className={`titre ${location?.state.conseiller?.nom.length > 50 ? 'titre-long' : ''}`} >Statistiques - {formatNomStatistiques()}</h1>
+            <h1 className={`titre ${conseiller?.nom.length > 50 ? 'titre-long' : ''}`} >Statistiques - {formatNomStatistiques()}</h1>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w print-graphique">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>

@@ -10,16 +10,36 @@ export default function structure(state = initialState, action) {
     case 'GET_STRUCTURE_REQUEST':
       return {
         ...state,
-        error: false
+        error: false,
+        loading: true
       };
     case 'GET_STRUCTURE_SUCCESS':
       return {
         ...state,
-        structure: action.structure
+        structure: action.structure,
+        loading: false
       };
     case 'GET_STRUCTURE_FAILURE':
       return {
-        error: action.error
+        error: action.error,
+        loading: false
+      };
+    case 'GET_STRUCTURE_DETAILS_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'GET_STRUCTURE_DETAILS_SUCCESS':
+      return {
+        ...state,
+        structure: action.structure,
+        loading: false
+      };
+    case 'GET_STRUCTURE_DETAILS_FAILURE':
+      return {
+        error: action.error,
+        loading: false
       };
     case 'GETALL_STRUCTURE_REQUEST':
       return {

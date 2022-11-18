@@ -6,6 +6,7 @@ import { structureQueryStringParameters } from '../utils/queryUtils';
 export const structureService = {
   get,
   getAll,
+  getDetails,
   patch,
   updateStructureEmail,
   updateStructureSiret,
@@ -19,6 +20,15 @@ function get(id) {
   };
 
   return fetch(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
+}
+
+function getDetails(id) {
+  const requestOptions = {
+    method: 'GET',
+    headers: Object.assign(authHeader())
+  };
+
+  return fetch(`${apiUrlRoot}/structure/details/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
 }
 
 function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre) {
