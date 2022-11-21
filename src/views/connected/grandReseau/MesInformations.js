@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../../actions';
 import { valideInputEmail } from '../../../utils/formatagesUtils';
+import InvitationGrandReseau from './informations/MultiCompte';
 
 function MesInformations() {
   const dispatch = useDispatch();
@@ -49,26 +50,33 @@ function MesInformations() {
         </div> :
         ''
       }
-      <h2>Mon compte</h2>
-      {form === false ?
-        <>
-          <p>Email :<strong> {userAuth?.name}</strong></p>
-          <button className="fr-btn" onClick={() => setForm(true)}>
-            Modifier mon adresse e-mail &ensp;
-            <span style={{ color: 'white' }} className="fr-fi-edit-line" aria-hidden="true" />
-          </button>
-        </> :
-        <div className="fr-container--fluid">
-          <div className="fr-my-3w fr-col-lg-3 fr-col-3 fr-col-sm-8">
-            <label className="fr-label">E-mail</label>
-            <input className="fr-input" type="text" id="text-input-text" name="name" value={email} onChange={handleForm} />
-          </div>
-          <div className="fr-col-lg-3 fr-col-3 fr-col-sm-8">
-            <button onClick={() => setForm(false)} className="fr-btn">Annuler </button>
-            <button className="fr-btn fr-m-auto" style={{ float: 'right' }} onClick={updateEmail}>Valider</button>
-          </div>
+      <div className="fr-grid-row">
+        <div className="fr-col-12 fr-col-lg-6 fr-col-xl-6 fr-mb-3w fr-mb-lg-0w">
+          <h2>Mon compte</h2>
+          {form === false ?
+            <>
+              <p>Email :<strong> {userAuth?.name}</strong></p>
+              <button className="fr-btn" onClick={() => setForm(true)}>
+                Modifier mon adresse e-mail &ensp;
+                <span style={{ color: 'white' }} className="fr-fi-edit-line" aria-hidden="true" />
+              </button>
+            </> :
+            <div className="fr-container--fluid">
+              <div className="fr-my-3w fr-col-lg-7 fr-col-3 fr-col-sm-8">
+                <label className="fr-label">E-mail</label>
+                <input className="fr-input" type="text" id="text-input-text" name="name" value={email} onChange={handleForm} />
+              </div>
+              <div className="fr-col-lg-7 fr-col-3 fr-col-sm-8">
+                <button onClick={() => setForm(false)} className="fr-btn">Annuler </button>
+                <button className="fr-btn fr-m-auto" style={{ float: 'right' }} onClick={updateEmail}>Valider</button>
+              </div>
+            </div>
+          }
         </div>
-      }
+        <div className="fr-col-12 fr-col-md-6 fr-col-sm-6">
+          <InvitationGrandReseau />
+        </div>
+      </div>
     </div>
   );
 }

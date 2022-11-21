@@ -132,7 +132,7 @@ function StructureDetails() {
               <span>{structure?.insee?.entreprise?.raison_sociale ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Zone rural</strong><br/>
+              <strong>Zone de revitalisation rurale</strong><br/>
               <span>{structure?.qpvStatut ?? '-'}</span>
             </div>
           </div>
