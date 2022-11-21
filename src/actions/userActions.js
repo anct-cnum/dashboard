@@ -1,56 +1,10 @@
 import { userService } from '../services/userService';
 
 export const userActions = {
-  updateUserEmail,
-  confirmeUserEmail,
   verifyToken,
-  inputEmailNotValid
+  inputEmailNotValid,
+  usersByStructure
 };
-
-function updateUserEmail({ id, newEmail }) {
-  return dispatch => {
-    dispatch(request());
-    userService.updateUserEmail(id, newEmail)
-    .then(
-      user => dispatch(success(user)),
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
-  
-  function request() {
-    return { type: 'UPDATE_USER_EMAIL_REQUEST' };
-  }
-  function success(user) {
-    return { type: 'UPDATE_USER_EMAIL_SUCCESS', user };
-  }
-  function failure(error) {
-    return { type: 'UPDATE_USER_EMAIL_FAILURE', error };
-  }
-}
-function confirmeUserEmail(token) {
-  return dispatch => {
-    dispatch(request());
-    userService.confirmeUserEmail(token)
-    .then(
-      user => dispatch(success(user)),
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
-  
-  function request() {
-    return { type: 'CONFIRMATION_UPDATE_USER_EMAIL_REQUEST' };
-  }
-  function success(user) {
-    return { type: 'CONFIRMATION_UPDATE_USER_EMAIL_SUCCESS', user };
-  }
-  function failure(error) {
-    return { type: 'CONFIRMATION_UPDATE_USER_EMAIL_FAILURE', error };
-  }
-}
 
 function verifyToken(token) {
   return dispatch => {
@@ -83,4 +37,30 @@ function verifyToken(token) {
 function inputEmailNotValid() {
   const error = 'Le format de l\'email est invalide';
   return { type: 'INPUT_EMAIL_NOT_VALID', error };
+}
+
+function usersByStructure(structureId) {
+  return dispatch => {
+    dispatch(request());
+
+    userService.usersByStructure(structureId)
+    .then(
+      users => {
+        dispatch(success(users));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_USERS_REQUEST' };
+  }
+  function success(users) {
+    return { type: 'GET_USERS_SUCCESS', users };
+  }
+  function failure(error) {
+    return { type: 'GET_USERS_FAILURE', error };
+  }
 }

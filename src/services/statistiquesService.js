@@ -9,6 +9,7 @@ export const statistiquesService = {
   getDatasTerritoires,
   getStatistiquesTerritoire,
   getStatistiquesStructure,
+  getStatistiquesConseiller,
   getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
 };
@@ -44,6 +45,13 @@ function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, conseille
 function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal) {
   return API.get(
     `${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idStructure=${idStructure}&codePostal=${codePostal}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
+}
+
+function getStatistiquesConseiller(dateDebut, dateFin, idConseiller) {
+  return API.get(
+    `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idConseiller=${idConseiller}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error));
 }

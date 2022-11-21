@@ -1,32 +1,12 @@
 import signOut from '../services/auth/logout';
-import { roleActivated, authHeader } from '../helpers';
+import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
+import { API } from './api';
 
 export const userService = {
-  confirmeUserEmail,
-  updateUserEmail,
-  verifyToken
+  verifyToken,
+  usersByStructure
 };
-
-function confirmeUserEmail(token) {
-  const requestOptions = {
-    method: 'PATCH',
-    headers: authHeader(),
-  };
-  let uri = `${apiUrlRoot}/confirmation-email/${token}`;
-  return fetch(uri, requestOptions).then(handleResponse);
-}
-
-function updateUserEmail(id, newEmail) {
-  const requestOptions = {
-    method: 'PATCH',
-    headers: Object.assign({ 'Content-Type': 'application/json' }, authHeader()),
-    body: JSON.stringify({ name: newEmail })
-  };
-  
-  let uri = `${apiUrlRoot}/users/sendEmailUpdate/${id}?role=${roleActivated()}`;
-  return fetch(uri, requestOptions).then(handleResponse);
-}
 
 function verifyToken(token) {
   const requestOptions = {
@@ -51,4 +31,10 @@ function handleResponse(response) {
 
     return data;
   });
+}
+
+function usersByStructure(idStructure) {
+  return API.get(`${apiUrlRoot}/users/listByIdStructure/${idStructure}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }

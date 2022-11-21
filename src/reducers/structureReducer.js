@@ -77,7 +77,7 @@ export default function structure(state = initialState, action) {
     case 'UPDATE_STRUCTURE_SIRET_REQUEST':
       return {
         ...state,
-        loadingSiret: true,
+        loading: true,
         error: false
       };
     case 'UPDATE_STRUCTURE_SIRET_SUCCESS':
@@ -85,12 +85,12 @@ export default function structure(state = initialState, action) {
         ...state,
         structure: { ...state.structure, siret: action.siretUpdated },
         nomStructure: null,
-        loadingSiret: false
+        loading: false
       };
     case 'UPDATE_STRUCTURE_SIRET_FAILURE':
       return {
         ...state,
-        loadingSiret: false,
+        loading: false,
         nomStructure: null,
         error: action.error,
       };
@@ -103,19 +103,19 @@ export default function structure(state = initialState, action) {
     case 'UPDATE_STRUCTURE_EMAIL_REQUEST':
       return {
         ...state,
-        loadingEmail: true,
+        loading: true,
         error: false,
       };
     case 'UPDATE_STRUCTURE_EMAIL_SUCCESS':
       return {
         ...state,
-        loadingEmail: false,
+        loading: false,
         structure: { ...state.structure.contact, email: action.emailUpdated },
       };
     case 'UPDATE_STRUCTURE_EMAIL_FAILURE':
       return {
         ...state,
-        loadingEmail: false,
+        loading: false,
         error: action.error,
       };
     case 'ERROR_MESSAGE_HIDDEN':

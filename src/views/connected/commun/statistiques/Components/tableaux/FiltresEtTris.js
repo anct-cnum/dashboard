@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
-import { exportsActions, filtresEtTrisStatsActions, paginationActions, statistiquesActions } from '../../../../../../actions';
+import { exportsActions, filtresEtTrisStatsActions, paginationActions } from '../../../../../../actions';
 
 import Spinner from '../../../../../../components/Spinner';
 import BlockDatePickers from '../commun/BlockDatePickers';
@@ -14,7 +14,6 @@ function FiltresEtTris() {
   const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
   const dateFin = useSelector(state => state.statistiques?.dateFin);
   const ordre = useSelector(state => state.filtresEtTris?.ordre);
-  const currentPage = useSelector(state => state.pagination?.currentPage);
 
   const exportTerritoireFileBlob = useSelector(state => state.exports);
   const exportTerritoireFileError = useSelector(state => state.exports?.error);
@@ -43,13 +42,6 @@ function FiltresEtTris() {
       scrollTopWindow();
     }
   }, [exportTerritoireFileError]);
-
-  useEffect(() => {
-    if (location.pathname === '/statistiques-territoires') {
-      dispatch(statistiquesActions.getDatasTerritoires(territoire, dateDebut, dateFin, currentPage, ordreNom, ordre ? 1 : -1));
-    }
-
-  }, [dateDebut, dateFin, currentPage, territoire]);
 
   return (
     <>

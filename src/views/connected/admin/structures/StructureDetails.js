@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { structureActions } from '../../../../actions';
 import SiretForm from './SiretForm';
 import EmailForm from './EmailForm';
+import Spinner from '../../../../components/Spinner';
 
 function StructureDetails() {
 
@@ -14,6 +15,7 @@ function StructureDetails() {
   const [displaySiretForm, setDisplaySiretForm] = useState(false);
   const [displayFormEmail, setDisplayFormEmail] = useState(false);
   const error = useSelector(state => state.structure?.error);
+  const loading = useSelector(state => state.structure?.loading);
 
   useEffect(() => {
     if (structure?._id !== idStructure) {
@@ -28,6 +30,7 @@ function StructureDetails() {
           <p>Une erreur est survenue : {error?.toString()}</p>
         </div>
       }
+      <Spinner loading={loading} />
       <button
         onClick={() => window.close()}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--secondary">

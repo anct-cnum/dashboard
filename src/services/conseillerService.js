@@ -18,14 +18,12 @@ export const conseillerService = {
 };
 
 function get(id) {
-
   return API.get(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error));
 }
 
 function getCandidat(id) {
-  
   return API.get(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error));
@@ -33,7 +31,6 @@ function getCandidat(id) {
 
 // eslint-disable-next-line max-len
 function getAllRecruter(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre) {
-
   let {
     ordreColonne,
     filterDateStart,
@@ -55,7 +52,6 @@ function getAllRecruter(page, dateDebut, dateFin, filtreCoordinateur, filtreRupt
 }
 
 function getAllCandidats(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
-
   const filterDepartement = departement !== null ? `&codeDepartement=${departement}` : '';
   const filterRegion = region !== null ? `&codeRegion=${region}` : '';
   const filterCom = com !== null ? `&codeCom=${com}` : '';
@@ -81,7 +77,6 @@ function getAllCandidats(departement, region, com, search, page, filter, sortDat
 }
 
 function getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters) {
- 
   const filterDepartement = departement !== null ? `&codeDepartement=${departement}` : '';
   const filterRegion = region !== null ? `&codeRegion=${region}` : '';
   const filterCom = com !== null ? `&codeCom=${com}` : '';
@@ -118,7 +113,7 @@ function updateStatus(id, statut) {
 }
 
 function preSelectionner(conseillerId, structureId) {
-  return fetch(`${apiUrlRoot}/structures/${structureId}/preSelectionner/${conseillerId}`)
+  return API.patch(`${apiUrlRoot}/structures/${structureId}/preSelectionner/${conseillerId}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error));
 }
@@ -148,7 +143,7 @@ function updateMotifRupture(id, motif) {
 }
 
 function getCurriculumVitae(id) {
-  return API.get(`${apiUrlRoot}/conseillers/${id}/cv`)
+  return API.get(`${apiUrlRoot}/candidat/${id}/cv`)
   .then(response => response.data)
   .catch(error => Promise.reject(error));
 }

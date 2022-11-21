@@ -14,6 +14,7 @@ function Header() {
 
   const roles = useSelector(state => state.authentication?.rolesAllowed)?.filter(role => !['admin_coop', 'structure_coop', 'conseiller'].includes(role));
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const user = useSelector(state => state.authentication?.user);
 
   const toggleBurgerMenu = () => {
     dispatch(menuActions.toggleBurgerMenu());
@@ -26,11 +27,14 @@ function Header() {
   };
 
   const formatRoleMenu = role => {
-    const formatRole = role.charAt(0).toUpperCase() + role.slice(1);
-    if (formatRole === 'GrandReseau') {
-      return 'Grand réseau';
+    if (role === 'grandReseau') {
+      return `Grand réseau - ${user.reseau}`;
+    } else if (role === 'prefet') {
+      return `Préfet - ${user.departement ? 'dép ' + user.departement : 'région ' + user.region}`;
+    } else if (role === 'hub_coop') {
+      return `Hub - ${user.hub}`;
     }
-    return formatRole.split('_')[0];
+    return role.charAt(0).toUpperCase() + role.slice(1).split('_')[0];
   };
 
   return (

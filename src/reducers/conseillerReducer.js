@@ -86,9 +86,11 @@ export default function conseiller(state = initialState, action) {
       };
     case 'GET_CURRICULUM_VITAE_REQUEST':
       return {
+        ...state,
         conseiller: state?.conseiller,
         downloading: true,
-        isDownloaded: false
+        isDownloaded: false,
+        downloadError: false
       };
     case 'GET_CURRICULUM_VITAE_SUCCESS':
       return {
