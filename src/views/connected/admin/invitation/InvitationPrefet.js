@@ -80,7 +80,7 @@ export default function InvitationPrefet({ option }) {
         }
         <div className={`fr-input-group ${email && !valideInputEmail(email) && activeMessage ? 'fr-input-group--error' : ''}`}>
           <label className="fr-label" htmlFor="email-prefet-input">
-                Adresse mail &agrave; ajouter :
+                Adresse email &agrave; ajouter :
           </label>
           <input
             className={`fr-input ${email && !valideInputEmail(email) && activeMessage ? 'fr-input--error' : ''}`}
@@ -102,7 +102,7 @@ export default function InvitationPrefet({ option }) {
           }
           {email === '' && activeMessage &&
                   <p id="username-error" className="fr-error-text">
-                      Veuillez saisir une adresse mail.
+                      Veuillez saisir une adresse email.
                   </p>
           }
         </div>

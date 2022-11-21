@@ -82,7 +82,7 @@ export default function InvitationHub() {
         </div>
         <div className={`fr-input-group ${email && !valideInputEmail(email) && activeMessage ? 'fr-input-group--error' : ''}`}>
           <label className="fr-label" htmlFor="username-input">
-                Adresse mail
+                Adresse email
           </label>
           <input
             className={`fr-input ${email && !valideInputEmail(email) && activeMessage ? 'fr-input--error' : ''}`}
@@ -94,12 +94,12 @@ export default function InvitationHub() {
             onChange={e => setEmail(e.target.value.trim())} />
           {email && !valideInputEmail(email) && activeMessage &&
                   <p id="username-error" className="fr-error-text">
-                      Le format de l&rsquo;adresse mail saisi est invalide.
+                      Le format de l&rsquo;adresse email saisi est invalide.
                   </p>
           }
           {email === '' && activeMessage &&
                   <p id="username-error" className="fr-error-text">
-                      Veuillez saisir une adresse mail.
+                      Veuillez saisir une adresse email.
                   </p>
           }
         </div>

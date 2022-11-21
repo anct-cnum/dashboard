@@ -49,7 +49,7 @@ function Multicompte() {
       }
       <div className={`fr-mt-3w fr-input-group ${email && !valideInputEmail(email) && activeMessage ? 'fr-input-group--error' : ''}`}>
         <label className="fr-label" htmlFor="email-structure-input">
-                Adresse mail &agrave; ajouter :
+                Adresse email &agrave; ajouter :
         </label>
         <input
           className={`fr-input ${email && !valideInputEmail(email) && activeMessage ? 'fr-input--error' : ''}`}
@@ -66,7 +66,7 @@ function Multicompte() {
         }
         {email === '' && activeMessage &&
               <p id="username-error" className="fr-error-text">
-                Veuillez saisir une adresse mail.
+                Veuillez saisir une adresse email.
               </p>
         }
       </div>
