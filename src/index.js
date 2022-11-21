@@ -14,7 +14,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { history } from './helpers';
 import setup from './services/api';
 import signInCallBack from '../src/services/auth/signInCallBack';
-import apiUrlRoot from './helpers/apiUrl';
 
 if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
   Sentry.init({
@@ -34,8 +33,8 @@ const oidcConfig = {
   client_id: process.env.REACT_APP_AUTH_CLIENT_ID,
   client_secret: process.env.REACT_APP_AUTH_CLIENT_SECRET,
   authority: process.env.REACT_APP_AUTH_OIDC_AUTHORITY,
-  redirect_uri: process.env.REACT_APP_AUTH_REDIRECT_URI,
-  post_logout_redirect_uri: `${apiUrlRoot}/login`,
+  redirect_uri: `${process.env.REACT_APP_AUTH_REDIRECT_URI}/accueil`,
+  post_logout_redirect_uri: `${process.env.REACT_APP_AUTH_REDIRECT_URI}/login`,
   userStore: new WebStorageStateStore({ store: window.localStorage }),
   onSigninCallback: () => signInCallBack(store),
 };
