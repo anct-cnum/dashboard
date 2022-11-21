@@ -6,6 +6,7 @@ import filtresEtTrisReducer from './filtresEtTrisReducer';
 import filtresCandidatures from './filtresCandidaturesReducer';
 import paginationReducer from './paginationReducer';
 import exportsReducer from './exportsReducer';
+import invitationsReducer from './invitationsReducer';
 import alerteEtSpinnerReducer from './alerteEtSpinnerReducer';
 import userReducer from './userReducer';
 import conseillerReducer from './conseillerReducer';
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   stats: statsReducer,
   search: searchReducer,
   structure: structureReducer,
+  invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,
 });
 
