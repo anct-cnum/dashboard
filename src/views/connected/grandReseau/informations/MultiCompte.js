@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { invitationsActions } from '../../../../actions';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { valideInputEmail } from '../../../../utils/formatagesUtils';
 
@@ -18,11 +19,11 @@ export default function InvitationGrandReseau() {
       setActiveMessage(true);
       return;
     }
-    // dispatch(InvitationsActions.inviteAccountHub({ hub, nom, prenom, email }));
+    // dispatch(invitationsActions.invit({ hub, nom, prenom, email }));
     setActiveMessage(false);
     scrollTopWindow();
     setTimeout(() => {
-    //   dispatch(InvitationsActions.resetInvitation());
+      // dispatch(invitationsActions.resetInvitation());
     }, 10000);
   };
 

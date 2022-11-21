@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { structureActions, userActions } from '../../../../actions';
+import { invitationsActions, structureActions, userActions } from '../../../../actions';
 import { formatNomConseiller, valideInputEmail } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
@@ -23,12 +23,12 @@ function StructureDetails() {
       setActiveMessage(true);
       return;
     }
-    // dispatch(InvitationsActions.inviteStructure({ email, structureId: entity['$id'] }));
+    dispatch(invitationsActions.inviteStructure({ email, structureId: entity['$id'] }));
     setActiveMessage(false);
     scrollTopWindow();
     dispatch(userActions.usersByStructure());
     setTimeout(() => {
-      // dispatch(InvitationsActions.resetInvitation());
+      dispatch(invitationsActions.resetInvitation());
     }, 10000);
   };
 

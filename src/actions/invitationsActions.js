@@ -1,6 +1,6 @@
 import { invitationsService } from '../services/invitationsService';
 
-export const InvitationsActions = {
+export const invitationsActions = {
   inviteAccountPrefet,
   inviteAccountAdmin,
   inviteStructure,
