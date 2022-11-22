@@ -5,6 +5,7 @@ import Exports from './Exports';
 import Candidatures from './Candidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
 import ConseillerDetails from './ConseillerDetails';
+import Page404 from '../Page404';
 
 export default function Structure() {
 
@@ -27,6 +28,7 @@ export default function Structure() {
         <Route path="/structure/candidats/:filter" element={<Candidatures />} /> {/* Routes spécifiques avec /structure */}
         <Route path="/structure/candidat/:id" element={<CandidatDetails />} />
         <Route path="/structure/exports" element={<Exports />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </>
   );

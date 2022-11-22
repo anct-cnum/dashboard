@@ -5,9 +5,10 @@ import { authenticationActions } from '../../actions/authenticationActions';
 import apiUrlRoot from '../../helpers/apiUrl';
 
 const refreshToken = async (auth, dispatch, accessToken) => {
-  if (accessToken) {
+  if (accessToken && Object.keys(accessToken)?.length > 0) {
     const decodedToken = jwtDecode(accessToken);
-    if (decodedToken.exp * 1000 < new Date().getTime()) {
+    const isExpired = decodedToken.exp < Date.now().valueOf() / 1000;
+    if (isExpired) {
       let response;
       try {
         response = await axios.post(

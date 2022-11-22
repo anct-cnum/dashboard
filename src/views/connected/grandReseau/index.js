@@ -4,6 +4,7 @@ import MesInformations from './MesInformations';
 import ConseillerDetails from './ConseillerDetails';
 import TableauStructures from './structures/TableauStructures';
 import StructureDetails from './structures/StructureDetails';
+import Page404 from '../Page404';
 
 export default function GrandReseau() {
 
@@ -25,6 +26,7 @@ export default function GrandReseau() {
         <Route path="/grandReseau/liste-structures" element={<TableauStructures />} />
         <Route path="/grandReseau/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/grandReseau/conseiller/:idConseiller" element={<ConseillerDetails />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </>
   );

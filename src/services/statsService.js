@@ -10,12 +10,12 @@ export const statsService = {
 function getMisesEnRelationStats(id) {
   return API.get(`${apiUrlRoot}/structures/${id === null ? userEntityId() : id}/misesEnRelation/stats`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function getConseillersFinalisee() {
   return API.get(`${apiUrlRoot}/stats/conseillers/finalisees`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 

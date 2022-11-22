@@ -33,6 +33,7 @@ export default function Login() {
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-6">
             {(window.location.pathname === '/login' || tokenVerified) && <button className="fr-my-3w" onClick={login}>
+              <h3>Se connecter avec</h3>
               <img src={logo} className="btn" alt="Logo Inclusion Connect" />
             </button>}
             {error &&
@@ -42,14 +43,19 @@ export default function Login() {
             }
           </div>
         </div>
-      </div>
-      {tokenVerified === false &&
+        {tokenVerified === false &&
+        <div className="fr-grid-row fr-grid-row--center fr-mb-10w" style={{ textAlign: 'center' }}>
+          <div className="fr-col-10">
             <div className="fr-alert fr-alert--error">
               <p className="fr-alert__title">
-              D&eacute;sol&eacute; mais le lien est invalide ou a d&eacute;j&agrave; &eacute;t&eacute; utilis&eacute;.
-              Veuillez contactez le support si besoin.
+                D&eacute;sol&eacute; mais le lien est invalide ou a d&eacute;j&agrave; &eacute;t&eacute; utilis&eacute;.
+                Veuillez contactez le support si besoin.
               </p>
-            </div>}
+            </div>
+          </div>
+        </div>
+        }
+      </div>
     </div>
   );
 }

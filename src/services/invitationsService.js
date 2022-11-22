@@ -12,31 +12,31 @@ export const invitationsService = {
 function inviteAccountPrefet(email, maille) {
   return API.post(
     `${apiUrlRoot}/inviteAccountPrefet?role=${roleActivated()}`,
-    JSON.stringify({ ...email, ...maille }))
+    { ...email, ...maille })
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function inviteAccountAdmin(email) {
   return API.post(
     `${apiUrlRoot}/inviteAccountAdmin?role=${roleActivated()}`,
-    JSON.stringify({ email }))
+    { email })
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function inviteStructure({ email, structureId }) {
   return API.post(
     `${apiUrlRoot}/inviteStructure?role=${roleActivated()}`,
-    JSON.stringify({ email, structureId }))
+    { email, structureId })
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function inviteAccountHub({ hub, nom, prenom, email }) {
   return API.post(
     `${apiUrlRoot}/inviteAccountHub?role=${roleActivated()}`,
-    JSON.stringify({ hub, nom, prenom, email }))
+    { hub, nom, prenom, email })
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
