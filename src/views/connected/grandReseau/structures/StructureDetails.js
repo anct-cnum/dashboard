@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { invitationsActions, structureActions, userActions } from '../../../../actions';
+import { invitationsActions, structureActions, alerteEtSpinnerActions } from '../../../../actions';
 import { formatNomConseiller, valideInputEmail } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import Spinner from '../../../../components/Spinner';
 
 function StructureDetails() {
 
@@ -13,7 +14,9 @@ function StructureDetails() {
   const structure = useSelector(state => state.structure?.structure);
   const error = useSelector(state => state.structure?.error);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const entity = useSelector(state => state.authentication?.user?.entity);
+  const loading = useSelector(state => state.invitations.loading);
+  const success = useSelector(state => state.invitations.success);
+  const errorInvitation = useSelector(state => state.invitations.error);
   const [form, setForm] = useState(false);
   const [email, setEmail] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
@@ -23,28 +26,51 @@ function StructureDetails() {
       setActiveMessage(true);
       return;
     }
-    dispatch(invitationsActions.inviteStructure({ email, structureId: entity['$id'] }));
+    dispatch(invitationsActions.inviteStructure({ email, structureId: idStructure }, true));
     setActiveMessage(false);
+    setEmail('');
+    setForm(false);
     scrollTopWindow();
-    dispatch(userActions.usersByStructure());
     setTimeout(() => {
       dispatch(invitationsActions.resetInvitation());
     }, 10000);
   };
 
   useEffect(() => {
-    if (structure?._id !== idStructure) {
-      dispatch(structureActions.getDetails(idStructure));
+    if (!error) {
+      if (structure?._id !== idStructure) {
+        dispatch(structureActions.getDetails(idStructure));
+      }
+    } else {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'La structure n\'a pas pu être chargée !',
+        status: null, description: null
+      }));
     }
-  }, [structure]);
+  }, [error]);
+
+  useEffect(() => {
+    if (success) {
+      scrollTopWindow();
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'success',
+        message: success,
+        status: null, description: null
+      }));
+    } else if (errorInvitation) {
+      scrollTopWindow();
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: errorInvitation,
+        status: null, description: null
+      }));
+    }
+  }, [errorInvitation, success]);
 
   return (
     <div className="fr-container conseillerDetails">
-      {(error !== undefined && error !== false) &&
-        <div className="fr-alert fr-alert--error fr-alert--sm fr-mb-4w">
-          <p>Une erreur est survenue : {error?.toString()}</p>
-        </div>
-      }
+      <Spinner loading={loading} />
       <button
         onClick={() => window.close()}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--secondary">
@@ -108,38 +134,60 @@ function StructureDetails() {
           <div className="fr-col-6">
             <h4 style={{ color: '#1716AD' }}>Administrateurs</h4>
             <div className="fr-mb-3w">
-              <div>
-                {structure?.users.map((user, idx) =>
-                  <>
-                    <span key={idx}>{user.name}</span>
-                  </>
-                )}
-              </div>
               {form === false ?
-                <>
-                  <button className="fr-btn fr-mt-2w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
+                <div>
+                  {structure?.users.map((user, idx) =>
+                    <>
+                      <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
+                    </>
+                  )}
+                  <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
                     Inviter un administrateur
                   </button>
-                </> :
+                </div> :
                 <div className="fr-container--fluid">
                   <div className="fr-my-3w">
-                    <div className="fr-input-group">
-                      <label className="fr-label">E-mail de l&lsquo;administrateur
+                    <div className={`fr-input-group ${email && !valideInputEmail(email) && activeMessage ? 'fr-input-group--error' : ''}`}>
+                      <label className="fr-label" htmlFor="username-input">
+                E-mail de l&lsquo;administrateur
                         <span className="fr-hint-text">
-                        Renseigner le mail de l&lsquo;administrateur et envoyer une invitation à rejoindre le tableau de pilotage
+                  Renseigner le mail de l&lsquo;administrateur et envoyer une invitation à rejoindre le tableau de pilotage
                         </span>
                       </label>
-                      <input className="fr-input" type="text" id="text-input-text" value={email} name="name" onChange={e => setEmail(e.target.value.trim())} />
+                      <input
+                        className={`fr-input ${email && !valideInputEmail(email) && activeMessage ? 'fr-input--error' : ''}`}
+                        aria-describedby="username-error"
+                        type="text"
+                        id="username-input"
+                        name="username"
+                        value={email}
+                        onChange={e => setEmail(e.target.value.trim())} />
+                      {email && !valideInputEmail(email) && activeMessage &&
+                  <p id="username-error" className="fr-error-text">
+                      Le format de l&rsquo;adresse mail saisi est invalide.
+                  </p>
+                      }
+                      {email === '' && activeMessage &&
+                  <p id="username-error" className="fr-error-text">
+                      Veuillez saisir une adresse mail.
+                  </p>
+                      }
                     </div>
                   </div>
-                  <div className="fr-ml-auto">
-                    <button onClick={() => setForm(false)} className="fr-btn">Annuler</button>
-                    <button
-                      className="fr-btn"
-                      style={{ float: 'right' }}
-                      onClick={sendInvitation}
-                      {...!email || !valideInputEmail(email) ? { 'disabled': true } : {}}>Envoyer</button>
-                  </div>
+                  <button onClick={() => {
+                    setEmail('');
+                    setForm(false);
+                  }}
+                  className="fr-btn"
+                  >
+                    Annuler
+                  </button>
+                  <button style={{ float: 'right' }}
+                    className="fr-btn" onClick={sendInvitation}
+                    {...!email || !valideInputEmail(email) ? { 'disabled': true } : {}}
+                  >
+                    Envoyer
+                  </button>
                 </div>
               }
             </div>
@@ -193,11 +241,11 @@ function StructureDetails() {
             <h4 style={{ color: '#1716AD' }}>Conventionnement phase 1</h4>
             <div className="fr-mb-3w">
               <strong>Postes valid&eacute;s</strong><br />
-              <span>{structure?.craCount ?? '-'}</span>
+              <span>{structure?.posteValider ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Postes recrut&eacute;s</strong><br />
-              <span>{structure?.craCount ?? '-'}</span>
+              <span>{structure?.posteRecruter ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Profils recrut&eacute;s</strong><br />

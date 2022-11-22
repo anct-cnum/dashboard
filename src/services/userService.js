@@ -4,7 +4,7 @@ import apiUrlRoot from '../helpers/apiUrl';
 
 export const userService = {
   verifyToken,
-  usersByStructure
+  getUsers
 };
 
 function verifyToken(token) {
@@ -32,11 +32,11 @@ function handleResponse(response) {
   });
 }
 
-function usersByStructure(idStructure) {
+function getUsers() {
   const requestOptions = {
     method: 'GET',
     headers: authHeader()
   };
-  let uri = `${apiUrlRoot}/users/listByIdStructure/${idStructure}?role=${roleActivated()}`;
+  let uri = `${apiUrlRoot}/users?role=${roleActivated()}`;
   return fetch(uri, requestOptions).then(handleResponse);
 }

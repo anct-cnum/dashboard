@@ -5,7 +5,8 @@ export const invitationsActions = {
   inviteAccountAdmin,
   inviteStructure,
   resetInvitation,
-  inviteAccountHub
+  inviteAccountHub,
+  inviteAccountGrandReseau
 };
 function inviteAccountPrefet(email, maille) {
   return dispatch => {
@@ -56,14 +57,19 @@ function inviteAccountAdmin(email) {
   }
 }
 
-function inviteStructure({ email, structureId }) {
+function inviteStructure({ email, structureId }, isGrandReseau = false) {
   return dispatch => {
     dispatch(request());
   
     invitationsService.inviteStructure({ email, structureId })
     .then(
       successInviteAccountMulticompteSA => {
-        dispatch(success(successInviteAccountMulticompteSA));
+        dispatch(successMessage(successInviteAccountMulticompteSA.message));
+        if (isGrandReseau === true) {
+          dispatch(successAddNewAccountInStructure(successInviteAccountMulticompteSA.account));
+        } else {
+          dispatch(successAddNewAccountInUser(successInviteAccountMulticompteSA.account));
+        }
       },
       error => {
         dispatch(failure(error));
@@ -74,8 +80,14 @@ function inviteStructure({ email, structureId }) {
   function request() {
     return { type: 'INVITING_STRUCTURE_REQUEST' };
   }
-  function success(successInviteAccountMulticompteSA) {
-    return { type: 'INVITING_STRUCTURE_SUCCESS', successInviteAccountMulticompteSA };
+  function successMessage(message) {
+    return { type: 'INVITING_STRUCTURE_SUCCESS', message };
+  }
+  function successAddNewAccountInUser(account) {
+    return { type: 'ADD_USER_TO_LIST', account };
+  }
+  function successAddNewAccountInStructure(account) {
+    return { type: 'ADD_USERS_TO_STRUCTURE', account };
   }
   function failure(error) {
     return { type: 'INVITING_STRUCTURE_FAILURE', error };
@@ -105,6 +117,36 @@ function inviteAccountHub({ hub, nom, prenom, email }) {
   }
   function failure(error) {
     return { type: 'INVITING_HUB_FAILURE', error };
+  }
+}
+
+function inviteAccountGrandReseau({ reseau, email }) {
+  return dispatch => {
+    dispatch(request());
+  
+    invitationsService.inviteAccountGrandReseau({ reseau, email })
+    .then(
+      successInviteGrandReseau => {
+        dispatch(successMessage(successInviteGrandReseau.message));
+        dispatch(successAddNewAccount(successInviteGrandReseau.account));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+  
+  function request() {
+    return { type: 'INVITING_GRAND_RESEAU_REQUEST' };
+  }
+  function successMessage(message) {
+    return { type: 'INVITING_GRAND_RESEAU_SUCCESS', message };
+  }
+  function successAddNewAccount(account) {
+    return { type: 'ADD_USER_TO_LIST', account };
+  }
+  function failure(error) {
+    return { type: 'INVITING_GRAND_RESEAU_FAILURE', error };
   }
 }
 

@@ -138,6 +138,11 @@ export default function structure(state = initialState, action) {
         loading: false,
         error: action.error,
       };
+    case 'ADD_USERS_TO_STRUCTURE':
+      return {
+        ...state,
+        structure: { ...state.structure, users: [...state.structure.users, action.account] },
+      };
     case 'ERROR_MESSAGE_HIDDEN':
       return {
         ...state,
