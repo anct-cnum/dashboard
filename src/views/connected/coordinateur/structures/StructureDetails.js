@@ -2,9 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { structureActions } from '../../../../actions';
-import statutsLabelFirstPart from '../../../../datas/statut_label_first_part.json';
-import statutsLabelSecondPart from '../../../../datas/statut_label_second_part.json';
-import { formatNomConseiller, formatNomStats } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 
 function StructureDetails() {
 
@@ -47,7 +45,56 @@ function StructureDetails() {
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-5">
+          <div className="fr-col-6">
+            <h4 style={{ color: '#1716AD' }}>Contact principal</h4>
+            <div className="fr-mb-3w">
+              <strong>Email</strong><br/>
+              <div>
+                {structure?.contact?.email &&
+                  <div>
+                    <a className="email"href={'mailto:' + structure?.contact?.email}>
+                      {structure?.contact?.email}
+                    </a>
+                  </div>
+                }
+                {!structure?.contact?.email &&
+              <span>-</span>
+                }
+              </div>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Nom</strong><br/>
+              <div className="fr-grid-row">
+                <span>{structure?.contact?.nom ?? '-'}&nbsp;</span>
+                <span>{structure?.contact?.prenom ?? ''}</span>
+              </div>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>T&eacute;l&eacute;phone</strong><br/>
+              <span>{structure?.contact?.telephone ?
+                structure?.contact?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
+                <>-</>
+              }</span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Fonction</strong><br/>
+              <span>{structure?.contact?.fonction ?? '-'}</span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Raison social</strong><br/>
+              <span>{structure?.insee?.entreprise?.raison_sociale ?? '-'}</span>
+            </div>
+          </div>
+          <div className="fr-col-6">
+            <h4 style={{ color: '#1716AD' }}>Administrateurs</h4>
+            <div className="fr-mb-3w">
+              {structure?.users.map((user, idx) =>
+                <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
+              )}
+            </div>
+          </div>
+          <div className="fr-col-6 fr-mt-4w">
+            <h4 style={{ color: '#1716AD' }}>Informations g&eacute;n&eacute;rales</h4>
             <div className="fr-mb-3w">
               <strong>Id</strong><br/>
               <span>{structure?.idPG ?? '-'}</span>
@@ -60,8 +107,6 @@ function StructureDetails() {
               <strong>Adresse</strong><br/>
               <span>{structure?.adresseFormat ?? '-'}</span>
             </div>
-          </div>
-          <div className="fr-col-3">
             <div className="fr-mb-3w">
               <strong>Code Postal</strong><br/>
               <span>{structure?.codePostal ?? '-'}</span>
@@ -71,20 +116,8 @@ function StructureDetails() {
               <span>{structure?.type ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Zone rural</strong><br/>
+              <strong>Zone de revitalisation rurale</strong><br/>
               <span>{structure?.qpvStatut ?? '-'}</span>
-            </div>
-          </div>
-          <div className="fr-col-4">
-            <div className="fr-mb-3w">
-              <strong>Compte associ&eacute;s &agrave; la structure</strong><br />
-              <div>
-                {structure?.users.map((user, idx) =>
-                  <>
-                    <span key={idx}>{user.name}</span>
-                  </>
-                )}
-              </div>
             </div>
           </div>
         </div>
@@ -99,31 +132,33 @@ function StructureDetails() {
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-3">
+          <div className="fr-col-6">
+            <h4 style={{ color: '#1716AD' }}>Conventionnement phase 1</h4>
             <div className="fr-mb-3w">
-              <strong>Nombre de cra total cumul&eacute;s</strong><br />
-              <span>{structure?.craCount ?? '-'}</span>
+              <strong>Postes valid&eacute;s</strong><br />
+              <span>{structure?.posteValider > 1 ? 'Postes validés' : 'Postes validé'}</span>
             </div>
-          </div>
-          <div className="fr-col-4">
-            {statutsLabelFirstPart.map((stat, idx) =>
-              <>
-                <div className="fr-mb-3w" key={idx}>
-                  <strong>{stat.name}</strong><br />
-                  <span>{formatNomStats(stat.key, structure)}</span>
-                </div>
-              </>
-            )}
-          </div>
-          <div className="fr-col-5">
-            {statutsLabelSecondPart.map((stat, idx) =>
-              <>
-                <div className="fr-mb-3w" key={idx}>
-                  <strong>{stat.name}</strong><br />
-                  <span>{formatNomStats(stat.key, structure)}</span>
-                </div>
-              </>
-            )}
+            <div className="fr-mb-3w">
+              <strong>{structure?.posteRecruter > 1 ? 'Postes recrutés' : 'Postes recruté'}</strong><br />
+              <span>{structure?.posteRecruter ?? '-'}</span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Profils recrut&eacute;s</strong><br />
+              {structure?.conseillers.map((conseiller, idx) =>
+                <p key={idx}>
+                  <button
+                    style={{ paddingLeft: '0' }}
+                    title="D&eacute;tail"
+                    className="fr-text--md"
+                    onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}>
+                    {conseiller.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
+                  </button>
+                </p>
+              )}
+              {structure?.conseillers?.length === 0 &&
+                <span>-</span>
+              }
+            </div>
           </div>
         </div>
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
@@ -133,25 +168,18 @@ function StructureDetails() {
         </div>
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
           <div className="fr-col-12 titreCol">
-            <h1>Conseillers recrut&eacute;s</h1>
+            <h1>Accompagnements</h1>
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-5">
+          <div className="fr-col-3">
             <div className="fr-mb-3w">
-              {structure?.conseillers.map((conseiller, idx) =>
-                <p key={idx}>
-                  <button
-                    title="D&eacute;tail"
-                    className="fr-text--md"
-                    onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}>
-                    {conseiller.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
-                  </button>
-                </p>
-              )}
-              {structure?.conseillers?.length === 0 &&
-                <span>Aucun conseiller trouv&eacute;</span>
-              }
+              <strong>Cra total cumul&eacute;s</strong><br />
+              <span>{structure?.craCount ?? '-'}</span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Personnes accompagnés</strong><br />
+              <span>{structure?.accompagnementCount ?? '-'}</span>
             </div>
           </div>
         </div>

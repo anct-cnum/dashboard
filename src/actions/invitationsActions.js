@@ -57,7 +57,7 @@ function inviteAccountAdmin(email) {
   }
 }
 
-function inviteStructure({ email, structureId }, isGrandReseau = false) {
+function inviteStructure({ email, structureId }, isDetailStructure = false) {
   return dispatch => {
     dispatch(request());
   
@@ -65,7 +65,7 @@ function inviteStructure({ email, structureId }, isGrandReseau = false) {
     .then(
       successInviteAccountMulticompteSA => {
         dispatch(successMessage(successInviteAccountMulticompteSA.message));
-        if (isGrandReseau === true) {
+        if (isDetailStructure === true) {
           dispatch(successAddNewAccountInStructure(successInviteAccountMulticompteSA.account));
         } else {
           dispatch(successAddNewAccountInUser(successInviteAccountMulticompteSA.account));

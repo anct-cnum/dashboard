@@ -240,11 +240,11 @@ function StructureDetails() {
           <div className="fr-col-6">
             <h4 style={{ color: '#1716AD' }}>Conventionnement phase 1</h4>
             <div className="fr-mb-3w">
-              <strong>Postes valid&eacute;s</strong><br />
+              <strong>{structure?.posteValider > 1 ? 'Postes validés' : 'Postes validé'}</strong><br />
               <span>{structure?.posteValider ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Postes recrut&eacute;s</strong><br />
+              <strong>{structure?.posteRecruter > 1 ? 'Postes recrutés' : 'Postes recruté'}</strong><br />
               <span>{structure?.posteRecruter ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
@@ -261,7 +261,7 @@ function StructureDetails() {
                 </p>
               )}
               {structure?.conseillers?.length === 0 &&
-                <span>Aucun conseiller trouv&eacute;</span>
+                <span>-</span>
               }
             </div>
           </div>
