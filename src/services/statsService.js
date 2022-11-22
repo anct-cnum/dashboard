@@ -1,6 +1,6 @@
-import { authHeader, history, userEntityId } from '../helpers';
-import { authenticationService } from './authenticationService';
+import { userEntityId } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
+import { API } from './api';
 
 export const statsService = {
   getMisesEnRelationStats,
@@ -8,37 +8,14 @@ export const statsService = {
 };
 
 function getMisesEnRelationStats(id) {
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
-  };
-
-  return fetch(`${apiUrlRoot}/structures/${id === null ? userEntityId() : id}/misesEnRelation/stats`, requestOptions).then(handleResponse);
+  return API.get(`${apiUrlRoot}/structures/${id === null ? userEntityId() : id}/misesEnRelation/stats`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function getConseillersFinalisee() {
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
-  };
-
-  return fetch(`${apiUrlRoot}/stats/conseillers/finalisees`, requestOptions).then(handleResponse);
+  return API.get(`${apiUrlRoot}/stats/conseillers/finalisees`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
-function handleResponse(response) {
-  return response.text().then(text => {
-    const data = text && JSON.parse(text);
-    if (!response.ok) {
-      if (response.status === 401) {
-        // auto logout if 401 response returned from api
-        authenticationService.logout();
-        history.push('/');
-      }
-
-      const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
-    }
-
-    return data;
-  });
-}

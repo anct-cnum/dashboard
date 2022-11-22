@@ -15,7 +15,7 @@ function Menu() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [changedMenu, setIsChangedMenu] = useState(false);
 
-  const roleActivated = useSelector(state => state.authentication.roleActivated);
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const authenticationUser = useSelector(state => state.authentication?.user?.entity?.$id);
 
   const toggleBurgerMenu = () => {

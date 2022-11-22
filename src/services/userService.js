@@ -1,6 +1,7 @@
-import { authenticationService } from './authenticationService';
-import { roleActivated, authHeader } from '../helpers';
+import signOut from '../services/auth/logout';
+import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
+import { API } from './api';
 
 export const userService = {
   verifyToken,
@@ -21,7 +22,7 @@ function handleResponse(response) {
     const data = text && JSON.parse(text);
     if (!response.ok) {
       if (response.status === 401) {
-        authenticationService.logout();
+        signOut();
         return Promise.reject({ error: 'Identifiants incorrects' });
       }
       const error = (data && data.message) || response.statusText;
@@ -33,10 +34,7 @@ function handleResponse(response) {
 }
 
 function usersByStructure(idStructure) {
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
-  };
-  let uri = `${apiUrlRoot}/users/listByIdStructure/${idStructure}?role=${roleActivated()}`;
-  return fetch(uri, requestOptions).then(handleResponse);
+  return API.get(`${apiUrlRoot}/users/listByIdStructure/${idStructure}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
