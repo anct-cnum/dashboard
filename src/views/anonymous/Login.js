@@ -33,6 +33,7 @@ export default function Login() {
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-6">
             {(window.location.pathname === '/login' || tokenVerified) && <button className="fr-my-3w" onClick={login}>
+              <h3>Se connecter avec</h3>
               <img src={logo} className="btn" alt="Logo Inclusion Connect" />
             </button>}
             {error &&
