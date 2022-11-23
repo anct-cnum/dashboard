@@ -54,7 +54,7 @@ export default function GraphiqueStructure() {
       setStructure(structureRequest);
     }
     if (!statistiquesError) {
-      if (idStructure && !!structure) {
+      if (structure) {
         dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal));
       }
     } else {

@@ -6,7 +6,7 @@ import { structureActions, alerteEtSpinnerActions, invitationsActions } from '..
 import SiretForm from './SiretForm';
 import EmailForm from './EmailForm';
 import Spinner from '../../../../components/Spinner';
-import { formatNomConseiller, valideInputEmail } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, pluralize, valideInputEmail } from '../../../../utils/formatagesUtils';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function StructureDetails() {
@@ -55,7 +55,7 @@ function StructureDetails() {
       setActiveMessage(true);
       return;
     }
-    dispatch(invitationsActions.inviteStructure({ email, structureId: idStructure }, true));
+    dispatch(invitationsActions.inviteStructureInDetails({ email, structureId: idStructure }));
     setActiveMessage(false);
     setEmail('');
     setForm(false);
@@ -94,7 +94,7 @@ function StructureDetails() {
         </div>
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-6">
-            <h4 style={{ color: '#1716AD' }}>Contact principal</h4>
+            <h4 className="titre">Contact principal</h4>
             <div className="fr-mb-3w">
               <strong>Email</strong><br/>
               {displayFormEmail === true ?
@@ -141,10 +141,11 @@ function StructureDetails() {
             </div>
           </div>
           <div className="fr-col-6">
-            <h4 style={{ color: '#1716AD' }}>Administrateurs</h4>
+            <h4 className="titre">Administrateurs</h4>
             <div className="fr-mb-3w">
               {form === false ?
                 <div>
+                  {structure?.users?.length === 0 && <p>Aucun administrateur associ&eacute;</p>}
                   {structure?.users.map((user, idx) =>
                     <>
                       <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
@@ -202,7 +203,7 @@ function StructureDetails() {
             </div>
           </div>
           <div className="fr-col-6 fr-mt-4w">
-            <h4 style={{ color: '#1716AD' }}>Informations g&eacute;n&eacute;rales</h4>
+            <h4 className="titre">Informations g&eacute;n&eacute;rales</h4>
             <div className="fr-mb-3w">
               <strong>Id</strong><br />
               <span>{structure?.idPG ?? '-'}</span>
@@ -257,14 +258,24 @@ function StructureDetails() {
         </div>
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-6">
-            <h4 style={{ color: '#1716AD' }}>Conventionnement phase 1</h4>
+            <h4 className="titre">Conventionnement phase 1</h4>
             <div className="fr-mb-3w">
-              <strong>{structure?.posteValider > 1 ? 'Postes validés' : 'Postes validé'}</strong><br />
-              <span>{structure?.posteValider ?? '-'}</span>
+              <strong>{pluralize(
+                'Postes validé',
+                'Postes validé',
+                'Postes validés',
+                structure?.posteValider
+              )}</strong><br />
+              <span>{structure?.posteValider === 0 ? '-' : structure?.posteValider}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>{structure?.posteRecruter > 1 ? 'Postes recrutés' : 'Postes recruté'}</strong><br />
-              <span>{structure?.posteRecruter ?? '-'}</span>
+              <strong>{pluralize(
+                'Postes recruté',
+                'Postes recruté',
+                'Postes recrutés',
+                structure?.posteRecruter
+              )}</strong><br />
+              <span>{structure?.posteRecruter === 0 ? '-' : structure?.posteRecruter}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Profils recrut&eacute;s</strong><br />
@@ -275,7 +286,7 @@ function StructureDetails() {
                     title="D&eacute;tail"
                     className="fr-text--md"
                     onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}>
-                    {conseiller.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
+                    {conseiller?.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
                   </button>
                 </p>
               )}
@@ -302,7 +313,7 @@ function StructureDetails() {
               <span>{structure?.craCount ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Personnes accompagnés</strong><br />
+              <strong>Personnes accompagn&eacute;es</strong><br />
               <span>{structure?.accompagnementCount ?? '-'}</span>
             </div>
           </div>

@@ -47,7 +47,7 @@ export default function GraphiqueTerritoire() {
       setTerritoire(territoireRequest);
     }
     if (!error) {
-      if (codeTerritoire && !!territoire) {
+      if (territoire) {
         dispatch(statistiquesActions.getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, territoire?.conseillerIds));
       }
     } else {

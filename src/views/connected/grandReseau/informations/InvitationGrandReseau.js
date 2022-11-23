@@ -47,7 +47,7 @@ export default function InvitationGrandReseau() {
       <h2>Administrateurs</h2>
       {form === false ?
         <div>
-          {users?.length === 0 && <p>Aucun compte associé.</p>}
+          {(!users && users?.length === 0) && <p>Aucun administrateur associ&eacute;</p>}
           {users && users?.map((user, idx) => {
             return (
               <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
@@ -64,7 +64,7 @@ export default function InvitationGrandReseau() {
               <label className="fr-label" htmlFor="username-input">
                 E-mail de l&lsquo;administrateur
                 <span className="fr-hint-text">
-                  Renseigner le mail de l&lsquo;administrateur et envoyer une invitation à rejoindre le tableau de pilotage
+                  Renseigner le mail de l&lsquo;administrateur et envoyer une invitation &agrave; rejoindre le tableau de pilotage
                 </span>
               </label>
               <input

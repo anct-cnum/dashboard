@@ -6,7 +6,8 @@ export const invitationsActions = {
   inviteStructure,
   resetInvitation,
   inviteAccountHub,
-  inviteAccountGrandReseau
+  inviteAccountGrandReseau,
+  inviteStructureInDetails
 };
 function inviteAccountPrefet(email, maille) {
   return dispatch => {
@@ -57,7 +58,7 @@ function inviteAccountAdmin(email) {
   }
 }
 
-function inviteStructure({ email, structureId }, isDetailStructure = false) {
+function inviteStructure({ email, structureId }) {
   return dispatch => {
     dispatch(request());
   
@@ -65,11 +66,7 @@ function inviteStructure({ email, structureId }, isDetailStructure = false) {
     .then(
       successInviteAccountMulticompteSA => {
         dispatch(successMessage(successInviteAccountMulticompteSA.message));
-        if (isDetailStructure === true) {
-          dispatch(successAddNewAccountInStructure(successInviteAccountMulticompteSA.account));
-        } else {
-          dispatch(successAddNewAccountInUser(successInviteAccountMulticompteSA.account));
-        }
+        dispatch(successAddNewAccountInUser(successInviteAccountMulticompteSA.account));
       },
       error => {
         dispatch(failure(error));
@@ -85,6 +82,33 @@ function inviteStructure({ email, structureId }, isDetailStructure = false) {
   }
   function successAddNewAccountInUser(account) {
     return { type: 'ADD_USER_TO_LIST', account };
+  }
+  function failure(error) {
+    return { type: 'INVITING_STRUCTURE_FAILURE', error };
+  }
+}
+
+function inviteStructureInDetails({ email, structureId }) {
+  return dispatch => {
+    dispatch(request());
+  
+    invitationsService.inviteStructure({ email, structureId })
+    .then(
+      successInviteAccountMulticompteSA => {
+        dispatch(successMessage(successInviteAccountMulticompteSA.message));
+        dispatch(successAddNewAccountInStructure(successInviteAccountMulticompteSA.account));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+  
+  function request() {
+    return { type: 'INVITING_STRUCTURE_REQUEST' };
+  }
+  function successMessage(message) {
+    return { type: 'INVITING_STRUCTURE_SUCCESS', message };
   }
   function successAddNewAccountInStructure(account) {
     return { type: 'ADD_USERS_TO_STRUCTURE', account };
