@@ -37,7 +37,7 @@ function getDatasTerritoires(territoire, dateDebut, dateFin, page, nomOrdre, ord
 
 function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, conseillerIds) {
   conseillerIds = JSON.stringify(conseillerIds);
-  return fetch(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&conseillerIds=${conseillerIds}&role=${roleActivated()}`)
+  return API.get(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&conseillerIds=${conseillerIds}&role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => error.response.data.message);
 }
