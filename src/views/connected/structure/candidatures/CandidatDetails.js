@@ -13,6 +13,7 @@ import pixRessources from '../../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../../assets/icons/pix-citoyen.png';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { formatRenderStars } from '../../../../utils/formatagesUtils';
 
 function CandidatDetails() {
 
@@ -37,37 +38,6 @@ function CandidatDetails() {
 
   const downloadCV = () => {
     dispatch(conseillerActions.getCurriculumVitae(conseiller?.conseiller?._id, conseiller?.conseiller));
-  };
-
-  const renderStars = palier => {
-    switch (palier) {
-      case 1:
-        return <p>Degré de maîtrise :&nbsp;
-          <span style={{ verticalAlign: 'sub' }}>
-            <i className="ri-star-fill ri-xl" title="Débutant"></i>
-            <i className="ri-star-line ri-xl" title="Débutant"></i>
-            <i className="ri-star-line ri-xl" title="Débutant"></i>
-          </span>
-        </p>;
-      case 2:
-        return <p>Degré de maîtrise :&nbsp;
-          <span style={{ verticalAlign: 'sub' }}>
-            <i className="ri-star-fill ri-xl" title="Intermédiaire"></i>
-            <i className="ri-star-fill ri-xl" title="Intermédiaire"></i>
-            <i className="ri-star-line ri-xl" title="Intermédiaire"></i>
-          </span>
-        </p>;
-      case 3:
-        return <p>Degré de maîtrise :&nbsp;
-          <span style={{ verticalAlign: 'sub' }}>
-            <i className="ri-star-fill ri-xl" title="Avancé"></i>
-            <i className="ri-star-fill ri-xl" title="Avancé"></i>
-            <i className="ri-star-fill ri-xl" title="Avancé"></i>
-          </span>
-        </p>;
-      default:
-        return <p>Degré de maîtrise non communiqué</p>;
-    }
   };
 
   useEffect(() => {
@@ -159,7 +129,7 @@ function CandidatDetails() {
             { conseiller?.conseiller?.pix?.partage &&
               <div className="fr-col-5 fr-ml-6w fr-mt-1w">
                 <span className="capitalizeFirstLetter"><strong>Résultats Pix</strong></span>
-                {renderStars(conseiller?.conseiller?.pix?.palier)}
+                {formatRenderStars(conseiller?.conseiller?.pix?.palier)}
                 <p>
                   { conseiller?.conseiller?.pix?.competence1 &&
                     <img src={pixUtilisation}

@@ -2,8 +2,12 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import { conseillerActions, structureActions } from '../../../actions';
-import { formatNomConseiller } from '../../../utils/formatagesUtils';
+import { conseillerActions, structureActions, alerteEtSpinnerActions } from '../../../actions';
+import { formatAdressePermanence, formatNomConseiller, formatRenderStars } from '../../../utils/formatagesUtils';
+import pixUtilisation from '../../../assets/icons/pix-utilisation.png';
+import pixRessources from '../../../assets/icons/pix-ressources.png';
+import pixCitoyen from '../../../assets/icons/pix-citoyen.png';
+import Spinner from '../../../components/Spinner';
 
 function ConseillerDetails() {
 
@@ -11,27 +15,41 @@ function ConseillerDetails() {
   const { idConseiller } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const structure = useSelector(state => state.structure?.structure);
-  const error = useSelector(state => state.conseiller?.error);
+  const errorStructure = useSelector(state => state.structure?.error);
+  const errorConseiller = useSelector(state => state.conseiller?.error);
+  const loading = useSelector(state => state.conseiller?.loading);
 
   useEffect(() => {
-    if (conseiller?._id !== idConseiller) {
-      dispatch(conseillerActions.get(idConseiller));
+    if (!errorConseiller) {
+      if (conseiller?._id !== idConseiller) {
+        dispatch(conseillerActions.get(idConseiller));
+      }
+    } else {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'Le conseiller n\'a pas pu être chargée !',
+        status: null, description: null
+      }));
     }
-  }, [conseiller]);
+  }, [errorConseiller]);
 
   useEffect(() => {
-    if (conseiller !== undefined) {
-      dispatch(structureActions.get(conseiller?.structureId));
+    if (!errorStructure) {
+      if (conseiller !== undefined) {
+        dispatch(structureActions.get(conseiller?.structureId));
+      }
+    } else {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'La structure n\'a pas pu être chargée !',
+        status: null, description: null
+      }));
     }
-  }, [conseiller]);
+  }, [conseiller, errorStructure]);
 
   return (
     <div className="fr-container conseillerDetails">
-      {error !== undefined && error !== false &&
-        <div className="fr-alert fr-alert--info fr-alert--sm ">
-          <p>Information : {error?.toString()}</p>
-        </div>
-      }
+      <Spinner loading={loading} />
       <button
         onClick={() => window.close()}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--secondary">
@@ -56,46 +74,7 @@ function ConseillerDetails() {
         </div>
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-6">
-            <div className="fr-mb-3w">
-              <strong>Email professionel</strong><br/>
-              {conseiller?.emailCN?.address &&
-              <a className="email"href={'mailto:' + conseiller?.emailCN?.address}>
-                {conseiller?.emailCN?.address}
-              </a>
-              }
-              {!conseiller?.emailCN?.address &&
-              <span>-</span>
-              }
-            </div>
-            <div className="fr-mb-3w">
-              <strong>T&eacute;l&eacute;phone professionnel</strong><br/>
-              <span>
-                {conseiller?.telephonePro ?
-                  /* espace tous les 2 chiffres après l'indicatif*/
-                  conseiller?.telephonePro?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
-                  <>-</>
-                }
-              </span>
-            </div>
-            <div className="fr-mb-3w">
-              <strong>Email personnel</strong><br/>
-              {conseiller?.email &&
-              <a className="email"href={'mailto:' + conseiller?.email}>
-                {conseiller?.email}
-              </a>
-              }
-              {!conseiller?.email &&
-              <span>-</span>
-              }
-            </div>
-          </div>
-          <div className="fr-col-3">
-            <div className="fr-mb-3w">
-              <strong>Date de recrutement</strong><br/>
-              {conseiller?.miseEnRelation?.dateRecrutement ?
-                <span>{dayjs(conseiller?.miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}</span> : <span>-</span>
-              }
-            </div>
+            <h4 className="titre">Information personnelles</h4>
             <div className="fr-mb-3w">
               <strong>Sexe</strong><br/>
               <span>{conseiller?.sexe ?? '-'}</span>
@@ -106,6 +85,141 @@ function ConseillerDetails() {
                 <span>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
               }
             </div>
+            <div className="fr-mb-3w">
+              <strong>T&eacute;l&eacute;phone</strong><br/>
+              <span>
+                {conseiller?.telephone ?
+                  /* espace tous les 2 chiffres après l'indicatif*/
+                  conseiller?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
+                  <>-</>
+                }
+              </span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Email</strong><br/>
+              {conseiller?.email &&
+              <a className="email"href={'mailto:' + conseiller?.email}>
+                {conseiller?.email}
+              </a>
+              }
+              {!conseiller?.email &&
+              <span>-</span>
+              }
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Code postal</strong><br/>
+              <span>{conseiller?.codeCommune ?? '-'}</span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Lieu de résidence</strong><br/>
+              <span>{conseiller?.nomCommune ?? '-'}</span>
+            </div>
+          </div>
+          <div className="fr-col-6">
+            <h4 className="titre">Information de candidature</h4>
+            <div className="fr-mb-3w">
+              <strong>Mobilit&eacute; géographique</strong><br/>
+              {conseiller?.distanceMax ? <span>{conseiller?.distanceMax}&nbsp;km</span> : <span>-</span>}
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Date de disponiblit&eacute;</strong><br/>
+              {conseiller?.miseEnRelation?.dateRecrutement ?
+                <span>{dayjs(conseiller?.miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}</span> : <span>-</span>
+              }
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Date de d&eacute;marrage possible</strong><br/>
+              {conseiller?.dateDisponibilite ?
+                <span>{dayjs(conseiller?.dateDisponibilite).format('DD/MM/YYYY')}</span> : <span>-</span>
+              }
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Résultat Pix</strong><br/>
+              {conseiller?.pix?.partage &&
+              <div>
+                {formatRenderStars(conseiller?.pix?.palier)}
+                <p>
+                  {conseiller?.pix?.competence1 &&
+                    <img src={pixUtilisation}
+                      alt="Utilisation du numérique"
+                      title="Utilisation du numérique dans la vie professionnelle"
+                      className="fr-mr-2w"
+                    />
+                  }
+                  {conseiller?.pix?.competence2 &&
+                    <img src={pixRessources}
+                      alt="Production de ressources"
+                      title="Production de ressources"
+                      className="fr-mr-2w"
+                    />
+                  }
+                  {conseiller?.pix?.competence3 &&
+                  <img src={pixCitoyen}
+                    alt="Compétences numériques en lien avec la e-citoyenneté"
+                    title="Compétences numériques en lien avec la e-citoyenneté"
+                    className="fr-mr-2w"
+                  />
+                  }
+                </p>
+                <p>
+                  <a href="https://cdn.conseiller-numerique.gouv.fr/Conseillernum_Lire%20les%20r%C3%A9sultats%20du%20diagnostic%20des%20candidats_V2-2.pdf"
+                    className="fr-link"
+                    target="blank"
+                    title="Télécharger le document d&rsquo;analyse des résultats Pix">
+                    T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
+                  </a>
+                  <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
+                    Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats
+                  </span>
+                </p>
+              </div>
+              }
+            </div>
+          </div>
+          <div className="fr-col-6 fr-mt-4w">
+            <h4 className="titre">Information professionelles</h4>
+            <div className="fr-mb-3w">
+              <strong>Email</strong><br/>
+              {conseiller?.emailCN?.address &&
+              <a className="email"href={'mailto:' + conseiller?.emailCN?.address}>
+                {conseiller?.emailCN?.address}
+              </a>
+              }
+              {!conseiller?.emailCN?.address &&
+              <span>-</span>
+              }
+            </div>
+            <div className="fr-mb-3w">
+              <strong>T&eacute;l&eacute;phone</strong><br/>
+              <span>
+                {conseiller?.telephonePro ?
+                  /* espace tous les 2 chiffres après l'indicatif*/
+                  conseiller?.telephonePro?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
+                  <>-</>
+                }
+              </span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Email secondaire</strong><br/>
+              {conseiller?.emailPro &&
+              <a className="email"href={'mailto:' + conseiller?.emailPro}>
+                {conseiller?.emailPro}
+              </a>
+              }
+              {!conseiller?.emailPro &&
+              <span>-</span>
+              }
+            </div>
+          </div>
+          <div className="fr-col-6 fr-mt-4w">
+            <h4 className="titre">Lieu(x) d&lsquo;activit&eacute;</h4>
+            {conseiller?.permanences.map((permanence, idx) =>
+              <>
+                <div className="fr-mb-3w" key={idx}>
+                  <span><strong>{permanence?.nomEnseigne}</strong>&nbsp;-&nbsp;{formatAdressePermanence(permanence?.adresse)}</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
@@ -180,9 +294,19 @@ function ConseillerDetails() {
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-5">
+          <div className="fr-col-6">
+            <h4 className="titre">Contrat</h4>
             <div className="fr-mb-3w">
-              <strong>Date d&lsquo;entrée en formation</strong><br/>
+              <strong>Date de prise de poste</strong><br/>
+              {conseiller?.datePrisePoste ?
+                <span>{dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}</span> : <span>-</span>
+              }
+            </div>
+          </div>
+          <div className="fr-col-6">
+            <h4 className="titre">Formation</h4>
+            <div className="fr-mb-3w">
+              <strong>Date d&lsquo;entr&eacute;e en formation</strong><br/>
               {conseiller?.datePrisePoste ?
                 <span>{dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}</span> : <span>-</span>
               }
@@ -194,7 +318,7 @@ function ConseillerDetails() {
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>Certification</strong><br/>
+              <strong>Certifi&eacute;(e)</strong><br/>
               <span>{conseiller?.certifie ? 'Oui' : 'Non'}</span>
             </div>
           </div>
