@@ -38,13 +38,13 @@ function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, fi
 }
 
 function patch({ id, contact }) {
-  return API.patch(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`, JSON.stringify({ contact }))
+  return API.patch(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`, { contact })
   .then(response => response.data)
   .catch(error => error.response.data.message);
 }
 
 function updateStructureEmail(email, structureId) {
-  return API.patch(`${apiUrlRoot}/structure/email/${structureId}?role=${roleActivated()}`, JSON.stringify({ email }))
+  return API.patch(`${apiUrlRoot}/structure/email/${structureId}?role=${roleActivated()}`, { email })
   .then(response => response.data)
   .catch(error => error.response.data.message);
 }
@@ -56,7 +56,7 @@ function verifyStructureSiret(siret) {
 }
 
 function updateStructureSiret(siret, structureId) {
-  return API.patch(`${apiUrlRoot}/structure/siret/${structureId}?role=${roleActivated()}`, JSON.stringify({ siret }))
+  return API.patch(`${apiUrlRoot}/structure/siret/${structureId}?role=${roleActivated()}`, { siret })
   .then(response => response.data)
   .catch(error => error.response.data.message);
 }
