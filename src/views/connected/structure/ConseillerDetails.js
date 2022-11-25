@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { conseillerActions, alerteEtSpinnerActions } from '../../../actions';
-import { formatAdressePermanence, formatNomConseiller, formatRenderStars } from '../../../utils/formatagesUtils';
+import { formatAdressePermanence, formatMotifRupture, formatNomConseiller, formatRenderStars, formatStatut } from '../../../utils/formatagesUtils';
 import pixUtilisation from '../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../assets/icons/pix-citoyen.png';
@@ -222,13 +222,22 @@ function ConseillerDetails() {
         </div>
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-6">
-            <h4 className="titre">Contrat</h4>
-            <div className="fr-mb-3w">
+            <h4 className="titre">Contrat&nbsp;-&nbsp;{formatStatut(conseiller?.miseEnRelation?.statut)}</h4>
+            <div className="fr-mb-5w">
               <strong>Date de prise de poste</strong><br/>
               {conseiller?.datePrisePoste ?
                 <span>{dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}</span> : <span>-</span>
               }
             </div>
+            <h4 className="titre">Demande de rupture initi&eacute;e</h4>
+            {(conseiller?.miseEnRelation.statut === 'nouvelle_rupture' || conseiller?.miseEnRelation?.statut === 'finalisee_rupture') ?
+              <div className="fr-grid-row">
+                <span><strong>{formatStatut(conseiller?.miseEnRelation?.statut)}</strong>&nbsp;-&nbsp;</span>
+                <span>le {dayjs(conseiller?.miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
+                <span>&nbsp;pour le motif de&nbsp;</span>
+                <span>{formatMotifRupture(conseiller?.miseEnRelation?.motifRupture)}</span>
+              </div> : <span>Aucune rupture initi&eacute;e</span>
+            }
           </div>
           <div className="fr-col-6">
             <h4 className="titre">Formation</h4>

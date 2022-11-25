@@ -51,6 +51,32 @@ export const formatNomStats = (key, structure) => structure?.stats?.find(stat =>
 
 export const formatAdressePermanence = permanence => `${permanence?.numeroRue} ${permanence?.rue} ${permanence?.codePostal} ${permanence?.ville}`;
 
+export const formatStatut = statut => {
+  switch (statut) {
+    case 'nouvelle_rupture':
+      return 'En cours';
+    case 'finalisee_rupture':
+      return 'Terminée';
+    case 'finalisee':
+      return 'En cours';
+    default:
+      return '';
+  }
+};
+
+export const formatMotifRupture = motif => {
+  switch (motif) {
+    case 'nonReconductionCDD':
+      return 'Non-reconduction du CDD';
+    case 'licenciement':
+      return 'Licenciement';
+    case 'demission':
+      return 'Démission';
+    default:
+      return '';
+  }
+};
+
 export const formatRenderStars = palier => {
   switch (palier) {
     case 1:
