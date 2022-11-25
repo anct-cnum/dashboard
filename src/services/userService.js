@@ -18,11 +18,11 @@ function verifyToken(token) {
 }
 
 function handleResponse(response) {
-  return response.text().then(text => {
+  return response.text().then(async text => {
     const data = text && JSON.parse(text);
     if (!response.ok) {
       if (response.status === 401) {
-        signOut();
+        await signOut();
         return Promise.reject({ error: 'Identifiants incorrects' });
       }
       const error = (data && data.message) || response.statusText;

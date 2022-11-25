@@ -19,7 +19,7 @@ const setup = store => {
   API.interceptors.request.use(async req => {
     accessToken = store.getState()?.authentication?.accessToken || getAccessToken();
     if (!accessToken || !Object.keys(accessToken)?.length > 0) {
-      signOut();
+      await signOut();
       return;
     }
     req.headers.Authorization = `Bearer ${accessToken}`;
@@ -39,7 +39,7 @@ const setup = store => {
 
       return req;
     } catch (error) {
-      signOut();
+      await signOut();
     }
   });
 };

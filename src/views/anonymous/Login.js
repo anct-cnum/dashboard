@@ -21,7 +21,6 @@ export default function Login() {
  
   useEffect(() => {
     if (verificationToken) {
-      localStorage.setItem('verificationToken', verificationToken);
       dispatch(userActions.verifyToken(verificationToken));
     }
   }, []);
