@@ -73,7 +73,7 @@ export const formatMotifRupture = motif => {
     case 'demission':
       return 'Démission';
     default:
-      return '';
+      return motif;
   }
 };
 

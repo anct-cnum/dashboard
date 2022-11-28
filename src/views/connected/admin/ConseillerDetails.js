@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
@@ -19,6 +19,10 @@ function ConseillerDetails() {
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
 
+  const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
+  const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState([]);
+  const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+
   useEffect(() => {
     if (!errorConseiller) {
       if (conseiller?._id !== idConseiller) {
@@ -36,7 +40,12 @@ function ConseillerDetails() {
   useEffect(() => {
     if (!errorStructure) {
       if (conseiller !== undefined) {
-        dispatch(structureActions.get(conseiller?.structureId));
+        setMisesEnRelationFinalisee(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
+        setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture'));
+        setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
+        if (conseiller?.statut !== 'RUPTURE') {
+          dispatch(structureActions.get(conseiller?.structureId));
+        }
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -221,13 +230,18 @@ function ConseillerDetails() {
           </div>
           <div className="fr-col-6 fr-mt-4w">
             <h4 className="titre">Lieu(x) d&lsquo;activit&eacute;</h4>
-            {conseiller?.permanences.map((permanence, idx) =>
+            {conseiller?.permanences.length > 0 ?
               <>
-                <div className="fr-mb-3w" key={idx}>
-                  <span><strong>{permanence?.nomEnseigne}</strong>&nbsp;-&nbsp;{formatAdressePermanence(permanence?.adresse)}</span>
-                </div>
-              </>
-            )}
+                {conseiller?.permanences.map((permanence, idx) =>
+                  <>
+                    <div className="fr-mb-3w" key={idx}>
+                      <span><strong>{permanence?.nomEnseigne}</strong>&nbsp;-&nbsp;{formatAdressePermanence(permanence?.adresse)}</span>
+                    </div>
+                  </>
+                )}
+              </> : <span>Aucun lieu d&lsquo;activit&eacute; renseigné</span>
+            }
+           
           </div>
         </div>
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
@@ -303,21 +317,44 @@ function ConseillerDetails() {
         </div>
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-6">
-            <h4 className="titre">Contrat&nbsp;-&nbsp;{formatStatut(conseiller?.miseEnRelation?.statut)}</h4>
+            <h4 className="titre">Contrat en cours</h4>
             <div className="fr-mb-5w">
-              <strong>Date de prise de poste</strong><br/>
-              {conseiller?.datePrisePoste ?
-                <span>{dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}</span> : <span>-</span>
+              {misesEnRelationFinalisee.length > 0 ?
+                <>
+                  <strong>Date de prise de poste</strong><br/>
+                  {conseiller?.datePrisePoste ?
+                    <span>{dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}</span> : <span>-</span>
+                  }
+                </> : <span>Aucun contrat pour le moment</span>
               }
             </div>
             <h4 className="titre">Demande de rupture initi&eacute;e</h4>
-            {(conseiller?.miseEnRelation.statut === 'nouvelle_rupture' || conseiller?.miseEnRelation?.statut === 'finalisee_rupture') ?
-              <div className="fr-grid-row">
-                <span><strong>{formatStatut(conseiller?.miseEnRelation?.statut)}</strong>&nbsp;-&nbsp;</span>
-                <span>le {dayjs(conseiller?.miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
-                <span>&nbsp;pour le motif de&nbsp;</span>
-                <span>{formatMotifRupture(conseiller?.miseEnRelation?.motifRupture)}</span>
-              </div> : <span>Aucune rupture initi&eacute;e</span>
+            {(misesEnRelationNouvelleRupture.length > 0 || misesEnRelationFinaliseeRupture.length > 0) ?
+              <>
+                <div>
+                  {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
+                    <>
+                      <div key={idx} className="fr-grid-row">
+                        <span><strong>{formatStatut(miseEnRelation?.statut)}</strong>&nbsp;-&nbsp;</span>
+                        <span>le {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
+                        <span>&nbsp;pour le motif de&nbsp;</span>
+                        <span>{formatMotifRupture(miseEnRelation?.motifRupture)}</span>
+                      </div>
+                    </>
+                  )}
+                  {misesEnRelationNouvelleRupture.map((miseEnRelation, idx) =>
+                    <>
+                      <div key={idx} className="fr-grid-row">
+                        <span><strong>{formatStatut(miseEnRelation?.statut)}</strong>&nbsp;-&nbsp;</span>
+                        <span>le {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
+                        <span>&nbsp;pour le motif de&nbsp;</span>
+                        <span>{formatMotifRupture(miseEnRelation?.motifRupture)}</span>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </> :
+              <span>Aucune rupture initi&eacute;e</span>
             }
           </div>
           <div className="fr-col-6">
