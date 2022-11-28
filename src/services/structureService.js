@@ -20,12 +20,9 @@ function get(id) {
 }
 
 function getDetails(id) {
-  const requestOptions = {
-    method: 'GET',
-    headers: Object.assign(authHeader())
-  };
-
-  return fetch(`${apiUrlRoot}/structure/details/${id}?role=${roleActivated()}`, requestOptions).then(handleResponse);
+  return API.get(`${apiUrlRoot}/structure/details/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre) {
