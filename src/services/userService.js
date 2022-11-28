@@ -1,6 +1,6 @@
-import { authenticationService } from './authenticationService';
-import { roleActivated, authHeader } from '../helpers';
+import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
+import { API } from './api';
 
 export const userService = {
   verifyToken,
@@ -8,35 +8,13 @@ export const userService = {
 };
 
 function verifyToken(token) {
-  const requestOptions = {
-    method: 'GET'
-  };
-
-  let uri = `${apiUrlRoot}/users/verifyToken/${token}`;
-  return fetch(uri, requestOptions).then(handleResponse);
-}
-
-function handleResponse(response) {
-  return response.text().then(text => {
-    const data = text && JSON.parse(text);
-    if (!response.ok) {
-      if (response.status === 401) {
-        authenticationService.logout();
-        return Promise.reject({ error: 'Identifiants incorrects' });
-      }
-      const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
-    }
-
-    return data;
-  });
+  return API.get(`${apiUrlRoot}/users/verifyToken/${token}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function getUsers() {
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
-  };
-  let uri = `${apiUrlRoot}/users?role=${roleActivated()}`;
-  return fetch(uri, requestOptions).then(handleResponse);
+  return API.get(`${apiUrlRoot}/users?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }

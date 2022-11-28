@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/brands/logo-rf-conseiller-numerique-min.svg';
 import { menuActions, authenticationActions } from '../actions';
 import Menu from './Menu';
+import signOut from '../services/auth/logout';
 
 function Header() {
 
@@ -17,11 +18,6 @@ function Header() {
 
   const toggleBurgerMenu = () => {
     dispatch(menuActions.toggleBurgerMenu());
-  };
-
-  const logout = () => {
-    dispatch(authenticationActions.logout());
-    navigate('/login');
   };
 
   const changeRoleActivated = e => {
@@ -98,7 +94,7 @@ function Header() {
                       </li>
                     }
                     <li>
-                      <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={logout}>
+                      <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={() => signOut()}>
                         D&eacute;connexion
                       </button>
                     </li>

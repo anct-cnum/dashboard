@@ -1,47 +1,29 @@
-import { authenticationService } from '../services/authenticationService';
-
 export const authenticationActions = {
   login,
-  logout,
   changeRoleActivated,
+  refreshToken,
 };
 
-function login(username, password) {
-
+function login(data) {
   return dispatch => {
-    dispatch(request(username));
-
-    authenticationService.login(username, password)
-    .then(
-      data => {
-        localStorage.setItem('user', JSON.stringify(data));
-        localStorage.setItem('roleActivated', data.user.roles[0]);
-        dispatch(success(data));
-      },
-      error => {
-        dispatch(failure(error));
-      }
-    );
+    dispatch(success(data));
   };
-
-  function request() {
-    return { type: 'LOGIN_REQUEST' };
+  function success(data) {
+    return { type: 'LOGIN_SUCCESS', data };
   }
-  function success(user) {
-    return { type: 'LOGIN_SUCCESS', user };
-  }
-  function failure(error) {
-    return { type: 'LOGIN_FAILURE', error };
-  }
-
-}
-
-function logout() {
-  authenticationService.logout();
-  return { type: 'LOGOUT' };
 }
 
 function changeRoleActivated(role) {
   localStorage.setItem('roleActivated', role);
   return { type: 'CHANGE_ROLE', role };
+}
+
+function refreshToken(accessToken) {
+  return dispatch => {
+    dispatch(success(accessToken));
+  };
+
+  function success(accessToken) {
+    return { type: 'REFRESH_TOKEN', accessToken };
+  }
 }

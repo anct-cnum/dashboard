@@ -1,6 +1,6 @@
-import { authenticationService } from './authenticationService';
-import { authHeader, history, roleActivated } from '../helpers';
+import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
+import { API } from './api';
 
 export const invitationsService = {
   inviteAccountPrefet,
@@ -11,94 +11,41 @@ export const invitationsService = {
 };
 
 function inviteAccountPrefet(email, maille) {
-  const apiUrl = `${apiUrlRoot}/inviteAccountPrefet?role=${roleActivated()}`;
-
-  const requestOptions = {
-    method: 'POST',
-    headers: Object.assign(
-      { 'Content-Type': 'application/json' },
-      authHeader()
-    ),
-    body: JSON.stringify({ ...email, ...maille }),
-  };
-
-  return fetch(apiUrl, requestOptions).then(handleResponse);
+  return API.post(
+    `${apiUrlRoot}/inviteAccountPrefet?role=${roleActivated()}`,
+    JSON.stringify({ ...email, ...maille }))
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function inviteAccountAdmin(email) {
-  const apiUrl = `${apiUrlRoot}/inviteAccountAdmin?role=${roleActivated()}`;
-
-  const requestOptions = {
-    method: 'POST',
-    headers: Object.assign(
-      { 'Content-Type': 'application/json' },
-      authHeader()
-    ),
-    body: JSON.stringify({ email }),
-  };
-
-  return fetch(apiUrl, requestOptions).then(handleResponse);
+  return API.post(
+    `${apiUrlRoot}/inviteAccountAdmin?role=${roleActivated()}`,
+    JSON.stringify({ email }))
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function inviteStructure({ email, structureId }) {
-  const apiUrl = `${apiUrlRoot}/inviteStructure?role=${roleActivated()}`;
-
-  const requestOptions = {
-    method: 'POST',
-    headers: Object.assign(
-      { 'Content-Type': 'application/json' },
-      authHeader()
-    ),
-    body: JSON.stringify({ email, structureId }),
-  };
-
-  return fetch(apiUrl, requestOptions).then(handleResponse);
+  return API.post(
+    `${apiUrlRoot}/inviteStructure?role=${roleActivated()}`,
+    JSON.stringify({ email, structureId }))
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function inviteAccountHub({ hub, nom, prenom, email }) {
-  const apiUrl = `${apiUrlRoot}/inviteAccountHub?role=${roleActivated()}`;
-
-  const requestOptions = {
-    method: 'POST',
-    headers: Object.assign(
-      { 'Content-Type': 'application/json' },
-      authHeader()
-    ),
-    body: JSON.stringify({ hub, nom, prenom, email }),
-  };
-
-  return fetch(apiUrl, requestOptions).then(handleResponse);
+  return API.post(
+    `${apiUrlRoot}/inviteAccountHub?role=${roleActivated()}`,
+    JSON.stringify({ hub, nom, prenom, email }))
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
 
 function inviteAccountGrandReseau({ reseau, email }) {
-  const apiUrl = `${apiUrlRoot}/inviteAccountGrandReseau?role=${roleActivated()}`;
-
-  const requestOptions = {
-    method: 'POST',
-    headers: Object.assign(
-      { 'Content-Type': 'application/json' },
-      authHeader()
-    ),
-    body: JSON.stringify({ reseau, email }),
-  };
-
-  return fetch(apiUrl, requestOptions).then(handleResponse);
-}
-
-function handleResponse(response) {
-  return response.text().then(text => {
-    const data = text && JSON.parse(text);
-    if (!response.ok) {
-      if (response.status === 401) {
-        // auto logout if 401 response returned from api
-        authenticationService.logout();
-        history.push('/');
-      }
-
-      const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
-    }
-
-    return data;
-  });
+  return API.post(
+    `${apiUrlRoot}/inviteAccountGrandReseau?role=${roleActivated()}`,
+    JSON.stringify({ reseau, email }))
+  .then(response => response.data)
+  .catch(error => Promise.reject(error));
 }
