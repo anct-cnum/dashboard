@@ -32,7 +32,7 @@ function MesInformations() {
           </div>
           <div className="fr-col-offset-12"></div>
           <div className="fr-col fr-col-lg-12 fr-col-md-8">
-            <h2>Invitation</h2>
+            <h2 style={{ color: '#000091' }}>Inviter un administrateur</h2>
             <Invitation />
           </div>
         </div>

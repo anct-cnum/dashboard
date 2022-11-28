@@ -20,13 +20,13 @@ export const conseillerService = {
 function get(id) {
   return API.get(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getCandidat(id) {
   return API.get(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 // eslint-disable-next-line max-len
@@ -48,7 +48,7 @@ function getAllRecruter(page, dateDebut, dateFin, filtreCoordinateur, filtreRupt
 
   return API.get(uri)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getAllCandidats(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
@@ -73,7 +73,7 @@ function getAllCandidats(departement, region, com, search, page, filter, sortDat
 
   return API.get(uri)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters) {
@@ -102,20 +102,20 @@ $skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filte
 
   return API.get(uri)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function updateStatus(id, statut) {
   return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
     statut })
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function preSelectionner(conseillerId, structureId) {
   return API.patch(`${apiUrlRoot}/structures/${structureId}/preSelectionner/${conseillerId}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function updateDateRecrutement(id, date) {
@@ -123,7 +123,7 @@ function updateDateRecrutement(id, date) {
     dateRecrutement: date
   })
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function updateDateRupture(id, date) {
@@ -131,7 +131,7 @@ function updateDateRupture(id, date) {
     dateRupture: date
   })
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function updateMotifRupture(id, motif) {
@@ -139,7 +139,7 @@ function updateMotifRupture(id, motif) {
     motifRupture: motif
   })
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getCurriculumVitae(id) {

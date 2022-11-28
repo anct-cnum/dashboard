@@ -97,8 +97,8 @@ function Header() {
                     }
                     <li>
                       <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={async () => {
-                        await auth.signoutRedirect();
                         await signOut();
+                        await auth.signoutRedirect();
                       }
                       }>
                         D&eacute;connexion
