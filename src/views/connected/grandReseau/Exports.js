@@ -57,7 +57,7 @@ function Exports() {
       <p>
         <a className="fr-link" href="#" onClick={() => exportDonneesStructures()}>Exporter la liste des structures</a>
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-          Export des emails, noms, pr&eacute;noms de la liste des candidats
+          Exporter la liste des structures
         </span>
       </p>
     </div>
