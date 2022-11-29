@@ -10,16 +10,36 @@ export default function structure(state = initialState, action) {
     case 'GET_STRUCTURE_REQUEST':
       return {
         ...state,
-        error: false
+        error: false,
+        loading: true
       };
     case 'GET_STRUCTURE_SUCCESS':
       return {
         ...state,
-        structure: action.structure
+        structure: action.structure,
+        loading: false
       };
     case 'GET_STRUCTURE_FAILURE':
       return {
-        error: action.error
+        error: action.error,
+        loading: false
+      };
+    case 'GET_STRUCTURE_DETAILS_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'GET_STRUCTURE_DETAILS_SUCCESS':
+      return {
+        ...state,
+        structure: action.structure,
+        loading: false
+      };
+    case 'GET_STRUCTURE_DETAILS_FAILURE':
+      return {
+        error: action.error,
+        loading: false
       };
     case 'GETALL_STRUCTURE_REQUEST':
       return {
@@ -117,6 +137,11 @@ export default function structure(state = initialState, action) {
         ...state,
         loading: false,
         error: action.error,
+      };
+    case 'ADD_USERS_TO_STRUCTURE':
+      return {
+        ...state,
+        structure: { ...state.structure, users: [...state.structure.users, action.account] },
       };
     case 'ERROR_MESSAGE_HIDDEN':
       return {

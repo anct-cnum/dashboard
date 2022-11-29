@@ -35,13 +35,13 @@ function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoo
     ordreColonne,
     filterDateStart,
     filterDateEnd,
+    filterByNameConseiller,
     rupture,
     coordinateur,
-    filterByNameConseiller,
     filterByRegion,
-    filterByNameStructure
+    filterByNameStructure,
   // eslint-disable-next-line max-len
-  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreParRegion, filtreParNomStructure);
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParNomStructure);
   
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}`)

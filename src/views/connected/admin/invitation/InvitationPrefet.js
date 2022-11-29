@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Departement from '../../../../datas/departements-region.json';
 import Region from '../../../../datas/code_region.json';
-import { InvitationsActions } from '../../../../actions/invitationsActions';
+import { invitationsActions } from '../../../../actions/invitationsActions';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { valideInputEmail } from '../../../../utils/formatagesUtils';
 
@@ -21,11 +21,11 @@ export default function InvitationPrefet() {
       setActiveMessage(true);
       return;
     }
-    dispatch(InvitationsActions.inviteAccountPrefet({ email, ...(localiteDep !== '') ? { ...(localiteDep) } : { ...(localiteReg) } }));
+    dispatch(invitationsActions.inviteAccountPrefet({ email, ...(localiteDep !== '') ? { ...(localiteDep) } : { ...(localiteReg) } }));
     setActiveMessage(false);
     scrollTopWindow();
     setTimeout(() => {
-      dispatch(InvitationsActions.resetInvitation());
+      dispatch(invitationsActions.resetInvitation());
     }, 10000);
   };
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { InvitationsActions } from '../../../../actions/invitationsActions';
+import { invitationsActions } from '../../../../actions/invitationsActions';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { valideInputEmail } from '../../../../utils/formatagesUtils';
 
@@ -14,11 +14,11 @@ export default function InvitationAdmin() {
       setActiveMessage(true);
       return;
     }
-    dispatch(InvitationsActions.inviteAccountAdmin(email));
+    dispatch(invitationsActions.inviteAccountAdmin(email));
     setActiveMessage(false);
     scrollTopWindow();
     setTimeout(() => {
-      dispatch(InvitationsActions.resetInvitation());
+      dispatch(invitationsActions.resetInvitation());
     }, 10000);
   };
 

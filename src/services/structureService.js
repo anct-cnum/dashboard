@@ -6,6 +6,7 @@ import { structureQueryStringParameters } from '../utils/queryUtils';
 export const structureService = {
   get,
   getAll,
+  getDetails,
   patch,
   updateStructureEmail,
   updateStructureSiret,
@@ -14,6 +15,12 @@ export const structureService = {
 
 function get(id) {
   return API.get(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getDetails(id) {
+  return API.get(`${apiUrlRoot}/structure/details/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

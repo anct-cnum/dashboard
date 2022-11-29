@@ -51,7 +51,7 @@ export default function invitations(state = initState, action) {
       return {
         ...state,
         loading: false,
-        success: action.successInviteAccountMulticompteSA,
+        success: action.message,
       };
     case 'INVITING_STRUCTURE_FAILURE':
       return {
@@ -72,6 +72,24 @@ export default function invitations(state = initState, action) {
         success: action.successInviteHub
       };
     case 'INVITING_HUB_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    case 'INVITING_GRAND_RESEAU_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'INVITING_GRAND_RESEAU_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: action.message
+      };
+    case 'INVITING_GRAND_RESEAU_FAILURE':
       return {
         ...state,
         loading: false,

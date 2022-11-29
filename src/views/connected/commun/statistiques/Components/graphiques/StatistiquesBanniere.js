@@ -67,14 +67,14 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
     <div className="fr-col-11 no-print">
       <div className="fr-container-fluid">
         <div className={`${typeStats !== 'nationales' ? 'fr-grid-row' : 'fr-grid-row--center'}`}>
-          {typeStats !== 'nationales' &&
+          {(typeStats !== 'nationales' && location.state?.origin !== undefined) &&
             <div className="fr-col-12 fr-col-md-3 fr-mt-6w">
               <Link to={location.state?.origin} state={{ currentPage }}>
                 <i className="fr-fi-arrow-left-line"/> Page pr&eacute;c&eacute;dente
               </Link>
             </div>
           }
-          <div className={`centrerTexte ${typeStats !== 'nationales' ? 'fr-col-12 fr-col-md-6' : 'fr-col-12'}`}>
+          <div className={`centrerTexte ${(typeStats !== 'nationales' && location.state?.origin !== undefined) ? 'fr-col-12 fr-col-md-6' : 'fr-col-12'}`}>
             <div className="fr-mb-2v ">Exporter cette page</div>
             <button className="statistiques-btn" onClick={() => {
               save('pdf');

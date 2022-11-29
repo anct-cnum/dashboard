@@ -39,6 +39,11 @@ export default function user(state = null, action) {
         ...state,
         userError: action.error
       };
+    case 'ADD_USER_TO_LIST':
+      return {
+        ...state,
+        users: [...state.users, action.account]
+      };
     default:
       return state;
   }
