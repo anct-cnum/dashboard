@@ -1,11 +1,11 @@
-import signOut from '../services/auth/logout';
 import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
+import signOut from './auth/logout';
 
 export const userService = {
   verifyToken,
-  usersByStructure
+  getUsers
 };
 
 function verifyToken(token) {
@@ -33,8 +33,8 @@ function handleResponse(response) {
   });
 }
 
-function usersByStructure(idStructure) {
-  return API.get(`${apiUrlRoot}/users/listByIdStructure/${idStructure}?role=${roleActivated()}`)
+function getUsers() {
+  return API.get(`${apiUrlRoot}/users?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => error.response.data.message);
 }

@@ -6,7 +6,8 @@ export const invitationsService = {
   inviteAccountPrefet,
   inviteAccountAdmin,
   inviteStructure,
-  inviteAccountHub
+  inviteAccountHub,
+  inviteAccountGrandReseau
 };
 
 function inviteAccountPrefet(email, maille) {
@@ -39,4 +40,12 @@ function inviteAccountHub({ hub, nom, prenom, email }) {
     { hub, nom, prenom, email })
   .then(response => response.data)
   .catch(error => error.response.data.message);
+}
+
+function inviteAccountGrandReseau({ reseau, email }) {
+  return API.post(
+    `${apiUrlRoot}/inviteAccountGrandReseau?role=${roleActivated()}`,
+    { reseau, email })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
 }

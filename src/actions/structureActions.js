@@ -2,6 +2,7 @@ import { structureService } from '../services/structureService.js';
 
 export const structureActions = {
   get,
+  getDetails,
   getAll,
   patch,
   updateStructureEmail,
@@ -58,6 +59,30 @@ function get(id) {
   }
   function failure(error) {
     return { type: 'GET_STRUCTURE_FAILURE', error };
+  }
+}
+
+function getDetails(id) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.getDetails(id)
+    .then(
+      structure => dispatch(success(structure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_STRUCTURE_DETAILS_REQUEST' };
+  }
+  function success(structure) {
+    return { type: 'GET_STRUCTURE_DETAILS_SUCCESS', structure };
+  }
+  function failure(error) {
+    return { type: 'GET_STRUCTURE_DETAILS_FAILURE', error };
   }
 }
 

@@ -3,7 +3,7 @@ import { userService } from '../services/userService';
 export const userActions = {
   verifyToken,
   inputEmailNotValid,
-  usersByStructure
+  getUsers
 };
 
 function verifyToken(token) {
@@ -39,11 +39,11 @@ function inputEmailNotValid() {
   return { type: 'INPUT_EMAIL_NOT_VALID', error };
 }
 
-function usersByStructure(structureId) {
+function getUsers() {
   return dispatch => {
     dispatch(request());
 
-    userService.usersByStructure(structureId)
+    userService.getUsers()
     .then(
       users => {
         dispatch(success(users));

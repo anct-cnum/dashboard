@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { InvitationsActions } from '../../../../actions/invitationsActions';
+import { invitationsActions } from '../../../../actions/invitationsActions';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { valideInputEmail } from '../../../../utils/formatagesUtils';
 import Hub from '../../../../datas/hubs.json';
@@ -18,11 +18,11 @@ export default function InvitationHub() {
       setActiveMessage(true);
       return;
     }
-    dispatch(InvitationsActions.inviteAccountHub({ hub, nom, prenom, email }));
+    dispatch(invitationsActions.inviteAccountHub({ hub, nom, prenom, email }));
     setActiveMessage(false);
     scrollTopWindow();
     setTimeout(() => {
-      dispatch(InvitationsActions.resetInvitation());
+      dispatch(invitationsActions.resetInvitation());
     }, 10000);
   };
 

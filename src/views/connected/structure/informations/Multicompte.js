@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { valideInputEmail } from '../../../../utils/formatagesUtils';
-import { InvitationsActions, userActions } from '../../../../actions';
+import { invitationsActions } from '../../../../actions';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function Multicompte() {
@@ -17,12 +17,11 @@ function Multicompte() {
       setActiveMessage(true);
       return;
     }
-    dispatch(InvitationsActions.inviteStructure({ email, structureId: entity['$id'] }));
+    dispatch(invitationsActions.inviteStructure({ email, structureId: entity['$id'] }));
     setActiveMessage(false);
     scrollTopWindow();
-    dispatch(userActions.usersByStructure());
     setTimeout(() => {
-      dispatch(InvitationsActions.resetInvitation());
+      dispatch(invitationsActions.resetInvitation());
     }, 10000);
   };
 

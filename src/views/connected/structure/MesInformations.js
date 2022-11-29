@@ -18,7 +18,7 @@ function MesInformations() {
 
   useEffect(() => {
     if (entity) {
-      dispatch(userActions.usersByStructure());
+      dispatch(userActions.getUsers());
     }
   }, [entity]);
 
