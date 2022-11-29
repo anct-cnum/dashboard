@@ -1,58 +1,58 @@
 [
   {
     "libelle": "Croix-Rouge",
-    "reseau": "Croix-Rouge"
+    "valeur": "Croix-Rouge"
   },
   {
     "libelle": "Groupe SOS",
-    "reseau": "Groupe SOS"
+    "valeur": "Groupe SOS"
   },
   {
     "libelle": "Emmaüs Connect",
-    "reseau": "Emmaüs Connect"
+    "valeur": "Emmaüs Connect"
   },
   {
     "libelle": "La Poste",
-    "reseau": "La Poste"
+    "valeur": "La Poste"
   },
   {
     "libelle": "UNAF",
-    "reseau": "UNAF"
+    "valeur": "UNAF"
   },
   {
     "libelle": "La Ligue de l'enseignement",
-    "reseau": "La Ligue de l'enseignement"
+    "valeur": "La Ligue de l'enseignement"
   },
   {
     "libelle": "Familles rurales",
-    "reseau": "Familles rurales"
+    "valeur": "Familles rurales"
   },
   {
     "libelle": "FACE",
-    "reseau": "FACE"
+    "valeur": "FACE"
   },
   {
     "libelle": "PIMMS",
-    "reseau": "PIMMS"
+    "valeur": "PIMMS"
   },
   {
     "libelle": "APF Handicap",
-    "reseau": "APF Handicap"
+    "valeur": "APF Handicap"
   },
   {
     "libelle": "UNIJ",
-    "reseau": "UNIJ"
+    "valeur": "UNIJ"
   },
   {
     "libelle": "Conférération MJC",
-    "reseau": "Conférération MJC"
+    "valeur": "Conférération MJC"
   },
   {
     "libelle": "Régie de quartier",
-    "reseau": "Régie de quartier"
+    "valeur": "Régie de quartier"
   },
   {
     "libelle": "Chambres d'agriculture",
-    "reseau": "Chambres d'agriculture"
+    "valeur": "Chambres d'agriculture"
   }
 ]

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { invitationsActions } from '../../../../actions/invitationsActions';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { valideInputEmail } from '../../../../utils/formatagesUtils';
-import GrandReseau from '../../../../datas/grand-reseaux.json';
+import GrandReseau from '../../../../datas/grands-reseaux.json';
 
 export default function InvitationGrandReseau() {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ export default function InvitationGrandReseau() {
             >
               <option value="" disabled hidden>S&eacute;lectionner le nom du grand r&eacute;seau</option>
               {GrandReseau.map((grandReseau, idx) => (
-                <option key={idx} value={grandReseau.reseau}>
+                <option key={idx} value={grandReseau.valeur}>
                   {grandReseau.libelle}
                 </option>
               ))}
