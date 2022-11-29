@@ -20,13 +20,13 @@ export const conseillerService = {
 function get(id) {
   return API.get(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function getCandidat(id) {
   return API.get(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 // eslint-disable-next-line max-len
@@ -48,7 +48,7 @@ function getAllRecruter(page, dateDebut, dateFin, filtreCoordinateur, filtreRupt
 
   return API.get(uri)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function getAllCandidats(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
@@ -58,7 +58,7 @@ function getAllCandidats(departement, region, com, search, page, filter, sortDat
   const filterSearch = search !== '' ? `&$search=${search}&$limit=100` : '';
   const filterSort = search === '' ? `&$sort[${sortData}]=${sortOrder}` : '';
 
-  let uri = `${apiUrlRoot}/conseillers?$skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filterSearch}`;
+  let uri = `${apiUrlRoot}/conseillers?$skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filterSearch}?role=${roleActivated()}`;
 
   if (persoFilters) {
     //Recrutés ?
@@ -73,7 +73,7 @@ function getAllCandidats(departement, region, com, search, page, filter, sortDat
 
   return API.get(uri)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters) {
@@ -102,50 +102,50 @@ $skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filte
 
   return API.get(uri)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function updateStatus(id, statut) {
-  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}`, JSON.stringify({
-    statut }))
+  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
+    statut })
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function preSelectionner(conseillerId, structureId) {
-  return API.patch(`${apiUrlRoot}/structures/${structureId}/preSelectionner/${conseillerId}`)
+  return API.patch(`${apiUrlRoot}/structures/${structureId}/preSelectionner/${conseillerId}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function updateDateRecrutement(id, date) {
-  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}`, JSON.stringify({
+  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
     dateRecrutement: date
-  }))
+  })
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function updateDateRupture(id, date) {
-  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}`, JSON.stringify({
+  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
     dateRupture: date
-  }))
+  })
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function updateMotifRupture(id, motif) {
-  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}`, JSON.stringify({
+  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
     motifRupture: motif
-  }))
+  })
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function getCurriculumVitae(id) {
-  return API.get(`${apiUrlRoot}/candidat/${id}/cv`)
+  return API.get(`${apiUrlRoot}/candidat/${id}/cv?role=${roleActivated()}`, { responseType: 'blob' })
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(); //rien ici dans le cas blob sinon erreur non affiché
 }
 
 function haveCV(persoFilters) {

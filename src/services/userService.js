@@ -16,5 +16,5 @@ function verifyToken(token) {
 function getUsers() {
   return API.get(`${apiUrlRoot}/users?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }

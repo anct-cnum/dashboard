@@ -43,14 +43,19 @@ export default function Login() {
             }
           </div>
         </div>
-      </div>
-      {tokenVerified === false &&
+        {tokenVerified === false &&
+        <div className="fr-grid-row fr-grid-row--center fr-mb-10w" style={{ textAlign: 'center' }}>
+          <div className="fr-col-10">
             <div className="fr-alert fr-alert--error">
               <p className="fr-alert__title">
-              D&eacute;sol&eacute; mais le lien est invalide ou a d&eacute;j&agrave; &eacute;t&eacute; utilis&eacute;.
-              Veuillez contactez le support si besoin.
+                D&eacute;sol&eacute; mais le lien est invalide ou a d&eacute;j&agrave; &eacute;t&eacute; utilis&eacute;.
+                Veuillez contactez le support si besoin.
               </p>
-            </div>}
+            </div>
+          </div>
+        </div>
+        }
+      </div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import Exports from './Exports';
 import ConseillerDetails from './ConseillerDetails';
 import TableauStructures from './structures/TableauStructures';
 import StructureDetails from './structures/StructureDetails';
+import Page404 from '../Page404';
 
 export default function Prefet() {
 
@@ -28,6 +29,7 @@ export default function Prefet() {
         <Route path="/prefet/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/prefet/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/prefet/exports" element={<Exports />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </>
   );

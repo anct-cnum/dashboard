@@ -6,17 +6,25 @@ import apiUrlRoot from '../helpers/apiUrl';
 import { getAccessToken } from '../helpers/getAccessToken';
 
 export const API = axios.create({
-  baseURL: `${apiUrlRoot}`
+  baseURL: `${apiUrlRoot}`,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+  }
 });
 
 const setup = store => {
   const { dispatch } = store;
   let accessToken;
   API.interceptors.request.use(async req => {
-    accessToken = store.getState().authentication.accessToken || getAccessToken();
+    accessToken = store.getState()?.authentication?.accessToken || getAccessToken();
+    if (!accessToken || !Object.keys(accessToken)?.length > 0) {
+      signOut();
+      return;
+    }
     req.headers.Authorization = `Bearer ${accessToken}`;
     const decodedToken = jwtDecode(accessToken);
-    const isExpired = decodedToken.exp * 1000 < new Date().getTime();
+    const isExpired = decodedToken.exp < Date.now().valueOf() / 1000;
     if (!isExpired) {
       return req;
     }
