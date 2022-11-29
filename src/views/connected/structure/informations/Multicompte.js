@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { valideInputEmail } from '../../../../utils/formatagesUtils';
-import { InvitationsActions } from '../../../../actions/invitationsActions';
+import { InvitationsActions, userActions } from '../../../../actions';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function Multicompte() {
   const dispatch = useDispatch();
-  const { entity } = useSelector(state => state.authentication.user);
-  const { users, userError } = useSelector(state => state.user);
+  const entity = useSelector(state => state.authentication?.user?.entity);
+  const users = useSelector(state => state.user?.users);
+  const userError = useSelector(state => state.user?.userError);
   const [email, setEmail] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
 
@@ -19,6 +20,7 @@ function Multicompte() {
     dispatch(InvitationsActions.inviteStructure({ email, structureId: entity['$id'] }));
     setActiveMessage(false);
     scrollTopWindow();
+    dispatch(userActions.usersByStructure());
     setTimeout(() => {
       dispatch(InvitationsActions.resetInvitation());
     }, 10000);
@@ -28,27 +30,26 @@ function Multicompte() {
     <>
       <h2>Liste des utilisateurs</h2>
       { !userError && users &&
-               <section className="fr-accordion">
-                 <h3 className="fr-accordion__title">
-                   <button className="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">
-                     <span>Liste des utilisateurs</span>
-                   </button>
-                 </h3>
-                 <div className="fr-collapse" id="accordion-106">
-                   {users.length === 0 && <p>Aucun compte crée.</p>}
-                   {users && users.map((user, idx) => {
-                     return (
-                       <p key={idx} style={!user.passwordCreated ? { color: '#a9a9a9a9' } : {}}
-                         title={!user.passwordCreated ? 'Compte inactif pour le moment' : ''} >{user.name}</p>
-                     );
-                   })
-                   }
-                 </div>
-               </section>
+        <section className="fr-accordion">
+          <h3 className="fr-accordion__title">
+            <button className="fr-accordion__btn" aria-expanded="true" aria-controls="accordion-106">
+              <span>Liste des utilisateurs</span>
+            </button>
+          </h3>
+          <div className="fr-collapse" id="accordion-106">
+            {users.length === 0 && <p>Aucun compte associé.</p>}
+            {users && users.map((user, idx) => {
+              return (
+                <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
+              );
+            })
+            }
+          </div>
+        </section>
       }
       <div className={`fr-mt-3w fr-input-group ${email && !valideInputEmail(email) && activeMessage ? 'fr-input-group--error' : ''}`}>
         <label className="fr-label" htmlFor="email-structure-input">
-                Adresse mail &agrave; ajouter :
+                Adresse email &agrave; ajouter :
         </label>
         <input
           className={`fr-input ${email && !valideInputEmail(email) && activeMessage ? 'fr-input--error' : ''}`}
@@ -65,7 +66,7 @@ function Multicompte() {
         }
         {email === '' && activeMessage &&
               <p id="username-error" className="fr-error-text">
-                Veuillez saisir une adresse mail.
+                Veuillez saisir une adresse email.
               </p>
         }
       </div>
@@ -75,7 +76,11 @@ function Multicompte() {
       >
             Annuler
       </button>
-      <button style={{ float: 'right' }} className="fr-btn" onClick={sendInvitation}>
+      <button
+        style={{ float: 'right' }}
+        className="fr-btn"
+        onClick={sendInvitation}
+        {...!email || !valideInputEmail(email) ? { 'disabled': true } : {}}>
             Envoyer
       </button>
     </>
