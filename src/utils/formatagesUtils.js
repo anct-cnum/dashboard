@@ -57,8 +57,6 @@ export const formatStatut = statut => {
       return 'En cours';
     case 'finalisee_rupture':
       return 'Terminée';
-    case 'finalisee':
-      return 'En cours';
     default:
       return '';
   }

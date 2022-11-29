@@ -179,7 +179,7 @@ function StructureDetails() {
                     setEmail('');
                     setForm(false);
                   }}
-                  className="fr-btn"
+                  className="fr-btn fr-btn--secondary"
                   >
                     Annuler
                   </button>

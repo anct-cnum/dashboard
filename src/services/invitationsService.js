@@ -45,7 +45,7 @@ function inviteAccountHub({ hub, nom, prenom, email }) {
 function inviteAccountGrandReseau({ reseau, email }) {
   return API.post(
     `${apiUrlRoot}/inviteAccountGrandReseau?role=${roleActivated()}`,
-    JSON.stringify({ reseau, email }))
+    { reseau, email })
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => Promise.reject(error.response.data.message));
 }

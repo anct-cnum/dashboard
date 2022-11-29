@@ -31,7 +31,7 @@ function ConseillerDetails() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Le conseiller n\'a pas pu être chargée !',
+        message: 'Le conseiller n\'a pas pu être chargé !',
         status: null, description: null
       }));
     }
@@ -83,7 +83,7 @@ function ConseillerDetails() {
         </div>
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-6">
-            <h4 className="titre">Information personnelles</h4>
+            <h4 className="titre">Informations personnelles</h4>
             <div className="fr-mb-3w">
               <strong>Sexe</strong><br/>
               <span>{conseiller?.sexe ?? '-'}</span>
@@ -125,7 +125,7 @@ function ConseillerDetails() {
             </div>
           </div>
           <div className="fr-col-6">
-            <h4 className="titre">Information de candidature</h4>
+            <h4 className="titre">Informations de candidature</h4>
             <div className="fr-mb-3w">
               <strong>Mobilit&eacute; géographique</strong><br/>
               {conseiller?.distanceMax ? <span>{conseiller?.distanceMax}&nbsp;km</span> : <span>-</span>}
@@ -186,7 +186,7 @@ function ConseillerDetails() {
             </div>
           </div>
           <div className="fr-col-6 fr-mt-4w">
-            <h4 className="titre">Information professionelles</h4>
+            <h4 className="titre">Informations professionelles</h4>
             <div className="fr-mb-3w">
               <strong>Email</strong><br/>
               {conseiller?.emailCN?.address &&

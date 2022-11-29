@@ -188,7 +188,7 @@ function StructureDetails() {
                     setEmail('');
                     setForm(false);
                   }}
-                  className="fr-btn"
+                  className="fr-btn fr-btn--secondary"
                   >
                     Annuler
                   </button>
@@ -310,7 +310,7 @@ function StructureDetails() {
           <div className="fr-col-3">
             <div className="fr-mb-3w">
               <strong>Cra total cumul&eacute;s</strong><br />
-              <span>{structure?.craCount ?? '-'}</span>
+              <span>{structure?.craCount === 0 ? '-' : structure?.craCount}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Personnes accompagn&eacute;es</strong><br />
