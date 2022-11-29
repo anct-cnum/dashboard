@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
+import Exports from './Exports';
 import ConseillerDetails from './ConseillerDetails';
 import TableauStructures from './structures/TableauStructures';
 import StructureDetails from './structures/StructureDetails';
@@ -25,6 +26,7 @@ export default function GrandReseau() {
         <Route path="/grandReseau/liste-structures" element={<TableauStructures />} />
         <Route path="/grandReseau/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/grandReseau/conseiller/:idConseiller" element={<ConseillerDetails />} />
+        <Route path="/grandReseau/exports" element={<Exports />} />
       </Routes>
     </>
   );
