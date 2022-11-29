@@ -5,6 +5,7 @@ import Exports from './Exports';
 import ConseillerDetails from './ConseillerDetails';
 import TableauStructures from './structures/TableauStructures';
 import StructureDetails from './structures/StructureDetails';
+import Page404 from '../Page404';
 
 export default function Hub() {
 
@@ -27,6 +28,7 @@ export default function Hub() {
         <Route path="/hub_coop/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/hub_coop/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/hub_coop/exports" element={<Exports />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </>
   );

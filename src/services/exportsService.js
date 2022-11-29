@@ -12,18 +12,19 @@ export const exportsService = {
 };
 
 function getFile(name) {
-  API.get(`${apiUrlRoot}/exports/${name}-csv?role=${roleActivated()}`)
+  return API.get(`${apiUrlRoot}/exports/${name}-csv?role=${roleActivated()}`)
+  // eslint-disable-next-line max-statements-per-line
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrdre, ordre) {
   const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports`;
   const exportTerritoiresRoute = '/territoires-csv';
   // eslint-disable-next-line max-len
-  API.get(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`)
+  return API.get(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 // eslint-disable-next-line max-len
@@ -43,9 +44,9 @@ function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoo
   } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreParRegion, filtreParNomStructure);
   
   // eslint-disable-next-line max-len
-  API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}`)
+  return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
   
 }
 
@@ -65,9 +66,9 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
   // eslint-disable-next-line max-len
   } = structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs);
   // eslint-disable-next-line max-len
-  API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}${filterByComs}`)
+  return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}${filterByComs}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }
 
 function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal) {
@@ -75,5 +76,5 @@ function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, cod
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&conseillerIds=${conseillerIds}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error));
+  .catch(error => error.response.data.message);
 }

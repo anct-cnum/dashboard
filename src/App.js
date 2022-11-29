@@ -31,12 +31,11 @@ function App() {
   const location = useLocation();
   const auth = useAuth();
 
-  if (location.pathname !== '/login' || location.pathname.startsWith('/invitation')) {
-    useEffect(() => {
+  useEffect(() => {
+    if (auth?.isAuthenticated && location.pathname !== '/login' && accessToken) {
       refreshToken(auth, dispatch, accessToken);
-    }, [location]);
-  
-  }
+    }
+  }, [location, auth, accessToken]);
 
   return (
     <div className="App">
