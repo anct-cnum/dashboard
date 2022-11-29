@@ -239,9 +239,8 @@ function ConseillerDetails() {
                     </div>
                   </>
                 )}
-              </> : <span>Aucun lieu d&lsquo;activit&eacute; renseigné</span>
+              </> : <span>Aucun lieu d&lsquo;activit&eacute; renseign&eacute;</span>
             }
-           
           </div>
         </div>
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">

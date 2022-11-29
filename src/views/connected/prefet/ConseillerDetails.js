@@ -213,13 +213,17 @@ function ConseillerDetails() {
           </div>
           <div className="fr-col-6 fr-mt-4w">
             <h4 className="titre">Lieu(x) d&lsquo;activit&eacute;</h4>
-            {conseiller?.permanences.map((permanence, idx) =>
+            {conseiller?.permanences.length > 0 ?
               <>
-                <div className="fr-mb-3w" key={idx}>
-                  <span><strong>{permanence?.nomEnseigne}</strong>&nbsp;-&nbsp;{formatAdressePermanence(permanence?.adresse)}</span>
-                </div>
-              </>
-            )}
+                {conseiller?.permanences.map((permanence, idx) =>
+                  <>
+                    <div className="fr-mb-3w" key={idx}>
+                      <span><strong>{permanence?.nomEnseigne}</strong>&nbsp;-&nbsp;{formatAdressePermanence(permanence?.adresse)}</span>
+                    </div>
+                  </>
+                )}
+              </> : <span>Aucun lieu d&lsquo;activit&eacute; renseign&eacute;</span>
+            }
           </div>
         </div>
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
