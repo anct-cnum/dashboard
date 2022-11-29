@@ -258,10 +258,10 @@ function StructureDetails() {
               )}</strong><br />
               <span>{structure?.posteRecruter === 0 ? '-' : structure?.posteRecruter}</span>
             </div>
-            <div className="fr-mb-3w">
+            <div className="fr-mb-3w fr-grid-row">
               <strong>Profils recrut&eacute;s</strong><br />
               {structure?.conseillers.map((conseiller, idx) =>
-                <p key={idx}>
+                <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
                   <button
                     style={{ paddingLeft: '0' }}
                     title="D&eacute;tail"
@@ -269,7 +269,7 @@ function StructureDetails() {
                     onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}>
                     {conseiller?.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
                   </button>
-                </p>
+                </span>
               )}
               {structure?.conseillers?.length === 0 &&
                 <span>-</span>
@@ -291,7 +291,7 @@ function StructureDetails() {
           <div className="fr-col-3">
             <div className="fr-mb-3w">
               <strong>Cra total cumul&eacute;s</strong><br />
-              <span>{structure?.craCount ?? '-'}</span>
+              <span>{structure?.craCount === 0 ? '-' : structure?.craCount}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Personnes accompagn&eacute;es</strong><br />
