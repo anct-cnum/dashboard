@@ -11,7 +11,7 @@ import Structure from './structure';
 export default function Accueil() {
 
   const navigate = useNavigate();
-  const roleActivated = useSelector(state => state.authentication.roleActivated);
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   useEffect(() => {
     if (!localStorage.getItem('user')) {

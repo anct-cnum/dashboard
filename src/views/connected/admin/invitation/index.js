@@ -16,7 +16,7 @@ export default function Invation() {
       <div className="fr-form-group">
         <fieldset className="fr-fieldset fr-fieldset--inline">
           <legend className="fr-fieldset__legend fr-text--regular" id="radio-inline-legend">
-              Veuillez sélectionner l&rsquo;un des champs pour invité un :
+              Veuillez s&eacute;lectionner l&rsquo;un des r&ocirc;les suivant :
           </legend>
           <div className="fr-fieldset__content">
             {arrayOption.map((option, key) =>

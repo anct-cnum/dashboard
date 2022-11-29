@@ -37,15 +37,6 @@ export const valideInputEmail = email => {
   return regexValidEmail.test(email);
 };
 
-
-export const checkComplexity = password => {
-  const check = new RegExp(
-    /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,199})/
-  );
-  
-  return check.test(password);
-};
-
 export const validInputSiret = siret => {
   const regexValidSiret = new RegExp(/^[0-9]{14}$/);
   
@@ -53,4 +44,4 @@ export const validInputSiret = siret => {
 };
 
 export const formatNomConseiller = conseiller =>
-  (conseiller?.nom + ' ' + conseiller?.prenom).toLowerCase().replace(/(^\w{1})|([\s,-]+\w{1})/g, letter => letter.toUpperCase());
+  (conseiller?.prenom + ' ' + conseiller?.nom).toLowerCase().replace(/(^\w{1})|([\s,-]+\w{1})/g, letter => letter.toUpperCase());

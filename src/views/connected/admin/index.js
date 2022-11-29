@@ -5,6 +5,7 @@ import Exports from './Exports';
 import TableauStructures from './structures/TableauStructures';
 import ConseillerDetails from './ConseillerDetails';
 import StructureDetails from './structures/StructureDetails';
+import Page404 from '../Page404';
 
 export default function Admin() {
 
@@ -25,6 +26,7 @@ export default function Admin() {
         <Route path="/admin/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/admin/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/admin/exports" element={<Exports />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </>
   );

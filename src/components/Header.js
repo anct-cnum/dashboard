@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/brands/logo-rf-conseiller-numerique-min.svg';
 import { menuActions, authenticationActions } from '../actions';
 import Menu from './Menu';
+import { useAuth } from 'react-oidc-context';
 
 function Header() {
 
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const roles = useSelector(state => state.authentication?.rolesAllowed)?.filter(role => !['admin_coop', 'structure_coop', 'conseiller'].includes(role));
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -17,11 +19,6 @@ function Header() {
 
   const toggleBurgerMenu = () => {
     dispatch(menuActions.toggleBurgerMenu());
-  };
-
-  const logout = () => {
-    dispatch(authenticationActions.logout());
-    navigate('/login');
   };
 
   const changeRoleActivated = e => {
@@ -81,7 +78,7 @@ function Header() {
                 </Link>
               </div>
             </div>
-            { localStorage.getItem('user') && !location.pathname.startsWith('/login') &&
+            { localStorage.getItem('user') && !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
               <div className="fr-header__tools">
                 <div className="fr-header__tools-links">
                   <ul className="fr-links-group">
@@ -98,7 +95,7 @@ function Header() {
                       </li>
                     }
                     <li>
-                      <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={logout}>
+                      <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={() => auth.signoutRedirect()}>
                         D&eacute;connexion
                       </button>
                     </li>
@@ -109,7 +106,7 @@ function Header() {
           </div>
         </div>
       </div>
-      { localStorage.getItem('user') && !location.pathname.startsWith('/login') &&
+      { localStorage.getItem('user') && !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
         <Menu />
       }
     </header>

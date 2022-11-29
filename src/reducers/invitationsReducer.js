@@ -31,11 +31,13 @@ export default function invitations(state = initState, action) {
       };
     case 'INVITING_ADMIN_SUCCESS':
       return {
+        ...state,
         loading: false,
         success: action.successInviteAdmin
       };
     case 'INVITING_ADMIN_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error,
       };
@@ -47,11 +49,13 @@ export default function invitations(state = initState, action) {
       };
     case 'INVITING_STRUCTURE_SUCCESS':
       return {
+        ...state,
         loading: false,
         success: action.successInviteAccountMulticompteSA,
       };
     case 'INVITING_STRUCTURE_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };
@@ -63,11 +67,13 @@ export default function invitations(state = initState, action) {
       };
     case 'INVITING_HUB_SUCCESS':
       return {
+        ...state,
         loading: false,
         success: action.successInviteHub
       };
     case 'INVITING_HUB_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error,
       };

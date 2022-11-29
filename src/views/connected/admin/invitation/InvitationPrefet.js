@@ -80,7 +80,7 @@ export default function InvitationPrefet({ option }) {
         }
         <div className={`fr-input-group ${email && !valideInputEmail(email) && activeMessage ? 'fr-input-group--error' : ''}`}>
           <label className="fr-label" htmlFor="email-prefet-input">
-                Adresse mail &agrave; ajouter :
+                Adresse email &agrave; ajouter :
           </label>
           <input
             className={`fr-input ${email && !valideInputEmail(email) && activeMessage ? 'fr-input--error' : ''}`}
@@ -92,7 +92,7 @@ export default function InvitationPrefet({ option }) {
             onChange={handleChange} />
           {email && !checkEmail(email) &&
               <p className="fr-error-text">
-                  L&apos;adresse email doit &ecirc;tre du nom de domaine&nbsp;<strong>gouv.fr</strong>.
+                  L&apos;adresse email doit &ecirc;tre du nom de domaine&nbsp;<strong>.gouv.fr</strong>.
               </p>
           }
           {email && !valideInputEmail(email) && activeMessage &&
@@ -102,7 +102,7 @@ export default function InvitationPrefet({ option }) {
           }
           {email === '' && activeMessage &&
                   <p id="username-error" className="fr-error-text">
-                      Veuillez saisir une adresse mail.
+                      Veuillez saisir une adresse email.
                   </p>
           }
         </div>
@@ -116,8 +116,9 @@ export default function InvitationPrefet({ option }) {
           style={{ float: 'right' }}
           className="fr-btn fr-fi-checkbox-line fr-btn--icon-left"
           onClick={handleSubmit}
+          {...!email || !valideInputEmail(email) || !checkEmail(email) ? { 'disabled': true } : {}}
         >
-          Valider
+          Envoyer
         </button>
       </div>
     </div>
