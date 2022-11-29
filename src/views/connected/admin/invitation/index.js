@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import InvitationPrefet from './InvitationPrefet';
 import InvitationAdmin from './InvitationAdmin';
 import InvitationHub from './InvitationHub';
+import InvitationGrandReseau from './InvitationGrandReseau';
 
 export default function Invation() {
   const [option, setOption] = useState('');
   const arrayOption = [
     { value: 'admin', label: 'Admin' },
     { value: 'prefet', label: 'Préfet' },
-    { value: 'hub', label: 'Hub' }
+    { value: 'hub', label: 'Hub' },
+    { value: 'grandReseau', label: 'Grand réseau' },
   ];
   return (
     <>
@@ -32,6 +34,7 @@ export default function Invation() {
         {['prefet'].includes(option) && <InvitationPrefet /> }
         {['admin'].includes(option) && <InvitationAdmin /> }
         {['hub'].includes(option) && <InvitationHub /> }
+        {['grandReseau'].includes(option) && <InvitationGrandReseau /> }
       </div>
     </>
   );

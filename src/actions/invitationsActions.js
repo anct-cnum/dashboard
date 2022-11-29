@@ -144,11 +144,11 @@ function inviteAccountHub({ hub, nom, prenom, email }) {
   }
 }
 
-function inviteAccountGrandReseau({ reseau, email }) {
+function inviteAccountGrandReseau({ reseau, email, nom, prenom }) {
   return dispatch => {
     dispatch(request());
   
-    invitationsService.inviteAccountGrandReseau({ reseau, email })
+    invitationsService.inviteAccountGrandReseau({ reseau, email, nom, prenom })
     .then(
       successInviteGrandReseau => {
         dispatch(successMessage(successInviteGrandReseau.message));

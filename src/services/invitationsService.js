@@ -42,10 +42,10 @@ function inviteAccountHub({ hub, nom, prenom, email }) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function inviteAccountGrandReseau({ reseau, email }) {
+function inviteAccountGrandReseau({ reseau, email, nom, prenom }) {
   return API.post(
     `${apiUrlRoot}/inviteAccountGrandReseau?role=${roleActivated()}`,
-    { reseau, email })
+    { reseau, email, nom, prenom })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
