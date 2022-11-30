@@ -7,6 +7,8 @@ import { valideInputEmail } from '../../../../utils/formatagesUtils';
 export default function InvitationGrandReseau() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
+  const [nom, setNom] = useState('');
+  const [prenom, setPrenom] = useState('');
   const users = useSelector(state => state.user?.users);
   const reseau = useSelector(state => state.authentication.user?.reseau);
 
@@ -28,11 +30,11 @@ export default function InvitationGrandReseau() {
   }, [userError]);
 
   const sendInvitation = () => {
-    if (!valideInputEmail(email)) {
+    if (!valideInputEmail(email) || nom === '' || prenom === '') {
       setActiveMessage(true);
       return;
     }
-    dispatch(invitationsActions.inviteAccountGrandReseau({ reseau, email }));
+    dispatch(invitationsActions.inviteAccountGrandReseau({ reseau, email, nom, prenom }));
     setActiveMessage(false);
     setEmail('');
     setForm(false);
@@ -60,6 +62,44 @@ export default function InvitationGrandReseau() {
         </div> :
         <>
           <div className="fr-my-3w">
+            <div className={`fr-input-group ${prenom === '' && activeMessage ? 'fr-input-group--error' : ''}`}>
+              <label className="fr-label" htmlFor="prenom-input">
+                Pr&eacute;nom&nbsp;:
+              </label>
+              <input
+                className={`fr-input ${email && !valideInputEmail(email) && activeMessage ? 'fr-input--error' : ''}`}
+                aria-describedby="prenom-error"
+                placeholder="Pr&eacute;nom"
+                type="text"
+                id="prenom-input"
+                name="prenom"
+                value={prenom}
+                onChange={e => setPrenom(e.target.value.trim())} />
+              {prenom === '' && activeMessage &&
+                <p id="prenom-error" className="fr-error-text">
+                  Veuillez entrer un pr&eacute;nom
+                </p>
+              }
+            </div>
+            <div className={`fr-input-group ${nom === '' && activeMessage ? 'fr-input-group--error' : ''}`}>
+              <label className="fr-label" htmlFor="nom-input">
+                Nom&nbsp;:
+              </label>
+              <input
+                className={`fr-input ${email && !valideInputEmail(email) && activeMessage ? 'fr-input--error' : ''}`}
+                aria-describedby="nom-error"
+                placeholder="Nom"
+                type="text"
+                id="nom-input"
+                name="nom"
+                value={nom}
+                onChange={e => setNom(e.target.value.trim())} />
+              {nom === '' && activeMessage &&
+                <p id="nom-error" className="fr-error-text">
+                  Veuillez entrer un nom
+                </p>
+              }
+            </div>
             <div className={`fr-input-group ${email && !valideInputEmail(email) && activeMessage ? 'fr-input-group--error' : ''}`}>
               <label className="fr-label" htmlFor="username-input">
                 E-mail de l&lsquo;administrateur
@@ -89,15 +129,18 @@ export default function InvitationGrandReseau() {
           </div>
           <button onClick={() => {
             setEmail('');
+            setNom('');
+            setPrenom('');
             setForm(false);
           }}
+          disabled={email.length === 0 && nom.length === 0 && prenom.length === 0 ? 'disabled' : ''}
           className="fr-btn fr-btn--secondary"
           >
           Annuler
           </button>
           <button style={{ float: 'right' }}
             className="fr-btn" onClick={sendInvitation}
-            {...!email || !valideInputEmail(email) ? { 'disabled': true } : {}}
+            {...!email || !valideInputEmail(email) || !nom || !prenom ? { 'disabled': true } : {}}
           >
           Envoyer
           </button>

@@ -18,7 +18,7 @@ const refreshToken = async (auth, dispatch, accessToken) => {
         );
         dispatch(authenticationActions.refreshToken(response.data?.accessToken));
       } catch (error) {
-        signOut(auth);
+        await signOut(auth);
       }
     }
   }

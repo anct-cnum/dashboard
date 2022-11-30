@@ -9,10 +9,7 @@ const getProfile = () =>
     )
   );
 
-const getVerificationToken = () =>
-  localStorage.getItem(
-    'verificationToken'
-  );
+const getVerificationToken = () => window.location.pathname.split('/').pop();
 
 const signInCallBack = async store => {
   const { dispatch } = store;
