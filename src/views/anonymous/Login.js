@@ -39,11 +39,6 @@ export default function Login() {
                 </button>
               </>
             }
-            {tokenVerified &&
-              <p style={{ color: 'red', fontWeight: 'bold' }}>Attention&nbsp;: apr&egrave;s cr&eacute;ation du compte Inclusion Connect,
-               merci de copier/coller le lien de validation email (envoy&eacute; par Inclusion Connect) dans cette m&ecirc;me session navigateur
-              </p>
-            }
             {error &&
             <div className="fr-alert fr-alert--error fr-mt-1w">
               <p className="fr-alert__title">{ error.error }</p>
