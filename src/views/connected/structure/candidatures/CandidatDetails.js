@@ -8,79 +8,57 @@ import ButtonsAction from './ButtonsAction';
 import PopinInteressee from '../popins/popinInteressee';
 import PopinRecrutee from '../popins/popinRecrutee';
 import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
-import { Oval } from 'react-loader-spinner';
 import pixUtilisation from '../../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../../assets/icons/pix-citoyen.png';
+import Spinner from '../../../../components/Spinner';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { formatRenderStars } from '../../../../utils/formatagesUtils';
 
-function ConseillerDetails() {
+function CandidatDetails() {
 
   const location = useLocation();
   const { miseEnRelation, currentPage, currentFilter } = location.state;
   const dispatch = useDispatch();
+  let { id } = useParams();
+
+  useEffect(() => {
+    dispatch(conseillerActions.getCandidat(id));
+  }, []);
+
   const conseiller = useSelector(state => state.conseiller);
   const errorUpdateStatus = useSelector(state => state.conseiller?.errorUpdateStatus);
   const downloading = useSelector(state => state.conseiller?.downloading);
   let dateRecrutementUpdated = useSelector(state => state.conseiller?.dateRecrutementUpdated);
   let dateRecrutement = useSelector(state => state.conseiller?.miseEnRelation?.dateRecrutement) ?? null;
 
-  let { id } = useParams();
-
   const updateStatut = statut => {
     dispatch(conseillerActions.updateStatus({ id: miseEnRelation?._id, statut }));
   };
-
-  useEffect(() => {
-    dispatch(conseillerActions.get(id));
-  }, []);
 
   const downloadCV = () => {
     dispatch(conseillerActions.getCurriculumVitae(conseiller?.conseiller?._id, conseiller?.conseiller));
   };
 
-  const renderStars = palier => {
-    switch (palier) {
-      case 1:
-        return <p>Degré de maîtrise :&nbsp;
-          <span style={{ verticalAlign: 'sub' }}>
-            <i className="ri-star-fill ri-xl" title="Débutant"></i>
-            <i className="ri-star-line ri-xl" title="Débutant"></i>
-            <i className="ri-star-line ri-xl" title="Débutant"></i>
-          </span>
-        </p>;
-      case 2:
-        return <p>Degré de maîtrise :&nbsp;
-          <span style={{ verticalAlign: 'sub' }}>
-            <i className="ri-star-fill ri-xl" title="Intermédiaire"></i>
-            <i className="ri-star-fill ri-xl" title="Intermédiaire"></i>
-            <i className="ri-star-line ri-xl" title="Intermédiaire"></i>
-          </span>
-        </p>;
-      case 3:
-        return <p>Degré de maîtrise :&nbsp;
-          <span style={{ verticalAlign: 'sub' }}>
-            <i className="ri-star-fill ri-xl" title="Avancé"></i>
-            <i className="ri-star-fill ri-xl" title="Avancé"></i>
-            <i className="ri-star-fill ri-xl" title="Avancé"></i>
-          </span>
-        </p>;
-      default:
-        return <p>Degré de maîtrise non communiqué</p>;
-    }
-  };
-
   useEffect(() => {
-    if (errorUpdateStatus !== undefined && errorUpdateStatus !== false) {
-      window.scrollTo(0, 100); //remonte la page pour visualiser le message flash
+    if ((errorUpdateStatus !== undefined && errorUpdateStatus !== false) ||
+      (conseiller.downloadError !== undefined && conseiller.downloadError !== false)) {
+      scrollTopWindow();
+      
     }
-  }, [errorUpdateStatus]);
+  }, [errorUpdateStatus, conseiller.downloadError]);
 
   const linkUrl = location.origin ?? `/structure/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}`;
   return (
     <div className="ConseillerDetails">
       { (errorUpdateStatus !== undefined && errorUpdateStatus !== false) &&
-      <div className="fr-alert fr-alert--info">
+      <div className="fr-alert fr-alert--info fr-mb-2w">
         <p>{ errorUpdateStatus.toString() }</p>
+      </div>
+      }
+      { (conseiller.downloadError !== undefined && conseiller.downloadError !== false) &&
+      <div className="fr-alert fr-alert--error fr-mb-2w">
+        <p>Le CV n&rsquo;a pas pu &ecirc;tre r&eacute;cup&eacute;r&eacute; !</p>
       </div>
       }
 
@@ -107,14 +85,9 @@ function ConseillerDetails() {
           <span className="capitalizeFirstLetter">
             {conseiller?.conseiller?.prenom}&nbsp;{conseiller?.conseiller?.nom}</span>
         </h2>
-        <div className="spinnerCustom">
-          <Oval
-            color="#00BFFF"
-            height={100}
-            width={100}
-            visible={downloading === true}
-          />
-        </div>
+
+        <Spinner loading={downloading} />
+
         <div className="fr-container fr-container--fluid">
           <div className="fr-grid-row">
             { conseiller?.conseiller?.dateRecrutement?.length > 0 &&
@@ -156,7 +129,7 @@ function ConseillerDetails() {
             { conseiller?.conseiller?.pix?.partage &&
               <div className="fr-col-5 fr-ml-6w fr-mt-1w">
                 <span className="capitalizeFirstLetter"><strong>Résultats Pix</strong></span>
-                {renderStars(conseiller?.conseiller?.pix?.palier)}
+                {formatRenderStars(conseiller?.conseiller?.pix?.palier)}
                 <p>
                   { conseiller?.conseiller?.pix?.competence1 &&
                     <img src={pixUtilisation}
@@ -213,8 +186,8 @@ function ConseillerDetails() {
   );
 }
 
-ConseillerDetails.propTypes = {
+CandidatDetails.propTypes = {
   location: PropTypes.object
 };
 
-export default ConseillerDetails;
+export default CandidatDetails;

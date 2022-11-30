@@ -31,11 +31,21 @@
             background-color: #eeeeee !important;
         }
     }
+    .btn-actions-structures {
+        display: block;
+        width: 12rem;
+    }
+    .btn-actions-conseillers {
+        width: 6rem;
+    }
     .fr-nav__btn[aria-current]::before {
         height: 0px !important;
     }
+    .no-result-table {
+        height: 300px;
+    }
     .admin-select-option {
-        background-color: #eeeeee;
+        background-color: $white;
         text-align: left;
         color: #383838;
         font-size: 14px;

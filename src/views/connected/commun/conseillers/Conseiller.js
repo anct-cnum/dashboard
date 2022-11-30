@@ -1,11 +1,9 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { useSelector } from 'react-redux';
 
-function Conseiller({ conseiller, currentPage }) {
+function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   return (
@@ -14,29 +12,32 @@ function Conseiller({ conseiller, currentPage }) {
         <td>{conseiller?.idPG}</td>
         <td>{conseiller?.nom}</td>
         <td>{conseiller?.prenom}</td>
-        <td>{conseiller?.emailCN?.address}</td>
+        <td>
+          <a className="email"href={'mailto:' + conseiller?.address}>
+            {conseiller?.address}
+          </a>
+        </td>
+        <td>{conseiller?.nomStructure}</td>
         <td className="center-text">
-          {conseiller?.rupture ? 'Oui' : 'Non' }
+          {conseiller.rupture}
         </td>
         <td className="center-text">
           {conseiller?.estCoordinateur ? 'Oui' : 'Non' }
         </td>
         <td>{conseiller?.craCount}</td>
         <td>
-          <Link className="fr-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }}
-            to={`/${roleActivated}/conseiller/${conseiller?._id}`}>
-              Afficher
-          </Link>
-          <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
-        </td>
-        <td>
-          <Link className="fr-btn" target="_blank" rel="noopener noreferrer" style={{ boxShadow: 'none' }} to={{
-            pathname: `/statistiques/conseiller/${conseiller?._id}`,
-            currentPage: currentPage,
-            origin: '/liste-conseillers' }}>
-              Voir
-          </Link>
-          <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
+          <div className="btn-actions-conseillers">
+            <button
+              className="fr-btn fr-icon-eye-line fr-mr-2w"
+              title="D&eacute;tail"
+              onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
+            <Link
+              className="fr-btn fr-icon-line-chart-line"
+              title="Statistiques"
+              to={`/statistiques-conseiller/${conseiller?._id}`}
+              state={{ 'origin': '/liste-conseillers', conseiller }}
+            />
+          </div>
         </td>
       </tr>
     </>
@@ -45,7 +46,6 @@ function Conseiller({ conseiller, currentPage }) {
 
 Conseiller.propTypes = {
   conseiller: PropTypes.object,
-  currentPage: PropTypes.number,
 };
 
 export default Conseiller;

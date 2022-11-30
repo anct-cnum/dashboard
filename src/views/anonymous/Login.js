@@ -1,98 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { authenticationActions } from '../../actions';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useAuth } from 'react-oidc-context';
+import { useParams } from 'react-router-dom';
+import logo from '../../assets/brands/logo-inclusionconnect-bouton-min.svg';
+import { userActions } from '../../actions';
 
 export default function Login() {
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const error = useSelector(state => state.authentication?.error);
-  const user = useSelector(state => state.authentication?.user);
+  const tokenVerified = useSelector(state => state?.user?.tokenVerified);
+  const dispatch = useDispatch();
+  const auth = useAuth();
 
+  const login = () => {
+    localStorage.setItem('user', JSON.stringify({}));
+    auth.signinRedirect();
+  };
+
+  const { verificationToken } = useParams();
+ 
   useEffect(() => {
-    //Si login OK, renvoie vers la page d'accueil
-    if (user) {
-      navigate('/');
+    if (verificationToken) {
+      dispatch(userActions.verifyToken(verificationToken));
     }
-  }, [user]);
-
-  useEffect(() => {
-    dispatch(authenticationActions.logout());
   }, []);
-
-  const [inputs, setInputs] = useState({
-    username: '',
-    password: ''
-  });
-
-  const [submitted, setSubmitted] = useState(false);
-  const { username, password } = inputs;
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setInputs(inputs => ({ ...inputs, [name]: value.trim() })); //trim to drop auto spaces
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setSubmitted(true);
-    if (username && password) {
-      dispatch(authenticationActions.login(username, password));
-    }
-  }
-
+  
   return (
+    
     <div className="login">
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-6">
-            <h2>Connexion</h2>
-            <form method="post" onSubmit={handleSubmit}>
-              <div className="fr-my-3w">
-                <div className={`fr-input-group ${submitted && !username ? 'fr-input-group--error' : ''}`}>
-                  <label className="fr-label" htmlFor="username-input">
-                    Adresse email
-                  </label>
-                  <input
-                    className={`fr-input ${submitted && !username ? 'fr-input--error' : ''}`}
-                    aria-describedby="username-error"
-                    type="text"
-                    id="username-input"
-                    name="username"
-                    value={username}
-                    onChange={handleChange} />
-                  {submitted && !username &&
-                    <p id="username-error" className="fr-error-text">
-                      Adresse email requise
-                    </p>
-                  }
-                </div>
-              </div>
-              <div className="fr-my-3w">
-                <div className={`fr-input-group ${submitted && !password ? 'fr-input-group--error' : ''}`}>
-                  <label className="fr-label" htmlFor="password-input">
-                    Mot de passe
-                  </label>
-                  <input
-                    className={`fr-input ${submitted && !password ? 'fr-input--error' : ''}`}
-                    aria-describedby="password-error"
-                    type="password"
-                    id="password-input"
-                    name="password"
-                    autoComplete="on"
-                    value={password}
-                    onChange={handleChange} />
-                  {submitted && !password &&
-                    <p id="password-error" className="fr-error-text">
-                      Mot de passe requis
-                    </p>
-                  }
-                </div>
-              </div>
-              <button className="fr-btn" type="submit">Se connecter</button>
-            </form>
+            {(window.location.pathname === '/login' || tokenVerified) &&
+              <>
+                <h3>Se connecter avec</h3>
+                <button className="fr-my-3w" onClick={login} style={{ padding: 0 }}>
+                  <img src={logo} className="btn" alt="Logo Inclusion Connect" />
+                </button>
+              </>
+            }
+            {tokenVerified &&
+              <p style={{ color: 'red', fontWeight: 'bold' }}>Attention&nbsp;: apr&egrave;s cr&eacute;ation du compte Inclusion Connect,
+               merci de copier/coller le lien de validation email (envoy&eacute; par Inclusion Connect) dans cette m&ecirc;me session navigateur
+              </p>
+            }
             {error &&
             <div className="fr-alert fr-alert--error fr-mt-1w">
               <p className="fr-alert__title">{ error.error }</p>
@@ -100,6 +51,18 @@ export default function Login() {
             }
           </div>
         </div>
+        {tokenVerified === false &&
+        <div className="fr-grid-row fr-grid-row--center fr-mb-10w" style={{ textAlign: 'center' }}>
+          <div className="fr-col-10">
+            <div className="fr-alert fr-alert--error">
+              <p className="fr-alert__title">
+                D&eacute;sol&eacute; mais le lien est invalide ou a d&eacute;j&agrave; &eacute;t&eacute; utilis&eacute;.
+                Veuillez contactez le support si besoin.
+              </p>
+            </div>
+          </div>
+        </div>
+        }
       </div>
     </div>
   );

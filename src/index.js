@@ -8,6 +8,12 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
+import { AuthProvider } from 'react-oidc-context';
+import { WebStorageStateStore } from 'oidc-client-ts';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { history } from './helpers';
+import setup from './services/api';
+import signInCallBack from '../src/services/auth/signInCallBack';
 
 if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
   Sentry.init({
@@ -23,12 +29,31 @@ const store = configureStore({
   middleware: [thunk]
 });
 
+const oidcConfig = {
+  client_id: process.env.REACT_APP_AUTH_CLIENT_ID,
+  client_secret: process.env.REACT_APP_AUTH_CLIENT_SECRET,
+  authority: process.env.REACT_APP_AUTH_OIDC_AUTHORITY,
+  redirect_uri:
+    window.location.pathname.startsWith('/invitation') ?
+      `${process.env.REACT_APP_AUTH_REDIRECT_URI}/accueil/${window.location.pathname.split('/').pop()}` :
+      `${process.env.REACT_APP_AUTH_REDIRECT_URI}/accueil`,
+  post_logout_redirect_uri: `${process.env.REACT_APP_AUTH_REDIRECT_URI}/login`,
+  userStore: new WebStorageStateStore({ store: window.localStorage }),
+  onSigninCallback: () => signInCallBack(store),
+};
+setup(store);
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <AuthProvider {...oidcConfig}>
+      <Provider store={store}>
+        <Router history={history}>
+          <App />
+        </Router>
+      </Provider>
+    </AuthProvider>
   </React.StrictMode>
 );
 

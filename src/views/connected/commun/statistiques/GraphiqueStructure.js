@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
-import { alerteEtSpinnerActions, statistiquesActions, structuresActions } from '../../../../actions';
+import { alerteEtSpinnerActions, statistiquesActions, structureActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
 import BlockDatePickers from './Components/commun/BlockDatePickers';
@@ -16,49 +16,59 @@ export default function GraphiqueStructure() {
 
   const dispatch = useDispatch();
   const location = useLocation();
+  const { idStructure } = useParams();
 
-  const idStructure = location.pathname.split('/')[2];
-
-  const structureLoading = useSelector(state => state.structures?.loading);
-  const structureError = useSelector(state => state.structures?.error);
-  const structure = useSelector(state => state.structures?.structure);
+  const structureLoading = useSelector(state => state.structure?.loading);
+  const structureError = useSelector(state => state.structure?.error);
+  const structureRequest = useSelector(state => state.structure?.structure);
 
   const statistiquesLoading = useSelector(state => state.statistiques?.loading);
+  const codesPostauxLoading = useSelector(state => state.statistiques?.loadingCodesPostaux);
   const statistiquesError = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const loadingExport = useSelector(state => state.exports?.loading);
-
+  const [structure, setStructure] = useState(location?.state?.structure);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
   const dateFin = useSelector(state => state.statistiques?.dateFin);
 
   useEffect(() => {
-    if (!structureError && !structure || structure?._id !== idStructure) {
-      dispatch(structuresActions.getStructure(idStructure));
-    } else if (structureError) {
+    if (!structureError) {
+      if (!structure) {
+        dispatch(structureActions.get(idStructure));
+        dispatch(statistiquesActions.getCodesPostauxCrasConseillerStructure(idStructure));
+      } else {
+        dispatch(statistiquesActions.getCodesPostauxCrasConseillerStructure(idStructure));
+      }
+    } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
         message: 'La structure n\'a pas pu être chargée !',
         status: null, description: null
       }));
     }
-  }, [structure, structureError]);
+  }, [structureError]);
 
   useEffect(() => {
-    if (!statistiquesError && structure) {
-      dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal));
-    } else if (statistiquesError) {
+    if (!structure) {
+      setStructure(structureRequest);
+    }
+    if (!statistiquesError) {
+      if (structure) {
+        dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal));
+      }
+    } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les statistiques n\'ont pas pu être chargés !',
+        message: 'Les statistiques n\'ont pas pu être chargées !',
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, idStructure, codePostal, statistiquesError, structure]);
+  }, [dateDebut, dateFin, statistiquesError, codePostal, structureRequest]);
 
   return (
     <div className="statistiques">
-      <Spinner loading={statistiquesLoading || structureLoading || loadingExport} />
+      <Spinner loading={statistiquesLoading || loadingExport || structureLoading || codesPostauxLoading} />
       <div className="structure fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
@@ -69,7 +79,7 @@ export default function GraphiqueStructure() {
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-3 fr-mb-6w print-graphique">
             {structure !== undefined &&
-              <ElementCodePostal idStructure={idStructure} />
+              <ElementCodePostal />
             }
           </div>
           <div className="fr-col-12 fr-col-offset-lg-1 fr-col-lg-4">
@@ -84,11 +94,16 @@ export default function GraphiqueStructure() {
             <LeftPage donneesStats={donneesStatistiques}/>
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
-            <StatistiquesBanniere dateDebut={new Date('2020-09-01')} dateFin={dateFin} typeStats="structure" id={idStructure} codePostal={codePostal}/>
+            <StatistiquesBanniere
+              dateDebut={new Date('2020-09-01')}
+              dateFin={dateFin}
+              typeStats="structure"
+              id={idStructure}
+              codePostal={codePostal}
+            />
           </div>
         }
       </div>
     </div>
   );
-
 }

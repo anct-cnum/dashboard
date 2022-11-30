@@ -1,38 +1,6 @@
 export default function user(state = null, action) {
 
   switch (action.type) {
-    case 'UPDATE_USER_EMAIL_REQUEST':
-      return {
-        error: false,
-        loading: true
-      };
-    case 'UPDATE_USER_EMAIL_SUCCESS':
-      return {
-        ...state,
-        user: action.user,
-        loading: false,
-      };
-    case 'UPDATE_USER_EMAIL_FAILURE':
-      return {
-        ...state,
-        error: action.error,
-        loading: false,
-      };
-    case 'CONFIRMATION_UPDATE_USER_EMAIL_REQUEST':
-      return {
-        ...state,
-        error: false
-      };
-    case 'CONFIRMATION_UPDATE_USER_EMAIL_SUCCESS':
-      return {
-        ...state,
-        user: action.user,
-      };
-    case 'CONFIRMATION_UPDATE_USER_EMAIL_FAILURE':
-      return {
-        ...state,
-        error: action.error,
-      };
     case 'VERIFY_TOKEN_REQUEST':
       return {
         verifyingToken: true,
@@ -55,6 +23,26 @@ export default function user(state = null, action) {
       return {
         ...state,
         error: action.error
+      };
+    case 'GET_USERS_REQUEST':
+      return {
+        ...state,
+        userError: false
+      };
+    case 'GET_USERS_SUCCESS':
+      return {
+        ...state,
+        users: action.users
+      };
+    case 'GET_USERS_FAILURE':
+      return {
+        ...state,
+        userError: action.error
+      };
+    case 'ADD_USER_TO_LIST':
+      return {
+        ...state,
+        users: state !== null ? [...state.users, action.account] : []
       };
     default:
       return state;

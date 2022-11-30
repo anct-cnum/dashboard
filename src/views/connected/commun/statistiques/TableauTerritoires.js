@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, filtresEtTrisStatsActions, paginationActions, statistiquesActions } from '../../../../actions';
-
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import FiltresEtTris from './Components/tableaux/FiltresEtTris';
 import Territoire from './Components/tableaux/Territoire';
+import { useLocation } from 'react-router-dom';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 export default function TableauTerritoires() {
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const filtreTerritoire = useSelector(state => state.filtresEtTris?.territoire);
   const dateDebut = useSelector(state => state.filtresEtTris?.dateDebut);
@@ -20,30 +22,37 @@ export default function TableauTerritoires() {
   const error = useSelector(state => state.statistiques?.error);
   const territoires = useSelector(state => state.statistiques?.statsTerritoires);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  const [page, setPage] = useState(1);
-  const [filterOrder, setFilterOrder] = useState(true);
-  const [filterOrderName, setFilterOrderName] = useState(undefined);
-  
+  const [page, setPage] = useState(location.state?.currentPage);
+  const [initTerritoire, setInitTerritoire] = useState(false);
+
   const ordreColonne = e => {
     dispatch(filtresEtTrisStatsActions.changeOrdre(e.target.dataset.id));
   };
 
   useEffect(() => {
-    if (!error) {
-      if (territoires?.items) {
-        const count = territoires.items.limit ? Math.floor(territoires.items.total / territoires.items.limit) : 0;
-        dispatch(paginationActions.setPageCount(territoires.items.total % territoires.items.limit === 0 ? count : count + 1));
-      }
-      if (ordreNom !== filterOrderName || ordre !== filterOrder) {
-        dispatch(paginationActions.setPage(1));
-        setFilterOrder(ordre);
-        setFilterOrderName(ordreNom);
-        dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, 1, ordreNom, ordre ? 1 : -1));
-      }
-      if (page !== currentPage) {
-        setPage(currentPage);
-      }
+    if (territoires?.items) {
+      const count = territoires.items.limit ? Math.floor(territoires.items.total / territoires.items.limit) : 0;
+      dispatch(paginationActions.setPageCount(territoires.items.total % territoires.items.limit === 0 ? count : count + 1));
+    }
+  }, [territoires]);
 
+  useEffect(() => {
+    if (initTerritoire === true) {
+      dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, 1, ordreNom, ordre ? 1 : -1));
+    }
+  }, [dateDebut, dateFin, ordre, ordreNom, filtreTerritoire, currentPage]);
+
+  useEffect(() => {
+    scrollTopWindow();
+    if (page === undefined) {
+      dispatch(paginationActions.setPage(1));
+      setPage(1);
+    }
+    if (!error) {
+      if (initTerritoire === false && page !== undefined) {
+        dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, 1, ordreNom, ordre ? 1 : -1));
+        setInitTerritoire(true);
+      }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
@@ -51,9 +60,7 @@ export default function TableauTerritoires() {
         status: null, description: null
       }));
     }
-
-
-  }, [ordre, ordreNom, territoires, error]);
+  }, [error, page]);
 
   return (
     <div className="statistiques">

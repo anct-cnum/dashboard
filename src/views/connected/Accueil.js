@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Admin from './admin';
 import Coordinateur from './coordinateur';
+import GrandReseau from './grandReseau';
 import Hub from './hub';
 import Prefet from './prefet';
 import Structure from './structure';
@@ -10,17 +11,18 @@ import Structure from './structure';
 export default function Accueil() {
 
   const navigate = useNavigate();
-  const roleActivated = useSelector(state => state.authentication.roleActivated);
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   useEffect(() => {
     if (!localStorage.getItem('user')) {
       navigate('/login');
+    } else if (location.pathname.startsWith('/accueil') && localStorage.getItem('user') !== '{}' && window.location.pathname.split('/').length > 2) {
+      navigate('/accueil'); // pour ne pas partir en vue 404 si token présent après signInCallBack
     }
   });
 
   return (
     <div className="fr-container fr-my-10w">
-      <p>Bienvenue, vous avez le profil {roleActivated} activé</p>
       {/* routes distinctes en fonction des rôles dans les composants */}
       { roleActivated === 'admin' &&
         <Admin />
@@ -36,6 +38,9 @@ export default function Accueil() {
       }
       { roleActivated === 'coordinateur_coop' &&
         <Coordinateur />
+      }
+      { roleActivated === 'grandReseau' &&
+        <GrandReseau />
       }
     </div>
   );

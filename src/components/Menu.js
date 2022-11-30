@@ -15,7 +15,7 @@ function Menu() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [changedMenu, setIsChangedMenu] = useState(false);
 
-  const roleActivated = useSelector(state => state.authentication.roleActivated);
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const authenticationUser = useSelector(state => state.authentication?.user?.entity?.$id);
 
   const toggleBurgerMenu = () => {
@@ -66,43 +66,36 @@ function Menu() {
                 aria-expanded={ activeMenu === 'listes' }
                 aria-controls="menu-listes"
                 // eslint-disable-next-line max-len
-                {...(location.pathname.startsWith(`/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}
+                {...(location.pathname.startsWith(`/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) || location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
-                  Listes
+                  Suivis
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'listes' ? 'fr-collapse--expanded' : ''}`} id="menu-listes">
                 <ul className="fr-menu__list">
+                  { (roleActivated === 'structure' || roleActivated === 'admin') &&
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}>
+                      Liste des candidatures
+                    </Link>
+                  </li>
+                  }
                   <li>
                     <Link className="fr-nav__link" to="liste-conseillers"
                       {...(location.pathname.startsWith(`/liste-conseillers`) ? { 'aria-current': 'page' } : {})}>
                       Liste des conseillers
                     </Link>
                   </li>
-                  { (roleActivated === 'structure' || roleActivated === 'admin') &&
-                  <li>
-                    <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}>
-                      Liste des candidats
-                    </Link>
-                  </li>
-                  }
                   {roleActivated !== 'structure' &&
                   <li>
-                    <Link className="fr-nav__link" to="">
+                    <Link className="fr-nav__link" to={`/${roleActivated}/liste-structures`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}>
                       Liste des structures
                     </Link>
                   </li>
                   }
                 </ul>
               </div>
-            </li>
-            <li className="fr-nav__item">
-              <Link
-                to={`/documents`}
-                className="fr-nav__link"
-                {...(location.pathname.startsWith(`/documents`) ? { 'aria-current': 'page' } : {})}>
-                  Documents
-              </Link>
             </li>
             <li className="fr-nav__item">
               <button
@@ -186,6 +179,14 @@ function Menu() {
               </div>
             </li>
             <li className="fr-nav__item">
+              <Link
+                to={`/documents`}
+                className="fr-nav__link"
+                {...(location.pathname.startsWith(`/documents`) ? { 'aria-current': 'page' } : {})}>
+                  Documents
+              </Link>
+            </li>
+            <li className="fr-nav__item">
               <button
                 id="aide"
                 className="fr-nav__btn"
@@ -209,39 +210,6 @@ function Menu() {
                 </ul>
               </div>
             </li>
-            {/* Exemple conservé pour les aria-current notamment
-            <li className="fr-nav__item">
-              <button
-                id="documents"
-                className="fr-nav__btn"
-                aria-expanded={ activeMenu === 'documents' }
-                aria-controls="menu-documents"
-                onClick={onClickMenu}
-                {...(location.pathname.startsWith('/documents') || location.pathname === '/' ? { 'aria-current': true } : {})}>
-                  Test sous menu
-              </button>
-              <div className={`fr-collapse fr-menu ${activeMenu === 'documents' ? 'fr-collapse--expanded' : ''}`} id="menu-documents">
-                <ul className="fr-menu__list">
-                  <li>
-                    <Link
-                      to="/"
-                      className="fr-nav__link"
-                      {...(location.pathname === '/' ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Accueil
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/documents"
-                      className="fr-nav__link"
-                      {...(location.pathname.startsWith('/documents') ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Mes documents
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            */}
           </ul>
         </nav>
       </div>

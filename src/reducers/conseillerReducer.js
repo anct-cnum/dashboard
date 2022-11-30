@@ -10,6 +10,23 @@ const initialState = {
 
 export default function conseiller(state = initialState, action) {
   switch (action.type) {
+    case 'GET_CANDIDAT_REQUEST':
+      return {
+        ...initialState,
+        loading: true,
+        error: false
+      };
+    case 'GET_CANDIDAT_SUCCESS':
+      return {
+        ...state,
+        conseiller: action.candidat,
+        loading: false
+      };
+    case 'GET_CANDIDAT_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
     case 'GET_CONSEILLER_REQUEST':
       return {
         ...initialState,
@@ -69,9 +86,11 @@ export default function conseiller(state = initialState, action) {
       };
     case 'GET_CURRICULUM_VITAE_REQUEST':
       return {
+        ...state,
         conseiller: state?.conseiller,
         downloading: true,
-        isDownloaded: false
+        isDownloaded: false,
+        downloadError: false
       };
     case 'GET_CURRICULUM_VITAE_SUCCESS':
       return {

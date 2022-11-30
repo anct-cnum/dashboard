@@ -5,6 +5,7 @@ const initialState = {
   codePostalStats: '',
   listeAutresReorientations: [],
   error: false,
+  errorTerritoire: false,
   loading: false,
 };
 
@@ -28,19 +29,19 @@ export default function statistiques(state = initialState, action) {
     case 'GET_CODES_POSTAUX_CRA_REQUEST':
       return {
         ...state,
-        loading: true,
+        loadingCodesPostaux: true,
         error: false,
       };
     case 'GET_CODES_POSTAUX_CRA_SUCCESS':
       return {
         ...state,
         listeCodesPostaux: action.listeCodesPostaux,
-        loading: false,
+        loadingCodesPostaux: false,
       };
     case 'GET_CODES_POSTAUX_CRA_FAILURE':
       return {
         ...state,
-        loading: false,
+        loadingCodesPostaux: false,
         error: true,
       };
     case 'GET_STATS_CRA_NATIONALES_REQUEST':
@@ -108,20 +109,20 @@ export default function statistiques(state = initialState, action) {
     case 'GET_TERRITOIRE_REQUEST':
       return {
         ...state,
-        loading: true,
-        error: false,
+        loadingTerritoire: true,
+        errorTerritoire: false,
       };
     case 'GET_TERRITOIRE_SUCCESS':
       return {
         ...state,
         territoire: action.territoire,
-        loading: false,
+        loadingTerritoire: false,
       };
     case 'GET_TERRITOIRE_FAILURE':
       return {
         ...state,
-        error: action.error,
-        loading: false,
+        errorTerritoire: action.error,
+        loadingTerritoire: false,
       };
     case 'GET_STATS_CRA_TERRITOIRE_REQUEST':
       return {
@@ -156,6 +157,25 @@ export default function statistiques(state = initialState, action) {
         loading: false,
       };
     case 'GET_STATS_CRA_STRUCTURE_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    case 'GET_STATS_CRA_CONSEILLER_REQUEST':
+      return {
+        ...state,
+        statsData: null,
+        loading: true,
+        error: false,
+      };
+    case 'GET_STATS_CRA_CONSEILLER_SUCCESS':
+      return {
+        ...state,
+        statsData: action.statsConseiller,
+        loading: false,
+      };
+    case 'GET_STATS_CRA_CONSEILLER_FAILURE':
       return {
         ...state,
         error: action.error,
