@@ -5,6 +5,7 @@ import logo from '../assets/brands/logo-rf-conseiller-numerique-min.svg';
 import { menuActions, authenticationActions } from '../actions';
 import Menu from './Menu';
 import { useAuth } from 'react-oidc-context';
+import signOut from '../services/auth/logout';
 
 function Header() {
 
@@ -95,7 +96,11 @@ function Header() {
                       </li>
                     }
                     <li>
-                      <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={() => auth.signoutRedirect()}>
+                      <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={async () => {
+                        await signOut();
+                        await auth.signoutRedirect();
+                      }
+                      }>
                         D&eacute;connexion
                       </button>
                     </li>

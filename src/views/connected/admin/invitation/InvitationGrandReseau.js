@@ -3,22 +3,22 @@ import { useDispatch } from 'react-redux';
 import { invitationsActions } from '../../../../actions/invitationsActions';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { valideInputEmail } from '../../../../utils/formatagesUtils';
-import Hub from '../../../../datas/hubs.json';
+import GrandReseau from '../../../../datas/grands-reseaux.json';
 
-export default function InvitationHub() {
+export default function InvitationGrandReseau() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
-  const [hub, setHub] = useState('');
+  const [grandReseau, setGrandReseau] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
 
   const sendInvitation = () => {
-    if (!valideInputEmail(email) || nom === '' || prenom === '' || hub === '') {
+    if (!valideInputEmail(email) || nom === '' || prenom === '' || grandReseau === '') {
       setActiveMessage(true);
       return;
     }
-    dispatch(invitationsActions.inviteAccountHub({ hub, nom, prenom, email }));
+    dispatch(invitationsActions.inviteAccountGrandReseau({ reseau: grandReseau, email, nom, prenom }));
     setActiveMessage(false);
     scrollTopWindow();
     setTimeout(() => {
@@ -34,20 +34,20 @@ export default function InvitationHub() {
             <select
               aria-describedby="select-error-desc-error"
               className="fr-select fr-mt-1w"
-              onChange={e => setHub(e.target.value)}
-              value={hub}
+              onChange={e => setGrandReseau(e.target.value)}
+              value={grandReseau}
             >
-              <option value="" disabled hidden>S&eacute;lectionner le hub</option>
-              {Hub.map((hub, idx) => (
-                <option key={idx} value={hub.name}>
-                  {hub.name}
+              <option value="" disabled hidden>S&eacute;lectionner le nom du grand r&eacute;seau</option>
+              {GrandReseau.map((grandReseau, idx) => (
+                <option key={idx} value={grandReseau.valeur}>
+                  {grandReseau.libelle}
                 </option>
               ))}
             </select>
           </span>
-          {hub === '' && activeMessage &&
+          {grandReseau === '' && activeMessage &&
             <p id="select-error-desc-error" className="fr-error-text">
-              Veuiller s&eacute;lectionner un hub
+              Veuiller s&eacute;lectionner un grand r&eacute;seau
             </p>
           }
         </div>
@@ -65,9 +65,9 @@ export default function InvitationHub() {
             value={prenom}
             onChange={e => setPrenom(e.target.value.trim())} />
           {prenom === '' && activeMessage &&
-                  <p id="prenom-error" className="fr-error-text">
-                    Veuillez entrer un pr&eacute;nom
-                  </p>
+            <p id="prenom-error" className="fr-error-text">
+              Veuillez entrer un pr&eacute;nom
+            </p>
           }
         </div>
         <div className={`fr-input-group ${nom === '' && activeMessage ? 'fr-input-group--error' : ''}`}>
@@ -84,9 +84,9 @@ export default function InvitationHub() {
             value={nom}
             onChange={e => setNom(e.target.value.trim())} />
           {nom === '' && activeMessage &&
-                  <p id="nom-error" className="fr-error-text">
-                    Veuillez entrer un nom
-                  </p>
+            <p id="nom-error" className="fr-error-text">
+              Veuillez entrer un nom
+            </p>
           }
         </div>
         <div className={`fr-input-group ${email && !valideInputEmail(email) && activeMessage ? 'fr-input-group--error' : ''}`}>
@@ -103,14 +103,14 @@ export default function InvitationHub() {
             value={email}
             onChange={e => setEmail(e.target.value.trim())} />
           {email && !valideInputEmail(email) && activeMessage &&
-                  <p id="username-error" className="fr-error-text">
-                      Le format de l&rsquo;adresse email saisi est invalide.
-                  </p>
+            <p id="username-error" className="fr-error-text">
+                Le format de l&rsquo;adresse email saisi est invalide.
+            </p>
           }
           {email === '' && activeMessage &&
-                  <p id="username-error" className="fr-error-text">
-                      Veuillez saisir une adresse email.
-                  </p>
+            <p id="username-error" className="fr-error-text">
+                Veuillez saisir une adresse email.
+            </p>
           }
         </div>
       </div>
@@ -118,16 +118,16 @@ export default function InvitationHub() {
         setEmail('');
         setNom('');
         setPrenom('');
-        setHub('');
+        setGrandReseau('');
       }}
-      disabled={email.length === 0 && nom.length === 0 && prenom.length === 0 && hub.length === 0 ? 'disabled' : ''}
+      disabled={email.length === 0 && nom.length === 0 && prenom.length === 0 && grandReseau.length === 0 ? 'disabled' : ''}
       className="fr-btn fr-btn--secondary"
       >
           Annuler
       </button>
       <button
         className="fr-btn fr-ml-2w" onClick={sendInvitation}
-        {...!email || !valideInputEmail(email) || !nom || !prenom || !hub ? { 'disabled': true } : {}}
+        {...!email || !valideInputEmail(email) || !nom || !prenom || !grandReseau ? { 'disabled': true } : {}}
       >
           Envoyer
       </button>

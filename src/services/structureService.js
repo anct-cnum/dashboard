@@ -16,7 +16,7 @@ export const structureService = {
 function get(id) {
   return API.get(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getDetails(id) {
@@ -41,29 +41,29 @@ function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, fi
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/structures/?skip=${page}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}${filterByComs}&role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function patch({ id, contact }) {
   return API.patch(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`, { contact })
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function updateStructureEmail(email, structureId) {
   return API.patch(`${apiUrlRoot}/structure/email/${structureId}?role=${roleActivated()}`, { email })
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function verifyStructureSiret(siret) {
   return API.get(`${apiUrlRoot}/structure/verify-siret/${siret}`)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function updateStructureSiret(siret, structureId) {
   return API.patch(`${apiUrlRoot}/structure/siret/${structureId}?role=${roleActivated()}`, { siret })
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }

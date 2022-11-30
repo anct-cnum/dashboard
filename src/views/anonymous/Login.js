@@ -21,7 +21,6 @@ export default function Login() {
  
   useEffect(() => {
     if (verificationToken) {
-      localStorage.setItem('verificationToken', verificationToken);
       dispatch(userActions.verifyToken(verificationToken));
     }
   }, []);
@@ -32,10 +31,14 @@ export default function Login() {
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-6">
-            {(window.location.pathname === '/login' || tokenVerified) && <button className="fr-my-3w" onClick={login}>
-              <h3>Se connecter avec</h3>
-              <img src={logo} className="btn" alt="Logo Inclusion Connect" />
-            </button>}
+            {(window.location.pathname === '/login' || tokenVerified) &&
+              <>
+                <h3>Se connecter avec</h3>
+                <button className="fr-my-3w" onClick={login} style={{ padding: 0 }}>
+                  <img src={logo} className="btn" alt="Logo Inclusion Connect" />
+                </button>
+              </>
+            }
             {error &&
             <div className="fr-alert fr-alert--error fr-mt-1w">
               <p className="fr-alert__title">{ error.error }</p>

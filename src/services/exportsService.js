@@ -15,7 +15,7 @@ function getFile(name) {
   return API.get(`${apiUrlRoot}/exports/${name}-csv?role=${roleActivated()}`)
   // eslint-disable-next-line max-statements-per-line
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrdre, ordre) {
@@ -24,7 +24,7 @@ async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrd
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 // eslint-disable-next-line max-len
@@ -46,7 +46,7 @@ function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoo
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}`)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
   
 }
 
@@ -68,7 +68,7 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}${filterByComs}`)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal) {
@@ -76,5 +76,5 @@ function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, cod
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&conseillerIds=${conseillerIds}`)
   .then(response => response.data)
-  .catch(error => error.response.data.message);
+  .catch(error => Promise.reject(error.response.data.message));
 }

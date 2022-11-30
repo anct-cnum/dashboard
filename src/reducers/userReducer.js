@@ -42,7 +42,7 @@ export default function user(state = null, action) {
     case 'ADD_USER_TO_LIST':
       return {
         ...state,
-        users: [...state.users, action.account]
+        users: state !== null ? [...state.users, action.account] : []
       };
     default:
       return state;
