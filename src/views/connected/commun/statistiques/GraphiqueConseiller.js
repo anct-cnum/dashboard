@@ -49,6 +49,9 @@ export default function GraphiqueConseiller() {
     if (!conseiller) {
       setConseiller(requestConseiller);
     }
+  }, [requestConseiller]);
+
+  useEffect(() => {
     if (!statistiquesError) {
       if (idConseiller && !!conseiller) {
         dispatch(statistiquesActions.getStatistiquesConseiller(dateDebut, dateFin, idConseiller));
@@ -60,7 +63,7 @@ export default function GraphiqueConseiller() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, statistiquesError, requestConseiller]);
+  }, [dateDebut, dateFin, statistiquesError, conseiller]);
 
   const formatNomStatistiques = () => {
     const formatNom = conseiller?.nom.charAt(0).toUpperCase() + conseiller?.nom.slice(1);
