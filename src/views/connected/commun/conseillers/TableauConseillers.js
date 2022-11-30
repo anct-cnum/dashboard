@@ -108,38 +108,17 @@ export default function TableauConseillers() {
                         <tr>
                           <th>
                             <button id="idPG" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Id
-                                {(ordreNom !== 'idPG' || ordreNom === 'idPG' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'idPG' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
+                              <span>Id</span>
                             </button>
                           </th>
                           <th>
                             <button id="nom" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Nom
-                                {(ordreNom !== 'nom' || ordreNom === 'nom' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'nom' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
+                              <span>Nom</span>
                             </button>
                           </th>
                           <th>
                             <button id="prenom" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Pr&eacute;nom
-                                {(ordreNom !== 'prenom' || ordreNom === 'prenom' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'prenom' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
+                              <span>Pr&eacute;nom</span>
                             </button>
                           </th>
                           <th>Email professionnel</th>

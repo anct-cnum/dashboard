@@ -240,7 +240,7 @@ function ConseillerDetails() {
           <div className="fr-col-6">
             <h4 className="titre">Contrat en cours</h4>
             <div className="fr-mb-5w">
-              {misesEnRelationFinalisee.length > 0 ?
+              {misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture.length > 0 ?
                 <>
                   <strong>Date de prise de poste</strong><br/>
                   {conseiller?.datePrisePoste ?
@@ -249,9 +249,9 @@ function ConseillerDetails() {
                 </> : <span>Aucun contrat pour le moment</span>
               }
             </div>
-            <h4 className="titre">Demande de rupture initi&eacute;e</h4>
-            {(misesEnRelationNouvelleRupture.length > 0 || misesEnRelationFinaliseeRupture.length > 0) ?
+            {(misesEnRelationNouvelleRupture.length > 0 || misesEnRelationFinaliseeRupture.length > 0) &&
               <>
+                <h4 className="titre">Demande de rupture initi&eacute;e</h4>
                 <div>
                   {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
                     <>
@@ -274,8 +274,7 @@ function ConseillerDetails() {
                     </>
                   )}
                 </div>
-              </> :
-              <span>Aucune rupture initi&eacute;e</span>
+              </>
             }
           </div>
           <div className="fr-col-6">
