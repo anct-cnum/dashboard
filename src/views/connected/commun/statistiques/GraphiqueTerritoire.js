@@ -46,6 +46,9 @@ export default function GraphiqueTerritoire() {
     if (!territoire) {
       setTerritoire(territoireRequest);
     }
+  }, [territoireRequest]);
+
+  useEffect(() => {
     if (!error) {
       if (territoire) {
         dispatch(statistiquesActions.getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, territoire?.conseillerIds));
@@ -57,7 +60,7 @@ export default function GraphiqueTerritoire() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, error, territoireRequest]);
+  }, [dateDebut, dateFin, error, territoire]);
 
   return (
     <div className="statistiques">

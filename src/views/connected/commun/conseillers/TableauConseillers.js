@@ -103,46 +103,25 @@ export default function TableauConseillers() {
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
                   <div className="fr-table">
-                    <table className={conseillers?.items?.data?.length < 1 ? 'no-result-table' : ''}>
+                    <table className={conseillers?.items?.data?.length < 2 ? 'no-result-table' : ''}>
                       <thead>
                         <tr>
                           <th>
                             <button id="idPG" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Id
-                                {(ordreNom !== 'idPG' || ordreNom === 'idPG' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'idPG' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
+                              <span>Id</span>
                             </button>
                           </th>
                           <th>
                             <button id="nom" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Nom
-                                {(ordreNom !== 'nom' || ordreNom === 'nom' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'nom' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
+                              <span>Nom</span>
                             </button>
                           </th>
                           <th>
                             <button id="prenom" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Pr&eacute;nom
-                                {(ordreNom !== 'prenom' || ordreNom === 'prenom' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'prenom' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
+                              <span>Pr&eacute;nom</span>
                             </button>
                           </th>
-                          <th>Email professionnel</th>
+                          <th colSpan={conseillers?.items?.total === 0 ? '' : '12'}>Email professionnel</th>
                           <th>Structure</th>
                           <th>
                             <nav className="fr-nav" id="navigation-sort-rupture" role="navigation">
