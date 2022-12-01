@@ -6,8 +6,7 @@ export function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, date
   const filterByRegion = filtreParRegion !== 'tous' && filtreParRegion !== undefined ? `&region=${filtreParRegion}` : '';
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
   const filterByNameStructure = filtreParNomStructure ? `&searchByStructure=${filtreParNomStructure}` : '';
-  
-  
+
   let coordinateur = '';
   switch (filtreCoordinateur) {
     case 'tous':

@@ -66,7 +66,7 @@ export default function TableauConseillers() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(conseillerActions.getAllRecruter(currentPage, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreRegion,
+      dispatch(conseillerActions.getAllRecruter(currentPage, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
         filtreParNomStructure, ordreNom, ordre ? 1 : -1));
     }
   }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filtreParNomStructure]);

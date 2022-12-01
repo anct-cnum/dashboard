@@ -30,7 +30,7 @@ function getCandidat(id) {
 }
 
 // eslint-disable-next-line max-len
-function getAllRecruter(page, dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre) {
+function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre) {
   let {
     ordreColonne,
     filterDateStart,
