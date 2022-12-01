@@ -12,7 +12,7 @@ function Conseiller({ conseiller }) {
         <td>{conseiller?.idPG}</td>
         <td>{conseiller?.nom}</td>
         <td>{conseiller?.prenom}</td>
-        <td>
+        <td style={{ width: '27rem' }} colSpan="12">
           <a className="email"href={'mailto:' + conseiller?.address}>
             {conseiller?.address}
           </a>

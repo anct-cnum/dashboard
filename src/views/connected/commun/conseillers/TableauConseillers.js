@@ -103,7 +103,7 @@ export default function TableauConseillers() {
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
                   <div className="fr-table">
-                    <table className={conseillers?.items?.data?.length < 1 ? 'no-result-table' : ''}>
+                    <table className={conseillers?.items?.data?.length < 2 ? 'no-result-table' : ''}>
                       <thead>
                         <tr>
                           <th>
@@ -121,7 +121,7 @@ export default function TableauConseillers() {
                               <span>Pr&eacute;nom</span>
                             </button>
                           </th>
-                          <th>Email professionnel</th>
+                          <th colSpan={conseillers?.items?.total === 0 ? '' : '12'}>Email professionnel</th>
                           <th>Structure</th>
                           <th>
                             <nav className="fr-nav" id="navigation-sort-rupture" role="navigation">
