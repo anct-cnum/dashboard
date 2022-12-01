@@ -250,7 +250,7 @@ function ConseillerDetails() {
               {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
                 <>
                   <span key={idx} className="fr-col-12">
-                    <strong>CONTRAT TERMIN&Eacute;</strong>&nbsp;-&nbsp;
+                    <strong>CONTRAT TERMIN&Eacute;</strong>&nbsp;-
                     &#91;{miseEnRelation?.structureObj?.idPG}&#93;&nbsp;
                     {miseEnRelation?.structureObj?.nom}&nbsp;du&nbsp;
                     {dayjs(miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}&nbsp;au&nbsp;
