@@ -3,7 +3,8 @@ import { userService } from '../services/userService';
 export const userActions = {
   verifyToken,
   inputEmailNotValid,
-  getUsers
+  getUsers,
+  login
 };
 
 function verifyToken(token) {
@@ -31,6 +32,34 @@ function verifyToken(token) {
   }
   function failure(error) {
     return { type: 'VERIFY_TOKEN_FAILURE', error };
+  }
+}
+
+function login(username, password) {
+  return dispatch => {
+    dispatch(request({ username }));
+    userService.login(username, password)
+    .then(
+      data => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('roleActivated', data?.user?.roles[0]);
+        dispatch(success(data));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request(user) {
+    return { type: 'LOGIN_REQUEST', user };
+  }
+  function success(data) {
+    return { type: 'LOGIN_SUCCESS', data };
+  }
+  function failure(error) {
+    return { type: 'LOGIN_FAILURE', error };
   }
 }
 
