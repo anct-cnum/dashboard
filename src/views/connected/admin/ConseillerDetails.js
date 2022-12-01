@@ -333,20 +333,20 @@ function ConseillerDetails() {
               {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture.length > 0) &&
                 <>
                   <span className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-col-12 fr-mb-2w' : 'fr-col-12'}>
-                    <strong>CONTRAT EN COURS</strong>&nbsp;-
-                    &#91;{structure?.idPG}&#93;&nbsp;
-                    {structure?.nom}&nbsp;
-                    en poste depuis le {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
+                    <strong>Contrat&nbsp;-
+                    En cours</strong> avec {structure?.nom}&nbsp;-
+                    Id&nbsp;&#91;{structure?.idPG}&#93;
+                    depuis le {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
                   </span>
                 </>
               }
               {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
                 <>
                   <span key={idx} className="fr-col-12">
-                    <strong>CONTRAT TERMIN&Eacute;</strong>&nbsp;-
-                    &#91;{miseEnRelation?.structureObj?.idPG}&#93;&nbsp;
-                    {miseEnRelation?.structureObj?.nom}&nbsp;du&nbsp;
-                    {dayjs(miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}&nbsp;au&nbsp;
+                    <strong>Contrat&nbsp;-
+                    Termin&eacute;</strong> avec {miseEnRelation?.structureObj?.nom}&nbsp;-
+                    Id&nbsp;&#91;{miseEnRelation?.structureObj?.idPG}&#93;
+                    du {dayjs(miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}&nbsp;au&nbsp;
                     {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
                   </span>
                 </>
