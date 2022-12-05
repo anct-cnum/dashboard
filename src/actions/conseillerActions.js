@@ -13,6 +13,9 @@ export const conseillerActions = {
   preSelectionner,
   getCurriculumVitae,
   getAllCandidats,
+  getAllCandidatsByAdmin,
+  resendInvitCandidat,
+  suppressionCandidat
 };
 
 function get(id) {
@@ -136,6 +139,77 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
   }
   function failure(error) {
     return { type: 'GETALL_RECRUTER_FAILURE', error };
+  }
+}
+
+function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement) {
+  return dispatch => {
+    dispatch(request());
+    conseillerService.getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement)
+    .then(
+      conseillers => {
+        dispatch(success(conseillers));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GETALL_RECRUTER_REQUEST' };
+  }
+  function success(conseillers) {
+    return { type: 'GETALL_RECRUTER_SUCCESS', conseillers };
+  }
+  function failure(error) {
+    return { type: 'GETALL_RECRUTER_FAILURE', error };
+  }
+}
+
+function resendInvitCandidat(id) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.resendInvitCandidat(id)
+    .then(
+      successRelanceInvitation => dispatch(success(successRelanceInvitation)),
+      error => dispatch(failure(error))
+    );
+  };
+
+  function request() {
+    return { type: 'RESUBMIT_INSCRIPTION_CANDIDAT_REQUEST' };
+  }
+  function success(successRelanceInvitation) {
+    return { type: 'RESUBMIT_INSCRIPTION_CANDIDAT_SUCCESS', successRelanceInvitation };
+  }
+  function failure(error) {
+    return { type: 'RESUBMIT_INSCRIPTION_CANDIDAT_FAILURE', error };
+  }
+}
+
+function suppressionCandidat({ id, motif }) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.suppressionCandidat({ id, motif })
+    .then(
+      candidat => dispatch(success(candidat.deleteSuccess)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'DELETE_CANDIDAT_REQUEST' };
+  }
+  function success(deleteSuccess) {
+    return { type: 'DELETE_CANDIDAT_SUCCESS', deleteSuccess };
+  }
+  function failure(error) {
+    return { type: 'DELETE_CANDIDAT_FAILURE', error };
   }
 }
 

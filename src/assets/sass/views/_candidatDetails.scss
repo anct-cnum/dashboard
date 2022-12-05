@@ -1,0 +1,10 @@
+@import '../colors/colors';
+
+.candidatDetails {
+    .delete-candidature {
+        background-color: $red !important;
+    }
+    .delete-candidature:hover {
+        background-color: #ff0801 !important
+    }
+}
