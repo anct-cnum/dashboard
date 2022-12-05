@@ -38,7 +38,7 @@ export default function Login() {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setInputs(inputs => ({ ...inputs, [name]: value }));
+    setInputs(inputs => ({ ...inputs, [name]: value.trim() }));
   }
 
   function handleSubmit() {
@@ -62,11 +62,13 @@ export default function Login() {
           <div className="fr-col-6">
             {(window.location.pathname === '/login' || tokenVerified) &&
               <div className="fr-my-4w connexion">
-                <button className="fr-my-3w" onClick={login}>
+                <>
                   <h3>Se connecter avec</h3>
-                  <img src={logo} className="btn" alt="Logo Inclusion Connect" />
-                </button>
-                {process.env.NODE_ENV === 'development' && <div className="fr-my-4w connexion">
+                  <button className="fr-my-3w" onClick={login} style={{ padding: 0 }}>
+                    <img src={logo} className="btn" alt="Logo Inclusion Connect" />
+                  </button>
+                </>
+                {process.env.NODE_ENV === 'development' && <div className="fr-my-4w">
                   <div className="fr-px-2w fr-mb-2w">
                     <h3>Se connecter avec identifiants</h3>
                     <label className="fr-label email" htmlFor="email">E-mail</label>
