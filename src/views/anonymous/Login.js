@@ -18,7 +18,6 @@ export default function Login() {
   const auth = useAuth();
   const [submitted, setSubmitted] = useState(false);
   const { username, password } = inputs;
-  const loggingIn = useSelector(state => state.authentication.loggingIn);
   const user = useSelector(state => state.authentication?.user);
   
   const navigate = useNavigate();
@@ -97,7 +96,6 @@ export default function Login() {
                 </div>}
                 <div>
                   <button className="fr-btn fr-text--bold big-btn" onClick={handleSubmit}>Connexion</button>
-                  <br/>{loggingIn && <span style={{ color: 'black' }}>Connexion en cours...</span>}
                 </div>
                 <div>
                   {error && <span className="invalid">{error.error}</span>}

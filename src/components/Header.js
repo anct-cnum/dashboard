@@ -96,12 +96,15 @@ function Header() {
                       </li>
                     }
                     {auth.isAuthenticated ? <li>
-                      <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={async () => await auth.signoutRedirect()}>
+                      <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={async () => {
+                        await signOut();
+                        await auth.signoutRedirect();
+                      }}>
                         D&eacute;connexion
                       </button>
                     </li> :
                       <li>
-                        <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={async () => await signOut(dispatch)}>
+                        <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={async () => await signOut()}>
                         D&eacute;connexion
                         </button>
                       </li>}
