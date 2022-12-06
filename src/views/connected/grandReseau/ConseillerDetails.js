@@ -336,7 +336,7 @@ function ConseillerDetails() {
               {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture.length > 0) &&
                 <>
                   <span className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-col-12 fr-mb-2w' : 'fr-col-12'}>
-                    <strong className="fr-badge fr-badge--success fr-badge--no-icon">Contrat En cours</strong> avec {structure?.nom}&nbsp;-
+                    <strong className="fr-badge fr-badge--success fr-badge--no-icon">Contrat En cours</strong>&nbsp;avec {structure?.nom}&nbsp;-
                     Id&nbsp;&#91;{structure?.idPG}&#93;
                     depuis le {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
                   </span>
@@ -347,7 +347,7 @@ function ConseillerDetails() {
                   <span key={idx} className="fr-col-12">
                     <strong className="fr-badge fr-badge--error fr-badge--no-icon">
                     Contrat Termin&eacute;
-                    </strong> avec {miseEnRelation?.structureObj?.nom}&nbsp;-
+                    </strong>&nbsp;avec {miseEnRelation?.structureObj?.nom}&nbsp;-
                     Id&nbsp;&#91;{miseEnRelation?.structureObj?.idPG}&#93;
                     du {dayjs(miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}&nbsp;au&nbsp;
                     {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}

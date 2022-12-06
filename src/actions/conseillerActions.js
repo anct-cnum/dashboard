@@ -163,7 +163,7 @@ function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, fil
     return { type: 'GETALL_CANDIDATS_ADMIN_SUCCESS', candidats };
   }
   function failure(error) {
-    return { type: 'GETALL_CANDIDATS_ADMINFAILURE', error };
+    return { type: 'GETALL_CANDIDATS_ADMIN_FAILURE', error };
   }
 }
 
