@@ -9,6 +9,7 @@ import pixUtilisation from '../../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../../assets/icons/pix-citoyen.png';
 import FormSuppressionCandidat from './FormSuppressionCandidat';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function CandidatDetails() {
   const dispatch = useDispatch();
@@ -42,6 +43,12 @@ function CandidatDetails() {
     }
   }, [errorConseiller]);
 
+  useEffect(() => {
+    if (downloadError !== undefined && downloadError !== false) {
+      scrollTopWindow();
+    }
+  }, [downloadError]);
+
   const downloadCV = () => {
     dispatch(conseillerActions.getCurriculumVitae(conseiller?._id, conseiller));
   };
@@ -58,6 +65,11 @@ function CandidatDetails() {
 
   return (
     <div className="candidatDetails">
+      {(downloadError !== undefined && downloadError !== false) &&
+      <div className="fr-alert fr-alert--error">
+        <p>Le CV n&rsquo;a pas pu &ecirc;tre r&eacute;cup&eacute;r&eacute; !</p>
+      </div>
+      }
       {successSendMail &&
         <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
           <p className="fr-alert__title">
@@ -72,7 +84,7 @@ function CandidatDetails() {
           </p>
         </div>
       }
-      <Spinner loading={loading} />
+      <Spinner loading={loading || downloading} />
       <Link
         style={{ boxShadow: 'none' }}
         to={location.state?.origin} state={{ currentPage }}

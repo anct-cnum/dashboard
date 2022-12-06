@@ -15,6 +15,7 @@ export default function TableauCandidatures() {
   const [page, setPage] = useState(location.state?.currentPage);
 
   const loading = useSelector(state => state.conseiller?.loading);
+  const downloading = useSelector(state => state.conseiller?.downloading);
   const error = useSelector(state => state.conseiller?.error);
   const conseillers = useSelector(state => state.conseiller);
   const filtreParNomCandidat = useSelector(state => state.filtresCandidatures?.nomCandidat);
@@ -57,9 +58,20 @@ export default function TableauCandidatures() {
     }
   }, [error, page]);
 
+  useEffect(() => {
+    if (conseillers.downloadError && conseillers.downloadError !== false) {
+      scrollTopWindow();
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'Le CV n\'a pas pu être récupéré !',
+        status: null, description: null
+      }));
+    }
+  }, [conseillers.downloadError]);
+
   return (
     <div className="conseillers">
-      <Spinner loading={loading} />
+      <Spinner loading={loading || downloading} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
