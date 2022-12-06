@@ -52,10 +52,10 @@ function ConseillerDetails() {
         Retour &agrave; la liste
       </button>
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1">{formatNomConseiller(conseiller)}</h1>
+        <h1 className="fr-h1">{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
       <div className="fr-col-12">
-        <h2 className="fr-h2">Id: {conseiller?.idPG}</h2>
+        <h2 className="fr-h2">Id: {conseiller?.idPG ?? ''}</h2>
       </div>
       <div className="fr-col-12 fr-grid-row">
         {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture.length > 0) &&

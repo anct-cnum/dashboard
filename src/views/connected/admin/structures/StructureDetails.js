@@ -79,10 +79,10 @@ function StructureDetails() {
         Retour &agrave; la liste
       </button>
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1">{structure?.nom}</h1>
+        <h1 className="fr-h1">{structure?.nom ?? ''}</h1>
       </div>
       <div className="fr-col-12">
-        <h2 className="fr-h2">Id: {structure?.idPG}</h2>
+        <h2 className="fr-h2">Id: {structure?.idPG ?? ''}</h2>
       </div>
       <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
         <div className="fr-col-12">
