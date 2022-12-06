@@ -163,6 +163,24 @@ export default function conseiller(state = initialState, action) {
         loading: false,
         error: action.error
       };
+    case 'GETALL_CANDIDATS_ADMIN_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'GETALL_CANDIDATS_ADMIN_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: action.candidats
+      };
+    case 'GETALL_CANDIDATS_ADMIN_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
     case 'GETALL_CANDIDATS_REQUEST':
       return {
         ...state,

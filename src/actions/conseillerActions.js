@@ -147,8 +147,8 @@ function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, fil
     dispatch(request());
     conseillerService.getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement)
     .then(
-      conseillers => {
-        dispatch(success(conseillers));
+      candidats => {
+        dispatch(success(candidats));
       },
       error => {
         dispatch(failure(error));
@@ -157,13 +157,13 @@ function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, fil
   };
 
   function request() {
-    return { type: 'GETALL_RECRUTER_REQUEST' };
+    return { type: 'GETALL_CANDIDATS_ADMIN_REQUEST' };
   }
-  function success(conseillers) {
-    return { type: 'GETALL_RECRUTER_SUCCESS', conseillers };
+  function success(candidats) {
+    return { type: 'GETALL_CANDIDATS_ADMIN_SUCCESS', candidats };
   }
   function failure(error) {
-    return { type: 'GETALL_RECRUTER_FAILURE', error };
+    return { type: 'GETALL_CANDIDATS_ADMINFAILURE', error };
   }
 }
 
