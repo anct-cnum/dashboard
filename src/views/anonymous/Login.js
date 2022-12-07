@@ -66,8 +66,9 @@ export default function Login() {
                 <button className="fr-my-3w" onClick={login} style={{ padding: 0 }}>
                   <img src={logo} className="btn" alt="Logo Inclusion Connect" />
                 </button>
-                
+
                 {process.env.NODE_ENV === 'development' &&
+                <>
                   <div className="fr-my-4w">
                     <div className="fr-px-2w fr-mb-2w">
                       <h3>Se connecter avec identifiants</h3>
@@ -102,7 +103,9 @@ export default function Login() {
                   <div>
                     {error && <span className="invalid">{error.error}</span>}
                   </div>
+                </>
                 }
+                
               </>
             }
             {error &&
