@@ -61,46 +61,46 @@ export default function Login() {
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-6">
             {(window.location.pathname === '/login' || tokenVerified) &&
-                <>
-                  <h3>Se connecter avec</h3>
-                  <button className="fr-my-3w" onClick={login} style={{ padding: 0 }}>
-                    <img src={logo} className="btn" alt="Logo Inclusion Connect" />
-                  </button>
-                  {process.env.NODE_ENV === 'development' && <div className="fr-my-4w">
-                    <div className="fr-px-2w fr-mb-2w">
-                      <h3>Se connecter avec identifiants</h3>
-                      <label className="fr-label email" htmlFor="email">E-mail</label>
-                      <input
-                        id="email"
-                        name="username"
-                        value={username}
-                        onChange={handleChange}
-                        className={`fr-input fr-input-custom ${submitted && !password ? ' is-invalid' : ''}`} />
-                      {submitted && !username &&
-                    <div className="invalid">Identifiant requis</div>
-                      }
-                    </div>
-                    <div className="fr-px-2w fr-mb-4w">
-                      <label className="fr-label password" htmlFor="password">Mot de passe</label>
-                      <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={password}
-                        onChange={handleChange}
-                        className={`fr-input fr-input-custom ${submitted && !password ? ' is-invalid' : ''}`} />
-                      {submitted && !password &&
-                    <div className="invalid">Mot de passe requis</div>
-                      }
-                    </div>
-                  </div>}
-                  <div>
-                    <button className="fr-btn fr-text--bold big-btn" onClick={handleSubmit}>Connexion</button>
+              <>
+                <h3>Se connecter avec</h3>
+                <button className="fr-my-3w" onClick={login} style={{ padding: 0 }}>
+                  <img src={logo} className="btn" alt="Logo Inclusion Connect" />
+                </button>
+                {process.env.NODE_ENV === 'development' && <div className="fr-my-4w">
+                  <div className="fr-px-2w fr-mb-2w">
+                    <h3>Se connecter avec identifiants</h3>
+                    <label className="fr-label email" htmlFor="email">E-mail</label>
+                    <input
+                      id="email"
+                      name="username"
+                      value={username}
+                      onChange={handleChange}
+                      className={`fr-input fr-input-custom ${submitted && !password ? ' is-invalid' : ''}`} />
+                    {submitted && !username &&
+                  <div className="invalid">Identifiant requis</div>
+                    }
                   </div>
-                  <div>
-                    {error && <span className="invalid">{error.error}</span>}
+                  <div className="fr-px-2w fr-mb-4w">
+                    <label className="fr-label password" htmlFor="password">Mot de passe</label>
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      value={password}
+                      onChange={handleChange}
+                      className={`fr-input fr-input-custom ${submitted && !password ? ' is-invalid' : ''}`} />
+                    {submitted && !password &&
+                  <div className="invalid">Mot de passe requis</div>
+                    }
                   </div>
-                </>
+                </div>}
+                <div>
+                  <button className="fr-btn fr-text--bold big-btn" onClick={handleSubmit}>Connexion</button>
+                </div>
+                <div>
+                  {error && <span className="invalid">{error.error}</span>}
+                </div>
+              </>
             }
             {error &&
             <div className="fr-alert fr-alert--error fr-mt-1w">
