@@ -26,18 +26,15 @@ function Candidat({ candidat }) {
           { candidat?.pix?.partage &&
           <div className="tooltip">
             <img src={logoPix} alt="logo Pix" style={{ height: '36px' }}/>
-            <span className="tooltiptext">A partagé ses résultats Pix</span>
+            <span className="tooltiptext">A partag&eacute; ses r&eacute;sultats Pix</span>
           </div>
           }
         </td>
         <td>
           {candidat?.cv?.file &&
         <button className="downloadCVBtn" onClick={downloadCV}>
-          <img src={iconeTelechargement} alt="Télécharger le CV" style={{ height: '26px' }}/>
+          <img src={iconeTelechargement} alt="T&eacute;l&eacute;charger le CV" style={{ height: '26px' }}/>
         </button>
-          }
-          {!candidat?.cv?.file &&
-          <></>
           }
         </td>
         <td>
@@ -45,7 +42,7 @@ function Candidat({ candidat }) {
             className="fr-btn fr-icon-eye-line fr-btn--icon-left"
             title="Détails"
             to={`/${roleActivated}/candidat/${candidat?._id}`}
-            state={{ 'origin': `/${roleActivated}/liste-candidatures` }}>Détails</Link>
+            state={{ 'origin': `/${roleActivated}/liste-candidatures` }}>D&eacute;tails</Link>
         </td>
       </tr>
     </>

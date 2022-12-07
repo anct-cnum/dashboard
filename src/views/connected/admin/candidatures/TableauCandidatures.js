@@ -84,11 +84,11 @@ export default function TableauCandidatures() {
                       <thead>
                         <tr>
                           <th>Id</th>
-                          <th>Prénom</th>
+                          <th>Pr&eacute;nom</th>
                           <th>Nom</th>
                           <th>Date de candidature</th>
                           <th>Code postal</th>
-                          <th>Résultat Pix</th>
+                          <th>R&eacute;sultat Pix</th>
                           <th>Curriculum Vit&aelig;</th>
                           <th></th>
                         </tr>

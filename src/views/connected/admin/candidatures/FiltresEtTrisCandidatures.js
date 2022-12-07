@@ -12,8 +12,6 @@ function FiltresEtTrisCandidatures() {
   const filtreParNomCandidat = useSelector(state => state.filtresCandidatures?.nomCandidat);
   const filtreRegion = useSelector(state => state.filtresCandidatures?.region);
 
-  const loading = useSelector(state => state.exports?.loading);
-
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresCandidaturesActions.changeFiltreRegion(e.target?.value));
@@ -44,7 +42,6 @@ function FiltresEtTrisCandidatures() {
 
   return (
     <>
-      <Spinner loading={loading} />
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
           <h3 className="fr-h3 fr-col-12">Liste des candidatures</h3>
@@ -59,7 +56,7 @@ function FiltresEtTrisCandidatures() {
           </div>
           <div className="fr-select-group fr-col-10" id="filtre-region">
             <select className="fr-select" onChange={selectFiltreRegion}>
-              <option value={'tous'}>S&eacute;lectionner une région</option>
+              <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
                 <option key={idx} value={region.code}>{region.nom}</option>
               )}

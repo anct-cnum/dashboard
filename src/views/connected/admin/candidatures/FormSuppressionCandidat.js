@@ -34,10 +34,10 @@ function FormSuppressionCandidat({ setConfirmSuppressionCandidat }) {
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                                    Supprimer la candidature définitivement
+                  Supprimer la candidature d&eacute;finitivement
                 </h1>
                 <p>&Ecirc;tes-vous certain(e) de vouloir supprimer ce candidat ?</p>
-                <p><strong>Cette action supprimera définitivement toutes ses données.</strong></p>
+                <p><strong>Cette action supprimera d&eacute;finitivement toutes ses donn&eacute;es.</strong></p>
                 <div className={confirmEmailCandidat === conseiller?.email ? 'fr-input-group--valid' : 'fr-input-group--error'}>
                   <label className="fr-label" htmlFor="text-input-error">
                     Confirmez l&apos;adresse e-mail en le saisissant ici
@@ -75,7 +75,7 @@ function FormSuppressionCandidat({ setConfirmSuppressionCandidat }) {
                           setAutreMotif(false);
                         }} />
                         <label className="fr-label" htmlFor="non_interesse_dispositif">
-                        Plus intéressé par le dispositif
+                          Plus int&eacute;ress&eacute; par le dispositif
                         </label>
                       </div>
                       <div className="fr-radio-group">
@@ -84,13 +84,13 @@ function FormSuppressionCandidat({ setConfirmSuppressionCandidat }) {
                           setAutreMotif(false);
                         }} />
                         <label className="fr-label" htmlFor="doublon">
-                        Doublon
+                          Doublon
                         </label>
                       </div>
                       <div className="fr-radio-group">
                         <input type="radio" name="radio" id="autre" onClick={() => setAutreMotif(true)} />
                         <label className="fr-label" htmlFor="autre">
-                        Autre
+                          Autre
                         </label>
                         {autreMotif &&
                         <input type="text" className="fr-input fr-col-12" id="text-input-text" onChange={e => setMotif(e.target.value)} />}
@@ -103,12 +103,12 @@ function FormSuppressionCandidat({ setConfirmSuppressionCandidat }) {
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg">
                   <li>
                     <button onClick={suppressionCandidat} className="fr-btn" disabled={!(confirmEmailCandidat === conseiller?.email && motif !== '')} >
-                    Oui, Supprimer définitivement
+                      Oui, Supprimer d&eacute;finitivement
                     </button>
                   </li>
                   <li>
                     <button className="fr-btn fr-btn--secondary" onClick={annulerSuppressionCandidat}>
-                    Annuler
+                      Annuler
                     </button>
                   </li>
                 </ul>

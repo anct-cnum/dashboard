@@ -89,7 +89,7 @@ function CandidatDetails() {
         style={{ boxShadow: 'none' }}
         to={location.state?.origin} state={{ currentPage }}
         className="fr-link fr-fi-arrow-left-line fr-link--icon-left">
-        Retour à la liste
+        Retour &agrave; la liste
       </Link>
       <div className="fr-mt-2w">
         <h2>
@@ -100,7 +100,7 @@ function CandidatDetails() {
           <div className="fr-grid-row">
             { conseiller?.dateRecrutement?.length > 0 &&
               <div className="fr-col-12">
-                <p><b>Date de recrutement prévisionnelle:&nbsp;
+                <p><b>Date de recrutement pr&eacute;visionnelle:&nbsp;
                   {conseiller?.dateRecrutement.map((date, idx) =>
 
                     <span key={idx}>
@@ -120,43 +120,38 @@ function CandidatDetails() {
             }
             <div className="fr-col-6">
               <p>Curriculum vit&aelig; :&nbsp;
-                {conseiller?.cv?.file &&
-                  <button className="downloadCVBtn" onClick={downloadCV}>
-                    Télécharger le CV (du {dayjs(conseiller?.cv?.date).format('DD/MM/YYYY') })
-                  </button>
-                }
-                {!conseiller?.cv?.file &&
-                  <>Non renseigné</>
+                {conseiller?.cv?.file ?
+                  <button onClick={downloadCV}>
+                    T&eacute;l&eacute;charger le CV (du {dayjs(conseiller?.cv?.date).format('DD/MM/YYYY') })
+                  </button> : 'Non renseigné'
                 }
               </p>
-              <p>Situation professionnelle : {conseiller?.estEnEmploi ? 'en emploi' : 'sans emploi'}</p>
+              <p>Situation professionnelle : {conseiller?.estEnEmploi ? 'En emploi' : 'Sans emploi'}</p>
               <p>Disponible : {conseiller?.disponible ? 'Oui' : 'Non'}</p>
-              <p>Diplômé : {conseiller?.estDiplomeMedNum ? 'Oui' : 'Non'}</p>
+              <p>Dipl&ocirc;m&eacute; : {conseiller?.estDiplomeMedNum ? 'Oui' : 'Non'}</p>
               {conseiller?.estDiplomeMedNum &&
-                <p>Nom du diplôme : {conseiller?.nomDiplomeMedNum}</p>
+                <p>Nom du dipl&ocirc;me : {conseiller?.nomDiplomeMedNum}</p>
               }
-              <p>A de l&rsquo;expérience dans la médiation numérique : {conseiller?.aUneExperienceMedNum ? 'Oui' : 'Non'}</p>
+              <p>A de l&rsquo;exp&eacute;rience dans la m&eacute;diation num&eacute;rique : {conseiller?.aUneExperienceMedNum ? 'Oui' : 'Non'}</p>
               <p>Code Postal : {conseiller?.codePostal}</p>
               <p>
-                Lieu de résidence :&nbsp;
+                Lieu de r&eacute;sidence :&nbsp;
                 {conseiller?.nomCommune === '' || conseiller?.nomCommune === '.' ?
                   'Non renseigné' :
                   conseiller?.nomCommune}
               </p>
-              <p>Mobilité géographique : {conseiller?.distanceMax === 2000 ? 'France entière' : `${conseiller?.distanceMax} Km`}</p>
-              <p>Date de démarrage possible : {dayjs(conseiller?.dateDisponibilite).format('DD/MM/YYYY')}</p>
+              <p>Mobilit&eacute; g&eacute;ographique : {conseiller?.distanceMax === 2000 ? 'France entière' : `${conseiller?.distanceMax} Km`}</p>
+              <p>Date de d&eacute;marrage possible : {dayjs(conseiller?.dateDisponibilite).format('DD/MM/YYYY')}</p>
               <p><strong>Courriel : <a href={'mailto:' + conseiller?.email}>{conseiller?.email}</a></strong></p>
-              <p><strong>Téléphone : {conseiller?.telephone ? conseiller?.telephone : 'pas de numéro de téléphone'}</strong></p>
+              <p><strong>T&eacute;l&eacute;phone : {conseiller?.telephone ? conseiller?.telephone : 'pas de numéro de téléphone'}</strong></p>
               <p>Poss&egrave;de un compte candidat&nbsp;: {conseiller?.possedeCompteCandidat ? 'Oui' : 'Non'}</p>
-              {/* <div className="fr-grid-row"> */}
               <button
-                className="fr-btn fr-col-6 fr-mr-3w fr-mt-2w fr-icon-subtract-line fr-btn--icon-left"
-                //   style={{ 'padding': '1rem 1.5rem' }}
+                className="fr-btn fr-col-6 fr-mr-3w fr-mt-2w"
                 onClick={resendInvitCandidat}>
                   Renvoyer l&rsquo;email d&rsquo;invitation
               </button>
               <button
-                className="fr-btn fr-col-5 fr-icon-subtract-line fr-btn--icon-left delete-candidature"
+                className="fr-btn fr-col-5 delete-candidature"
                 onClick={() => {
                   setConfirmSuppressionCandidat(true);
                   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -169,13 +164,13 @@ function CandidatDetails() {
             }
             {conseiller?.pix?.partage &&
               <div className="fr-col-4 fr-ml-6w fr-mt-1w">
-                <span className="capitalizeFirstLetter"><strong>Résultats Pix</strong></span>
+                <span className="capitalizeFirstLetter"><strong>R&eacute;sultats Pix</strong></span>
                 {formatRenderStars(conseiller?.pix?.palier)}
                 <p>
                   {conseiller?.pix?.competence1 &&
                     <img src={pixUtilisation}
-                      alt="Utilisation du numérique"
-                      title="Utilisation du numérique dans la vie professionnelle"
+                      alt="Utilisation du num&eacute;rique"
+                      title="Utilisation du num&eacute;rique dans la vie professionnelle"
                       className="fr-mr-2w"
                     />
                   }
@@ -188,8 +183,8 @@ function CandidatDetails() {
                   }
                   {conseiller?.pix?.competence3 &&
                   <img src={pixCitoyen}
-                    alt="Compétences numériques en lien avec la e-citoyenneté"
-                    title="Compétences numériques en lien avec la e-citoyenneté"
+                    alt="Comp&eacute;tences num&eacute;riques en lien avec la e-citoyennet&eacute;"
+                    title="Comp&eacute;tences num&eacute;riques en lien avec la e-citoyennet&eacute;"
                     className="fr-mr-2w"
                   />
                   }
@@ -197,12 +192,13 @@ function CandidatDetails() {
                 <p>
                   <a href="https://cdn.conseiller-numerique.gouv.fr/Conseillernum_Lire%20les%20r%C3%A9sultats%20du%20diagnostic%20des%20candidats_V2-2.pdf"
                     className="fr-link"
+                    rel="noopener noreferrer"
                     target="blank"
-                    title="Télécharger le document d&rsquo;analyse des résultats Pix">
-                    Télécharger l&rsquo;analyse des résultats Pix
+                    title="T&eacute;l&eacute;charger le document d&rsquo;analyse des r&eacute;sultats Pix">
+                    T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
                   </a>
                   <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-                    Document d&rsquo;aide pour lire les résultats du dianostic des candidats
+                    Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats
                   </span>
                 </p>
               </div>
