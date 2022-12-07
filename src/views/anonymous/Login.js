@@ -61,7 +61,6 @@ export default function Login() {
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-6">
             {(window.location.pathname === '/login' || tokenVerified) &&
-        
                 <>
                   <h3>Se connecter avec</h3>
                   <button className="fr-my-3w" onClick={login} style={{ padding: 0 }}>
@@ -102,8 +101,6 @@ export default function Login() {
                     {error && <span className="invalid">{error.error}</span>}
                   </div>
                 </>
-           
-            
             }
             {error &&
             <div className="fr-alert fr-alert--error fr-mt-1w">
