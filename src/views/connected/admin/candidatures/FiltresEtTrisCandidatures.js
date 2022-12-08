@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filtresCandidaturesActions, paginationActions } from '../../../../actions';
-import Spinner from '../../../../components/Spinner';
 import codeRegions from '../../../../datas/code_region.json';
 import coms from '../../../../datas/coms.json';
 import departementsRegionRaw from '../../../../datas/departements-region.json';

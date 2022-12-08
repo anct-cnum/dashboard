@@ -137,13 +137,13 @@ function CandidatDetails() {
               <p>
                 Lieu de r&eacute;sidence :&nbsp;
                 {conseiller?.nomCommune === '' || conseiller?.nomCommune === '.' ?
-                  'Non renseigné' :
+                  <span>Non renseign&eacute;</span> :
                   conseiller?.nomCommune}
               </p>
               <p>Mobilit&eacute; g&eacute;ographique : {conseiller?.distanceMax === 2000 ? 'France entière' : `${conseiller?.distanceMax} Km`}</p>
               <p>Date de d&eacute;marrage possible : {dayjs(conseiller?.dateDisponibilite).format('DD/MM/YYYY')}</p>
               <p><strong>Courriel : <a href={'mailto:' + conseiller?.email}>{conseiller?.email}</a></strong></p>
-              <p><strong>T&eacute;l&eacute;phone : {conseiller?.telephone ? conseiller?.telephone : 'pas de numéro de téléphone'}</strong></p>
+              <p><strong>T&eacute;l&eacute;phone : {conseiller?.telephone ? conseiller?.telephone : <span>Pas de num&eacute;ro de t&eacute;l&eacute;phone</span>}</strong></p>
               <p>Poss&egrave;de un compte candidat&nbsp;: {conseiller?.possedeCompteCandidat ? 'Oui' : 'Non'}</p>
               <button
                 className="fr-btn fr-col-6 fr-mr-3w fr-mt-2w"
