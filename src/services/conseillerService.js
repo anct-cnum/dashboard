@@ -1,20 +1,23 @@
 import { userEntityId, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { conseillerQueryStringParameters } from '../utils/queryUtils';
+import { conseillerQueryStringParameters, candidatQueryStringParameters } from '../utils/queryUtils';
 
 export const conseillerService = {
   get,
   getCandidat,
   getAllRecruter,
   getAllCandidats,
+  getAllCandidatsByAdmin,
   getAllMisesEnRelation,
   updateStatus,
   updateDateRecrutement,
   updateDateRupture,
   updateMotifRupture,
   preSelectionner,
-  getCurriculumVitae
+  getCurriculumVitae,
+  resendInvitCandidat,
+  suppressionCandidat
 };
 
 function get(id) {
@@ -25,6 +28,18 @@ function get(id) {
 
 function getCandidat(id) {
   return API.get(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function resendInvitCandidat(id) {
+  return API.post(`${apiUrlRoot}/candidat/relance-invitation/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function suppressionCandidat({ id, motif }) {
+  return API.delete(`${apiUrlRoot}/candidat/${id}?motif=${motif}&role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -45,6 +60,23 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
 
   // eslint-disable-next-line max-len
   let uri = `${apiUrlRoot}/conseillers-recruter?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}&role=${roleActivated()}`;
+
+  return API.get(uri)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement) {
+  let {
+    filterByNameCandidat,
+    filterByRegion,
+    filterByComs,
+    filterByDepartement,
+  // eslint-disable-next-line max-len
+  } = candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement);
+
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/candidats?skip=${page}${filterByNameCandidat}${filterByComs}${filterByDepartement}${filterByRegion}&role=${roleActivated()}`;
 
   return API.get(uri)
   .then(response => response.data)

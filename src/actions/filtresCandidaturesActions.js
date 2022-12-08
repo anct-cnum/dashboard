@@ -3,6 +3,10 @@ export const filtresCandidaturesActions = {
   updatePix,
   updateDiplome,
   updateCV,
+  changeNomCandidat,
+  changeFiltreDepartement,
+  changeFiltreComs,
+  changeFiltreRegion,
 };
 
 function updateOrder(order) {
@@ -43,4 +47,20 @@ function updateCV(cv) {
   function success(cv) {
     return { type: 'UPDATE_CV', cv };
   }
+}
+
+function changeNomCandidat(nomCandidat) {
+  return { type: 'CHANGE_NOM_CANDIDAT', nomCandidat };
+}
+  
+function changeFiltreDepartement(departement) {
+  return { type: 'CHANGE_DEPARTEMENT', departement };
+}
+
+function changeFiltreComs(coms) {
+  return { type: 'CHANGE_COMS', coms };
+}
+  
+function changeFiltreRegion(region) {
+  return { type: 'CHANGE_REGION', region };
 }

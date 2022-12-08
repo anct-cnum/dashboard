@@ -163,6 +163,24 @@ export default function conseiller(state = initialState, action) {
         loading: false,
         error: action.error
       };
+    case 'GETALL_CANDIDATS_ADMIN_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'GETALL_CANDIDATS_ADMIN_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: action.candidats
+      };
+    case 'GETALL_CANDIDATS_ADMIN_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
     case 'GETALL_CANDIDATS_REQUEST':
       return {
         ...state,
@@ -180,6 +198,42 @@ export default function conseiller(state = initialState, action) {
         ...state,
         loading: false,
         error: action.error
+      };
+    case 'RESUBMIT_INSCRIPTION_CANDIDAT_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        errorCandidat: false
+      };
+    case 'RESUBMIT_INSCRIPTION_CANDIDAT_SUCCESS':
+      return {
+        ...state,
+        successResendInvitCandidatConseiller: action.successRelanceInvitation,
+        loading: false
+      };
+    case 'RESUBMIT_INSCRIPTION_CANDIDAT_FAILURE':
+      return {
+        ...state,
+        errorCandidat: action.error,
+        loading: false
+      };
+    case 'DELETE_CANDIDAT_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        errorCandidat: false
+      };
+    case 'DELETE_CANDIDAT_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        successDeleteCandidat: action.deleteSuccess
+      };
+    case 'DELETE_CANDIDAT_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        errorCandidat: action.error
       };
     default:
       return state;

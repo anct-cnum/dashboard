@@ -72,10 +72,18 @@ function Menu() {
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'listes' ? 'fr-collapse--expanded' : ''}`} id="menu-listes">
                 <ul className="fr-menu__list">
-                  { (roleActivated === 'structure' || roleActivated === 'admin') &&
+                  { roleActivated === 'structure' &&
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}
                       {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}>
+                      Liste des candidatures
+                    </Link>
+                  </li>
+                  }
+                  { roleActivated === 'admin' &&
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/liste-candidatures`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/liste-candidatures`) ? { 'aria-current': 'page' } : {})}>
                       Liste des candidatures
                     </Link>
                   </li>
