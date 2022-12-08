@@ -181,6 +181,41 @@ export default function conseiller(state = initialState, action) {
         loading: false,
         error: action.error
       };
+    case 'VALIDATION_RUPTURE_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'VALIDATION_RUPTURE_SUCCESS':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'VALIDATION_RUPTURE_FAILURE':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'DOSSIER_INCOMPLET_RUPTURE_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'DOSSIER_INCOMPLET_RUPTURE_SUCCESS':
+      return {
+        ...state,
+        conseiller: { ...state.conseiller, dossierIncompletRupture: action.dossierIncompletRupture },
+        loading: false
+      };
+    case 'DOSSIER_INCOMPLET_RUPTURE_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
     default:
       return state;
   }

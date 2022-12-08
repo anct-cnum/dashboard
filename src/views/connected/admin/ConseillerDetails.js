@@ -8,6 +8,9 @@ import pixUtilisation from '../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../assets/icons/pix-citoyen.png';
 import Spinner from '../../../components/Spinner';
+import ReactDatePicker from 'react-datepicker';
+import ModalConfirmationRupture from './ModalConfirmationRupture';
+import { scrollTopWindow } from '../../../utils/exportsUtils';
 
 function ConseillerDetails() {
 
@@ -23,6 +26,9 @@ function ConseillerDetails() {
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState([]);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const [dossierComplet, setDossierComplet] = useState(null);
+  const [dateFinDeContrat, setDateFinDeContrat] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -56,6 +62,22 @@ function ConseillerDetails() {
       }));
     }
   }, [conseiller, errorStructure]);
+
+  const gestionRupture = () => {
+    if (dossierComplet === true) {
+      setOpenModal(true);
+    } else {
+      dispatch(conseillerActions.dossierIncompletRupture(idConseiller));
+      scrollTopWindow();
+    }
+  };
+
+  const checkDateFinContrat = dateRupture => {
+    if (dateFinDeContrat === null && dateRupture === undefined) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <div className="fr-container conseillerDetails">
@@ -359,7 +381,7 @@ function ConseillerDetails() {
                   {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
                     <>
                       <div key={idx} className="fr-grid-row">
-                        <span>le {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
+                        <span>le {dayjs(miseEnRelation?.emetteurRupture?.date).format('DD/MM/YYYY')}</span>
                         <span>&nbsp;pour le motif de&nbsp;</span>
                         <span>{formatMotifRupture(miseEnRelation?.motifRupture)}</span>
                         <span>&nbsp;-&nbsp;<strong>{formatStatut(miseEnRelation?.statut)}</strong></span>
@@ -369,10 +391,77 @@ function ConseillerDetails() {
                   {misesEnRelationNouvelleRupture.map((miseEnRelation, idx) =>
                     <>
                       <div key={idx} className="fr-grid-row">
-                        <span>le {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
+                        <span>le {dayjs(miseEnRelation?.emetteurRupture?.date).format('DD/MM/YYYY')}</span>
                         <span>&nbsp;pour le motif de&nbsp;</span>
                         <span>{formatMotifRupture(miseEnRelation?.motifRupture)}</span>
-                        <span>&nbsp;-&nbsp;<strong>{formatStatut(miseEnRelation?.statut)}</strong></span>
+                        {conseiller?.dossierIncompletRupture ?
+                          <span>&nbsp;-&nbsp;<strong>Dossier incomplet</strong></span> :
+                          <span>&nbsp;-&nbsp;<strong>{formatStatut(miseEnRelation?.statut)}</strong></span>
+                        }
+                      </div>
+                      <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-10">
+                        <div className="fr-col-12">
+                          <hr style={{ borderWidth: '0.5px' }}/>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="fr-form-group fr-mt-2w">
+                          <fieldset className="fr-fieldset">
+                            <legend className="fr-fieldset__legend fr-text--regular" id="radio-legend">
+                              Renseignez l&lsquo;état de traitement de la demande&nbsp;:
+                            </legend>
+                            <div className="fr-fieldset__content">
+                              <div className="fr-radio-group">
+                                <input type="radio" name="radio" id="rgpd" onClick={() => {
+                                  setDossierComplet(true);
+                                }} />
+                                <label className="fr-label" htmlFor="rgpd">Dossier complet</label>
+                              </div>
+                              <div className="fr-radio-group">
+                                <input type="radio" name="radio" id="non_interesse_dispositif" onClick={() => {
+                                  setDossierComplet(false);
+                                }} />
+                                <label className="fr-label" htmlFor="non_interesse_dispositif">
+                                  Demande de pi&eacute;ces justificatives
+                                </label>
+                              </div>
+                            </div>
+                          </fieldset>
+                          <div className="fr-input-group fr-col-6">
+                            <label className="fr-label" htmlFor="text-input-error">
+                              Renseignez la date de fin de contrat du conseiller
+                            </label>
+                            <ReactDatePicker
+                              id="conseiller-date-de-naissance"
+                              name="conseillerDateDeNaissance"
+                              className="fr-input fr-my-1w"
+                              placeholderText="../../...."
+                              dateFormat="dd/MM/yyyy"
+                              locale="fr"
+                              selected={dateFinDeContrat ?? new Date(miseEnRelation?.dateRupture)}
+                              onChange={date => setDateFinDeContrat(date)}
+                              value={dateFinDeContrat ?? new Date(miseEnRelation?.dateRupture)}
+                              peekNextMonth
+                              onChangeRaw={e => e.preventDefault()}
+                              showMonthDropdown
+                              showYearDropdown
+                              dropdownMode="select"
+                              required="required"
+                            />
+                          </div>
+                          <div className="fr-col-10">
+                            <button
+                              className="fr-btn fr-col-10"
+                              onClick={gestionRupture}
+                              {...dossierComplet === null || checkDateFinContrat(miseEnRelation?.dateRupture) ? { 'disabled': true } : {}}
+                            >
+                            Valider
+                            </button>
+                          </div>
+                          {openModal &&
+                            <ModalConfirmationRupture setOpenModal={setOpenModal} idConseiller={idConseiller} dateFinDeContrat={dateFinDeContrat} />
+                          }
+                        </div>
                       </div>
                     </>
                   )}
