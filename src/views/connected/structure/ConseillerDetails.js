@@ -52,10 +52,21 @@ function ConseillerDetails() {
         Retour &agrave; la liste
       </button>
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1">{formatNomConseiller(conseiller)}</h1>
+        <h1 className="fr-h1">{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
       <div className="fr-col-12">
-        <h2 className="fr-h2">Id: {conseiller?.idPG}</h2>
+        <h2 className="fr-h2">Id: {conseiller?.idPG ?? ''}</h2>
+      </div>
+      <div className="fr-col-12 fr-grid-row">
+        {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture.length > 0) &&
+        <p className="fr-badge fr-mr-2w fr-badge--success fr-badge--no-icon">Contrat en cours</p>
+        }
+        {conseiller?.statut === 'RUPTURE' &&
+        <p className="fr-badge fr-badge--error fr-badge--no-icon">Contrat termin&eacute;</p>
+        }
+        {misesEnRelationNouvelleRupture.length > 0 &&
+        <p className="fr-badge fr-badge--info">Rupture en cours</p>
+        }
       </div>
       <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
         <div className="fr-col-12">
@@ -243,16 +254,19 @@ function ConseillerDetails() {
               {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture.length > 0) &&
                 <>
                   <span className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-col-12 fr-mb-2w' : 'fr-col-12'}>
-                    <strong>Contrat&nbsp;-
-                    En cours</strong> depuis le {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
+                    <strong className="fr-badge fr-badge--success fr-badge--no-icon">
+                    Contrat En cours
+                    </strong>
+                    &nbsp;depuis le {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
                   </span>
                 </>
               }
               {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
                 <>
                   <span key={idx} className="fr-col-12">
-                    <strong>Contrat&nbsp;-
-                    Termin&eacute;</strong> avec {miseEnRelation?.structureObj?.nom}&nbsp;-
+                    <strong className="fr-badge fr-badge--error fr-badge--no-icon">
+                    Contrat Termin&eacute;
+                    </strong>&nbsp;avec {miseEnRelation?.structureObj?.nom}&nbsp;-
                     Id&nbsp;&#91;{miseEnRelation?.structureObj?.idPG}&#93;
                     du {dayjs(miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}&nbsp;au&nbsp;
                     {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
@@ -270,7 +284,12 @@ function ConseillerDetails() {
                         <span>le {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
                         <span>&nbsp;pour le motif de&nbsp;</span>
                         <span>{formatMotifRupture(miseEnRelation?.motifRupture)}</span>
-                        <span>&nbsp;-&nbsp;<strong>{formatStatut(miseEnRelation?.statut)}</strong></span>
+                        <span>
+                        &nbsp;-&nbsp;
+                          <strong className="fr-badge fr-badge--success fr-badge--no-icon">
+                            {formatStatut(miseEnRelation?.statut)}
+                          </strong>
+                        </span>
                       </div>
                     </>
                   )}
@@ -280,7 +299,7 @@ function ConseillerDetails() {
                         <span>le {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
                         <span>&nbsp;pour le motif de&nbsp;</span>
                         <span>{formatMotifRupture(miseEnRelation?.motifRupture)}</span>
-                        <span>&nbsp;-&nbsp;<strong>{formatStatut(miseEnRelation?.statut)}</strong></span>
+                        <span>&nbsp;-&nbsp;<strong className="fr-badge fr-badge--info fr-badge--no-icon">{formatStatut(miseEnRelation?.statut)}</strong></span>
                       </div>
                     </>
                   )}

@@ -69,3 +69,12 @@ export function structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateF
   
   return { ordreColonne, filterDateStart, filterDateEnd, filterByName, filterByType, filterByStatut, filterByRegion, filterByComs, filterByDepartement };
 }
+
+export function candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement) {
+  const filterByNameCandidat = filtreParNomCandidat ? `&searchByNomCandidat=${filtreParNomCandidat}` : '';
+  const filterByRegion = filtreParRegion !== 'tous' && filtreParRegion !== undefined ? `&region=${filtreParRegion}` : '';
+  const filterByDepartement = filtreParDepartement !== 'tous' && filtreParDepartement !== undefined ? `&departement=${filtreParDepartement}` : '';
+  const filterByComs = filtreParComs !== 'tous' && filtreParComs !== undefined ? `&coms=${filtreParComs}` : '';
+  
+  return { filterByNameCandidat, filterByRegion, filterByComs, filterByDepartement };
+}
