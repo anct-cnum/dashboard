@@ -23,12 +23,12 @@ function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                    Etes-vous sûr de vouloir valider la rupture de ce conseiller ?
+                  &Ecirc;tes-vous s&ucirc;r de vouloir valider la rupture de ce conseiller ?
                 </h1>
                 <p>
-                    Cette action entrainera la rupture du conseiller avec sa structure. Ce qui provequera
-                    la suppresion de adresse mail professionelles, la suppression de son compte mattermost
-                    ainsi que l&lsquo;accès a l&lsquo;espace coop.
+                    Cette action entrainera la rupture du conseiller avec sa structure. Ce qui aura pour
+                    cons&eacute;quence de supprimer son adresse mail professionelle, son compte mattermost
+                    ainsi que l&lsquo;acc&egrave;s &agrave; l&lsquo;espace coop.
                 </p>
               </div>
               <div className="fr-modal__footer">
