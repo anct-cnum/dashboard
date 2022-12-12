@@ -445,7 +445,7 @@ function ConseillerDetails() {
                       <div className="fr-form-group fr-mt-2w">
                         <fieldset className="fr-fieldset">
                           <legend className="fr-fieldset__legend fr-text--regular" id="radio-legend">
-                            Renseignez l&lsquo;état de traitement de la demande&nbsp;:
+                            Renseignez l&lsquo;&eacute;tat de traitement de la demande&nbsp;:
                           </legend>
                           <div className="fr-fieldset__content">
                             <div className="fr-radio-group">
