@@ -203,36 +203,36 @@ export default function conseiller(state = initialState, action) {
       return {
         ...state,
         loading: true,
-        error: false
+        errorRupture: false
       };
     case 'VALIDATION_RUPTURE_SUCCESS':
       return {
         ...state,
-        loading: true,
-        error: false
+        loading: false,
+        rupture: action.rupture,
       };
     case 'VALIDATION_RUPTURE_FAILURE':
       return {
         ...state,
-        loading: true,
-        error: false
+        loading: false,
+        errorRupture: action.error
       };
     case 'DOSSIER_INCOMPLET_RUPTURE_REQUEST':
       return {
         ...state,
         loading: true,
-        error: false
+        errorRupture: false
       };
     case 'DOSSIER_INCOMPLET_RUPTURE_SUCCESS':
       return {
         ...state,
-        conseiller: { ...state.conseiller, dossierIncompletRupture: action.dossierIncompletRupture },
+        dossierIncompletRupture: action.dossierIncompletRupture,
         loading: false
       };
     case 'DOSSIER_INCOMPLET_RUPTURE_FAILURE':
       return {
         loading: false,
-        error: action.error
+        errorRupture: action.error
       };
     case 'RESUBMIT_INSCRIPTION_CANDIDAT_REQUEST':
       return {

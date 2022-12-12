@@ -183,15 +183,13 @@ function getCurriculumVitae(id) {
 }
 
 function validationRupture(id, dateFinDeContrat) {
-  return API.patch(`${apiUrlRoot}/conseiller/rupture/validation/${id}?role=${roleActivated()}`, {
-    dateFinDeContrat
-  })
+  return API.patch(`${apiUrlRoot}/conseiller/rupture/validation/${id}?role=${roleActivated()}`, { dateFinDeContrat })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function dossierIncompletRupture(id) {
-  return API.patch(`${apiUrlRoot}/conseiller/rupture/incomplet/${id}?role=${roleActivated()}`)
+function dossierIncompletRupture(id, dateFinDeContrat) {
+  return API.patch(`${apiUrlRoot}/conseiller/rupture/incomplet/${id}?role=${roleActivated()}`, { dateFinDeContrat })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

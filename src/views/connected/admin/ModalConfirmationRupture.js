@@ -8,6 +8,7 @@ function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat
 
   const validationRupture = () => {
     dispatch(conseillerActions.validationRupture(idConseiller, dateFinDeContrat));
+    setOpenModal(false);
   };
 
   return (

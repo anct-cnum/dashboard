@@ -32,6 +32,9 @@ export function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, date
     case 'en-cours':
       rupture = `&rupture=nouvelle_rupture`;
       break;
+    case 'piece-manquantes':
+      rupture = `&rupture=nouvelle_rupture&pieceManquante=true`;
+      break;
     case 'contrat':
       rupture = `&rupture=contrat`;
       break;

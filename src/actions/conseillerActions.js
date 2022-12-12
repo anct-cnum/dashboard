@@ -365,7 +365,7 @@ function validationRupture(id, dateFinDeContrat) {
 
     conseillerService.validationRupture(id, dateFinDeContrat)
     .then(
-      conseiller => dispatch(success(conseiller)),
+      response => dispatch(success(response.rupture)),
       error => {
         dispatch(failure(error));
       }
@@ -375,19 +375,19 @@ function validationRupture(id, dateFinDeContrat) {
   function request() {
     return { type: 'VALIDATION_RUPTURE_REQUEST' };
   }
-  function success(conseiller) {
-    return { type: 'VALIDATION_RUPTURE_SUCCESS', conseiller };
+  function success(rupture) {
+    return { type: 'VALIDATION_RUPTURE_SUCCESS', rupture };
   }
   function failure(error) {
     return { type: 'VALIDATION_RUPTURE_FAILURE', error };
   }
 }
 
-function dossierIncompletRupture(id) {
+function dossierIncompletRupture(id, dateFinDeContrat) {
   return dispatch => {
     dispatch(request());
 
-    conseillerService.dossierIncompletRupture(id)
+    conseillerService.dossierIncompletRupture(id, dateFinDeContrat)
     .then(
       response => dispatch(success(response.dossierIncompletRupture)),
       error => {
