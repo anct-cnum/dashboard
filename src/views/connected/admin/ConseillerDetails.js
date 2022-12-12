@@ -67,8 +67,7 @@ function ConseillerDetails() {
   }, [conseiller, errorStructure]);
 
   useEffect(() => {
-    if (dossierIncompletRupture === true) {
-      console.log('test dossierIncompletRupture');
+    if (dossierIncompletRupture === true && rupture === false) {
       setMisesEnRelationNouvelleRupture({ ...misesEnRelationNouvelleRupture, dossierIncompletRupture: true, dateRupture: dateFinDeContrat });
     }
     if (rupture === true) {
