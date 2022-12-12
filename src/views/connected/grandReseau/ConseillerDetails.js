@@ -362,7 +362,7 @@ function ConseillerDetails() {
                   {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
                     <>
                       <div key={idx} className="fr-grid-row">
-                        <span>le {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
+                        <span>le {dayjs(miseEnRelation?.emetteurRupture?.date).format('DD/MM/YYYY')}</span>
                         <span>&nbsp;pour le motif de&nbsp;</span>
                         <span>{formatMotifRupture(miseEnRelation?.motifRupture)}</span>
                         <span>

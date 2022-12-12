@@ -103,7 +103,7 @@ export default function TableauConseillers() {
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
                   <div className="fr-table">
-                    <table className={conseillers?.items?.data?.length < 2 ? 'no-result-table' : ''}>
+                    <table className={conseillers?.items?.data?.length < 3 ? 'no-result-table' : ''}>
                       <thead>
                         <tr>
                           <th>
