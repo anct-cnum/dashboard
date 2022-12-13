@@ -22,9 +22,11 @@ import refreshToken from './services/auth/refreshToken';
 import TableauConseillers from './views/connected/commun/conseillers/TableauConseillers';
 import { getAccessToken } from './helpers/getAccessToken';
 import GraphiqueConseiller from './views/connected/commun/statistiques/GraphiqueConseiller';
+import { useMatomo } from '@datapunt/matomo-tracker-react';
 
 function App() {
-
+  
+  const { trackPageView } = useMatomo();
   const isLoading = useSelector(state => state.alerteEtSpinner?.isLoading);
   const accessToken = useSelector(state => state.authentication?.accessToken) || getAccessToken();
   const dispatch = useDispatch();
@@ -36,6 +38,10 @@ function App() {
       refreshToken(auth, dispatch, accessToken);
     }
   }, [location, auth, accessToken]);
+
+  useEffect(() => {
+    trackPageView();
+  }, []);
 
   return (
     <div className="App">
