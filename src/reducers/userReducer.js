@@ -39,6 +39,26 @@ export default function user(state = null, action) {
         ...state,
         userError: action.error
       };
+    case 'VALIDATION_SUPPRESSION_COMPTE_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'VALIDATION_SUPPRESSION_COMPTE_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        deleteSuccess: action.response.deleteSuccess,
+        userDeleted: [...state.users.filter(user => user._id === action.response.idUser)],
+        users: [...state.users.filter(user => user._id !== action.response.idUser)]
+      };
+    case 'VALIDATION_SUPPRESSION_COMPTE_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
     case 'ADD_USER_TO_LIST':
       return {
         ...state,
