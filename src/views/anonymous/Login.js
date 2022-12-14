@@ -55,7 +55,6 @@ export default function Login() {
       navigate('/accueil');
     }
   }, [user]);
-
   
   return (
     <div className="login">
