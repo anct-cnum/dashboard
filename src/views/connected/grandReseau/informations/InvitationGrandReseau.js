@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { invitationsActions, userActions, alerteEtSpinnerActions } from '../../../../actions';
-import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { valideInputEmail } from '../../../../utils/formatagesUtils';
 import ModalConfirmationSuppressionCompte from './ModalConfirmationSuppresionCompte';
@@ -60,7 +59,7 @@ export default function InvitationGrandReseau() {
     <div>
       <h2>Administrateurs</h2>
       {form === false ?
-        <div className="fr-col-12 fr-grid-row">
+        <div>
           {(!users && users?.length === 0) && <p>Aucun administrateur associ&eacute;</p>}
           <div className="fr-grid-row fr-mb-3w fr-table">
             <table>
@@ -88,7 +87,7 @@ export default function InvitationGrandReseau() {
               <ModalConfirmationSuppressionCompte setDisplayModalDelete={setDisplayModalDelete} user={user} />
             }
           </div>
-          <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left fr-col-9" onClick={() => setForm(true)}>
+          <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
             Inviter un administrateur
           </button>
         </div> :
