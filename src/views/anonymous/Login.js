@@ -4,7 +4,6 @@ import { useAuth } from 'react-oidc-context';
 import { useParams, useNavigate } from 'react-router-dom';
 import logo from '../../assets/brands/logo-inclusionconnect-bouton-min.svg';
 import { userActions } from '../../actions';
-import signOut from '../../services/auth/logout';
 
 export default function Login() {
 
@@ -57,7 +56,6 @@ export default function Login() {
     }
   }, [user]);
 
-  console.log(verificationToken);
   
   return (
     <div className="login">
