@@ -45,8 +45,8 @@ const oidcConfig = {
 };
 
 const instance = createInstance({
-  urlBase: 'https://stats.data.gouv.fr/',
-  siteId: 147,
+  urlBase: process.env.REACT_APP_MATOMO_URL,
+  siteId: process.env.REACT_APP_MATOMO_ID,
 });
 
 setup(store);
