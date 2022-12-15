@@ -4,6 +4,7 @@ import { API } from './api';
 import signOut from './auth/logout';
 
 export const userService = {
+  login,
   verifyToken,
   getUsers
 };
@@ -15,6 +16,30 @@ function verifyToken(token) {
 
   let uri = `${apiUrlRoot}/users/verifyToken/${token}`;
   return fetch(uri, requestOptions).then(handleResponse);
+}
+
+function login(username, password) {
+
+  const strategy = process.env.REACT_APP_STRATEGYAUTH;
+  const apiUrlAuth = `${process.env.REACT_APP_API_URL}/authentication`;
+
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'strategy': strategy,
+      'name': username,
+      'password': password
+    })
+  };
+
+  return fetch(apiUrlAuth, requestOptions)
+  .then(handleResponse)
+  .then(user => {
+    return user;
+  });
 }
 
 function handleResponse(response) {

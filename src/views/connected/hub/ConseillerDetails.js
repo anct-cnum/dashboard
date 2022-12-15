@@ -18,6 +18,7 @@ function ConseillerDetails() {
   const errorStructure = useSelector(state => state.structure?.error);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -56,10 +57,10 @@ function ConseillerDetails() {
         Retour &agrave; la liste
       </button>
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1">{formatNomConseiller(conseiller)}</h1>
+        <h1 className="fr-h1">{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
       <div className="fr-col-12">
-        <h2 className="fr-h2">Id: {conseiller?.idPG}</h2>
+        <h2 className="fr-h2">Id: {conseiller?.idPG ?? ''}</h2>
       </div>
       <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
         <div className="fr-col-12">
@@ -240,7 +241,18 @@ function ConseillerDetails() {
           <div className="fr-col-6">
             <div className="fr-mb-3w">
               <strong>Nom de la structure</strong><br/>
-              <span>{structure?.nom ?? '-'}</span>
+              {structure?.nom ?
+                <>
+                  <button
+                    style={{ paddingLeft: '0', margin: '0' }}
+                    title="D&eacute;tail d&rsquo;une structure"
+                    className="fr-text--md"
+                    onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}>
+                    {structure?.nom}
+                  </button>
+                </> :
+                <span>-</span>
+              }
             </div>
             <div className="fr-mb-3w">
               <strong>Id</strong><br/>

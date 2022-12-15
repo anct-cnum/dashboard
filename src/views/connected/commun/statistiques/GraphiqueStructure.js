@@ -53,6 +53,9 @@ export default function GraphiqueStructure() {
     if (!structure) {
       setStructure(structureRequest);
     }
+  }, [structureRequest]);
+
+  useEffect(() => {
     if (!statistiquesError) {
       if (structure) {
         dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal));
@@ -64,7 +67,7 @@ export default function GraphiqueStructure() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, statistiquesError, codePostal, structureRequest]);
+  }, [dateDebut, dateFin, statistiquesError, codePostal, structure]);
 
   return (
     <div className="statistiques">

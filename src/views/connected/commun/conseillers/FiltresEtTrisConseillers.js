@@ -8,8 +8,6 @@ import codeRegions from '../../../../datas/code_region.json';
 
 function FiltresEtTrisConseillers() {
   const dispatch = useDispatch();
-
-  const [searchByStructure, setSearchByStructure] = useState(false);
   
   const dateDebut = useSelector(state => state.filtresConseillers?.dateDebut);
   const ordreNom = useSelector(state => state.filtresConseillers?.ordreNom);
@@ -18,13 +16,13 @@ function FiltresEtTrisConseillers() {
   const filtreParNomConseiller = useSelector(state => state.filtresConseillers?.nomConseiller);
   const filtreParNomStructure = useSelector(state => state.filtresConseillers?.nomStructure);
   const filtreRegion = useSelector(state => state.filtresConseillers?.region);
-  let searchInput = useSelector(state => state.filtresConseillers?.searchInput);
   const dateFin = useSelector(state => state.filtresConseillers?.dateFin);
   const ordre = useSelector(state => state.filtresConseillers?.ordre);
 
   const exportConseillerFileBlob = useSelector(state => state.exports);
   const exportConseillerFileError = useSelector(state => state.exports?.error);
   const loading = useSelector(state => state.exports?.loading);
+  const [searchByStructure, setSearchByStructure] = useState(!!filtreParNomStructure);
 
   const has = value => value !== null && value !== undefined;
 
@@ -73,7 +71,7 @@ function FiltresEtTrisConseillers() {
           <h3 className="fr-h3">Liste des conseillers</h3>
           <div className="fr-ml-auto fr-col-12 fr-col-md-4 fr-mb-4w fr-mb-md-0">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
-              <input className="fr-input" defaultValue={searchInput ?? ''}
+              <input className="fr-input" defaultValue={(filtreParNomConseiller || filtreParNomStructure) ?? ''}
                 placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
               <button className="fr-btn" onClick={rechercheParNomOuNomStructure} title="Rechercher par nom">
                 Rechercher
@@ -86,12 +84,23 @@ function FiltresEtTrisConseillers() {
             <select className="fr-select" onChange={selectFiltreRegion}>
               <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
-                <option key={idx} value={region.code}>{region.nom}</option>
+                <>
+                  {filtreRegion === region.code ?
+                    <option key={idx} value={region.code} selected>{region.nom}</option> : <option key={idx} value={region.code}>{region.nom}</option>
+                  }
+                </>
               )}
             </select>
           </div>
           <div className="fr-toggle fr-ml-md-auto fr-toggle--label-left">
-            <input type="checkbox" onChange={handleChangeToggle} className="fr-toggle__input" aria-describedby="toggle-698-hint-text" id="toggle-698" />
+            <input
+              checked={searchByStructure}
+              type="checkbox"
+              onChange={handleChangeToggle}
+              className="fr-toggle__input"
+              aria-describedby="toggle-698-hint-text"
+              id="toggle-698"
+            />
             <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
               S&eacute;lectionner le type de recherche
             </label>

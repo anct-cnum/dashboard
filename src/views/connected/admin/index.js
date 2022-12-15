@@ -6,6 +6,8 @@ import TableauStructures from './structures/TableauStructures';
 import ConseillerDetails from './ConseillerDetails';
 import StructureDetails from './structures/StructureDetails';
 import Page404 from '../Page404';
+import TableauCandidatures from './candidatures/TableauCandidatures';
+import CandidatDetails from './candidatures/CandidatDetails';
 
 export default function Admin() {
 
@@ -23,8 +25,10 @@ export default function Admin() {
       <Routes>
         <Route path="/admin/informations" element={<MesInformations />} />
         <Route path="/admin/liste-structures" element={<TableauStructures />} />
+        <Route path="/admin/liste-candidatures" element={<TableauCandidatures />} />
         <Route path="/admin/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/admin/conseiller/:idConseiller" element={<ConseillerDetails />} />
+        <Route path="/admin/candidat/:idCandidat" element={<CandidatDetails />} />
         <Route path="/admin/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />
       </Routes>

@@ -18,6 +18,7 @@ function ConseillerDetails() {
   const errorStructure = useSelector(state => state.structure?.error);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState([]);
@@ -65,10 +66,21 @@ function ConseillerDetails() {
         Retour &agrave; la liste
       </button>
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1">{formatNomConseiller(conseiller)}</h1>
+        <h1 className="fr-h1">{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
       <div className="fr-col-12">
-        <h2 className="fr-h2">Id: {conseiller?.idPG}</h2>
+        <h2 className="fr-h2">Id: {conseiller?.idPG ?? ''}</h2>
+      </div>
+      <div className="fr-col-12 fr-grid-row">
+        {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture.length > 0) &&
+        <p className="fr-badge fr-mr-2w fr-badge--success fr-badge--no-icon">Contrat en cours</p>
+        }
+        {conseiller?.statut === 'RUPTURE' &&
+        <p className="fr-badge fr-badge--error fr-badge--no-icon">Contrat termin&eacute;</p>
+        }
+        {misesEnRelationNouvelleRupture.length > 0 &&
+        <p className="fr-badge fr-badge--info">Rupture en cours</p>
+        }
       </div>
       <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
         <div className="fr-col-12">
@@ -257,7 +269,18 @@ function ConseillerDetails() {
           <div className="fr-col-6">
             <div className="fr-mb-3w">
               <strong>Nom de la structure</strong><br/>
-              <span>{structure?.nom ?? '-'}</span>
+              {structure?.nom ?
+                <>
+                  <button
+                    style={{ paddingLeft: '0', margin: '0' }}
+                    title="D&eacute;tail d&rsquo;une structure"
+                    className="fr-text--md"
+                    onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}>
+                    {structure?.nom}
+                  </button>
+                </> :
+                <span>-</span>
+              }
             </div>
             <div className="fr-mb-3w">
               <strong>Id</strong><br/>
@@ -315,48 +338,65 @@ function ConseillerDetails() {
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-6">
-            <h4 className="titre">Contrat en cours</h4>
-            <div className="fr-mb-5w">
-              {misesEnRelationFinalisee.length > 0 ?
+          <div className="fr-col-8">
+            <h4 className="titre">Contrat</h4>
+            <div className="fr-mb-5w fr-grid-row">
+              {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture.length > 0) &&
                 <>
-                  <strong>Date de prise de poste</strong><br/>
-                  {conseiller?.datePrisePoste ?
-                    <span>{dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}</span> : <span>-</span>
-                  }
-                </> : <span>Aucun contrat pour le moment</span>
+                  <span className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-col-12 fr-mb-2w' : 'fr-col-12'}>
+                    <strong className="fr-badge fr-badge--success fr-badge--no-icon">Contrat En cours</strong>&nbsp;avec {structure?.nom}&nbsp;-
+                    Id&nbsp;&#91;{structure?.idPG}&#93;
+                    depuis le {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
+                  </span>
+                </>
               }
+              {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
+                <>
+                  <span key={idx} className="fr-col-12">
+                    <strong className="fr-badge fr-badge--error fr-badge--no-icon">
+                    Contrat Termin&eacute;
+                    </strong>&nbsp;avec {miseEnRelation?.structureObj?.nom}&nbsp;-
+                    Id&nbsp;&#91;{miseEnRelation?.structureObj?.idPG}&#93;
+                    du {dayjs(miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}&nbsp;au&nbsp;
+                    {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
+                  </span>
+                </>
+              )}
             </div>
-            <h4 className="titre">Demande de rupture initi&eacute;e</h4>
-            {(misesEnRelationNouvelleRupture.length > 0 || misesEnRelationFinaliseeRupture.length > 0) ?
+            {(misesEnRelationNouvelleRupture.length > 0 || misesEnRelationFinaliseeRupture.length > 0) &&
               <>
+                <h4 className="titre">Demande de rupture initi&eacute;e</h4>
                 <div>
                   {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
                     <>
                       <div key={idx} className="fr-grid-row">
-                        <span><strong>{formatStatut(miseEnRelation?.statut)}</strong>&nbsp;-&nbsp;</span>
                         <span>le {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
                         <span>&nbsp;pour le motif de&nbsp;</span>
                         <span>{formatMotifRupture(miseEnRelation?.motifRupture)}</span>
+                        <span>
+                        &nbsp;-&nbsp;
+                          <strong className="fr-badge fr-badge--success fr-badge--no-icon">
+                            {formatStatut(miseEnRelation?.statut)}
+                          </strong>
+                        </span>
                       </div>
                     </>
                   )}
                   {misesEnRelationNouvelleRupture.map((miseEnRelation, idx) =>
                     <>
                       <div key={idx} className="fr-grid-row">
-                        <span><strong>{formatStatut(miseEnRelation?.statut)}</strong>&nbsp;-&nbsp;</span>
                         <span>le {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
                         <span>&nbsp;pour le motif de&nbsp;</span>
                         <span>{formatMotifRupture(miseEnRelation?.motifRupture)}</span>
+                        <span>&nbsp;-&nbsp;<strong className="fr-badge fr-badge--info fr-badge--no-icon">{formatStatut(miseEnRelation?.statut)}</strong></span>
                       </div>
                     </>
                   )}
                 </div>
-              </> :
-              <span>Aucune rupture initi&eacute;e</span>
+              </>
             }
           </div>
-          <div className="fr-col-6">
+          <div className="fr-col-4">
             <h4 className="titre">Formation</h4>
             <div className="fr-mb-3w">
               <strong>Date d&lsquo;entr&eacute;e en formation</strong><br/>
