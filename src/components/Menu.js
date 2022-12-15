@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { menuActions } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
+import { useMatomo } from '@datapunt/matomo-tracker-react';
 
 function Menu() {
 
   const dispatch = useDispatch();
   const location = useLocation();
+  const { trackEvent } = useMatomo();
   
   const urlAide = process.env.REACT_APP_AIDE_HOSTNAME;
   const rolesStatistiquesStructures = ['admin', 'prefet', 'hub_coop', 'grandReseau'];
@@ -83,21 +85,27 @@ function Menu() {
                   { roleActivated === 'admin' &&
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/liste-candidatures`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/liste-candidatures`) ? { 'aria-current': 'page' } : {})}>
+                      {...(location.pathname.startsWith(`/${roleActivated}/liste-candidatures`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'sample-page-admin-ldca', action: 'click-event-test' })}
+                    >
                       Liste des candidatures
                     </Link>
                   </li>
                   }
                   <li>
                     <Link className="fr-nav__link" to="liste-conseillers"
-                      {...(location.pathname.startsWith(`/liste-conseillers`) ? { 'aria-current': 'page' } : {})}>
+                      {...(location.pathname.startsWith(`/liste-conseillers`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'sample-page-admin-ldco', action: 'click-event' })}
+                    >
                       Liste des conseillers
                     </Link>
                   </li>
                   {roleActivated !== 'structure' &&
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/liste-structures`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}>
+                      {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'sample-page-admin-lds', action: 'click-event' })}
+                    >
                       Liste des structures
                     </Link>
                   </li>
