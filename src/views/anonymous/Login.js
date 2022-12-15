@@ -32,6 +32,7 @@ export default function Login() {
  
   useEffect(() => {
     if (verificationToken) {
+      localStorage.removeItem('user');
       dispatch(userActions.verifyToken(verificationToken));
     }
   }, []);
