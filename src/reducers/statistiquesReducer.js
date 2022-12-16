@@ -3,6 +3,7 @@ const initialState = {
   dateDebut: new Date(anneeEnCours + '/01/01'),
   dateFin: new Date(),
   codePostalStats: '',
+  villeStats: '',
   listeAutresReorientations: [],
   error: false,
   errorTerritoire: false,
@@ -25,6 +26,7 @@ export default function statistiques(state = initialState, action) {
       return {
         ...state,
         codePostalStats: action.codePostal,
+        villeStats: action.ville,
       };
     case 'GET_CODES_POSTAUX_CRA_REQUEST':
       return {

@@ -14,7 +14,7 @@ export const statistiquesActions = {
   getStatistiquesTerritoire,
   getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
-
+  getCodesPostauxCrasConseiller
 };
 
 function changeDateDebut(dateDebut) {
@@ -25,8 +25,8 @@ function changeDateFin(dateFin) {
   return { type: 'CHANGE_DATE_FIN', dateFin };
 }
 
-function changeCodePostalStats(codePostal) {
-  return { type: 'CHANGE_CODE_POSTAL_STATS', codePostal };
+function changeCodePostalStats(codePostal, ville) {
+  return { type: 'CHANGE_CODE_POSTAL_STATS', codePostal, ville };
 }
 
 
@@ -159,10 +159,10 @@ function getDatasStructures(dateDebut, dateFin, page) {
   }
 }
 
-function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal = null) {
+function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal = null, ville = null) {
   return dispatch => {
     dispatch(request());
-    statistiquesService.getStatistiquesStructure(formatDate(dateDebut), formatDate(dateFin), idStructure, codePostal)
+    statistiquesService.getStatistiquesStructure(formatDate(dateDebut), formatDate(dateFin), idStructure, codePostal, ville)
     .then(
       statsStructure => {
         dispatch(success(statsStructure));
@@ -184,10 +184,10 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal = 
   }
 }
 
-function getStatistiquesConseiller(dateDebut, dateFin, idConseiller) {
+function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal = null, ville = null) {
   return dispatch => {
     dispatch(request());
-    statistiquesService.getStatistiquesConseiller(formatDate(dateDebut), formatDate(dateFin), idConseiller)
+    statistiquesService.getStatistiquesConseiller(formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, ville)
     .then(
       statsConseiller => {
         dispatch(success(statsConseiller));
@@ -214,6 +214,32 @@ function getCodesPostauxCrasConseillerStructure(idStructure) {
     dispatch(request());
 
     statistiquesService.getCodesPostauxCrasConseillerStructure(idStructure)
+    .then(
+      listeCodesPostaux => {
+        dispatch(success(listeCodesPostaux));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CODES_POSTAUX_CRA_REQUEST' };
+  }
+  function success(listeCodesPostaux) {
+    return { type: 'GET_CODES_POSTAUX_CRA_SUCCESS', listeCodesPostaux };
+  }
+  function failure(error) {
+    return { type: 'GET_CODES_POSTAUX_CRA_FAILURE', error };
+  }
+}
+
+function getCodesPostauxCrasConseiller(idConseiller) {
+  return dispatch => {
+    dispatch(request());
+
+    statistiquesService.getCodesPostauxCrasConseiller(idConseiller)
     .then(
       listeCodesPostaux => {
         dispatch(success(listeCodesPostaux));

@@ -8,9 +8,10 @@ export function formatDate(date) {
 const removeCodePrefix = type =>
   type.startsWith('code') ? type.substring('code'.length) : type;
 
-export function formatFileName(dateDebut, dateFin, type, idType, codePostal) {
+export function formatFileName(dateDebut, dateFin, type, idType, codePostal, ville) {
   return `Statistiques_${removeCodePrefix(type)}${
-    codePostal ? `_${codePostal}` : ''}${idType ? `_${idType}` : ''}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+    codePostal ? `_${codePostal}` : ''}${
+    ville ? `_${ville}` : ''}${idType ? `_${idType}` : ''}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
 }
 
 export function pluralize(zero, singulier, pluriel, count, showCount = false) {
