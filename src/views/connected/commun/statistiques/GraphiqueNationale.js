@@ -57,7 +57,7 @@ export default function GraphiqueNationale() {
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
             <StatistiquesBanniere
-              dateDebut={new Date('2020-09-01')}
+              dateDebut={dateDebut}
               dateFin={dateFin}
               typeStats="nationales"
             />

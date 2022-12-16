@@ -100,7 +100,7 @@ export default function GraphiqueStructure() {
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
             <StatistiquesBanniere
-              dateDebut={new Date('2020-09-01')}
+              dateDebut={dateDebut}
               dateFin={dateFin}
               typeStats="structure"
               id={idStructure}
