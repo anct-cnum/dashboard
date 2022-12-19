@@ -16,6 +16,8 @@ export const conseillerService = {
   updateMotifRupture,
   preSelectionner,
   getCurriculumVitae,
+  validationRupture,
+  dossierIncompletRupture,
   resendInvitCandidat,
   suppressionCandidat
 };
@@ -178,6 +180,18 @@ function getCurriculumVitae(id) {
   return API.get(`${apiUrlRoot}/candidat/${id}/cv?role=${roleActivated()}`, { responseType: 'blob' })
   .then(response => response.data)
   .catch(); //rien ici dans le cas blob sinon erreur non affiché
+}
+
+function validationRupture(id, dateFinDeContrat) {
+  return API.patch(`${apiUrlRoot}/conseiller/rupture/validation/${id}?role=${roleActivated()}`, { dateFinDeContrat })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function dossierIncompletRupture(id, dateFinDeContrat) {
+  return API.patch(`${apiUrlRoot}/conseiller/rupture/incomplet/${id}?role=${roleActivated()}`, { dateFinDeContrat })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function haveCV(persoFilters) {

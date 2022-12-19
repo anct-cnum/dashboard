@@ -103,7 +103,7 @@ export default function TableauConseillers() {
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
                   <div className="fr-table">
-                    <table className={conseillers?.items?.data?.length < 2 ? 'no-result-table' : ''}>
+                    <table className={conseillers?.items?.data?.length < 3 ? 'no-result-table' : ''}>
                       <thead>
                         <tr>
                           <th>
@@ -150,6 +150,12 @@ export default function TableauConseillers() {
                                         <li className={filtreRupture === 'en-cours' ? 'selected' : ''}>
                                           <button id="en-cours" className="admin-select-option border-no-result" onClick={handleSortRupture}>
                                             Rupture en cours de traitement
+                                          </button>
+                                          <hr className="admin-select-hr" />
+                                        </li>
+                                        <li className={filtreRupture === 'piece-manquantes' ? 'selected' : ''}>
+                                          <button id="piece-manquantes" className="admin-select-option border-no-result" onClick={handleSortRupture}>
+                                            Dossier avec pi&egrave;ces manquantes
                                           </button>
                                           <hr className="admin-select-hr" />
                                         </li>
