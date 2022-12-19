@@ -209,7 +209,17 @@ export default function conseiller(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        rupture: action.rupture,
+        conseiller: { ...state.conseiller,
+          datePrisePoste: '',
+          dateFinFormation: '',
+          emailCN: '',
+          statut: 'RUPTURE',
+          userCreated: action.response.conseillerUpdated.userCreated,
+          misesEnRelation: state.conseiller.misesEnRelation.map(
+            miseEnRelation => (miseEnRelation._id === action.response.miseEnRelationUpdated._id) ? action.response.miseEnRelationUpdated : miseEnRelation
+          ),
+          permanences: []
+        }
       };
     case 'VALIDATION_RUPTURE_FAILURE':
       return {

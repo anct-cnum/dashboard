@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { conseillerActions } from '../../../actions';
+import { conseillerActions } from '../../../../actions';
 import { useDispatch } from 'react-redux';
 
 function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat }) {
@@ -26,7 +26,7 @@ function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat
                   &Ecirc;tes-vous s&ucirc;r de vouloir valider la rupture de ce conseiller ?
                 </h1>
                 <p>
-                    Cette action entrainera la rupture du conseiller avec sa structure. Ce qui aura pour
+                    Cette action entra&icirc;nera la rupture du conseiller avec sa structure. Ce qui aura pour
                     cons&eacute;quence de supprimer son adresse mail professionelle, son compte mattermost
                     ainsi que l&lsquo;acc&egrave;s &agrave; l&lsquo;espace coop.
                 </p>

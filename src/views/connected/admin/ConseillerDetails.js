@@ -9,7 +9,7 @@ import pixRessources from '../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../assets/icons/pix-citoyen.png';
 import Spinner from '../../../components/Spinner';
 import ReactDatePicker from 'react-datepicker';
-import ModalConfirmationRupture from './ModalConfirmationRupture';
+import ModalConfirmationRupture from './modals/ModalConfirmationRupture';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 
 function ConseillerDetails() {
@@ -22,7 +22,6 @@ function ConseillerDetails() {
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
   const dossierIncompletRupture = useSelector(state => state.conseiller?.dossierIncompletRupture);
-  const rupture = useSelector(state => state.conseiller?.rupture);
   const errorRupture = useSelector(state => state.conseiller?.errorRupture);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
@@ -67,13 +66,10 @@ function ConseillerDetails() {
   }, [conseiller, errorStructure]);
 
   useEffect(() => {
-    if (dossierIncompletRupture === true && rupture === false) {
+    if (dossierIncompletRupture === true) {
       setMisesEnRelationNouvelleRupture({ ...misesEnRelationNouvelleRupture, dossierIncompletRupture: true, dateRupture: dateFinDeContrat });
     }
-    if (rupture === true) {
-      window.location.reload();
-    }
-  }, [dossierIncompletRupture, rupture]);
+  }, [dossierIncompletRupture]);
 
   const gestionRupture = () => {
     if (dossierComplet === true) {
@@ -379,7 +375,7 @@ function ConseillerDetails() {
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-8">
+          <div className="fr-col-8 fr-mr-3w">
             <h4 className="titre">Contrat</h4>
             <div className="fr-mb-5w fr-grid-row">
               {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
@@ -480,7 +476,6 @@ function ConseillerDetails() {
                             onChange={date => setDateFinDeContrat(date)}
                             value={dateFinDeContrat ?? new Date(misesEnRelationNouvelleRupture?.dateRupture)}
                             peekNextMonth
-                            onChangeRaw={e => e.preventDefault()}
                             showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
@@ -508,7 +503,7 @@ function ConseillerDetails() {
               </>
             }
           </div>
-          <div className="fr-col-4">
+          <div className="fr-col-3">
             <h4 className="titre">Formation</h4>
             <div className="fr-mb-3w">
               <strong>Date d&lsquo;entr&eacute;e en formation</strong><br/>

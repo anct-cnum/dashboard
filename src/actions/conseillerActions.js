@@ -365,7 +365,7 @@ function validationRupture(id, dateFinDeContrat) {
 
     conseillerService.validationRupture(id, dateFinDeContrat)
     .then(
-      response => dispatch(success(response.rupture)),
+      response => dispatch(success(response)),
       error => {
         dispatch(failure(error));
       }
@@ -375,8 +375,8 @@ function validationRupture(id, dateFinDeContrat) {
   function request() {
     return { type: 'VALIDATION_RUPTURE_REQUEST' };
   }
-  function success(rupture) {
-    return { type: 'VALIDATION_RUPTURE_SUCCESS', rupture };
+  function success(response) {
+    return { type: 'VALIDATION_RUPTURE_SUCCESS', response };
   }
   function failure(error) {
     return { type: 'VALIDATION_RUPTURE_FAILURE', error };

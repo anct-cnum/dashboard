@@ -330,7 +330,7 @@ function ConseillerDetails() {
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-8">
+          <div className="fr-col-8 fr-mr-3w">
             <h4 className="titre">Contrat</h4>
             <div className="fr-mb-5w fr-grid-row">
               {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture.length > 0) &&
@@ -388,7 +388,7 @@ function ConseillerDetails() {
               </>
             }
           </div>
-          <div className="fr-col-4">
+          <div className="fr-col-3">
             <h4 className="titre">Formation</h4>
             <div className="fr-mb-3w">
               <strong>Date d&lsquo;entr&eacute;e en formation</strong><br/>
