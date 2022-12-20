@@ -15,7 +15,6 @@ import InscriptionFormation from './views/connected/InscriptionFormation';
 import GraphiqueNationale from './views/connected/commun/statistiques/GraphiqueNationale';
 import GraphiqueStructure from './views/connected/commun/statistiques/GraphiqueStructure';
 import GraphiqueTerritoire from './views/connected/commun/statistiques/GraphiqueTerritoire';
-import TableauStructures from './views/connected/commun/statistiques/TableauStructures';
 import TableauTerritoires from './views/connected/commun/statistiques/TableauTerritoires';
 import { useAuth } from 'react-oidc-context';
 import refreshToken from './services/auth/refreshToken';
@@ -54,7 +53,6 @@ function App() {
           <Route path="/formation" element={<InscriptionFormation />} />
           <Route path="/liste-conseillers" element={<TableauConseillers />} />
           <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
-          <Route path="/statistiques-structures" element={<TableauStructures />} />
           <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
           <Route path="/statistiques-conseiller/:idConseiller" element={<GraphiqueConseiller />} />
           <Route path="/statistiques-territoires" element={<TableauTerritoires />} />

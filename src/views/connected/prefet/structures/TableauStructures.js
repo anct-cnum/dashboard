@@ -4,7 +4,7 @@ import { alerteEtSpinnerActions, filtresStructuresActions, paginationActions, st
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Structure from './Structure';
-import FiltresEtTrisStructures from '../../commun/structures/FiltresEtTrisStructures';
+import FiltresEtTrisStructures from './FiltresEtTrisStructures';
 
 export default function TableauStructures() {
 

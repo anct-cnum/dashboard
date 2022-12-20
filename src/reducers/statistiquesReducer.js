@@ -1,6 +1,5 @@
-const anneeEnCours = new Date().getFullYear();
 const initialState = {
-  dateDebut: new Date(anneeEnCours + '/01/01'),
+  dateDebut: new Date(1605571200000),
   dateFin: new Date(),
   codePostalStats: '',
   villeStats: '',
