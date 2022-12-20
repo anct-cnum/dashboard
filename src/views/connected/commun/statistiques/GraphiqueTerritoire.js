@@ -86,7 +86,7 @@ export default function GraphiqueTerritoire() {
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
             <StatistiquesBanniere
-              dateDebut={new Date('2020-09-01')}
+              dateDebut={dateDebut}
               dateFin={dateFin}
               id={codeTerritoire}
               typeStats="territoire"

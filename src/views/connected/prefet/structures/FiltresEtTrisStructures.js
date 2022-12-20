@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { exportsActions, filtresStructuresActions, paginationActions, structureActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
-import BlockDatePickers from '../statistiques/Components/commun/BlockDatePickers';
 import codeRegions from '../../../../datas/code_region.json';
 import coms from '../../../../datas/coms.json';
 import departementsRegionRaw from '../../../../datas/departements-region.json';
+import BlockDatePickers from '../../commun/statistiques/Components/commun/BlockDatePickers';
 
 function FiltresEtTrisStructures() {
   const dispatch = useDispatch();
@@ -44,6 +44,11 @@ function FiltresEtTrisStructures() {
   const selectFiltreComs = e => {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresStructuresActions.changeFiltreComs(e.target?.value));
+  };
+
+  const selectFiltreStatut = e => {
+    dispatch(paginationActions.setPage(1));
+    dispatch(filtresStructuresActions.changeFiltreStatut(e.target?.value));
   };
 
   const selectFiltreType = e => {
@@ -85,9 +90,9 @@ function FiltresEtTrisStructures() {
   useEffect(() => {
     if (structures?.items) {
       dispatch(structureActions.getAll(currentPage, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreType, filtreRegion,
-        'VALIDATION_COSELEC', filtreComs, ordreNom, ordre ? 1 : -1));
+        filtreStatut, filtreComs, ordreNom, ordre ? 1 : -1));
     }
-  }, [dateDebut, dateFin, currentPage, filtreType, filterDepartement, ordreNom, ordre, filtreRegion, filtreParNomStructure, filtreComs]);
+  }, [dateDebut, dateFin, currentPage, filtreStatut, filtreType, filterDepartement, ordreNom, ordre, filtreRegion, filtreParNomStructure, filtreComs]);
 
   return (
     <>
@@ -141,13 +146,25 @@ function FiltresEtTrisStructures() {
               )}
             </select>
           </div>
-          <div className="fr-ml-auto">
-            <button className="fr-btn fr-btn--secondary" onClick={exportDonneesStructures}>Exporter les donn&eacute;es</button>
+          <div className="fr-select-group fr-ml-auto fr-col-5" id="filtre-statut">
+            <select className="fr-select" onChange={selectFiltreStatut}>
+              <option value={'tous'}>S&eacute;lectionner le statut de la structure</option>
+              <option value="VALIDATION_COSELEC">Valid&eacute;e</option>
+              <option value="EXAMEN_COMPLEMENTAIRE_COSELEC">Examen complémentaire</option>
+              <option value="REFUS_COSELEC">Refus</option>
+              <option value="CREEE">Non trait&eacute;e</option>
+              <option value="ABANDON">Abandonn&eacute;e</option>
+              <option value="ANNULEE">Annul&eacute;e</option>
+              <option value="DOUBLON">Doublon</option>
+            </select>
           </div>
         </div>
         <div className="fr-grid-row fr-grid-row--end">
           <div className="fr-col-12 fr-col-md-8 fr-mb-4w fr-mb-md-0 fr-grid-row">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
+          </div>
+          <div className="fr-ml-auto">
+            <button className="fr-btn fr-btn--secondary" onClick={exportDonneesStructures}>Exporter les donn&eacute;es</button>
           </div>
         </div>
       </div>

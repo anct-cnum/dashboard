@@ -12,6 +12,7 @@ export const statistiquesService = {
   getStatistiquesConseiller,
   getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
+  getCodesPostauxCrasConseiller
 };
 
 function getTerritoire(typeTerritoire, idTerritoire, date) {
@@ -42,16 +43,18 @@ function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, conseille
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal) {
+function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, ville) {
   return API.get(
-    `${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idStructure=${idStructure}&codePostal=${codePostal}`)
+    // eslint-disable-next-line max-len
+    `${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idStructure=${idStructure}&codePostal=${codePostal}&ville=${ville}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesConseiller(dateDebut, dateFin, idConseiller) {
+function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, ville) {
   return API.get(
-    `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idConseiller=${idConseiller}`)
+    // eslint-disable-next-line max-len
+    `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idConseiller=${idConseiller}&codePostal=${codePostal}&ville=${ville}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -63,9 +66,13 @@ function getStatistiquesNationale(dateDebut, dateFin) {
 }
 
 function getCodesPostauxCrasConseillerStructure(idStructure) {
-  return API.get(`${apiUrlRoot}/cras/codesPostaux/structure?role=${roleActivated()}&&id=${idStructure}`)
+  return API.get(`${apiUrlRoot}/cras/codesPostaux/structure?role=${roleActivated()}&id=${idStructure}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-
+function getCodesPostauxCrasConseiller(idConseiller) {
+  return API.get(`${apiUrlRoot}/cras/codesPostaux/conseiller?role=${roleActivated()}&id=${idConseiller}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}

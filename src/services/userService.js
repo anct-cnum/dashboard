@@ -6,7 +6,8 @@ import signOut from './auth/logout';
 export const userService = {
   login,
   verifyToken,
-  getUsers
+  getUsers,
+  validationSuppressionCompte
 };
 
 function verifyToken(token) {
@@ -60,6 +61,12 @@ function handleResponse(response) {
 
 function getUsers() {
   return API.get(`${apiUrlRoot}/users?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function validationSuppressionCompte(idUser) {
+  return API.delete(`${apiUrlRoot}/user/${idUser}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

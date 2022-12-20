@@ -255,78 +255,82 @@ function ConseillerDetails() {
             }
           </div>
         </div>
-        <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
-          <div className="fr-col-12">
-            <hr style={{ borderWidth: '0.5px' }}/>
-          </div>
-        </div>
-        <div className="fr-grid-row fr-mt-6w fr-mb-4w">
-          <div className="fr-col-12 titreCol">
-            <h1>Informations de la structure</h1>
-          </div>
-        </div>
-        <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-6">
-            <div className="fr-mb-3w">
-              <strong>Nom de la structure</strong><br/>
-              {structure?.nom ?
-                <>
-                  <button
-                    style={{ paddingLeft: '0', margin: '0' }}
-                    title="D&eacute;tail d&rsquo;une structure"
-                    className="fr-text--md"
-                    onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}>
-                    {structure?.nom}
-                  </button>
-                </> :
-                <span>-</span>
-              }
+        {conseiller?.statut === 'RECRUTE' &&
+        <>
+          <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
+            <div className="fr-col-12">
+              <hr style={{ borderWidth: '0.5px' }}/>
             </div>
-            <div className="fr-mb-3w">
-              <strong>Id</strong><br/>
-              <span>{structure?.idPG ?? '-'}</span>
+          </div>
+          <div className="fr-grid-row fr-mt-6w fr-mb-4w">
+            <div className="fr-col-12 titreCol">
+              <h1>Informations de la structure</h1>
             </div>
-            <div className="fr-mb-3w">
-              <strong>T&eacute;l&eacute;phone</strong><br/>
-              <span>
-                {structure?.contact?.telephone ?
-                  /* espace tous les 2 chiffres après l'indicatif*/
-                  structure?.contact?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
-                  <>-</>
+          </div>
+          <div className="fr-grid-row fr-col-12">
+            <div className="fr-col-6">
+              <div className="fr-mb-3w">
+                <strong>Nom de la structure</strong><br/>
+                {structure?.nom ?
+                  <>
+                    <button
+                      style={{ paddingLeft: '0', margin: '0' }}
+                      title="D&eacute;tail d&rsquo;une structure"
+                      className="fr-text--md"
+                      onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}>
+                      {structure?.nom}
+                    </button>
+                  </> :
+                  <span>-</span>
                 }
-              </span>
+              </div>
+              <div className="fr-mb-3w">
+                <strong>Id</strong><br/>
+                <span>{structure?.idPG ?? '-'}</span>
+              </div>
+              <div className="fr-mb-3w">
+                <strong>T&eacute;l&eacute;phone</strong><br/>
+                <span>
+                  {structure?.contact?.telephone ?
+                  /* espace tous les 2 chiffres après l'indicatif*/
+                    structure?.contact?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
+                    <>-</>
+                  }
+                </span>
+              </div>
+              <div className="fr-mb-3w">
+                <strong>Siret</strong><br/>
+                <span>{structure?.siret ?? '-'}</span>
+              </div>
             </div>
-            <div className="fr-mb-3w">
-              <strong>Siret</strong><br/>
-              <span>{structure?.siret ?? '-'}</span>
-            </div>
-          </div>
-          <div className="fr-col-3">
-            <div className="fr-mb-3w">
-              <strong>Email</strong><br/>
-              {structure?.contact?.email &&
+            <div className="fr-col-3">
+              <div className="fr-mb-3w">
+                <strong>Email</strong><br/>
+                {structure?.contact?.email &&
               <a className="email"href={'mailto:' + structure?.contact?.email}>
                 {structure?.contact?.email}
               </a>
-              }
-              {!structure?.contact?.email &&
+                }
+                {!structure?.contact?.email &&
               <span>-</span>
-              }
-            </div>
-            <div className="fr-mb-3w">
-              <strong>Nom</strong><br/>
-              <span>{structure?.contact?.nom ?? '-'}</span>
-            </div>
-            <div className="fr-mb-3w">
-              <strong>Pr&eacute;nom</strong><br/>
-              <span>{structure?.contact?.prenom ?? '-'}</span>
-            </div>
-            <div className="fr-mb-3w">
-              <strong>Fonction</strong><br/>
-              <span>{structure?.contact?.fonction ?? '-'}</span>
+                }
+              </div>
+              <div className="fr-mb-3w">
+                <strong>Nom</strong><br/>
+                <span>{structure?.contact?.nom ?? '-'}</span>
+              </div>
+              <div className="fr-mb-3w">
+                <strong>Pr&eacute;nom</strong><br/>
+                <span>{structure?.contact?.prenom ?? '-'}</span>
+              </div>
+              <div className="fr-mb-3w">
+                <strong>Fonction</strong><br/>
+                <span>{structure?.contact?.fonction ?? '-'}</span>
+              </div>
             </div>
           </div>
-        </div>
+        </>
+        }
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
             <hr style={{ borderWidth: '0.5px' }}/>
