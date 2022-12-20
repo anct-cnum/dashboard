@@ -14,7 +14,8 @@ export const statistiquesActions = {
   getStatistiquesTerritoire,
   getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
-  getCodesPostauxCrasConseiller
+  getCodesPostauxCrasConseiller,
+  resetFiltre,
 };
 
 function changeDateDebut(dateDebut) {
@@ -259,4 +260,8 @@ function getCodesPostauxCrasConseiller(idConseiller) {
   function failure(error) {
     return { type: 'GET_CODES_POSTAUX_CRA_FAILURE', error };
   }
+}
+
+function resetFiltre() {
+  return { type: 'RESET_FILTRES_STATS' };
 }

@@ -9,7 +9,6 @@ function Menu() {
   const location = useLocation();
   
   const urlAide = process.env.REACT_APP_AIDE_HOSTNAME;
-  const rolesStatistiquesStructures = ['admin', 'prefet', 'hub_coop', 'grandReseau'];
 
   const burgerMenuHidden = useSelector(state => state.menu?.hiddenBurgerMenu);
   const [activeMenu, setActiveMenu] = useState(null);

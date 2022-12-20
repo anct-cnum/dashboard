@@ -182,6 +182,10 @@ export default function statistiques(state = initialState, action) {
         error: action.error,
         loading: false,
       };
+    case 'RESET_FILTRES_STATS':
+      return {
+        ...initialState,
+      };
     default:
       return state;
   }
