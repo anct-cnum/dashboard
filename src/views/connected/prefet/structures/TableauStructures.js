@@ -43,7 +43,7 @@ export default function TableauStructures() {
       if (initConseiller === false) {
         dispatch(paginationActions.setPage(1));
         dispatch(structureActions.getAll(currentPage, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreType, filtreRegion,
-          filtreStatut, filtreComs, ordreNom, ordre ? 1 : -1));
+          filtreStatut ?? 'tous', filtreComs, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
     } else {

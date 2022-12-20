@@ -85,7 +85,7 @@ function FiltresEtTrisStructures() {
   useEffect(() => {
     if (structures?.items) {
       dispatch(structureActions.getAll(currentPage, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreType, filtreRegion,
-        filtreStatut, filtreComs, ordreNom, ordre ? 1 : -1));
+        'VALIDATION_COSELEC', filtreComs, ordreNom, ordre ? 1 : -1));
     }
   }, [dateDebut, dateFin, currentPage, filtreType, filterDepartement, ordreNom, ordre, filtreRegion, filtreParNomStructure, filtreComs]);
 

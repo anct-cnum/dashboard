@@ -8,7 +8,6 @@ const initialState = {
   region: 'tous',
   coms: 'tous',
   type: 'tous',
-  statut: 'tous',
 };
   
 export default function filtresStructures(state = initialState, action) {
