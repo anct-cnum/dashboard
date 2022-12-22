@@ -153,8 +153,8 @@ export default function TableauConseillers() {
                                           </button>
                                           <hr className="admin-select-hr" />
                                         </li>
-                                        <li className={filtreRupture === 'piece-manquantes' ? 'selected' : ''}>
-                                          <button id="piece-manquantes" className="admin-select-option border-no-result" onClick={handleSortRupture}>
+                                        <li className={filtreRupture === 'pieces-manquantes' ? 'selected' : ''}>
+                                          <button id="pieces-manquantes" className="admin-select-option border-no-result" onClick={handleSortRupture}>
                                             Dossier avec pi&egrave;ces manquantes
                                           </button>
                                           <hr className="admin-select-hr" />

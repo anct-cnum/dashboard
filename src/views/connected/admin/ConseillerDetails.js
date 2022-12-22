@@ -476,6 +476,9 @@ function ConseillerDetails() {
                             onChange={date => setDateFinDeContrat(date)}
                             value={dateFinDeContrat ?? new Date(misesEnRelationNouvelleRupture?.dateRupture)}
                             peekNextMonth
+                            onChangeRaw={e => e.preventDefault()}
+                            minDate={new Date(conseiller?.datePrisePoste)}
+                            maxDate={new Date()}
                             showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
