@@ -13,6 +13,7 @@ import Documents from './views/connected/Documents';
 import Certifications from './views/connected/Certifications';
 import InscriptionFormation from './views/connected/InscriptionFormation';
 import GraphiqueNationale from './views/connected/commun/statistiques/GraphiqueNationale';
+import GraphiquePilotage from './views/connected/commun/statistiques/GraphiquePilotage';
 import GraphiqueStructure from './views/connected/commun/statistiques/GraphiqueStructure';
 import GraphiqueTerritoire from './views/connected/commun/statistiques/GraphiqueTerritoire';
 import TableauStructures from './views/connected/commun/statistiques/TableauStructures';
@@ -54,6 +55,7 @@ function App() {
           <Route path="/formation" element={<InscriptionFormation />} />
           <Route path="/liste-conseillers" element={<TableauConseillers />} />
           <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
+          <Route path="/statistiques-pilotage" element={<GraphiquePilotage />} />
           <Route path="/statistiques-structures" element={<TableauStructures />} />
           <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
           <Route path="/statistiques-conseiller/:idConseiller" element={<GraphiqueConseiller />} />

@@ -5,6 +5,7 @@ export const statistiquesActions = {
   changeDateDebut,
   changeDateFin,
   changeCodePostalStats,
+  changeRegionStats,
   updateListeAutresReorientations,
   getTerritoire,
   getDatasStructures,
@@ -25,16 +26,20 @@ function changeDateFin(dateFin) {
   return { type: 'CHANGE_DATE_FIN', dateFin };
 }
 
-function changeCodePostalStats(codePostal) {
-  return { type: 'CHANGE_CODE_POSTAL_STATS', codePostal };
+function changeCodePostalStats(nomCommune) {
+  return { type: 'CHANGE_CODE_POSTAL_STATS', nomCommune };
+}
+
+function changeRegionStats(nomRegion) {
+  return { type: 'CHANGE_REGION_STATS', nomRegion };
 }
 
 
-function getStatistiquesNationale(dateDebut, dateFin) {
+function getStatistiquesNationale(dateDebut, dateFin, nomCommune, nomRegion) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getStatistiquesNationale(formatDate(dateDebut), formatDate(dateFin))
+    statistiquesService.getStatistiquesNationale(formatDate(dateDebut), formatDate(dateFin), nomCommune, nomRegion)
     .then(
       statsNationales => {
         dispatch(success(statsNationales));

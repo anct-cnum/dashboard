@@ -144,6 +144,14 @@ function Menu() {
                     </Link>
                   </li>
                   }
+                  {roleActivated === 'grandReseau' &&
+                  <li>
+                    <Link className="fr-nav__link" to={`/statistiques-pilotage`}
+                      {...(location.pathname.startsWith(`/statistiques-pilotage`) ? { 'aria-current': 'page' } : {})}>
+                      &bull;&nbsp;Mes statistiques de pilotage
+                    </Link>
+                  </li>
+                  }
                 </ul>
               </div>
             </li>

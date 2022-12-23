@@ -56,8 +56,9 @@ function getStatistiquesConseiller(dateDebut, dateFin, idConseiller) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesNationale(dateDebut, dateFin) {
-  return API.get(`stats/nationales/cras?role=anonyme&dateDebut=${dateDebut}&dateFin=${dateFin}`)
+function getStatistiquesNationale(dateDebut, dateFin, nomCommune, nomRegion) {
+  console.log('RRRRRRRR', nomRegion);
+  return API.get(`stats/nationales/cras?role=anonyme&dateDebut=${dateDebut}&dateFin=${dateFin}&nomCommune=${nomCommune}&nomRegion=${nomRegion}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
