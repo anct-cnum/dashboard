@@ -1,8 +1,8 @@
-const anneeEnCours = new Date().getFullYear();
 const initialState = {
-  dateDebut: new Date(anneeEnCours + '/01/01'),
+  dateDebut: new Date(1605571200000),
   dateFin: new Date(),
   codePostalStats: '',
+  villeStats: '',
   listeAutresReorientations: [],
   error: false,
   errorTerritoire: false,
@@ -25,6 +25,7 @@ export default function statistiques(state = initialState, action) {
       return {
         ...state,
         codePostalStats: action.codePostal,
+        villeStats: action.ville,
       };
     case 'GET_CODES_POSTAUX_CRA_REQUEST':
       return {
@@ -181,6 +182,8 @@ export default function statistiques(state = initialState, action) {
         error: action.error,
         loading: false,
       };
+    case 'RESET_FILTRES_STATS':
+      return initialState;
     default:
       return state;
   }

@@ -13,7 +13,7 @@ function StatistiquesAccompagnements({ nbAccompagnement }) {
         <ElementText textePluralize={pluralize(
           'accompagnement total enregistré (dont récurrent)',
           'accompagnement total enregistré (dont récurrent)',
-          'accompagnements total enregistrés (dont récurrent)',
+          'accompagnements totaux enregistrés (dont récurrent)',
           nbAccompagnement
         )} classe="text"/>
       </div>

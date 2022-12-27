@@ -81,7 +81,7 @@ function FiltresEtTrisConseillers() {
         </div>
         <div className="fr-grid-row">
           <div className="fr-select-group" id="filtre-region">
-            <select className="fr-select" onChange={selectFiltreRegion}>
+            <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
               <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
                 <>
