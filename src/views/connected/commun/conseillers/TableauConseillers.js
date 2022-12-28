@@ -122,7 +122,7 @@ export default function TableauConseillers() {
                               <span>Pr&eacute;nom</span>
                             </button>
                           </th>
-                          <th colSpan={conseillers?.items?.total === 0 ? '' : '12'}>Email professionnel</th>
+                          <th>Email professionnel</th>
                           <th>Structure</th>
                           <th>
                             <nav className="fr-nav" id="navigation-sort-rupture" role="navigation">
