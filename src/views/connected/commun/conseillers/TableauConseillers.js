@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, filtresConseillersActions, paginationActions, conseillerActions } from '../../../../actions';
+import { alerteEtSpinnerActions, filtresConseillersActions, paginationActions, conseillerActions, statistiquesActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Conseiller from './Conseiller';
@@ -79,6 +79,7 @@ export default function TableauConseillers() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
+        dispatch(statistiquesActions.resetFiltre());
         dispatch(conseillerActions.getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
           filtreParNomStructure, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);

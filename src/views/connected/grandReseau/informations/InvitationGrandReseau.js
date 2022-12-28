@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { invitationsActions, userActions, alerteEtSpinnerActions } from '../../../../actions';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { valideInputEmail } from '../../../../utils/formatagesUtils';
+import ModalConfirmationSuppressionCompte from './ModalConfirmationSuppresionCompte';
 
 export default function InvitationGrandReseau() {
   const dispatch = useDispatch();
@@ -13,6 +14,8 @@ export default function InvitationGrandReseau() {
   const reseau = useSelector(state => state.authentication.user?.reseau);
 
   const [form, setForm] = useState(false);
+  const [displayModalDelete, setDisplayModalDelete] = useState(false);
+  const [user, setUser] = useState({});
   const [activeMessage, setActiveMessage] = useState(false);
   const userError = useSelector(state => state.user?.userError);
 
@@ -28,6 +31,14 @@ export default function InvitationGrandReseau() {
       }));
     }
   }, [userError]);
+
+  const deleteAccountAdmin = (idUser, email) => {
+    setUser({
+      _id: idUser,
+      email
+    });
+    setDisplayModalDelete(true);
+  };
 
   const sendInvitation = () => {
     if (!valideInputEmail(email) || nom === '' || prenom === '') {
@@ -50,12 +61,32 @@ export default function InvitationGrandReseau() {
       {form === false ?
         <div>
           {(!users && users?.length === 0) && <p>Aucun administrateur associ&eacute;</p>}
-          {users && users?.map((user, idx) => {
-            return (
-              <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
-            );
-          })
-          }
+          <div className="fr-grid-row fr-mb-3w fr-table">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Email</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {users && users?.map((user, idx) => {
+                  return (
+                    <tr key={idx}>
+                      <td>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</td>
+                      <td>
+                        <button title="Supprimer" onClick={() => deleteAccountAdmin(user._id, user.name)} className="fr-btn fr-icon-delete-line" />
+                      </td>
+                    </tr>
+                  );
+                })
+                }
+              </tbody>
+            </table>
+            {displayModalDelete &&
+              <ModalConfirmationSuppressionCompte setDisplayModalDelete={setDisplayModalDelete} user={user} />
+            }
+          </div>
           <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
             Inviter un administrateur
           </button>
