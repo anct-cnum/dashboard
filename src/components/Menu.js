@@ -85,7 +85,7 @@ function Menu() {
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/liste-candidatures`}
                       {...(location.pathname.startsWith(`/${roleActivated}/liste-candidatures`) ? { 'aria-current': 'page' } : {})}
-                      onClick={() => trackEvent({ category: 'sample-page-admin-ldca', action: 'click-event-test' })}
+                      onClick={() => trackEvent({ category: 'liste-candidatures', action: `click-${roleActivated}` })}
                     >
                       Liste des candidatures
                     </Link>
@@ -94,7 +94,7 @@ function Menu() {
                   <li>
                     <Link className="fr-nav__link" to="liste-conseillers"
                       {...(location.pathname.startsWith(`/liste-conseillers`) ? { 'aria-current': 'page' } : {})}
-                      onClick={() => trackEvent({ category: 'sample-page-admin-ldco', action: 'click-event' })}
+                      onClick={() => trackEvent({ category: 'liste-conseillers', action: `click-${roleActivated}` })}
                     >
                       Liste des conseillers
                     </Link>
@@ -103,7 +103,7 @@ function Menu() {
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/liste-structures`}
                       {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
-                      onClick={() => trackEvent({ category: 'sample-page-admin-lds', action: 'click-event' })}
+                      onClick={() => trackEvent({ category: 'liste-structures', action: `click-${roleActivated}` })}
                     >
                       Liste des structures
                     </Link>

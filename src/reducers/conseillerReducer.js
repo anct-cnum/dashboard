@@ -210,8 +210,6 @@ export default function conseiller(state = initialState, action) {
         ...state,
         loading: false,
         conseiller: { ...state.conseiller,
-          datePrisePoste: '',
-          dateFinFormation: '',
           emailCN: '',
           statut: 'RUPTURE',
           userCreated: action.response.conseillerUpdated.userCreated,
