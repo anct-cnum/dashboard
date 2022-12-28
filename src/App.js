@@ -15,16 +15,17 @@ import InscriptionFormation from './views/connected/InscriptionFormation';
 import GraphiqueNationale from './views/connected/commun/statistiques/GraphiqueNationale';
 import GraphiqueStructure from './views/connected/commun/statistiques/GraphiqueStructure';
 import GraphiqueTerritoire from './views/connected/commun/statistiques/GraphiqueTerritoire';
-import TableauStructures from './views/connected/commun/statistiques/TableauStructures';
 import TableauTerritoires from './views/connected/commun/statistiques/TableauTerritoires';
 import { useAuth } from 'react-oidc-context';
 import refreshToken from './services/auth/refreshToken';
 import TableauConseillers from './views/connected/commun/conseillers/TableauConseillers';
 import { getAccessToken } from './helpers/getAccessToken';
 import GraphiqueConseiller from './views/connected/commun/statistiques/GraphiqueConseiller';
+import { useMatomo } from '@datapunt/matomo-tracker-react';
 
 function App() {
 
+  const { trackPageView } = useMatomo();
   const isLoading = useSelector(state => state.alerteEtSpinner?.isLoading);
   const accessToken = useSelector(state => state.authentication?.accessToken) || getAccessToken();
   const dispatch = useDispatch();
@@ -36,6 +37,10 @@ function App() {
       refreshToken(auth, dispatch, accessToken);
     }
   }, [location, auth, accessToken]);
+
+  useEffect(() => {
+    trackPageView();
+  }, []);
 
   return (
     <div className="App">
@@ -54,7 +59,6 @@ function App() {
           <Route path="/formation" element={<InscriptionFormation />} />
           <Route path="/liste-conseillers" element={<TableauConseillers />} />
           <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
-          <Route path="/statistiques-structures" element={<TableauStructures />} />
           <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
           <Route path="/statistiques-conseiller/:idConseiller" element={<GraphiqueConseiller />} />
           <Route path="/statistiques-territoires" element={<TableauTerritoires />} />

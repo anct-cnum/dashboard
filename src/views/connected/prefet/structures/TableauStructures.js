@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, filtresStructuresActions, paginationActions, structureActions } from '../../../../actions';
+import { alerteEtSpinnerActions, filtresStructuresActions, paginationActions, statistiquesActions, structureActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Structure from './Structure';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { useLocation } from 'react-router-dom';
 import FiltresEtTrisStructures from '../../commun/structures/FiltresEtTrisStructures';
 
 export default function TableauStructures() {
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const dateDebut = useSelector(state => state.filtresStructures?.dateDebut);
   const dateFin = useSelector(state => state.filtresStructures?.dateFin);
@@ -23,8 +26,8 @@ export default function TableauStructures() {
   const filtreComs = useSelector(state => state.filtresStructures?.coms);
   const filtreType = useSelector(state => state.filtresStructures?.type);
   const filtreStatut = useSelector(state => state.filtresStructures?.statut);
-  const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
+  const [page, setPage] = useState(location.state?.currentPage);
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
@@ -39,10 +42,15 @@ export default function TableauStructures() {
   }, [structures]);
 
   useEffect(() => {
+    scrollTopWindow();
+    if (page === undefined) {
+      dispatch(paginationActions.setPage(1));
+      setPage(1);
+    }
     if (!error) {
-      if (initConseiller === false) {
-        dispatch(paginationActions.setPage(1));
-        dispatch(structureActions.getAll(currentPage, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreType, filtreRegion,
+      if (initConseiller === false && page !== undefined) {
+        dispatch(statistiquesActions.resetFiltre());
+        dispatch(structureActions.getAll(page, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreType, filtreRegion,
           filtreStatut, filtreComs, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
@@ -53,7 +61,7 @@ export default function TableauStructures() {
         status: null, description: null
       }));
     }
-  }, [error]);
+  }, [error, page]);
 
   return (
     <div className="conseillers">
