@@ -8,7 +8,7 @@ const initialState = {
   region: 'tous',
   coms: 'tous',
   type: 'tous',
-  statut: 'tous',
+  statut: 'VALIDATION_COSELEC',
 };
   
 export default function filtresStructures(state = initialState, action) {

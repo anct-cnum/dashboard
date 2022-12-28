@@ -46,14 +46,14 @@ function FiltresEtTrisStructures() {
     dispatch(filtresStructuresActions.changeFiltreComs(e.target?.value));
   };
 
-  const selectFiltreStatut = e => {
-    dispatch(paginationActions.setPage(1));
-    dispatch(filtresStructuresActions.changeFiltreStatut(e.target?.value));
-  };
-
   const selectFiltreType = e => {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresStructuresActions.changeFiltreType(e.target?.value));
+  };
+
+  const selectFiltreStatut = e => {
+    dispatch(paginationActions.setPage(1));
+    dispatch(filtresStructuresActions.changeFiltreStatut(e.target?.value));
   };
 
   const exportDonneesStructures = () => {
@@ -92,7 +92,7 @@ function FiltresEtTrisStructures() {
       dispatch(structureActions.getAll(currentPage, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreType, filtreRegion,
         filtreStatut, filtreComs, ordreNom, ordre ? 1 : -1));
     }
-  }, [dateDebut, dateFin, currentPage, filtreStatut, filtreType, filterDepartement, ordreNom, ordre, filtreRegion, filtreParNomStructure, filtreComs]);
+  }, [dateDebut, dateFin, currentPage, filtreType, filterDepartement, ordreNom, ordre, filtreRegion, filtreParNomStructure, filtreComs, filtreStatut]);
 
   return (
     <>
@@ -103,7 +103,7 @@ function FiltresEtTrisStructures() {
         </div>
         <div className="fr-grid-row">
           <div className="fr-select-group fr-col-5" id="filtre-region">
-            <select className="fr-select" onChange={selectFiltreRegion}>
+            <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
               <option value={'tous'}>S&eacute;lectionner une région</option>
               {codeRegions.map((region, idx) =>
                 <option key={idx} value={region.code}>{region.nom}</option>
@@ -122,7 +122,7 @@ function FiltresEtTrisStructures() {
         </div>
         <div className="fr-grid-row fr-grid-row--end">
           <div className="fr-select-group fr-col-5" id="filtre-departement">
-            <select className="fr-select" onChange={selectFiltreDepartement}>
+            <select className="fr-select" value={filterDepartement} onChange={selectFiltreDepartement}>
               <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
               {getDepartements().map((departement, idx) =>
                 <option key={idx} value={departement.num_dep}>{departement.num_dep} - {departement.dep_name}</option>
@@ -130,7 +130,7 @@ function FiltresEtTrisStructures() {
             </select>
           </div>
           <div className="fr-select-group fr-ml-auto fr-col-5" id="filtre-type">
-            <select className="fr-select" onChange={selectFiltreType}>
+            <select className="fr-select" value={filtreType} onChange={selectFiltreType}>
               <option value={'tous'}>S&eacute;lectionner un type de structure</option>
               <option value="PUBLIC">Publique</option>
               <option value="PRIVATE">Priv&eacute;e</option>
@@ -139,7 +139,7 @@ function FiltresEtTrisStructures() {
         </div>
         <div className="fr-grid-row fr-grid-row--end">
           <div className="fr-select-group fr-col-5" id="filtre-com">
-            <select className="fr-select" onChange={selectFiltreComs}>
+            <select className="fr-select" value={filtreComs} onChange={selectFiltreComs}>
               <option value={'tous'}>S&eacute;lectionner une collectivit&eacute; d&rsquo;outre-mer</option>
               {coms.map((com, idx) =>
                 <option key={idx} value={com.num_com}>{com.num_com} - {com.com_name}</option>
@@ -147,7 +147,7 @@ function FiltresEtTrisStructures() {
             </select>
           </div>
           <div className="fr-select-group fr-ml-auto fr-col-5" id="filtre-statut">
-            <select className="fr-select" onChange={selectFiltreStatut}>
+            <select className="fr-select" value={filtreStatut} onChange={selectFiltreStatut}>
               <option value={'tous'}>S&eacute;lectionner le statut de la structure</option>
               <option value="VALIDATION_COSELEC">Valid&eacute;e</option>
               <option value="EXAMEN_COMPLEMENTAIRE_COSELEC">Examen complémentaire</option>

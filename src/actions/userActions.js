@@ -4,7 +4,8 @@ export const userActions = {
   verifyToken,
   inputEmailNotValid,
   getUsers,
-  login
+  login,
+  validationSuppressionCompte
 };
 
 function verifyToken(token) {
@@ -91,5 +92,31 @@ function getUsers() {
   }
   function failure(error) {
     return { type: 'GET_USERS_FAILURE', error };
+  }
+}
+
+function validationSuppressionCompte(idUser) {
+  return dispatch => {
+    dispatch(request());
+
+    userService.validationSuppressionCompte(idUser)
+    .then(
+      response => {
+        dispatch(success(response));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'VALIDATION_SUPPRESSION_COMPTE_REQUEST' };
+  }
+  function success(response) {
+    return { type: 'VALIDATION_SUPPRESSION_COMPTE_SUCCESS', response };
+  }
+  function failure(error) {
+    return { type: 'VALIDATION_SUPPRESSION_COMPTE_FAILURE', error };
   }
 }

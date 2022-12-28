@@ -10,8 +10,7 @@ function Menu() {
   const location = useLocation();
   const { trackEvent } = useMatomo();
   
-  const urlAide = process.env.REACT_APP_AIDE_HOSTNAME;
-  const rolesStatistiquesStructures = ['admin', 'prefet', 'hub_coop', 'grandReseau'];
+  const urlAide = `${process.env.REACT_APP_AIDE_HOSTNAME}/category/tableau-de-pilotage-1i6u8in`;
 
   const burgerMenuHidden = useSelector(state => state.menu?.hiddenBurgerMenu);
   const [activeMenu, setActiveMenu] = useState(null);
@@ -127,28 +126,20 @@ function Menu() {
                   <li>
                     <Link className="fr-nav__link" to={`/statistiques-nationales`}
                       {...(location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Statistiques nationales
+                      &bull;&nbsp;Statistiques nationales du dispositif
                     </Link>
                   </li>
                   <li>
                     <Link className="fr-nav__link" to="/statistiques-territoires"
                       {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}>
-                        &bull;&nbsp;Statistiques par territoire
+                        &bull;&nbsp;Statistiques territoriales du dispositif
                     </Link>
                   </li>
-                  {(rolesStatistiquesStructures.includes(roleActivated)) &&
-                  <li>
-                    <Link className="fr-nav__link" to="/statistiques-structures"
-                      {...(location.pathname.startsWith(`/statistiques-structures`) ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Statistiques par structure
-                    </Link>
-                  </li>
-                  }
                   {roleActivated === 'structure' &&
                   <li>
                     <Link className="fr-nav__link" to={`/statistiques-structure/${authenticationUser}`}
                       {...(location.pathname.startsWith(`/statistiques-structure`) ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Mes Statistiques structure
+                      &bull;&nbsp;Mes statistiques structure
                     </Link>
                   </li>
                   }
@@ -171,7 +162,7 @@ function Menu() {
                 aria-controls="menu-recrutement"
                 {...(location.pathname.startsWith(`/certifications`) || location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
-                  Infos recrutement
+                  Formation / Certification
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'recrutement' ? 'fr-collapse--expanded' : ''}`} id="menu-recrutement">
                 <ul className="fr-menu__list">

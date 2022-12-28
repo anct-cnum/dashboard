@@ -10,6 +10,7 @@ import LeftPage from './Components/graphiques/LeftPage';
 import RightPage from './Components/graphiques/RightPage';
 import BottomPage from './Components/graphiques/BottomPage';
 import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
+import ElementCodePostal from './Components/graphiques/ElementCodePostal';
 
 export default function GraphiqueConseiller() {
 
@@ -26,6 +27,9 @@ export default function GraphiqueConseiller() {
   const statistiquesLoading = useSelector(state => state.statistiques?.loading);
   const statistiquesError = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
+  const villeStats = useSelector(state => state.statistiques?.villeStats);
+  const codePostal = useSelector(state => state.statistiques?.codePostalStats);
+
   const loadingExport = useSelector(state => state.exports?.loading);
 
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
@@ -35,11 +39,14 @@ export default function GraphiqueConseiller() {
     if (!errorConseiller) {
       if (!conseiller) {
         dispatch(conseillerActions.getCandidat(idConseiller));
+        dispatch(statistiquesActions.getCodesPostauxCrasConseiller(idConseiller));
+      } else {
+        dispatch(statistiquesActions.getCodesPostauxCrasConseiller(idConseiller));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Le territoire n\'a pas pu être chargé !',
+        message: 'Le conseiller n\'a pas pu être chargé !',
         status: null, description: null
       }));
     }
@@ -54,7 +61,7 @@ export default function GraphiqueConseiller() {
   useEffect(() => {
     if (!statistiquesError) {
       if (idConseiller && !!conseiller) {
-        dispatch(statistiquesActions.getStatistiquesConseiller(dateDebut, dateFin, idConseiller));
+        dispatch(statistiquesActions.getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, villeStats));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -63,7 +70,7 @@ export default function GraphiqueConseiller() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, statistiquesError, conseiller]);
+  }, [dateDebut, dateFin, statistiquesError, conseiller, villeStats, codePostal]);
 
   const formatNomStatistiques = () => {
     const formatNom = conseiller?.nom.charAt(0).toUpperCase() + conseiller?.nom.slice(1);
@@ -85,6 +92,11 @@ export default function GraphiqueConseiller() {
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w print-graphique">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
           </div>
+          <div className="fr-col-12 fr-col-md-6 fr-col-lg-3 fr-mb-6w print-graphique">
+            {conseiller !== undefined &&
+              <ElementCodePostal />
+            }
+          </div>
           <div className="fr-col-12 fr-col-offset-lg-1 fr-col-lg-4">
             <hr className="fr-hr fr-mt-3v"/>
           </div>
@@ -98,10 +110,12 @@ export default function GraphiqueConseiller() {
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
             <StatistiquesBanniere
-              dateDebut={new Date('2020-09-01')}
+              dateDebut={dateDebut}
               dateFin={dateFin}
               typeStats="conseiller"
               id={idConseiller}
+              codePostal={codePostal}
+              ville={villeStats}
             />
           </div>
         }
