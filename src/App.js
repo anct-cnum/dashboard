@@ -24,7 +24,7 @@ import GraphiqueConseiller from './views/connected/commun/statistiques/Graphique
 import { useMatomo } from '@datapunt/matomo-tracker-react';
 
 function App() {
-  
+
   const { trackPageView } = useMatomo();
   const isLoading = useSelector(state => state.alerteEtSpinner?.isLoading);
   const accessToken = useSelector(state => state.authentication?.accessToken) || getAccessToken();

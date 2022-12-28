@@ -16,7 +16,6 @@ import setup from './services/api';
 import signInCallBack from '../src/services/auth/signInCallBack';
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react';
 
-
 if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -46,7 +45,7 @@ const oidcConfig = {
 
 const instance = createInstance({
   urlBase: process.env.REACT_APP_MATOMO_URL,
-  siteId: process.env.REACT_APP_MATOMO_ID,
+  siteId: parseInt(process.env.REACT_APP_MATOMO_ID, 10),
 });
 
 setup(store);
