@@ -7,7 +7,7 @@ function ModalConfirmationSuppressionCompte({ setDisplayModalDelete, user }) {
   const dispatch = useDispatch();
 
   const validationSuppressionCompte = () => {
-    dispatch(userActions.validationSuppressionCompte(user._id));
+    dispatch(userActions.validationSuppressionCompteGrandReseau(user._id));
     setDisplayModalDelete(false);
   };
 
