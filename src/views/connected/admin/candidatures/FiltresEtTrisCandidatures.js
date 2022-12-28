@@ -10,6 +10,8 @@ function FiltresEtTrisCandidatures() {
   const departementsRegionList = Array.from(departementsRegionRaw);
   const filtreParNomCandidat = useSelector(state => state.filtresCandidatures?.nomCandidat);
   const filtreRegion = useSelector(state => state.filtresCandidatures?.region);
+  const filtreDepartement = useSelector(state => state.filtresCandidatures?.departement);
+  const filtreComs = useSelector(state => state.filtresCandidatures?.coms);
 
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));
@@ -54,7 +56,7 @@ function FiltresEtTrisCandidatures() {
             </div>
           </div>
           <div className="fr-select-group fr-col-10" id="filtre-region">
-            <select className="fr-select" onChange={selectFiltreRegion}>
+            <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
               <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
                 <option key={idx} value={region.code}>{region.nom}</option>
@@ -62,7 +64,7 @@ function FiltresEtTrisCandidatures() {
             </select>
           </div>
           <div className="fr-select-group fr-col-10" id="filtre-departement">
-            <select className="fr-select" onChange={selectFiltreDepartement}>
+            <select className="fr-select" value={filtreDepartement} onChange={selectFiltreDepartement}>
               <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
               {getDepartements().map((departement, idx) =>
                 <option key={idx} value={departement.num_dep}>{departement.num_dep} - {departement.dep_name}</option>
@@ -70,7 +72,7 @@ function FiltresEtTrisCandidatures() {
             </select>
           </div>
           <div className="fr-select-group fr-col-10" id="filtre-com">
-            <select className="fr-select" onChange={selectFiltreComs}>
+            <select className="fr-select" value={filtreComs} onChange={selectFiltreComs}>
               <option value={'tous'}>S&eacute;lectionner une collectivit&eacute; d&rsquo;outre-mer</option>
               {coms.map((com, idx) =>
                 <option key={idx} value={com.num_com}>{com.num_com} - {com.com_name}</option>

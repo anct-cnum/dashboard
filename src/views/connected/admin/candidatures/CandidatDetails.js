@@ -3,7 +3,7 @@ import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { alerteEtSpinnerActions, conseillerActions } from '../../../../actions';
-import { formatRenderStars } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, formatRenderStars } from '../../../../utils/formatagesUtils';
 import Spinner from '../../../../components/Spinner';
 import pixUtilisation from '../../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../../assets/icons/pix-ressources.png';
@@ -93,8 +93,7 @@ function CandidatDetails() {
       </Link>
       <div className="fr-mt-2w">
         <h2>
-          <span className="capitalizeFirstLetter">
-            {conseiller?.prenom}&nbsp;{conseiller?.nom}</span>
+          {formatNomConseiller(conseiller)}
         </h2>
         <div className="fr-container fr-container--fluid">
           <div className="fr-grid-row">
@@ -143,7 +142,11 @@ function CandidatDetails() {
               <p>Mobilit&eacute; g&eacute;ographique : {conseiller?.distanceMax === 2000 ? 'France entière' : `${conseiller?.distanceMax} Km`}</p>
               <p>Date de d&eacute;marrage possible : {dayjs(conseiller?.dateDisponibilite).format('DD/MM/YYYY')}</p>
               <p><strong>Courriel : <a href={'mailto:' + conseiller?.email}>{conseiller?.email}</a></strong></p>
-              <p><strong>T&eacute;l&eacute;phone : {conseiller?.telephone ? conseiller?.telephone : <span>Pas de num&eacute;ro de t&eacute;l&eacute;phone</span>}</strong></p>
+              <p>
+                <strong>
+                  T&eacute;l&eacute;phone : {conseiller?.telephone ? conseiller?.telephone : <span>Pas de num&eacute;ro de t&eacute;l&eacute;phone</span>}
+                </strong>
+              </p>
               <p>Poss&egrave;de un compte candidat&nbsp;: {conseiller?.possedeCompteCandidat ? 'Oui' : 'Non'}</p>
               <button
                 className="fr-btn fr-col-6 fr-mr-3w fr-mt-2w"
