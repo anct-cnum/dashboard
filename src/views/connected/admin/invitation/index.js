@@ -22,7 +22,9 @@ export default function Invation() {
           <div className="fr-fieldset__content">
             {arrayOption.map((option, key) =>
               <div className="fr-radio-group" key={key}>
-                <input type="radio" id={option.value} name="choix-invitation" onClick={() => setOption(option.value)}/>
+                <input type="radio" id={option.value} name="choix-invitation" onClick={() => setOption(option.value)}
+                  { ...(option.value === 'hub' || option.value === 'prefet') ? { disabled: 'disabled' } : {} }
+                />
                 <label className="fr-label" htmlFor={option.value}>{option.label}
                 </label>
               </div>

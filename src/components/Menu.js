@@ -118,13 +118,13 @@ function Menu() {
                   <li>
                     <Link className="fr-nav__link" to={`/statistiques-nationales`}
                       {...(location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Statistiques nationales
+                      &bull;&nbsp;Statistiques nationales du dispositif
                     </Link>
                   </li>
                   <li>
                     <Link className="fr-nav__link" to="/statistiques-territoires"
                       {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}>
-                        &bull;&nbsp;Statistiques par territoire
+                        &bull;&nbsp;Statistiques territoriales du dispositif
                     </Link>
                   </li>
                   {roleActivated === 'structure' &&
@@ -154,7 +154,7 @@ function Menu() {
                 aria-controls="menu-recrutement"
                 {...(location.pathname.startsWith(`/certifications`) || location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
-                  Infos recrutement
+                  Formation / Certification
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'recrutement' ? 'fr-collapse--expanded' : ''}`} id="menu-recrutement">
                 <ul className="fr-menu__list">
