@@ -13,6 +13,8 @@ export const conseillerActions = {
   preSelectionner,
   getCurriculumVitae,
   getAllCandidats,
+  validationRupture,
+  dossierIncompletRupture,
   getAllCandidatsByAdmin,
   resendInvitCandidat,
   suppressionCandidat
@@ -40,7 +42,6 @@ function get(id) {
   function failure(error) {
     return { type: 'GET_CONSEILLER_FAILURE', error };
   }
-
 }
 
 function getCandidat(id) {
@@ -65,7 +66,6 @@ function getCandidat(id) {
   function failure(error) {
     return { type: 'GET_CANDIDAT_FAILURE', error };
   }
-
 }
 
 function getAllCandidats({
@@ -339,7 +339,6 @@ function preSelectionner({ conseillerId, structureId }) {
 }
 
 function getCurriculumVitae(id, candidat) {
-
   return dispatch => {
     dispatch(request());
 
@@ -357,5 +356,53 @@ function getCurriculumVitae(id, candidat) {
   }
   function failure(error) {
     return { type: 'GET_CURRICULUM_VITAE_FAILURE', error };
+  }
+}
+
+function validationRupture(id, dateFinDeContrat) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.validationRupture(id, dateFinDeContrat)
+    .then(
+      response => dispatch(success(response)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'VALIDATION_RUPTURE_REQUEST' };
+  }
+  function success(response) {
+    return { type: 'VALIDATION_RUPTURE_SUCCESS', response };
+  }
+  function failure(error) {
+    return { type: 'VALIDATION_RUPTURE_FAILURE', error };
+  }
+}
+
+function dossierIncompletRupture(id, dateFinDeContrat) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.dossierIncompletRupture(id, dateFinDeContrat)
+    .then(
+      response => dispatch(success(response.dossierIncompletRupture)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'DOSSIER_INCOMPLET_RUPTURE_REQUEST' };
+  }
+  function success(dossierIncompletRupture) {
+    return { type: 'DOSSIER_INCOMPLET_RUPTURE_SUCCESS', dossierIncompletRupture };
+  }
+  function failure(error) {
+    return { type: 'DOSSIER_INCOMPLET_RUPTURE_FAILURE', error };
   }
 }

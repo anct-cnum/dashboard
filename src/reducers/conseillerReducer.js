@@ -199,6 +199,49 @@ export default function conseiller(state = initialState, action) {
         loading: false,
         error: action.error
       };
+    case 'VALIDATION_RUPTURE_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        errorRupture: false
+      };
+    case 'VALIDATION_RUPTURE_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        conseiller: { ...state.conseiller,
+          emailCN: '',
+          statut: 'RUPTURE',
+          userCreated: action.response.conseillerUpdated.userCreated,
+          misesEnRelation: state.conseiller.misesEnRelation.map(
+            miseEnRelation => (miseEnRelation._id === action.response.miseEnRelationUpdated._id) ? action.response.miseEnRelationUpdated : miseEnRelation
+          ),
+          permanences: []
+        }
+      };
+    case 'VALIDATION_RUPTURE_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        errorRupture: action.error
+      };
+    case 'DOSSIER_INCOMPLET_RUPTURE_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        errorRupture: false
+      };
+    case 'DOSSIER_INCOMPLET_RUPTURE_SUCCESS':
+      return {
+        ...state,
+        dossierIncompletRupture: action.dossierIncompletRupture,
+        loading: false
+      };
+    case 'DOSSIER_INCOMPLET_RUPTURE_FAILURE':
+      return {
+        loading: false,
+        errorRupture: action.error
+      };
     case 'RESUBMIT_INSCRIPTION_CANDIDAT_REQUEST':
       return {
         ...state,

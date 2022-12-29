@@ -18,8 +18,8 @@ function Candidat({ candidat }) {
     <>
       <tr>
         <td>{candidat?.idPG}</td>
-        <td>{candidat?.prenom}</td>
-        <td>{candidat?.nom}</td>
+        <td style={{ width: '10rem' }}>{candidat?.prenom}</td>
+        <td style={{ width: '10rem' }}>{candidat?.nom}</td>
         <td>{dayjs(candidat?.createdAt).format('DD/MM/YYYY')}</td>
         <td>{candidat?.codePostal}</td>
         <td>

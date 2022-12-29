@@ -46,7 +46,7 @@ function FiltresEtTrisCandidatures() {
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
           <h3 className="fr-h3 fr-col-12">Liste des candidatures</h3>
-          <div className="fr-col-12 fr-col-md-10 fr-mb-4w">
+          <div className="fr-col-12 fr-col-xl-11 fr-mb-4w">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
               <input className="fr-input" defaultValue={filtreParNomCandidat ?? ''}
                 placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
@@ -55,7 +55,7 @@ function FiltresEtTrisCandidatures() {
               </button>
             </div>
           </div>
-          <div className="fr-select-group fr-col-10" id="filtre-region">
+          <div className="fr-select-group fr-col-12 fr-col-xl-11" id="filtre-region">
             <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
               <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
@@ -63,7 +63,7 @@ function FiltresEtTrisCandidatures() {
               )}
             </select>
           </div>
-          <div className="fr-select-group fr-col-10" id="filtre-departement">
+          <div className="fr-select-group fr-col-12 fr-col-xl-11" id="filtre-departement">
             <select className="fr-select" value={filtreDepartement} onChange={selectFiltreDepartement}>
               <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
               {getDepartements().map((departement, idx) =>
@@ -71,7 +71,7 @@ function FiltresEtTrisCandidatures() {
               )}
             </select>
           </div>
-          <div className="fr-select-group fr-col-10" id="filtre-com">
+          <div className="fr-select-group fr-col-12 fr-col-xl-11" id="filtre-com">
             <select className="fr-select" value={filtreComs} onChange={selectFiltreComs}>
               <option value={'tous'}>S&eacute;lectionner une collectivit&eacute; d&rsquo;outre-mer</option>
               {coms.map((com, idx) =>

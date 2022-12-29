@@ -5,7 +5,7 @@ export const userActions = {
   inputEmailNotValid,
   getUsers,
   login,
-  validationSuppressionCompte
+  validationSuppressionCompteGrandReseau
 };
 
 function verifyToken(token) {
@@ -95,11 +95,11 @@ function getUsers() {
   }
 }
 
-function validationSuppressionCompte(idUser) {
+function validationSuppressionCompteGrandReseau(idUser) {
   return dispatch => {
     dispatch(request());
 
-    userService.validationSuppressionCompte(idUser)
+    userService.validationSuppressionCompteGrandReseau(idUser)
     .then(
       response => {
         dispatch(success(response));
