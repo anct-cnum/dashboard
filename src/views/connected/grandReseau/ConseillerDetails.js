@@ -334,7 +334,7 @@ function ConseillerDetails() {
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-8">
+          <div className="fr-col-8 fr-mr-3w">
             <h4 className="titre">Contrat</h4>
             <div className="fr-mb-5w fr-grid-row">
               {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture.length > 0) &&
@@ -366,7 +366,7 @@ function ConseillerDetails() {
                   {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
                     <>
                       <div key={idx} className="fr-grid-row">
-                        <span>le {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
+                        <span>le {dayjs(miseEnRelation?.emetteurRupture?.date).format('DD/MM/YYYY')}</span>
                         <span>&nbsp;pour le motif de&nbsp;</span>
                         <span>{formatMotifRupture(miseEnRelation?.motifRupture)}</span>
                         <span>
@@ -392,7 +392,7 @@ function ConseillerDetails() {
               </>
             }
           </div>
-          <div className="fr-col-4">
+          <div className="fr-col-3">
             <h4 className="titre">Formation</h4>
             <div className="fr-mb-3w">
               <strong>Date d&lsquo;entr&eacute;e en formation</strong><br/>

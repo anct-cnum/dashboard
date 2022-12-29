@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useMatomo } from '@datapunt/matomo-tracker-react';
 
 function Structure({ structure }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const { trackEvent } = useMatomo();
 
   return (
     <>
@@ -21,6 +23,7 @@ function Structure({ structure }) {
               title="D&eacute;tail"
               onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}/>
             <Link
+              onClick={() => trackEvent({ category: 'statistiques-structures', action: `click-${roleActivated}` })}
               className="fr-btn fr-icon-line-chart-line"
               title="Statistiques"
               to={`/statistiques-structure/${structure?._id}`}

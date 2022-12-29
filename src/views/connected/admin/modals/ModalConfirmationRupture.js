@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { conseillerActions } from '../../../../actions';
 import { useDispatch } from 'react-redux';
-import { userActions } from '../../../../actions';
 
-function ModalConfirmationSuppressionCompte({ setDisplayModalDelete, user }) {
+function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat }) {
   const dispatch = useDispatch();
 
-  const validationSuppressionCompte = () => {
-    dispatch(userActions.validationSuppressionCompteGrandReseau(user._id));
-    setDisplayModalDelete(false);
+  const validationRupture = () => {
+    dispatch(conseillerActions.validationRupture(idConseiller, dateFinDeContrat));
+    setOpenModal(false);
   };
 
   return (
@@ -18,26 +18,28 @@ function ModalConfirmationSuppressionCompte({ setDisplayModalDelete, user }) {
           <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
             <div className="fr-modal__body">
               <div className="fr-modal__header">
-                <button className="fr-btn--close fr-btn" aria-controls="fr-modal-2" onClick={() => setDisplayModalDelete(false)}>Fermer</button>
+                <button className="fr-btn--close fr-btn" aria-controls="fr-modal-2" onClick={() => setOpenModal(false)}>Fermer</button>
               </div>
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                  &Ecirc;tes-vous s&ucirc;r de vouloir supprimer le compte ?
+                  &Ecirc;tes-vous s&ucirc;r de vouloir valider la rupture de ce conseiller ?
                 </h1>
                 <p>
-                    Cette action entra&icirc;nera la suppression du compte administrateur <strong>{user.email}</strong>
+                    Cette action entra&icirc;nera la rupture du conseiller avec sa structure. Ce qui aura pour
+                    cons&eacute;quence de supprimer son adresse mail professionelle, son compte mattermost
+                    ainsi que l&lsquo;acc&egrave;s &agrave; l&lsquo;espace coop.
                 </p>
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                   <li>
-                    <button onClick={() => setDisplayModalDelete(false)} className="fr-btn fr-btn--secondary">
+                    <button onClick={() => setOpenModal(false)} className="fr-btn fr-btn--secondary">
                         Annuler
                     </button>
                   </li>
                   <li>
-                    <button onClick={validationSuppressionCompte} className="fr-btn">
+                    <button onClick={validationRupture} className="fr-btn">
                         Valider
                     </button>
                   </li>
@@ -51,9 +53,10 @@ function ModalConfirmationSuppressionCompte({ setDisplayModalDelete, user }) {
   );
 }
 
-ModalConfirmationSuppressionCompte.propTypes = {
-  setDisplayModalDelete: PropTypes.func,
-  user: PropTypes.object,
+ModalConfirmationRupture.propTypes = {
+  setOpenModal: PropTypes.func,
+  idConseiller: PropTypes.string,
+  dateFinDeContrat: PropTypes.string
 };
 
-export default ModalConfirmationSuppressionCompte;
+export default ModalConfirmationRupture;

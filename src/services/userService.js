@@ -7,7 +7,7 @@ export const userService = {
   login,
   verifyToken,
   getUsers,
-  validationSuppressionCompte
+  validationSuppressionCompteGrandReseau
 };
 
 function verifyToken(token) {
@@ -65,8 +65,8 @@ function getUsers() {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function validationSuppressionCompte(idUser) {
-  return API.delete(`${apiUrlRoot}/user/${idUser}?role=${roleActivated()}`)
+function validationSuppressionCompteGrandReseau(idUser) {
+  return API.delete(`${apiUrlRoot}/user/grandReseau/${idUser}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
