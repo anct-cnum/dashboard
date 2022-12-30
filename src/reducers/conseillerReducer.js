@@ -211,6 +211,8 @@ export default function conseiller(state = initialState, action) {
         loading: false,
         conseiller: { ...state.conseiller,
           emailCN: '',
+          emailPro: '',
+          telephonePro: '',
           statut: 'RUPTURE',
           userCreated: action.response.conseillerUpdated.userCreated,
           misesEnRelation: state.conseiller.misesEnRelation.map(
