@@ -28,19 +28,17 @@ function Conseiller({ conseiller }) {
         </td>
         <td>{conseiller?.craCount}</td>
         <td>
-          <div className="btn-actions-conseillers">
-            <button
-              className="fr-btn fr-icon-eye-line fr-mr-2w"
-              title="D&eacute;tail"
-              onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
-            <Link
-              onClick={() => trackEvent({ category: 'statistiques-conseillers', action: `click-${roleActivated}` })}
-              className="fr-btn fr-icon-line-chart-line"
-              title="Statistiques"
-              to={`/statistiques-conseiller/${conseiller?._id}`}
-              state={{ 'origin': '/liste-conseillers', conseiller }}
-            />
-          </div>
+          <button
+            className="fr-btn fr-icon-eye-line fr-mb-2w"
+            title="D&eacute;tail"
+            onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
+          <Link
+            onClick={() => trackEvent({ category: 'statistiques-conseillers', action: `click-${roleActivated}` })}
+            className="fr-btn fr-icon-line-chart-line"
+            title="Statistiques"
+            to={`/statistiques-conseiller/${conseiller?._id}`}
+            state={{ 'origin': '/liste-conseillers', conseiller }}
+          />
         </td>
       </tr>
     </>

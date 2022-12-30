@@ -116,7 +116,12 @@ function ConseillerDetails() {
           <p className="fr-badge fr-badge--error fr-badge--no-icon">Contrat termin&eacute;</p>
         }
         {misesEnRelationNouvelleRupture &&
-          <p className="fr-badge fr-badge--info">{misesEnRelationNouvelleRupture?.dossierIncompletRupture ? 'Dossier incomplet' : 'Rupture en cours'}</p>
+        <>
+          {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
+            <p className="fr-badge fr-badge--warning">Dossier incomplet</p> :
+            <p className="fr-badge fr-badge--info">Rupture en cours</p>
+          }
+        </>
         }
       </div>
       <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
@@ -430,7 +435,7 @@ function ConseillerDetails() {
                       <span>&nbsp;pour le motif de&nbsp;</span>
                       <span>{formatMotifRupture(misesEnRelationNouvelleRupture?.motifRupture)}</span>
                       {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
-                        <span>&nbsp;-&nbsp;<strong className="fr-badge fr-badge--info fr-badge--no-icon">Dossier incomplet</strong></span> :
+                        <span>&nbsp;-&nbsp;<strong className="fr-badge fr-badge--warning fr-badge--no-icon">Dossier incomplet</strong></span> :
                         <span>&nbsp;-&nbsp;<strong className="fr-badge fr-badge--info fr-badge--no-icon">
                           {formatStatut(misesEnRelationNouvelleRupture?.statut)}
                         </strong></span>
@@ -464,7 +469,7 @@ function ConseillerDetails() {
                             </div>
                           </div>
                         </fieldset>
-                        <div className="fr-input-group fr-col-6">
+                        <div className="fr-input-group fr-col-6 fr-mt-3w">
                           <label className="fr-label" htmlFor="text-input-error">
                             Renseignez la date de fin de contrat du conseiller
                           </label>
