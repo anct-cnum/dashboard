@@ -100,7 +100,7 @@ export default function TableauCandidatures() {
                         }
                         {(!conseillers?.items || conseillers?.items?.total === 0) &&
                           <tr>
-                            <td colSpan="12" style={{ width: '60rem' }}>
+                            <td colSpan="12" style={{ width: '66rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <span className="not-found pair">Aucun candidat trouv&eacute;</span>
                               </div>

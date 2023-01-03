@@ -18,7 +18,7 @@ function Structure({ structure }) {
         <td colSpan="12" style={{ width: '20rem' }}>{structure?.contact?.email}</td>
         <td>{structure?.contact?.telephone}</td>
         <td>
-          <div className="btn-actions-conseillers">
+          <div className="btn-actions-structures">
             <button
               className="fr-btn fr-icon-eye-line fr-mr-2w"
               title="D&eacute;tail"

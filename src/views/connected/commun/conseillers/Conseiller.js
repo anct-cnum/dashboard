@@ -12,14 +12,14 @@ function Conseiller({ conseiller }) {
     <>
       <tr>
         <td>{conseiller?.idPG}</td>
-        <td>{conseiller?.nom}</td>
-        <td>{conseiller?.prenom}</td>
-        <td>
+        <td style={{ maxWidth: '8rem' }}>{conseiller?.nom}</td>
+        <td style={{ maxWidth: '8rem' }}>{conseiller?.prenom}</td>
+        <td style={{ width: '20rem' }}>
           <a className="email"href={'mailto:' + conseiller?.address}>
             {conseiller?.address}
           </a>
         </td>
-        <td>{conseiller?.nomStructure}</td>
+        <td style={{ width: '15rem' }}>{conseiller?.nomStructure}</td>
         <td className="center-text">
           {conseiller.rupture}
         </td>
@@ -28,19 +28,17 @@ function Conseiller({ conseiller }) {
         </td>
         <td>{conseiller?.craCount}</td>
         <td>
-          <div className="btn-actions-conseillers">
-            <button
-              className="fr-btn fr-icon-eye-line fr-mr-2w"
-              title="D&eacute;tail"
-              onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
-            <Link
-              onClick={() => trackEvent({ category: 'statistiques-conseillers', action: `click-${roleActivated}` })}
-              className="fr-btn fr-icon-line-chart-line"
-              title="Statistiques"
-              to={`/statistiques-conseiller/${conseiller?._id}`}
-              state={{ 'origin': '/liste-conseillers', conseiller }}
-            />
-          </div>
+          <button
+            className="fr-btn fr-icon-eye-line fr-mb-2w"
+            title="D&eacute;tail"
+            onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
+          <Link
+            onClick={() => trackEvent({ category: 'statistiques-conseillers', action: `click-${roleActivated}` })}
+            className="fr-btn fr-icon-line-chart-line"
+            title="Statistiques"
+            to={`/statistiques-conseiller/${conseiller?._id}`}
+            state={{ 'origin': '/liste-conseillers', conseiller }}
+          />
         </td>
       </tr>
     </>

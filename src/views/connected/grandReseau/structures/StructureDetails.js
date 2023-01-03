@@ -245,9 +245,9 @@ function StructureDetails() {
             <h4 className="titre">Conventionnement phase 1</h4>
             <div className="fr-mb-3w">
               <strong>{pluralize(
-                'Postes validé coselec',
-                'Postes validé coselec',
-                'Postes validés coselec',
+                'Postes validé en comité de sélection',
+                'Postes validé en comité de sélection',
+                'Postes validés en comité de sélection',
                 structure?.posteValiderCoselec
               )}</strong><br />
               <span>{structure?.posteValiderCoselec ?? '-'}</span>
