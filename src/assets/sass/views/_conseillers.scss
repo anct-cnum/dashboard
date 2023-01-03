@@ -32,14 +32,13 @@
         }
     }
     .btn-actions-structures {
-        display: block;
-        width: 12rem;
+        width: 6rem;
     }
     .fr-nav__btn[aria-current]::before {
         height: 0px !important;
     }
     .no-result-table {
-        height: 300px;
+        height: 400px;
     }
     .admin-select-option {
         background-color: $white;

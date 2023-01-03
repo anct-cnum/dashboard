@@ -12,14 +12,14 @@ function Conseiller({ conseiller }) {
     <>
       <tr>
         <td>{conseiller?.idPG}</td>
-        <td>{conseiller?.nom}</td>
-        <td>{conseiller?.prenom}</td>
-        <td>
+        <td style={{ maxWidth: '8rem' }}>{conseiller?.nom}</td>
+        <td style={{ maxWidth: '8rem' }}>{conseiller?.prenom}</td>
+        <td style={{ width: '20rem' }}>
           <a className="email"href={'mailto:' + conseiller?.address}>
             {conseiller?.address}
           </a>
         </td>
-        <td>{conseiller?.nomStructure}</td>
+        <td style={{ width: '15rem' }}>{conseiller?.nomStructure}</td>
         <td className="center-text">
           {conseiller.rupture}
         </td>
