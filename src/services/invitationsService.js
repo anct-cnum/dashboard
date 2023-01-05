@@ -18,10 +18,10 @@ function inviteAccountPrefet(email, maille) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function inviteAccountAdmin(email) {
+function inviteAccountAdmin({ email, nom, prenom }) {
   return API.post(
     `${apiUrlRoot}/inviteAccountAdmin?role=${roleActivated()}`,
-    { email })
+    { email, nom, prenom })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
