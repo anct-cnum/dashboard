@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { menuActions } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
-import { useMatomo } from '@datapunt/matomo-tracker-react';
+import { useMatomo } from '@jonkoops/matomo-tracker-react';
 
 function Menu() {
 

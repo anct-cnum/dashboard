@@ -21,7 +21,7 @@ import refreshToken from './services/auth/refreshToken';
 import TableauConseillers from './views/connected/commun/conseillers/TableauConseillers';
 import { getAccessToken } from './helpers/getAccessToken';
 import GraphiqueConseiller from './views/connected/commun/statistiques/GraphiqueConseiller';
-import { useMatomo } from '@datapunt/matomo-tracker-react';
+import { useMatomo } from '@jonkoops/matomo-tracker-react';
 
 function App() {
 
