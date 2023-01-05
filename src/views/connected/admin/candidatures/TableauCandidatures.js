@@ -83,13 +83,13 @@ export default function TableauCandidatures() {
                     <table className={conseillers?.items?.data?.length < 2 ? 'no-result-table' : ''}>
                       <thead>
                         <tr>
-                          <th>Id</th>
-                          <th>Pr&eacute;nom</th>
-                          <th>Nom</th>
-                          <th>Date de candidature</th>
-                          <th>Code postal</th>
-                          <th>R&eacute;sultat Pix</th>
-                          <th>Curriculum Vit&aelig;</th>
+                          <th style={{ width: '4.5rem' }}>Id</th>
+                          <th style={{ width: '9.1rem' }}>Pr&eacute;nom</th>
+                          <th style={{ width: '9.1rem' }}>Nom</th>
+                          <th style={{ width: '10.7rem' }}>Date de candidature</th>
+                          <th style={{ width: '6rem' }}>Code postal</th>
+                          <th style={{ width: '7rem' }}>R&eacute;sultat Pix</th>
+                          <th style={{ width: '9.2rem' }}>Curriculum Vit&aelig;</th>
                           <th></th>
                         </tr>
                       </thead>
@@ -100,7 +100,7 @@ export default function TableauCandidatures() {
                         }
                         {(!conseillers?.items || conseillers?.items?.total === 0) &&
                           <tr>
-                            <td colSpan="12" style={{ width: '66rem' }}>
+                            <td colSpan="12" style={{ width: '60rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <span className="not-found pair">Aucun candidat trouv&eacute;</span>
                               </div>
