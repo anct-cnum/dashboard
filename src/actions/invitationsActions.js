@@ -32,11 +32,11 @@ function inviteAccountPrefet(email, maille) {
   }
 }
 
-function inviteAccountAdmin(email) {
+function inviteAccountAdmin({ email, nom, prenom }) {
   return dispatch => {
     dispatch(request());
   
-    invitationsService.inviteAccountAdmin(email)
+    invitationsService.inviteAccountAdmin({ email, nom, prenom })
     .then(
       successInviteAdmin => {
         dispatch(success(successInviteAdmin));

@@ -18,8 +18,8 @@ function Candidat({ candidat }) {
     <>
       <tr>
         <td>{candidat?.idPG}</td>
-        <td style={{ width: '10rem' }}>{candidat?.prenom}</td>
-        <td style={{ width: '10rem' }}>{candidat?.nom}</td>
+        <td>{candidat?.prenom}</td>
+        <td>{candidat?.nom}</td>
         <td>{dayjs(candidat?.createdAt).format('DD/MM/YYYY')}</td>
         <td>{candidat?.codePostal}</td>
         <td>
@@ -39,7 +39,7 @@ function Candidat({ candidat }) {
         </td>
         <td>
           <Link
-            className="fr-btn fr-icon-eye-line fr-btn--icon-left"
+            className="fr-btn fr-icon-eye-line"
             title="Détails"
             to={`/${roleActivated}/candidat/${candidat?._id}`}
             state={{ 'origin': `/${roleActivated}/liste-candidatures` }}>D&eacute;tails</Link>
