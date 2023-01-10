@@ -78,7 +78,7 @@ export default function conseiller(state = initialState, action) {
     case 'PRESELECTIONNER_CONSEILLER_SUCCESS':
       return {
         ...state,
-        misEnRelation: action.miseEnRelation
+        message: action.message
       };
     case 'PRESELECTIONNER_CONSEILLER_FAILURE':
       return {

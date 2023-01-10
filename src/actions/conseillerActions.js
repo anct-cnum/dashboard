@@ -69,28 +69,24 @@ function getCandidat(id) {
 }
 
 function getAllCandidats({
-  departement = null,
-  region = null,
-  com = null,
   structureId = null,
   misesEnRelation,
   search = '',
   page = 0,
   filter,
-  sortData = 'conseillerObj.createdAt',
-  sortOrder = 1,
+  ordreNom,
   persoFilters }) {
   return dispatch => {
     dispatch(request());
     let promises = [];
     if (misesEnRelation) {
-      let promise = conseillerService.getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters);
+      let promise = conseillerService.getAllMisesEnRelation(structureId, search, page, filter, ordreNom, persoFilters);
       promises.push(promise);
     }
 
     let isSearch = search.length > 0;
     if (!misesEnRelation || isSearch) {
-      let promise = conseillerService.getAllCandidats(departement, region, com, search, page, isSearch ? '' : filter, sortData, sortOrder, persoFilters);
+      let promise = conseillerService.getAllCandidats(structureId, search, page, ordreNom, persoFilters);
       promises.push(promise);
     }
     let conseillers = null;
@@ -98,6 +94,9 @@ function getAllCandidats({
       conseillers = items[0];
       if (items.length > 1) {
         conseillers.data = [...items[0].data, ...items[1].data];
+        conseillers.total = items[0].total + items[1].total;
+        conseillers.limit = items[0].limit === 0 ? items[1].limit : items[0].limit;
+        conseillers.skip = items[0].skip === 0 ? items[1].limit : items[0].limit;
       }
       dispatch(success(conseillers));
     }).catch(error => {
@@ -309,16 +308,16 @@ function updateMotifRupture({ id, motif }) {
   }
 }
 
-function preSelectionner({ conseillerId, structureId }) {
+function preSelectionner(conseillerId) {
   return dispatch => {
     dispatch(request());
 
-    conseillerService.preSelectionner(conseillerId, structureId)
+    conseillerService.preSelectionner(conseillerId)
     .then(
-      miseEnRelation => {
+      response => {
         dispatch(searchActions.updateSearch(''));
-        dispatch(statsActions.getMisesEnRelationStats());
-        dispatch(success(miseEnRelation));
+        dispatch(statsActions.ajoutStatsInteressee());
+        dispatch(success(response.message));
       },
       error => {
         dispatch(failure(error));
@@ -329,8 +328,8 @@ function preSelectionner({ conseillerId, structureId }) {
   function request() {
     return { type: 'PRESELECTIONNER_CONSEILLER_REQUEST' };
   }
-  function success(miseEnRelation) {
-    return { type: 'PRESELECTIONNER_CONSEILLER_SUCCESS', miseEnRelation };
+  function success(message) {
+    return { type: 'PRESELECTIONNER_CONSEILLER_SUCCESS', message };
   }
   function failure(error) {
     return { type: 'PRESELECTIONNER_CONSEILLER_FAILURE', error };

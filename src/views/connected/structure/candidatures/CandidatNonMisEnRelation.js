@@ -6,16 +6,16 @@ import { history } from '../../../../helpers';
 import PropTypes from 'prop-types';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
-function ConseillerNonMisEnRelation({ conseiller, search, update }) {
-  const structure = useSelector(state => state.structure);
+function ConseillerNonMisEnRelation({ conseiller, search }) {
   const conseillerMisEnRelation = useSelector(state => state?.conseiller?.misEnRelation?.misEnRelation);
 
   const dispatch = useDispatch();
 
-  const select = () => {
-    update();
-    dispatch(conseillerActions.preSelectionner({ conseillerId: conseiller._id, structureId: structure?.structure._id }));
+  const preSelectionnerCandidat = () => {
+    dispatch(conseillerActions.preSelectionner(conseiller._id));
+    scrollTopWindow();
   };
 
   useEffect(() => {
@@ -62,15 +62,16 @@ function ConseillerNonMisEnRelation({ conseiller, search, update }) {
         }
       </td>
       <td className="td-preselection">
-        {conseiller?.finalisee === true ?
-          <button className="fr-btn fr-mx-1w fr-fi-checkbox-line fr-btn--icon-left" style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
-          Pré sélectionner
+        {conseiller?.statut === 'RECRUTE' ?
+          <button className="fr-btn fr-mx-1w fr-icon-success-line fr-btn--icon-left" style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
+            Pr&eacute; s&eacute;lectionner
           </button> :
-          <button className="fr-btn fr-mx-1w fr-fi-checkbox-line fr-btn--icon-left"
+          <button className="fr-btn fr-mx-1w fr-icon-success-line fr-btn--icon-left"
             style={{ boxShadow: 'none' }}
-            onClick={select} >
-          Pré sélectionner
-          </button>}
+            onClick={preSelectionnerCandidat}>
+            Pr&eacute; s&eacute;lectionner
+          </button>
+        }
       </td>
     </tr>
   );
@@ -79,7 +80,7 @@ function ConseillerNonMisEnRelation({ conseiller, search, update }) {
 ConseillerNonMisEnRelation.propTypes = {
   conseiller: PropTypes.object,
   search: PropTypes.bool,
-  update: PropTypes.func
+  // update: PropTypes.func
 };
 
 export default ConseillerNonMisEnRelation;

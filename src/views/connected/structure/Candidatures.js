@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Candidat from './candidatures/Candidat';
 import CandidatNonMisEnRelation from './candidatures/CandidatNonMisEnRelation';
-import { conseillerActions, statsActions, searchActions, alerteEtSpinnerActions } from '../../../actions';
-import Pagination from '../../../components/PaginationCandidatures';
+import { conseillerActions, statsActions, searchActions, alerteEtSpinnerActions, paginationActions } from '../../../actions';
 import Spinner from '../../../components/Spinner';
 import FiltersAndSorts from './candidatures/FiltersAndSorts';
 import {
@@ -14,72 +13,116 @@ import {
 import PropTypes from 'prop-types';
 import SearchBox from '../../../components/SearchBox';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
+import Pagination from '../../../components/Pagination';
 
 function Candidatures() {
   const dispatch = useDispatch();
 
   const { search } = useSelector(state => state.search);
   const conseillers = useSelector(state => state.conseiller);
+  const error = useSelector(state => state.conseiller?.error);
+  const message = useSelector(state => state.conseiller?.message);
+
   const stats = useSelector(state => state.stats);
+  const currentPage = useSelector(state => state.pagination?.currentPage);
+  const [initConseiller, setInitConseiller] = useState(false);
   const location = useLocation();
+  const [page, setPage] = useState(location.state?.currentPage);
 
-  let [page, setPage] = useState(1);
-  let savePage = null;
-  const { currentPage } = location.state || {};
-  if (currentPage) {
-    savePage = currentPage;
-  }
+  // let [page, setPage] = useState(1);
+  // let savePage = null;
+  // const { currentPage } = location.state || {};
+  // if (currentPage) {
+  //   savePage = currentPage;
+  // }
 
-  const [pageCount, setPageCount] = useState(0);
-  const [constructorHasRun, setConstructorHasRun] = useState(false);
   let { filter } = useParams();
   const filtersAndSorts = useSelector(state => state.filtresCandidatures);
-
-  const navigate = page => {
-    setPage(page);
-    dispatch(conseillerActions.getAllCandidats({
-      misesEnRelation: true,
-      search,
-      page: conseillers.items ? (page - 1) * conseillers.items.limit : 0,
-      filter: filter,
-      sortData: filtersAndSorts?.order,
-      persoFilters: filtersAndSorts
-    }));
-  };
+  // const navigate = page => {
+  //   setPage(page);
+  //   dispatch(conseillerActions.getAllCandidats({
+  //     misesEnRelation: true,
+  //     search,
+  //     page: conseillers.items ? (page - 1) * conseillers.items.limit : 0,
+  //     filter: filter,
+  //     ordreNom: filtersAndSorts?.ordreNom,
+  //     persoFilters: filtersAndSorts
+  //   }));
+  // };
 
   useEffect(() => {
-    if (conseillers.items) {
+    if (conseillers?.items) {
       const count = Math.floor(conseillers.items.total / conseillers.items.limit);
-      setPageCount(conseillers.items.total % conseillers.items.limit === 0 ? count : count + 1);
+      dispatch(paginationActions.setPageCount(conseillers.items.total % conseillers.items.limit === 0 ? count : count + 1));
     }
   }, [conseillers]);
 
-  const update = () => {
-    if (savePage !== null) {
-      navigate(savePage);
-    } else {
+  // const update = () => {
+  //   if (savePage !== null) {
+  //     navigate(savePage);
+  //   } else {
+  //     dispatch(conseillerActions.getAllCandidats({
+  //       misesEnRelation: true,
+  //       search,
+  //       page: page - 1,
+  //       filter,
+  //       ordreNom: filtersAndSorts?.ordreNom,
+  //       persoFilters: filtersAndSorts
+  //     }));
+  //   }
+  // };
+
+  useEffect(() => {
+    if (initConseiller === true) {
       dispatch(conseillerActions.getAllCandidats({
         misesEnRelation: true,
         search,
-        page: page - 1,
+        page: currentPage,
         filter,
-        sortData: filtersAndSorts?.order,
+        ordreNom: filtersAndSorts?.ordreNom,
         persoFilters: filtersAndSorts
       }));
     }
-  };
+  }, [currentPage, filter, filtersAndSorts, search]);
 
   useEffect(() => {
-    dispatch(statsActions.getMisesEnRelationStats());
-  }, []);
+    scrollTopWindow();
+    if (page === undefined) {
+      dispatch(paginationActions.setPage(1));
+      setPage(1);
+    }
+    if (!error) {
+      if (initConseiller === false && page !== undefined) {
+        dispatch(conseillerActions.getAllCandidats({
+          misesEnRelation: true,
+          search,
+          page: currentPage,
+          filter,
+          ordreNom: filtersAndSorts?.ordreNom,
+          persoFilters: filtersAndSorts
+        }));
+        dispatch(statsActions.getMisesEnRelationStats());
+        setInitConseiller(true);
+      }
+    } else {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'Les candidats n\'ont pas pu être chargées !',
+        status: null, description: null
+      }));
+    }
+  }, [error, page]);
 
-  useEffect(() => {
-    update();
-  }, [filter, filtersAndSorts, search]);
+  // useEffect(() => {
+  // }, []);
 
-  useEffect(() => {
-    dispatch(searchActions.updateSearch(''));
-  }, [filter]);
+  // useEffect(() => {
+  //   update();
+  // }, [filter, filtersAndSorts, search]);
+
+  // useEffect(() => {
+  //   dispatch(searchActions.updateSearch(''));
+  // }, [filter]);
 
   const tabs = [
     {
@@ -116,14 +159,6 @@ function Candidatures() {
     }
   ];
 
-  const constructor = () => {
-    if (constructorHasRun) {
-      return;
-    }
-    setConstructorHasRun(true);
-  };
-  constructor();
-
   useEffect(() => {
     if (conseillers.downloadError && conseillers.downloadError !== false) {
       scrollTopWindow();
@@ -137,6 +172,13 @@ function Candidatures() {
 
   return (
     <div className="conseillers">
+      {message &&
+        <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
+          <p className="fr-alert__title">
+            {message}
+          </p>
+        </div>
+      }
       <ul className="tabs fr-tags-group">
         {tabs.map((tab, idx) => <li key={idx}>
           <Link className={`fr-tag ${tab.filter === filter ? 'current' : ''}`}
@@ -155,7 +197,7 @@ function Candidatures() {
         <SearchBox />
       }
 
-      <FiltersAndSorts resetPage={setPage} />
+      <FiltersAndSorts />
 
       { conseillers && conseillers.loading && <span>Chargement...</span> }
 
@@ -192,7 +234,7 @@ function Candidatures() {
                 return (
                   conseiller.conseillerObj ?
                     <Candidat key={idx} miseEnRelation={conseiller} currentPage={page} currentFilter={filter} search={search !== ''} /> :
-                    <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={search !== ''} update={update} />
+                    <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={search !== ''} />
                 );
               })
               }
@@ -205,8 +247,8 @@ function Candidatures() {
         <p className="fr-mt-2w">Seuls les 100 premiers résultats sont affichés</p>
       }
 
-      {search.length === 0 &&
-        <Pagination current={page} pageCount={pageCount} navigate={navigate} />
+      {conseillers?.items?.total !== 0 &&
+        <Pagination />
       }
 
     </div>

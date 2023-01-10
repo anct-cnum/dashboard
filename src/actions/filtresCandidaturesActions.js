@@ -1,5 +1,5 @@
 export const filtresCandidaturesActions = {
-  updateOrder,
+  updateOrdre,
   updatePix,
   updateDiplome,
   updateCV,
@@ -9,13 +9,13 @@ export const filtresCandidaturesActions = {
   changeFiltreRegion,
 };
 
-function updateOrder(order) {
+function updateOrdre(ordreNom) {
   return dispatch => {
-    dispatch(success(order));
+    dispatch(success(ordreNom));
   };
 
-  function success(order) {
-    return { type: 'UPDATE_ORDER', order };
+  function success(ordreNom) {
+    return { type: 'UPDATE_ORDRE', ordreNom };
   }
 }
 
