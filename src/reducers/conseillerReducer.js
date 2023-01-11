@@ -217,7 +217,7 @@ export default function conseiller(state = initialState, action) {
           emailPro: '',
           telephonePro: '',
           statut: 'RUPTURE',
-          userCreated: action.response.conseillerUpdated.userCreated,
+          mattermost: '',
           misesEnRelation: state.conseiller.misesEnRelation.map(
             miseEnRelation => (miseEnRelation._id === action.response.miseEnRelationUpdated._id) ? action.response.miseEnRelationUpdated : miseEnRelation
           ),
