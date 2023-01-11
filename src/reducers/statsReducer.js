@@ -27,7 +27,7 @@ export default function stats(state = initialState, action) {
     case 'PRE_SELECTION_CANDIDAT_SUCCESS':
       return {
         ...state,
-        stats: { ...state.stats, interessee: state.stats.interessee + 1 },
+        stats: { ...state.stats, interessee: state.stats.interessee + 1, toutes: state.stats.toutes + 1 },
       };
     default:
       return state;
