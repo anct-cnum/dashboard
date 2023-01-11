@@ -63,7 +63,8 @@ function ConseillerNonMisEnRelation({ conseiller, search }) {
       </td>
       <td className="td-preselection">
         {conseiller?.statut === 'RECRUTE' ?
-          <button className="fr-btn fr-mx-1w fr-icon-success-line fr-btn--icon-left" style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
+          <button className="fr-btn fr-mx-1w fr-icon-success-line fr-btn--icon-left"
+            style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
             Pr&eacute; s&eacute;lectionner
           </button> :
           <button className="fr-btn fr-mx-1w fr-icon-success-line fr-btn--icon-left"

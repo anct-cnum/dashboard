@@ -219,7 +219,7 @@ function ConseillerDetails() {
             </div>
             <div className="fr-mb-3w">
               <strong>Compte activé</strong><br/>
-              <span>{conseiller?.userCreated ? 'Oui' : 'Non'}</span>
+              <span>{conseiller?.mattermost?.id ? 'Oui' : 'Non'}</span>
             </div>
           </div>
           <div className="fr-col-6 fr-mt-4w">
