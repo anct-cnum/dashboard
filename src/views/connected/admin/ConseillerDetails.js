@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
@@ -31,6 +31,7 @@ function ConseillerDetails() {
   const [dossierComplet, setDossierComplet] = useState(null);
   const [dateFinDeContrat, setDateFinDeContrat] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const refPartActivite = useRef(null);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -52,6 +53,7 @@ function ConseillerDetails() {
         setMisesEnRelationFinalisee(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
         setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
         setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
+        setDateFinDeContrat(new Date(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]?.dateRupture));
         if (conseiller?.statut !== 'RUPTURE') {
           dispatch(structureActions.get(conseiller?.structureId));
         }
@@ -87,6 +89,10 @@ function ConseillerDetails() {
     return false;
   };
 
+  const clickToScrollIntoRupture = () => {
+    refPartActivite.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
@@ -118,8 +124,8 @@ function ConseillerDetails() {
         {misesEnRelationNouvelleRupture &&
         <>
           {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
-            <p className="fr-badge fr-badge--warning">Dossier incomplet</p> :
-            <p className="fr-badge fr-badge--info">Rupture en cours</p>
+            <button onClick={clickToScrollIntoRupture} className="fr-badge fr-badge--warning">Dossier incomplet</button> :
+            <button onClick={clickToScrollIntoRupture} className="fr-badge fr-badge--info">Rupture en cours</button>
           }
         </>
         }
@@ -373,7 +379,7 @@ function ConseillerDetails() {
           </div>
         </>
         }
-        <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
+        <div ref={refPartActivite} className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
             <hr style={{ borderWidth: '0.5px' }}/>
           </div>
@@ -497,9 +503,9 @@ function ConseillerDetails() {
                             placeholderText="../../...."
                             dateFormat="dd/MM/yyyy"
                             locale="fr"
-                            selected={dateFinDeContrat ?? new Date(misesEnRelationNouvelleRupture?.dateRupture)}
+                            selected={dateFinDeContrat}
                             onChange={date => setDateFinDeContrat(date)}
-                            value={dateFinDeContrat ?? new Date(misesEnRelationNouvelleRupture?.dateRupture)}
+                            value={dateFinDeContrat}
                             peekNextMonth
                             onChangeRaw={e => e.preventDefault()}
                             minDate={new Date(conseiller?.datePrisePoste)}
