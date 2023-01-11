@@ -47,17 +47,20 @@ export default function conseiller(state = initialState, action) {
     case 'UPDATE_STATUS_REQUEST':
       return {
         ...state,
-        errorUpdateStatus: false
+        errorUpdateStatus: false,
+        loading: true
       };
     case 'UPDATE_STATUS_SUCCESS':
       return {
         ...state,
-        miseEnRelation: action.miseEnRelation
+        conseiller: { ...state.conseiller, miseEnRelation: action.miseEnRelation },
+        loading: false
       };
     case 'UPDATE_STATUS_FAILURE':
       return {
         ...state,
-        errorUpdateStatus: action.error
+        errorUpdateStatus: action.error,
+        loading: false
       };
     case 'UPDATE_DATE_REQUEST':
       return {

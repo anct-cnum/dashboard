@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Candidat from './candidatures/Candidat';
 import CandidatNonMisEnRelation from './candidatures/CandidatNonMisEnRelation';
-import { conseillerActions, statsActions, searchActions, alerteEtSpinnerActions, paginationActions } from '../../../actions';
+import { conseillerActions, statsActions, alerteEtSpinnerActions, paginationActions } from '../../../actions';
 import Spinner from '../../../components/Spinner';
 import FiltersAndSorts from './candidatures/FiltersAndSorts';
 import {
@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import SearchBox from '../../../components/SearchBox';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import Pagination from '../../../components/Pagination';
+import { pluralize } from '../../../utils/formatagesUtils';
 
 function Candidatures() {
   const dispatch = useDispatch();
@@ -179,6 +180,20 @@ function Candidatures() {
           </p>
         </div>
       }
+      {conseillers.items?.coselec &&
+      <div className="fr-mb-3w">
+        <span style={{ fontWeight: 'normal' }}>
+          {conseillers.items?.coselec?.nombreConseillersCoselec}&nbsp;
+          {pluralize(
+            'conseiller validé',
+            'conseiller validé',
+            'conseillers validés',
+            conseillers.items?.coselec?.nombreConseillersCoselec
+          )}
+        &nbsp;par l&rsquo;Agence nationale de la coh&eacute;sion des territoires
+        </span>
+      </div>
+      }
       <ul className="tabs fr-tags-group">
         {tabs.map((tab, idx) => <li key={idx}>
           <Link className={`fr-tag ${tab.filter === filter ? 'current' : ''}`}
@@ -201,11 +216,11 @@ function Candidatures() {
 
       { conseillers && conseillers.loading && <span>Chargement...</span> }
 
-      { !conseillers.loading && conseillers.items && conseillers.items.data.length === 0 &&
+      { !conseillers.loading && conseillers.items && conseillers.items?.total === 0 &&
         <span>{`${search === '' ? 'Aucun conseiller pour le moment.' : 'Aucun résultat de recherche'}`}</span>
       }
 
-      { !conseillers.loading && conseillers.items && conseillers.items.data.length > 0 &&
+      { !conseillers.loading && conseillers.items && conseillers.items?.total > 0 &&
         <h2>
           {`${search !== '' ? 'Résultats de recherche' : ''}`}
         </h2>
@@ -213,7 +228,7 @@ function Candidatures() {
 
       <Spinner loading={conseillers.downloading || conseillers.loading}/>
 
-      { !conseillers.loading && conseillers.items && conseillers.items.data.length > 0 &&
+      { !conseillers.loading && conseillers.items && conseillers.items?.total > 0 &&
         <div className="fr-table fr-table--layout-fixed" style={{ overflow: 'auto' }}>
           <table className="table-conseillers">
             <thead>
@@ -241,10 +256,6 @@ function Candidatures() {
             </tbody>
           </table>
         </div>
-      }
-
-      { search !== '' && conseillers?.items?.data?.length > 100 &&
-        <p className="fr-mt-2w">Seuls les 100 premiers résultats sont affichés</p>
       }
 
       {conseillers?.items?.total !== 0 &&

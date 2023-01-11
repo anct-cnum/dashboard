@@ -97,6 +97,7 @@ function getAllCandidats({
         conseillers.total = items[0].total + items[1].total;
         conseillers.limit = items[0].limit === 0 ? items[1].limit : items[0].limit;
         conseillers.skip = items[0].skip === 0 ? items[1].limit : items[0].limit;
+        conseillers.coselec = Object.entries(items[0].coselec).length === 0 ? items[1].coselec : items[0].coselec;
       }
       dispatch(success(conseillers));
     }).catch(error => {

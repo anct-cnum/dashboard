@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions } from '../../../../actions';
@@ -33,13 +33,17 @@ function CandidatDetails() {
   let dateRecrutementUpdated = useSelector(state => state.conseiller?.dateRecrutementUpdated);
   let dateRecrutement = useSelector(state => state.conseiller?.miseEnRelation?.dateRecrutement) ?? null;
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  
+  const loading = useSelector(state => state?.conseiller?.loading);
+  const [displayModal, setDisplayModal] = useState(true);
+
   const updateStatut = statut => {
     dispatch(conseillerActions.updateStatus({ id: miseEnRelation?._id, statut }));
+    scrollTopWindow();
   };
 
   const downloadCV = () => {
     dispatch(conseillerActions.getCurriculumVitae(conseiller?._id, conseiller));
+    scrollTopWindow();
   };
 
   useEffect(() => {
@@ -54,7 +58,7 @@ function CandidatDetails() {
     <div className="candidatDetails">
       { (errorUpdateStatus !== undefined && errorUpdateStatus !== false) &&
       <div className="fr-alert fr-alert--info fr-mb-2w">
-        <p>{ errorUpdateStatus.toString() }</p>
+        <p>{errorUpdateStatus}</p>
       </div>
       }
       { (downloadError !== undefined && downloadError !== false) &&
@@ -76,13 +80,29 @@ function CandidatDetails() {
         Retour &agrave; la liste
       </Link>
       <div className="fr-mt-2w">
-        <PopinInteressee statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : miseEnRelation?.statut}/>
-        <PopinRecrutee statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : miseEnRelation?.statut}/>
-        <PopinNouvelleRupture statut={conseiller?.miseEnRelation?.statut ? conseiller?.miseEnRelation?.statut : miseEnRelation?.statut}/>
+        {displayModal &&
+        <>
+          {conseiller?.miseEnRelation?.statut === 'interessee' || miseEnRelation?.statut === 'interessee' &&
+          <>
+            <PopinInteressee setDisplayModal={setDisplayModal} />
+          </>
+          }
+          {conseiller?.miseEnRelation?.statut === 'recrutee' || miseEnRelation?.statut === 'recrutee' &&
+          <>
+            <PopinRecrutee setDisplayModal={setDisplayModal} />
+          </>
+          }
+          {conseiller?.miseEnRelation?.statut === 'nouvelle_rupture' || miseEnRelation?.statut === 'nouvelle_rupture' &&
+          <>
+            <PopinNouvelleRupture setDisplayModal={setDisplayModal} />
+          </>
+          }
+        </>
+        }
         <h2>
           {formatNomConseiller(conseiller)}
         </h2>
-        <Spinner loading={downloading} />
+        <Spinner loading={downloading || loading} />
         <div className="fr-container fr-container--fluid">
           <div className="fr-grid-row">
             { conseiller?.dateRecrutement?.length > 0 &&

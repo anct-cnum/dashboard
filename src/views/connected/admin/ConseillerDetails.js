@@ -388,13 +388,21 @@ function ConseillerDetails() {
             <h4 className="titre">Contrat</h4>
             <div className="fr-mb-5w fr-grid-row">
               {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
+              <div>
+                <span className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-col-12 fr-mb-2w' : 'fr-col-12'}>
+                  <strong className="fr-badge fr-badge--success fr-badge--no-icon">Contrat En cours</strong>&nbsp;avec {structure?.nom}&nbsp;-
+                    Id&nbsp;&#91;{structure?.idPG}&#93;&nbsp;
+                </span>
+                {(misesEnRelationFinalisee[0]?.dateRecrutement || misesEnRelationNouvelleRupture?.dateRecrutement) &&
                 <>
-                  <span className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-col-12 fr-mb-2w' : 'fr-col-12'}>
-                    <strong className="fr-badge fr-badge--success fr-badge--no-icon">Contrat En cours</strong>&nbsp;avec {structure?.nom}&nbsp;-
-                    Id&nbsp;&#91;{structure?.idPG}&#93;
-                    depuis le {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
-                  </span>
+                  <span>depuis le&nbsp;</span>
+                  {misesEnRelationFinalisee[0]?.dateRecrutement ?
+                    <span>{dayjs(misesEnRelationFinalisee[0]?.dateRecrutement).format('DD/MM/YYYY')}</span> :
+                    <span>{dayjs(misesEnRelationNouvelleRupture.dateRecrutement).format('DD/MM/YYYY')}</span>
+                  }
                 </>
+                }
+              </div>
               }
               {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
                 <>
@@ -416,8 +424,12 @@ function ConseillerDetails() {
                   {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
                     <>
                       <div key={idx} className="fr-grid-row">
-                        <span>le {dayjs(miseEnRelation?.emetteurRupture?.date).format('DD/MM/YYYY')}</span>
-                        <span>&nbsp;pour le motif de&nbsp;</span>
+                        {miseEnRelation?.emetteurRupture?.date ?
+                          <>
+                            <span>Le {dayjs(miseEnRelation?.emetteurRupture?.date).format('DD/MM/YYYY')}</span>
+                            <span>&nbsp;pour le motif de&nbsp;</span>
+                          </> : <span>Pour le motif de&nbsp;</span>
+                        }
                         <span>{formatMotifRupture(miseEnRelation?.motifRupture)}</span>
                         <span>
                         &nbsp;-&nbsp;
@@ -431,8 +443,12 @@ function ConseillerDetails() {
                   {misesEnRelationNouvelleRupture &&
                   <>
                     <div className="fr-grid-row">
-                      <span>le {dayjs(misesEnRelationNouvelleRupture?.emetteurRupture?.date).format('DD/MM/YYYY')}</span>
-                      <span>&nbsp;pour le motif de&nbsp;</span>
+                      {misesEnRelationNouvelleRupture?.emetteurRupture?.date ?
+                        <>
+                          <span>Le {dayjs(misesEnRelationNouvelleRupture?.emetteurRupture?.date).format('DD/MM/YYYY')}</span>
+                          <span>&nbsp;pour le motif de&nbsp;</span>
+                        </> : <span>Pour le motif de&nbsp;</span>
+                      }
                       <span>{formatMotifRupture(misesEnRelationNouvelleRupture?.motifRupture)}</span>
                       {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
                         <span>&nbsp;-&nbsp;<strong className="fr-badge fr-badge--warning fr-badge--no-icon">Dossier incomplet</strong></span> :

@@ -17,16 +17,8 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId, dateRecrutement
   const [dateValidee, setDateValidee] = useState(dateRecrutement);
   const [dateRuptureValidee, setDateRuptureValidee] = useState(dateRupture);
   const [motifRuptureValide, setMotifRuptureValide] = useState(motifRupture);
+  const [openModal, setOpenModal] = useState(false);
   const today = new Date();
-
-  const toggleModal = visible => {
-    let modal = document.getElementById('fr-modal-annuler');
-    if (visible) {
-      modal.classList.add('modalOpened');
-    } else {
-      modal.classList.remove('modalOpened');
-    }
-  };
 
   const updateDateRecrutement = date => {
     scrollTopWindow(); //permet de remonter pour visualiser le message date embauche enregistrée
@@ -116,15 +108,17 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId, dateRecrutement
         }
         {statut === 'recrutee' &&
         <>
+          {openModal &&
           <PopinConfirmationAnnulation
             updateStatut={updateStatut}
             updateDateRecrutement={updateDateRecrutement}
             setDateValidee={setDateValidee}
-            toggleModal={toggleModal}>
+            setOpenModal={setOpenModal}>
           </PopinConfirmationAnnulation>
+          }
           <p className="fr-col-6">
             <button id="btn-annuler" onClick={() => {
-              toggleModal(true);
+              setOpenModal(true);
             }}
             className="fr-btn fr-btn--secondary fr-icon-error-line fr-btn--icon-left"
             title="Annuler le recrutement">
