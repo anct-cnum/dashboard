@@ -204,44 +204,44 @@ function ConseillerDetails() {
             </div>
             <div className="fr-mb-3w">
               <strong>Résultat Pix</strong><br/>
-              {conseiller?.pix?.partage &&
-              <div>
-                {formatRenderStars(conseiller?.pix?.palier)}
-                <p>
-                  {conseiller?.pix?.competence1 &&
+              {conseiller?.pix?.partage ?
+                <div>
+                  {formatRenderStars(conseiller?.pix?.palier)}
+                  <p>
+                    {conseiller?.pix?.competence1 &&
                     <img src={pixUtilisation}
                       alt="Utilisation du numérique"
                       title="Utilisation du numérique dans la vie professionnelle"
                       className="fr-mr-2w"
                     />
-                  }
-                  {conseiller?.pix?.competence2 &&
+                    }
+                    {conseiller?.pix?.competence2 &&
                     <img src={pixRessources}
                       alt="Production de ressources"
                       title="Production de ressources"
                       className="fr-mr-2w"
                     />
-                  }
-                  {conseiller?.pix?.competence3 &&
+                    }
+                    {conseiller?.pix?.competence3 &&
                   <img src={pixCitoyen}
                     alt="Compétences numériques en lien avec la e-citoyenneté"
                     title="Compétences numériques en lien avec la e-citoyenneté"
                     className="fr-mr-2w"
                   />
-                  }
-                </p>
-                <p>
-                  <a href="https://cdn.conseiller-numerique.gouv.fr/Conseillernum_Lire%20les%20r%C3%A9sultats%20du%20diagnostic%20des%20candidats_V2-2.pdf"
-                    className="fr-link"
-                    target="blank"
-                    title="Télécharger le document d&rsquo;analyse des résultats Pix">
+                    }
+                  </p>
+                  <p>
+                    <a href="https://cdn.conseiller-numerique.gouv.fr/Conseillernum_Lire%20les%20r%C3%A9sultats%20du%20diagnostic%20des%20candidats_V2-2.pdf"
+                      className="fr-link"
+                      target="blank"
+                      title="Télécharger le document d&rsquo;analyse des résultats Pix">
                     T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
-                  </a>
-                  <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
+                    </a>
+                    <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
                     Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats
-                  </span>
-                </p>
-              </div>
+                    </span>
+                  </p>
+                </div> : <span>-</span>
               }
             </div>
           </div>
@@ -412,14 +412,21 @@ function ConseillerDetails() {
               }
               {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
                 <>
-                  <span key={idx} className="fr-col-12">
-                    <strong className="fr-badge fr-badge--error fr-badge--no-icon">
+                  <div>
+                    <span key={idx} className="fr-col-12">
+                      <strong className="fr-badge fr-badge--error fr-badge--no-icon">
                     Contrat Termin&eacute;
-                    </strong>&nbsp;avec {miseEnRelation?.structureObj?.nom}&nbsp;-
-                    Id&nbsp;&#91;{miseEnRelation?.structureObj?.idPG}&#93;
-                    du {dayjs(miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}&nbsp;au&nbsp;
-                    {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
-                  </span>
+                      </strong>&nbsp;avec {miseEnRelation?.structureObj?.nom}&nbsp;-
+                    Id&nbsp;&#91;{miseEnRelation?.structureObj?.idPG}&#93;&nbsp;
+                    </span>
+                    {miseEnRelation?.dateRecrutement ?
+                      <>
+                        <span>
+                        du {dayjs(miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}&nbsp;au&nbsp;{dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
+                        </span>
+                      </> : <span>le {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
+                    }
+                  </div>
                 </>
               )}
             </div>

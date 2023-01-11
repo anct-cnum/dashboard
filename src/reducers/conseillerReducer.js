@@ -219,7 +219,7 @@ export default function conseiller(state = initialState, action) {
           statut: 'RUPTURE',
           mattermost: '',
           misesEnRelation: state.conseiller.misesEnRelation.map(
-            miseEnRelation => (miseEnRelation._id === action.response.miseEnRelationUpdated._id) ? action.response.miseEnRelationUpdated : miseEnRelation
+            miseEnRelation => (miseEnRelation._id === action.miseEnRelationUpdated._id) ? action.miseEnRelationUpdated : miseEnRelation
           ),
           permanences: []
         }
