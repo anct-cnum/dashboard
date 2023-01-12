@@ -27,6 +27,23 @@ export default function conseiller(state = initialState, action) {
         loading: false,
         error: action.error
       };
+    case 'GET_CANDIDAT_STRUCTURE_REQUEST':
+      return {
+        ...initialState,
+        loading: true,
+        error: false
+      };
+    case 'GET_CANDIDAT_STRUCTURE_SUCCESS':
+      return {
+        ...state,
+        conseiller: action.candidat,
+        loading: false
+      };
+    case 'GET_CANDIDAT_STRUCTURE_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
     case 'GET_CONSEILLER_REQUEST':
       return {
         ...initialState,

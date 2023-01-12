@@ -7,6 +7,7 @@ const initialState = {
   nomCandidat: undefined,
   region: 'tous',
   coms: 'tous',
+  search: '',
 };
 
 export default function filtresCandidatures(state = initialState, action) {
@@ -50,6 +51,15 @@ export default function filtresCandidatures(state = initialState, action) {
       return {
         ...state,
         nomCandidat: action.nomCandidat,
+      };
+    case 'UPDATE_SEARCH':
+      return {
+        ...state,
+        search: action.search,
+      };
+    case 'RESET_FILTER_AND_SORTS':
+      return {
+        ...initialState,
       };
     default:
       return state;

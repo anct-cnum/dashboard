@@ -1,5 +1,5 @@
 import { conseillerService } from '../services/conseillerService.js';
-import { statsActions, searchActions } from '../actions';
+import { statsActions, filtresCandidaturesActions } from '../actions';
 import download from 'downloadjs';
 
 export const conseillerActions = {
@@ -17,7 +17,8 @@ export const conseillerActions = {
   dossierIncompletRupture,
   getAllCandidatsByAdmin,
   resendInvitCandidat,
-  suppressionCandidat
+  suppressionCandidat,
+  getCandidatStructure,
 };
 
 function get(id) {
@@ -65,6 +66,30 @@ function getCandidat(id) {
   }
   function failure(error) {
     return { type: 'GET_CANDIDAT_FAILURE', error };
+  }
+}
+
+function getCandidatStructure(id) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.getCandidatStructure(id)
+    .then(
+      candidat => dispatch(success(candidat)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CANDIDAT_STRUCTURE_REQUEST' };
+  }
+  function success(candidat) {
+    return { type: 'GET_CANDIDAT_STRUCTURE_SUCCESS', candidat };
+  }
+  function failure(error) {
+    return { type: 'GET_CANDIDAT_STRUCTURE_FAILURE', error };
   }
 }
 
@@ -316,7 +341,7 @@ function preSelectionner(conseillerId) {
     conseillerService.preSelectionner(conseillerId)
     .then(
       response => {
-        dispatch(searchActions.updateSearch(''));
+        dispatch(filtresCandidaturesActions.resetFiltre());
         dispatch(statsActions.ajoutStatsInteressee());
         dispatch(success(response.message));
       },

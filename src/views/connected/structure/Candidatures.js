@@ -11,7 +11,6 @@ import {
   useLocation
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import SearchBox from '../../../components/SearchBox';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import Pagination from '../../../components/Pagination';
 import { pluralize } from '../../../utils/formatagesUtils';
@@ -19,7 +18,6 @@ import { pluralize } from '../../../utils/formatagesUtils';
 function Candidatures() {
   const dispatch = useDispatch();
 
-  const { search } = useSelector(state => state.search);
   const conseillers = useSelector(state => state.conseiller);
   const error = useSelector(state => state.conseiller?.error);
   const message = useSelector(state => state.conseiller?.message);
@@ -30,26 +28,8 @@ function Candidatures() {
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
 
-  // let [page, setPage] = useState(1);
-  // let savePage = null;
-  // const { currentPage } = location.state || {};
-  // if (currentPage) {
-  //   savePage = currentPage;
-  // }
-
   let { filter } = useParams();
   const filtersAndSorts = useSelector(state => state.filtresCandidatures);
-  // const navigate = page => {
-  //   setPage(page);
-  //   dispatch(conseillerActions.getAllCandidats({
-  //     misesEnRelation: true,
-  //     search,
-  //     page: conseillers.items ? (page - 1) * conseillers.items.limit : 0,
-  //     filter: filter,
-  //     ordreNom: filtersAndSorts?.ordreNom,
-  //     persoFilters: filtersAndSorts
-  //   }));
-  // };
 
   useEffect(() => {
     if (conseillers?.items) {
@@ -58,33 +38,18 @@ function Candidatures() {
     }
   }, [conseillers]);
 
-  // const update = () => {
-  //   if (savePage !== null) {
-  //     navigate(savePage);
-  //   } else {
-  //     dispatch(conseillerActions.getAllCandidats({
-  //       misesEnRelation: true,
-  //       search,
-  //       page: page - 1,
-  //       filter,
-  //       ordreNom: filtersAndSorts?.ordreNom,
-  //       persoFilters: filtersAndSorts
-  //     }));
-  //   }
-  // };
-
   useEffect(() => {
     if (initConseiller === true) {
       dispatch(conseillerActions.getAllCandidats({
         misesEnRelation: true,
-        search,
+        search: filtersAndSorts.search,
         page: currentPage,
         filter,
         ordreNom: filtersAndSorts?.ordreNom,
         persoFilters: filtersAndSorts
       }));
     }
-  }, [currentPage, filter, filtersAndSorts, search]);
+  }, [currentPage, filter, filtersAndSorts, filtersAndSorts.search]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -96,7 +61,7 @@ function Candidatures() {
       if (initConseiller === false && page !== undefined) {
         dispatch(conseillerActions.getAllCandidats({
           misesEnRelation: true,
-          search,
+          search: filtersAndSorts.search,
           page: currentPage,
           filter,
           ordreNom: filtersAndSorts?.ordreNom,
@@ -113,17 +78,6 @@ function Candidatures() {
       }));
     }
   }, [error, page]);
-
-  // useEffect(() => {
-  // }, []);
-
-  // useEffect(() => {
-  //   update();
-  // }, [filter, filtersAndSorts, search]);
-
-  // useEffect(() => {
-  //   dispatch(searchActions.updateSearch(''));
-  // }, [filter]);
 
   const tabs = [
     {
@@ -182,7 +136,7 @@ function Candidatures() {
       }
       {conseillers.items?.coselec &&
       <div className="fr-mb-3w">
-        <span style={{ fontWeight: 'normal' }}>
+        <span className="fr-text--lg fr-text--bold">
           {conseillers.items?.coselec?.nombreConseillersCoselec}&nbsp;
           {pluralize(
             'conseiller validé',
@@ -207,49 +161,44 @@ function Candidatures() {
           </Link>
         </li>)}
       </ul>
-
-      { location?.pathname.startsWith('/structure/candidats') &&
-        <SearchBox />
-      }
-
       <FiltersAndSorts />
 
       { conseillers && conseillers.loading && <span>Chargement...</span> }
 
       { !conseillers.loading && conseillers.items && conseillers.items?.total === 0 &&
-        <span>{`${search === '' ? 'Aucun conseiller pour le moment.' : 'Aucun résultat de recherche'}`}</span>
+        <span>{`${filtersAndSorts.search === '' ? 'Aucun conseiller pour le moment.' : 'Aucun résultat de recherche'}`}</span>
       }
 
       { !conseillers.loading && conseillers.items && conseillers.items?.total > 0 &&
         <h2>
-          {`${search !== '' ? 'Résultats de recherche' : ''}`}
+          {`${filtersAndSorts.search !== '' ? 'Résultats de recherche' : ''}`}
         </h2>
       }
 
       <Spinner loading={conseillers.downloading || conseillers.loading}/>
 
-      { !conseillers.loading && conseillers.items && conseillers.items?.total > 0 &&
+      {!conseillers.loading && conseillers.items && conseillers.items?.total > 0 &&
         <div className="fr-table fr-table--layout-fixed" style={{ overflow: 'auto' }}>
           <table className="table-conseillers">
             <thead>
               <tr>
                 <th>Prénom</th>
                 <th>Nom</th>
-                { search !== '' && <th style={{ minWidth: '200px' }}>Email</th>}
+                {filtersAndSorts.search !== '' && <th style={{ width: '20rem' }}>Email</th>}
                 <th>Statut</th>
                 <th>Date de candidature</th>
                 <th>Code postal</th>
-                { search === '' && <th>Résultat Pix</th> }
+                {filtersAndSorts.search === '' && <th>Résultat Pix</th> }
                 <th>Curriculum Vit&aelig;</th>
-                <th style={{ minWidth: search !== '' ? '200px' : '' }}>Action</th>
+                <th style={{ width: filtersAndSorts.search !== '' ? '14.2rem' : '' }}>Action</th>
               </tr>
             </thead>
             <tbody>
-              { !conseillers.error && !conseillers.loading && conseillers.items && conseillers.items.data.map((conseiller, idx) => {
+              {!conseillers.error && !conseillers.loading && conseillers.items && conseillers.items.data.map((conseiller, idx) => {
                 return (
                   conseiller.conseillerObj ?
-                    <Candidat key={idx} miseEnRelation={conseiller} currentPage={page} currentFilter={filter} search={search !== ''} /> :
-                    <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={search !== ''} />
+                    <Candidat key={idx} miseEnRelation={conseiller} currentPage={page} currentFilter={filter} search={filtersAndSorts.search !== ''} /> :
+                    <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={filtersAndSorts.search !== ''} />
                 );
               })
               }

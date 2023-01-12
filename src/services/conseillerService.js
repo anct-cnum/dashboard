@@ -19,7 +19,8 @@ export const conseillerService = {
   validationRupture,
   dossierIncompletRupture,
   resendInvitCandidat,
-  suppressionCandidat
+  suppressionCandidat,
+  getCandidatStructure
 };
 
 function get(id) {
@@ -30,6 +31,12 @@ function get(id) {
 
 function getCandidat(id) {
   return API.get(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getCandidatStructure(id) {
+  return API.get(`${apiUrlRoot}/candidat-structure/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

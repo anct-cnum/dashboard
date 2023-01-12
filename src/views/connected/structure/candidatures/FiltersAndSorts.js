@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filtresCandidaturesActions, paginationActions } from '../../../../actions';
 
 function filtersAndSorts() {
 
   const dispatch = useDispatch();
-  let filtersAndSorts = useSelector(state => state.filtresCandidatures);
+  const filtersAndSorts = useSelector(state => state.filtresCandidatures);
+  const [searchInputValue, setSearchInputValue] = useState('');
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -50,13 +51,48 @@ function filtersAndSorts() {
       dispatch(filtresCandidaturesActions.updateCV(cv));
     }
     dispatch(paginationActions.setPage(1));
-    // setFilters(inputs => ({ ...inputs, [name]: value }));
   };
+
+  const rechercheParNomCandidatToucheEntrer = e => {
+    if (e.key === 'Enter') {
+      dispatch(filtresCandidaturesActions.updateSearch(searchInputValue));
+      dispatch(paginationActions.setPage(1));
+    }
+  };
+
+  const rechercheParNomCandidat = () => {
+    dispatch(filtresCandidaturesActions.updateSearch(searchInputValue));
+    dispatch(paginationActions.setPage(1));
+  };
+
+  const handleChangeSearchBar = e => {
+    setSearchInputValue(e.target.value);
+  };
+
+  useEffect(() => {
+    if (filtersAndSorts.search !== searchInputValue) {
+      setSearchInputValue(filtersAndSorts.search);
+    }
+  }, [filtersAndSorts.search]);
 
   return (
     <div>
       <div className="fr-grid-row">
         <div className="fr-col-12" >
+          <div className="fr-search-bar fr-mb-4w fr-mt-1w" role="search">
+            <label className="fr-label" htmlFor="fr-search-input">Recherche</label>
+            <input
+              className="fr-input"
+              placeholder="Rechercher"
+              type="search"
+              id="fr-search-input"
+              value={searchInputValue}
+              onChange={handleChangeSearchBar}
+              onKeyDown={rechercheParNomCandidatToucheEntrer} />
+            <button className="fr-btn" title="Rechercher" onClick={rechercheParNomCandidat}>
+              Rechercher
+            </button>
+          </div>
           <div className="fr-form-group" style={{ float: 'left' }}>
             <fieldset className="fr-fieldset fr-fieldset--inline fr-co filtresCandidature">
               <div className="fr-mr-2w fr-mt-2w boxPix">

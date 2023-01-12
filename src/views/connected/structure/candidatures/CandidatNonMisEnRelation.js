@@ -7,15 +7,17 @@ import PropTypes from 'prop-types';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { useNavigate } from 'react-router-dom';
 
 function ConseillerNonMisEnRelation({ conseiller, search }) {
   const conseillerMisEnRelation = useSelector(state => state?.conseiller?.misEnRelation?.misEnRelation);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const preSelectionnerCandidat = () => {
     dispatch(conseillerActions.preSelectionner(conseiller._id));
     scrollTopWindow();
+    navigate('/structure/candidats/interessee');
   };
 
   useEffect(() => {

@@ -7,6 +7,8 @@ export const filtresCandidaturesActions = {
   changeFiltreDepartement,
   changeFiltreComs,
   changeFiltreRegion,
+  updateSearch,
+  resetFiltre,
 };
 
 function updateOrdre(ordreNom) {
@@ -63,4 +65,12 @@ function changeFiltreComs(coms) {
   
 function changeFiltreRegion(region) {
   return { type: 'CHANGE_REGION', region };
+}
+
+function updateSearch(search) {
+  return { type: 'UPDATE_SEARCH', search };
+}
+
+function resetFiltre() {
+  return { type: 'RESET_FILTER_AND_SORTS' };
 }

@@ -81,7 +81,7 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
           <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" style={{ boxShadow: 'none' }} to={{
             pathname: `/structure/candidat/${miseEnRelation.conseillerObj._id}`
           }}
-          state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}`, miseEnRelation }}>
+          state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
               Détails
           </Link> :
           <button className="fr-btn fr-icon-eye-line fr-btn--icon-left" style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>

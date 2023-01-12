@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { conseillerActions } from '../../../../actions';
+import { alerteEtSpinnerActions, conseillerActions } from '../../../../actions';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import ButtonsAction from './ButtonsAction';
@@ -13,20 +13,17 @@ import pixRessources from '../../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../../assets/icons/pix-citoyen.png';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import { formatNomConseiller, formatRenderStars } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, formatRenderStars, pluralize } from '../../../../utils/formatagesUtils';
 
 function CandidatDetails() {
 
   const location = useLocation();
-  const { miseEnRelation, origin } = location.state;
+  const { origin } = location.state;
   const dispatch = useDispatch();
-  let { id } = useParams();
-
-  useEffect(() => {
-    dispatch(conseillerActions.getCandidat(id));
-  }, []);
+  const { id } = useParams();
 
   const conseiller = useSelector(state => state.conseiller?.conseiller);
+  const errorConseiller = useSelector(state => state.conseiller?.error);
   const errorUpdateStatus = useSelector(state => state.conseiller?.errorUpdateStatus);
   const downloadError = useSelector(state => state.conseiller?.downloadError);
   const downloading = useSelector(state => state.conseiller?.downloading);
@@ -36,8 +33,22 @@ function CandidatDetails() {
   const loading = useSelector(state => state?.conseiller?.loading);
   const [displayModal, setDisplayModal] = useState(true);
 
+  useEffect(() => {
+    if (!errorConseiller) {
+      if (conseiller?._id !== id) {
+        dispatch(conseillerActions.getCandidatStructure(id));
+      }
+    } else {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'Le candidat n\'a pas pu être chargé !',
+        status: null, description: null
+      }));
+    }
+  }, [errorConseiller]);
+
   const updateStatut = statut => {
-    dispatch(conseillerActions.updateStatus({ id: miseEnRelation?._id, statut }));
+    dispatch(conseillerActions.updateStatus({ id: conseiller.miseEnRelation?._id, statut }));
     scrollTopWindow();
   };
 
@@ -72,7 +83,20 @@ function CandidatDetails() {
           La date d&rsquo;embauche au {dayjs(dateRecrutement).format('DD/MM/YYYY')} a bien &eacute;t&eacute; enregistr&eacute;e
         </p>
       }
-
+      {conseiller?.coselec?.nombreConseillersCoselec &&
+      <div className="fr-mb-3w">
+        <span className="fr-text--lg fr-text--bold">
+          {conseiller.coselec.nombreConseillersCoselec}&nbsp;
+          {pluralize(
+            'conseiller validé',
+            'conseiller validé',
+            'conseillers validés',
+            conseiller.coselec.nombreConseillersCoselec
+          )}
+        &nbsp;par l&rsquo;Agence nationale de la coh&eacute;sion des territoires
+        </span>
+      </div>
+      }
       <Link
         style={{ boxShadow: 'none' }}
         to={origin} state={{ currentPage }}
@@ -82,17 +106,17 @@ function CandidatDetails() {
       <div className="fr-mt-2w">
         {displayModal &&
         <>
-          {conseiller?.miseEnRelation?.statut === 'interessee' || miseEnRelation?.statut === 'interessee' &&
+          {conseiller?.miseEnRelation?.statut === 'interessee' &&
           <>
             <PopinInteressee setDisplayModal={setDisplayModal} />
           </>
           }
-          {conseiller?.miseEnRelation?.statut === 'recrutee' || miseEnRelation?.statut === 'recrutee' &&
+          {conseiller?.miseEnRelation?.statut === 'recrutee' &&
           <>
             <PopinRecrutee setDisplayModal={setDisplayModal} />
           </>
           }
-          {conseiller?.miseEnRelation?.statut === 'nouvelle_rupture' || miseEnRelation?.statut === 'nouvelle_rupture' &&
+          {conseiller?.miseEnRelation?.statut === 'nouvelle_rupture' &&
           <>
             <PopinNouvelleRupture setDisplayModal={setDisplayModal} />
           </>
@@ -105,10 +129,10 @@ function CandidatDetails() {
         <Spinner loading={downloading || loading} />
         <div className="fr-container fr-container--fluid">
           <div className="fr-grid-row">
-            { conseiller?.dateRecrutement?.length > 0 &&
+            {conseiller?.miseEnRelation?.dateRecrutement &&
               <div className="fr-col-12">
                 <p><b>Date de recrutement pr&eacute;visionnelle:&nbsp;
-                  {dayjs(conseiller?.dateRecrutement[0]).format('DD/MM/YY') }</b>
+                  {dayjs(conseiller?.miseEnRelation.dateRecrutement).format('DD/MM/YYYY') }</b>
                 </p>
               </div>
             }
@@ -141,17 +165,12 @@ function CandidatDetails() {
               <p><strong>Courriel : <a href={'mailto:' + conseiller?.email}>{conseiller?.email}</a></strong></p>
               <p><strong>T&eacute;l&eacute;phone : {conseiller?.telephone ? conseiller?.telephone : 'pas de numéro de téléphone' }</strong></p>
               <ButtonsAction
-                statut={conseiller?.miseEnRelation?.statut ?
-                  conseiller?.miseEnRelation?.statut : miseEnRelation?.statut}
-                miseEnRelationId = { conseiller?.miseEnRelation?._id ?
-                  conseiller?.miseEnRelation?._id : miseEnRelation?._id}
+                statut={conseiller?.miseEnRelation?.statut}
+                miseEnRelationId = {conseiller?.miseEnRelation?._id}
                 updateStatut={updateStatut}
-                dateRecrutement={ conseiller?.miseEnRelation?.dateRecrutement !== undefined ?
-                  conseiller?.miseEnRelation?.dateRecrutement : miseEnRelation?.dateRecrutement}
-                dateRupture={ conseiller?.miseEnRelation?.dateRupture !== undefined ?
-                  conseiller?.miseEnRelation?.dateRupture : miseEnRelation?.dateRupture}
-                motifRupture={ conseiller?.miseEnRelation?.motifRupture !== undefined ?
-                  conseiller?.miseEnRelation?.motifRupture : miseEnRelation?.motifRupture} />
+                dateRecrutement={conseiller?.miseEnRelation?.dateRecrutement}
+                dateRupture={conseiller?.miseEnRelation?.dateRupture}
+                motifRupture={conseiller?.miseEnRelation?.motifRupture} />
             </div>
             {conseiller?.pix?.partage &&
               <div className="fr-col-4 fr-ml-6w fr-mt-1w">
