@@ -62,7 +62,7 @@ function Candidatures() {
         dispatch(conseillerActions.getAllCandidats({
           misesEnRelation: true,
           search: filtersAndSorts.search,
-          page: currentPage,
+          page: page,
           filter,
           ordreNom: filtersAndSorts?.ordreNom,
           persoFilters: filtersAndSorts
