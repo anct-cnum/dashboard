@@ -185,7 +185,7 @@ function Candidatures() {
                 <th>Prénom</th>
                 <th>Nom</th>
                 {filtersAndSorts.search !== '' && <th style={{ width: '20rem' }}>Email</th>}
-                <th>Statut</th>
+                <th style={{ width: filtersAndSorts.search !== '' ? '10rem' : '' }}>Statut</th>
                 <th>Date de candidature</th>
                 <th>Code postal</th>
                 {filtersAndSorts.search === '' && <th>Résultat Pix</th> }
