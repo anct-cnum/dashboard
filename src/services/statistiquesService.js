@@ -11,6 +11,7 @@ export const statistiquesService = {
   getStatistiquesStructure,
   getStatistiquesConseiller,
   getStatistiquesNationale,
+  getStatistiquesNationaleGrandReseau,
   getCodesPostauxCrasConseillerStructure,
 };
 
@@ -56,9 +57,15 @@ function getStatistiquesConseiller(dateDebut, dateFin, idConseiller) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesNationale(dateDebut, dateFin, nomCommune, nomRegion) {
-  console.log('RRRRRRRR', nomRegion);
-  return API.get(`stats/nationales/cras?role=anonyme&dateDebut=${dateDebut}&dateFin=${dateFin}&nomCommune=${nomCommune}&nomRegion=${nomRegion}`)
+function getStatistiquesNationale(dateDebut, dateFin) {
+  return API.get(`stats/nationales/cras?role=anonyme&dateDebut=${dateDebut}&dateFin=${dateFin}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, villes, codePostal, codeRegion, numeroDepartement, structureId, conseillerId) {
+  // eslint-disable-next-line max-len
+  return API.get(`stats/nationales/cras/grand-reseau?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&codePostal=${codePostal}&villes=${villes}&codeRegion=${codeRegion}&numeroDepartement=${numeroDepartement}&structureId=${structureId}&conseillerId=${conseillerId}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

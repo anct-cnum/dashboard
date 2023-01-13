@@ -17,7 +17,11 @@ export default function GraphiqueNationale() {
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
   const dateFin = useSelector(state => state.statistiques?.dateFin);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
-  const region = useSelector(state => state.statistiques?.nomRegionStats);
+  const ville = useSelector(state => state.statistiques?.villeStats);
+  const structure = useSelector(state => state.statistiques?.structureStats);
+  const conseiller = useSelector(state => state.statistiques?.conseillerStats);
+  const region = useSelector(state => state.statistiques?.codeRegionStats);
+  const departement = useSelector(state => state.statistiques?.numeroDepartementStats);
 
   const loading = useSelector(state => state.statistiques?.loading);
   const error = useSelector(state => state.statistiques?.error);
@@ -27,7 +31,7 @@ export default function GraphiqueNationale() {
   
   useEffect(() => {
     if (!error) {
-      dispatch(statistiquesActions.getStatistiquesNationale(dateDebut, dateFin, codePostal, region));
+      dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, region, departement, structure, conseiller));
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
@@ -35,7 +39,8 @@ export default function GraphiqueNationale() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, codePostal, region, error]);
+  }, [dateDebut, dateFin, codePostal, region, departement, structure, conseiller, ville, error]);
+
   
   return (
     <div className="statistiques">
@@ -51,7 +56,7 @@ export default function GraphiqueNationale() {
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-7">
             <hr className="fr-hr fr-mt-3v"/>
           </div>
-          <div className="fr-col-6">
+          <div className="fr-grid-row">
             <FiltresEtTrisGrandReseau />
           </div>
         </div>

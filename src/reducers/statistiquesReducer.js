@@ -2,8 +2,12 @@ const anneeEnCours = new Date().getFullYear();
 const initialState = {
   dateDebut: new Date(anneeEnCours + '/01/01'),
   dateFin: new Date(),
-  codePostalStats: '',
-  regionStats: '',
+  codePostalStats: 'tous',
+  villeStats: 'tous',
+  conseillerStats: 'tous',
+  structureStats: 'tous',
+  codeRegionStats: 'tous',
+  numeroDepartementStats: 'tous',
   listeAutresReorientations: [],
   error: false,
   errorTerritoire: false,
@@ -25,12 +29,28 @@ export default function statistiques(state = initialState, action) {
     case 'CHANGE_CODE_POSTAL_STATS':
       return {
         ...state,
-        codePostalStats: action.nomCommune,
+        codePostalStats: action.codePostal,
+        villeStats: action.ville,
+      };
+    case 'CHANGE_STRUCTURE_STATS':
+      return {
+        ...state,
+        structureStats: action.structureId,
+      };
+    case 'CHANGE_CONSEILLER_STATS':
+      return {
+        ...state,
+        conseillerStats: action.conseillerId,
       };
     case 'CHANGE_REGION_STATS':
       return {
         ...state,
-        nomRegionStats: action.nomRegion,
+        codeRegionStats: action.codeRegion,
+      };
+    case 'CHANGE_DEPARTEMENT_STATS':
+      return {
+        ...state,
+        numeroDepartementStats: action.numeroDepartement,
       };
     case 'GET_CODES_POSTAUX_CRA_REQUEST':
       return {

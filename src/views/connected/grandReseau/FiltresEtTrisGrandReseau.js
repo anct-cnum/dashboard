@@ -1,108 +1,110 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { exportsActions, structureActions, statistiquesActions } from '../../../actions';
+import { statistiquesActions } from '../../../actions';
 import Spinner from '../../../components/Spinner';
-import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
 import codeRegions from '../../../datas/code_region.json';
 import departementsRegionRaw from '../../../datas/departements-region.json';
 
 function FiltresEtTrisGrandReseau() {
   const dispatch = useDispatch();
   const departementsRegionList = Array.from(departementsRegionRaw);
-  const dateDebut = useSelector(state => state.filtresStructures?.dateDebut);
-  const ordreNom = useSelector(state => state.filtresStructures?.ordreNom);
-  const filterDepartement = useSelector(state => state.filtresStructures?.departement);
-  const filtreStatut = useSelector(state => state.filtresStructures?.statut);
-  const filtreType = useSelector(state => state.filtresStructures?.type);
-  const filtreParNomStructure = useSelector(state => state.filtresStructures?.nomStructure);
-  const filtreRegion = useSelector(state => state.filtresStructures?.region);
-  const filtreComs = useSelector(state => state.filtresStructures?.coms);
-  const structures = useSelector(state => state.structure);
-  const dateFin = useSelector(state => state.filtresStructures?.dateFin);
-  const ordre = useSelector(state => state.filtresStructures?.ordre);
-  const currentPage = useSelector(state => state.pagination?.currentPage);
+  const filtreRegion = useSelector(state => state.statistiques?.codeRegionStats);
   const listeCodesPostaux = useSelector(state => state.statistiques.statsData?.codesPostaux);
+  const listeStructures = useSelector(state => state.statistiques.statsData?.structures);
+  const listeConseillers = useSelector(state => state.statistiques.statsData?.conseillers);
+  const conseiller = useSelector(state => state.statistiques.conseillerStats);
+  const ville = useSelector(state => state.statistiques.villeStats);
+  const codePostal = useSelector(state => state.statistiques.codePostalStats);
+  const structure = useSelector(state => state.statistiques.structureStats);
 
-  const exportConseillerFileBlob = useSelector(state => state.exports);
-  const exportConseillerFileError = useSelector(state => state.exports?.error);
   const loading = useSelector(state => state.exports?.loading);
 
-  const has = value => value !== null && value !== undefined;
-
   const selectFiltreRegion = e => {
-    dispatch(statistiquesActions.changeRegionStats(e.target?.value));
-    // dispatch(statistiquesActions.changeFiltreDepartement('tous'));
+    dispatch(statistiquesActions.changeFiltreRegionStats(e.target?.value));
+    dispatch(statistiquesActions.changeFiltreDepartementStats('tous'));
+    dispatch(statistiquesActions.changeCodePostalStats('tous'));
+    dispatch(statistiquesActions.changeStructureStats('tous'));
+    dispatch(statistiquesActions.changeConseillerStats('tous'));
   };
 
   const selectFiltreDepartement = e => {
-    dispatch(statistiquesActions.changeFiltreDepartement(e.target?.value));
+    dispatch(statistiquesActions.changeFiltreDepartementStats(e.target?.value));
+    dispatch(statistiquesActions.changeCodePostalStats('tous'));
+    dispatch(statistiquesActions.changeStructureStats('tous'));
+    dispatch(statistiquesActions.changeConseillerStats('tous'));
   };
   const selectFiltreCodePostal = e => {
-    dispatch(statistiquesActions.changeCodePostalStats(e.target?.value));
+    if (e.target.value === 'tous') {
+      dispatch(statistiquesActions.changeCodePostalStats('tous'));
+    } else {
+      const ville = JSON.parse(e.target.value).ville;
+      const codePostal = JSON.parse(e.target.value).cp;
+      dispatch(statistiquesActions.changeCodePostalStats(ville, codePostal));
+    }
+    dispatch(statistiquesActions.changeStructureStats('tous'));
+    dispatch(statistiquesActions.changeConseillerStats('tous'));
   };
-
+  const selectFiltreStructure = e => {
+    dispatch(statistiquesActions.changeStructureStats(e.target?.value));
+    dispatch(statistiquesActions.changeConseillerStats('tous'));
+  };
+  const selectFiltreConseiller = e => {
+    dispatch(statistiquesActions.changeConseillerStats(e.target?.value));
+  };
+  
   const getDepartements = () => {
     if (filtreRegion !== 'tous') {
-      return departementsRegionList.filter(region => region.region_name === codeRegions.find(r => r.code === filtreRegion).nom);
+      return departementsRegionList.filter(region => region.region_name === codeRegions.find(r => r.code === filtreRegion)?.nom);
     }
     return departementsRegionList;
   };
-
-  useEffect(() => {
-    if (has(exportConseillerFileBlob?.blob) && exportConseillerFileError === false) {
-      downloadFile(exportConseillerFileBlob);
-      dispatch(exportsActions.resetFile());
-    }
-  }, [exportConseillerFileBlob]);
-
-  useEffect(() => {
-    if (exportConseillerFileError !== false) {
-      scrollTopWindow();
-    }
-  }, [exportConseillerFileError]);
-
-  useEffect(() => {
-    if (structures?.items) {
-      dispatch(structureActions.getAll(currentPage, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreType, filtreRegion,
-        filtreStatut, filtreComs, ordreNom, ordre ? 1 : -1));
-    }
-  }, [dateDebut, dateFin, currentPage, filtreStatut, filtreType, filterDepartement, ordreNom, ordre, filtreRegion, filtreParNomStructure, filtreComs]);
-
-
+ 
   return (
     <>
       <Spinner loading={loading} />
-      <div className="fr-container--fluid">
-       
-        <div className="fr-select-group fr-col-5" id="filtre-region">
+      <div className="fr-grid-row fr-mb-6w" >
+        <div className="fr-select-group fr-col-2 fr-mr-1w" id="filtre-region">
           <select className="fr-select" onChange={selectFiltreRegion}>
-            <option value={'tous'}>S&eacute;lectionner une région</option>
+            <option value={'tous'}>Toutes les régions</option>
             {codeRegions.map((region, idx) =>
-              <option key={idx} value={region.nom}>{region.nom}</option>
+              <option key={idx} value={region.code}>{region.nom}</option>
             )}
           </select>
         </div>
-        <div className="fr-select-group fr-col-5" id="filtre-departement">
+        <div className="fr-select-group fr-col-2  fr-mr-1w" id="filtre-departement">
           <select className="fr-select" onChange={selectFiltreDepartement}>
-            <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
+            <option value={'tous'}>Tous les d&eacute;partements</option>
             {getDepartements().map((departement, idx) =>
               <option key={idx} value={departement.num_dep}>{departement.num_dep} - {departement.dep_name}</option>
             )}
           </select>
         </div>
-        <div className="fr-select-group fr-col-5" id="filtre-codePostal">
-          <select className="fr-select code-postal-select" onChange={selectFiltreCodePostal}>
-            <option value="">Tous codes postaux</option>
+        <div className="fr-select-group fr-col-2  fr-mr-1w" id="filtre-codePostal">
+          <select className="fr-select code-postal-select" onChange={selectFiltreCodePostal} value={JSON.stringify({ cp: codePostal, ville: ville })}>
+            <option value={'tous'}>Tous codes postaux</option>
             {listeCodesPostaux && listeCodesPostaux?.map((codePostal, idx) => {
               return (<optgroup key={idx} label={codePostal.codePostal}>
-                {codePostal?.length > 1 &&
-            <option value={codePostal}>{codePostal} - TOUTES COMMUNES </option>
-                }
-                {codePostal?.villes?.map((ligne, idxbis) => {
-                  return (<option key={idxbis} value={ligne}>{ligne.toUpperCase()}</option>);
+                {codePostal?.villes?.map((ville, idxbis) => {
+                  return (<option key={idxbis} value={JSON.stringify({ cp: codePostal.codePostal, ville })}>{ville.toUpperCase()}</option>);
                 })}
               </optgroup>);
             })}
+          </select>
+        </div>
+        <div className="fr-select-group fr-col-2  fr-mr-1w" id="filtre-structure">
+          <select className="fr-select" onChange={selectFiltreStructure} value={structure}>
+            <option value="tous">Toutes les structures</option>
+            {listeStructures?.map((structure, idx) =>
+              <option key={idx} value={structure._id}>{structure.nom}</option>
+            )}
+          </select>
+        </div>
+        <div className="fr-select-group fr-col-2  fr-mr-1w" id="filtre-conseiller">
+          <select className="fr-select" onChange={selectFiltreConseiller} value={conseiller}>
+            <option value="tous">S&eacute;lection CnFS</option>
+            {listeConseillers?.map((conseiller, idx) =>
+              <option key={idx} value={conseiller._id}>{conseiller.email}</option>
+            )}
           </select>
         </div>
       </div>
