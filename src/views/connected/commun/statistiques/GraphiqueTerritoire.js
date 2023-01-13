@@ -78,7 +78,7 @@ export default function GraphiqueTerritoire() {
           </div>
         </div>
         {!donneesStatistiques &&
-          <h2 className="centrerTexte">Il n&rsquo;y a aucune statistique pour le moment</h2>
+          <h2 className="loadingStatsTexte">La page est en cours de chargement, veuillez patienter</h2>
         }
         {donneesStatistiques &&
           <div className="fr-grid-row">
