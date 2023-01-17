@@ -32,17 +32,17 @@ function FiltresEtTrisGrandReseau() {
       <Spinner loading={loading} />
       <div className="fr-grid-row fr-mb-6w" >
         <div className="fr-select-group fr-col-2 fr-mr-1w" id="filtre-region">
-          <select className="fr-select" onChange={e => selectFiltreRegion(dispatch, e)}>
+          <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => selectFiltreRegion(dispatch, e)}>
             <SelectOptions options={codeRegions} valueName="code" labelName="nom" title="Toutes les régions"/>
           </select>
         </div>
         <div className="fr-select-group fr-col-2  fr-mr-1w" id="filtre-departement">
-          <select className="fr-select" onChange={e => selectFiltreDepartement(dispatch, e)}>
+          <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => selectFiltreDepartement(dispatch, e)}>
             <SelectOptions options={getDepartements()} valueName="num_dep" labelName="dep_name" title="Tous les d&eacute;partements"/>
           </select>
         </div>
         <div className="fr-select-group fr-col-2  fr-mr-1w" id="filtre-codePostal">
-          <select className="fr-select code-postal-select" onChange={e => selectFiltreCodePostal(dispatch, e)}
+          <select style={{ fontSize: '12px' }} className="fr-select code-postal-select" onChange={e => selectFiltreCodePostal(dispatch, e)}
             value={JSON.stringify({ cp: codePostal, ville: ville })}>
             <option value={'tous'}>Tous codes postaux</option>
             {listeCodesPostaux && listeCodesPostaux?.map((codePostal, idx) => {
@@ -55,12 +55,12 @@ function FiltresEtTrisGrandReseau() {
           </select>
         </div>
         <div className="fr-select-group fr-col-2  fr-mr-1w" id="filtre-structure">
-          <select className="fr-select" onChange={e => selectFiltreStructure(dispatch, e)} value={structure}>
+          <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => selectFiltreStructure(dispatch, e)} value={structure}>
             <SelectOptions options={listeStructures} valueName="_id" labelName="nom" title="Toutes les structures"/>
           </select>
         </div>
         <div className="fr-select-group fr-col-2  fr-mr-1w" id="filtre-conseiller">
-          <select className="fr-select" onChange={e => selectFiltreConseiller(dispatch, e)} value={conseiller}>
+          <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => selectFiltreConseiller(dispatch, e)} value={conseiller}>
             <SelectOptions options={listeConseillers} valueName={'_id'} labelName={'email'} title ="S&eacute;lection CnFS" />
           </select>
         </div>
