@@ -193,7 +193,7 @@ function ConseillerDetails() {
                     Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats
                     </span>
                   </p>
-                </div> : <span>-</span>
+                </div> : <span>Comp&eacute;tences PIX non partag&eacute;es</span>
               }
             </div>
           </div>

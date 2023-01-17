@@ -37,7 +37,7 @@ function popinNouvelleRupture({ setDisplayModal }) {
                 <p>
                   <strong>Si vous ne souhaitez pas proc&eacute;der &agrave; un nouveau recrutement</strong>,
                     nous vous remercions de bien vouloir nous en informer
-                    &agrave;	 l&rsquo;adresse suivante : <a href="mailto:conseiller-numerique@anct.gouv.fr"
+                    &agrave; l&rsquo;adresse suivante : <a href="mailto:conseiller-numerique@anct.gouv.fr"
                     title="conseiller-numerique@anct.gouv.fr">conseiller-numerique@anct.gouv.fr</a>, ainsi qu&rsquo;&agrave; l&rsquo;indiquer à votre
                     Pr&eacute;fecture de d&eacute;partement.
                 </p>

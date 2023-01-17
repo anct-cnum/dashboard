@@ -83,7 +83,6 @@ function ConseillerNonMisEnRelation({ conseiller, search }) {
 ConseillerNonMisEnRelation.propTypes = {
   conseiller: PropTypes.object,
   search: PropTypes.bool,
-  // update: PropTypes.func
 };
 
 export default ConseillerNonMisEnRelation;
