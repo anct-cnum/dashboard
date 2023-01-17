@@ -10,7 +10,6 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useNavigate } from 'react-router-dom';
 
 function ConseillerNonMisEnRelation({ conseiller, search }) {
-  const conseillerMisEnRelation = useSelector(state => state?.conseiller?.misEnRelation?.misEnRelation);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -19,19 +18,6 @@ function ConseillerNonMisEnRelation({ conseiller, search }) {
     scrollTopWindow();
     navigate('/structure/candidats/interessee');
   };
-
-  useEffect(() => {
-    if (conseillerMisEnRelation !== undefined && conseillerMisEnRelation?.conseillerObj?._id === conseiller._id) {
-      history.push(
-        {
-          pathname: `/structure/candidat/${conseiller._id}`,
-          miseEnRelation: conseillerMisEnRelation,
-          currentPage: 1,
-          currentFilter: 'interessee'
-        }
-      );
-    }
-  }, [conseillerMisEnRelation, conseiller]);
 
   const downloadCV = () => {
     dispatch(conseillerActions.getCurriculumVitae(conseiller?._id, conseiller));
@@ -42,7 +28,7 @@ function ConseillerNonMisEnRelation({ conseiller, search }) {
       <td>{conseiller.prenom}</td>
       <td>{conseiller.nom}</td>
       { search && <td>{conseiller.email}</td>}
-      <td>{conseiller?.finalisee === true ? <> Déjà recruté </> : <> Non mis en relation </>}</td>
+      <td>{conseiller?.miseEnRelation?.statut === 'finalisee' ? <> Déjà recruté </> : <> Non mis en relation </>}</td>
       <td>{dayjs(conseiller.createdAt).format('DD/MM/YYYY')}</td>
       <td>{conseiller.codePostal}</td>
       { !search && <td>
