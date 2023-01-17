@@ -7,11 +7,19 @@ import GrandReseau from './grandReseau';
 import Hub from './hub';
 import Prefet from './prefet';
 import Structure from './structure';
+import { useQueryClient } from '@tanstack/react-query';
+import { statistiquesService } from '../../services/statistiquesService';
+
 
 export default function Accueil() {
 
   const navigate = useNavigate();
+  
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const queryClient = useQueryClient();
+
+  const dateDebut = useSelector(state => state.statistiques?.dateDebut);
+  const dateFin = useSelector(state => state.statistiques?.dateFin);
 
   useEffect(() => {
     if (!localStorage.getItem('user')) {
@@ -20,6 +28,10 @@ export default function Accueil() {
       navigate('/accueil'); // pour ne pas partir en vue 404 si token présent après signInCallBack
     }
   });
+
+  useEffect(() => {
+    queryClient.prefetchQuery(['statsNationales', dateDebut, dateFin], () => statistiquesService.getStatistiquesNationale(dateDebut, dateFin));
+  }, []);
 
   return (
     <div className="fr-container fr-my-10w">
