@@ -40,7 +40,7 @@ function ConseillerNonMisEnRelation({ conseiller, search }) {
               <span className="tooltiptext">A partag&eacute; ses r&eacute;sultats Pix</span>
             </div>
           }
-        </td> 
+        </td>
       }
       <td>
         {conseiller?.cv?.file &&
