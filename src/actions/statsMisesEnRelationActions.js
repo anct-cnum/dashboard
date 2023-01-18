@@ -1,7 +1,8 @@
 import { statsService } from '../services/statsService.js';
 
 export const statsActions = {
-  getMisesEnRelationStats
+  getMisesEnRelationStats,
+  ajoutStatsInteressee
 };
 
 function getMisesEnRelationStats(id = null) {
@@ -33,4 +34,8 @@ function getMisesEnRelationStats(id = null) {
   function failure(error) {
     return { type: 'GET_MISES_EN_RELATION_STATS_FAILURE', error };
   }
+}
+
+function ajoutStatsInteressee() {
+  return { type: 'PRE_SELECTION_CANDIDAT_SUCCESS' };
 }

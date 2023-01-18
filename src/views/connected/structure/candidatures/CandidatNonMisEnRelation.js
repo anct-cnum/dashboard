@@ -1,35 +1,22 @@
 import dayjs from 'dayjs';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { conseillerActions } from '../../../../actions';
-import { history } from '../../../../helpers';
 import PropTypes from 'prop-types';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { useNavigate } from 'react-router-dom';
 
-function ConseillerNonMisEnRelation({ conseiller, search, update }) {
-  const structure = useSelector(state => state.structure);
-  const conseillerMisEnRelation = useSelector(state => state?.conseiller?.misEnRelation?.misEnRelation);
-
+function ConseillerNonMisEnRelation({ conseiller, search }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const select = () => {
-    update();
-    dispatch(conseillerActions.preSelectionner({ conseillerId: conseiller._id, structureId: structure?.structure._id }));
+  const preSelectionnerCandidat = () => {
+    dispatch(conseillerActions.preSelectionner(conseiller._id));
+    scrollTopWindow();
+    navigate('/structure/candidats/interessee');
   };
-
-  useEffect(() => {
-    if (conseillerMisEnRelation !== undefined && conseillerMisEnRelation?.conseillerObj?._id === conseiller._id) {
-      history.push(
-        {
-          pathname: `/structure/candidat/${conseiller._id}`,
-          miseEnRelation: conseillerMisEnRelation,
-          currentPage: 1,
-          currentFilter: 'interessee'
-        }
-      );
-    }
-  }, [conseillerMisEnRelation, conseiller]);
 
   const downloadCV = () => {
     dispatch(conseillerActions.getCurriculumVitae(conseiller?._id, conseiller));
@@ -39,18 +26,22 @@ function ConseillerNonMisEnRelation({ conseiller, search, update }) {
     <tr className="conseiller">
       <td>{conseiller.prenom}</td>
       <td>{conseiller.nom}</td>
-      { search && <td>{conseiller.email}</td>}
-      <td>{conseiller?.finalisee === true ? <> Déjà recruté </> : <> Non mis en relation </>}</td>
+      {search &&
+        <td>{conseiller.email}</td>
+      }
+      <td>{conseiller?.miseEnRelation?.statut === 'finalisee' ? <> D&eacute;j&agrave; recrut&eacute; </> : <> Non mis en relation </>}</td>
       <td>{dayjs(conseiller.createdAt).format('DD/MM/YYYY')}</td>
       <td>{conseiller.codePostal}</td>
-      { !search && <td>
-        { conseiller?.pix?.partage &&
-          <div className="tooltip">
-            <img src={logoPix} alt="logo Pix" style={{ height: '36px' }}/>
-            <span className="tooltiptext">A partagé ses résultats Pix</span>
-          </div>
-        }
-      </td> }
+      {!search &&
+        <td>
+          {conseiller?.pix?.partage &&
+            <div className="tooltip">
+              <img src={logoPix} alt="logo Pix" style={{ height: '36px' }}/>
+              <span className="tooltiptext">A partag&eacute; ses r&eacute;sultats Pix</span>
+            </div>
+          }
+        </td> 
+      }
       <td>
         {conseiller?.cv?.file &&
         <button className="downloadCVBtn" onClick={downloadCV}>
@@ -62,15 +53,17 @@ function ConseillerNonMisEnRelation({ conseiller, search, update }) {
         }
       </td>
       <td className="td-preselection">
-        {conseiller?.finalisee === true ?
-          <button className="fr-btn fr-mx-1w fr-fi-checkbox-line fr-btn--icon-left" style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
-          Pré sélectionner
+        {conseiller?.miseEnRelation?.statut === 'finalisee' ?
+          <button className="fr-btn fr-mx-1w fr-icon-success-line fr-btn--icon-left"
+            style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
+            Pr&eacute; s&eacute;lectionner
           </button> :
-          <button className="fr-btn fr-mx-1w fr-fi-checkbox-line fr-btn--icon-left"
+          <button className="fr-btn fr-mx-1w fr-icon-success-line fr-btn--icon-left"
             style={{ boxShadow: 'none' }}
-            onClick={select} >
-          Pré sélectionner
-          </button>}
+            onClick={preSelectionnerCandidat}>
+            Pr&eacute; s&eacute;lectionner
+          </button>
+        }
       </td>
     </tr>
   );
@@ -79,7 +72,6 @@ function ConseillerNonMisEnRelation({ conseiller, search, update }) {
 ConseillerNonMisEnRelation.propTypes = {
   conseiller: PropTypes.object,
   search: PropTypes.bool,
-  update: PropTypes.func
 };
 
 export default ConseillerNonMisEnRelation;

@@ -13,7 +13,7 @@ export const structureActions = {
 };
 
 // eslint-disable-next-line max-len
-function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre = 'prenom', ordre = 1) {
+function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre = 'nom', ordre = 1) {
   return dispatch => {
     dispatch(request());
 

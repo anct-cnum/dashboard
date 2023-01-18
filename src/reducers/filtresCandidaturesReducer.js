@@ -1,20 +1,21 @@
 const initialState = {
   departement: 'tous',
-  order: undefined,
-  pix: undefined,
+  ordreNom: 'createdAt',
+  pix: [],
   diplome: undefined,
   cv: undefined,
   nomCandidat: undefined,
   region: 'tous',
   coms: 'tous',
+  search: '',
 };
 
 export default function filtresCandidatures(state = initialState, action) {
   switch (action.type) {
-    case 'UPDATE_ORDER':
+    case 'UPDATE_ORDRE':
       return {
         ...state,
-        order: action.order,
+        ordreNom: action.ordreNom,
       };
     case 'UPDATE_PIX':
       return {
@@ -50,6 +51,15 @@ export default function filtresCandidatures(state = initialState, action) {
       return {
         ...state,
         nomCandidat: action.nomCandidat,
+      };
+    case 'UPDATE_SEARCH':
+      return {
+        ...state,
+        search: action.search,
+      };
+    case 'RESET_FILTER_AND_SORTS':
+      return {
+        ...initialState,
       };
     default:
       return state;

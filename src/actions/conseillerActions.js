@@ -1,5 +1,5 @@
 import { conseillerService } from '../services/conseillerService.js';
-import { statsActions, searchActions } from '../actions';
+import { statsActions, filtresCandidaturesActions } from '../actions';
 import download from 'downloadjs';
 
 export const conseillerActions = {
@@ -17,7 +17,8 @@ export const conseillerActions = {
   dossierIncompletRupture,
   getAllCandidatsByAdmin,
   resendInvitCandidat,
-  suppressionCandidat
+  suppressionCandidat,
+  getCandidatStructure,
 };
 
 function get(id) {
@@ -68,29 +69,49 @@ function getCandidat(id) {
   }
 }
 
+function getCandidatStructure(id) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.getCandidatStructure(id)
+    .then(
+      candidat => dispatch(success(candidat)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CANDIDAT_STRUCTURE_REQUEST' };
+  }
+  function success(candidat) {
+    return { type: 'GET_CANDIDAT_STRUCTURE_SUCCESS', candidat };
+  }
+  function failure(error) {
+    return { type: 'GET_CANDIDAT_STRUCTURE_FAILURE', error };
+  }
+}
+
 function getAllCandidats({
-  departement = null,
-  region = null,
-  com = null,
   structureId = null,
   misesEnRelation,
   search = '',
   page = 0,
   filter,
-  sortData = 'conseillerObj.createdAt',
-  sortOrder = 1,
+  ordreNom,
   persoFilters }) {
   return dispatch => {
     dispatch(request());
     let promises = [];
     if (misesEnRelation) {
-      let promise = conseillerService.getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters);
+      let promise = conseillerService.getAllMisesEnRelation(structureId, search, page, filter, ordreNom, persoFilters);
       promises.push(promise);
     }
 
     let isSearch = search.length > 0;
     if (!misesEnRelation || isSearch) {
-      let promise = conseillerService.getAllCandidats(departement, region, com, search, page, isSearch ? '' : filter, sortData, sortOrder, persoFilters);
+      let promise = conseillerService.getAllCandidats(structureId, search, page, ordreNom, persoFilters);
       promises.push(promise);
     }
     let conseillers = null;
@@ -98,6 +119,10 @@ function getAllCandidats({
       conseillers = items[0];
       if (items.length > 1) {
         conseillers.data = [...items[0].data, ...items[1].data];
+        conseillers.total = items[0].total + items[1].total;
+        conseillers.limit = items[0].limit === 0 ? items[1].limit : items[0].limit;
+        conseillers.skip = items[0].skip === 0 ? items[1].limit : items[0].limit;
+        conseillers.coselec = Object.entries(items[0].coselec).length === 0 ? items[1].coselec : items[0].coselec;
       }
       dispatch(success(conseillers));
     }).catch(error => {
@@ -309,16 +334,16 @@ function updateMotifRupture({ id, motif }) {
   }
 }
 
-function preSelectionner({ conseillerId, structureId }) {
+function preSelectionner(conseillerId) {
   return dispatch => {
     dispatch(request());
 
-    conseillerService.preSelectionner(conseillerId, structureId)
+    conseillerService.preSelectionner(conseillerId)
     .then(
-      miseEnRelation => {
-        dispatch(searchActions.updateSearch(''));
-        dispatch(statsActions.getMisesEnRelationStats());
-        dispatch(success(miseEnRelation));
+      response => {
+        dispatch(filtresCandidaturesActions.resetFiltre());
+        dispatch(statsActions.ajoutStatsInteressee());
+        dispatch(success(response.message));
       },
       error => {
         dispatch(failure(error));
@@ -329,8 +354,8 @@ function preSelectionner({ conseillerId, structureId }) {
   function request() {
     return { type: 'PRESELECTIONNER_CONSEILLER_REQUEST' };
   }
-  function success(miseEnRelation) {
-    return { type: 'PRESELECTIONNER_CONSEILLER_SUCCESS', miseEnRelation };
+  function success(message) {
+    return { type: 'PRESELECTIONNER_CONSEILLER_SUCCESS', message };
   }
   function failure(error) {
     return { type: 'PRESELECTIONNER_CONSEILLER_FAILURE', error };
@@ -365,7 +390,7 @@ function validationRupture(id, dateFinDeContrat) {
 
     conseillerService.validationRupture(id, dateFinDeContrat)
     .then(
-      response => dispatch(success(response)),
+      miseEnRelationUpdated => dispatch(success(miseEnRelationUpdated)),
       error => {
         dispatch(failure(error));
       }
@@ -375,8 +400,8 @@ function validationRupture(id, dateFinDeContrat) {
   function request() {
     return { type: 'VALIDATION_RUPTURE_REQUEST' };
   }
-  function success(response) {
-    return { type: 'VALIDATION_RUPTURE_SUCCESS', response };
+  function success(miseEnRelationUpdated) {
+    return { type: 'VALIDATION_RUPTURE_SUCCESS', miseEnRelationUpdated };
   }
   function failure(error) {
     return { type: 'VALIDATION_RUPTURE_FAILURE', error };
