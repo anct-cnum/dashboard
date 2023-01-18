@@ -1,8 +1,7 @@
 import dayjs from 'dayjs';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { conseillerActions } from '../../../../actions';
-import { history } from '../../../../helpers';
 import PropTypes from 'prop-types';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
@@ -27,18 +26,22 @@ function ConseillerNonMisEnRelation({ conseiller, search }) {
     <tr className="conseiller">
       <td>{conseiller.prenom}</td>
       <td>{conseiller.nom}</td>
-      { search && <td>{conseiller.email}</td>}
-      <td>{conseiller?.miseEnRelation?.statut === 'finalisee' ? <> Déjà recruté </> : <> Non mis en relation </>}</td>
+      {search &&
+        <td>{conseiller.email}</td>
+      }
+      <td>{conseiller?.miseEnRelation?.statut === 'finalisee' ? <> D&eacute;j&agrave; recrut&eacute; </> : <> Non mis en relation </>}</td>
       <td>{dayjs(conseiller.createdAt).format('DD/MM/YYYY')}</td>
       <td>{conseiller.codePostal}</td>
-      { !search && <td>
-        { conseiller?.pix?.partage &&
-          <div className="tooltip">
-            <img src={logoPix} alt="logo Pix" style={{ height: '36px' }}/>
-            <span className="tooltiptext">A partagé ses résultats Pix</span>
-          </div>
-        }
-      </td> }
+      {!search &&
+        <td>
+          {conseiller?.pix?.partage &&
+            <div className="tooltip">
+              <img src={logoPix} alt="logo Pix" style={{ height: '36px' }}/>
+              <span className="tooltiptext">A partag&eacute; ses r&eacute;sultats Pix</span>
+            </div>
+          }
+        </td> 
+      }
       <td>
         {conseiller?.cv?.file &&
         <button className="downloadCVBtn" onClick={downloadCV}>
