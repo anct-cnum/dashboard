@@ -61,7 +61,7 @@ function ConseillerDetails() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'La structure n\'a pas pu être chargée !',
+        message: 'Le conseiller n\'a pas pu être chargé !',
         status: null, description: null
       }));
     }
