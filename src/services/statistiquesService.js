@@ -63,9 +63,9 @@ function getStatistiquesNationale(dateDebut, dateFin) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, villes, codePostal, codeRegion, numeroDepartement, structureId, conseillerId) {
+function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, codeRegion, numeroDepartement, structureId, conseillerId) {
   // eslint-disable-next-line max-len
-  return API.get(`stats/nationales/cras/grand-reseau?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&codePostal=${codePostal}&villes=${villes}&codeRegion=${codeRegion}&numeroDepartement=${numeroDepartement}&structureId=${structureId}&conseillerId=${conseillerId}`)
+  return API.get(`stats/nationales/cras/grand-reseau?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&codePostal=${codePostal}&ville=${ville}&codeRegion=${codeRegion}&numeroDepartement=${numeroDepartement}&structureId=${structureId}&conseillerId=${conseillerId}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

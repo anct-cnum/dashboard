@@ -1,13 +1,13 @@
-const anneeEnCours = new Date().getFullYear();
+
 const initialState = {
-  dateDebut: new Date(anneeEnCours + '/01/01'),
+  dateDebut: new Date(1605571200000),
   dateFin: new Date(),
-  codePostalStats: 'tous',
-  villeStats: 'tous',
-  conseillerStats: 'tous',
-  structureStats: 'tous',
-  codeRegionStats: 'tous',
-  numeroDepartementStats: 'tous',
+  codePostalStats: '',
+  villeStats: '',
+  conseillerStats: '',
+  structureStats: '',
+  codeRegionStats: '',
+  numeroDepartementStats: '',
   listeAutresReorientations: [],
   error: false,
   errorTerritoire: false,

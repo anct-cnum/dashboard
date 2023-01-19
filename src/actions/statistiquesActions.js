@@ -50,12 +50,11 @@ function changeFiltreDepartementStats(numeroDepartement) {
 }
 
 
-function getStatistiquesNationale(dateDebut, dateFin, nomCommune) {
+function getStatistiquesNationale(dateDebut, dateFin) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getStatistiquesNationale(formatDate(dateDebut), formatDate(dateFin)
-      , nomCommune)
+    statistiquesService.getStatistiquesNationale(formatDate(dateDebut), formatDate(dateFin))
     .then(
       statsNationales => {
         dispatch(success(statsNationales));
