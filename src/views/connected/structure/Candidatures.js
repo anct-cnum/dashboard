@@ -162,55 +162,48 @@ function Candidatures() {
         </li>)}
       </ul>
       <FiltersAndSorts />
-
-      { conseillers && conseillers.loading && <span>Chargement...</span> }
-
-      { !conseillers.loading && conseillers.items && conseillers.items?.total === 0 &&
+      {conseillers && conseillers.loading && <span>Chargement...</span> }
+      {!conseillers.loading && conseillers.items?.total === 0 &&
         <span>{`${filtersAndSorts.search === '' ? 'Aucun conseiller pour le moment.' : 'Aucun résultat de recherche'}`}</span>
       }
-
-      { !conseillers.loading && conseillers.items && conseillers.items?.total > 0 &&
-        <h2>
-          {`${filtersAndSorts.search !== '' ? 'Résultats de recherche' : ''}`}
-        </h2>
-      }
-
       <Spinner loading={conseillers.downloading || conseillers.loading}/>
-
-      {!conseillers.loading && conseillers.items && conseillers.items?.total > 0 &&
-        <div className="fr-table fr-table--layout-fixed" style={{ overflow: 'auto' }}>
-          <table className="table-conseillers">
-            <thead>
-              <tr>
-                <th>Prénom</th>
-                <th>Nom</th>
-                {filtersAndSorts.search !== '' && <th style={{ width: '20rem' }}>Email</th>}
-                <th style={{ width: filtersAndSorts.search !== '' ? '10rem' : '' }}>Statut</th>
-                <th>Date de candidature</th>
-                <th>Code postal</th>
-                {filtersAndSorts.search === '' && <th>Résultat Pix</th> }
-                <th>Curriculum Vit&aelig;</th>
-                <th style={{ width: filtersAndSorts.search !== '' ? '14.2rem' : '' }}>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {!conseillers.error && !conseillers.loading && conseillers.items && conseillers.items.data.map((conseiller, idx) => {
-                return (
-                  conseiller.conseillerObj ?
-                    <Candidat key={idx} miseEnRelation={conseiller} currentPage={page} currentFilter={filter} search={filtersAndSorts.search !== ''} /> :
-                    <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={filtersAndSorts.search !== ''} />
-                );
-              })
-              }
-            </tbody>
-          </table>
+      {!conseillers.loading && conseillers.items?.total > 0 &&
+      <div className="fr-grid-row fr-grid-row--center">
+        <div className="fr-col-12">
+          <div className="fr-table">
+            <table>
+              <thead>
+                <tr>
+                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '5rem' }}>Id</th>
+                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '6rem' }}>Prénom</th>
+                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '6rem' }}>Nom</th>
+                  {filtersAndSorts.search !== '' && <th style={{ width: '15rem' }}>Email</th>}
+                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '15rem' }}>Statut</th>
+                  <th>Date de candidature</th>
+                  <th>Code postal</th>
+                  {filtersAndSorts.search === '' && <th style={{ width: '8rem' }}>Résultat Pix</th> }
+                  <th>Curriculum Vit&aelig;</th>
+                  <th style={{ width: filtersAndSorts.search !== '' ? '14.2rem' : '' }}></th>
+                </tr>
+              </thead>
+              <tbody>
+                {!conseillers.error && !conseillers.loading && conseillers.items && conseillers.items.data.map((conseiller, idx) => {
+                  return (
+                    conseiller.conseillerObj ?
+                      <Candidat key={idx} miseEnRelation={conseiller} currentPage={page} currentFilter={filter} search={filtersAndSorts.search !== ''} /> :
+                      <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={filtersAndSorts.search !== ''} />
+                  );
+                })
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
+        {conseillers?.items?.total !== 0 &&
+          <Pagination />
+        }
+      </div>
       }
-
-      {conseillers?.items?.total !== 0 &&
-        <Pagination />
-      }
-
     </div>
   );
 }
