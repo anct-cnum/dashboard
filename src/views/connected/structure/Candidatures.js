@@ -114,6 +114,8 @@ function Candidatures() {
     }
   ];
 
+  const checkConseillerObjExist = conseillers => conseillers.every(conseiller => 'conseillerObj' in conseiller);
+
   useEffect(() => {
     if (conseillers.downloadError && conseillers.downloadError !== false) {
       scrollTopWindow();
@@ -183,7 +185,7 @@ function Candidatures() {
                   <th>Code postal</th>
                   {filtersAndSorts.search === '' && <th style={{ width: '8rem' }}>Résultat Pix</th> }
                   <th>Curriculum Vit&aelig;</th>
-                  <th style={{ width: filtersAndSorts.search !== '' ? '14.2rem' : '' }}></th>
+                  <th style={{ width: filtersAndSorts.search !== '' && !checkConseillerObjExist(conseillers.items.data) ? '14.2rem' : '' }}></th>
                 </tr>
               </thead>
               <tbody>
