@@ -201,9 +201,7 @@ function Candidatures() {
             </table>
           </div>
         </div>
-        {conseillers?.items?.total !== 0 &&
-          <Pagination />
-        }
+        <Pagination />
       </div>
       }
     </div>
