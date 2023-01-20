@@ -24,6 +24,7 @@ function ConseillerNonMisEnRelation({ conseiller, search }) {
 
   return (
     <tr className="conseiller">
+      <td>{conseiller.idPG}</td>
       <td>{conseiller.prenom}</td>
       <td>{conseiller.nom}</td>
       {search &&
