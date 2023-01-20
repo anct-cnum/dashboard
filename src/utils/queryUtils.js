@@ -73,6 +73,14 @@ export function structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateF
   return { ordreColonne, filterDateStart, filterDateEnd, filterByName, filterByType, filterByStatut, filterByRegion, filterByComs, filterByDepartement };
 }
 
+// eslint-disable-next-line max-len
+export function gestionnairesQueryStringParameters(nomOrdre, ordre, filtreParRole, filtreParNom) {
+  const filterByName = filtreParNom ? `&searchByNom=${filtreParNom}` : '';
+  const filterByRole = filtreParRole !== 'tous' && filtreParRole !== undefined ? `&searchRole=${filtreParRole}` : '';
+  const ordreColonne = nomOrdre && ordre !== undefined ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
+  return { ordreColonne, filterByName, filterByRole };
+}
+
 export function candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement) {
   const filterByNameCandidat = filtreParNomCandidat ? `&searchByNomCandidat=${filtreParNomCandidat}` : '';
   const filterByRegion = filtreParRegion !== 'tous' && filtreParRegion !== undefined ? `&region=${filtreParRegion}` : '';

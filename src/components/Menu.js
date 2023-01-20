@@ -109,6 +109,16 @@ function Menu() {
                     </Link>
                   </li>
                   }
+                  { roleActivated === 'admin' &&
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/liste-gestionnaires`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/liste-gestionnaires`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'liste-gestionnaires', action: `click-${roleActivated}` })}
+                    >
+                      Liste des gestionnaires
+                    </Link>
+                  </li>
+                  }
                 </ul>
               </div>
             </li>

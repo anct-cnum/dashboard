@@ -91,6 +91,26 @@ export default function exports(state = initialState, action) {
         error: action.error,
         loading: false,
       };
+    case 'EXPORT_GESTIONNAIRES_REQUEST':
+      return {
+        ...state,
+        blob: null,
+        loading: true,
+        error: false,
+      };
+    case 'EXPORT_GESTIONNAIRES_SUCCESS':
+      return {
+        ...state,
+        blob: action.exportGestionnairesFileBlob,
+        nameFile: action.nameFile,
+        loading: false,
+      };
+    case 'EXPORT_GESTIONNAIRES_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
     case 'EXPORT_TERRITOIRE_RESET': {
       const {
         blob: _file,
