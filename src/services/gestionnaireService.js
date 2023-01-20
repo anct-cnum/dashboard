@@ -4,28 +4,10 @@ import { API } from './api';
 import { gestionnairesQueryStringParameters } from '../utils/queryUtils';
 
 export const gestionnaireService = {
-  get,
   getAll,
-  getDetails,
   suppressionGestionnaire,
   resendInvitGestionnaire,
-  patch,
-  updateStructureEmail,
-  updateStructureSiret,
-  verifyStructureSiret
 };
-
-function get(id) {
-  return API.get(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`)
-  .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
-}
-
-function getDetails(id) {
-  return API.get(`${apiUrlRoot}/structure/details/${id}?role=${roleActivated()}`)
-  .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
-}
 
 function getAll(page, filtreParNom, filtreParRole, nomOrdre, ordre) {
   const {
@@ -48,30 +30,6 @@ function resendInvitGestionnaire(id) {
 
 function suppressionGestionnaire({ id }) {
   return API.delete(`${apiUrlRoot}/user/${id}?role=${roleActivated()}`)
-  .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
-}
-
-function patch({ id, contact }) {
-  return API.patch(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`, { contact })
-  .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
-}
-
-function updateStructureEmail(email, structureId) {
-  return API.patch(`${apiUrlRoot}/structure/email/${structureId}?role=${roleActivated()}`, { email })
-  .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
-}
-
-function verifyStructureSiret(siret) {
-  return API.get(`${apiUrlRoot}/structure/verify-siret/${siret}`)
-  .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
-}
-
-function updateStructureSiret(siret, structureId) {
-  return API.patch(`${apiUrlRoot}/structure/siret/${structureId}?role=${roleActivated()}`, { siret })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
