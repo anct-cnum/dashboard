@@ -29,9 +29,16 @@ export default function Accueil() {
     }
   });
 
+  
+  const preFetch = async () => await queryClient.prefetchQuery(['statsNationales', dateDebut, dateFin],
+    () => statistiquesService.getStatistiquesNationale(dateDebut, dateFin));
+
   useEffect(() => {
-    queryClient.prefetchQuery(['statsNationales', dateDebut, dateFin], () => statistiquesService.getStatistiquesNationale(dateDebut, dateFin));
+    if (window.location.pathname.startsWith('/accueil')) {
+      preFetch();
+    }
   }, []);
+
 
   return (
     <div className="fr-container fr-my-10w">

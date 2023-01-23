@@ -12,7 +12,6 @@ export const statistiquesActions = {
   getStatistiquesStructure,
   getStatistiquesConseiller,
   getStatistiquesTerritoire,
-  getStatistiquesNationale,
   getCodesPostauxCrasConseillerStructure,
   getCodesPostauxCrasConseiller,
   resetFiltre,
@@ -28,33 +27,6 @@ function changeDateFin(dateFin) {
 
 function changeCodePostalStats(codePostal, ville) {
   return { type: 'CHANGE_CODE_POSTAL_STATS', codePostal, ville };
-}
-
-
-function getStatistiquesNationale(dateDebut, dateFin) {
-  return dispatch => {
-    dispatch(request());
-
-    statistiquesService.getStatistiquesNationale(formatDate(dateDebut), formatDate(dateFin))
-    .then(
-      statsNationales => {
-        dispatch(success(statsNationales));
-      },
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
-
-  function request() {
-    return { type: 'GET_STATS_CRA_NATIONALES_REQUEST' };
-  }
-  function success(statsNationales) {
-    return { type: 'GET_STATS_CRA_NATIONALES_SUCCESS', statsNationales };
-  }
-  function failure(error) {
-    return { type: 'GET_STATS_CRA_NATIONALES_FAILURE', error };
-  }
 }
 
 function updateListeAutresReorientations(listeAutresReorientations) {

@@ -25,7 +25,7 @@ export default function GraphiqueNationale() {
     } catch (error) {
       throw error.response.data.message;
     }
-  }, { refetchOnWindowFocus: false });
+  }, { refetchOnWindowFocus: false, staleTime: 5000 });
 
   if (isError) {
     dispatch(alerteEtSpinnerActions.getMessageAlerte({
