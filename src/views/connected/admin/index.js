@@ -8,6 +8,8 @@ import StructureDetails from './structures/StructureDetails';
 import Page404 from '../Page404';
 import TableauCandidatures from './candidatures/TableauCandidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
+import TableauReconventionnement from './reconventionnement/TableauReconventionnement';
+import ReconventionnementDetails from './reconventionnement/ReconventionnementDetails';
 
 export default function Admin() {
 
@@ -15,7 +17,7 @@ export default function Admin() {
 
   return (
     <>
-      { location.pathname === '/accueil' &&
+      {location.pathname === '/accueil' &&
         <div className="fr-grid-row fr-grid-row--center fr-my-15w">
           <div className="fr-col--offset-1 fr-col-10">
             <h3>Bienvenue sur votre tableau de pilotage</h3>
@@ -24,11 +26,13 @@ export default function Admin() {
       }
       <Routes>
         <Route path="/admin/informations" element={<MesInformations />} />
+        <Route path="/admin/reconventionnement" element={<TableauReconventionnement />} />
         <Route path="/admin/liste-structures" element={<TableauStructures />} />
         <Route path="/admin/liste-candidatures" element={<TableauCandidatures />} />
         <Route path="/admin/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/admin/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/admin/candidat/:idCandidat" element={<CandidatDetails />} />
+        <Route path="/admin/reconventionnement/:idCandidat" element={<ReconventionnementDetails />} />
         <Route path="/admin/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
