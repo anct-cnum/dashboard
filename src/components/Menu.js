@@ -60,6 +60,33 @@ function Menu() {
                   Mes informations
               </Link>
             </li>
+            { roleActivated === 'admin' &&
+            <li className="fr-nav__item">
+              <button
+                id="listes-traitement-demandes"
+                className="fr-nav__btn"
+                aria-expanded={ activeMenu === 'listes-traitement-demandes' }
+                aria-controls="menu-listes-traitement-demandes"
+                // eslint-disable-next-line max-len
+                {...(location.pathname.startsWith(`/${roleActivated}/reconventionnement`) ? { 'aria-current': 'page' } : {})}
+                onClick={onClickMenu}>
+                  Traiter les demandes
+              </button>
+              <div
+                className={`fr-collapse fr-menu ${activeMenu === 'listes-traitement-demandes' ? 'fr-collapse--expanded' : ''}`}
+                id="menu-listes-traitement-demandes"
+              >
+                <ul className="fr-menu__list">
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/reconventionnement`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/reconventionnement`) ? { 'aria-current': 'page' } : {})}>
+                      Demandes de conventions à traiter
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            }
             <li className="fr-nav__item">
               <button
                 id="listes"
