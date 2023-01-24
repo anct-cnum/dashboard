@@ -90,12 +90,12 @@ export default function TableauStructures() {
                             </button>
                           </th>
                           <th colSpan={structures?.items?.total > 0 ? '12' : ''}>
-                            <button id="nom-structure" className="filtre-btn" onClick={ordreColonne}>
+                            <button id="nom" className="filtre-btn" onClick={ordreColonne}>
                               <span>Nom de la structure
-                                {(ordreNom !== 'nom-structure' || ordreNom === 'nom-structure' && ordre) &&
+                                {(ordreNom !== 'nom' || ordreNom === 'nom' && ordre) &&
                                   <i className="ri-arrow-down-s-line chevron icone"></i>
                                 }
-                                {(ordreNom === 'nom-structure' && !ordre) &&
+                                {(ordreNom === 'nom' && !ordre) &&
                                   <i className="ri-arrow-up-s-line chevron icone"></i>
                                 }
                               </span>

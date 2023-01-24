@@ -38,7 +38,7 @@ export default function TableauTerritoires() {
 
   useEffect(() => {
     if (initTerritoire === true) {
-      dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, 1, ordreNom, ordre ? 1 : -1));
+      dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, currentPage, ordreNom, ordre ? 1 : -1));
     }
   }, [dateDebut, dateFin, ordre, ordreNom, filtreTerritoire, currentPage]);
 
@@ -50,7 +50,7 @@ export default function TableauTerritoires() {
     }
     if (!error) {
       if (initTerritoire === false && page !== undefined) {
-        dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, 1, ordreNom, ordre ? 1 : -1));
+        dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, page, ordreNom, ordre ? 1 : -1));
         setInitTerritoire(true);
       }
     } else {
