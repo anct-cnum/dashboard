@@ -13,7 +13,7 @@ const initialState = {
 
 export default function filtresCandidatures(state = initialState, action) {
   switch (action.type) {
-    case 'CHANGE_ORDRE_TOGGLE':
+    case 'TOGGLE_ORDRE':
       return {
         ...state,
         ordreNom: action.ordreNom,
