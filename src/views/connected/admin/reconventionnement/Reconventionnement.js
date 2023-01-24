@@ -17,11 +17,12 @@ function Reconventionnement({ candidat }) {
         <td>{candidat?.idPG}</td>
         <td>{candidat?.prenom}</td>
         <td>
-          <Link
+          <button
             className="fr-btn"
-            title="Détails"
-            to={`/${roleActivated}/reconventionnement/${candidat?._id}`}
-            state={{ 'origin': `/${roleActivated}/reconventionnement` }}>Voir la demande</Link>
+            title="D&eacute;tail"
+            onClick={() => window.open(`/${roleActivated}/demandes/convention/${candidat?._id}`)}>
+              Voir la demande
+          </button>
         </td>
       </tr>
     </>

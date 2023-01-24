@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { alerteEtSpinnerActions, conseillerActions } from '../../../../actions';
@@ -10,20 +10,11 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 function ReconventionnementDetails() {
   const dispatch = useDispatch();
   const { idCandidat } = useParams();
-  const location = useLocation();
-  const navigate = useNavigate();
 
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const loading = useSelector(state => state.conseiller?.loading);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const downloading = useSelector(state => state.conseiller?.downloading);
-  const downloadError = useSelector(state => state.conseiller?.downloadError);
-  const successDeleteCandidat = useSelector(state => state.conseiller?.successDeleteCandidat);
-  const successSendMail = useSelector(state => state.conseiller?.successResendInvitCandidatConseiller);
-  const errorCandidat = useSelector(state => state.conseiller?.errorCandidat);
-  const [confirmSuppressionCandidat, setConfirmSuppressionCandidat] = useState(false);
-  const currentPage = useSelector(state => state.pagination?.currentPage);
-  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -40,12 +31,6 @@ function ReconventionnementDetails() {
     }
   }, [errorConseiller]);
 
-  useEffect(() => {
-    if (downloadError !== undefined && downloadError !== false) {
-      scrollTopWindow();
-    }
-  }, [downloadError]);
-
   return (
     <div className="candidatDetails">
       <Spinner loading={loading || downloading} />
@@ -55,11 +40,11 @@ function ReconventionnementDetails() {
         Retour &agrave; la liste
       </button>
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1">{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+        <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
       <div className="fr-col-12 fr-mb-4w">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <span className="fr-text--xl" style={{ marginBottom: '0' }}>ID - {conseiller?.idPG ?? ''}</span>
+          <span className="fr-text--xl fr-text--bold" style={{ marginBottom: '0' }}>ID - {conseiller?.idPG ?? ''}</span>
           <button className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-auto">
             Détails structure
           </button>
@@ -68,7 +53,6 @@ function ReconventionnementDetails() {
       <div>
         <div className="fr-card">
           <div className="fr-card__body">
-            {/* <div className="fr-card__content"> */}
             <div className="fr-container  fr-mt-3w">
               <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--bottom">
                 <div className="fr-col-3">
@@ -103,7 +87,6 @@ function ReconventionnementDetails() {
                     }
                   </div>
                 </div>
-                {/* </div> */}
               </div>
             </div>
           </div>
@@ -113,7 +96,7 @@ function ReconventionnementDetails() {
             <hr style={{ borderWidth: '0.5px' }}/>
           </div>
         </div>
-        <div className="fr-card" style={{ backgroundColor: '#E8EDFF' }}>
+        <div className="fr-card" style={{ backgroundColor: '#E8EDFF', boxShadow: 'none' }}>
           <div className="fr-card__body">
             <div className="fr-card__content">
               <h3 className="fr-card__title fr-h3">
