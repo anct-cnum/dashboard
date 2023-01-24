@@ -46,6 +46,12 @@ function FiltresEtTrisConseillers() {
     }
   };
 
+  const rechercheParNomOuNomStructureToucheEnter = e => {
+    if (e.key === 'Enter') {
+      rechercheParNomOuNomStructure(e);
+    }
+  };
+
   useEffect(() => {
     if (has(exportConseillerFileBlob?.blob) && exportConseillerFileError === false) {
       downloadFile(exportConseillerFileBlob);
@@ -71,9 +77,10 @@ function FiltresEtTrisConseillers() {
           <h3 className="fr-h3">Liste des conseillers</h3>
           <div className="fr-ml-auto fr-col-12 fr-col-md-4 fr-mb-4w fr-mb-md-0">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
-              <input className="fr-input" defaultValue={(filtreParNomConseiller || filtreParNomStructure) ?? ''}
-                placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
-              <button className="fr-btn" onClick={rechercheParNomOuNomStructure} title="Rechercher par nom">
+              <input onKeyDown={rechercheParNomOuNomStructureToucheEnter} className="fr-input"
+                defaultValue={(filtreParNomConseiller || filtreParNomStructure) ?? ''}
+                placeholder="Rechercher par nom ou par id" type="search" id="search-input" name="search-input" />
+              <button className="fr-btn" onClick={rechercheParNomOuNomStructure} title="Rechercher par nom ou par id">
                 Rechercher
               </button>
             </div>
@@ -81,7 +88,7 @@ function FiltresEtTrisConseillers() {
         </div>
         <div className="fr-grid-row">
           <div className="fr-select-group" id="filtre-region">
-            <select className="fr-select" onChange={selectFiltreRegion}>
+            <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
               <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
                 <>

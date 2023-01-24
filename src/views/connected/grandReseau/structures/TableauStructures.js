@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, filtresStructuresActions, paginationActions, structureActions } from '../../../../actions';
+import { alerteEtSpinnerActions, filtresStructuresActions, paginationActions, statistiquesActions, structureActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Structure from './Structure';
 import FiltresEtTrisStructures from '../../commun/structures/FiltresEtTrisStructures';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { useLocation } from 'react-router-dom';
 
 export default function TableauStructures() {
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const dateDebut = useSelector(state => state.filtresStructures?.dateDebut);
   const dateFin = useSelector(state => state.filtresStructures?.dateFin);
@@ -21,10 +24,10 @@ export default function TableauStructures() {
   const filtreRegion = useSelector(state => state.filtresStructures?.region);
   const filterDepartement = useSelector(state => state.filtresStructures?.departement);
   const filtreComs = useSelector(state => state.filtresStructures?.coms);
-  const filtreType = useSelector(state => state.filtresStructures?.type);
   const filtreStatut = useSelector(state => state.filtresStructures?.statut);
-  const currentPage = useSelector(state => state.pagination?.currentPage);
+  const filtreType = useSelector(state => state.filtresStructures?.type);
   const [initConseiller, setInitConseiller] = useState(false);
+  const [page, setPage] = useState(location.state?.currentPage);
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
@@ -39,10 +42,15 @@ export default function TableauStructures() {
   }, [structures]);
 
   useEffect(() => {
+    scrollTopWindow();
+    if (page === undefined) {
+      dispatch(paginationActions.setPage(1));
+      setPage(1);
+    }
     if (!error) {
-      if (initConseiller === false) {
-        dispatch(paginationActions.setPage(1));
-        dispatch(structureActions.getAll(currentPage, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreType, filtreRegion,
+      if (initConseiller === false && page !== undefined) {
+        dispatch(statistiquesActions.resetFiltre());
+        dispatch(structureActions.getAll(page, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreType, filtreRegion,
           filtreStatut, filtreComs, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
@@ -53,7 +61,7 @@ export default function TableauStructures() {
         status: null, description: null
       }));
     }
-  }, [error]);
+  }, [error, page]);
 
   return (
     <div className="conseillers">
@@ -70,12 +78,12 @@ export default function TableauStructures() {
                       <thead>
                         <tr>
                           <th colSpan={structures?.items?.total > 0 ? '12' : ''}>
-                            <button id="nom-structure" className="filtre-btn" onClick={ordreColonne}>
+                            <button id="nom" className="filtre-btn" onClick={ordreColonne}>
                               <span>Nom de la structure
-                                {(ordreNom !== 'nom-structure' || ordreNom === 'nom-structure' && ordre) &&
+                                {(ordreNom !== 'nom' || ordreNom === 'nom' && ordre) &&
                                   <i className="ri-arrow-down-s-line chevron icone"></i>
                                 }
-                                {(ordreNom === 'nom-structure' && !ordre) &&
+                                {(ordreNom === 'nom' && !ordre) &&
                                   <i className="ri-arrow-up-s-line chevron icone"></i>
                                 }
                               </span>

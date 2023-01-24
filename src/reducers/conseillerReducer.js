@@ -27,6 +27,23 @@ export default function conseiller(state = initialState, action) {
         loading: false,
         error: action.error
       };
+    case 'GET_CANDIDAT_STRUCTURE_REQUEST':
+      return {
+        ...initialState,
+        loading: true,
+        error: false
+      };
+    case 'GET_CANDIDAT_STRUCTURE_SUCCESS':
+      return {
+        ...state,
+        conseiller: action.candidat,
+        loading: false
+      };
+    case 'GET_CANDIDAT_STRUCTURE_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
     case 'GET_CONSEILLER_REQUEST':
       return {
         ...initialState,
@@ -47,17 +64,20 @@ export default function conseiller(state = initialState, action) {
     case 'UPDATE_STATUS_REQUEST':
       return {
         ...state,
-        errorUpdateStatus: false
+        errorUpdateStatus: false,
+        loading: true
       };
     case 'UPDATE_STATUS_SUCCESS':
       return {
         ...state,
-        miseEnRelation: action.miseEnRelation
+        conseiller: { ...state.conseiller, miseEnRelation: action.miseEnRelation },
+        loading: false
       };
     case 'UPDATE_STATUS_FAILURE':
       return {
         ...state,
-        errorUpdateStatus: action.error
+        errorUpdateStatus: action.error,
+        loading: false
       };
     case 'UPDATE_DATE_REQUEST':
       return {
@@ -78,7 +98,7 @@ export default function conseiller(state = initialState, action) {
     case 'PRESELECTIONNER_CONSEILLER_SUCCESS':
       return {
         ...state,
-        misEnRelation: action.miseEnRelation
+        message: action.message
       };
     case 'PRESELECTIONNER_CONSEILLER_FAILURE':
       return {
@@ -198,6 +218,51 @@ export default function conseiller(state = initialState, action) {
         ...state,
         loading: false,
         error: action.error
+      };
+    case 'VALIDATION_RUPTURE_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        errorRupture: false
+      };
+    case 'VALIDATION_RUPTURE_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        conseiller: { ...state.conseiller,
+          emailCN: '',
+          emailPro: '',
+          telephonePro: '',
+          statut: 'RUPTURE',
+          mattermost: '',
+          misesEnRelation: state.conseiller.misesEnRelation.map(
+            miseEnRelation => (miseEnRelation._id === action.miseEnRelationUpdated._id) ? action.miseEnRelationUpdated : miseEnRelation
+          ),
+          permanences: []
+        }
+      };
+    case 'VALIDATION_RUPTURE_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        errorRupture: action.error
+      };
+    case 'DOSSIER_INCOMPLET_RUPTURE_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        errorRupture: false
+      };
+    case 'DOSSIER_INCOMPLET_RUPTURE_SUCCESS':
+      return {
+        ...state,
+        dossierIncompletRupture: action.dossierIncompletRupture,
+        loading: false
+      };
+    case 'DOSSIER_INCOMPLET_RUPTURE_FAILURE':
+      return {
+        loading: false,
+        errorRupture: action.error
       };
     case 'RESUBMIT_INSCRIPTION_CANDIDAT_REQUEST':
       return {

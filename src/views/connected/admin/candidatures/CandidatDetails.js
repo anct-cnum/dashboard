@@ -3,7 +3,7 @@ import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { alerteEtSpinnerActions, conseillerActions } from '../../../../actions';
-import { formatRenderStars } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, formatRenderStars } from '../../../../utils/formatagesUtils';
 import Spinner from '../../../../components/Spinner';
 import pixUtilisation from '../../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../../assets/icons/pix-ressources.png';
@@ -31,6 +31,7 @@ function CandidatDetails() {
 
   useEffect(() => {
     if (!errorConseiller) {
+      scrollTopWindow();
       if (conseiller?._id !== idCandidat) {
         dispatch(conseillerActions.getCandidat(idCandidat));
       }
@@ -87,28 +88,27 @@ function CandidatDetails() {
       <Spinner loading={loading || downloading} />
       <Link
         style={{ boxShadow: 'none' }}
-        to={location.state?.origin} state={{ currentPage }}
+        to={location?.state?.origin ?? '/admin/liste-candidatures'} state={{ currentPage }}
         className="fr-link fr-fi-arrow-left-line fr-link--icon-left">
         Retour &agrave; la liste
       </Link>
       <div className="fr-mt-2w">
         <h2>
-          <span className="capitalizeFirstLetter">
-            {conseiller?.prenom}&nbsp;{conseiller?.nom}</span>
+          {conseiller ? formatNomConseiller(conseiller) : ''}
         </h2>
         <div className="fr-container fr-container--fluid">
           <div className="fr-grid-row">
             { conseiller?.dateRecrutement?.length > 0 &&
               <div className="fr-col-12">
                 <p><b>Date de recrutement pr&eacute;visionnelle:&nbsp;
-                  {conseiller?.dateRecrutement.map((date, idx) =>
+                  {conseiller?.dateRecrutement?.map((date, idx) =>
 
                     <span key={idx}>
                       {conseiller?.dateRecrutement?.length > 1 &&
                         <><br />-&nbsp;</>
                       }
                       {dayjs(date).format('DD/MM/YY')}
-                      {conseiller?.nomStructures.length > 0 &&
+                      {conseiller?.nomStructures?.length > 0 &&
                         <>&nbsp;par {conseiller?.nomStructures[idx]}</>
                       }
                     </span>
@@ -145,7 +145,7 @@ function CandidatDetails() {
               <p><strong>Courriel : <a href={'mailto:' + conseiller?.email}>{conseiller?.email}</a></strong></p>
               <p>
                 <strong>
-                  T&eacute;l&eacute;phone : {conseiller?.telephone ? conseiller?.telephone : <span>Pas de num&eacute;ro de t&eacute;l&eacute;phone</span>}
+                  T&eacute;l&eacute;phone : {conseiller?.telephone ?? <span>Pas de num&eacute;ro de t&eacute;l&eacute;phone</span>}
                 </strong>
               </p>
               <p>Poss&egrave;de un compte candidat&nbsp;: {conseiller?.possedeCompteCandidat ? 'Oui' : 'Non'}</p>
@@ -158,7 +158,7 @@ function CandidatDetails() {
                 className="fr-btn fr-col-5 delete-candidature"
                 onClick={() => {
                   setConfirmSuppressionCandidat(true);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  scrollTopWindow();
                 }}>
                     Supprimer la candidature
               </button>

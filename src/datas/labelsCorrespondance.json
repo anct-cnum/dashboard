@@ -72,10 +72,10 @@
   },
   {
     "nom": "rattachement",
-    "correspondance": "Lieu de ratachement"
+    "correspondance": "Lieu d&rsquo;activit&eacute;"
   },
   {
-    "nom": "autre",
+    "nom": "autre lieu",
     "correspondance": "Autre lieu"
   },
   {

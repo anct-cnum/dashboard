@@ -16,8 +16,11 @@ export const conseillerService = {
   updateMotifRupture,
   preSelectionner,
   getCurriculumVitae,
+  validationRupture,
+  dossierIncompletRupture,
   resendInvitCandidat,
-  suppressionCandidat
+  suppressionCandidat,
+  getCandidatStructure
 };
 
 function get(id) {
@@ -28,6 +31,12 @@ function get(id) {
 
 function getCandidat(id) {
   return API.get(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getCandidatStructure(id) {
+  return API.get(`${apiUrlRoot}/candidat-structure/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -83,24 +92,23 @@ function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, fil
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllCandidats(departement, region, com, search, page, filter, sortData, sortOrder, persoFilters) {
-  const filterDepartement = departement !== null ? `&codeDepartement=${departement}` : '';
-  const filterRegion = region !== null ? `&codeRegion=${region}` : '';
-  const filterCom = com !== null ? `&codeCom=${com}` : '';
-  const filterSearch = search !== '' ? `&$search=${search}&$limit=100` : '';
-  const filterSort = search === '' ? `&$sort[${sortData}]=${sortOrder}` : '';
+function getAllCandidats(structureId, search, page, nomOrdre, ordre, persoFilters) {
+  const filterSearch = search !== '' ? `&search=${search}` : '';
+  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
 
-  let uri = `${apiUrlRoot}/conseillers?$skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filterSearch}?role=${roleActivated()}`;
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/candidats/structure/${structureId ? structureId : userEntityId()}?skip=${page}${filterSearch}${ordreColonne}&role=${roleActivated()}`;
 
   if (persoFilters) {
-    //Recrutés ?
-    if (persoFilters?.recrutes !== undefined && persoFilters?.recrutes !== '') {
-      uri += `&statut=${persoFilters?.recrutes}`;
+    if (havePix(persoFilters)) {
+      uri += `&pix=${persoFilters?.pix}`;
     }
-  }
-
-  if (filter) {
-    uri += `&filter=${filter}`;
+    if (haveDiplome(persoFilters)) {
+      uri += `&diplome=${persoFilters?.diplome}`;
+    }
+    if (haveCV(persoFilters)) {
+      uri += `&cv=${persoFilters?.cv}`;
+    }
   }
 
   return API.get(uri)
@@ -108,14 +116,12 @@ function getAllCandidats(departement, region, com, search, page, filter, sortDat
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllMisesEnRelation(departement, region, com, structureId, search, page, filter, sortData, sortOrder, persoFilters) {
-  const filterDepartement = departement !== null ? `&codeDepartement=${departement}` : '';
-  const filterRegion = region !== null ? `&codeRegion=${region}` : '';
-  const filterCom = com !== null ? `&codeCom=${com}` : '';
-  const filterSearch = search !== '' ? `&$search=${search}` : '';
-  const filterSort = search === '' ? `&$sort[${sortData}]=${sortOrder}` : '';
-  let uri = `${apiUrlRoot}/structures/${structureId ? structureId : userEntityId()}/misesEnRelation?\
-$skip=${page}${filterSort}${filterDepartement}${filterRegion}${filterCom}${filterSearch}&role=${roleActivated()}`;
+function getAllMisesEnRelation(structureId, search, page, filter, nomOrdre, ordre, persoFilters) {
+  const filterSearch = search !== '' ? `&search=${search}` : '';
+  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
+
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/structures/${structureId ? structureId : userEntityId()}/misesEnRelation?skip=${page}${ordreColonne}${filterSearch}&role=${roleActivated()}`;
 
   if (filter) {
     uri += `&filter=${filter}`;
@@ -144,8 +150,8 @@ function updateStatus(id, statut) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function preSelectionner(conseillerId, structureId) {
-  return API.patch(`${apiUrlRoot}/structures/${structureId}/preSelectionner/${conseillerId}?role=${roleActivated()}`)
+function preSelectionner(conseillerId) {
+  return API.patch(`${apiUrlRoot}/structure/pre-selectionner/${conseillerId}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -178,6 +184,18 @@ function getCurriculumVitae(id) {
   return API.get(`${apiUrlRoot}/candidat/${id}/cv?role=${roleActivated()}`, { responseType: 'blob' })
   .then(response => response.data)
   .catch(); //rien ici dans le cas blob sinon erreur non affiché
+}
+
+function validationRupture(id, dateFinDeContrat) {
+  return API.patch(`${apiUrlRoot}/conseiller/rupture/validation/${id}?role=${roleActivated()}`, { dateFinDeContrat })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function dossierIncompletRupture(id, dateFinDeContrat) {
+  return API.patch(`${apiUrlRoot}/conseiller/rupture/incomplet/${id}?role=${roleActivated()}`, { dateFinDeContrat })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function haveCV(persoFilters) {

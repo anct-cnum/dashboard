@@ -16,7 +16,7 @@ function RightPage({ donneesStats }) {
 
   const barGraphique = getGraphiqueBar(tabColorTheme, 'Th&egrave;mes des accompagnements', largeur);
 
-  const pieGraphique = getGraphiquePie(tabColorLieux, 'Lieux des accompagnements', largeur, false);
+  const pieGraphique = getGraphiquePie(tabColorLieux, 'Canaux d\'accompagnements', largeur, false);
 
   const columnGraphique = getGraphiqueColumn(tabColorDuree, 'Dur&eacute;e des accompagnements');
 

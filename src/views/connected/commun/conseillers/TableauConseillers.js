@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, filtresConseillersActions, paginationActions, conseillerActions } from '../../../../actions';
+import { alerteEtSpinnerActions, filtresConseillersActions, paginationActions, conseillerActions, statistiquesActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Conseiller from './Conseiller';
@@ -79,6 +79,7 @@ export default function TableauConseillers() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
+        dispatch(statistiquesActions.resetFiltre());
         dispatch(conseillerActions.getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
           filtreParNomStructure, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
@@ -103,7 +104,7 @@ export default function TableauConseillers() {
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
                   <div className="fr-table">
-                    <table className={conseillers?.items?.data?.length < 2 ? 'no-result-table' : ''}>
+                    <table className={conseillers?.items?.data?.length < 3 ? 'no-result-table' : ''}>
                       <thead>
                         <tr>
                           <th>
@@ -121,7 +122,7 @@ export default function TableauConseillers() {
                               <span>Pr&eacute;nom</span>
                             </button>
                           </th>
-                          <th colSpan={conseillers?.items?.total === 0 ? '' : '12'}>Email professionnel</th>
+                          <th>Email professionnel</th>
                           <th>Structure</th>
                           <th>
                             <nav className="fr-nav" id="navigation-sort-rupture" role="navigation">
@@ -150,6 +151,12 @@ export default function TableauConseillers() {
                                         <li className={filtreRupture === 'en-cours' ? 'selected' : ''}>
                                           <button id="en-cours" className="admin-select-option border-no-result" onClick={handleSortRupture}>
                                             Rupture en cours de traitement
+                                          </button>
+                                          <hr className="admin-select-hr" />
+                                        </li>
+                                        <li className={filtreRupture === 'pieces-manquantes' ? 'selected' : ''}>
+                                          <button id="pieces-manquantes" className="admin-select-option border-no-result" onClick={handleSortRupture}>
+                                            Dossier avec pi&egrave;ces manquantes
                                           </button>
                                           <hr className="admin-select-hr" />
                                         </li>

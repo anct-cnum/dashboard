@@ -1,7 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { conseillerActions } from '../../../../actions';
+import { useDispatch } from 'react-redux';
 
-function popinConfirmationAnnulation({ setOpenModal, updateStatut, updateDateRecrutement, setDateValidee }) {
+function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat }) {
+  const dispatch = useDispatch();
+
+  const validationRupture = () => {
+    dispatch(conseillerActions.validationRupture(idConseiller, dateFinDeContrat));
+    setOpenModal(false);
+  };
 
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
@@ -15,12 +23,12 @@ function popinConfirmationAnnulation({ setOpenModal, updateStatut, updateDateRec
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                  Important&nbsp;: Vous êtes sur le point d&rsquo;annuler votre demande de recrutement pour ce candidat.
+                  &Ecirc;tes-vous s&ucirc;r de vouloir valider la rupture de ce conseiller ?
                 </h1>
                 <p>
-                  <strong>
-                     Êtes-vous sûr de vouloir réaliser cette action ?
-                  </strong>
+                    Cette action entra&icirc;nera la rupture du conseiller avec sa structure. Ce qui aura pour
+                    cons&eacute;quence de supprimer son adresse mail professionelle, son compte mattermost
+                    ainsi que l&lsquo;acc&egrave;s &agrave; l&lsquo;espace coop.
                 </p>
               </div>
               <div className="fr-modal__footer">
@@ -31,13 +39,8 @@ function popinConfirmationAnnulation({ setOpenModal, updateStatut, updateDateRec
                     </button>
                   </li>
                   <li>
-                    <button onClick={() => {
-                      updateStatut('interessee');
-                      updateDateRecrutement(null);
-                      setDateValidee(null);
-                      setOpenModal(false);
-                    }} className="fr-btn">
-                      Je valide l&rsquo;annulation du recrutement
+                    <button onClick={validationRupture} className="fr-btn">
+                        Valider
                     </button>
                   </li>
                 </ul>
@@ -50,11 +53,10 @@ function popinConfirmationAnnulation({ setOpenModal, updateStatut, updateDateRec
   );
 }
 
-popinConfirmationAnnulation.propTypes = {
-  updateStatut: PropTypes.func,
-  updateDateRecrutement: PropTypes.func,
-  setDateValidee: PropTypes.func,
+ModalConfirmationRupture.propTypes = {
   setOpenModal: PropTypes.func,
+  idConseiller: PropTypes.string,
+  dateFinDeContrat: PropTypes.string
 };
 
-export default popinConfirmationAnnulation;
+export default ModalConfirmationRupture;

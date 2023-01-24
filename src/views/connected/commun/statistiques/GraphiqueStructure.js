@@ -26,6 +26,8 @@ export default function GraphiqueStructure() {
   const codesPostauxLoading = useSelector(state => state.statistiques?.loadingCodesPostaux);
   const statistiquesError = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
+  const villeStats = useSelector(state => state.statistiques?.villeStats);
+
   const loadingExport = useSelector(state => state.exports?.loading);
   const [structure, setStructure] = useState(location?.state?.structure);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
@@ -58,7 +60,7 @@ export default function GraphiqueStructure() {
   useEffect(() => {
     if (!statistiquesError) {
       if (structure) {
-        dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal));
+        dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, villeStats));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -67,7 +69,7 @@ export default function GraphiqueStructure() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, statistiquesError, codePostal, structure]);
+  }, [dateDebut, dateFin, statistiquesError, codePostal, structure, villeStats]);
 
   return (
     <div className="statistiques">
@@ -89,7 +91,10 @@ export default function GraphiqueStructure() {
             <hr className="fr-hr fr-mt-3v"/>
           </div>
         </div>
-        {!donneesStatistiques &&
+        {statistiquesLoading &&
+          <h2 className="loadingStatsTexte">La page est en cours de chargement, veuillez patienter</h2>
+        }
+        {(!donneesStatistiques && !statistiquesLoading) &&
           <h2 className="centrerTexte">Il n&rsquo;y a aucune statistique pour le moment</h2>
         }
         { donneesStatistiques &&
@@ -98,11 +103,12 @@ export default function GraphiqueStructure() {
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
             <StatistiquesBanniere
-              dateDebut={new Date('2020-09-01')}
+              dateDebut={dateDebut}
               dateFin={dateFin}
               typeStats="structure"
               id={idStructure}
               codePostal={codePostal}
+              ville={villeStats}
             />
           </div>
         }

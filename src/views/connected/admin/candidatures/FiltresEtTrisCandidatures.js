@@ -10,6 +10,8 @@ function FiltresEtTrisCandidatures() {
   const departementsRegionList = Array.from(departementsRegionRaw);
   const filtreParNomCandidat = useSelector(state => state.filtresCandidatures?.nomCandidat);
   const filtreRegion = useSelector(state => state.filtresCandidatures?.region);
+  const filtreDepartement = useSelector(state => state.filtresCandidatures?.departement);
+  const filtreComs = useSelector(state => state.filtresCandidatures?.coms);
 
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));
@@ -38,39 +40,44 @@ function FiltresEtTrisCandidatures() {
     const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
     dispatch(filtresCandidaturesActions.changeNomCandidat(value));
   };
+  const rechercheParNomCandidatToucheEnter = e => {
+    if (e.key === 'Enter') {
+      rechercheParNomCandidat(e);
+    }
+  };
 
   return (
     <>
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
           <h3 className="fr-h3 fr-col-12">Liste des candidatures</h3>
-          <div className="fr-col-12 fr-col-md-10 fr-mb-4w">
+          <div className="fr-col-12 fr-col-xl-10 fr-mb-4w">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
-              <input className="fr-input" defaultValue={filtreParNomCandidat ?? ''}
-                placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
-              <button className="fr-btn" onClick={rechercheParNomCandidat} title="Rechercher par nom">
+              <input className="fr-input" onKeyDown={rechercheParNomCandidatToucheEnter} defaultValue={filtreParNomCandidat ?? ''}
+                placeholder="Rechercher par nom ou par id" type="search" id="search-input" name="search-input" />
+              <button className="fr-btn" onClick={rechercheParNomCandidat} title="Rechercher par nom ou par id">
                 Rechercher
               </button>
             </div>
           </div>
-          <div className="fr-select-group fr-col-10" id="filtre-region">
-            <select className="fr-select" onChange={selectFiltreRegion}>
+          <div className="fr-select-group fr-col-12 fr-col-xl-10" id="filtre-region">
+            <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
               <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
                 <option key={idx} value={region.code}>{region.nom}</option>
               )}
             </select>
           </div>
-          <div className="fr-select-group fr-col-10" id="filtre-departement">
-            <select className="fr-select" onChange={selectFiltreDepartement}>
+          <div className="fr-select-group fr-col-12 fr-col-xl-10" id="filtre-departement">
+            <select className="fr-select" value={filtreDepartement} onChange={selectFiltreDepartement}>
               <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
               {getDepartements().map((departement, idx) =>
                 <option key={idx} value={departement.num_dep}>{departement.num_dep} - {departement.dep_name}</option>
               )}
             </select>
           </div>
-          <div className="fr-select-group fr-col-10" id="filtre-com">
-            <select className="fr-select" onChange={selectFiltreComs}>
+          <div className="fr-select-group fr-col-12 fr-col-xl-10" id="filtre-com">
+            <select className="fr-select" value={filtreComs} onChange={selectFiltreComs}>
               <option value={'tous'}>S&eacute;lectionner une collectivit&eacute; d&rsquo;outre-mer</option>
               {coms.map((com, idx) =>
                 <option key={idx} value={com.num_com}>{com.num_com} - {com.com_name}</option>

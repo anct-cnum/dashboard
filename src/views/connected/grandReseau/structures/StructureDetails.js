@@ -245,24 +245,15 @@ function StructureDetails() {
             <h4 className="titre">Conventionnement phase 1</h4>
             <div className="fr-mb-3w">
               <strong>{pluralize(
-                'Postes validé',
-                'Postes validé',
-                'Postes validés',
-                structure?.posteValider
+                'Postes validé en comité de sélection',
+                'Postes validé en comité de sélection',
+                'Postes validés en comité de sélection',
+                structure?.posteValiderCoselec
               )}</strong><br />
-              <span>{structure?.posteValider === 0 ? '-' : structure?.posteValider}</span>
-            </div>
-            <div className="fr-mb-3w">
-              <strong>{pluralize(
-                'Postes recruté',
-                'Postes recruté',
-                'Postes recrutés',
-                structure?.posteRecruter
-              )}</strong><br />
-              <span>{structure?.posteRecruter === 0 ? '-' : structure?.posteRecruter}</span>
+              <span>{structure?.posteValiderCoselec ?? '-'}</span>
             </div>
             <div className="fr-mb-3w fr-grid-row">
-              <strong>Profils recrut&eacute;s</strong><br />
+              <strong>Profils recrut&eacute;s</strong>
               {structure?.conseillers.map((conseiller, idx) =>
                 <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
                   <button
@@ -275,7 +266,7 @@ function StructureDetails() {
                 </span>
               )}
               {structure?.conseillers?.length === 0 &&
-                <span>-</span>
+                <span className="fr-col-12">-</span>
               }
             </div>
           </div>

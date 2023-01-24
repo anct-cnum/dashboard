@@ -39,7 +39,7 @@ function Candidat({ candidat }) {
         </td>
         <td>
           <Link
-            className="fr-btn fr-icon-eye-line fr-btn--icon-left"
+            className="fr-btn fr-icon-eye-line"
             title="Détails"
             to={`/${roleActivated}/candidat/${candidat?._id}`}
             state={{ 'origin': `/${roleActivated}/liste-candidatures` }}>D&eacute;tails</Link>

@@ -1,17 +1,16 @@
-
 const initialState = {
   dateDebut: new Date(1605571200000),
   dateFin: new Date(),
   codePostalStats: '',
   villeStats: '',
-  conseillerStats: '',
-  structureStats: '',
-  codeRegionStats: '',
-  numeroDepartementStats: '',
   listeAutresReorientations: [],
   error: false,
   errorTerritoire: false,
   loading: false,
+  conseillerStats: '',
+  structureStats: '',
+  codeRegionStats: '',
+  numeroDepartementStats: '',
 };
 
 export default function statistiques(state = initialState, action) {
@@ -207,6 +206,8 @@ export default function statistiques(state = initialState, action) {
         error: action.error,
         loading: false,
       };
+    case 'RESET_FILTRES_STATS':
+      return initialState;
     default:
       return state;
   }

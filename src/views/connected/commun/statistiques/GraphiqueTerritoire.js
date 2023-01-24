@@ -77,7 +77,10 @@ export default function GraphiqueTerritoire() {
             <hr className="fr-hr fr-mt-3v"/>
           </div>
         </div>
-        {!donneesStatistiques &&
+        {loading &&
+          <h2 className="loadingStatsTexte">La page est en cours de chargement, veuillez patienter</h2>
+        }
+        {(!donneesStatistiques && !loading) &&
           <h2 className="centrerTexte">Il n&rsquo;y a aucune statistique pour le moment</h2>
         }
         {donneesStatistiques &&
@@ -86,7 +89,7 @@ export default function GraphiqueTerritoire() {
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
             <StatistiquesBanniere
-              dateDebut={new Date('2020-09-01')}
+              dateDebut={dateDebut}
               dateFin={dateFin}
               id={codeTerritoire}
               typeStats="territoire"

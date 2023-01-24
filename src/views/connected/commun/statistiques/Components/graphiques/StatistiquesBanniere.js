@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+import dayjs from 'dayjs';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal }) {
+function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, nom, prenom }) {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -35,14 +35,30 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal })
     return typeTarget;
   }
 
+  function getTitlePDF() {
+    const datesPDF = '_' + dayjs(dateDebut).format('DD/MM/YYYY') + '_' + dayjs(dateFin).format('DD/MM/YYYY');
+    let titlePDF = 'Statistiques';
+    if (typeStats) {
+      titlePDF += '_' + typeStats + datesPDF;
+    } else if (typeTerritoire) {
+      titlePDF += typeTerritoire === 'codeDepartement' ?
+        '_' + territoire?.nomDepartement + datesPDF :
+        '_' + territoire?.nomRegion + datesPDF;
+    } else {
+      titlePDF += '_' + datesPDF;
+    }
+    return titlePDF;
+  }
+
   function save(extension) {
     scrollTopWindow();
     const type = getTypeStatistique(typeStats);
     if (extension === 'pdf') {
+      document.title = getTitlePDF();
       window.print();
     } else if (extension === 'csv') {
       const conseillerIds = territoire?.conseillerIds ?? undefined;
-      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal));
+      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville, nom, prenom));
     }
   }
   
@@ -94,6 +110,9 @@ StatistiquesBanniere.propTypes = {
   dateDebut: PropTypes.instanceOf(Date),
   dateFin: PropTypes.instanceOf(Date),
   codePostal: PropTypes.string,
+  ville: PropTypes.string,
+  nom: PropTypes.string,
+  prenom: PropTypes.string,
   typeStats: PropTypes.string,
   id: PropTypes.string,
 };

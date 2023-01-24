@@ -14,6 +14,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { history } from './helpers';
 import setup from './services/api';
 import signInCallBack from '../src/services/auth/signInCallBack';
+import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react';
 
 if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
   Sentry.init({
@@ -41,6 +42,12 @@ const oidcConfig = {
   userStore: new WebStorageStateStore({ store: window.localStorage }),
   onSigninCallback: () => signInCallBack(store),
 };
+
+const instance = createInstance({
+  urlBase: process.env.REACT_APP_MATOMO_URL,
+  siteId: parseInt(process.env.REACT_APP_MATOMO_ID, 10),
+});
+
 setup(store);
 
 
@@ -50,7 +57,9 @@ root.render(
     <AuthProvider {...oidcConfig}>
       <Provider store={store}>
         <Router history={history}>
-          <App />
+          <MatomoProvider value={instance}>
+            <App />
+          </MatomoProvider>
         </Router>
       </Provider>
     </AuthProvider>
