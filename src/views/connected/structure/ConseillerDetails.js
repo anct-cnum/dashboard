@@ -8,6 +8,8 @@ import pixUtilisation from '../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../assets/icons/pix-citoyen.png';
 import Spinner from '../../../components/Spinner';
+import NotificationRupture from './candidatures/NotificationRupture';
+import { scrollTopWindow } from '../../../utils/exportsUtils';
 
 function ConseillerDetails() {
 
@@ -20,6 +22,10 @@ function ConseillerDetails() {
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState([]);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const updateStatut = statut => {
+    dispatch(conseillerActions.updateStatus({ id: conseiller.miseEnRelation?._id, statut }));
+    scrollTopWindow();
+  };
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -306,6 +312,10 @@ function ConseillerDetails() {
                 </div>
               </>
             }
+             
+            <NotificationRupture miseEnRelationId = {conseiller?.miseEnRelation?._id}
+              updateStatut={updateStatut} dateRupture={conseiller?.miseEnRelation?.dateRupture}
+              motifRupture={conseiller?.miseEnRelation?.motifRupture}/>
           </div>
           <div className="fr-col-3">
             <h4 className="titre">Formation</h4>

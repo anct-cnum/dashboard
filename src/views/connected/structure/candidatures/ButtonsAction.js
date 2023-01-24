@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import PopinConfirmationAnnulation from '../popins/popinConfirmationAnnulation';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import NotificationRupture from './NotificationRupture';
 
 //Print datePicker calendar in FR
 registerLocale('fr', fr);
@@ -15,8 +16,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId, dateRecrutement
   const dispatch = useDispatch();
 
   const [dateValidee, setDateValidee] = useState(dateRecrutement);
-  const [dateRuptureValidee, setDateRuptureValidee] = useState(dateRupture);
-  const [motifRuptureValide, setMotifRuptureValide] = useState(motifRupture);
+
   const [openModal, setOpenModal] = useState(false);
   const today = new Date();
 
@@ -26,14 +26,6 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId, dateRecrutement
     dispatch(conseillerActions.updateDateRecrutement({ id: miseEnRelationId, date }));
   };
 
-  const updateDateRupture = date => {
-    date = dayjs(date);
-    dispatch(conseillerActions.updateDateRupture({ id: miseEnRelationId, date }));
-  };
-
-  const updateMotifRupture = motif => {
-    dispatch(conseillerActions.updateMotifRupture({ id: miseEnRelationId, motif }));
-  };
 
   return (
     <div className="">
@@ -131,77 +123,6 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId, dateRecrutement
         <>
           <div className="fr-col-12">
             <h3><strong>Recrutement finalis&eacute; pour ce candidat</strong></h3>
-          </div>
-
-          <div className="fr-col-12">
-            <p><strong>Notifier une rupture de contrat&nbsp;:</strong></p>
-          </div>
-
-          <div className="fr-col-12">
-            <label
-              className="fr-label"
-              style={{ fontSize: 'unset' }}
-              htmlFor="datePickerRupture">
-              <strong>1. Indiquer la date de fin de contrat (obligatoire)&nbsp;:</strong>
-            </label>
-          </div>
-
-          <div className="fr-col-12 fr-col-xl-4">
-            <DatePicker
-              id="datePickerRupture"
-              name="datePickerRupture"
-              className="fr-input fr-my-2w fr-mr-6w"
-              dateFormat="dd/MM/yyyy"
-              placeholderText="../../...."
-              maxDate={new Date(today.setMonth(today.getMonth() + 2))} //Max date à M+2
-              minDate={new Date('11/01/2020')}
-              locale="fr"
-              selected={dateRuptureValidee ? new Date(dateRuptureValidee) : ''}
-              onChange={date => setDateRuptureValidee(date)}
-            />
-          </div>
-
-
-          <div className="fr-col-12">
-            <label
-              className="fr-label"
-              style={{ fontSize: 'unset' }}
-              htmlFor="datePicker">
-              <strong>2. Indiquer le motif de fin de contrat (obligatoire)&nbsp;:</strong>
-            </label>
-          </div>
-
-          <ul className="fr-footer__bottom-link">
-            <li>Licenciement : Pour motif &eacute;conomique / Rupture conventionnelle / Pour faute professionnelle</li>
-            <li>Non-reconduction du CDD : Pour motif &eacute;conomique / A l&rsquo;amiable / Non-satisfaction</li>
-            <li>D&eacute;mission : Li&eacute;e &agrave; la formation / Inad&eacute;quation du profil au poste / Raisons personnelles
-              / Autre opportunit&eacute; professionnelle / Changement de structure au sein du dispositif / D&eacute;saccords avec l&rsquo;employeur</li>
-          </ul>
-
-          <div className="fr-col-6 fr-col-xl-5 fr-mr-2w">
-            <select id="motifRupture" name="motifRupture" className="fr-select fr-my-2w"
-              onChange={ motif => setMotifRuptureValide(motif.target.value)} value={motifRuptureValide === null ? '' : motifRuptureValide}>
-              <option value="">Choisir un motif</option>
-              <option value="licenciement"
-                title="Pour motif &eacute;conomique / Rupture conventionnelle / Pour faute professionnelle">Licenciement</option>
-              <option value="nonReconductionCDD"
-                title="Pour motif &eacute;conomique / A l&rsquo;amiable / Non-satisfaction">Non-reconduction du CDD</option>
-              <option value="demission"
-                title="Li&eacute;e &agrave; la formation / Inad&eacute;quation du profil au poste / Raisons personnelles
-                / Autre opportunit&eacute; professionnelle / Changement de structure au sein du dispositif / D&eacute;saccords avec l&rsquo;employeur">
-                  D&eacute;mission</option>
-            </select>
-          </div>
-
-
-          <div className="fr-col-12 fr-col-xl-6 btn-fr-col-xl-3 fr-my-2w fr-ml-1w">
-            <button onClick={() => {
-              updateDateRupture(dateRuptureValidee);
-              updateMotifRupture(motifRuptureValide);
-              updateStatut('nouvelle_rupture');
-            }} disabled={ !dateRuptureValidee || !motifRuptureValide } className="fr-btn fr-btn--icon-left" title="Notifier la rupture de contrat">
-              <i className="ri-user-follow-fill ri-xs"></i>&nbsp;Notifier la rupture de contrat
-            </button>
           </div>
         </>
         }
