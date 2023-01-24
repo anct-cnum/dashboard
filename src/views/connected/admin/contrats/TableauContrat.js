@@ -5,9 +5,9 @@ import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { Link, useLocation } from 'react-router-dom';
-import Reconventionnement from './Reconventionnement';
+import Contrat from './Contrat';
 
-export default function TableauReconventionnement() {
+export default function TableauContrat() {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -75,16 +75,16 @@ export default function TableauReconventionnement() {
         <div className="fr-grid-row">
           <div className="fr-col-12">
             <div className="fr-col fr-col-lg-12 fr-col-md-8">
-              <h1 style={{ color: '#000091' }} className="fr-h1">Demandes de conventions</h1>
-              <span>Retrouvez ici toutes les demandes de conventionnement, reconventionnement et avenants à valider.</span>
+              <h1 style={{ color: '#000091' }} className="fr-h1">Demandes de contrats</h1>
+              <span>Retrouvez ici toutes les demandes de recrutements, renouvellements et ruptures de contrat à valider.</span>
             </div>
             
             <div className="fr-container--fluid fr-mt-2w">
               <ul className="tabs fr-tags-group">
                 <Link className="fr-tag" aria-pressed="true">Afficher toutes les demandes (42)</Link>
-                <Link className="fr-tag" aria-pressed="false">Conventionnement initial (8)</Link>
-                <Link className="fr-tag" aria-pressed="false">Reconventionnement (5)</Link>
-                <Link className="fr-tag" aria-pressed="false">Avenant (0)</Link>
+                <Link className="fr-tag" aria-pressed="false">Recrutements (8)</Link>
+                <Link className="fr-tag" aria-pressed="false">Renouvellements de contrat (5)</Link>
+                <Link className="fr-tag" aria-pressed="false">Rupture de contrat (0)</Link>
               </ul>
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
@@ -94,16 +94,15 @@ export default function TableauReconventionnement() {
                         <tr>
                           <th>Id</th>
                           <th>Nom de la structure</th>
+                          <th>Nom du candidat</th>
                           <th>Date de la demande</th>
-                          <th>Date de fin du prochain contrat</th>
-                          <th>Nombre de postes</th>
                           <th>Type de la demande</th>
                           <th></th>
                         </tr>
                       </thead>
                       <tbody>
                         {!error && !loading && conseillers?.items?.data?.map((conseiller, idx) => {
-                          return (<Reconventionnement key={idx} candidat={conseiller} />);
+                          return (<Contrat key={idx} candidat={conseiller} />);
                         })
                         }
                         {(!conseillers?.items || conseillers?.items?.total === 0) &&

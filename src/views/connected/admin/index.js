@@ -10,6 +10,8 @@ import TableauCandidatures from './candidatures/TableauCandidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
 import TableauReconventionnement from './reconventionnement/TableauReconventionnement';
 import ReconventionnementDetails from './reconventionnement/ReconventionnementDetails';
+import TableauContrat from './contrats/TableauContrat';
+import ContratDetails from './contrats/ContratDetails';
 
 export default function Admin() {
 
@@ -27,12 +29,14 @@ export default function Admin() {
       <Routes>
         <Route path="/admin/informations" element={<MesInformations />} />
         <Route path="/admin/demandes/conventions" element={<TableauReconventionnement />} />
+        <Route path="/admin/demandes/contrats" element={<TableauContrat />} />
         <Route path="/admin/liste-structures" element={<TableauStructures />} />
         <Route path="/admin/liste-candidatures" element={<TableauCandidatures />} />
         <Route path="/admin/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/admin/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/admin/candidat/:idCandidat" element={<CandidatDetails />} />
         <Route path="/admin/demandes/convention/:idCandidat" element={<ReconventionnementDetails />} />
+        <Route path="/admin/demandes/contrat/:idCandidat" element={<ContratDetails />} />
         <Route path="/admin/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
