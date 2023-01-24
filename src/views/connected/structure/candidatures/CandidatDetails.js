@@ -79,7 +79,7 @@ function CandidatDetails() {
       }
 
       { dateRecrutementUpdated === true && dateRecrutement !== null && (errorUpdateStatus === undefined || errorUpdateStatus === false) &&
-        <p className="fr-label flashBag" style={{ fontSize: '16px' }}>
+        <p className="fr-alert fr-alert--success">
           La date d&rsquo;embauche au {dayjs(dateRecrutement).format('DD/MM/YYYY')} a bien &eacute;t&eacute; enregistr&eacute;e
         </p>
       }
