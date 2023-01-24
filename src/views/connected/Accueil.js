@@ -10,11 +10,9 @@ import Structure from './structure';
 import { useQueryClient } from '@tanstack/react-query';
 import { statistiquesService } from '../../services/statistiquesService';
 
-
 export default function Accueil() {
 
   const navigate = useNavigate();
-  
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const queryClient = useQueryClient();
 
@@ -29,7 +27,6 @@ export default function Accueil() {
     }
   });
 
-  
   const preFetch = async () => await queryClient.prefetchQuery(['statsNationales', dateDebut, dateFin],
     () => statistiquesService.getStatistiquesNationale(dateDebut, dateFin));
 
@@ -38,7 +35,6 @@ export default function Accueil() {
       preFetch();
     }
   }, []);
-
 
   return (
     <div className="fr-container fr-my-10w">

@@ -19,12 +19,8 @@ export default function GraphiqueNationale() {
   const loadingExport = useSelector(state => state.exports?.loading);
 
   const { data, isLoading, isError } = useQuery(['statsNationales', dateDebut, dateFin], async () => {
-    try {
-      const response = await statistiquesService.getStatistiquesNationale(dateDebut, dateFin);
-      return response;
-    } catch (error) {
-      throw error.response.data.message;
-    }
+    const response = await statistiquesService.getStatistiquesNationale(dateDebut, dateFin);
+    return response;
   }, { refetchOnWindowFocus: false, staleTime: 5000 });
 
   if (isError) {
