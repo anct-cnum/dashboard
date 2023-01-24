@@ -18,7 +18,6 @@ import { formatNomConseiller, formatRenderStars, pluralize } from '../../../../u
 function CandidatDetails() {
 
   const location = useLocation();
-  const { origin } = location.state;
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -99,7 +98,7 @@ function CandidatDetails() {
       }
       <Link
         style={{ boxShadow: 'none' }}
-        to={origin} state={{ currentPage }}
+        to={location?.state?.origin ?? '/structure/candidats/nouvelle'} state={{ currentPage }}
         className="fr-link fr-fi-arrow-left-line fr-link--icon-left">
         Retour &agrave; la liste
       </Link>
@@ -124,7 +123,7 @@ function CandidatDetails() {
         </>
         }
         <h2>
-          {formatNomConseiller(conseiller)}
+          {conseiller ? formatNomConseiller(conseiller) : ''}
         </h2>
         <Spinner loading={downloading || loading} />
         <div className="fr-container fr-container--fluid">
@@ -132,7 +131,7 @@ function CandidatDetails() {
             {conseiller?.miseEnRelation?.dateRecrutement &&
               <div className="fr-col-12">
                 <p><b>Date de recrutement pr&eacute;visionnelle:&nbsp;
-                  {dayjs(conseiller?.miseEnRelation.dateRecrutement).format('DD/MM/YYYY') }</b>
+                  {dayjs(conseiller?.miseEnRelation?.dateRecrutement).format('DD/MM/YYYY') }</b>
                 </p>
               </div>
             }
