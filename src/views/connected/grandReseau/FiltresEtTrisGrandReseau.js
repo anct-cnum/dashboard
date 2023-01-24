@@ -13,13 +13,13 @@ function FiltresEtTrisGrandReseau() {
   const departementsRegionList = Array.from([...departementsRegionRaw, ...departementsRegionRawTom]);
   const filtreRegion = useSelector(state => state.statistiques?.codeRegionStats);
   const filtreDepartement = useSelector(state => state.statistiques?.numeroDepartementStats);
-  const listeCodesPostaux = useSelector(state => state.statistiques.statsData?.codesPostaux);
-  const listeStructures = useSelector(state => state.statistiques.statsData?.structures);
-  const listeConseillers = useSelector(state => state.statistiques.statsData?.conseillers);
-  const conseiller = useSelector(state => state.statistiques.conseillerStats);
-  const ville = useSelector(state => state.statistiques.villeStats);
-  const codePostal = useSelector(state => state.statistiques.codePostalStats);
-  const structure = useSelector(state => state.statistiques.structureStats);
+  const listeCodesPostaux = useSelector(state => state.statistiques?.statsData?.codesPostaux);
+  const listeStructures = useSelector(state => state.statistiques?.statsData?.structures);
+  const listeConseillers = useSelector(state => state.statistiques?.statsData?.conseillers);
+  const conseiller = useSelector(state => state.statistiques?.conseillerStats);
+  const ville = useSelector(state => state.statistiques?.villeStats);
+  const codePostal = useSelector(state => state.statistiques?.codePostalStats);
+  const structure = useSelector(state => state.statistiques?.structureStats);
   const [value, setValue] = useState(JSON.stringify({ cp: codePostal, ville }));
   const loading = useSelector(state => state.exports?.loading);
   

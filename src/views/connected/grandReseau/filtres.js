@@ -11,8 +11,7 @@ export const selectFiltreRegion = (dispatch, e) => {
 };
 
 export const selectFiltreDepartement = (dispatch, e) => {
-  // eslint-disable-next-line eqeqeq
-  const nomRegion = departementsRegions.find(region => region.num_dep == e.target?.value)?.region_name;
+  const nomRegion = departementsRegions.find(region => String(region.num_dep) === String(e.target?.value))?.region_name;
   const codeRegion = codesRegions.find(region => region.nom === nomRegion)?.code;
   dispatch(statistiquesActions.changeFiltreDepartementStats(e.target?.value));
   dispatch(statistiquesActions.changeFiltreRegionStats(codeRegion || ''));
@@ -27,7 +26,7 @@ export const selectFiltreCodePostal = (dispatch, e) => {
   } else {
     const ville = JSON.parse(e.target.value).ville;
     const codePostal = JSON.parse(e.target.value).cp;
-    dispatch(statistiquesActions.changeCodePostalStats(ville, codePostal));
+    dispatch(statistiquesActions.changeCodePostalStats(codePostal, ville));
   }
   dispatch(statistiquesActions.changeStructureStats(''));
   dispatch(statistiquesActions.changeConseillerStats(''));
