@@ -13,7 +13,7 @@ function filtersAndSorts() {
 
     if (name === 'orderByDateStart') {
       let order = e.target.checked ? 'dateDisponibilite' : 'createdAt';
-      dispatch(filtresCandidaturesActions.updateOrdre(order));
+      dispatch(filtresCandidaturesActions.toggleOrdre(order));
     }
 
     if (name === 'pixLevel1' || name === 'pixLevel2' || name === 'pixLevel3') {
@@ -53,16 +53,15 @@ function filtersAndSorts() {
     dispatch(paginationActions.setPage(1));
   };
 
-  const rechercheParNomCandidatToucheEntrer = e => {
-    if (e.key === 'Enter') {
-      dispatch(filtresCandidaturesActions.updateSearch(searchInputValue));
-      dispatch(paginationActions.setPage(1));
-    }
-  };
-
   const rechercheParNomCandidat = () => {
     dispatch(filtresCandidaturesActions.updateSearch(searchInputValue));
     dispatch(paginationActions.setPage(1));
+  };
+
+  const rechercheParNomCandidatToucheEntrer = e => {
+    if (e.key === 'Enter') {
+      rechercheParNomCandidat();
+    }
   };
 
   const handleChangeSearchBar = e => {
@@ -83,7 +82,7 @@ function filtersAndSorts() {
             <label className="fr-label" htmlFor="fr-search-input">Recherche</label>
             <input
               className="fr-input"
-              placeholder="Rechercher"
+              placeholder="Rechercher par nom du candidat ou par id"
               type="search"
               id="fr-search-input"
               value={searchInputValue}

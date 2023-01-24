@@ -100,18 +100,19 @@ function getAllCandidats({
   page = 0,
   filter,
   ordreNom,
+  ordre,
   persoFilters }) {
   return dispatch => {
     dispatch(request());
     let promises = [];
     if (misesEnRelation) {
-      let promise = conseillerService.getAllMisesEnRelation(structureId, search, page, filter, ordreNom, persoFilters);
+      let promise = conseillerService.getAllMisesEnRelation(structureId, search, page, filter, ordreNom, ordre, persoFilters);
       promises.push(promise);
     }
 
     let isSearch = search.length > 0;
     if (!misesEnRelation || isSearch) {
-      let promise = conseillerService.getAllCandidats(structureId, search, page, ordreNom, persoFilters);
+      let promise = conseillerService.getAllCandidats(structureId, search, page, ordreNom, ordre, persoFilters);
       promises.push(promise);
     }
     let conseillers = null;
