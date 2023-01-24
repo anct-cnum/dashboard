@@ -122,9 +122,10 @@ function CandidatDetails() {
           }
         </>
         }
-        <h2>
+        <h2 className="fr-mb-2w">
           {conseiller ? formatNomConseiller(conseiller) : ''}
         </h2>
+        <h5>Id: {conseiller?.idPG ?? ''}</h5>
         <Spinner loading={downloading || loading} />
         <div className="fr-container fr-container--fluid">
           <div className="fr-grid-row">

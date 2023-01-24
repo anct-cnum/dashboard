@@ -93,28 +93,16 @@ function CandidatDetails() {
         Retour &agrave; la liste
       </Link>
       <div className="fr-mt-2w">
-        <h2>
+        <h2 className="fr-mb-2w">
           {conseiller ? formatNomConseiller(conseiller) : ''}
         </h2>
+        <h5>Id: {conseiller?.idPG ?? ''}</h5>
         <div className="fr-container fr-container--fluid">
           <div className="fr-grid-row">
-            { conseiller?.dateRecrutement?.length > 0 &&
+            {conseiller?.miseEnRelation?.dateRecrutement &&
               <div className="fr-col-12">
                 <p><b>Date de recrutement pr&eacute;visionnelle:&nbsp;
-                  {conseiller?.dateRecrutement?.map((date, idx) =>
-
-                    <span key={idx}>
-                      {conseiller?.dateRecrutement?.length > 1 &&
-                        <><br />-&nbsp;</>
-                      }
-                      {dayjs(date).format('DD/MM/YY')}
-                      {conseiller?.nomStructures?.length > 0 &&
-                        <>&nbsp;par {conseiller?.nomStructures[idx]}</>
-                      }
-                    </span>
-
-                  )}
-                </b>
+                  {dayjs(conseiller?.miseEnRelation.dateRecrutement).format('DD/MM/YYYY')} par {conseiller?.miseEnRelation?.structureObj?.nom}</b>
                 </p>
               </div>
             }
