@@ -13,7 +13,7 @@ function filtersAndSorts() {
 
     if (name === 'orderByDateStart') {
       let order = e.target.checked ? 'dateDisponibilite' : 'createdAt';
-      dispatch(filtresCandidaturesActions.updateOrdre(order));
+      dispatch(filtresCandidaturesActions.changeOrdreToggle(order));
     }
 
     if (name === 'pixLevel1' || name === 'pixLevel2' || name === 'pixLevel3') {

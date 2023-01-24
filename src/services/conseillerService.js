@@ -92,11 +92,12 @@ function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, fil
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllCandidats(structureId, search, page, nomOrdre, persoFilters) {
+function getAllCandidats(structureId, search, page, nomOrdre, ordre, persoFilters) {
   const filterSearch = search !== '' ? `&search=${search}` : '';
-  const filterSort = nomOrdre ? '&nomOrdre=' + nomOrdre : '';
+  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
 
-  let uri = `${apiUrlRoot}/candidats/structure/${structureId ? structureId : userEntityId()}?skip=${page}${filterSearch}${filterSort}&role=${roleActivated()}`;
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/candidats/structure/${structureId ? structureId : userEntityId()}?skip=${page}${filterSearch}${ordreColonne}&role=${roleActivated()}`;
 
   if (persoFilters) {
     if (havePix(persoFilters)) {
@@ -115,12 +116,12 @@ function getAllCandidats(structureId, search, page, nomOrdre, persoFilters) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllMisesEnRelation(structureId, search, page, filter, nomOrdre, persoFilters) {
+function getAllMisesEnRelation(structureId, search, page, filter, nomOrdre, ordre, persoFilters) {
   const filterSearch = search !== '' ? `&search=${search}` : '';
-  const filterSort = nomOrdre ? '&nomOrdre=' + nomOrdre : '';
+  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
 
-  let uri = `${apiUrlRoot}/structures/${structureId ? structureId : userEntityId()}/misesEnRelation?\
-skip=${page}${filterSort}${filterSearch}&role=${roleActivated()}`;
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/structures/${structureId ? structureId : userEntityId()}/misesEnRelation?skip=${page}${ordreColonne}${filterSearch}&role=${roleActivated()}`;
 
   if (filter) {
     uri += `&filter=${filter}`;
