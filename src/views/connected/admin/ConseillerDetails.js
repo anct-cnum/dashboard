@@ -394,8 +394,8 @@ function ConseillerDetails() {
             <h4 className="titre">Contrat</h4>
             <div className="fr-mb-5w fr-grid-row">
               {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
-              <div>
-                <span className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-col-12 fr-mb-2w' : 'fr-col-12'}>
+              <div className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-mb-2w' : ''}>
+                <span className="fr-col-12">
                   <strong className="fr-badge fr-badge--success fr-badge--no-icon">Contrat En cours</strong>&nbsp;avec {structure?.nom}&nbsp;-
                     Id&nbsp;&#91;{structure?.idPG}&#93;&nbsp;
                 </span>
@@ -415,7 +415,7 @@ function ConseillerDetails() {
                   <div>
                     <span key={idx} className="fr-col-12">
                       <strong className="fr-badge fr-badge--error fr-badge--no-icon">
-                    Contrat Termin&eacute;
+                        Contrat Termin&eacute;
                       </strong>&nbsp;avec {miseEnRelation?.structureObj?.nom}&nbsp;-
                     Id&nbsp;&#91;{miseEnRelation?.structureObj?.idPG}&#93;&nbsp;
                     </span>
@@ -455,7 +455,7 @@ function ConseillerDetails() {
                   )}
                   {misesEnRelationNouvelleRupture &&
                   <>
-                    <div className="fr-grid-row">
+                    <div className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-mt-2w fr-grid-row' : 'fr-grid-row'}>
                       {misesEnRelationNouvelleRupture?.emetteurRupture?.date ?
                         <>
                           <span>Le {dayjs(misesEnRelationNouvelleRupture?.emetteurRupture?.date).format('DD/MM/YYYY')}</span>
