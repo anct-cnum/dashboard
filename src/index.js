@@ -22,7 +22,6 @@ import {
 
 const queryClient = new QueryClient();
 
-
 if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
