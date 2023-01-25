@@ -59,6 +59,18 @@
     "correspondance": "Sant&eacute;"
   },
   {
+    "nom": "budget",
+    "correspondance": "Budget"
+  },
+  {
+    "nom": "diagnostic",
+    "correspondance": "Diagnostic num&eacute;rique"
+  },
+  {
+    "nom": "scolaire",
+    "correspondance": "Scolaire"
+  },
+  {
     "nom": "autre",
     "correspondance": "Autre"
   },
@@ -209,6 +221,10 @@
   {
     "nom": "Tiers-lieu / Fablab",
     "correspondance": "Tiers-lieu / Fablab"
+  },
+  {
+    "nom": "Revendeur informatique",
+    "correspondance": "Revendeur informatique"
   },
   {
     "nom": "Autres&#0;",
