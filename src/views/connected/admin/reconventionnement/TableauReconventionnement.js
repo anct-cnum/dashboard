@@ -84,7 +84,8 @@ export default function TableauReconventionnement() {
                 <Link className="fr-tag" aria-pressed="true">Afficher toutes les demandes (42)</Link>
                 <Link className="fr-tag" aria-pressed="false">Conventionnement initial (8)</Link>
                 <Link className="fr-tag" aria-pressed="false">Reconventionnement (5)</Link>
-                <Link className="fr-tag" aria-pressed="false">Avenant (0)</Link>
+                <Link className="fr-tag" aria-pressed="false">Avenant · ajout de poste (3)</Link>
+                <Link className="fr-tag" aria-pressed="false">Avenant · poste rendu (3)</Link>
               </ul>
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
@@ -92,13 +93,13 @@ export default function TableauReconventionnement() {
                     <table className={conseillers?.items?.data?.length < 2 ? 'no-result-table' : ''}>
                       <thead>
                         <tr>
-                          <th>Id</th>
-                          <th>Nom de la structure</th>
+                          <th style={{ width: '5rem' }}>Id</th>
+                          <th style={{ width: '15rem' }}>Nom de la structure</th>
                           <th>Date de la demande</th>
                           <th>Date de fin du prochain contrat</th>
                           <th>Nombre de postes</th>
-                          <th>Type de la demande</th>
-                          <th></th>
+                          <th style={{ width: '12rem' }}>Type de la demande</th>
+                          <th style={{ width: '12rem' }}></th>
                         </tr>
                       </thead>
                       <tbody>

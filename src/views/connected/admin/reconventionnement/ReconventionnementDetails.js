@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { alerteEtSpinnerActions, conseillerActions } from '../../../../actions';
-import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
@@ -52,22 +52,20 @@ function ReconventionnementDetails() {
       </div>
       <div>
         <div className="fr-card">
-          <div className="fr-card__body">
+          <div className="fr-card__body fr-p-0">
             <div className="fr-container  fr-mt-3w">
               <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--bottom">
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
                     <strong>Contact de la structure</strong><br/>
-                    {conseiller?.dateDeNaissance ?
-                      <span>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
-                    }
+                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{conseiller.nom ?? '-'}</span>
                   </div>
                 </div>
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
                     <strong>Fonction</strong><br/>
                     {conseiller?.dateDeNaissance ?
-                      <span>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
                     }
                   </div>
                 </div>
@@ -75,7 +73,7 @@ function ReconventionnementDetails() {
                   <div className="fr-mb-3w">
                     <strong>Téléphone</strong><br/>
                     {conseiller?.dateDeNaissance ?
-                      <span>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
                     }
                   </div>
                 </div>
@@ -83,7 +81,7 @@ function ReconventionnementDetails() {
                   <div className="fr-mb-3w">
                     <strong>Email</strong><br/>
                     {conseiller?.dateDeNaissance ?
-                      <span>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
                     }
                   </div>
                 </div>
@@ -96,56 +94,61 @@ function ReconventionnementDetails() {
             <hr style={{ borderWidth: '0.5px' }}/>
           </div>
         </div>
-        <div className="fr-card" style={{ backgroundColor: '#E8EDFF', boxShadow: 'none' }}>
+        <div className="fr-card fr-card--no-border" style={{ backgroundColor: '#E8EDFF' }}>
           <div className="fr-card__body">
             <div className="fr-card__content">
               <h3 className="fr-card__title fr-h3">
                 Conventionnement phase 2
               </h3>
-              <p className="fr-card__desc">Demande initiée le 28/02/2023</p>
-              <h6 className="fr-card__desc fr-h6">Nombre de poste total demandé : 4</h6>
+              <p className="fr-card__desc fr-text--lg fr-text--regular">Demande initiée le 28/02/2023</p>
+              <p className="fr-card__desc fr-text--lg fr-text--bold" style={{ color: '#000091' }}>Nombre de poste total demandé : 4</p>
               <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">
                 <div className="fr-col-12">
                   <hr style={{ borderWidth: '0.5px' }}/>
                 </div>
                 <div className="fr-col-12">
-                  <h6 className="fr-card__desc fr-h6">1 demandes de renouvellement de postes</h6>
+                  <h6 className="fr-card__desc fr-h6">1 {pluralize(
+                    'demande de renouvellement de poste',
+                    'demande de renouvellement de poste',
+                    'demandes de renouvellement de postes',
+                    1
+                  )}</h6>
                 </div>
-                <div className="fr-card fr-col-12 fr-mt-2w">
-                  <div className="fr-card__body">
-                    <div className="fr-mt-3w">
-                      <div className="fr-grid-row">
-                        <div className="fr-col-2">
-                          <div className="fr-mb-3w">
-                            <strong>Philippe Dupont</strong><br/>
-                            <span>ID - 0001</span>
+                <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
+                  <div className="fr-card__body fr-p-0">
+                    <div>
+                      <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+                        <div className="fr-col-3">
+                          <div>
+                            <span className="fr-text--md fr-text--bold">Philippe Dupont</span><br/>
+                            <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>ID - 0001</span>
                           </div>
                         </div>
                         <div className="fr-col-2">
-                          <div className="fr-mb-3w">
-                            <strong>Type de contrat</strong><br/>
-                            <span>CDD</span>
+                          <div>
+                            <span className="fr-text--md" style={{ fontWeight: '500' }}>Type de contrat</span><br/>
+                            <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>CDD</span>
                           </div>
                         </div>
                         <div className="fr-col-2">
-                          <div className="fr-mb-3w">
-                            <strong>Début de contrat</strong><br/>
+                          <div>
+                            <span className="fr-text--md" style={{ fontWeight: '500' }}>Début de contrat</span><br/>
                             {conseiller?.dateDeNaissance ?
-                              <span>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
                             }
                           </div>
                         </div>
                         <div className="fr-col-2">
-                          <div className="fr-mb-3w">
-                            <strong>Fin de contrat</strong><br/>
+                          <div>
+                            <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br/>
                             {conseiller?.dateDeNaissance ?
-                              <span>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
                             }
                           </div>
                         </div>
-                        <div className="fr-col-4 fr-grid-row">
+                        <div className="fr-col-3" style={{ textAlign: 'end' }}>
                           <button
-                            className="fr-btn fr-icon-eye-line fr-ml-auto fr-mr-2w"
+                            className="fr-btn fr-icon-eye-line fr-mr-2w"
                             title="D&eacute;tail"
                           />
                           <button
@@ -158,24 +161,24 @@ function ReconventionnementDetails() {
                   </div>
                 </div>
               </div>
-              <div className="fr-card__start fr-mb-3w">
-                <div className="fr-grid-row">
-                  <div className="fr-grid-row" style={{ alignContent: 'center', flex: '0 0 68.7%', maxWidth: '68.7%' }}>
-                    <p className="fr-badge fr-badge--new" style={{ height: '20%' }}>Demande en attente de validation</p>
-                    <p className="fr-badge fr-badge--success fr-ml-auto" style={{ height: '20%' }}>Dossier complet</p>
-                  </div>
-                  <button className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-btn--secondary fr-ml-auto">
-                    Voir le dossier Démarche Simplifiée
-                  </button>
-                </div>
+              <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
+                <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
               </div>
             </div>
             <div className="fr-card__footer">
-              <ul className="fr-btns-group fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+              <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
                 <li>
                   <button className="fr-btn">
                     Valider la demande
                   </button>
+                </li>
+                <li className="fr-ml-auto">
+                  <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
+                    <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier complet</p>
+                    <button className="fr-btn fr-icon-folder-2-line fr-btn--secondary">
+                    Voir le dossier Démarche Simplifiée
+                    </button>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -187,8 +190,13 @@ function ReconventionnementDetails() {
               <h3 className="fr-card__title fr-h3">
                 Conventionnement phase 2
               </h3>
-              <p className="fr-card__desc">Date de début: 28/02/2023</p>
-              <h6 className="fr-card__desc fr-h6">4 postes de conseillers validés pour ce conventionnement</h6>
+              <p className="fr-card__desc fr-text--md"><strong>Date de début:</strong> 28/02/2023</p>
+              <p className="fr-card__desc fr-text--xl" style={{ color: '#000091' }}><strong>4 {pluralize(
+                'poste de conseiller validé',
+                'poste de conseiller validé',
+                'postes de conseillers validés',
+                4
+              )}</strong> pour ce conventionnement</p>
               <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">
                 <div className="fr-col-12">
                   <hr style={{ borderWidth: '0.5px' }}/>
@@ -196,42 +204,46 @@ function ReconventionnementDetails() {
                 <div className="fr-col-12">
                   <h6 className="fr-card__desc fr-h6">Profils recrutés</h6>
                 </div>
-                <div className="fr-card fr-col-12 fr-mt-2w">
-                  <div className="fr-card__body">
-                    <div className="fr-mt-3w">
-                      <div className="fr-grid-row">
-                        <div className="fr-col-2">
-                          <div className="fr-mb-3w">
-                            <strong>Philippe Dupont</strong><br/>
-                            <span>ID - 0001</span>
+                <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
+                  <div className="fr-card__body fr-p-0">
+                    <div>
+                      <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+                        <div className="fr-col-3">
+                          <div>
+                            <span className="fr-text--md fr-text--bold">Philippe Dupont</span><br/>
+                            <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>ID - 0001</span>
                           </div>
                         </div>
                         <div className="fr-col-2">
-                          <div className="fr-mb-3w">
-                            <strong>Type de contrat</strong><br/>
-                            <span>CDD</span>
+                          <div>
+                            <span className="fr-text--md" style={{ fontWeight: '500' }}>Type de contrat</span><br/>
+                            <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>CDD</span>
                           </div>
                         </div>
                         <div className="fr-col-2">
-                          <div className="fr-mb-3w">
-                            <strong>Début de contrat</strong><br/>
+                          <div>
+                            <span className="fr-text--md" style={{ fontWeight: '500' }}>Début de contrat</span><br/>
                             {conseiller?.dateDeNaissance ?
-                              <span>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                                {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                              </span> : <span>-</span>
                             }
                           </div>
                         </div>
-                        <div className="fr-col-2">
-                          <div className="fr-mb-3w">
-                            <strong>Fin de contrat</strong><br/>
+                        <div className="fr-col-2" style={{ maxWidth: '14.7%' }}>
+                          <div>
+                            <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br/>
                             {conseiller?.dateDeNaissance ?
-                              <span>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                                {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                              </span> : <span>-</span>
                             }
                           </div>
-                        </div>
-                        <div className="fr-col-2">
-                          <p className="fr-badge fr-badge--info">En attente de renouvellement</p>
                         </div>
                         <div className="fr-col-2 fr-grid-row">
+                          <p className="fr-badge fr-badge--new fr-p-0-5w">Renouvellement</p>
+                        </div>
+                        <div style={{ flex: '0 0 10.2%', maxWidth: '10.2%', width: '10.2%', textAlign: 'end' }}>
                           <button
                             className="fr-btn fr-icon-eye-line fr-ml-auto fr-mr-2w"
                             title="D&eacute;tail"
@@ -246,8 +258,8 @@ function ReconventionnementDetails() {
                   </div>
                 </div>
               </div>
-              <div className="fr-card__start fr-mb-2w">
-                <p className="fr-badge fr-badge--warning">6 jours restants avant la fin du premier contrat</p>
+              <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
+                <p className="fr-badge fr-badge--new">6 jours restants avant la fin du premier contrat</p>
               </div>
             </div>
           </div>

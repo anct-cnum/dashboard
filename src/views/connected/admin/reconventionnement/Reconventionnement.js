@@ -15,7 +15,7 @@ function Reconventionnement({ candidat }) {
         <td>{dayjs(candidat?.createdAt).format('DD/MM/YYYY')}</td>
         <td>{dayjs(candidat?.createdAt).format('DD/MM/YYYY')}</td>
         <td>{candidat?.idPG}</td>
-        <td>{candidat?.prenom}</td>
+        <td>Conventionnement initial</td>
         <td>
           <button
             className="fr-btn"

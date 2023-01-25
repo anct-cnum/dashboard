@@ -92,11 +92,11 @@ export default function TableauContrat() {
                     <table className={conseillers?.items?.data?.length < 2 ? 'no-result-table' : ''}>
                       <thead>
                         <tr>
-                          <th>Id</th>
-                          <th>Nom de la structure</th>
-                          <th>Nom du candidat</th>
+                          <th style={{ width: '5rem' }}>Id</th>
+                          <th style={{ width: '15rem' }}>Nom de la structure</th>
+                          <th style={{ width: '15rem' }}>Nom du candidat</th>
                           <th>Date de la demande</th>
-                          <th>Type de la demande</th>
+                          <th style={{ width: '14rem' }}>Type de la demande</th>
                           <th></th>
                         </tr>
                       </thead>

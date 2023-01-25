@@ -55,8 +55,8 @@ function ContratDetails() {
       </div>
       <div>
         <div className="fr-card">
-          <div className="fr-card__body">
-            <div className="fr-container  fr-mt-3w">
+          <div className="fr-card__body fr-p-0">
+            <div className="fr-container fr-mt-3w">
               <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--bottom">
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
