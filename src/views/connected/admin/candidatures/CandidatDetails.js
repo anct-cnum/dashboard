@@ -99,11 +99,21 @@ function CandidatDetails() {
         <h5>Id: {conseiller?.idPG ?? ''}</h5>
         <div className="fr-container fr-container--fluid">
           <div className="fr-grid-row">
-            {conseiller?.miseEnRelation?.dateRecrutement &&
+            {conseiller?.miseEnRelation?.length > 0 &&
               <div className="fr-col-12">
-                <p><b>Date de recrutement pr&eacute;visionnelle:&nbsp;
-                  {dayjs(conseiller?.miseEnRelation.dateRecrutement).format('DD/MM/YYYY')} par {conseiller?.miseEnRelation?.structureObj?.nom}</b>
-                </p>
+                {conseiller?.miseEnRelation?.map((miseEnRelation, idx) =>
+                  <>
+                    <p key={idx}><b>Date de recrutement pr&eacute;visionnelle:&nbsp;
+                      <span>
+                        {miseEnRelation?.dateRecrutement ? dayjs(miseEnRelation.dateRecrutement).format('DD/MM/YYYY') : 'Non renseignée'}
+                        {miseEnRelation?.structureObj?.nom &&
+                        <>&nbsp;par {miseEnRelation?.structureObj?.nom}</>
+                        }
+                      </span>
+                    </b>
+                    </p>
+                  </>
+                )}
               </div>
             }
             <div className="fr-col-6">
