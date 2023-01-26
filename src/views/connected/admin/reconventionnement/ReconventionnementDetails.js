@@ -188,7 +188,7 @@ function ReconventionnementDetails() {
           <div className="fr-card__body">
             <div className="fr-card__content">
               <h3 className="fr-card__title fr-h3">
-                Conventionnement phase 2
+                Conventionnement phase 1
               </h3>
               <p className="fr-card__desc fr-text--md"><strong>Date de début:</strong> 28/02/2023</p>
               <p className="fr-card__desc fr-text--xl" style={{ color: '#000091' }}><strong>4 {pluralize(
