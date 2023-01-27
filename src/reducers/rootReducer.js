@@ -10,7 +10,6 @@ import invitationsReducer from './invitationsReducer';
 import alerteEtSpinnerReducer from './alerteEtSpinnerReducer';
 import userReducer from './userReducer';
 import conseillerReducer from './conseillerReducer';
-import searchReducer from './searchReducer';
 import statsReducer from './statsReducer';
 import structureReducer from './structureReducer';
 import filtresConseillers from './filtresConseillersReducer';
@@ -29,7 +28,6 @@ const rootReducer = combineReducers({
   user: userReducer,
   conseiller: conseillerReducer,
   stats: statsReducer,
-  search: searchReducer,
   structure: structureReducer,
   invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,

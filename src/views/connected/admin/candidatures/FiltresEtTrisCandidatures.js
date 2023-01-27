@@ -40,6 +40,11 @@ function FiltresEtTrisCandidatures() {
     const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
     dispatch(filtresCandidaturesActions.changeNomCandidat(value));
   };
+  const rechercheParNomCandidatToucheEnter = e => {
+    if (e.key === 'Enter') {
+      rechercheParNomCandidat(e);
+    }
+  };
 
   return (
     <>
@@ -48,9 +53,9 @@ function FiltresEtTrisCandidatures() {
           <h3 className="fr-h3 fr-col-12">Liste des candidatures</h3>
           <div className="fr-col-12 fr-col-xl-10 fr-mb-4w">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
-              <input className="fr-input" defaultValue={filtreParNomCandidat ?? ''}
-                placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
-              <button className="fr-btn" onClick={rechercheParNomCandidat} title="Rechercher par nom">
+              <input className="fr-input" onKeyDown={rechercheParNomCandidatToucheEnter} defaultValue={filtreParNomCandidat ?? ''}
+                placeholder="Rechercher par nom ou par id" type="search" id="search-input" name="search-input" />
+              <button className="fr-btn" onClick={rechercheParNomCandidat} title="Rechercher par nom ou par id">
                 Rechercher
               </button>
             </div>

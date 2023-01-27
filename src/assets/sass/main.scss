@@ -11,6 +11,8 @@
 @use './components/pagination';
 @use './components/spinner';
 @use './components/modal';
+@use './components/inclusion-connect.scss';
+
 // @import
 @import '~@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
 @import '~@gouvfr/dsfr/dist/utility/icons/icons-communication/icons-communication.min.css';

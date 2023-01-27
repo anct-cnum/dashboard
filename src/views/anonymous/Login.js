@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useAuth } from 'react-oidc-context';
 import { useParams, useNavigate } from 'react-router-dom';
-import logo from '../../assets/brands/logo-inclusionconnect-bouton-min.svg';
+import logoOneLineIC from '../../assets/brands/logo-inclusion-connect-one-line.svg';
+import logoTwoLinesIC from '../../assets/brands/logo-inclusion-connect-two-lines.svg';
 import { userActions } from '../../actions';
 
 export default function Login() {
@@ -60,13 +61,19 @@ export default function Login() {
     <div className="login">
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
-          <div className="fr-col-6">
+          <div className="fr-col-xs-12 fr-col-md-6">
             {(window.location.pathname === '/login' || tokenVerified) &&
               <>
-                <h3>Se connecter avec</h3>
-                <button className="fr-my-3w" onClick={login} style={{ padding: 0 }}>
-                  <img src={logo} className="btn" alt="Logo Inclusion Connect" />
-                </button>
+                <div className="logo-inclusion-connect-one-line">
+                  <button className="btn-inclusion-connect" onClick={login}>
+                    <img src={logoOneLineIC} height="14" alt="Se connecter avec Inclusion Connect" />
+                  </button>
+                </div>
+                <div className="logo-inclusion-connect-two-lines">
+                  <button className="btn-inclusion-connect" onClick={login}>
+                    <img src={logoTwoLinesIC} height="37" alt="Se connecter avec Inclusion Connect" />
+                  </button>
+                </div>
 
                 {process.env.NODE_ENV === 'development' &&
                 <>

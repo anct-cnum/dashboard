@@ -4,7 +4,7 @@ import { alerteEtSpinnerActions, filtresStructuresActions, paginationActions, st
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Structure from './Structure';
-import FiltresEtTrisStructures from '../../commun/structures/FiltresEtTrisStructures';
+import FiltresEtTrisStructures from './FiltresEtTrisStructures';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 
@@ -77,13 +77,25 @@ export default function TableauStructures() {
                     <table>
                       <thead>
                         <tr>
-                          <th colSpan={structures?.items?.total > 0 ? '12' : ''}>
-                            <button id="nom-structure" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Nom de la structure
-                                {(ordreNom !== 'nom-structure' || ordreNom === 'nom-structure' && ordre) &&
+                          <th>
+                            <button id="idPG" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Id
+                                {(ordreNom !== 'idPG' || ordreNom === 'idPG' && ordre) &&
                                   <i className="ri-arrow-down-s-line chevron icone"></i>
                                 }
-                                {(ordreNom === 'nom-structure' && !ordre) &&
+                                {(ordreNom === 'idPG' && !ordre) &&
+                                  <i className="ri-arrow-up-s-line chevron icone"></i>
+                                }
+                              </span>
+                            </button>
+                          </th>
+                          <th colSpan={structures?.items?.total > 0 ? '12' : ''}>
+                            <button id="nom" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Nom de la structure
+                                {(ordreNom !== 'nom' || ordreNom === 'nom' && ordre) &&
+                                  <i className="ri-arrow-down-s-line chevron icone"></i>
+                                }
+                                {(ordreNom === 'nom' && !ordre) &&
                                   <i className="ri-arrow-up-s-line chevron icone"></i>
                                 }
                               </span>

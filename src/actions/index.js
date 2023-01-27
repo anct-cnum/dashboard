@@ -7,7 +7,6 @@ export * from './exportsActions';
 export * from './alerteEtSpinnerActions';
 export * from './invitationsActions';
 export * from './userActions';
-export * from './searchActions';
 export * from './statsMisesEnRelationActions';
 export * from './filtresCandidaturesActions';
 export * from './structureActions';

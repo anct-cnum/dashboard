@@ -11,6 +11,7 @@ function Structure({ structure }) {
   return (
     <>
       <tr>
+        <td>{structure?.idPG}</td>
         <td colSpan="12" style={{ width: '28rem' }}>{structure?.nom}</td>
         <td>{structure?.contact?.nom}</td>
         <td>{structure?.contact?.prenom}</td>
@@ -27,7 +28,7 @@ function Structure({ structure }) {
               className="fr-btn fr-icon-line-chart-line"
               title="Statistiques"
               to={`/statistiques-structure/${structure?._id}`}
-              state={{ 'origin': `/${roleActivated}/liste-structures`, structure }}
+              state={{ 'origin': `/liste-structures`, structure }}
             />
           </div>
         </td>

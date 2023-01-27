@@ -46,7 +46,7 @@ export default function TableauCandidatures() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(conseillerActions.getAllCandidatsByAdmin(currentPage, filtreParNomCandidat, filtreRegion, filtreComs, filterDepartement));
+        dispatch(conseillerActions.getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreRegion, filtreComs, filterDepartement));
         setInitConseiller(true);
       }
     } else {

@@ -9,21 +9,29 @@ import LeftPage from './Components/graphiques/LeftPage';
 import RightPage from './Components/graphiques/RightPage';
 import BottomPage from './Components/graphiques/BottomPage';
 import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
+import FiltresEtTrisGrandReseau from '../../grandReseau/FiltresEtTrisGrandReseau';
 
 export default function GraphiqueNationale() {
   const dispatch = useDispatch();
 
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
   const dateFin = useSelector(state => state.statistiques?.dateFin);
+  const codePostal = useSelector(state => state.statistiques?.codePostalStats);
+  const ville = useSelector(state => state.statistiques?.villeStats);
+  const structure = useSelector(state => state.statistiques?.structureStats);
+  const conseiller = useSelector(state => state.statistiques?.conseillerStats);
+  const region = useSelector(state => state.statistiques?.codeRegionStats);
+  const departement = useSelector(state => state.statistiques?.numeroDepartementStats);
 
   const loading = useSelector(state => state.statistiques?.loading);
   const error = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const loadingExport = useSelector(state => state.exports?.loading);
+
   
   useEffect(() => {
     if (!error) {
-      dispatch(statistiquesActions.getStatistiquesNationale(dateDebut, dateFin));
+      dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, region, departement, structure, conseiller));
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
@@ -31,7 +39,8 @@ export default function GraphiqueNationale() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, error]);
+  }, [dateDebut, dateFin, codePostal, region, departement, structure, conseiller, ville, error]);
+
   
   return (
     <div className="statistiques">
@@ -39,7 +48,7 @@ export default function GraphiqueNationale() {
       <div className="nationales fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <h1 className="titre">Statistiques Nationales</h1>
+            <h1 className="titre">Mes statistiques de pilotage</h1>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
@@ -47,11 +56,11 @@ export default function GraphiqueNationale() {
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-7">
             <hr className="fr-hr fr-mt-3v"/>
           </div>
+          <div className="fr-grid-row">
+            <FiltresEtTrisGrandReseau />
+          </div>
         </div>
-        {loading &&
-          <h2 className="loadingStatsTexte">La page est en cours de chargement, veuillez patienter</h2>
-        }
-        {(!donneesStatistiques && !loading) &&
+        {!donneesStatistiques &&
           <h2 className="centrerTexte">Il n&rsquo;y a aucune statistique pour le moment</h2>
         }
         {donneesStatistiques &&
@@ -60,7 +69,7 @@ export default function GraphiqueNationale() {
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
             <StatistiquesBanniere
-              dateDebut={dateDebut}
+              dateDebut={new Date('2020-09-01')}
               dateFin={dateFin}
               typeStats="nationales"
             />

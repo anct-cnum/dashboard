@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville }) {
+function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, nom, prenom }) {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -58,7 +58,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
       window.print();
     } else if (extension === 'csv') {
       const conseillerIds = territoire?.conseillerIds ?? undefined;
-      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville));
+      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville, nom, prenom));
     }
   }
   
@@ -111,6 +111,8 @@ StatistiquesBanniere.propTypes = {
   dateFin: PropTypes.instanceOf(Date),
   codePostal: PropTypes.string,
   ville: PropTypes.string,
+  nom: PropTypes.string,
+  prenom: PropTypes.string,
   typeStats: PropTypes.string,
   id: PropTypes.string,
 };

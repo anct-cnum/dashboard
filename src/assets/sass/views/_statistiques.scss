@@ -35,6 +35,10 @@
   .centrerTexte {
     text-align: center;
   }
+  .loadingStatsTexte {
+    text-align: center;
+    padding: 9rem;
+  }
   .date-active{
     color: $blue-sky;
   }
@@ -245,6 +249,9 @@
     .hide-graphique-lg {
       display:none;
     }
+    .loadingStatsTexte {
+      padding: 5rem;
+    }
   }
   @media (min-width: 991px) {
     .graphique-responsive-md{
@@ -331,6 +338,9 @@
       text-align: center;
       line-height: 2rem;
     }
+    .loadingStatsTexte {
+      padding: 3rem;
+    }
   }
   @media (max-width: 557) {
     .highcharts-title{
@@ -338,6 +348,9 @@
     }
   }
   @media (max-width: 349px) {
+    .loadingStatsTexte {
+      padding: 2rem;
+    }
     .periode-xs {
       display: block;
     }

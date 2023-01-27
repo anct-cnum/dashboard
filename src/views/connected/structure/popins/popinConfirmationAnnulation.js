@@ -1,44 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function popinConfirmationAnnulation({ updateStatut, updateDateRecrutement, setDateValidee, toggleModal }) {
+function popinConfirmationAnnulation({ setOpenModal, updateStatut, updateDateRecrutement, setDateValidee }) {
 
   return (
-    <dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="fr-modal-annuler"
-      className="fr-modal">
-      <div className="fr-container--fluid fr-container-md">
+    <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
+      <div className="fr-container fr-container--fluid fr-container-md">
         <div className="fr-grid-row fr-grid-row--center">
-          <div className="fr-col-12 fr-col-md-6">
-            <div className="fr-modal__body centrerTexte">
+          <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
+            <div className="fr-modal__body">
               <div className="fr-modal__header">
-                <button id="modal-annuler-close" className="fr-link--close fr-link" title="Fermer la fenêtre modale"
-                  aria-controls="fr-modal-1" target="_self" onClick={() => {
-                    toggleModal(false);
-                  }}>
-                  Fermer
-                </button>
+                <button className="fr-btn--close fr-btn" aria-controls="fr-modal-2" onClick={() => setOpenModal(false)}>Fermer</button>
               </div>
-              <div className="fr-modal__content important">
+              <div className="fr-modal__content">
+                <h1 id="fr-modal-2-title" className="fr-modal__title">
+                  <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
+                  Important&nbsp;: Vous êtes sur le point d&rsquo;annuler votre demande de recrutement pour ce candidat.
+                </h1>
                 <p>
                   <strong>
-                    Important&nbsp;: Vous êtes sur le point d&rsquo;annuler votre demande de recrutement pour ce candidat.
+                     Êtes-vous sûr de vouloir réaliser cette action ?
                   </strong>
                 </p>
-                <p>
-                  <strong>
-                    Êtes-vous sûr de vouloir réaliser cette action ?
-                  </strong>
-                </p>
-                <button onClick={() => {
-                  updateStatut('interessee');
-                  updateDateRecrutement(null);
-                  setDateValidee(null);
-                  toggleModal(false);
-                }}
-                className="fr-btn fr-btn--secondary fr-fi-close-circle-line fr-btn--icon-left"
-                title="Annuler le recrutement">
-                Je valide l&rsquo;annulation du recrutement
-                </button>
+              </div>
+              <div className="fr-modal__footer">
+                <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
+                  <li>
+                    <button onClick={() => setOpenModal(false)} className="fr-btn fr-btn--secondary">
+                        Annuler
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => {
+                      updateStatut('interessee');
+                      updateDateRecrutement(null);
+                      setDateValidee(null);
+                      setOpenModal(false);
+                    }} className="fr-btn">
+                      Je valide l&rsquo;annulation du recrutement
+                    </button>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -52,7 +54,7 @@ popinConfirmationAnnulation.propTypes = {
   updateStatut: PropTypes.func,
   updateDateRecrutement: PropTypes.func,
   setDateValidee: PropTypes.func,
-  toggleModal: PropTypes.func,
+  setOpenModal: PropTypes.func,
 };
 
 export default popinConfirmationAnnulation;

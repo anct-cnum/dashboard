@@ -1,31 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filtresCandidaturesActions, conseillerActions } from '../../../../actions';
-import { useParams } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { filtresCandidaturesActions, paginationActions } from '../../../../actions';
 
-function filtersAndSorts({ resetPage }) {
+function filtersAndSorts() {
 
   const dispatch = useDispatch();
-  let filtersAndSorts = useSelector(state => state.filtresCandidatures);
-  const { search } = useSelector(state => state.search);
-  let { filter } = useParams();
-
-  const [filters, setFilters] = useState({
-    pixLevel1: '',
-    pixLevel2: '',
-    pixLevel3: '',
-    diplome: '',
-    cv: '',
-    orderByDateStart: ''
-  });
+  const filtersAndSorts = useSelector(state => state.filtresCandidatures);
+  const [searchInputValue, setSearchInputValue] = useState('');
 
   const handleChange = e => {
     const { name, value } = e.target;
 
     if (name === 'orderByDateStart') {
-      let order = e.target.checked ? 'conseillerObj.dateDisponibilite' : 'conseillerObj.createdAt';
-      dispatch(filtresCandidaturesActions.updateOrder(order));
+      let order = e.target.checked ? 'dateDisponibilite' : 'createdAt';
+      dispatch(filtresCandidaturesActions.toggleOrdre(order));
     }
 
     if (name === 'pixLevel1' || name === 'pixLevel2' || name === 'pixLevel3') {
@@ -62,30 +50,55 @@ function filtersAndSorts({ resetPage }) {
       }
       dispatch(filtresCandidaturesActions.updateCV(cv));
     }
-
-    setFilters(inputs => ({ ...inputs, [name]: value }));
-
-    let persoFilters = {
-      pix: [!!filters.pixLevel1, !!filters.pixLevel2, !!filters.pixLevel3],
-      cv: filters.cv,
-      diplome: filters.diplome
-    };
-
-    dispatch(conseillerActions.getAllCandidats({ misesEnRelation: true, search, page: 0, filter, sortData: filtersAndSorts?.order, persoFilters }));
-    resetPage(1);
+    dispatch(paginationActions.setPage(1));
   };
+
+  const rechercheParNomCandidat = () => {
+    dispatch(filtresCandidaturesActions.updateSearch(searchInputValue));
+    dispatch(paginationActions.setPage(1));
+  };
+
+  const rechercheParNomCandidatToucheEntrer = e => {
+    if (e.key === 'Enter') {
+      rechercheParNomCandidat();
+    }
+  };
+
+  const handleChangeSearchBar = e => {
+    setSearchInputValue(e.target.value);
+  };
+
+  useEffect(() => {
+    if (filtersAndSorts.search !== searchInputValue) {
+      setSearchInputValue(filtersAndSorts.search);
+    }
+  }, [filtersAndSorts.search]);
 
   return (
     <div>
       <div className="fr-grid-row">
         <div className="fr-col-12" >
+          <div className="fr-search-bar fr-mb-4w fr-mt-1w" role="search">
+            <label className="fr-label" htmlFor="fr-search-input">Recherche</label>
+            <input
+              className="fr-input"
+              placeholder="Rechercher par nom du candidat ou par id"
+              type="search"
+              id="fr-search-input"
+              value={searchInputValue}
+              onChange={handleChangeSearchBar}
+              onKeyDown={rechercheParNomCandidatToucheEntrer} />
+            <button className="fr-btn" title="Rechercher" onClick={rechercheParNomCandidat}>
+              Rechercher
+            </button>
+          </div>
           <div className="fr-form-group" style={{ float: 'left' }}>
             <fieldset className="fr-fieldset fr-fieldset--inline fr-co filtresCandidature">
               <div className="fr-mr-2w fr-mt-2w boxPix">
                 <label className="labelPix">Niveau(x) Pix</label>
                 <div className="fr-fieldset__content">
                   <div className="fr-checkbox-group fr-checkbox-group--md">
-                    <input type="checkbox" id="pixLevel1" name="pixLevel1" value="1" onChange={handleChange} />
+                    <input type="checkbox" checked={filtersAndSorts.pix.includes(1)} id="pixLevel1" name="pixLevel1" value="1" onChange={handleChange} />
                     <label className="fr-label" htmlFor="pixLevel1">
                       <span style={{ verticalAlign: 'sub' }}>
                         <i className="ri-star-fill"></i>
@@ -93,7 +106,7 @@ function filtersAndSorts({ resetPage }) {
                     </label>
                   </div>
                   <div className="fr-checkbox-group fr-checkbox-group--md">
-                    <input type="checkbox" id="pixLevel2" name="pixLevel2" value="2" onChange={handleChange} />
+                    <input type="checkbox" checked={filtersAndSorts.pix.includes(2)} id="pixLevel2" name="pixLevel2" value="2" onChange={handleChange} />
                     <label className="fr-label" htmlFor="pixLevel2">
                       <span style={{ verticalAlign: 'sub' }}>
                         <i className="ri-star-fill"></i>
@@ -102,7 +115,7 @@ function filtersAndSorts({ resetPage }) {
                     </label>
                   </div>
                   <div className="fr-checkbox-group fr-checkbox-group--md">
-                    <input type="checkbox" id="pixLevel3" name="pixLevel3" value="3" onChange={handleChange} />
+                    <input type="checkbox" checked={filtersAndSorts.pix.includes(3)} id="pixLevel3" name="pixLevel3" value="3" onChange={handleChange} />
                     <label className="fr-label" htmlFor="pixLevel3">
                       <span style={{ verticalAlign: 'sub' }}>
                         <i className="ri-star-fill"></i>
@@ -142,7 +155,7 @@ function filtersAndSorts({ resetPage }) {
                 className="fr-toggle__input"
                 id="orderByDateStart"
                 name="orderByDateStart"
-                checked={filtersAndSorts?.order === 'conseillerObj.dateDisponibilite'}
+                checked={filtersAndSorts?.ordreNom === 'dateDisponibilite'}
                 onChange={handleChange}/>
 
               <label className="fr-toggle__label"
@@ -158,9 +171,5 @@ function filtersAndSorts({ resetPage }) {
     </div>
   );
 }
-
-filtersAndSorts.propTypes = {
-  resetPage: PropTypes.func
-};
 
 export default filtersAndSorts;

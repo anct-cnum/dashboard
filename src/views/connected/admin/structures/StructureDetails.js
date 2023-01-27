@@ -86,7 +86,7 @@ function StructureDetails() {
       </div>
       <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
         <div className="fr-col-12">
-          <hr style={{ borderWidth: '0.5px' }} />
+          <hr style={{ borderWidth: '0.5px' }}/>
         </div>
       </div>
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
@@ -208,11 +208,11 @@ function StructureDetails() {
           <div className="fr-col-6 fr-mt-4w">
             <h4 className="titre">Informations g&eacute;n&eacute;rales</h4>
             <div className="fr-mb-3w">
-              <strong>Id</strong><br />
+              <strong>Id</strong><br/>
               <span>{structure?.idPG ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Siret</strong><br />
+              <strong>Siret</strong><br/>
               {displaySiretForm === true ?
                 <div style={{ width: '320px' }}>
                   <SiretForm setDisplaySiretForm={setDisplaySiretForm} structureId={structure?._id} structureSiret={structure?.siret} />
@@ -226,19 +226,19 @@ function StructureDetails() {
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>Code Postal</strong><br />
+              <strong>Code Postal</strong><br/>
               <span>{structure?.codePostal ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Adresse</strong><br />
+              <strong>Adresse</strong><br/>
               <span>{structure?.adresseFormat ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Type</strong><br />
+              <strong>Type</strong><br/>
               <span>{structure?.type ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Date d&lsquo;inscription</strong><br />
+              <strong>Date d&lsquo;inscription</strong><br/>
               {structure?.createdAt ?
                 <span>{dayjs(structure?.createdAt).format('DD/MM/YYYY')}</span> : <span>-</span>
               }
@@ -251,7 +251,7 @@ function StructureDetails() {
         </div>
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
-            <hr style={{ borderWidth: '0.5px' }} />
+            <hr style={{ borderWidth: '0.5px' }}/>
           </div>
         </div>
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
@@ -268,7 +268,7 @@ function StructureDetails() {
                 'Postes validé en comité de sélection',
                 'Postes validés en comité de sélection',
                 structure?.posteValiderCoselec
-              )}</strong><br />
+              )}</strong><br/>
               <span>{structure?.posteValiderCoselec ?? '-'}</span>
             </div>
             <div className="fr-mb-3w fr-grid-row">
@@ -292,7 +292,7 @@ function StructureDetails() {
         </div>
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
-            <hr style={{ borderWidth: '0.5px' }} />
+            <hr style={{ borderWidth: '0.5px' }}/>
           </div>
         </div>
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
@@ -303,11 +303,11 @@ function StructureDetails() {
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-3">
             <div className="fr-mb-3w">
-              <strong>Cra total cumul&eacute;s</strong><br />
+              <strong>Cra total cumul&eacute;s</strong><br/>
               <span>{structure?.craCount === 0 ? '-' : structure?.craCount}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Personnes accompagn&eacute;es</strong><br />
+              <strong>Personnes accompagn&eacute;es</strong><br/>
               <span>{structure?.accompagnementCount ?? '-'}</span>
             </div>
           </div>
