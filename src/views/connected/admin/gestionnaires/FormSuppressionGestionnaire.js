@@ -5,15 +5,13 @@ import { gestionnaireActions } from '../../../../actions';
 
 function FormSuppressionGestionnaire({ setConfirmSuppressionGestionnaire, idGestionnaire }) {
   const dispatch = useDispatch();
-  //const gestionnaire = useSelector(state => state.gestionnaire?.gestionnaire);
-
 
   const annulerSuppressionGestionnaire = () => {
     setConfirmSuppressionGestionnaire(false);
   };
 
   const suppressionGestionnaire = () => {
-    dispatch(gestionnaireActions.suppressionGestionnaire({ id: idGestionnaire }));
+    dispatch(gestionnaireActions.suppressionGestionnaire(idGestionnaire));
     setConfirmSuppressionGestionnaire(false);
   };
 

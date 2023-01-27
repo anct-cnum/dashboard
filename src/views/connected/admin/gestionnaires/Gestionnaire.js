@@ -4,13 +4,14 @@ import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import { gestionnaireActions, alerteEtSpinnerActions } from '../../../../actions';
 import FormSuppressionGestionnaire from './FormSuppressionGestionnaire';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function Gestionnaire({ gestionnaire }) {
   const dispatch = useDispatch();
   const [confirmSuppressionGestionnaire, setConfirmSuppressionGestionnaire] = useState(false);
 
   const resendInvitGestionnaire = () => {
-    window.scrollTo(0, 0);
+    scrollTopWindow();
     dispatch(gestionnaireActions.resendInvitGestionnaire(gestionnaire._id));
     dispatch(alerteEtSpinnerActions.getMessageAlerte({
       type: 'success',
@@ -36,10 +37,10 @@ function Gestionnaire({ gestionnaire }) {
               title="D&eacute;tail"
               onClick={resendInvitGestionnaire}/>
             <button
-              className="fr-btn fr-icon-delete-line delete-gestionnaire"
+              className="fr-btn fr-icon-delete-line"
               onClick={() => {
                 setConfirmSuppressionGestionnaire(true);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                scrollTopWindow();
               }}/>
           </div>
           {confirmSuppressionGestionnaire &&

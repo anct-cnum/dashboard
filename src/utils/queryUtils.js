@@ -73,7 +73,6 @@ export function structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateF
   return { ordreColonne, filterDateStart, filterDateEnd, filterByName, filterByType, filterByStatut, filterByRegion, filterByComs, filterByDepartement };
 }
 
-// eslint-disable-next-line max-len
 export function gestionnairesQueryStringParameters(nomOrdre, ordre, filtreParRole, filtreParNom) {
   const filterByName = filtreParNom ? `&searchByNom=${filtreParNom}` : '';
   const filterByRole = filtreParRole !== 'tous' && filtreParRole !== undefined ? `&searchRole=${filtreParRole}` : '';

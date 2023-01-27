@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, filtresStructuresActions, paginationActions, statistiquesActions, gestionnaireActions } from '../../../../actions';
+import { alerteEtSpinnerActions, filtresGestionnairesActions, paginationActions, statistiquesActions, gestionnaireActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Gestionnaire from './Gestionnaire';
@@ -13,19 +13,19 @@ export default function TableauGestionnaires() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const ordre = useSelector(state => state.filtresStructures?.ordre);
-  const ordreNom = useSelector(state => state.filtresStructures?.ordreNom);
-  const loading = useSelector(state => state.structure?.loading);
-  const error = useSelector(state => state.structure?.error);
+  const ordre = useSelector(state => state.filtresGestionnaires?.ordre);
+  const ordreNom = useSelector(state => state.filtresGestionnaires?.ordreNom);
+  const loading = useSelector(state => state.gestionnaire?.loading);
+  const error = useSelector(state => state.gestionnaire?.error);
   const gestionnaires = useSelector(state => state.gestionnaire);
-  const filtreParNomConseiller = useSelector(state => state.filtresStructures?.nomConseiller);
+  const filtreParNomConseiller = useSelector(state => state.filtresGestionnaires?.nomConseiller);
   const filtreRole = useSelector(state => state.filtresGestionnaires?.searchRole);
   const [initConseiller, setInitConseiller] = useState(false);
   const [page, setPage] = useState(location.state?.currentPage);
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresStructuresActions.changeOrdre(e.currentTarget?.id));
+    dispatch(filtresGestionnairesActions.changeOrdre(e.currentTarget?.id));
   };
 
   useEffect(() => {
@@ -50,14 +50,14 @@ export default function TableauGestionnaires() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les gestionnairess n\'ont pas pu être chargés !',
+        message: 'Les gestionnaires n\'ont pas pu être chargés !',
         status: null, description: null
       }));
     }
   }, [error, page]);
 
   return (
-    <div className="conseillers">
+    <div className="gestionnaires">
       <Spinner loading={loading} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
@@ -70,15 +70,15 @@ export default function TableauGestionnaires() {
                     <table>
                       <thead>
                         <tr>
-                          <th>Rôle</th>
+                          <th>R&ocirc;le</th>
                           <th>Email</th>
                           <th>
-                            <button id="nom-structure" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Nom de la structure
-                                {(ordreNom !== 'nom-structure' || ordreNom === 'nom-structure' && ordre) &&
+                            <button id="nom-gestionnaire" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Nom du gestionnaire
+                                {(ordreNom !== 'nom-gestionnaire' || ordreNom === 'nom-gestionnaire' && ordre) &&
                                   <i className="ri-arrow-down-s-line chevron icone"></i>
                                 }
-                                {(ordreNom === 'nom-structure' && !ordre) &&
+                                {(ordreNom === 'nom-gestionnaire' && !ordre) &&
                                   <i className="ri-arrow-up-s-line chevron icone"></i>
                                 }
                               </span>
@@ -87,7 +87,7 @@ export default function TableauGestionnaires() {
                           <th>Nom</th>
                           <th>Pr&eacute;nom</th>
                           <th>Date d&rsquo;invitation</th>
-                          <th>Actif = (compte créé)</th>
+                          <th>Actif = (compte cr&eacute;&eacute;)</th>
                           <th>Actions</th>
                         </tr>
                       </thead>

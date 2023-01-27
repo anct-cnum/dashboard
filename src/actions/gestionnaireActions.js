@@ -6,12 +6,10 @@ export const gestionnaireActions = {
   resendInvitGestionnaire,
 };
 
-// eslint-disable-next-line max-len
 function getAll(page, filtreParNom, filtreParRole, nomOrdre = 'prenom', ordre = 1) {
   return dispatch => {
     dispatch(request());
 
-    // eslint-disable-next-line max-len
     gestionnaireService.getAll(page, filtreParNom, filtreParRole, nomOrdre, ordre)
     .then(
       gestionnaires => dispatch(success(gestionnaires)),
@@ -54,11 +52,11 @@ function resendInvitGestionnaire(id) {
   }
 }
 
-function suppressionGestionnaire({ id }) {
+function suppressionGestionnaire(id) {
   return dispatch => {
     dispatch(request());
 
-    gestionnaireService.suppressionGestionnaire({ id })
+    gestionnaireService.suppressionGestionnaire(id)
     .then(
       gestionnaire => dispatch(success(gestionnaire.deleteSuccess)),
       error => {

@@ -64,11 +64,11 @@ function FiltresEtTrisGestionnaires() {
         <div className="fr-grid-row">
           <div className="fr-select-group fr-col-5" id="filtre-role">
             <select className="fr-select" value={filtreRole} onChange={selectFiltreRole}>
-              <option value={'tous'}>S&eacute;lectionner un rôle</option>
+              <option value={'tous'}>S&eacute;lectionner un r&ocirc;le</option>
               <option value="ROLE_TOUS">Tous</option>
               <option value="ROLE_ADMIN">Admin</option>
-              <option value="ROLE_GRAND_RESEAU">Grand réseau</option>
-              <option value="ROLE_PREFET">Préfet</option>
+              <option value="ROLE_GRAND_RESEAU">Grand r&eacute;seau</option>
+              <option value="ROLE_PREFET">Pr&eacute;fet</option>
               <option value="ROLE_HUB">Hub</option>
               <option value="ROLE_STRUCTURE">Structure</option>
             </select>

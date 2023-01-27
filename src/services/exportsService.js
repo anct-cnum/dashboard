@@ -81,16 +81,13 @@ function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, cod
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-// eslint-disable-next-line max-len
 function getExportDonneesGestionnaires(filtreRole, filtreParNom, nomOrdre, ordre) {
   const exportGestionnairesRoute = '/liste-gestionnaires-csv';
   const {
     ordreColonne,
     filterByName,
     filterByRole,
-  // eslint-disable-next-line max-len
   } = gestionnairesQueryStringParameters(nomOrdre, ordre, filtreRole, filtreParNom);
-  // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports${exportGestionnairesRoute}?role=${roleActivated()}${filterByRole}${filterByName}${ordreColonne}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));

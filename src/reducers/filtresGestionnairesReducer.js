@@ -1,14 +1,7 @@
 const initialState = {
-  dateDebut: new Date(1605571200000),
-  dateFin: new Date(),
-  departement: 'tous',
-  nomStructure: undefined,
-  ordre: true,
-  ordreNom: undefined,
+  ordre: 1,
+  ordreNom: 'nom',
   searchRole: 'ROLE_TOUS',
-  coms: 'tous',
-  type: 'tous',
-  statut: 'VALIDATION_COSELEC',
 };
   
 export default function filtresGestionnaires(state = initialState, action) {

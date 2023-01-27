@@ -138,11 +138,9 @@ function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, 
   }
 }
 
-// eslint-disable-next-line max-len
 function exportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrdre = 'nom', ordre = 1) {
   return async dispatch => {
     dispatch(request());
-    // eslint-disable-next-line max-len
     await exportsService.getExportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrdre, ordre)
     .then(exportGestionnairesFileBlob => dispatch(success(exportGestionnairesFileBlob)))
     .catch(exportGestionnairesFileError => dispatch(failure(exportGestionnairesFileError)));
@@ -155,7 +153,7 @@ function exportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrd
     const nameFile = `export-gestionnaires_${filtreRole.toLowerCase()}`;
     return { type: 'EXPORT_GESTIONNAIRES_SUCCESS', exportGestionnairesFileBlob, nameFile };
   }
-  function failure(exportGestionnairesFileError) {
-    return { type: 'EXPORT_GESTIONNAIRES_FAILURE', exportGestionnairesFileError };
+  function failure() {
+    return { type: 'EXPORT_GESTIONNAIRES_FAILURE' };
   }
 }
