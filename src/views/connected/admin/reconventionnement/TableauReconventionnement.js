@@ -79,7 +79,7 @@ export default function TableauReconventionnement() {
               <span>Retrouvez ici toutes les demandes de conventionnement, reconventionnement et avenants à valider.</span>
             </div>
             
-            <div className="fr-container--fluid fr-mt-2w">
+            <div className="fr-container--fluid fr-mt-4w">
               <ul className="tabs fr-tags-group">
                 <Link className="fr-tag" aria-pressed="true">Afficher toutes les demandes (42)</Link>
                 <Link className="fr-tag" aria-pressed="false">Conventionnement initial (8)</Link>
@@ -87,7 +87,7 @@ export default function TableauReconventionnement() {
                 <Link className="fr-tag" aria-pressed="false">Avenant · ajout de poste (3)</Link>
                 <Link className="fr-tag" aria-pressed="false">Avenant · poste rendu (3)</Link>
               </ul>
-              <div className="fr-grid-row fr-grid-row--center">
+              <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
                 <div className="fr-col-12">
                   <div className="fr-table">
                     <table className={conseillers?.items?.data?.length < 2 ? 'no-result-table' : ''}>

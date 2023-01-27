@@ -79,25 +79,25 @@ export default function TableauContrat() {
               <span>Retrouvez ici toutes les demandes de recrutements, renouvellements et ruptures de contrat à valider.</span>
             </div>
             
-            <div className="fr-container--fluid fr-mt-2w">
+            <div className="fr-container--fluid fr-mt-4w">
               <ul className="tabs fr-tags-group">
                 <Link className="fr-tag" aria-pressed="true">Afficher toutes les demandes (42)</Link>
                 <Link className="fr-tag" aria-pressed="false">Recrutements (8)</Link>
                 <Link className="fr-tag" aria-pressed="false">Renouvellements de contrat (5)</Link>
                 <Link className="fr-tag" aria-pressed="false">Rupture de contrat (0)</Link>
               </ul>
-              <div className="fr-grid-row fr-grid-row--center">
+              <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
                 <div className="fr-col-12">
                   <div className="fr-table">
                     <table className={conseillers?.items?.data?.length < 2 ? 'no-result-table' : ''}>
                       <thead>
                         <tr>
-                          <th style={{ width: '5rem' }}>Id</th>
+                          <th style={{ width: '8rem' }}>Id structure</th>
                           <th style={{ width: '15rem' }}>Nom de la structure</th>
-                          <th style={{ width: '15rem' }}>Nom du candidat</th>
+                          <th style={{ width: '13rem' }}>Nom du candidat</th>
                           <th>Date de la demande</th>
-                          <th style={{ width: '14rem' }}>Type de la demande</th>
-                          <th></th>
+                          <th style={{ width: '16rem' }}>Type de la demande</th>
+                          <th style={{ width: '12.1rem' }}></th>
                         </tr>
                       </thead>
                       <tbody>

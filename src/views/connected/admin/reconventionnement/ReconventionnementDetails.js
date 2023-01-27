@@ -58,14 +58,16 @@ function ReconventionnementDetails() {
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
                     <strong>Contact de la structure</strong><br/>
-                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{conseiller.nom ?? '-'}</span>
+                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{conseiller?.nom ?? '-'}</span>
                   </div>
                 </div>
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
                     <strong>Fonction</strong><br/>
                     {conseiller?.dateDeNaissance ?
-                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                        {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                      </span> : <span>-</span>
                     }
                   </div>
                 </div>
@@ -73,7 +75,9 @@ function ReconventionnementDetails() {
                   <div className="fr-mb-3w">
                     <strong>Téléphone</strong><br/>
                     {conseiller?.dateDeNaissance ?
-                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                        {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                      </span> : <span>-</span>
                     }
                   </div>
                 </div>
@@ -81,7 +85,9 @@ function ReconventionnementDetails() {
                   <div className="fr-mb-3w">
                     <strong>Email</strong><br/>
                     {conseiller?.dateDeNaissance ?
-                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                        {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                      </span> : <span>-</span>
                     }
                   </div>
                 </div>
@@ -134,7 +140,9 @@ function ReconventionnementDetails() {
                           <div>
                             <span className="fr-text--md" style={{ fontWeight: '500' }}>Début de contrat</span><br/>
                             {conseiller?.dateDeNaissance ?
-                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                                {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                              </span> : <span>-</span>
                             }
                           </div>
                         </div>
@@ -142,7 +150,9 @@ function ReconventionnementDetails() {
                           <div>
                             <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br/>
                             {conseiller?.dateDeNaissance ?
-                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                                {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                              </span> : <span>-</span>
                             }
                           </div>
                         </div>

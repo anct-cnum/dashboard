@@ -133,7 +133,9 @@ function ContratDetails() {
                           <div>
                             <span className="fr-text--md fr-text--bold">Début de contrat</span><br/>
                             {conseiller?.dateDeNaissance ?
-                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                                {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                              </span> : <span>-</span>
                             }
                           </div>
                         </div>
@@ -141,7 +143,9 @@ function ContratDetails() {
                           <div>
                             <span className="fr-text--md fr-text--bold">Fin de contrat</span><br/>
                             {conseiller?.dateDeNaissance ?
-                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                                {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                              </span> : <span>-</span>
                             }
                           </div>
                         </div>
@@ -149,7 +153,9 @@ function ContratDetails() {
                           <div>
                             <span className="fr-text--md fr-text--bold">Salaire brut mensuel</span><br/>
                             {conseiller?.dateDeNaissance ?
-                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                                {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                              </span> : <span>-</span>
                             }
                           </div>
                         </div>
@@ -222,7 +228,9 @@ function ContratDetails() {
                     <div>
                       <span className="fr-text--md" style={{ fontWeight: '500' }}>Début de contrat</span><br/>
                       {conseiller?.dateDeNaissance ?
-                        <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                        <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                          {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                        </span> : <span>-</span>
                       }
                     </div>
                   </div>
@@ -230,7 +238,9 @@ function ContratDetails() {
                     <div>
                       <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br/>
                       {conseiller?.dateDeNaissance ?
-                        <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                        <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                          {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                        </span> : <span>-</span>
                       }
                     </div>
                   </div>
@@ -255,7 +265,9 @@ function ContratDetails() {
                     <div>
                       <span className="fr-text--md" style={{ fontWeight: '500' }}>Début de contrat</span><br/>
                       {conseiller?.dateDeNaissance ?
-                        <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                        <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                          {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                        </span> : <span>-</span>
                       }
                     </div>
                   </div>
@@ -263,7 +275,9 @@ function ContratDetails() {
                     <div>
                       <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br/>
                       {conseiller?.dateDeNaissance ?
-                        <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
+                        <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                          {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                        </span> : <span>-</span>
                       }
                     </div>
                   </div>
