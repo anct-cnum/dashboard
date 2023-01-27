@@ -239,11 +239,10 @@ function suppressionCandidat({ id, motif }) {
   }
 }
 
-function updateStatus({ id, statut }) {
+function updateStatus(id, statut, motifRupture, dateRuptureValidee) {
   return dispatch => {
     dispatch(request());
-
-    conseillerService.updateStatus(id, statut)
+    conseillerService.updateStatus(id, statut, motifRupture, dateRuptureValidee)
     .then(
       miseEnRelation => dispatch(success(miseEnRelation)),
       error => {

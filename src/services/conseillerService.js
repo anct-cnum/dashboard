@@ -143,9 +143,9 @@ function getAllMisesEnRelation(structureId, search, page, filter, nomOrdre, ordr
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function updateStatus(id, statut) {
+function updateStatus(id, statut, motifRupture, dateRuptureValidee) {
   return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
-    statut })
+    statut, motifRupture, dateRuptureValidee })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

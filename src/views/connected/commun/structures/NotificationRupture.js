@@ -1,26 +1,14 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
-import { conseillerActions } from '../../../../actions/conseillerActions';
 import fr from 'date-fns/locale/fr';
 //Print datePicker calendar in FR
 registerLocale('fr', fr);
-function NotificationRupture({ dateRupture, motifRupture, updateStatut, miseEnRelationId }) {
+function NotificationRupture({ dateRupture, motifRupture, updateStatut }) {
   const today = new Date();
   const [dateRuptureValidee, setDateRuptureValidee] = useState(dateRupture);
   const [motifRuptureValide, setMotifRuptureValide] = useState(motifRupture);
   const [afficherRupture, setAfficherRupture] = useState(false);
-  const dispatch = useDispatch();
-  const updateDateRupture = date => {
-    date = dayjs(date);
-    dispatch(conseillerActions.updateDateRupture({ id: miseEnRelationId, date }));
-  };
-
-  const updateMotifRupture = motif => {
-    dispatch(conseillerActions.updateMotifRupture({ id: miseEnRelationId, motif }));
-  };
 
   return (
     <>
@@ -67,19 +55,23 @@ function NotificationRupture({ dateRupture, motifRupture, updateStatut, miseEnRe
         <fieldset className="fr-fieldset">
           <div className="fr-fieldset__content">
             <div className="fr-radio-group fr-radio-group--sm">
-              <input type="radio" id="radio-1" name="motifRupture" onChange={ motif => setMotifRuptureValide(motif.target.value)} value={motifRuptureValide === null ? '' : 'licenciement'}/>
+              <input type="radio" id="radio-1" name="motifRupture"
+                onChange={ motif => setMotifRuptureValide(motif.target.value)} value={motifRuptureValide === null ? '' : 'licenciement'}/>
               <label className="fr-label" htmlFor="radio-1">Licenciement : Pour motif &eacute;conomique / Rupture conventionnelle / Pour faute professionnelle
               </label>
             </div>
             <div className="fr-radio-group fr-radio-group--sm">
-              <input type="radio" id="radio-2" name="motifRupture" onChange={ motif => setMotifRuptureValide(motif.target.value)} value={motifRuptureValide === null ? '' : 'nonReconductionCDD'}/>
+              <input type="radio" id="radio-2" name="motifRupture"
+                onChange={ motif => setMotifRuptureValide(motif.target.value)} value={motifRuptureValide === null ? '' : 'nonReconductionCDD'}/>
               <label className="fr-label" htmlFor="radio-2">Non-reconduction du CDD : Pour motif &eacute;conomique / A l&rsquo;amiable / Non-satisfaction
               </label>
             </div>
             <div className="fr-radio-group fr-radio-group--sm">
-              <input type="radio" id="radio-3" name="motifRupture" onChange={ motif => setMotifRuptureValide(motif.target.value)} value={motifRuptureValide === null ? '' : 'demission'}/>
-              <label className="fr-label" htmlFor="radio-3">D&eacute;mission : Li&eacute;e &agrave; la formation / Inad&eacute;quation du profil au poste / Raisons personnelles
-          / Autre opportunit&eacute; professionnelle / Changement de structure au sein du dispositif / D&eacute;saccords avec l&rsquo;employeur
+              <input type="radio" id="radio-3" name="motifRupture"
+                onChange={ motif => setMotifRuptureValide(motif.target.value)} value={motifRuptureValide === null ? '' : 'demission'}/>
+              <label className="fr-label" htmlFor="radio-3">D&eacute;mission : Li&eacute;e &agrave; la formation
+                / Inad&eacute;quation du profil au poste / Raisons personnelles
+                / Autre opportunit&eacute; professionnelle / Changement de structure au sein du dispositif / D&eacute;saccords avec l&rsquo;employeur
               </label>
             </div>
           </div>
@@ -88,9 +80,8 @@ function NotificationRupture({ dateRupture, motifRupture, updateStatut, miseEnRe
       <ul className="fr-btns-group fr-btns-group--inline">
         <li>
           <button onClick={() => {
-            updateDateRupture(dateRuptureValidee);
-            updateMotifRupture(motifRuptureValide);
-            updateStatut('nouvelle_rupture');
+            updateStatut('nouvelle_rupture', motifRuptureValide, dateRuptureValidee);
+            setAfficherRupture(false);
           }} disabled={ !dateRuptureValidee || !motifRuptureValide } className="fr-btn fr-btn--icon-left" title="Notifier la rupture de contrat"
           >
           Valider

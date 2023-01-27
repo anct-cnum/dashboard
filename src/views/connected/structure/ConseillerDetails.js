@@ -24,10 +24,8 @@ function ConseillerDetails() {
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
 
-  const updateStatut = statut => {
-    console.log('updateStatut', statut);
-    console.log('conseiller.miseEnRelation?._id', conseiller.misesEnRelation[0]?._id);
-    dispatch(conseillerActions.updateStatus({ id: conseiller.misesEnRelation[0]?._id, statut }));
+  const updateStatut = (statut, motifRupture, dateRuptureValidee) => {
+    dispatch(conseillerActions.updateStatus(conseiller.misesEnRelation[0]?._id, statut, motifRupture, dateRuptureValidee));
     scrollTopWindow();
   };
 
@@ -56,8 +54,6 @@ function ConseillerDetails() {
   const clickToScrollIntoRupture = () => {
     refPartActivite.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  console.log('########', conseiller);
 
   return (
     <div className="fr-container conseillerDetails">
@@ -288,9 +284,6 @@ function ConseillerDetails() {
                   }
                 </>
                 }
-                <NotificationRupture miseEnRelationId = {conseiller?.miseEnRelation?._id}
-                  updateStatut={updateStatut} dateRupture={conseiller?.miseEnRelation?.dateRupture}
-                  motifRupture={conseiller?.miseEnRelation?.motifRupture}/>
               </div>
               }
               {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
@@ -350,9 +343,9 @@ function ConseillerDetails() {
                   </div>
                   }
                 </div>
-                {/* <NotificationRupture miseEnRelationId = {conseiller?.miseEnRelation?._id}
+                <NotificationRupture miseEnRelationId = {conseiller?.miseEnRelation?._id}
                   updateStatut={updateStatut} dateRupture={conseiller?.miseEnRelation?.dateRupture}
-                  motifRupture={conseiller?.miseEnRelation?.motifRupture}/> */}
+                  motifRupture={conseiller?.miseEnRelation?.motifRupture}/>
               </>
             }
           </div>
