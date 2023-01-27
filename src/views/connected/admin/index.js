@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import Exports from './Exports';
-import TableauStructures from './structures/TableauStructures';
 import ConseillerDetails from './ConseillerDetails';
 import StructureDetails from './structures/StructureDetails';
 import Page404 from '../Page404';
@@ -24,7 +23,6 @@ export default function Admin() {
       }
       <Routes>
         <Route path="/admin/informations" element={<MesInformations />} />
-        <Route path="/admin/liste-structures" element={<TableauStructures />} />
         <Route path="/admin/liste-candidatures" element={<TableauCandidatures />} />
         <Route path="/admin/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/admin/conseiller/:idConseiller" element={<ConseillerDetails />} />
