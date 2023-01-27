@@ -44,7 +44,7 @@ function FiltresEtTrisGrandReseau() {
         </div>
         <div className="fr-select-group fr-col-xs-12 fr-col-sm-4 fr-col-lg-2  fr-mr-1w" style={{ width: '100%' }} id="filtre-departement">
           <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => selectFiltreDepartement(dispatch, e)} value={filtreDepartement}>
-            <SelectOptions options={getDepartements()} valueName="num_dep" labelName="dep_name" title="Tous les d&eacute;partements"/>
+            <SelectOptions options={getDepartements()} valueName="num_dep" labelName="dep_name" subLabelName="num_dep" title="Tous les d&eacute;partements"/>
           </select>
         </div>
         <div className="fr-select-group fr-col-xs-12 fr-col-sm-4 fr-col-lg-2  fr-mr-1w" style={{ width: '100%' }} id="filtre-codePostal">
