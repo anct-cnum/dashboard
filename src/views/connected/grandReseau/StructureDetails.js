@@ -84,7 +84,7 @@ function StructureDetails() {
       </div>
       <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
         <div className="fr-col-12">
-          <hr style={{ borderWidth: '0.5px' }} />
+          <hr style={{ borderWidth: '0.5px' }}/>
         </div>
       </div>
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
@@ -97,7 +97,7 @@ function StructureDetails() {
           <div className="fr-col-6">
             <h4 className="titre">Contact principal</h4>
             <div className="fr-mb-3w">
-              <strong>Email</strong><br />
+              <strong>Email</strong><br/>
               <div>
                 {structure?.contact?.email &&
                   <div>
@@ -112,25 +112,25 @@ function StructureDetails() {
               </div>
             </div>
             <div className="fr-mb-3w">
-              <strong>Nom</strong><br />
+              <strong>Nom</strong><br/>
               <div className="fr-grid-row">
                 <span>{structure?.contact?.nom ?? '-'}&nbsp;</span>
                 <span>{structure?.contact?.prenom ?? ''}</span>
               </div>
             </div>
             <div className="fr-mb-3w">
-              <strong>T&eacute;l&eacute;phone</strong><br />
+              <strong>T&eacute;l&eacute;phone</strong><br/>
               <span>{structure?.contact?.telephone ?
                 structure?.contact?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
                 <>-</>
               }</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Fonction</strong><br />
+              <strong>Fonction</strong><br/>
               <span>{structure?.contact?.fonction ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Raison social</strong><br />
+              <strong>Raison social</strong><br/>
               <span>{structure?.insee?.entreprise?.raison_sociale ?? '-'}</span>
             </div>
           </div>
@@ -165,7 +165,7 @@ function StructureDetails() {
                         id="username-input"
                         name="username"
                         value={email}
-                        onChange={e => setEmail(e.target.value.trim())} />
+                        onChange={e => setEmail(e.target.value.trim())}/>
                       {email && !valideInputEmail(email) && activeMessage &&
                         <p id="username-error" className="fr-error-text">
                           Le format de l&rsquo;adresse mail saisi est invalide.
@@ -182,7 +182,7 @@ function StructureDetails() {
                     setEmail('');
                     setForm(false);
                   }}
-                    className="fr-btn fr-btn--secondary"
+                  className="fr-btn fr-btn--secondary"
                   >
                     Annuler
                   </button>
@@ -273,7 +273,7 @@ function StructureDetails() {
         </div>
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
-            <hr style={{ borderWidth: '0.5px' }} />
+            <hr style={{ borderWidth: '0.5px' }}/>
           </div>
         </div>
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
@@ -284,11 +284,11 @@ function StructureDetails() {
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-3">
             <div className="fr-mb-3w">
-              <strong>Cra total cumul&eacute;s</strong><br />
+              <strong>Cra total cumul&eacute;s</strong><br/>
               <span>{structure?.craCount === 0 ? '-' : structure?.craCount}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Personnes accompagn&eacute;es</strong><br />
+              <strong>Personnes accompagn&eacute;es</strong><br/>
               <span>{structure?.accompagnementCount ?? '-'}</span>
             </div>
           </div>
