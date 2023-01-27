@@ -87,7 +87,7 @@ export default function InvitationGrandReseau() {
               <ModalConfirmationSuppressionCompte setDisplayModalDelete={setDisplayModalDelete} user={user} />
             }
           </div>
-          <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
+          <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)} disabled>
             Inviter un administrateur
           </button>
         </div> :
