@@ -145,7 +145,7 @@ function StructureDetails() {
                       <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span>}</p>
                     </>
                   )}
-                  <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
+                  <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)} disabled>
                     Inviter un administrateur
                   </button>
                 </div> :
