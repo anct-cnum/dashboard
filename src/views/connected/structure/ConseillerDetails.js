@@ -8,6 +8,8 @@ import pixUtilisation from '../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../assets/icons/pix-citoyen.png';
 import Spinner from '../../../components/Spinner';
+import NotificationRupture from '../commun/structures/NotificationRupture';
+import { scrollTopWindow } from '../../../utils/exportsUtils';
 
 function ConseillerDetails() {
 
@@ -21,6 +23,13 @@ function ConseillerDetails() {
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+
+  const updateStatut = statut => {
+    console.log('updateStatut', statut);
+    console.log('conseiller.miseEnRelation?._id', conseiller.misesEnRelation[0]?._id);
+    dispatch(conseillerActions.updateStatus({ id: conseiller.misesEnRelation[0]?._id, statut }));
+    scrollTopWindow();
+  };
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -47,6 +56,8 @@ function ConseillerDetails() {
   const clickToScrollIntoRupture = () => {
     refPartActivite.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  console.log('########', conseiller);
 
   return (
     <div className="fr-container conseillerDetails">
@@ -277,6 +288,9 @@ function ConseillerDetails() {
                   }
                 </>
                 }
+                <NotificationRupture miseEnRelationId = {conseiller?.miseEnRelation?._id}
+                  updateStatut={updateStatut} dateRupture={conseiller?.miseEnRelation?.dateRupture}
+                  motifRupture={conseiller?.miseEnRelation?.motifRupture}/>
               </div>
               }
               {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
@@ -336,6 +350,9 @@ function ConseillerDetails() {
                   </div>
                   }
                 </div>
+                {/* <NotificationRupture miseEnRelationId = {conseiller?.miseEnRelation?._id}
+                  updateStatut={updateStatut} dateRupture={conseiller?.miseEnRelation?.dateRupture}
+                  motifRupture={conseiller?.miseEnRelation?.motifRupture}/> */}
               </>
             }
           </div>
