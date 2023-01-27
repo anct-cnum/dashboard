@@ -165,7 +165,7 @@ function StructureDetails() {
                         id="username-input"
                         name="username"
                         value={email}
-                        onChange={e => setEmail(e.target.value.trim())}/>
+                        onChange={e => setEmail(e.target.value.trim())} />
                       {email && !valideInputEmail(email) && activeMessage &&
                         <p id="username-error" className="fr-error-text">
                           Le format de l&rsquo;adresse mail saisi est invalide.

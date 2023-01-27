@@ -144,7 +144,7 @@ function StructureDetails() {
                 'Postes validé en comité de sélection',
                 'Postes validés en comité de sélection',
                 structure?.posteValiderCoselec
-              )}</strong><br />
+              )}</strong><br/>
               <span>{structure?.posteValiderCoselec ?? '-'}</span>
             </div>
             <div className="fr-mb-3w fr-grid-row">

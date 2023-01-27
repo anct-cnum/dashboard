@@ -73,7 +73,7 @@ function StructureDetails() {
               </div>
             </div>
             <div className="fr-mb-3w">
-              <strong>T&eacute;l&eacute;phone</strong><br />
+              <strong>T&eacute;l&eacute;phone</strong><br/>
               <span>{structure?.contact?.telephone ?
                 structure?.contact?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
                 <>-</>
@@ -144,7 +144,7 @@ function StructureDetails() {
                 'Postes validé en comité de sélection',
                 'Postes validés en comité de sélection',
                 structure?.posteValiderCoselec
-              )}</strong><br />
+              )}</strong><br/>
               <span>{structure?.posteValiderCoselec ?? '-'}</span>
             </div>
             <div className="fr-mb-3w fr-grid-row">

@@ -215,7 +215,7 @@ function StructureDetails() {
               <strong>Siret</strong><br/>
               {displaySiretForm === true ?
                 <div style={{ width: '320px' }}>
-                  <SiretForm setDisplaySiretForm={setDisplaySiretForm} structureId={structure?._id} structureSiret={structure?.siret}/>
+                  <SiretForm setDisplaySiretForm={setDisplaySiretForm} structureId={structure?._id} structureSiret={structure?.siret} />
                 </div> :
                 <div>
                   <span>{structure?.siret ?? '-'}</span>
@@ -303,11 +303,11 @@ function StructureDetails() {
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-3">
             <div className="fr-mb-3w">
-              <strong>Cra total cumul&eacute;s</strong><br />
+              <strong>Cra total cumul&eacute;s</strong><br/>
               <span>{structure?.craCount === 0 ? '-' : structure?.craCount}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Personnes accompagn&eacute;es</strong><br />
+              <strong>Personnes accompagn&eacute;es</strong><br/>
               <span>{structure?.accompagnementCount ?? '-'}</span>
             </div>
           </div>
