@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, conseillerActions } from '../../../../actions';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-import ButtonsAction from './ButtonsAction';
 import PopinInteressee from '../popins/popinInteressee';
 import PopinRecrutee from '../popins/popinRecrutee';
 import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
@@ -45,11 +44,6 @@ function CandidatDetails() {
       }));
     }
   }, [errorConseiller]);
-
-  const updateStatut = statut => {
-    dispatch(conseillerActions.updateStatus({ id: conseiller.miseEnRelation?._id, statut }));
-    scrollTopWindow();
-  };
 
   const downloadCV = () => {
     dispatch(conseillerActions.getCurriculumVitae(conseiller?._id, conseiller));
@@ -164,13 +158,6 @@ function CandidatDetails() {
               <p>Date de d&eacute;marrage possible : { dayjs(conseiller?.dateDisponibilite).format('DD/MM/YYYY') }</p>
               <p><strong>Courriel : <a href={'mailto:' + conseiller?.email}>{conseiller?.email}</a></strong></p>
               <p><strong>T&eacute;l&eacute;phone : {conseiller?.telephone ? conseiller?.telephone : 'pas de numéro de téléphone' }</strong></p>
-              <ButtonsAction
-                statut={conseiller?.miseEnRelation?.statut}
-                miseEnRelationId = {conseiller?.miseEnRelation?._id}
-                updateStatut={updateStatut}
-                dateRecrutement={conseiller?.miseEnRelation?.dateRecrutement}
-                dateRupture={conseiller?.miseEnRelation?.dateRupture}
-                motifRupture={conseiller?.miseEnRelation?.motifRupture} />
             </div>
             {conseiller?.pix?.partage &&
               <div className="fr-col-4 fr-ml-6w fr-mt-1w">
