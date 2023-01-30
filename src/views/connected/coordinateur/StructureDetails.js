@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { structureActions } from '../../../../actions';
-import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
+import { structureActions } from '../../../actions';
+import { formatNomConseiller, pluralize } from '../../../utils/formatagesUtils';
 
 function StructureDetails() {
 
@@ -55,13 +55,13 @@ function StructureDetails() {
               <div>
                 {structure?.contact?.email &&
                   <div>
-                    <a className="email"href={'mailto:' + structure?.contact?.email}>
+                    <a className="email" href={'mailto:' + structure?.contact?.email}>
                       {structure?.contact?.email}
                     </a>
                   </div>
                 }
                 {!structure?.contact?.email &&
-              <span>-</span>
+                  <span>-</span>
                 }
               </div>
             </div>
@@ -93,7 +93,7 @@ function StructureDetails() {
             <div className="fr-mb-3w">
               {structure?.users?.length === 0 && <p>Aucun administrateur associ&eacute;</p>}
               {structure?.users.map((user, idx) =>
-                <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
+                <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span>}</p>
               )}
             </div>
           </div>
@@ -144,7 +144,7 @@ function StructureDetails() {
                 'Postes validé en comité de sélection',
                 'Postes validés en comité de sélection',
                 structure?.posteValiderCoselec
-              )}</strong><br />
+              )}</strong><br/>
               <span>{structure?.posteValiderCoselec ?? '-'}</span>
             </div>
             <div className="fr-mb-3w fr-grid-row">
