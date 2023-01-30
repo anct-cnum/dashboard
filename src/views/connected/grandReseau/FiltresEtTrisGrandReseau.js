@@ -14,8 +14,9 @@ function FiltresEtTrisGrandReseau() {
   const filtreRegion = useSelector(state => state.statistiques?.codeRegionStats);
   const filtreDepartement = useSelector(state => state.statistiques?.numeroDepartementStats);
   const listeCodesPostaux = useSelector(state => state.statistiques?.statsData?.codesPostaux);
-  const listeStructures = useSelector(state => state.statistiques?.statsData?.structures);
-  const listeConseillers = useSelector(state => state.statistiques?.statsData?.conseillers);
+  const listeStructures = useSelector(state => state.statistiques?.statsData?.structures[0]?.structures);
+  const listeConseillers = useSelector(state => state.statistiques?.statsData?.conseillers[0]?.conseillers)
+  ?.map(c => ({ _id: `${c._id}`, email: `${c.emailCN.address}` }));
   const conseiller = useSelector(state => state.statistiques?.conseillerStats);
   const ville = useSelector(state => state.statistiques?.villeStats);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
@@ -65,7 +66,7 @@ function FiltresEtTrisGrandReseau() {
         </div>
         <div className="fr-select-group fr-col-xs-12 fr-col-sm-4 fr-col-lg-2  fr-mr-1w" style={{ width: '100%' }} id="filtre-structure">
           <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => selectFiltreStructure(dispatch, e)} value={structure}>
-            <SelectOptions options={listeStructures} valueName="_id" labelName="nom" title="Toutes les structures"/>
+            <SelectOptions options={listeStructures} valueName="_id" labelName="nom" subLabelName="codePostal" title="Toutes les structures"/>
           </select>
         </div>
         <div className="fr-select-group fr-col-xs-12 fr-col-sm-4 fr-col-lg-2  fr-mr-1w" style={{ width: '100%' }} id="filtre-conseiller">
