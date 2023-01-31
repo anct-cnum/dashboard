@@ -70,6 +70,7 @@ function FiltresEtTrisGestionnaires() {
               <option value="ROLE_GRAND_RESEAU">Grand r&eacute;seau</option>
               <option value="ROLE_PREFET">Pr&eacute;fet</option>
               <option value="ROLE_HUB">Hub</option>
+              <option value="ROLE_COORDINATEUR">Coordinateur</option>
               <option value="ROLE_STRUCTURE">Structure</option>
             </select>
           </div>

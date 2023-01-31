@@ -18,6 +18,9 @@ export default function TableauGestionnaires() {
   const loading = useSelector(state => state.gestionnaire?.loading);
   const error = useSelector(state => state.gestionnaire?.error);
   const gestionnaires = useSelector(state => state.gestionnaire);
+  const successSendMail = useSelector(state => state.gestionnaire?.successResendInvitGestionnaire);
+  const successDeleteGestionnaire = useSelector(state => state.gestionnaire?.successDeleteGestionnaire);
+  const errorGestionnaire = useSelector(state => state.gestionnaire?.errorGestionnaire);
   const filtreParNomConseiller = useSelector(state => state.filtresGestionnaires?.nomConseiller);
   const filtreRole = useSelector(state => state.filtresGestionnaires?.searchRole);
   const [initConseiller, setInitConseiller] = useState(false);
@@ -58,6 +61,27 @@ export default function TableauGestionnaires() {
 
   return (
     <div className="gestionnaires">
+      {successSendMail &&
+      <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
+        <p className="fr-alert__title">
+          {successSendMail}
+        </p>
+      </div>
+      }
+      {successDeleteGestionnaire &&
+      <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
+        <p className="fr-alert__title">
+          Gestionnaire supprim&eacute;.
+        </p>
+      </div>
+      }
+      {errorGestionnaire &&
+        <div className="fr-alert fr-alert--error" style={{ marginBottom: '2rem' }}>
+          <p className="fr-alert__title">
+            {errorGestionnaire}
+          </p>
+        </div>
+      }
       <Spinner loading={loading} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">

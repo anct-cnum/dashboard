@@ -153,7 +153,7 @@ function exportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrd
     const nameFile = `export-gestionnaires_${filtreRole.toLowerCase()}`;
     return { type: 'EXPORT_GESTIONNAIRES_SUCCESS', exportGestionnairesFileBlob, nameFile };
   }
-  function failure() {
-    return { type: 'EXPORT_GESTIONNAIRES_FAILURE' };
+  function failure(error) {
+    return { type: 'EXPORT_GESTIONNAIRES_FAILURE', error };
   }
 }

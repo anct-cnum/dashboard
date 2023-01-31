@@ -28,9 +28,7 @@ export default function filtresGestionnaires(state = initialState, action) {
         searchRole: action.role
       };
     case 'RESET_FILTER_AND_SORTS':
-      return {
-        ...initialState,
-      };
+      return initialState;
     default:
       return state;
   }
