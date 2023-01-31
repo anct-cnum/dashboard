@@ -80,7 +80,7 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
       <td>
         { miseEnRelation.statut !== 'finalisee_non_disponible' ?
           <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
-            pathname: `/structure/candidat/${miseEnRelation.conseillerObj._id}`
+            pathname: `/structure/candidat/${miseEnRelation._id}`
           }}
           state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
               Détails
