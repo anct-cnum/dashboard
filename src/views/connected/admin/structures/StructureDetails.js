@@ -19,9 +19,9 @@ function StructureDetails() {
   const error = useSelector(state => state.structure?.error);
   const loadingStructure = useSelector(state => state.structure?.loading);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const loadingInvitation = useSelector(state => state.invitations.loading);
-  const success = useSelector(state => state.invitations.success);
-  const errorInvitation = useSelector(state => state.invitations.error);
+  const loadingInvitation = useSelector(state => state.invitations?.loading);
+  const success = useSelector(state => state.invitations?.success);
+  const errorInvitation = useSelector(state => state.invitations?.error);
   const [form, setForm] = useState(false);
   const [email, setEmail] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
@@ -149,7 +149,7 @@ function StructureDetails() {
               {form === false ?
                 <div>
                   {structure?.users?.length === 0 && <p>Aucun administrateur associ&eacute;</p>}
-                  {structure?.users.map((user, idx) =>
+                  {structure?.users?.map((user, idx) =>
                     <>
                       <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
                     </>
@@ -273,7 +273,7 @@ function StructureDetails() {
             </div>
             <div className="fr-mb-3w fr-grid-row">
               <strong>Profils recrut&eacute;s</strong>
-              {structure?.conseillers.map((conseiller, idx) =>
+              {structure?.conseillers?.map((conseiller, idx) =>
                 <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
                   <button
                     style={{ paddingLeft: '0' }}
