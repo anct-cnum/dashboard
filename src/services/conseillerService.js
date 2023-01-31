@@ -36,7 +36,7 @@ function getCandidat(id) {
 }
 
 function getCandidatStructure(id) {
-  return API.get(`${apiUrlRoot}/candidat-structure/${id}?role=${roleActivated()}`)
+  return API.get(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
