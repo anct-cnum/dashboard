@@ -49,6 +49,7 @@ function Gestionnaire({ gestionnaire }) {
               onClick={resendInvitGestionnaire}/>
             <button
               className="fr-btn fr-icon-delete-line"
+              disabled={!gestionnaire.roles.includes('admin')}
               onClick={() => {
                 setConfirmSuppressionGestionnaire(true);
                 scrollTopWindow();
