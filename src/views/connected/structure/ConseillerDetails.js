@@ -16,6 +16,8 @@ function ConseillerDetails() {
   const dispatch = useDispatch();
   const { idConseiller } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
+  const statut = useSelector(state => state.conseiller?.conseiller?.misesEnRelation
+  ?.find(m => m.structureObj._id === conseiller?.structureId)?.statut);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
   const refPartActivite = useRef(null);
@@ -54,7 +56,7 @@ function ConseillerDetails() {
   const clickToScrollIntoRupture = () => {
     refPartActivite.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
+  // console.log('conseiller', statut);
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
@@ -343,11 +345,13 @@ function ConseillerDetails() {
                   </div>
                   }
                 </div>
-                <NotificationRupture miseEnRelationId = {conseiller?.miseEnRelation?._id}
-                  updateStatut={updateStatut} dateRupture={conseiller?.miseEnRelation?.dateRupture}
-                  motifRupture={conseiller?.miseEnRelation?.motifRupture}/>
               </>
             }
+            <NotificationRupture
+              statut={statut}
+              miseEnRelationId = {conseiller?.miseEnRelation?._id}
+              updateStatut={updateStatut} dateRupture={conseiller?.miseEnRelation?.dateRupture}
+              motifRupture={conseiller?.miseEnRelation?.motifRupture}/>
           </div>
           <div className="fr-col-3">
             <h4 className="titre">Formation</h4>

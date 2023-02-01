@@ -21,7 +21,7 @@ function CandidatDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const conseiller = useSelector(state => state.conseiller?.conseiller);
+  const conseiller = useSelector(state => state?.conseiller?.conseiller);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const errorUpdateStatus = useSelector(state => state.conseiller?.errorUpdateStatus);
   const downloadError = useSelector(state => state.conseiller?.downloadError);
@@ -46,8 +46,8 @@ function CandidatDetails() {
     }
   }, [errorConseiller]);
 
-  const updateStatut = statut => {
-    dispatch(conseillerActions.updateStatus({ id: conseiller.miseEnRelation?._id, statut }));
+  const updateStatut = (statut, motifRupture, dateRuptureValidee) => {
+    dispatch(conseillerActions.updateStatus(conseiller.miseEnRelation?._id, statut, motifRupture, dateRuptureValidee));
     scrollTopWindow();
   };
 
