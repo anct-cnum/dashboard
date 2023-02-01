@@ -31,6 +31,7 @@ function CandidatDetails() {
 
   useEffect(() => {
     if (!errorConseiller) {
+      scrollTopWindow();
       if (conseiller?._id !== idCandidat) {
         dispatch(conseillerActions.getCandidat(idCandidat));
       }
@@ -87,34 +88,32 @@ function CandidatDetails() {
       <Spinner loading={loading || downloading} />
       <Link
         style={{ boxShadow: 'none' }}
-        to={location.state?.origin} state={{ currentPage }}
+        to={location?.state?.origin ?? '/admin/liste-candidatures'} state={{ currentPage }}
         className="fr-link fr-fi-arrow-left-line fr-link--icon-left">
         Retour &agrave; la liste
       </Link>
       <div className="fr-mt-2w">
-        <h2>
-          {formatNomConseiller(conseiller)}
+        <h2 className="fr-mb-2w">
+          {conseiller ? formatNomConseiller(conseiller) : ''}
         </h2>
+        <h5>Id: {conseiller?.idPG ?? ''}</h5>
         <div className="fr-container fr-container--fluid">
           <div className="fr-grid-row">
-            { conseiller?.dateRecrutement?.length > 0 &&
+            {conseiller?.miseEnRelation?.length > 0 &&
               <div className="fr-col-12">
-                <p><b>Date de recrutement pr&eacute;visionnelle:&nbsp;
-                  {conseiller?.dateRecrutement.map((date, idx) =>
-
-                    <span key={idx}>
-                      {conseiller?.dateRecrutement?.length > 1 &&
-                        <><br />-&nbsp;</>
-                      }
-                      {dayjs(date).format('DD/MM/YY')}
-                      {conseiller?.nomStructures.length > 0 &&
-                        <>&nbsp;par {conseiller?.nomStructures[idx]}</>
-                      }
-                    </span>
-
-                  )}
-                </b>
-                </p>
+                {conseiller?.miseEnRelation?.map((miseEnRelation, idx) =>
+                  <>
+                    <p key={idx}><b>Date de recrutement pr&eacute;visionnelle:&nbsp;
+                      <span>
+                        {miseEnRelation?.dateRecrutement ? dayjs(miseEnRelation.dateRecrutement).format('DD/MM/YYYY') : 'Non renseignée'}
+                        {miseEnRelation?.structureObj?.nom &&
+                        <>&nbsp;par {miseEnRelation?.structureObj?.nom}</>
+                        }
+                      </span>
+                    </b>
+                    </p>
+                  </>
+                )}
               </div>
             }
             <div className="fr-col-6">
@@ -144,7 +143,7 @@ function CandidatDetails() {
               <p><strong>Courriel : <a href={'mailto:' + conseiller?.email}>{conseiller?.email}</a></strong></p>
               <p>
                 <strong>
-                  T&eacute;l&eacute;phone : {conseiller?.telephone ? conseiller?.telephone : <span>Pas de num&eacute;ro de t&eacute;l&eacute;phone</span>}
+                  T&eacute;l&eacute;phone : {conseiller?.telephone ?? <span>Pas de num&eacute;ro de t&eacute;l&eacute;phone</span>}
                 </strong>
               </p>
               <p>Poss&egrave;de un compte candidat&nbsp;: {conseiller?.possedeCompteCandidat ? 'Oui' : 'Non'}</p>
@@ -157,7 +156,7 @@ function CandidatDetails() {
                 className="fr-btn fr-col-5 delete-candidature"
                 onClick={() => {
                   setConfirmSuppressionCandidat(true);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  scrollTopWindow();
                 }}>
                     Supprimer la candidature
               </button>

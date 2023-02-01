@@ -3,6 +3,7 @@
 @use './views/statistiques';
 @use './views/conseillers';
 @use './views/candidatures';
+@use './views/gestionnaires';
 @use './views/structureDetails';
 @use './views/conseillerDetails';
 @use './views/candidatDetails';
@@ -11,6 +12,8 @@
 @use './components/pagination';
 @use './components/spinner';
 @use './components/modal';
+@use './components/inclusion-connect.scss';
+
 // @import
 @import '~@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
 @import '~@gouvfr/dsfr/dist/utility/icons/icons-communication/icons-communication.min.css';

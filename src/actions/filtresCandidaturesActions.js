@@ -1,5 +1,5 @@
 export const filtresCandidaturesActions = {
-  updateOrder,
+  toggleOrdre,
   updatePix,
   updateDiplome,
   updateCV,
@@ -7,16 +7,23 @@ export const filtresCandidaturesActions = {
   changeFiltreDepartement,
   changeFiltreComs,
   changeFiltreRegion,
+  changeOrdreColonne,
+  updateSearch,
+  resetFiltre,
 };
 
-function updateOrder(order) {
+function toggleOrdre(ordreNom) {
   return dispatch => {
-    dispatch(success(order));
+    dispatch(success(ordreNom));
   };
 
-  function success(order) {
-    return { type: 'UPDATE_ORDER', order };
+  function success(ordreNom) {
+    return { type: 'TOGGLE_ORDRE', ordreNom };
   }
+}
+
+function changeOrdreColonne(ordreNom) {
+  return { type: 'CHANGE_ORDRE_COLONNE', ordreNom };
 }
 
 function updatePix(pix) {
@@ -63,4 +70,12 @@ function changeFiltreComs(coms) {
   
 function changeFiltreRegion(region) {
   return { type: 'CHANGE_REGION', region };
+}
+
+function updateSearch(search) {
+  return { type: 'UPDATE_SEARCH', search };
+}
+
+function resetFiltre() {
+  return { type: 'RESET_FILTER_AND_SORTS' };
 }

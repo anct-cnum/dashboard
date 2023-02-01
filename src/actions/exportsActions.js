@@ -10,6 +10,7 @@ export const exportsActions = {
   exportStatistiquesCSV,
   exportDonneesConseiller,
   exportDonneesStructure,
+  exportDonneesGestionnaires,
 };
 
 function exportFile(nameFile, hubName) {
@@ -115,10 +116,10 @@ function resetExportDonneesTerritoire() {
   return { type: 'EXPORT_TERRITOIRE_RESET' };
 }
 
-function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville) {
+function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom) {
   return dispatch => {
     dispatch(request());
-    exportsService.getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville)
+    exportsService.getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom)
     .then(
       data => dispatch(success(data)),
       error => dispatch(failure(error))
@@ -134,5 +135,25 @@ function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, 
   }
   function failure(error) {
     return { type: 'EXPORT_STATISTIQUES_CSV_FAILURE', error };
+  }
+}
+
+function exportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrdre = 'nom', ordre = 1) {
+  return async dispatch => {
+    dispatch(request());
+    await exportsService.getExportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrdre, ordre)
+    .then(exportGestionnairesFileBlob => dispatch(success(exportGestionnairesFileBlob)))
+    .catch(exportGestionnairesFileError => dispatch(failure(exportGestionnairesFileError)));
+  };
+
+  function request() {
+    return { type: 'EXPORT_GESTIONNAIRES_REQUEST' };
+  }
+  function success(exportGestionnairesFileBlob) {
+    const nameFile = `export-gestionnaires_${filtreRole.toLowerCase()}`;
+    return { type: 'EXPORT_GESTIONNAIRES_SUCCESS', exportGestionnairesFileBlob, nameFile };
+  }
+  function failure(error) {
+    return { type: 'EXPORT_GESTIONNAIRES_FAILURE', error };
   }
 }

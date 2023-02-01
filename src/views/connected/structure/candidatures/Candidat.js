@@ -2,14 +2,15 @@ import dayjs from 'dayjs';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions } from '../../../../actions';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
 
-function Candidat({ miseEnRelation, currentPage, currentFilter, search }) {
+function Candidat({ miseEnRelation, currentFilter, search }) {
 
   const dispatch = useDispatch();
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const statutLabel = [{
     key: 'nouvelle',
@@ -51,6 +52,7 @@ function Candidat({ miseEnRelation, currentPage, currentFilter, search }) {
 
   return (
     <tr className="conseiller">
+      <td>{miseEnRelation.conseillerObj.idPG}</td>
       <td>{miseEnRelation.conseillerObj.prenom}</td>
       <td>{miseEnRelation.conseillerObj.nom}</td>
       { search && <td>{miseEnRelation.conseillerObj.email}</td>}
@@ -77,14 +79,10 @@ function Candidat({ miseEnRelation, currentPage, currentFilter, search }) {
       </td>
       <td>
         { miseEnRelation.statut !== 'finalisee_non_disponible' ?
-          <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" style={{ boxShadow: 'none' }} to={{
-            pathname: `/structure/candidat/${miseEnRelation.conseillerObj._id}`
+          <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
+            pathname: `/structure/candidat/${miseEnRelation._id}`
           }}
-          state={{
-            miseEnRelation: miseEnRelation,
-            currentPage: currentPage,
-            currentFilter: currentFilter
-          }}>
+          state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
               Détails
           </Link> :
           <button className="fr-btn fr-icon-eye-line fr-btn--icon-left" style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
@@ -98,7 +96,6 @@ function Candidat({ miseEnRelation, currentPage, currentFilter, search }) {
 
 Candidat.propTypes = {
   miseEnRelation: PropTypes.object,
-  currentPage: PropTypes.number,
   currentFilter: PropTypes.string,
   search: PropTypes.bool
 };

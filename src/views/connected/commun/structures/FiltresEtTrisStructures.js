@@ -67,6 +67,12 @@ function FiltresEtTrisStructures() {
     dispatch(filtresStructuresActions.changeNomStructure(value));
   };
 
+  const rechercheParNomStructureToucheEnter = e => {
+    if (e.key === 'Enter') {
+      rechercheParNomStructure(e);
+    }
+  };
+
   const getDepartements = () => {
     if (filtreRegion !== 'tous') {
       return departementsRegionList.filter(region => region.region_name === codeRegions.find(r => r.code === filtreRegion).nom);
@@ -112,9 +118,9 @@ function FiltresEtTrisStructures() {
           </div>
           <div className="fr-ml-auto fr-col-12 fr-col-md-5 fr-mb-4w fr-mb-md-0">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
-              <input className="fr-input" defaultValue={searchInput ?? ''}
-                placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
-              <button className="fr-btn" onClick={rechercheParNomStructure} title="Rechercher par nom">
+              <input onKeyDown={rechercheParNomStructureToucheEnter} className="fr-input" defaultValue={searchInput ?? ''}
+                placeholder="Rechercher par nom ou par id" type="search" id="search-input" name="search-input" />
+              <button className="fr-btn" onClick={rechercheParNomStructure} title="Rechercher par nom ou par id">
                 Rechercher
               </button>
             </div>

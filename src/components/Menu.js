@@ -101,11 +101,21 @@ function Menu() {
                   </li>
                   {roleActivated !== 'structure' &&
                   <li>
-                    <Link className="fr-nav__link" to={`/${roleActivated}/liste-structures`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
+                    <Link className="fr-nav__link" to={`/liste-structures`}
+                      {...(location.pathname.startsWith(`/liste-structures`) ? { 'aria-current': 'page' } : {})}
                       onClick={() => trackEvent({ category: 'liste-structures', action: `click-${roleActivated}` })}
                     >
                       Liste des structures
+                    </Link>
+                  </li>
+                  }
+                  { roleActivated === 'admin' &&
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/liste-gestionnaires`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/liste-gestionnaires`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'liste-gestionnaires', action: `click-${roleActivated}` })}
+                    >
+                      Liste des gestionnaires
                     </Link>
                   </li>
                   }
@@ -140,6 +150,14 @@ function Menu() {
                     <Link className="fr-nav__link" to={`/statistiques-structure/${authenticationUser}`}
                       {...(location.pathname.startsWith(`/statistiques-structure`) ? { 'aria-current': 'page' } : {})}>
                       &bull;&nbsp;Mes statistiques structure
+                    </Link>
+                  </li>
+                  }
+                  {roleActivated === 'grandReseau' &&
+                  <li>
+                    <Link className="fr-nav__link" to={`/statistiques-pilotage`}
+                      {...(location.pathname.startsWith(`/statistiques-pilotage`) ? { 'aria-current': 'page' } : {})}>
+                      &bull;&nbsp;Mes statistiques de pilotage
                     </Link>
                   </li>
                   }

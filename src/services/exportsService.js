@@ -1,14 +1,16 @@
 import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { conseillerQueryStringParameters, territoireQueryString, structureQueryStringParameters } from '../utils/queryUtils';
+import { conseillerQueryStringParameters, territoireQueryString, structureQueryStringParameters,
+  gestionnairesQueryStringParameters } from '../utils/queryUtils';
 
 export const exportsService = {
   getFile,
   getExportDonneesTerritoire,
   getStatistiquesCSV,
   getExportDonneesConseiller,
-  getExportDonneesStructure
+  getExportDonneesStructure,
+  getExportDonneesGestionnaires,
 };
 
 function getFile(name) {
@@ -71,10 +73,22 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville) {
+function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom) {
   const role = type === 'nationales' ? 'anonyme' : roleActivated();
   // eslint-disable-next-line max-len
-  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&ville=${ville}&conseillerIds=${conseillerIds}`)
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&ville=${ville}&nom=${nom}&prenom=${prenom}&conseillerIds=${conseillerIds}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getExportDonneesGestionnaires(filtreRole, filtreParNom, nomOrdre, ordre) {
+  const exportGestionnairesRoute = '/liste-gestionnaires-csv';
+  const {
+    ordreColonne,
+    filterByName,
+    filterByRole,
+  } = gestionnairesQueryStringParameters(nomOrdre, ordre, filtreRole, filtreParNom);
+  return API.get(`${apiUrlRoot}/exports${exportGestionnairesRoute}?role=${roleActivated()}${filterByRole}${filterByName}${ordreColonne}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

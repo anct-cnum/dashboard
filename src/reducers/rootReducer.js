@@ -10,11 +10,12 @@ import invitationsReducer from './invitationsReducer';
 import alerteEtSpinnerReducer from './alerteEtSpinnerReducer';
 import userReducer from './userReducer';
 import conseillerReducer from './conseillerReducer';
-import searchReducer from './searchReducer';
 import statsReducer from './statsReducer';
 import structureReducer from './structureReducer';
+import gestionnaireReducer from './gestionnaireReducer';
 import filtresConseillers from './filtresConseillersReducer';
 import filtresStructuresReducer from './filtresStructuresReducer';
+import filtresGestionnairesReducer from './filtresGestionnairesReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -29,10 +30,11 @@ const rootReducer = combineReducers({
   user: userReducer,
   conseiller: conseillerReducer,
   stats: statsReducer,
-  search: searchReducer,
   structure: structureReducer,
+  gestionnaire: gestionnaireReducer,
   invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,
+  filtresGestionnaires: filtresGestionnairesReducer,
 });
 
 export default rootReducer;
