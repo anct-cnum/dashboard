@@ -28,7 +28,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId, dateRecrutement
       <div className="fr-grid-row">
         {statut === 'nouvelle' &&
           <div className="fr-col-5">
-            <button onClick={() => updateStatut('interesse')} className="fr-btn fr-icon-success-line fr-btn--icon-left" title="Pré sélectionner">
+            <button onClick={() => updateStatut('interessee')} className="fr-btn fr-icon-success-line fr-btn--icon-left" title="Pré sélectionner">
               Pr&eacute; s&eacute;lectionner
             </button>
           </div>
