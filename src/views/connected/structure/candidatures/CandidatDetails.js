@@ -21,7 +21,7 @@ function CandidatDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const conseiller = useSelector(state => state?.conseiller?.conseiller);
+  const conseiller = useSelector(state => state.conseiller?.conseiller);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const errorUpdateStatus = useSelector(state => state.conseiller?.errorUpdateStatus);
   const downloadError = useSelector(state => state.conseiller?.downloadError);
