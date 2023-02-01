@@ -92,7 +92,7 @@ function StructureDetails() {
             <h4 className="titre">Administrateurs</h4>
             <div className="fr-mb-3w">
               {structure?.users?.length === 0 && <p>Aucun administrateur associ&eacute;</p>}
-              {structure?.users.map((user, idx) =>
+              {structure?.users?.map((user, idx) =>
                 <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span>}</p>
               )}
             </div>
@@ -149,7 +149,7 @@ function StructureDetails() {
             </div>
             <div className="fr-mb-3w fr-grid-row">
               <strong>Profils recrut&eacute;s</strong>
-              {structure?.conseillers.map((conseiller, idx) =>
+              {structure?.conseillers?.map((conseiller, idx) =>
                 <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
                   <button
                     style={{ paddingLeft: '0' }}
