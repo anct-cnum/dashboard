@@ -56,7 +56,7 @@ function ConseillerDetails() {
   const clickToScrollIntoRupture = () => {
     refPartActivite.current?.scrollIntoView({ behavior: 'smooth' });
   };
-  // console.log('conseiller', statut);
+  
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
