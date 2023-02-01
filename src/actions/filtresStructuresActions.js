@@ -1,5 +1,4 @@
 export const filtresStructuresActions = {
-  updateOrder,
   changeDateDebut,
   changeDateFin,
   changeOrdre,
@@ -12,17 +11,7 @@ export const filtresStructuresActions = {
   changeFiltreComs,
   resetFiltre,
 };
-  
-function updateOrder(order) {
-  return dispatch => {
-    dispatch(success(order));
-  };
-  
-  function success(order) {
-    return { type: 'UPDATE_ORDER', order };
-  }
-}
-  
+
 function changeDateDebut(dateDebut) {
   return { type: 'CHANGE_DATE_DEBUT', dateDebut };
 }

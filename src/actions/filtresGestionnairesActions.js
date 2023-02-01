@@ -1,21 +1,10 @@
 export const filtresGestionnairesActions = {
-  updateOrder,
   changeOrdre,
   changeNomGestionnaire,
   saveSearchInput,
   changeFiltreRole,
   resetFiltre,
 };
-  
-function updateOrder(order) {
-  return dispatch => {
-    dispatch(success(order));
-  };
-  
-  function success(order) {
-    return { type: 'UPDATE_ORDER', order };
-  }
-}
 
 function changeOrdre(ordreNom) {
   return { type: 'CHANGE_ORDRE', ordreNom };
