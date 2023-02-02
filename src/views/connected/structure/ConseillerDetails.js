@@ -16,18 +16,15 @@ function ConseillerDetails() {
   const dispatch = useDispatch();
   const { idConseiller } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
-  const statut = useSelector(state => state.conseiller?.conseiller?.misesEnRelation
-  ?.find(m => m.structureObj._id === conseiller?.structureId)?.statut);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
   const refPartActivite = useRef(null);
 
-  const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
-  const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
+  const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState({});
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
 
   const updateStatut = (statut, motifRupture, dateRuptureValidee) => {
-    dispatch(conseillerActions.updateStatus(conseiller.misesEnRelation[0]?._id, statut, motifRupture, dateRuptureValidee));
+    dispatch(conseillerActions.updateStatus(misesEnRelationFinalisee?._id, statut, motifRupture, dateRuptureValidee));
     scrollTopWindow();
   };
 
@@ -47,8 +44,8 @@ function ConseillerDetails() {
 
   useEffect(() => {
     if (conseiller !== undefined) {
-      setMisesEnRelationFinalisee(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
-      setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
+      setMisesEnRelationFinalisee(conseiller.misesEnRelation.filter(m => m.structureObj._id === conseiller?.structureId)
+      .filter(miseEnRelation => miseEnRelation.statut === 'finalisee' || miseEnRelation.statut === 'nouvelle_rupture')[0]);
       setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
     }
   }, [conseiller]);
@@ -56,7 +53,7 @@ function ConseillerDetails() {
   const clickToScrollIntoRupture = () => {
     refPartActivite.current?.scrollIntoView({ behavior: 'smooth' });
   };
-  
+
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
@@ -72,15 +69,15 @@ function ConseillerDetails() {
         <h2 className="fr-h2">Id: {conseiller?.idPG ?? ''}</h2>
       </div>
       <div className="fr-col-12 fr-grid-row">
-        {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
+        {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
         <p className="fr-badge fr-mr-2w fr-badge--success fr-badge--no-icon">Contrat en cours</p>
         }
         {conseiller?.statut === 'RUPTURE' &&
         <p className="fr-badge fr-badge--error fr-badge--no-icon">Contrat termin&eacute;</p>
         }
-        {misesEnRelationNouvelleRupture &&
+        {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
           <>
-            {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
+            {misesEnRelationFinalisee?.dossierIncompletRupture ?
               <button onClick={clickToScrollIntoRupture} className="fr-badge fr-badge--warning">Dossier incomplet</button> :
               <button onClick={clickToScrollIntoRupture} className="fr-badge fr-badge--info">Rupture en cours</button>
             }
@@ -270,25 +267,23 @@ function ConseillerDetails() {
           <div className="fr-col-8 fr-mr-3w">
             <h4 className="titre">Contrat</h4>
             <div className="fr-mb-5w fr-grid-row">
-              {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
-              <div className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-mb-2w' : ''}>
+              {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
+              <div className={misesEnRelationFinaliseeRupture?.length > 0 ? 'fr-mb-2w' : ''}>
                 <span className="fr-col-12">
                   <strong className="fr-badge fr-badge--success fr-badge--no-icon">
                     Contrat En cours
                   </strong>
                 </span>
-                {(misesEnRelationFinalisee[0]?.dateRecrutement || misesEnRelationNouvelleRupture?.dateRecrutement) &&
+                {misesEnRelationFinalisee?.dateRecrutement &&
                 <>
                   <span>&nbsp;depuis le&nbsp;</span>
-                  {misesEnRelationFinalisee[0]?.dateRecrutement ?
-                    <span>{dayjs(misesEnRelationFinalisee[0]?.dateRecrutement).format('DD/MM/YYYY')}</span> :
-                    <span>{dayjs(misesEnRelationNouvelleRupture.dateRecrutement).format('DD/MM/YYYY')}</span>
-                  }
+                  {misesEnRelationFinalisee?.dateRecrutement &&
+                   <span>{dayjs(misesEnRelationFinalisee?.dateRecrutement).format('DD/MM/YYYY')}</span>}
                 </>
                 }
               </div>
               }
-              {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
+              {misesEnRelationFinaliseeRupture?.map((miseEnRelation, idx) =>
                 <>
                   <div>
                     <span key={idx} className="fr-col-12">
@@ -308,7 +303,7 @@ function ConseillerDetails() {
                 </>
               )}
             </div>
-            {(misesEnRelationNouvelleRupture || misesEnRelationFinaliseeRupture.length > 0) &&
+            {(misesEnRelationFinalisee?.statut === 'nouvelle_rupture' || misesEnRelationFinaliseeRupture.length > 0) &&
               <>
                 <h4 className="titre">Demande de rupture initi&eacute;e</h4>
                 <div>
@@ -327,19 +322,19 @@ function ConseillerDetails() {
                       </div>
                     </>
                   )}
-                  {misesEnRelationNouvelleRupture &&
+                  {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
                   <div className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-mt-2w' : ''}>
-                    {misesEnRelationNouvelleRupture?.emetteurRupture?.date ?
+                    {misesEnRelationFinalisee?.emetteurRupture?.date ?
                       <>
-                        <span>Le {dayjs(misesEnRelationNouvelleRupture?.emetteurRupture?.date).format('DD/MM/YYYY')}</span>
+                        <span>Le {dayjs(misesEnRelationFinalisee?.emetteurRupture?.date).format('DD/MM/YYYY')}</span>
                         <span>&nbsp;pour le motif de&nbsp;</span>
                       </> : <span>Pour le motif de&nbsp;</span>
                     }
-                    <span>{formatMotifRupture(misesEnRelationNouvelleRupture?.motifRupture)}</span>
-                    {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
+                    <span>{formatMotifRupture(misesEnRelationFinalisee?.motifRupture)}</span>
+                    {misesEnRelationFinalisee?.dossierIncompletRupture ?
                       <span>&nbsp;-&nbsp;<strong className="fr-badge fr-badge--warning fr-badge--no-icon">Dossier incomplet</strong></span> :
                       <span>&nbsp;-&nbsp;<strong className="fr-badge fr-badge--info fr-badge--no-icon">
-                        {formatStatut(misesEnRelationNouvelleRupture?.statut)}
+                        {formatStatut(misesEnRelationFinalisee?.statut)}
                       </strong></span>
                     }
                   </div>
@@ -348,7 +343,7 @@ function ConseillerDetails() {
               </>
             }
             <NotificationRupture
-              statut={statut}
+              misesEnRelationFinalisee={misesEnRelationFinalisee}
               miseEnRelationId = {conseiller?.miseEnRelation?._id}
               updateStatut={updateStatut} dateRupture={conseiller?.miseEnRelation?.dateRupture}
               motifRupture={conseiller?.miseEnRelation?.motifRupture}/>

@@ -46,8 +46,8 @@ function CandidatDetails() {
     }
   }, [errorConseiller]);
 
-  const updateStatut = (statut, motifRupture, dateRuptureValidee) => {
-    dispatch(conseillerActions.updateStatus(conseiller.miseEnRelation?._id, statut, motifRupture, dateRuptureValidee));
+  const updateStatut = statut => {
+    dispatch(conseillerActions.updateStatus(conseiller.miseEnRelation?._id, statut));
     scrollTopWindow();
   };
 

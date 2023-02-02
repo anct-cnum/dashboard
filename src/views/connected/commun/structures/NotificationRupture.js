@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import fr from 'date-fns/locale/fr';
 //Print datePicker calendar in FR
 registerLocale('fr', fr);
-function NotificationRupture({ statut, dateRupture, motifRupture, updateStatut }) {
+function NotificationRupture({ misesEnRelationFinalisee, dateRupture, motifRupture, updateStatut }) {
   const today = new Date();
   const [dateRuptureValidee, setDateRuptureValidee] = useState(dateRupture);
   const [motifRuptureValide, setMotifRuptureValide] = useState(motifRupture);
@@ -12,7 +12,7 @@ function NotificationRupture({ statut, dateRupture, motifRupture, updateStatut }
 
   return (
     <>
-      {statut === 'finalisee' && <>
+      {misesEnRelationFinalisee?.statut === 'finalisee' && <>
         <div className="fr-col-12 fr-col-xl-6 fr-my-2w">
           <button className="fr-btn btn-fr-col-xl-3" onClick={() => setAfficherRupture(!afficherRupture)} >
           Initié une rupture de contrat
@@ -83,6 +83,8 @@ function NotificationRupture({ statut, dateRupture, motifRupture, updateStatut }
             <button onClick={() => {
               updateStatut('nouvelle_rupture', motifRuptureValide, dateRuptureValidee);
               setAfficherRupture(false);
+              setDateRuptureValidee('');
+              setMotifRuptureValide('');
             }} disabled={ !dateRuptureValidee || !motifRuptureValide } className="fr-btn fr-btn--icon-left" title="Notifier la rupture de contrat"
             >
           Valider
@@ -91,8 +93,8 @@ function NotificationRupture({ statut, dateRupture, motifRupture, updateStatut }
           <li >
             <button onClick={() => {
               setAfficherRupture(false);
-              setDateRuptureValidee(null);
-              setMotifRuptureValide(null);
+              setDateRuptureValidee('');
+              setMotifRuptureValide('');
             }} className="fr-btn" title="Notifier la rupture de contrat" style={{ backgroundColor: '#CECECE' }}>
           Annuler
             </button>
@@ -101,7 +103,7 @@ function NotificationRupture({ statut, dateRupture, motifRupture, updateStatut }
         </>}
       </>
       }
-      {statut === 'nouvelle_rupture' &&
+      {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
           <div className="fr-col-6">
             <p><strong>Rupture de contrat notifi&eacute;e</strong></p><br />
             <button onClick={() => {
@@ -123,7 +125,8 @@ NotificationRupture.propTypes = {
   miseEnRelationId: PropTypes.string,
   dateRecrutement: PropTypes.string,
   dateRupture: PropTypes.string,
-  motifRupture: PropTypes.string
+  motifRupture: PropTypes.string,
+  misesEnRelationFinalisee: PropTypes.object,
 };
 
 
