@@ -71,7 +71,13 @@ export default function GraphiqueNationale() {
             <StatistiquesBanniere
               dateDebut={new Date('2020-09-01')}
               dateFin={dateFin}
-              typeStats="nationales"
+              structure={structure}
+              conseiller={conseiller}
+              region={region}
+              departement={departement}
+              codePostal={codePostal}
+              ville={ville}
+              typeStats="grandReseau"
             />
           </div>
         }

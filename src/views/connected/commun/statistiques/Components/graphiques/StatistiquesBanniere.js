@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, nom, prenom }) {
+function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, nom, prenom, region, departement, structure, conseiller }) {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -26,6 +26,9 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
         typeTarget = type;
         break;
       case 'conseiller':
+        typeTarget = type;
+        break;
+      case 'grandReseau':
         typeTarget = type;
         break;
       default:
@@ -58,7 +61,8 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
       window.print();
     } else if (extension === 'csv') {
       const conseillerIds = territoire?.conseillerIds ?? undefined;
-      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville, nom, prenom));
+      // eslint-disable-next-line max-len
+      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville, nom, prenom, region, departement, structure, conseiller));
     }
   }
   
@@ -111,6 +115,10 @@ StatistiquesBanniere.propTypes = {
   dateFin: PropTypes.instanceOf(Date),
   codePostal: PropTypes.string,
   ville: PropTypes.string,
+  region: PropTypes.string,
+  departement: PropTypes.string,
+  structure: PropTypes.string,
+  conseiller: PropTypes.string,
   nom: PropTypes.string,
   prenom: PropTypes.string,
   typeStats: PropTypes.string,

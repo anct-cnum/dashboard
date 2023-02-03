@@ -73,10 +73,10 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom) {
+function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom, region, departement, structure, conseiller) {
   const role = type === 'nationales' ? 'anonyme' : roleActivated();
   // eslint-disable-next-line max-len
-  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&ville=${ville}&nom=${nom}&prenom=${prenom}&conseillerIds=${conseillerIds}`)
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&ville=${ville}&nom=${nom}&prenom=${prenom}&conseillerIds=${conseillerIds}&codeRegion=${region}&numeroDepartement=${departement}&structureId=${structure}&conseillerId=${conseiller}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
