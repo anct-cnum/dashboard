@@ -129,5 +129,4 @@ NotificationRupture.propTypes = {
   misesEnRelationFinalisee: PropTypes.object,
 };
 
-
 export default NotificationRupture;
