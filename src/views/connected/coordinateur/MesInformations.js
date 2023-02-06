@@ -11,7 +11,7 @@ function MesInformations() {
 
 
   useEffect(() => {
-    dispatch(conseillerActions.get(userAuth?.entity.$id));
+    dispatch(conseillerActions.get(userAuth?.entity?.$id));
   }, []);
 
   return (
