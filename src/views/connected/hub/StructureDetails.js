@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { structureActions } from '../../../../actions';
-import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
+import { structureActions } from '../../../actions';
+import { formatNomConseiller, pluralize } from '../../../utils/formatagesUtils';
 
 function StructureDetails() {
 
@@ -55,13 +55,13 @@ function StructureDetails() {
               <div>
                 {structure?.contact?.email &&
                   <div>
-                    <a className="email"href={'mailto:' + structure?.contact?.email}>
+                    <a className="email" href={'mailto:' + structure?.contact?.email}>
                       {structure?.contact?.email}
                     </a>
                   </div>
                 }
                 {!structure?.contact?.email &&
-              <span>-</span>
+                  <span>-</span>
                 }
               </div>
             </div>
@@ -92,8 +92,8 @@ function StructureDetails() {
             <h4 className="titre">Administrateurs</h4>
             <div className="fr-mb-3w">
               {structure?.users?.length === 0 && <p>Aucun administrateur associ&eacute;</p>}
-              {structure?.users.map((user, idx) =>
-                <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
+              {structure?.users?.map((user, idx) =>
+                <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span>}</p>
               )}
             </div>
           </div>
@@ -127,7 +127,7 @@ function StructureDetails() {
         </div>
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
-            <hr style={{ borderWidth: '0.5px' }}/>
+            <hr style={{ borderWidth: '0.5px' }} />
           </div>
         </div>
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
@@ -144,12 +144,12 @@ function StructureDetails() {
                 'Postes validé en comité de sélection',
                 'Postes validés en comité de sélection',
                 structure?.posteValiderCoselec
-              )}</strong><br />
+              )}</strong><br/>
               <span>{structure?.posteValiderCoselec ?? '-'}</span>
             </div>
             <div className="fr-mb-3w fr-grid-row">
               <strong>Profils recrut&eacute;s</strong>
-              {structure?.conseillers.map((conseiller, idx) =>
+              {structure?.conseillers?.map((conseiller, idx) =>
                 <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
                   <button
                     style={{ paddingLeft: '0' }}
@@ -168,7 +168,7 @@ function StructureDetails() {
         </div>
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
-            <hr style={{ borderWidth: '0.5px' }} />
+            <hr style={{ borderWidth: '0.5px' }}/>
           </div>
         </div>
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
@@ -179,11 +179,11 @@ function StructureDetails() {
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-3">
             <div className="fr-mb-3w">
-              <strong>Cra total cumul&eacute;s</strong><br />
+              <strong>Cra total cumul&eacute;s</strong><br/>
               <span>{structure?.craCount === 0 ? '-' : structure?.craCount}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Personnes accompagn&eacute;es</strong><br />
+              <strong>Personnes accompagn&eacute;es</strong><br/>
               <span>{structure?.accompagnementCount ?? '-'}</span>
             </div>
           </div>

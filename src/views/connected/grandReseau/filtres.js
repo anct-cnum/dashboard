@@ -21,7 +21,7 @@ export const selectFiltreDepartement = (dispatch, e) => {
 };
 
 export const selectFiltreCodePostal = (dispatch, e) => {
-  if (e.target.value === '') {
+  if (e.target.value === 'tous') {
     dispatch(statistiquesActions.changeCodePostalStats(''));
   } else {
     const ville = JSON.parse(e.target.value).ville;

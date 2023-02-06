@@ -4,9 +4,9 @@ import { alerteEtSpinnerActions, filtresStructuresActions, paginationActions, st
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Structure from './Structure';
+import FiltresEtTrisStructures from './FiltresEtTrisStructures';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import FiltresEtTrisStructures from '../../commun/structures/FiltresEtTrisStructures';
 
 export default function TableauStructures() {
 
@@ -24,8 +24,8 @@ export default function TableauStructures() {
   const filtreRegion = useSelector(state => state.filtresStructures?.region);
   const filterDepartement = useSelector(state => state.filtresStructures?.departement);
   const filtreComs = useSelector(state => state.filtresStructures?.coms);
-  const filtreType = useSelector(state => state.filtresStructures?.type);
   const filtreStatut = useSelector(state => state.filtresStructures?.statut);
+  const filtreType = useSelector(state => state.filtresStructures?.type);
   const [initConseiller, setInitConseiller] = useState(false);
   const [page, setPage] = useState(location.state?.currentPage);
 
@@ -77,6 +77,18 @@ export default function TableauStructures() {
                     <table>
                       <thead>
                         <tr>
+                          <th>
+                            <button id="idPG" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Id
+                                {(ordreNom !== 'idPG' || ordreNom === 'idPG' && ordre) &&
+                                  <i className="ri-arrow-down-s-line chevron icone"></i>
+                                }
+                                {(ordreNom === 'idPG' && !ordre) &&
+                                  <i className="ri-arrow-up-s-line chevron icone"></i>
+                                }
+                              </span>
+                            </button>
+                          </th>
                           <th colSpan={structures?.items?.total > 0 ? '12' : ''}>
                             <button id="nom" className="filtre-btn" onClick={ordreColonne}>
                               <span>Nom de la structure

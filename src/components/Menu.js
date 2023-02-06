@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { menuActions } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
-import { useMatomo } from '@datapunt/matomo-tracker-react';
+import { useMatomo } from '@jonkoops/matomo-tracker-react';
 
 function Menu() {
 
@@ -101,11 +101,21 @@ function Menu() {
                   </li>
                   {roleActivated !== 'structure' &&
                   <li>
-                    <Link className="fr-nav__link" to={`/${roleActivated}/liste-structures`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
+                    <Link className="fr-nav__link" to={`/liste-structures`}
+                      {...(location.pathname.startsWith(`/liste-structures`) ? { 'aria-current': 'page' } : {})}
                       onClick={() => trackEvent({ category: 'liste-structures', action: `click-${roleActivated}` })}
                     >
                       Liste des structures
+                    </Link>
+                  </li>
+                  }
+                  { roleActivated === 'admin' &&
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/liste-gestionnaires`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/liste-gestionnaires`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'liste-gestionnaires', action: `click-${roleActivated}` })}
+                    >
+                      Liste des gestionnaires
                     </Link>
                   </li>
                   }

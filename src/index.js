@@ -14,7 +14,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { history } from './helpers';
 import setup from './services/api';
 import signInCallBack from '../src/services/auth/signInCallBack';
-import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react';
+import { MatomoProvider, createInstance } from '@jonkoops/matomo-tracker-react';
 
 if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
   Sentry.init({
