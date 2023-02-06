@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, createRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/brands/logo-rf-conseiller-numerique-min.svg';
@@ -17,7 +17,7 @@ function Header() {
   const roles = useSelector(state => state.authentication?.rolesAllowed)?.filter(role => !['admin_coop', 'structure_coop', 'conseiller'].includes(role));
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const user = useSelector(state => state.authentication?.user);
-  const buttonLogoutRef = React.createRef();
+  const buttonLogoutRef = createRef();
 
   const toggleBurgerMenu = () => {
     dispatch(menuActions.toggleBurgerMenu());
