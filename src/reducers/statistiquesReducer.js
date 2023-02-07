@@ -7,8 +7,8 @@ const initialState = {
   error: false,
   errorTerritoire: false,
   loading: false,
-  conseillerStats: '',
-  structureStats: '',
+  conseillerStats: [],
+  structureStats: [],
   codeRegionStats: '',
   numeroDepartementStats: '',
 };
@@ -34,12 +34,12 @@ export default function statistiques(state = initialState, action) {
     case 'CHANGE_STRUCTURE_STATS':
       return {
         ...state,
-        structureStats: action.structureId,
+        structureStats: action.structureId !== '' ? [action.structureId] : [],
       };
     case 'CHANGE_CONSEILLER_STATS':
       return {
         ...state,
-        conseillerStats: action.conseillerId,
+        conseillerStats: action.conseillerId !== '' ? [action.conseillerId] : [],
       };
     case 'CHANGE_REGION_STATS':
       return {

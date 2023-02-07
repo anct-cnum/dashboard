@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,7 +7,7 @@ import dayjs from 'dayjs';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, nom, prenom, region, departement, structure, conseiller }) {
+function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, nom, prenom, region, departement, conseillerIds, structureIds, pilotage }) {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -60,12 +61,13 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
       document.title = getTitlePDF();
       window.print();
     } else if (extension === 'csv') {
-      const conseillerIds = territoire?.conseillerIds ?? undefined;
-      // eslint-disable-next-line max-len
-      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville, nom, prenom, region, departement, structure, conseiller));
+      if (!pilotage) {
+        conseillerIds = territoire?.conseillerIds ?? undefined;
+      }
+      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville, nom, prenom, region, departement, structureIds));
     }
   }
-  
+
   useEffect(() => {
     if (error) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -123,6 +125,9 @@ StatistiquesBanniere.propTypes = {
   prenom: PropTypes.string,
   typeStats: PropTypes.string,
   id: PropTypes.string,
+  pilotage: PropTypes.bool,
+  conseillerIds: PropTypes.array,
+  structureIds: PropTypes.array
 };
 
 export default StatistiquesBanniere;
