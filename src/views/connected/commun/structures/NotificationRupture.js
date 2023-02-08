@@ -40,6 +40,9 @@ function NotificationRupture({ misesEnRelationFinalisee, dateRupture, motifRuptu
             locale="fr"
             selected={dateRuptureValidee ? new Date(dateRuptureValidee) : ''}
             onChange={date => setDateRuptureValidee(date)}
+            onKeyDown={e => {
+              e.preventDefault();
+            }}
           />
         </div>
 
