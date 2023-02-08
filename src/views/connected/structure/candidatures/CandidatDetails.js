@@ -47,7 +47,7 @@ function CandidatDetails() {
   }, [errorConseiller]);
 
   const updateStatut = statut => {
-    dispatch(conseillerActions.updateStatus({ id: conseiller.miseEnRelation?._id, statut }));
+    dispatch(conseillerActions.updateStatus(conseiller.miseEnRelation?._id, statut));
     scrollTopWindow();
   };
 

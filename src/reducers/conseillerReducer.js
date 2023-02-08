@@ -70,7 +70,8 @@ export default function conseiller(state = initialState, action) {
     case 'UPDATE_STATUS_SUCCESS':
       return {
         ...state,
-        conseiller: { ...state.conseiller, miseEnRelation: action.miseEnRelation },
+        conseiller: { ...state.conseiller, miseEnRelation: action.miseEnRelation, misesEnRelation: state.conseiller.misesEnRelation
+        ?.map(miseEnRelation => miseEnRelation._id === action.miseEnRelation._id ? action.miseEnRelation : miseEnRelation) },
         loading: false
       };
     case 'UPDATE_STATUS_FAILURE':
