@@ -55,7 +55,7 @@ function Header() {
       window.addEventListener('click', handleClickButtonLogout);
       return () => window.removeEventListener('click', handleClickButtonLogout);
     }
-    if (buttonLogoutRef.current) {
+    if (buttonLogoutRef?.current) {
       buttonLogoutRef.current.addEventListener('click', handleClickButtonLogout);
       return () => buttonLogoutRef.current.removeEventListener('click', handleClickButtonLogout);
     }
