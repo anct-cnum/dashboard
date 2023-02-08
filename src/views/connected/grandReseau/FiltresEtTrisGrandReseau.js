@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../../../components/Spinner';
@@ -40,12 +39,14 @@ function FiltresEtTrisGrandReseau() {
             selectFiltreRegion(dispatch, e);
             setValue('');
           }} value={filtreRegion}>
-            <SelectOptions options={[...codeRegions, ...codeRegionTom]} valueName="code" labelName="nom" title="Toutes les r&eacute;gions" defaultValue={'tous'}/>
+            <SelectOptions options={[...codeRegions, ...codeRegionTom]} valueName="code"
+              labelName="nom" title="Toutes les r&eacute;gions" defaultValue={'tous'}/>
           </select>
         </div>
         <div className="fr-select-group fr-col-xs-12 fr-col-sm-4 fr-col-lg-2  fr-mr-1w" style={{ width: '100%' }} id="filtre-departement">
           <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => selectFiltreDepartement(dispatch, e)} value={filtreDepartement}>
-            <SelectOptions options={getDepartements()} valueName="num_dep" labelName="dep_name" subLabelName="num_dep" title="Tous les d&eacute;partements" defaultValue={'tous'}/>
+            <SelectOptions options={getDepartements()} valueName="num_dep"
+              labelName="dep_name" subLabelName="num_dep" title="Tous les d&eacute;partements" defaultValue={'tous'}/>
           </select>
         </div>
         <div className="fr-select-group fr-col-xs-12 fr-col-sm-4 fr-col-lg-2  fr-mr-1w" style={{ width: '100%' }} id="filtre-codePostal">

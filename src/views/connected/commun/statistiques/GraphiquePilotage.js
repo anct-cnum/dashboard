@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -31,6 +30,7 @@ export default function GraphiqueNationale() {
   
   useEffect(() => {
     if (!error) {
+      // eslint-disable-next-line max-len
       dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, region, departement, structureIds, conseillerIds));
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
@@ -7,6 +6,7 @@ import dayjs from 'dayjs';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
+// eslint-disable-next-line max-len
 function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, nom, prenom, region, departement, conseillerIds, structureIds, pilotage }) {
 
   const dispatch = useDispatch();
@@ -64,6 +64,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
       if (!pilotage) {
         conseillerIds = territoire?.conseillerIds ?? undefined;
       }
+      // eslint-disable-next-line max-len
       dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville, nom, prenom, region, departement, structureIds));
     }
   }

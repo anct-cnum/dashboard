@@ -48,7 +48,6 @@ function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoo
   
 }
 
-
 function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre) {
   const exportConseillersRoute = '/liste-structures-csv';
   const {
