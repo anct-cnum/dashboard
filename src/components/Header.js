@@ -41,11 +41,11 @@ function Header() {
   };
 
   const handleClickButtonLogout = async e => {
-    if (e?.srcElement?.id === 'button-disconnect-auth') {
+    if (e?.srcElement?.className.includes('button-disconnect-auth')) {
       await signOut();
       await auth.signoutRedirect();
     }
-    if (e?.srcElement?.id === 'button-disconnect') {
+    if (e?.srcElement?.className.includes('button-disconnect')) {
       await signOut();
     }
   };
@@ -118,12 +118,12 @@ function Header() {
                       </li>
                     }
                     {auth.isAuthenticated ? <li>
-                      <button id="button-disconnect-auth" ref={buttonLogoutRef} className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se d&eacute;connecter">
+                      <button ref={buttonLogoutRef} className="fr-btn fr-btn--sm fr-mr-md-2w button-disconnect-auth" title="Se d&eacute;connecter">
                         D&eacute;connexion
                       </button>
                     </li> :
                       <li>
-                        <button id="button-disconnect" ref={buttonLogoutRef} className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se d&eacute;connecter">
+                        <button ref={buttonLogoutRef} className="fr-btn fr-btn--sm fr-mr-md-2w button-disconnect" title="Se d&eacute;connecter">
                           D&eacute;connexion
                         </button>
                       </li>}
