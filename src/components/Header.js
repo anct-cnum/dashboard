@@ -51,8 +51,14 @@ function Header() {
   };
 
   useEffect(() => {
-    buttonLogoutRef?.current?.addEventListener('click', handleClickButtonLogout);
-    return () => buttonLogoutRef?.current?.removeEventListener('click', handleClickButtonLogout);
+    if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+      window.addEventListener('click', handleClickButtonLogout);
+      return () => window.removeEventListener('click', handleClickButtonLogout);
+    }
+    if (buttonLogoutRef.current) {
+      buttonLogoutRef.current.addEventListener('click', handleClickButtonLogout);
+      return () => buttonLogoutRef.current.removeEventListener('click', handleClickButtonLogout);
+    }
   }, []);
 
   return (
