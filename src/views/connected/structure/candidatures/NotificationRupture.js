@@ -15,7 +15,7 @@ function NotificationRupture({ misesEnRelationFinalisee, dateRupture, motifRuptu
       {misesEnRelationFinalisee?.statut === 'finalisee' && <>
         <div className="fr-col-12 fr-col-xl-6 fr-my-2w">
           <button className="fr-btn btn-fr-col-xl-3" onClick={() => setAfficherRupture(!afficherRupture)} >
-          Initié une rupture de contrat
+          Initier une rupture de contrat
           </button>
         </div>
 

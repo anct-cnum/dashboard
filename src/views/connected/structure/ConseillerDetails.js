@@ -8,7 +8,7 @@ import pixUtilisation from '../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../assets/icons/pix-citoyen.png';
 import Spinner from '../../../components/Spinner';
-import NotificationRupture from '../commun/structures/NotificationRupture';
+import NotificationRupture from './candidatures/NotificationRupture';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 
 function ConseillerDetails() {
