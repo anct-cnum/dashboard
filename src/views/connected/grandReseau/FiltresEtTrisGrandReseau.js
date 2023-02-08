@@ -16,10 +16,10 @@ function FiltresEtTrisGrandReseau() {
   const listeCodesPostaux = useSelector(state => state.statistiques?.statsData?.codesPostaux);
   const listeStructures = useSelector(state => state.statistiques?.statsData?.structures[0]?.structures);
   const listeConseillers = useSelector(state => state.statistiques?.statsData?.conseillers[0]?.conseillers);
-  const conseiller = useSelector(state => state.statistiques?.conseillerStats);
+  const conseillerIds = useSelector(state => state.statistiques?.conseillerStats);
   const ville = useSelector(state => state.statistiques?.villeStats);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
-  const structure = useSelector(state => state.statistiques?.structureStats);
+  const structureIds = useSelector(state => state.statistiques?.structureStats);
   const [value, setValue] = useState(JSON.stringify({ cp: codePostal, ville }));
   const loading = useSelector(state => state.exports?.loading);
   
@@ -39,12 +39,14 @@ function FiltresEtTrisGrandReseau() {
             selectFiltreRegion(dispatch, e);
             setValue('');
           }} value={filtreRegion}>
-            <SelectOptions options={[...codeRegions, ...codeRegionTom]} valueName="code" labelName="nom" title="Toutes les r&eacute;gions"/>
+            <SelectOptions options={[...codeRegions, ...codeRegionTom]} valueName="code"
+              labelName="nom" title="Toutes les r&eacute;gions" defaultValue={'tous'}/>
           </select>
         </div>
         <div className="fr-select-group fr-col-xs-12 fr-col-sm-4 fr-col-lg-2  fr-mr-1w" style={{ width: '100%' }} id="filtre-departement">
           <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => selectFiltreDepartement(dispatch, e)} value={filtreDepartement}>
-            <SelectOptions options={getDepartements()} valueName="num_dep" labelName="dep_name" subLabelName="num_dep" title="Tous les d&eacute;partements"/>
+            <SelectOptions options={getDepartements()} valueName="num_dep"
+              labelName="dep_name" subLabelName="num_dep" title="Tous les d&eacute;partements" defaultValue={'tous'}/>
           </select>
         </div>
         <div className="fr-select-group fr-col-xs-12 fr-col-sm-4 fr-col-lg-2  fr-mr-1w" style={{ width: '100%' }} id="filtre-codePostal">
@@ -64,13 +66,13 @@ function FiltresEtTrisGrandReseau() {
           </select>
         </div>
         <div className="fr-select-group fr-col-xs-12 fr-col-sm-4 fr-col-lg-2  fr-mr-1w" style={{ width: '100%' }} id="filtre-structure">
-          <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => selectFiltreStructure(dispatch, e)} value={structure}>
-            <SelectOptions options={listeStructures} valueName="_id" labelName="nom" subLabelName="codePostal" title="Toutes les structures"/>
+          <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => selectFiltreStructure(dispatch, e)} value={structureIds[0]}>
+            <SelectOptions options={listeStructures} valueName="_id" labelName="nom" subLabelName="codePostal" title="Toutes les structures" defaultValue={''}/>
           </select>
         </div>
         <div className="fr-select-group fr-col-xs-12 fr-col-sm-4 fr-col-lg-2  fr-mr-1w" style={{ width: '100%' }} id="filtre-conseiller">
-          <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => selectFiltreConseiller(dispatch, e)} value={conseiller}>
-            <SelectOptions options={listeConseillers} valueName="_id" labelName="emailCN" title ="S&eacute;lection CnFS" />
+          <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => selectFiltreConseiller(dispatch, e)} value={conseillerIds[0]}>
+            <SelectOptions options={listeConseillers} valueName="_id" labelName="emailCN" title ="S&eacute;lection CnFS" defaultValue={''}/>
           </select>
         </div>
       </div>

@@ -18,8 +18,8 @@ export default function GraphiqueNationale() {
   const dateFin = useSelector(state => state.statistiques?.dateFin);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const ville = useSelector(state => state.statistiques?.villeStats);
-  const structure = useSelector(state => state.statistiques?.structureStats);
-  const conseiller = useSelector(state => state.statistiques?.conseillerStats);
+  const structureIds = useSelector(state => state.statistiques?.structureStats);
+  const conseillerIds = useSelector(state => state.statistiques?.conseillerStats);
   const region = useSelector(state => state.statistiques?.codeRegionStats);
   const departement = useSelector(state => state.statistiques?.numeroDepartementStats);
 
@@ -27,11 +27,11 @@ export default function GraphiqueNationale() {
   const error = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const loadingExport = useSelector(state => state.exports?.loading);
-
   
   useEffect(() => {
     if (!error) {
-      dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, region, departement, structure, conseiller));
+      // eslint-disable-next-line max-len
+      dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, region, departement, structureIds, conseillerIds));
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
@@ -39,9 +39,8 @@ export default function GraphiqueNationale() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, codePostal, region, departement, structure, conseiller, ville, error]);
+  }, [dateDebut, dateFin, codePostal, region, departement, structureIds, conseillerIds, ville, error]);
 
-  
   return (
     <div className="statistiques">
       <Spinner loading={loading || loadingExport} />
@@ -71,7 +70,14 @@ export default function GraphiqueNationale() {
             <StatistiquesBanniere
               dateDebut={new Date('2020-09-01')}
               dateFin={dateFin}
-              typeStats="nationales"
+              structureIds={structureIds}
+              conseillerIds={conseillerIds}
+              region={region}
+              departement={departement}
+              codePostal={codePostal}
+              ville={ville}
+              pilotage={true}
+              typeStats="grandReseau"
             />
           </div>
         }
