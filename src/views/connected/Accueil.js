@@ -7,16 +7,25 @@ import GrandReseau from './grandReseau';
 import Hub from './hub';
 import Prefet from './prefet';
 import Structure from './structure';
+import { useQueryClient } from '@tanstack/react-query';
+import { statistiquesService } from '../../services/statistiquesService';
 
 export default function Accueil() {
 
   const navigate = useNavigate();
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const dateDebut = useSelector(state => state.statistiques?.dateDebut);
+  const dateFin = useSelector(state => state.statistiques?.dateFin);
+  const queryClient = useQueryClient();
+
+  const preFetch = async () => await queryClient.prefetchQuery(['statsNationales', dateDebut, dateFin],
+    () => statistiquesService.getStatistiquesNationale(dateDebut, dateFin));
 
   useEffect(() => {
     if (!localStorage.getItem('user')) {
       navigate('/login');
     } else if (location.pathname.startsWith('/accueil') && localStorage.getItem('user') !== '{}' && window.location.pathname.split('/').length > 2) {
+      preFetch();
       navigate('/accueil'); // pour ne pas partir en vue 404 si token présent après signInCallBack
     }
   });
