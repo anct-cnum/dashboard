@@ -21,7 +21,7 @@ export default function GraphiqueNationale() {
   const { data, isLoading, isError } = useQuery(['statsNationales', dateDebut, dateFin], async () => {
     const response = await statistiquesService.getStatistiquesNationale(dateDebut, dateFin);
     return response;
-  }, { refetchOnWindowFocus: false, staleTime: 5000 });
+  }, { refetchOnWindowFocus: false, staleTime: 1800000 });
 
   if (isError) {
     dispatch(alerteEtSpinnerActions.getMessageAlerte({
