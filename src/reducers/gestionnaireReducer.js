@@ -43,19 +43,34 @@ export default function gestionnaire(state = initialState, action) {
     case 'DELETE_GESTIONNAIRE_REQUEST':
       return {
         ...state,
-        loading: true,
+        loadingSuppression: true,
         errorGestionnaire: false
       };
     case 'DELETE_GESTIONNAIRE_SUCCESS':
       return {
         ...state,
-        loading: false,
-        successDeleteGestionnaire: action.deleteSuccess
+        loadingSuppression: false,
+        successDeleteGestionnaire: action.response.deleteSuccess,
+        items: { ...state.items,
+          total: state.items.total - 1,
+          data: state.items.data.filter(gestionnaire => gestionnaire._id !== action.response.idUser),
+        }
+      };
+    case 'DELETE_ROLE_GESTIONNAIRE_SUCCESS':
+      return {
+        ...state,
+        loadingSuppression: false,
+        successDeleteRoleGestionnaire: action.response.deleteSuccess,
+        items: { ...state.items,
+          data: state.items.data.map(
+            gestionnaire => (gestionnaire._id === action.response.idUser) ? action.response.user : gestionnaire
+          ),
+        }
       };
     case 'DELETE_GESTIONNAIRE_FAILURE':
       return {
         ...state,
-        loading: false,
+        loadingSuppression: false,
         errorGestionnaire: action.error
       };
     default:

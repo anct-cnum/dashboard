@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { gestionnaireActions } from '../../../../actions';
 import FormSuppressionGestionnaire from './FormSuppressionGestionnaire';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import FormSuppressionMultiRoleGestionnaire from './FormSuppressionMultiRoleGestionnnaire';
 
 function Gestionnaire({ gestionnaire }) {
   const dispatch = useDispatch();
@@ -45,18 +46,25 @@ function Gestionnaire({ gestionnaire }) {
             <button
               className="fr-btn fr-icon-mail-line fr-mr-2w"
               title="D&eacute;tail"
-              disabled={!(gestionnaire.roles.includes('admin') || gestionnaire.roles.includes('grandReseau')) || !gestionnaire.migrationDashboard}
+              disabled={!(gestionnaire.roles.includes('admin') || gestionnaire.roles.includes('grandReseau')) || !gestionnaire.sub}
               onClick={resendInvitGestionnaire}/>
             <button
               className="fr-btn fr-icon-delete-line"
-              disabled={!gestionnaire.roles.includes('admin')}
+              disabled={!gestionnaire.sub}
               onClick={() => {
                 setConfirmSuppressionGestionnaire(true);
                 scrollTopWindow();
               }}/>
           </div>
-          {confirmSuppressionGestionnaire &&
-          <FormSuppressionGestionnaire setConfirmSuppressionGestionnaire={setConfirmSuppressionGestionnaire} idGestionnaire={gestionnaire?._id} />
+          {(confirmSuppressionGestionnaire && gestionnaire.roles.length > 1) &&
+            <FormSuppressionMultiRoleGestionnaire
+              setConfirmSuppressionGestionnaire={setConfirmSuppressionGestionnaire}
+              idGestionnaire={gestionnaire?._id}
+              roles={gestionnaire.roles}
+            />
+          }
+          {(confirmSuppressionGestionnaire && gestionnaire.roles.length === 1) &&
+            <FormSuppressionGestionnaire setConfirmSuppressionGestionnaire={setConfirmSuppressionGestionnaire} idGestionnaire={gestionnaire?._id} />
           }
         </td>
       </tr>

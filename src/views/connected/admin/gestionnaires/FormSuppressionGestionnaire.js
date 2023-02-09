@@ -16,7 +16,7 @@ function FormSuppressionGestionnaire({ setConfirmSuppressionGestionnaire, idGest
   };
 
   return (
-    <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
+    <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog">
       <div className="fr-container fr-container--fluid fr-container-md">
         <div className="fr-grid-row fr-grid-row--center">
           <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
