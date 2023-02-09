@@ -16,8 +16,6 @@ export default function GraphiqueNationale() {
 
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
   const dateFin = useSelector(state => state.statistiques?.dateFin);
-
-  const loading = useSelector(state => state.statistiques?.loading);
   const loadingExport = useSelector(state => state.exports?.loading);
   
   const { data, isLoading, isError } = useQuery(['statsNationales', dateDebut, dateFin], async () => {
@@ -48,10 +46,10 @@ export default function GraphiqueNationale() {
             <hr className="fr-hr fr-mt-3v"/>
           </div>
         </div>
-        {loading &&
+        {isLoading &&
           <h2 className="loadingStatsTexte">La page est en cours de chargement, veuillez patienter</h2>
         }
-        {(!data && !loading) &&
+        {(!data && !isLoading) &&
           <h2 className="centrerTexte">Il n&rsquo;y a aucune statistique pour le moment</h2>
         }
         {data &&
