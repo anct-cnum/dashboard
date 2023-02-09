@@ -15,6 +15,12 @@ import { history } from './helpers';
 import setup from './services/api';
 import signInCallBack from '../src/services/auth/signInCallBack';
 import { MatomoProvider, createInstance } from '@jonkoops/matomo-tracker-react';
+import {
+  QueryClient,
+  QueryClientProvider
+} from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
   Sentry.init({
@@ -50,7 +56,6 @@ const instance = createInstance({
 
 setup(store);
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -58,7 +63,9 @@ root.render(
       <Provider store={store}>
         <Router history={history}>
           <MatomoProvider value={instance}>
-            <App />
+            <QueryClientProvider client={queryClient}>
+              <App />
+            </QueryClientProvider>
           </MatomoProvider>
         </Router>
       </Provider>
