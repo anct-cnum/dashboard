@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { gestionnaireActions } from '../../../../actions';
 import FormSuppressionGestionnaire from './FormSuppressionGestionnaire';
@@ -10,6 +10,7 @@ import FormSuppressionMultiRoleGestionnaire from './FormSuppressionMultiRoleGest
 function Gestionnaire({ gestionnaire }) {
   const dispatch = useDispatch();
   const [confirmSuppressionGestionnaire, setConfirmSuppressionGestionnaire] = useState(false);
+  const filtreRole = useSelector(state => state.filtresGestionnaires?.searchRole);
 
   const resendInvitGestionnaire = () => {
     scrollTopWindow();
@@ -17,40 +18,37 @@ function Gestionnaire({ gestionnaire }) {
   };
 
   const compteActif = gestionnaire => {
-    if (gestionnaire?.migrationDashboard) {
-      if (gestionnaire?.sub) {
-        return 'Oui';
-      } else {
-        return 'Non';
-      }
-    }
-    if (gestionnaire?.passwordCreated) {
+    if (gestionnaire?.sub) {
       return 'Oui';
-    } else {
-      return 'Non';
     }
+    return 'Non';
+  };
+
+  const displayRoleGestionnaire = () => {
+    if (filtreRole !== 'tous') {
+      return gestionnaire?.roles.filter(role => role === filtreRole);
+    }
+    return gestionnaire?.roles.filter(role => role !== 'admin_coop' && role !== 'structure_coop');
   };
 
   return (
     <>
       <tr>
-        <td>{gestionnaire?.roles?.join(',') || '-'}</td>
+        <td>{displayRoleGestionnaire(gestionnaire?.roles)?.join(',') || '-'}</td>
         <td>{gestionnaire?.name || '-'}</td>
         <td>{gestionnaire?.reseau || '-'}</td>
         <td>{gestionnaire?.nom || '-'}</td>
         <td>{gestionnaire?.prenom || '-'}</td>
-        <td>{gestionnaire?.tokenCreatedAt ? dayjs(gestionnaire?.tokenCreatedAt).format('DD/MM/YYYY') : '-'}</td>
+        <td>{gestionnaire?.mailSentDate ? dayjs(gestionnaire?.mailSentDate).format('DD/MM/YYYY') : '-'}</td>
         <td>{compteActif(gestionnaire)}</td>
         <td>
           <div className="btn-actions-gestionnaires">
             <button
               className="fr-btn fr-icon-mail-line fr-mr-2w"
               title="D&eacute;tail"
-              disabled={!(gestionnaire.roles.includes('admin') || gestionnaire.roles.includes('grandReseau')) || !gestionnaire.sub}
               onClick={resendInvitGestionnaire}/>
             <button
               className="fr-btn fr-icon-delete-line"
-              disabled={!gestionnaire.sub}
               onClick={() => {
                 setConfirmSuppressionGestionnaire(true);
                 scrollTopWindow();

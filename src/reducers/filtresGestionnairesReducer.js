@@ -1,7 +1,7 @@
 const initialState = {
   ordre: 1,
   ordreNom: 'nom',
-  searchRole: 'ROLE_TOUS',
+  searchRole: 'tous',
 };
   
 export default function filtresGestionnaires(state = initialState, action) {
