@@ -44,10 +44,11 @@ function Gestionnaire({ gestionnaire }) {
         <td>
           <button
             className="fr-btn fr-icon-mail-line fr-mb-2w"
-            title="D&eacute;tail"
+            title="Envoyez une invitation"
             onClick={resendInvitGestionnaire}/>
           <button
             className="fr-btn fr-icon-delete-line"
+            title="Supprimez le gestionnaire"
             onClick={() => {
               setConfirmSuppressionGestionnaire(true);
               scrollTopWindow();

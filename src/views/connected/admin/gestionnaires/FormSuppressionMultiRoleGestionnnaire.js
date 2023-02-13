@@ -38,7 +38,7 @@ function FormSuppressionMultiRoleGestionnaire({ setConfirmSuppressionGestionnair
                 </h1>
                 <div className="fr-select-group">
                   <label className="fr-label" htmlFor="select">
-                    Sélectionner l&rsquo;action à effectuer sur le compte du gestionnaire
+                    S&eacute;lectionner l&rsquo;action &agrave; effectuer sur le compte du gestionnaire
                   </label>
                   <select className="fr-select" onChange={handleChangeAction}>
                     <option value="" selected disabled hidden>Sélectionnez une action</option>
@@ -56,8 +56,8 @@ function FormSuppressionMultiRoleGestionnaire({ setConfirmSuppressionGestionnair
                 }
                 {action !== 'tous' && action !== '' &&
                 <>
-                  <p>&Ecirc;tes-vous certain(e) de vouloir supprimer le rôle {action} de ce gestionnaire ?</p>
-                  <p><strong>Cette action révoquera les accès li&eacute; &agrave; ce rôle sur le tableau de bord.</strong></p>
+                  <p>&Ecirc;tes-vous certain(e) de vouloir supprimer le r&ocirc;le {action} de ce gestionnaire ?</p>
+                  <p><strong>Cette action r&eacute;voquera les acc&egrave;s li&eacute; &agrave; ce r&ocirc;le sur le tableau de bord.</strong></p>
                 </>
                 }
               </div>
