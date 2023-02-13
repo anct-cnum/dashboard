@@ -14,11 +14,11 @@ function LeftPage({ donneesStats }) {
 
   return (
     <div className="fr-col-12 fr-col-md-3">
-      <StatistiquesTotalAccompagnements nbTotalAccompagnements={nbTotalAccompagnements} />
+      <StatistiquesTotalAccompagnements nbTotalAccompagnements={nbTotalSansRecurrence} />
       <div className="fr-m-7w fr-mb-5w"></div>
       <hr/>
       <div className="fr-m-5w"></div>
-      <StatistiquesAccompagnements nbAccompagnement={nbTotalSansRecurrence} />
+      <StatistiquesAccompagnements nbAccompagnement={nbTotalAccompagnements} />
       <br/>
       <StatistiquesAteliers nbAteliers={donneesStats?.nbAteliers} nbTotalParticipant={donneesStats?.nbTotalParticipant}/>
       <div className="fr-m-5w"></div>
