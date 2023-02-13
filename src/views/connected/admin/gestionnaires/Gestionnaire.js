@@ -17,12 +17,7 @@ function Gestionnaire({ gestionnaire }) {
     dispatch(gestionnaireActions.resendInvitGestionnaire(gestionnaire._id));
   };
 
-  const compteActif = gestionnaire => {
-    if (gestionnaire?.sub) {
-      return 'Oui';
-    }
-    return 'Non';
-  };
+  const compteActif = gestionnaire => (gestionnaire?.sub ? 'Oui' : 'Non');
 
   const displayRoleGestionnaire = () => {
     if (filtreRole !== 'tous') {
