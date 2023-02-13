@@ -103,25 +103,18 @@ export default function TableauGestionnaires() {
                     <table>
                       <thead>
                         <tr>
-                          <th>R&ocirc;le</th>
+                          <th style={{ width: '12.1rem' }}>R&ocirc;le</th>
                           <th>Email</th>
-                          <th>
-                            <button id="nom-gestionnaire" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Nom du gestionnaire
-                                {(ordreNom !== 'nom-gestionnaire' || ordreNom === 'nom-gestionnaire' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'nom-gestionnaire' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
+                          <th style={{ width: '11.1rem' }}>
+                            <button id="reseau" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Nom du gestionnaire</span>
                             </button>
                           </th>
                           <th>Nom</th>
                           <th>Pr&eacute;nom</th>
                           <th>Date d&rsquo;invitation</th>
                           <th>Actif = (compte cr&eacute;&eacute;)</th>
-                          <th>Actions</th>
+                          <th style={{ width: '3.1rem' }}></th>
                         </tr>
                       </thead>
                       <tbody>
