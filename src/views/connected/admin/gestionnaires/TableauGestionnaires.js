@@ -80,7 +80,7 @@ export default function TableauGestionnaires() {
       {successDeleteRoleGestionnaire &&
       <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
         <p className="fr-alert__title">
-          Le rôle du gestionnaire a été supprim&eacute;.
+          Le r&ocirc;le du gestionnaire a &eacute;t&eacute; supprim&eacute;.
         </p>
       </div>
       }
