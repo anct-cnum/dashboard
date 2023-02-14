@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import Exports from './Exports';
@@ -6,10 +6,25 @@ import Candidatures from './Candidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
 import ConseillerDetails from './ConseillerDetails';
 import Page404 from '../Page404';
+import { useQueryClient } from '@tanstack/react-query';
+import { statistiquesService } from '../../../services/statistiquesService';
+import { useSelector } from 'react-redux';
 
 export default function Structure() {
 
   const location = useLocation();
+  const dateDebut = useSelector(state => state.statistiques?.dateDebut);
+  const dateFin = useSelector(state => state.statistiques?.dateFin);
+  const queryClient = useQueryClient();
+
+  const preFetch = async () => await queryClient.prefetchQuery(['statsNationales', dateDebut, dateFin],
+    () => statistiquesService.getStatistiquesNationale(dateDebut, dateFin));
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/accueil')) {
+      preFetch();
+    }
+  }, []);
 
   return (
     <>
