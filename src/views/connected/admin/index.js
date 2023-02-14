@@ -8,6 +8,7 @@ import StructureDetails from './structures/StructureDetails';
 import Page404 from '../Page404';
 import TableauCandidatures from './candidatures/TableauCandidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
+import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 
 export default function Admin() {
 
@@ -15,6 +16,7 @@ export default function Admin() {
 
   return (
     <>
+      <PreFetch />
       { location.pathname === '/accueil' &&
         <div className="fr-grid-row fr-grid-row--center fr-my-15w">
           <div className="fr-col--offset-1 fr-col-10">

@@ -6,6 +6,7 @@ import Candidatures from './Candidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
 import ConseillerDetails from './ConseillerDetails';
 import Page404 from '../Page404';
+import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 
 export default function Structure() {
 
@@ -13,6 +14,7 @@ export default function Structure() {
 
   return (
     <>
+      <PreFetch />
       { location.pathname === '/accueil' &&
         <div className="fr-grid-row fr-grid-row--center fr-my-15w">
           <div className="fr-col--offset-1 fr-col-10">
