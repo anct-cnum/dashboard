@@ -5,19 +5,19 @@ import { gestionnaireActions } from '../../../../actions';
 
 function FormSuppressionMultiRoleGestionnaire({ setConfirmSuppressionGestionnaire, idGestionnaire, roles }) {
   const dispatch = useDispatch();
-  const [action, setAction] = useState('');
+  const [role, setRole] = useState('');
 
   const annulerSuppressionGestionnaire = () => {
     setConfirmSuppressionGestionnaire(false);
   };
 
   const suppressionGestionnaire = () => {
-    dispatch(gestionnaireActions.suppressionGestionnaire(idGestionnaire, action));
+    dispatch(gestionnaireActions.suppressionGestionnaire(idGestionnaire, role));
     setConfirmSuppressionGestionnaire(false);
   };
 
   const handleChangeAction = e => {
-    setAction(e.target.value);
+    setRole(e.target.value);
   };
 
   const hiddenRoleDuplicate = roles => roles.filter(role => role !== 'admin_coop' && role !== 'structure_coop');
@@ -40,23 +40,23 @@ function FormSuppressionMultiRoleGestionnaire({ setConfirmSuppressionGestionnair
                   <label className="fr-label" htmlFor="select">
                     S&eacute;lectionner l&rsquo;action &agrave; effectuer sur le compte du gestionnaire
                   </label>
-                  <select className="fr-select" onChange={handleChangeAction}>
-                    <option value="" selected disabled hidden>Sélectionnez une action</option>
+                  <select defaultValue={''} className="fr-select" onChange={handleChangeAction}>
+                    <option value="" disabled hidden>S&eacute;lectionnez une action</option>
                     <option value={'tous'}>Supprimer son compte</option>
                     {hiddenRoleDuplicate(roles).map((role, idx) =>
-                      <option key={idx} value={role}>Supprimer le rôle {role}</option>
+                      <option key={idx} value={role}>Supprimer le r&ocirc;le {role}</option>
                     )}
                   </select>
                 </div>
-                {action === 'tous' &&
+                {role === 'tous' &&
                 <>
                   <p>&Ecirc;tes-vous certain(e) de vouloir supprimer ce gestionnaire ?</p>
                   <p><strong>Cette action supprimera d&eacute;finitivement toutes ses donn&eacute;es.</strong></p>
                 </>
                 }
-                {action !== 'tous' && action !== '' &&
+                {(role !== 'tous' && role !== '') &&
                 <>
-                  <p>&Ecirc;tes-vous certain(e) de vouloir supprimer le r&ocirc;le {action} de ce gestionnaire ?</p>
+                  <p>&Ecirc;tes-vous certain(e) de vouloir supprimer le r&ocirc;le {role} de ce gestionnaire ?</p>
                   <p><strong>Cette action r&eacute;voquera les acc&egrave;s li&eacute; &agrave; ce r&ocirc;le sur le tableau de bord.</strong></p>
                 </>
                 }
@@ -64,7 +64,7 @@ function FormSuppressionMultiRoleGestionnaire({ setConfirmSuppressionGestionnair
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg">
                   <li>
-                    <button onClick={suppressionGestionnaire} disabled={!action} className="fr-btn">
+                    <button onClick={suppressionGestionnaire} disabled={!role} className="fr-btn">
                       Oui, Supprimer d&eacute;finitivement
                     </button>
                   </li>

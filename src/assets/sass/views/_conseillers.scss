@@ -61,7 +61,7 @@
         height: 2px;
     }
     .selected button {
-        color: #1616166e !important;
+        color: $black-hover !important;
         font-weight: 600;
     }
     .date-btn {
@@ -76,7 +76,7 @@
     }
     .filtre-btn {
         &:hover {
-            color: #1616166e;
+            color: $black-hover;
         }
     }
     .react-datepicker {

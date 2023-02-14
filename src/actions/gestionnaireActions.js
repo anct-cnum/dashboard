@@ -52,11 +52,11 @@ function resendInvitGestionnaire(id) {
   }
 }
 
-function suppressionGestionnaire(id, action = 'tous') {
+function suppressionGestionnaire(id, role = 'tous') {
   return dispatch => {
     dispatch(request());
 
-    gestionnaireService.suppressionGestionnaire(id, action)
+    gestionnaireService.suppressionGestionnaire(id, role)
     .then(
       response => dispatch(success(response)),
       error => {
