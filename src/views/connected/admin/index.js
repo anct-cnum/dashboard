@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import Exports from './Exports';
@@ -10,11 +10,10 @@ import TableauCandidatures from './candidatures/TableauCandidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 
-
 export default function Admin() {
 
   const location = useLocation();
-  
+
   return (
     <>
       <PreFetch />
