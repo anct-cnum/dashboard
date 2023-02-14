@@ -25,6 +25,7 @@ export default function Accueil() {
     if (!localStorage.getItem('user')) {
       navigate('/login');
     } else if (location.pathname.startsWith('/accueil') && localStorage.getItem('user') !== '{}' && window.location.pathname.split('/').length > 2) {
+      // eslint-disable-next-line no-console
       console.log('preFetch');
       preFetch();
       navigate('/accueil'); // pour ne pas partir en vue 404 si token présent après signInCallBack
