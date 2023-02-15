@@ -52,13 +52,13 @@ function resendInvitGestionnaire(id) {
   }
 }
 
-function suppressionGestionnaire(id) {
+function suppressionGestionnaire(id, role = 'tous') {
   return dispatch => {
     dispatch(request());
 
-    gestionnaireService.suppressionGestionnaire(id)
+    gestionnaireService.suppressionGestionnaire(id, role)
     .then(
-      gestionnaire => dispatch(success(gestionnaire.deleteSuccess)),
+      response => dispatch(success(response)),
       error => {
         dispatch(failure(error));
       }
@@ -68,8 +68,11 @@ function suppressionGestionnaire(id) {
   function request() {
     return { type: 'DELETE_GESTIONNAIRE_REQUEST' };
   }
-  function success(deleteSuccess) {
-    return { type: 'DELETE_GESTIONNAIRE_SUCCESS', deleteSuccess };
+  function success(response) {
+    if (response.user) {
+      return { type: 'DELETE_ROLE_GESTIONNAIRE_SUCCESS', response };
+    }
+    return { type: 'DELETE_GESTIONNAIRE_SUCCESS', response };
   }
   function failure(error) {
     return { type: 'DELETE_GESTIONNAIRE_FAILURE', error };

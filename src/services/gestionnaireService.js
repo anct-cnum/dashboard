@@ -26,8 +26,8 @@ function resendInvitGestionnaire(id) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function suppressionGestionnaire(id) {
-  return API.delete(`${apiUrlRoot}/user/${id}?role=${roleActivated()}`)
+function suppressionGestionnaire(id, role) {
+  return API.delete(`${apiUrlRoot}/user/${id}?role=${roleActivated()}&roleSuppression=${role}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

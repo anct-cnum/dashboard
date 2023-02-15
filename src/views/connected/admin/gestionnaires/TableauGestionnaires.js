@@ -4,7 +4,7 @@ import { alerteEtSpinnerActions, filtresGestionnairesActions, paginationActions,
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import Gestionnaire from './Gestionnaire';
-import FiltresEtTrisGestionnaires from '../../commun/admin/FiltresEtTrisGestionnaires';
+import FiltresEtTrisGestionnaires from './FiltresEtTrisGestionnaires';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 
@@ -16,10 +16,12 @@ export default function TableauGestionnaires() {
   const ordre = useSelector(state => state.filtresGestionnaires?.ordre);
   const ordreNom = useSelector(state => state.filtresGestionnaires?.ordreNom);
   const loading = useSelector(state => state.gestionnaire?.loading);
+  const loadingSuppression = useSelector(state => state.gestionnaire?.loadingSuppression);
   const error = useSelector(state => state.gestionnaire?.error);
   const gestionnaires = useSelector(state => state.gestionnaire);
   const successSendMail = useSelector(state => state.gestionnaire?.successResendInvitGestionnaire);
   const successDeleteGestionnaire = useSelector(state => state.gestionnaire?.successDeleteGestionnaire);
+  const successDeleteRoleGestionnaire = useSelector(state => state.gestionnaire?.successDeleteRoleGestionnaire);
   const errorGestionnaire = useSelector(state => state.gestionnaire?.errorGestionnaire);
   const filtreParNomConseiller = useSelector(state => state.filtresGestionnaires?.nomConseiller);
   const filtreRole = useSelector(state => state.filtresGestionnaires?.searchRole);
@@ -75,6 +77,13 @@ export default function TableauGestionnaires() {
         </p>
       </div>
       }
+      {successDeleteRoleGestionnaire &&
+      <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
+        <p className="fr-alert__title">
+          Le r&ocirc;le du gestionnaire a &eacute;t&eacute; supprim&eacute;.
+        </p>
+      </div>
+      }
       {errorGestionnaire &&
         <div className="fr-alert fr-alert--error" style={{ marginBottom: '2rem' }}>
           <p className="fr-alert__title">
@@ -82,7 +91,7 @@ export default function TableauGestionnaires() {
           </p>
         </div>
       }
-      <Spinner loading={loading} />
+      <Spinner loading={loading || loadingSuppression} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
@@ -94,25 +103,18 @@ export default function TableauGestionnaires() {
                     <table>
                       <thead>
                         <tr>
-                          <th>R&ocirc;le</th>
+                          <th style={{ width: '12.1rem' }}>R&ocirc;le</th>
                           <th>Email</th>
-                          <th>
-                            <button id="nom-gestionnaire" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Nom du gestionnaire
-                                {(ordreNom !== 'nom-gestionnaire' || ordreNom === 'nom-gestionnaire' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'nom-gestionnaire' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
+                          <th style={{ width: '11.1rem' }}>
+                            <button id="reseau" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Nom du gestionnaire</span>
                             </button>
                           </th>
                           <th>Nom</th>
                           <th>Pr&eacute;nom</th>
                           <th>Date d&rsquo;invitation</th>
                           <th>Actif = (compte cr&eacute;&eacute;)</th>
-                          <th>Actions</th>
+                          <th style={{ width: '3.1rem' }}></th>
                         </tr>
                       </thead>
                       <tbody>
