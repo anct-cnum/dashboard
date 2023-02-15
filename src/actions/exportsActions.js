@@ -14,11 +14,11 @@ export const exportsActions = {
   exportDonneesGestionnaires,
 };
 
-function exportFile(nameFile, hubName) {
+function exportFile(nameFile, collection = 'exports', hubName) {
   return dispatch => {
     dispatch(request());
 
-    exportsService.getFile(nameFile)
+    exportsService.getFile(nameFile, collection)
     .then(
       blob => dispatch(success(blob, nameFile, hubName)),
       error => dispatch(failure(error))
@@ -37,6 +37,9 @@ function exportFile(nameFile, hubName) {
     }
     if (nameFile === 'cnfs-hub') {
       nameFile = `export-cnfs_${dayjs(new Date()).format('DD-MM-YYYY')}_${hubName}`;
+    }
+    if (nameFile === 'historique-ruptures') {
+      nameFile = `${nameFile}_${dayjs(new Date()).format('DD-MM-YYYY')}`;
     }
     return { type: 'EXPORT_FILE_SUCCESS', blob, nameFile };
   }

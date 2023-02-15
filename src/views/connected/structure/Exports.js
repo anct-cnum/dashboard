@@ -19,8 +19,8 @@ function Exports() {
     }
   }, [exports]);
 
-  const getFile = nameFile => {
-    dispatch(exportsActions.exportFile(nameFile));
+  const getFile = (nameFile, collection) => {
+    dispatch(exportsActions.exportFile(nameFile, collection));
   };
 
   useEffect(() => {
@@ -47,6 +47,11 @@ function Exports() {
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
           Export des emails, noms, pr&eacute;noms de la liste des candidats
         </span>
+      </p>
+      <p>
+        <a className="fr-link" href="#" onClick={() => getFile('historique-ruptures', 'conseillersRuptures')}>
+          Historique des ruptures de contrat
+        </a>
       </p>
     </div>
   );
