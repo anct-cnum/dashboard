@@ -52,7 +52,7 @@ function resendInvitGestionnaire(id) {
   }
 }
 
-function suppressionGestionnaire(id, role = 'tous') {
+function suppressionGestionnaire(id, role = 'tous', filtreRole = 'tous') {
   return dispatch => {
     dispatch(request());
 
@@ -69,10 +69,13 @@ function suppressionGestionnaire(id, role = 'tous') {
     return { type: 'DELETE_GESTIONNAIRE_REQUEST' };
   }
   function success(response) {
-    if (response.user) {
+    
+    if (response.user && filtreRole !== role) {
       return { type: 'DELETE_ROLE_GESTIONNAIRE_SUCCESS', response };
     }
-    return { type: 'DELETE_GESTIONNAIRE_SUCCESS', response };
+    if (!response.user || filtreRole === role) {
+      return { type: 'DELETE_GESTIONNAIRE_SUCCESS', response };
+    }
   }
   function failure(error) {
     return { type: 'DELETE_GESTIONNAIRE_FAILURE', error };
