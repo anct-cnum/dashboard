@@ -11,7 +11,7 @@ function Exports() {
   const dispatch = useDispatch();
   const exports = useSelector(state => state.exports);
   const error = useSelector(state => state.exports?.error);
-  const user = useSelector(state => state.authentication?.user?.user);
+  const user = useSelector(state => state.authentication?.user);
 
   useEffect(() => {
     if (exports?.blob !== null && exports?.blob !== undefined && (error === undefined || error === false)) {
