@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { gestionnaireActions } from '../../../../actions';
 
 function FormSuppressionMultiRoleGestionnaire({ setConfirmSuppressionGestionnaire, idGestionnaire, roles }) {
   const dispatch = useDispatch();
   const [role, setRole] = useState('');
+  const filtreRole = useSelector(state => state.filtresGestionnaires?.searchRole);
 
   const annulerSuppressionGestionnaire = () => {
     setConfirmSuppressionGestionnaire(false);
   };
 
   const suppressionGestionnaire = () => {
-    dispatch(gestionnaireActions.suppressionGestionnaire(idGestionnaire, role));
+    dispatch(gestionnaireActions.suppressionGestionnaire(idGestionnaire, role, filtreRole));
     setConfirmSuppressionGestionnaire(false);
   };
 

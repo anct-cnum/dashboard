@@ -20,8 +20,7 @@ export default function TableauGestionnaires() {
   const error = useSelector(state => state.gestionnaire?.error);
   const gestionnaires = useSelector(state => state.gestionnaire);
   const successSendMail = useSelector(state => state.gestionnaire?.successResendInvitGestionnaire);
-  const successDeleteGestionnaire = useSelector(state => state.gestionnaire?.successDeleteGestionnaire);
-  const successDeleteRoleGestionnaire = useSelector(state => state.gestionnaire?.successDeleteRoleGestionnaire);
+  const deleteMessageSuccess = useSelector(state => state.gestionnaire?.deleteMessageSuccess);
   const errorGestionnaire = useSelector(state => state.gestionnaire?.errorGestionnaire);
   const filtreParNomConseiller = useSelector(state => state.filtresGestionnaires?.nomConseiller);
   const filtreRole = useSelector(state => state.filtresGestionnaires?.searchRole);
@@ -70,19 +69,12 @@ export default function TableauGestionnaires() {
         </p>
       </div>
       }
-      {successDeleteGestionnaire &&
-      <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
-        <p className="fr-alert__title">
-          Gestionnaire supprim&eacute;.
-        </p>
-      </div>
-      }
-      {successDeleteRoleGestionnaire &&
-      <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
-        <p className="fr-alert__title">
-          Le r&ocirc;le du gestionnaire a &eacute;t&eacute; supprim&eacute;.
-        </p>
-      </div>
+      {deleteMessageSuccess &&
+        <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
+          <p className="fr-alert__title">
+            {deleteMessageSuccess}
+          </p>
+        </div>
       }
       {errorGestionnaire &&
         <div className="fr-alert fr-alert--error" style={{ marginBottom: '2rem' }}>
