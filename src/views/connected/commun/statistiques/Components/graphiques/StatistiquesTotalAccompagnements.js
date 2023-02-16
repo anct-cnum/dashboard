@@ -12,9 +12,9 @@ function StatistiquesTotalAccompagnements({ nbTotalAccompagnements }) {
       </div>
       <div className={`fr-col-12 ${nbTotalAccompagnements.toString().length <= 4 ? 'fr-col-md-9' : ''} print-texte`}>
         <ElementText classe="text" textePluralize={pluralize(
-          'nouvel usager accompagné durant cette période',
-          'nouvel usager accompagné durant cette période',
-          'nouveaux usagers accompagnés durant cette période',
+          'personne totale accompagnée durant cette période',
+          'personne totale accompagnée durant cette période',
+          'personnes totales accompagnées durant cette période',
           nbTotalAccompagnements
         )}/>
       </div>
