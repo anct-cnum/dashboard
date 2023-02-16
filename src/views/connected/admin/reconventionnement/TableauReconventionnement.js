@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions, conseillerActions } from '../../../../actions';
+import { alerteEtSpinnerActions, paginationActions, reconventionnementActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
@@ -13,29 +13,24 @@ export default function TableauReconventionnement() {
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
 
-  const loading = useSelector(state => state.conseiller?.loading);
-  const downloading = useSelector(state => state.conseiller?.downloading);
-  const error = useSelector(state => state.conseiller?.error);
-  const conseillers = useSelector(state => state.conseiller);
-  const filtreParNomCandidat = useSelector(state => state.filtresCandidatures?.nomCandidat);
-  const filtreRegion = useSelector(state => state.filtresCandidatures?.region);
-  const filterDepartement = useSelector(state => state.filtresCandidatures?.departement);
-  const filtreComs = useSelector(state => state.filtresCandidatures?.coms);
+  const loading = useSelector(state => state.reconventionnement?.loading);
+  const error = useSelector(state => state.reconventionnement?.error);
+  const reconventionnements = useSelector(state => state.reconventionnement);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
 
   useEffect(() => {
-    if (conseillers?.items) {
-      const count = Math.floor(conseillers.items.total / conseillers.items.limit);
-      dispatch(paginationActions.setPageCount(conseillers.items.total % conseillers.items.limit === 0 ? count : count + 1));
+    if (reconventionnements?.items) {
+      const count = Math.floor(reconventionnements.items.total / reconventionnements.items.limit);
+      dispatch(paginationActions.setPageCount(reconventionnements.items.total % reconventionnements.items.limit === 0 ? count : count + 1));
     }
-  }, [conseillers]);
+  }, [reconventionnements]);
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(conseillerActions.getAllCandidatsByAdmin(currentPage, filtreParNomCandidat, filtreRegion, filtreComs, filterDepartement));
+      dispatch(reconventionnementActions.getAll(currentPage));
     }
-  }, [currentPage, filterDepartement, filtreComs, filtreParNomCandidat, filtreRegion]);
+  }, [currentPage]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -45,7 +40,7 @@ export default function TableauReconventionnement() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(conseillerActions.getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreRegion, filtreComs, filterDepartement));
+        dispatch(reconventionnementActions.getAll(currentPage));
         setInitConseiller(true);
       }
     } else {
@@ -57,20 +52,9 @@ export default function TableauReconventionnement() {
     }
   }, [error, page]);
 
-  useEffect(() => {
-    if (conseillers.downloadError && conseillers.downloadError !== false) {
-      scrollTopWindow();
-      dispatch(alerteEtSpinnerActions.getMessageAlerte({
-        type: 'error',
-        message: 'Le CV n\'a pas pu être récupéré !',
-        status: null, description: null
-      }));
-    }
-  }, [conseillers.downloadError]);
-
   return (
-    <div className="conseillers">
-      <Spinner loading={loading || downloading} />
+    <div className="reconventionnements">
+      <Spinner loading={loading} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
@@ -90,7 +74,7 @@ export default function TableauReconventionnement() {
               <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
                 <div className="fr-col-12">
                   <div className="fr-table">
-                    <table className={conseillers?.items?.data?.length < 2 ? 'no-result-table' : ''}>
+                    <table>
                       <thead>
                         <tr>
                           <th style={{ width: '5rem' }}>Id</th>
@@ -103,11 +87,11 @@ export default function TableauReconventionnement() {
                         </tr>
                       </thead>
                       <tbody>
-                        {!error && !loading && conseillers?.items?.data?.map((conseiller, idx) => {
-                          return (<Reconventionnement key={idx} candidat={conseiller} />);
+                        {!error && !loading && reconventionnements?.items?.data?.map((reconventionnement, idx) => {
+                          return (<Reconventionnement key={idx} candidat={reconventionnement} />);
                         })
                         }
-                        {(!conseillers?.items || conseillers?.items?.total === 0) &&
+                        {(!reconventionnements?.items || reconventionnements?.items?.total === 0) &&
                           <tr>
                             <td colSpan="12" style={{ width: '60rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -120,7 +104,7 @@ export default function TableauReconventionnement() {
                     </table>
                   </div>
                 </div>
-                {conseillers?.items?.total !== 0 &&
+                {reconventionnements?.items?.total !== 0 &&
                   <Pagination />
                 }
               </div>
