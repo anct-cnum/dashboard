@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { exportsService } from '../services/exportsService';
 import dayjs from 'dayjs';
 import { formatDate, formatFileName } from '../utils/formatagesUtils';
@@ -10,6 +11,7 @@ export const exportsActions = {
   exportStatistiquesCSV,
   exportDonneesConseiller,
   exportDonneesStructure,
+  exportDonneesGestionnaires,
 };
 
 function exportFile(nameFile, hubName) {
@@ -67,11 +69,9 @@ function exportDonneesTerritoire(territoire = 'departement', dateDebut, dateFin,
   }
 }
 
-// eslint-disable-next-line max-len
 function exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
   return async dispatch => {
     dispatch(request());
-    // eslint-disable-next-line max-len
     await exportsService.getExportDonneesConseiller(formatDate(dateDebut), formatDate(dateFin), filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre)
     .then(exportConseillerFileBlob => dispatch(success(exportConseillerFileBlob)))
     .catch(exportConseillerFileError => dispatch(failure(exportConseillerFileError)));
@@ -89,11 +89,9 @@ function exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordi
   }
 }
 
-// eslint-disable-next-line max-len
 function exportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre = 'nom', ordre = 1) {
   return async dispatch => {
     dispatch(request());
-    // eslint-disable-next-line max-len
     await exportsService.getExportDonneesStructure(formatDate(dateDebut), formatDate(dateFin), filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre)
     .then(exportStructureFileBlob => dispatch(success(exportStructureFileBlob)))
     .catch(exportStructureFileError => dispatch(failure(exportStructureFileError)));
@@ -115,10 +113,10 @@ function resetExportDonneesTerritoire() {
   return { type: 'EXPORT_TERRITOIRE_RESET' };
 }
 
-function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom) {
+function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom, region, departement, structureIds) {
   return dispatch => {
     dispatch(request());
-    exportsService.getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom)
+    exportsService.getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom, region, departement, structureIds)
     .then(
       data => dispatch(success(data)),
       error => dispatch(failure(error))
@@ -134,5 +132,25 @@ function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, 
   }
   function failure(error) {
     return { type: 'EXPORT_STATISTIQUES_CSV_FAILURE', error };
+  }
+}
+
+function exportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrdre = 'nom', ordre = 1) {
+  return async dispatch => {
+    dispatch(request());
+    await exportsService.getExportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrdre, ordre)
+    .then(exportGestionnairesFileBlob => dispatch(success(exportGestionnairesFileBlob)))
+    .catch(exportGestionnairesFileError => dispatch(failure(exportGestionnairesFileError)));
+  };
+
+  function request() {
+    return { type: 'EXPORT_GESTIONNAIRES_REQUEST' };
+  }
+  function success(exportGestionnairesFileBlob) {
+    const nameFile = `export-gestionnaires_${filtreRole.toLowerCase()}`;
+    return { type: 'EXPORT_GESTIONNAIRES_SUCCESS', exportGestionnairesFileBlob, nameFile };
+  }
+  function failure(error) {
+    return { type: 'EXPORT_GESTIONNAIRES_FAILURE', error };
   }
 }

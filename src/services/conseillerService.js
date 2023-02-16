@@ -36,7 +36,7 @@ function getCandidat(id) {
 }
 
 function getCandidatStructure(id) {
-  return API.get(`${apiUrlRoot}/candidat-structure/${id}?role=${roleActivated()}`)
+  return API.get(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -92,11 +92,12 @@ function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, fil
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllCandidats(structureId, search, page, nomOrdre, persoFilters) {
+function getAllCandidats(structureId, search, page, nomOrdre, ordre, persoFilters) {
   const filterSearch = search !== '' ? `&search=${search}` : '';
-  const filterSort = nomOrdre ? '&nomOrdre=' + nomOrdre : '';
+  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
 
-  let uri = `${apiUrlRoot}/candidats/structure/${structureId ? structureId : userEntityId()}?skip=${page}${filterSearch}${filterSort}&role=${roleActivated()}`;
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/candidats/structure/${structureId ? structureId : userEntityId()}?skip=${page}${filterSearch}${ordreColonne}&role=${roleActivated()}`;
 
   if (persoFilters) {
     if (havePix(persoFilters)) {
@@ -115,12 +116,12 @@ function getAllCandidats(structureId, search, page, nomOrdre, persoFilters) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllMisesEnRelation(structureId, search, page, filter, nomOrdre, persoFilters) {
+function getAllMisesEnRelation(structureId, search, page, filter, nomOrdre, ordre, persoFilters) {
   const filterSearch = search !== '' ? `&search=${search}` : '';
-  const filterSort = nomOrdre ? '&nomOrdre=' + nomOrdre : '';
+  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
 
-  let uri = `${apiUrlRoot}/structures/${structureId ? structureId : userEntityId()}/misesEnRelation?\
-skip=${page}${filterSort}${filterSearch}&role=${roleActivated()}`;
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/structures/${structureId ? structureId : userEntityId()}/misesEnRelation?skip=${page}${ordreColonne}${filterSearch}&role=${roleActivated()}`;
 
   if (filter) {
     uri += `&filter=${filter}`;
@@ -142,9 +143,9 @@ skip=${page}${filterSort}${filterSearch}&role=${roleActivated()}`;
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function updateStatus(id, statut) {
+function updateStatus(id, statut, motifRupture, dateRupture) {
   return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
-    statut })
+    statut, motifRupture, dateRupture })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

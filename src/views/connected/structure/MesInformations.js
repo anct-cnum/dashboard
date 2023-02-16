@@ -31,7 +31,7 @@ function MesInformations() {
   }, [structure?.flashMessage]);
 
   useEffect(() => {
-    dispatch(structureActions.get(userAuth?.entity.$id));
+    dispatch(structureActions.get(userAuth?.entity?.$id));
   }, []);
 
   useEffect(() => {

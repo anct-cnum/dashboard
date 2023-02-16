@@ -6,7 +6,8 @@ import dayjs from 'dayjs';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, nom, prenom }) {
+// eslint-disable-next-line max-len
+function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, nom, prenom, region, departement, conseillerIds, structureIds, pilotage }) {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -26,6 +27,9 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
         typeTarget = type;
         break;
       case 'conseiller':
+        typeTarget = type;
+        break;
+      case 'grandReseau':
         typeTarget = type;
         break;
       default:
@@ -57,11 +61,14 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
       document.title = getTitlePDF();
       window.print();
     } else if (extension === 'csv') {
-      const conseillerIds = territoire?.conseillerIds ?? undefined;
-      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville, nom, prenom));
+      if (!pilotage) {
+        conseillerIds = territoire?.conseillerIds ?? undefined;
+      }
+      // eslint-disable-next-line max-len
+      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville, nom, prenom, region, departement, structureIds));
     }
   }
-  
+
   useEffect(() => {
     if (error) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -111,10 +118,17 @@ StatistiquesBanniere.propTypes = {
   dateFin: PropTypes.instanceOf(Date),
   codePostal: PropTypes.string,
   ville: PropTypes.string,
+  region: PropTypes.string,
+  departement: PropTypes.string,
+  structure: PropTypes.string,
+  conseiller: PropTypes.string,
   nom: PropTypes.string,
   prenom: PropTypes.string,
   typeStats: PropTypes.string,
   id: PropTypes.string,
+  pilotage: PropTypes.bool,
+  conseillerIds: PropTypes.array,
+  structureIds: PropTypes.array
 };
 
 export default StatistiquesBanniere;

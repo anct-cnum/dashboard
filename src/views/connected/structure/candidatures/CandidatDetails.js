@@ -18,7 +18,6 @@ import { formatNomConseiller, formatRenderStars, pluralize } from '../../../../u
 function CandidatDetails() {
 
   const location = useLocation();
-  const { origin } = location.state;
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -48,7 +47,7 @@ function CandidatDetails() {
   }, [errorConseiller]);
 
   const updateStatut = statut => {
-    dispatch(conseillerActions.updateStatus({ id: conseiller.miseEnRelation?._id, statut }));
+    dispatch(conseillerActions.updateStatus(conseiller.miseEnRelation?._id, statut));
     scrollTopWindow();
   };
 
@@ -79,7 +78,7 @@ function CandidatDetails() {
       }
 
       { dateRecrutementUpdated === true && dateRecrutement !== null && (errorUpdateStatus === undefined || errorUpdateStatus === false) &&
-        <p className="fr-label flashBag" style={{ fontSize: '16px' }}>
+        <p className="fr-alert fr-alert--success">
           La date d&rsquo;embauche au {dayjs(dateRecrutement).format('DD/MM/YYYY')} a bien &eacute;t&eacute; enregistr&eacute;e
         </p>
       }
@@ -99,7 +98,7 @@ function CandidatDetails() {
       }
       <Link
         style={{ boxShadow: 'none' }}
-        to={origin} state={{ currentPage }}
+        to={location?.state?.origin ?? '/structure/candidats/nouvelle'} state={{ currentPage }}
         className="fr-link fr-fi-arrow-left-line fr-link--icon-left">
         Retour &agrave; la liste
       </Link>
@@ -123,16 +122,17 @@ function CandidatDetails() {
           }
         </>
         }
-        <h2>
-          {formatNomConseiller(conseiller)}
+        <h2 className="fr-mb-2w">
+          {conseiller ? formatNomConseiller(conseiller) : ''}
         </h2>
+        <h5>Id: {conseiller?.idPG ?? ''}</h5>
         <Spinner loading={downloading || loading} />
         <div className="fr-container fr-container--fluid">
           <div className="fr-grid-row">
             {conseiller?.miseEnRelation?.dateRecrutement &&
               <div className="fr-col-12">
                 <p><b>Date de recrutement pr&eacute;visionnelle:&nbsp;
-                  {dayjs(conseiller?.miseEnRelation.dateRecrutement).format('DD/MM/YYYY') }</b>
+                  {dayjs(conseiller?.miseEnRelation?.dateRecrutement).format('DD/MM/YYYY') }</b>
                 </p>
               </div>
             }

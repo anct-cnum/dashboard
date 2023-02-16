@@ -13,6 +13,7 @@ export default function Accueil() {
   const navigate = useNavigate();
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
+
   useEffect(() => {
     if (!localStorage.getItem('user')) {
       navigate('/login');

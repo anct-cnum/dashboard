@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, createRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/brands/logo-rf-conseiller-numerique-min.svg';
@@ -17,6 +17,7 @@ function Header() {
   const roles = useSelector(state => state.authentication?.rolesAllowed)?.filter(role => !['admin_coop', 'structure_coop', 'conseiller'].includes(role));
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const user = useSelector(state => state.authentication?.user);
+  const buttonLogoutRef = createRef();
 
   const toggleBurgerMenu = () => {
     dispatch(menuActions.toggleBurgerMenu());
@@ -38,6 +39,27 @@ function Header() {
     }
     return role.charAt(0).toUpperCase() + role.slice(1).split('_')[0];
   };
+
+  const handleClickButtonLogout = async e => {
+    if (e?.srcElement?.className.includes('button-disconnect-auth')) {
+      await signOut();
+      await auth.signoutRedirect();
+    }
+    if (e?.srcElement?.className.includes('button-disconnect')) {
+      await signOut();
+    }
+  };
+
+  useEffect(() => {
+    if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+      window.addEventListener('click', handleClickButtonLogout);
+      return () => window.removeEventListener('click', handleClickButtonLogout);
+    }
+    if (buttonLogoutRef?.current) {
+      buttonLogoutRef.current.addEventListener('click', handleClickButtonLogout);
+      return () => buttonLogoutRef.current.removeEventListener('click', handleClickButtonLogout);
+    }
+  }, []);
 
   return (
     <header role="banner" className="fr-header">
@@ -96,16 +118,13 @@ function Header() {
                       </li>
                     }
                     {auth.isAuthenticated ? <li>
-                      <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={async () => {
-                        await signOut();
-                        await auth.signoutRedirect();
-                      }}>
+                      <button ref={buttonLogoutRef} className="fr-btn fr-btn--sm fr-mr-md-2w button-disconnect-auth" title="Se d&eacute;connecter">
                         D&eacute;connexion
                       </button>
                     </li> :
                       <li>
-                        <button className="fr-btn fr-btn--sm fr-mr-md-2w" title="Se déconnecter" onClick={async () => await signOut()}>
-                        D&eacute;connexion
+                        <button ref={buttonLogoutRef} className="fr-btn fr-btn--sm fr-mr-md-2w button-disconnect" title="Se d&eacute;connecter">
+                          D&eacute;connexion
                         </button>
                       </li>}
                   </ul>

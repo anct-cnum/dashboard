@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Candidat from './candidatures/Candidat';
 import CandidatNonMisEnRelation from './candidatures/CandidatNonMisEnRelation';
-import { conseillerActions, statsActions, alerteEtSpinnerActions, paginationActions } from '../../../actions';
+import { conseillerActions, statsActions, alerteEtSpinnerActions, paginationActions, filtresCandidaturesActions } from '../../../actions';
 import Spinner from '../../../components/Spinner';
 import FiltersAndSorts from './candidatures/FiltersAndSorts';
 import {
@@ -46,6 +46,7 @@ function Candidatures() {
         page: currentPage,
         filter,
         ordreNom: filtersAndSorts?.ordreNom,
+        ordre: filtersAndSorts?.ordre ? 1 : -1,
         persoFilters: filtersAndSorts
       }));
     }
@@ -65,6 +66,7 @@ function Candidatures() {
           page: page,
           filter,
           ordreNom: filtersAndSorts?.ordreNom,
+          ordre: filtersAndSorts?.ordre ? 1 : -1,
           persoFilters: filtersAndSorts
         }));
         dispatch(statsActions.getMisesEnRelationStats());
@@ -127,6 +129,11 @@ function Candidatures() {
     }
   }, [conseillers.downloadError]);
 
+  const ordreColonne = e => {
+    dispatch(paginationActions.setPage(1));
+    dispatch(filtresCandidaturesActions.changeOrdreColonne(e.currentTarget?.id));
+  };
+
   return (
     <div className="conseillers">
       {message &&
@@ -181,7 +188,11 @@ function Candidatures() {
                   <th style={{ width: filtersAndSorts.search !== '' ? '' : '6rem' }}>Nom</th>
                   {filtersAndSorts.search !== '' && <th style={{ width: '15rem' }}>Email</th>}
                   <th style={{ width: filtersAndSorts.search !== '' ? '' : '15rem' }}>Statut</th>
-                  <th>Date de candidature</th>
+                  <th>
+                    <button id="createdAt" className="filtre-btn" onClick={ordreColonne}>
+                      <span>Date de candidature</span>
+                    </button>
+                  </th>
                   <th>Code postal</th>
                   {filtersAndSorts.search === '' && <th style={{ width: '8rem' }}>Résultat Pix</th> }
                   <th>Curriculum Vit&aelig;</th>

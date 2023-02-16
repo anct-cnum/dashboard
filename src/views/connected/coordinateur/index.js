@@ -3,9 +3,9 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import Exports from './Exports';
 import ConseillerDetails from './ConseillerDetails';
-import TableauStructures from './structures/TableauStructures';
-import StructureDetails from './structures/StructureDetails';
+import StructureDetails from './StructureDetails';
 import Page404 from '../Page404';
+import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 
 export default function Coordinateur() {
 
@@ -13,7 +13,8 @@ export default function Coordinateur() {
 
   return (
     <>
-      { location.pathname === '/accueil' &&
+      <PreFetch/>
+      {location.pathname === '/accueil' &&
         <div className="fr-grid-row fr-grid-row--center fr-my-15w">
           <div className="fr-col--offset-1 fr-col-10">
             <h3>Bienvenue sur votre tableau de pilotage,</h3>
@@ -24,7 +25,6 @@ export default function Coordinateur() {
       }
       <Routes>
         <Route path="/coordinateur_coop/informations" element={<MesInformations />} />
-        <Route path="/coordinateur_coop/liste-structures" element={<TableauStructures />} />
         <Route path="/coordinateur_coop/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/coordinateur_coop/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/coordinateur_coop/exports" element={<Exports />} />

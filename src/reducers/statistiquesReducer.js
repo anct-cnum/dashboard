@@ -7,6 +7,10 @@ const initialState = {
   error: false,
   errorTerritoire: false,
   loading: false,
+  conseillerStats: [],
+  structureStats: [],
+  codeRegionStats: '',
+  numeroDepartementStats: '',
 };
 
 export default function statistiques(state = initialState, action) {
@@ -26,6 +30,26 @@ export default function statistiques(state = initialState, action) {
         ...state,
         codePostalStats: action.codePostal,
         villeStats: action.ville,
+      };
+    case 'CHANGE_STRUCTURE_STATS':
+      return {
+        ...state,
+        structureStats: action.structureId !== '' ? [action.structureId] : [],
+      };
+    case 'CHANGE_CONSEILLER_STATS':
+      return {
+        ...state,
+        conseillerStats: action.conseillerId !== '' ? [action.conseillerId] : [],
+      };
+    case 'CHANGE_REGION_STATS':
+      return {
+        ...state,
+        codeRegionStats: action.codeRegion,
+      };
+    case 'CHANGE_DEPARTEMENT_STATS':
+      return {
+        ...state,
+        numeroDepartementStats: action.numeroDepartement,
       };
     case 'GET_CODES_POSTAUX_CRA_REQUEST':
       return {
