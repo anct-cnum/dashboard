@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
@@ -11,6 +12,7 @@ export const statistiquesService = {
   getStatistiquesStructure,
   getStatistiquesConseiller,
   getStatistiquesNationale,
+  getStatistiquesNationaleGrandReseau,
   getCodesPostauxCrasConseillerStructure,
   getCodesPostauxCrasConseiller
 };
@@ -45,7 +47,6 @@ function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, conseille
 
 function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, ville) {
   return API.get(
-    // eslint-disable-next-line max-len
     `${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idStructure=${idStructure}&codePostal=${codePostal}&ville=${ville}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
@@ -53,7 +54,6 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, v
 
 function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, ville) {
   return API.get(
-    // eslint-disable-next-line max-len
     `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idConseiller=${idConseiller}&codePostal=${codePostal}&ville=${ville}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
@@ -61,6 +61,12 @@ function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal,
 
 function getStatistiquesNationale(dateDebut, dateFin) {
   return API.get(`stats/nationales/cras?role=anonyme&dateDebut=${dateDebut}&dateFin=${dateFin}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, codeRegion, numeroDepartement, structureIds, conseillerIds) {
+  return API.get(`stats/nationales/cras/grand-reseau?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&codePostal=${codePostal}&ville=${ville}&codeRegion=${codeRegion}&numeroDepartement=${numeroDepartement}&structureIds=${JSON.stringify(structureIds)}&conseillerIds=${JSON.stringify(conseillerIds)}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

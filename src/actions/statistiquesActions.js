@@ -5,6 +5,10 @@ export const statistiquesActions = {
   changeDateDebut,
   changeDateFin,
   changeCodePostalStats,
+  changeStructureStats,
+  changeConseillerStats,
+  changeFiltreRegionStats,
+  changeFiltreDepartementStats,
   updateListeAutresReorientations,
   getTerritoire,
   getDatasStructures,
@@ -13,6 +17,7 @@ export const statistiquesActions = {
   getStatistiquesConseiller,
   getStatistiquesTerritoire,
   getStatistiquesNationale,
+  getStatistiquesNationaleGrandReseau,
   getCodesPostauxCrasConseillerStructure,
   getCodesPostauxCrasConseiller,
   resetFiltre,
@@ -30,12 +35,55 @@ function changeCodePostalStats(codePostal, ville) {
   return { type: 'CHANGE_CODE_POSTAL_STATS', codePostal, ville };
 }
 
+function changeStructureStats(structureId) {
+  return { type: 'CHANGE_STRUCTURE_STATS', structureId };
+}
+
+function changeConseillerStats(conseillerId) {
+  return { type: 'CHANGE_CONSEILLER_STATS', conseillerId };
+}
+
+function changeFiltreRegionStats(codeRegion) {
+  return { type: 'CHANGE_REGION_STATS', codeRegion };
+}
+
+function changeFiltreDepartementStats(numeroDepartement) {
+  return { type: 'CHANGE_DEPARTEMENT_STATS', numeroDepartement };
+}
+
 
 function getStatistiquesNationale(dateDebut, dateFin) {
   return dispatch => {
     dispatch(request());
 
     statistiquesService.getStatistiquesNationale(formatDate(dateDebut), formatDate(dateFin))
+    .then(
+      statsNationales => {
+        dispatch(success(statsNationales));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_STATS_CRA_NATIONALES_REQUEST' };
+  }
+  function success(statsNationales) {
+    return { type: 'GET_STATS_CRA_NATIONALES_SUCCESS', statsNationales };
+  }
+  function failure(error) {
+    return { type: 'GET_STATS_CRA_NATIONALES_FAILURE', error };
+  }
+}
+
+function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, codeRegion, numeroDepartement, structureId, conseillerId) {
+  return dispatch => {
+    dispatch(request());
+
+    statistiquesService.getStatistiquesNationaleGrandReseau(formatDate(dateDebut), formatDate(dateFin)
+      , ville, codePostal, codeRegion, numeroDepartement, structureId, conseillerId)
     .then(
       statsNationales => {
         dispatch(success(statsNationales));
