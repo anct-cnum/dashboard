@@ -39,7 +39,7 @@ export default function Admin() {
         <Route path="/admin/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/admin/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/admin/candidat/:idCandidat" element={<CandidatDetails />} />
-        <Route path="/admin/demandes/convention/:idCandidat" element={<ReconventionnementDetails />} />
+        <Route path="/admin/demandes/convention/:idDossier" element={<ReconventionnementDetails />} />
         <Route path="/admin/demandes/contrat/:idCandidat" element={<ContratDetails />} />
         <Route path="/admin/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />

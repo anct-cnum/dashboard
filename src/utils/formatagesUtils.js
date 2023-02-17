@@ -47,6 +47,9 @@ export const validInputSiret = siret => {
 export const formatNomConseiller = conseiller =>
   (conseiller?.nom + ' ' + conseiller?.prenom).toLowerCase().replace(/(^\w{1})|([\s,-]+\w{1})/g, letter => letter.toUpperCase());
 
+export const formatNomContactStructure = structure =>
+  (structure?.contact?.nom + ' ' + structure?.contact?.prenom).toLowerCase().replace(/(^\w{1})|([\s,-]+\w{1})/g, letter => letter.toUpperCase());
+
 export const formatNomStats = (key, structure) => structure?.stats?.find(stat => stat._id === key)?.count ?? '-';
 
 export const formatAdressePermanence = permanence => `${permanence?.numeroRue} ${permanence?.rue} ${permanence?.codePostal} ${permanence?.ville}`;

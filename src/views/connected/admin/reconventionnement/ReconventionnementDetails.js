@@ -1,51 +1,60 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import { alerteEtSpinnerActions, conseillerActions } from '../../../../actions';
-import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
+import { alerteEtSpinnerActions, reconventionnementActions } from '../../../../actions';
+import { formatNomConseiller, pluralize, formatNomContactStructure } from '../../../../utils/formatagesUtils';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function ReconventionnementDetails() {
   const dispatch = useDispatch();
-  const { idCandidat } = useParams();
-
-  const conseiller = useSelector(state => state.conseiller?.conseiller);
-  const loading = useSelector(state => state.conseiller?.loading);
-  const errorConseiller = useSelector(state => state.conseiller?.error);
-  const downloading = useSelector(state => state.conseiller?.downloading);
+  const { idDossier } = useParams();
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const reconventionnement = useSelector(state => state.reconventionnement?.reconventionnement);
+  const loading = useSelector(state => state.reconventionnement?.loading);
+  const errorConseiller = useSelector(state => state.reconventionnement?.error);
+  const downloading = useSelector(state => state.reconventionnement?.downloading);
 
   useEffect(() => {
     if (!errorConseiller) {
-    //   scrollTopWindow();
-      if (conseiller?._id !== idCandidat) {
-        dispatch(conseillerActions.getCandidat(idCandidat));
+      scrollTopWindow();
+      if (reconventionnement?.idDossier !== idDossier) {
+        dispatch(reconventionnementActions.get(idDossier));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Le candidat n\'a pas pu être chargé !',
+        message: 'Le dossier de reconventionnement n\'a pas pu être chargé !',
         status: null, description: null
       }));
     }
   }, [errorConseiller]);
+
+  const calcNbJoursAvantDateFinContrat = dateFinContrat => {
+    const dateFin = dayjs(dateFinContrat);
+    const dateAujourdhui = dayjs();
+    const nbJours = dateFin.diff(dateAujourdhui, 'day');
+
+    return nbJours;
+  };
 
   return (
     <div className="candidatDetails">
       <Spinner loading={loading || downloading} />
       <button
         onClick={() => window.close()}
-        className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--secondary">
+        className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </button>
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+        <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{reconventionnement ? reconventionnement?.structure.nom : ''}</h1>
       </div>
       <div className="fr-col-12 fr-mb-4w">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <span className="fr-text--xl fr-text--bold" style={{ marginBottom: '0' }}>ID - {conseiller?.idPG ?? ''}</span>
-          <button className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-auto">
+          <span className="fr-text--xl fr-text--bold" style={{ marginBottom: '0' }}>ID - {reconventionnement?.structure.idPG ?? ''}</span>
+          <button className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-auto"
+            onClick={() => window.open(`/${roleActivated}/structure/${reconventionnement?.structure?._id}`)}>
             Détails structure
           </button>
         </div>
@@ -57,38 +66,30 @@ function ReconventionnementDetails() {
               <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--bottom">
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
-                    <strong>Contact de la structure</strong><br/>
-                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{conseiller?.nom ?? '-'}</span>
+                    <strong>Contact de la structure</strong><br />
+                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                      {formatNomContactStructure(reconventionnement?.structure)}
+                    </span>
                   </div>
                 </div>
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
-                    <strong>Fonction</strong><br/>
-                    {conseiller?.dateDeNaissance ?
-                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                        {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
-                      </span> : <span>-</span>
-                    }
+                    <strong>Fonction</strong><br />
+                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{reconventionnement?.structure?.contact?.fonction ?? '-'}</span>
                   </div>
                 </div>
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
-                    <strong>Téléphone</strong><br/>
-                    {conseiller?.dateDeNaissance ?
-                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                        {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
-                      </span> : <span>-</span>
-                    }
+                    <strong>Téléphone</strong><br />
+                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                      {reconventionnement?.structure?.contact?.telephone ?? '-'}
+                    </span>
                   </div>
                 </div>
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
-                    <strong>Email</strong><br/>
-                    {conseiller?.dateDeNaissance ?
-                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                        {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
-                      </span> : <span>-</span>
-                    }
+                    <strong>Email</strong><br />
+                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{reconventionnement?.structure?.contact?.email ?? '-'}</span>
                   </div>
                 </div>
               </div>
@@ -97,7 +98,7 @@ function ReconventionnementDetails() {
         </div>
         <div className="fr-grid-row fr-mt-7w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
-            <hr style={{ borderWidth: '0.5px' }}/>
+            <hr style={{ borderWidth: '0.5px' }} />
           </div>
         </div>
         <div className="fr-card fr-card--no-border" style={{ backgroundColor: '#E8EDFF' }}>
@@ -106,11 +107,21 @@ function ReconventionnementDetails() {
               <h3 className="fr-card__title fr-h3">
                 Conventionnement phase 2
               </h3>
-              <p className="fr-card__desc fr-text--lg fr-text--regular">Demande initiée le 28/02/2023</p>
-              <p className="fr-card__desc fr-text--lg fr-text--bold" style={{ color: '#000091' }}>Nombre de poste total demandé : 4</p>
+              <p className="fr-card__desc fr-text--lg fr-text--regular">
+                Demande initi&eacute;e le {dayjs(reconventionnement?.dateDeCreation).format('DD/MM/YYYY')}
+              </p>
+              <p className="fr-card__desc fr-text--lg fr-text--bold" style={{ color: '#000091' }}>
+                {pluralize(
+                  'Nombre de poste total demandé : ',
+                  'Nombre de poste total demandé : ',
+                  'Nombre de postes total demandés : ',
+                  reconventionnement?.nbPostesAttribuees
+                )}
+                {reconventionnement?.nbPostesAttribuees}
+              </p>
               <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">
                 <div className="fr-col-12">
-                  <hr style={{ borderWidth: '0.5px' }}/>
+                  <hr style={{ borderWidth: '0.5px' }} />
                 </div>
                 <div className="fr-col-12">
                   <h6 className="fr-card__desc fr-h6">1 {pluralize(
@@ -123,7 +134,7 @@ function ReconventionnementDetails() {
                 <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
                   <div className="fr-card__body fr-p-0">
                     <div>
-                      <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+                      {/* <div className="fr-grid-row" style={{ alignItems: 'center' }}>
                         <div className="fr-col-3">
                           <div>
                             <span className="fr-text--md fr-text--bold">Philippe Dupont</span><br/>
@@ -166,7 +177,7 @@ function ReconventionnementDetails() {
                             title="D&eacute;tail"
                           />
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -184,9 +195,13 @@ function ReconventionnementDetails() {
                 </li>
                 <li className="fr-ml-auto">
                   <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                    <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier complet</p>
+                    {reconventionnement?.statut === 'en_instruction' ?
+                      <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier complet</p> :
+                      <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier incomplet</p>
+                    }
+                   
                     <button className="fr-btn fr-icon-folder-2-line fr-btn--secondary">
-                    Voir le dossier Démarche Simplifiée
+                      Voir le dossier D&eacute;marche Simplifi&eacute;e
                     </button>
                   </div>
                 </li>
@@ -200,49 +215,49 @@ function ReconventionnementDetails() {
               <h3 className="fr-card__title fr-h3">
                 Conventionnement phase 1
               </h3>
-              <p className="fr-card__desc fr-text--md"><strong>Date de début:</strong> 28/02/2023</p>
-              <p className="fr-card__desc fr-text--xl" style={{ color: '#000091' }}><strong>4 {pluralize(
+              <p className="fr-card__desc fr-text--md"><strong>Date de d&eacute;but:</strong> 28/02/2023</p>
+              <p className="fr-card__desc fr-text--xl" style={{ color: '#000091' }}><strong>{reconventionnement?.nbPostesAttribuees} {pluralize(
                 'poste de conseiller validé',
                 'poste de conseiller validé',
                 'postes de conseillers validés',
-                4
+                reconventionnement?.nbPostesAttribuees
               )}</strong> pour ce conventionnement</p>
               <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">
                 <div className="fr-col-12">
-                  <hr style={{ borderWidth: '0.5px' }}/>
+                  <hr style={{ borderWidth: '0.5px' }} />
                 </div>
                 <div className="fr-col-12">
-                  <h6 className="fr-card__desc fr-h6">Profils recrutés</h6>
+                  <h6 className="fr-card__desc fr-h6">Profils recrut&eacute;s</h6>
                 </div>
-                <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
-                  <div className="fr-card__body fr-p-0">
-                    <div>
+                {reconventionnement?.structure?.conseillers?.map((conseiller, index) =>
+                  <div key={index} className="fr-card fr-col-12 fr-mt-3w fr-p-3w">
+                    <div className="fr-card__body fr-p-0">
                       <div className="fr-grid-row" style={{ alignItems: 'center' }}>
                         <div className="fr-col-3">
                           <div>
-                            <span className="fr-text--md fr-text--bold">Philippe Dupont</span><br/>
-                            <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>ID - 0001</span>
+                            <span className="fr-text--md fr-text--bold">{formatNomConseiller(conseiller)}</span><br />
+                            <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>ID - {conseiller?.idPG}</span>
                           </div>
                         </div>
                         <div className="fr-col-2">
                           <div>
-                            <span className="fr-text--md" style={{ fontWeight: '500' }}>Type de contrat</span><br/>
+                            <span className="fr-text--md" style={{ fontWeight: '500' }}>Type de contrat</span><br />
                             <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>CDD</span>
                           </div>
                         </div>
                         <div className="fr-col-2">
                           <div>
-                            <span className="fr-text--md" style={{ fontWeight: '500' }}>Début de contrat</span><br/>
-                            {conseiller?.dateDeNaissance ?
+                            <span className="fr-text--md" style={{ fontWeight: '500' }}>D&eacute;but de contrat</span><br />
+                            {conseiller?.datePrisePoste ?
                               <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                                {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
+                                {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
                               </span> : <span>-</span>
                             }
                           </div>
                         </div>
                         <div className="fr-col-2" style={{ maxWidth: '14.7%' }}>
                           <div>
-                            <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br/>
+                            <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br />
                             {conseiller?.dateDeNaissance ?
                               <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
                                 {dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}
@@ -256,20 +271,25 @@ function ReconventionnementDetails() {
                         <div style={{ flex: '0 0 10.2%', maxWidth: '10.2%', width: '10.2%', textAlign: 'end' }}>
                           <button
                             className="fr-btn fr-icon-eye-line fr-ml-auto fr-mr-2w"
+                            onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}
                             title="D&eacute;tail"
                           />
-                          <button
+                          <Link
                             className="fr-btn fr-icon-line-chart-line"
-                            title="D&eacute;tail"
+                            title="Statistiques"
+                            to={`/statistiques-conseiller/${conseiller?._id}`}
+                            state={{ 'origin': `/${roleActivated}/demandes/convention/${idDossier}`, conseiller }}
                           />
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
               <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-                <p className="fr-badge fr-badge--new">6 jours restants avant la fin du premier contrat</p>
+                <p className="fr-badge fr-badge--new">
+                  {calcNbJoursAvantDateFinContrat(reconventionnement?.dateFinProchainContrat)} jours restants avant la fin du premier contrat
+                </p>
               </div>
             </div>
           </div>

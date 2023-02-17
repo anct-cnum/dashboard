@@ -28,7 +28,7 @@ export default function TableauReconventionnement() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(reconventionnementActions.getAll(currentPage));
+      dispatch(reconventionnementActions.getAll(reconventionnements.variablesApiDS));
     }
   }, [currentPage]);
 
@@ -40,13 +40,13 @@ export default function TableauReconventionnement() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(reconventionnementActions.getAll(currentPage));
+        dispatch(reconventionnementActions.getAll(reconventionnements.variablesApiDS));
         setInitConseiller(true);
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les candidats n\'ont pas pu être chargées !',
+        message: 'Les dossiers de reconventionnements n\'ont pas pu être chargées !',
         status: null, description: null
       }));
     }
@@ -60,16 +60,16 @@ export default function TableauReconventionnement() {
           <div className="fr-col-12">
             <div className="fr-col fr-col-lg-12 fr-col-md-8">
               <h1 style={{ color: '#000091' }} className="fr-h1">Demandes de conventions</h1>
-              <span>Retrouvez ici toutes les demandes de conventionnement, reconventionnement et avenants à valider.</span>
+              <span>Retrouvez ici toutes les demandes de conventionnement, reconventionnement et avenants &agrave; valider.</span>
             </div>
             
             <div className="fr-container--fluid fr-mt-4w">
               <ul className="tabs fr-tags-group">
                 <Link className="fr-tag" aria-pressed="true">Afficher toutes les demandes (42)</Link>
-                <Link className="fr-tag" aria-pressed="false">Conventionnement initial (8)</Link>
-                <Link className="fr-tag" aria-pressed="false">Reconventionnement (5)</Link>
-                <Link className="fr-tag" aria-pressed="false">Avenant · ajout de poste (3)</Link>
-                <Link className="fr-tag" aria-pressed="false">Avenant · poste rendu (3)</Link>
+                <Link className="fr-tag" aria-pressed="false">Conventionnement initial (0)</Link>
+                <Link className="fr-tag" aria-pressed="false">Reconventionnement ({reconventionnements?.items?.total})</Link>
+                <Link className="fr-tag" aria-pressed="false">Avenant · ajout de poste (0)</Link>
+                <Link className="fr-tag" aria-pressed="false">Avenant · poste rendu (0)</Link>
               </ul>
               <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
                 <div className="fr-col-12">
@@ -88,14 +88,14 @@ export default function TableauReconventionnement() {
                       </thead>
                       <tbody>
                         {!error && !loading && reconventionnements?.items?.data?.map((reconventionnement, idx) => {
-                          return (<Reconventionnement key={idx} candidat={reconventionnement} />);
+                          return (<Reconventionnement key={idx} reconventionnement={reconventionnement} />);
                         })
                         }
                         {(!reconventionnements?.items || reconventionnements?.items?.total === 0) &&
                           <tr>
                             <td colSpan="12" style={{ width: '60rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <span className="not-found pair">Aucun candidat trouv&eacute;</span>
+                                <span className="not-found pair">Aucun dossier de reconventionnement trouv&eacute;</span>
                               </div>
                             </td>
                           </tr>
