@@ -200,9 +200,9 @@ function ReconventionnementDetails() {
                       <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier incomplet</p>
                     }
                    
-                    <button className="fr-btn fr-icon-folder-2-line fr-btn--secondary">
+                    <a className="fr-btn fr-btn--secondary" href={reconventionnement?.url} target="_blank" rel="noopener noreferrer">
                       Voir le dossier D&eacute;marche Simplifi&eacute;e
-                    </button>
+                    </a>
                   </div>
                 </li>
               </ul>

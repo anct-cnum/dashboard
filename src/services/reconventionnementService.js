@@ -8,7 +8,7 @@ export const reconventionnementService = {
 };
 
 function getAll(page) {
-  return API.post(`${apiUrlRoot}/reconventionnements?role=${roleActivated()}`, { page })
+  return API.get(`${apiUrlRoot}/reconventionnements?role=${roleActivated()}&page=${page}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

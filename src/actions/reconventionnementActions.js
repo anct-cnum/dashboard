@@ -11,7 +11,7 @@ function getAll(page) {
 
     reconventionnementService.getAll(page)
     .then(
-      response => dispatch(success(response)),
+      reconventionnements => dispatch(success(reconventionnements)),
       error => {
         dispatch(failure(error));
       }
@@ -21,8 +21,8 @@ function getAll(page) {
   function request() {
     return { type: 'GETALL_RECONVENTIONNEMENT_REQUEST' };
   }
-  function success(response) {
-    return { type: 'GETALL_RECONVENTIONNEMENT_SUCCESS', response };
+  function success(reconventionnements) {
+    return { type: 'GETALL_RECONVENTIONNEMENT_SUCCESS', reconventionnements };
   }
   function failure(error) {
     return { type: 'GETALL_RECONVENTIONNEMENT_FAILURE', error };

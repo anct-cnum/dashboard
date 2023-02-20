@@ -28,7 +28,7 @@ export default function TableauReconventionnement() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(reconventionnementActions.getAll(reconventionnements.variablesApiDS));
+      dispatch(reconventionnementActions.getAll(currentPage));
     }
   }, [currentPage]);
 
@@ -40,7 +40,7 @@ export default function TableauReconventionnement() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(reconventionnementActions.getAll(reconventionnements.variablesApiDS));
+        dispatch(reconventionnementActions.getAll(page));
         setInitConseiller(true);
       }
     } else {
@@ -63,7 +63,7 @@ export default function TableauReconventionnement() {
               <span>Retrouvez ici toutes les demandes de conventionnement, reconventionnement et avenants &agrave; valider.</span>
             </div>
             
-            <div className="fr-container--fluid fr-mt-4w">
+            <div className="fr-mt-4w">
               <ul className="tabs fr-tags-group">
                 <Link className="fr-tag" aria-pressed="true">Afficher toutes les demandes (42)</Link>
                 <Link className="fr-tag" aria-pressed="false">Conventionnement initial (0)</Link>
