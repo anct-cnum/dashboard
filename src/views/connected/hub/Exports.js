@@ -11,7 +11,7 @@ function Exports() {
   const dispatch = useDispatch();
   const exports = useSelector(state => state.exports);
   const error = useSelector(state => state.exports?.error);
-  const user = useSelector(state => state.authentication?.user?.user);
+  const user = useSelector(state => state.authentication?.user);
 
   useEffect(() => {
     if (exports?.blob !== null && exports?.blob !== undefined && (error === undefined || error === false)) {
@@ -20,8 +20,8 @@ function Exports() {
     }
   }, [exports]);
 
-  const getFile = (nameFile, hubName) => {
-    dispatch(exportsActions.exportFile(nameFile, hubName));
+  const getFile = (nameFile, collection, hubName) => {
+    dispatch(exportsActions.exportFile(nameFile, collection, hubName));
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function Exports() {
       }
       <Spinner loading={exports?.loading} />
       <p>
-        <a className="fr-link" href="#" onClick={() => getFile('cnfs-hub', user?.hub)}>Exporter les conseillers</a>
+        <a className="fr-link" href="#" onClick={() => getFile('cnfs-hub', 'exports', user?.hub)}>Exporter les conseillers</a>
         <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
           Export de la liste des conseillers de votre hub
         </span>

@@ -14,9 +14,8 @@ export const exportsService = {
   getExportDonneesGestionnaires,
 };
 
-function getFile(name) {
-  return API.get(`${apiUrlRoot}/exports/${name}-csv?role=${roleActivated()}`)
-  // eslint-disable-next-line max-statements-per-line
+function getFile(name, collection) {
+  return API.get(`${apiUrlRoot}/${collection}/${name}-csv?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
