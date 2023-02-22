@@ -55,7 +55,7 @@ function ReconventionnementDetails() {
           <span className="fr-text--xl fr-text--bold" style={{ marginBottom: '0' }}>ID - {reconventionnement?.structure.idPG ?? ''}</span>
           <button className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-auto"
             onClick={() => window.open(`/${roleActivated}/structure/${reconventionnement?.structure?._id}`)}>
-            Détails structure
+            D&eacute;tails structure
           </button>
         </div>
       </div>
@@ -80,7 +80,7 @@ function ReconventionnementDetails() {
                 </div>
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
-                    <strong>Téléphone</strong><br />
+                    <strong>T&eacute;l&eacute;phone</strong><br />
                     <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
                       {reconventionnement?.structure?.contact?.telephone ?? '-'}
                     </span>
