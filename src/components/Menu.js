@@ -83,12 +83,12 @@ function Menu() {
                       Demandes de conventions à traiter
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/demandes/contrats`}
                       {...(location.pathname.startsWith(`/${roleActivated}/demandes/contrats`) ? { 'aria-current': 'page' } : {})}>
                       Demandes de contrats à traiter
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </li>
