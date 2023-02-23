@@ -10,8 +10,8 @@ import TableauCandidatures from './candidatures/TableauCandidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
 import TableauReconventionnement from './reconventionnement/TableauReconventionnement';
 import ReconventionnementDetails from './reconventionnement/ReconventionnementDetails';
-import TableauContrat from './contrats/TableauContrat';
-import ContratDetails from './contrats/ContratDetails';
+// import TableauContrat from './contrats/TableauContrat';
+// import ContratDetails from './contrats/ContratDetails';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 import TableauStructures from '../commun/structures/TableauStructures';
 
