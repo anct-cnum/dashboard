@@ -68,7 +68,7 @@ function ReconventionnementDetails() {
                   <div className="fr-mb-3w">
                     <strong>Contact de la structure</strong><br />
                     <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                      {formatNomContactStructure(reconventionnement?.structure)}
+                      {reconventionnement?.structure ? formatNomContactStructure(reconventionnement?.structure) : ''}
                     </span>
                   </div>
                 </div>
@@ -124,6 +124,9 @@ function ReconventionnementDetails() {
                   <hr style={{ borderWidth: '0.5px' }} />
                 </div>
                 <div className="fr-col-12">
+                  <span className="fr-h5">Les conseillers s&eacute;lectionn&eacute;s par la structure seront disponibles prochainement</span>
+                </div>
+                {/* <div className="fr-col-12">
                   <h6 className="fr-card__desc fr-h6">1 {pluralize(
                     'demande de renouvellement de poste',
                     'demande de renouvellement de poste',
@@ -134,7 +137,7 @@ function ReconventionnementDetails() {
                 <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
                   <div className="fr-card__body fr-p-0">
                     <div>
-                      {/* <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+                      <div className="fr-grid-row" style={{ alignItems: 'center' }}>
                         <div className="fr-col-3">
                           <div>
                             <span className="fr-text--md fr-text--bold">Philippe Dupont</span><br/>
@@ -177,10 +180,10 @@ function ReconventionnementDetails() {
                             title="D&eacute;tail"
                           />
                         </div>
-                      </div> */}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
                 <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
@@ -189,7 +192,7 @@ function ReconventionnementDetails() {
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
                 <li>
-                  <button className="fr-btn">
+                  <button className="fr-btn" disabled>
                     Valider la demande
                   </button>
                 </li>

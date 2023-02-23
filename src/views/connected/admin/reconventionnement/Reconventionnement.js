@@ -10,7 +10,7 @@ function Reconventionnement({ reconventionnement }) {
       <tr>
         <td>{reconventionnement?.idPG}</td>
         <td>{reconventionnement?.nomStructure}</td>
-        <td>{dayjs(reconventionnement?.dateDeCreation).format('DD/MM/YYYY')}</td>
+        <td>{reconventionnement?.dateDeCreation ? dayjs(reconventionnement?.dateDeCreation).format('DD/MM/YYYY') : 'Non renseignée'}</td>
         <td>{reconventionnement?.dateFinProchainContrat ? dayjs(reconventionnement?.dateFinProchainContrat).format('DD/MM/YYYY') : 'Non renseignée'}</td>
         <td>{reconventionnement?.nbPostesAttribuees}</td>
         <td>{reconventionnement?.type}</td>

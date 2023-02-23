@@ -23,7 +23,7 @@ export default function TableauReconventionnement() {
   useEffect(() => {
     if (reconventionnements?.items) {
       const count = Math.floor(reconventionnements.items.total / reconventionnements.items.limit);
-      dispatch(paginationActions.setPageCount(reconventionnements.items.total % reconventionnements.items.limit === 0 ? count : count + 1));
+      dispatch(paginationActions.setPageCount(reconventionnements.items.total % reconventionnements.items.limit === 0 ? 0 : count + 1));
     }
   }, [reconventionnements]);
 
@@ -49,7 +49,7 @@ export default function TableauReconventionnement() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les dossiers de reconventionnements n\'ont pas pu être chargées !',
+        message: 'Les dossiers de reconventionnements n\'ont pas pu être chargés !',
         status: null, description: null
       }));
     }
