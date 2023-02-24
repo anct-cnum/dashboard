@@ -11,7 +11,6 @@ import CandidatDetails from './candidatures/CandidatDetails';
 import TableauReconventionnement from './reconventionnement/TableauReconventionnement';
 import ReconventionnementDetails from './reconventionnement/ReconventionnementDetails';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
-import TableauStructures from '../commun/structures/TableauStructures';
 
 export default function Admin() {
 
@@ -30,7 +29,6 @@ export default function Admin() {
       <Routes>
         <Route path="/admin/informations" element={<MesInformations />} />
         <Route path="/admin/demandes/conventions" element={<TableauReconventionnement />} />
-        <Route path="/admin/liste-structures" element={<TableauStructures />} />
         <Route path="/admin/liste-candidatures" element={<TableauCandidatures />} />
         <Route path="/admin/liste-gestionnaires" element={<TableauGestionnaires />} />
         <Route path="/admin/structure/:idStructure" element={<StructureDetails />} />

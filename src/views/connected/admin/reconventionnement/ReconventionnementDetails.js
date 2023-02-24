@@ -13,11 +13,11 @@ function ReconventionnementDetails() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const reconventionnement = useSelector(state => state.reconventionnement?.reconventionnement);
   const loading = useSelector(state => state.reconventionnement?.loading);
-  const errorConseiller = useSelector(state => state.reconventionnement?.error);
+  const errorReconventionnement = useSelector(state => state.reconventionnement?.error);
   const downloading = useSelector(state => state.reconventionnement?.downloading);
 
   useEffect(() => {
-    if (!errorConseiller) {
+    if (!errorReconventionnement) {
       scrollTopWindow();
       if (reconventionnement?.idDossier !== idDossier) {
         dispatch(reconventionnementActions.get(idDossier));
@@ -25,11 +25,11 @@ function ReconventionnementDetails() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Le dossier de reconventionnement n\'a pas pu être chargé !',
+        message: errorReconventionnement ?? 'Le dossier de reconventionnement n\'a pas pu être chargé !',
         status: null, description: null
       }));
     }
-  }, [errorConseiller]);
+  }, [errorReconventionnement]);
 
   const calcNbJoursAvantDateFinContrat = dateFinContrat => {
     const dateFin = dayjs(dateFinContrat);
@@ -218,7 +218,9 @@ function ReconventionnementDetails() {
               <h3 className="fr-card__title fr-h3">
                 Conventionnement phase 1
               </h3>
-              <p className="fr-card__desc fr-text--md"><strong>Date de d&eacute;but:</strong> 28/02/2023</p>
+              <p className="fr-card__desc fr-text--md"><strong>Date de d&eacute;but:</strong>&nbsp;
+                {reconventionnement?.dateConventionnement ? dayjs(reconventionnement?.dateConventionnement).format('DD/MM/YYYY') : 'Non renseignée'}
+              </p>
               <p className="fr-card__desc fr-text--xl" style={{ color: '#000091' }}><strong>{reconventionnement?.nbPostesAttribuees} {pluralize(
                 'poste de conseiller validé',
                 'poste de conseiller validé',
