@@ -79,7 +79,9 @@ function Menu() {
                 <ul className="fr-menu__list">
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/demandes/conventions`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) ? { 'aria-current': 'page' } : {})}>
+                      {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
+                    >
                       Demandes de conventions à traiter
                     </Link>
                   </li>
@@ -103,7 +105,9 @@ function Menu() {
                   { roleActivated === 'structure' &&
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}>
+                      {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'liste-candidatures', action: `click-${roleActivated}` })}
+                    >
                       Liste des candidatures
                     </Link>
                   </li>
