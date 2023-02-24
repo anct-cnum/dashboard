@@ -13,6 +13,7 @@ import conseillerReducer from './conseillerReducer';
 import statsReducer from './statsReducer';
 import structureReducer from './structureReducer';
 import gestionnaireReducer from './gestionnaireReducer';
+import reconventionnementReducer from './reconventionnementReducer';
 import filtresConseillers from './filtresConseillersReducer';
 import filtresStructuresReducer from './filtresStructuresReducer';
 import filtresGestionnairesReducer from './filtresGestionnairesReducer';
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   stats: statsReducer,
   structure: structureReducer,
   gestionnaire: gestionnaireReducer,
+  reconventionnement: reconventionnementReducer,
   invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,
   filtresGestionnaires: filtresGestionnairesReducer,
