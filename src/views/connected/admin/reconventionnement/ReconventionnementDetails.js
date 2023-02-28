@@ -239,7 +239,7 @@ function ReconventionnementDetails() {
                       <div className="fr-grid-row" style={{ alignItems: 'center' }}>
                         <div className="fr-col-3">
                           <div>
-                            <span className="fr-text--md fr-text--bold">{formatNomConseiller(conseiller)}</span><br />
+                            <span className="fr-text--md fr-text--bold">{conseiller ? formatNomConseiller(conseiller) : ''}</span><br />
                             <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>ID - {conseiller?.idPG}</span>
                           </div>
                         </div>
