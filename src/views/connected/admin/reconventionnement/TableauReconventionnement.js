@@ -21,9 +21,9 @@ export default function TableauReconventionnement() {
   const [typeConvention, setTypeConvention] = useState('toutes');
 
   useEffect(() => {
-    if (reconventionnements?.items) {
+    if (reconventionnements?.items && reconventionnements?.items.limit !== 0) {
       const count = Math.floor(reconventionnements.items.total / reconventionnements.items.limit);
-      dispatch(paginationActions.setPageCount(reconventionnements.items.total % reconventionnements.items.limit === 0 ? 0 : count + 1));
+      dispatch(paginationActions.setPageCount(reconventionnements.items.total % reconventionnements.items.limit === 0 ? count : count + 1));
     }
   }, [reconventionnements]);
 

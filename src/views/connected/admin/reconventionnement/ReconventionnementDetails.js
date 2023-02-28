@@ -14,7 +14,6 @@ function ReconventionnementDetails() {
   const reconventionnement = useSelector(state => state.reconventionnement?.reconventionnement);
   const loading = useSelector(state => state.reconventionnement?.loading);
   const errorReconventionnement = useSelector(state => state.reconventionnement?.error);
-  const downloading = useSelector(state => state.reconventionnement?.downloading);
 
   useEffect(() => {
     if (!errorReconventionnement) {
@@ -41,7 +40,7 @@ function ReconventionnementDetails() {
 
   return (
     <div className="candidatDetails">
-      <Spinner loading={loading || downloading} />
+      <Spinner loading={loading} />
       <button
         onClick={() => window.close()}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
