@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions, reconventionnementActions } from '../../../../actions';
-import Spinner from '../../../../components/Spinner';
-import Pagination from '../../../../components/Pagination';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { alerteEtSpinnerActions, paginationActions, reconventionnementActions } from '../../../actions';
+import Spinner from '../../../components/Spinner';
+import Pagination from '../../../components/Pagination';
+import { scrollTopWindow } from '../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import Reconventionnement from './Reconventionnement';
+import Reconventionnement from './reconventionnement/Reconventionnement';
+import Conventionnement from './conventionnement/Conventionnement';
 
-export default function TableauReconventionnement() {
+export default function TableauConvention() {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -29,8 +30,10 @@ export default function TableauReconventionnement() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      if (typeConvention === 'toutes' || typeConvention === 'reconventionnement') {
-        dispatch(reconventionnementActions.getAll(currentPage));
+      if (typeConvention === 'avenantAjoutPoste' || typeConvention === 'avenantRenduPoste') {
+        dispatch(reconventionnementActions.reset());
+      } else {
+        dispatch(reconventionnementActions.getAll(currentPage, typeConvention));
       }
     }
   }, [currentPage, typeConvention]);
@@ -43,7 +46,7 @@ export default function TableauReconventionnement() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(reconventionnementActions.getAll(page));
+        dispatch(reconventionnementActions.getAll(page, typeConvention));
         setInitConseiller(true);
       }
     } else {
@@ -55,35 +58,35 @@ export default function TableauReconventionnement() {
     }
   }, [error, page]);
 
-  const checkIfReconventionnement = type => type === 'reconventionnement' || type === 'toutes';
+  const calculTotalConventionParType = type => reconventionnements?.items?.data.filter(reconventionnement => reconventionnement.type === type).length;
 
   return (
     <div className="reconventionnements">
       <Spinner loading={loading} />
-      <div className="fr-container fr-my-10w">
+      <div className="">
         <div className="fr-grid-row">
           <div className="fr-col-12">
             <div className="fr-col fr-col-lg-12 fr-col-md-8">
               <h1 style={{ color: '#000091' }} className="fr-h1">Demandes de conventions</h1>
               <span>Retrouvez ici toutes les demandes de conventionnement, reconventionnement et avenants &agrave; valider.</span>
             </div>
-            
+
             <div className="fr-mt-4w">
               <ul className="tabs fr-tags-group">
                 <button onClick={() => setTypeConvention('toutes')} className="fr-tag" aria-pressed={typeConvention === 'toutes'}>
-                  Afficher toutes les demandes ({reconventionnements?.items?.total})
+                  Afficher toutes les demandes ({reconventionnements?.items?.totalParConvention.total})
                 </button>
                 <button onClick={() => setTypeConvention('conventionnement')} className="fr-tag" aria-pressed={typeConvention === 'conventionnement'}>
-                  Conventionnement initial (0)
+                  Conventionnement initial ({reconventionnements?.items?.totalParConvention.conventionnement})
                 </button>
                 <button onClick={() => setTypeConvention('reconventionnement')} className="fr-tag" aria-pressed={typeConvention === 'reconventionnement'}>
-                  Reconventionnement ({reconventionnements?.items?.total})
+                  Reconventionnement ({reconventionnements?.items?.totalParConvention.reconventionnement})
                 </button>
                 <button onClick={() => setTypeConvention('avenantAjoutPoste')} className="fr-tag" aria-pressed={typeConvention === 'avenantAjoutPoste'}>
-                  Avenant · ajout de poste (0)
+                  Avenant · ajout de poste ({reconventionnements?.items?.totalParConvention.avenantAjoutPoste})
                 </button>
                 <button onClick={() => setTypeConvention('avenantRenduPoste')} className="fr-tag" aria-pressed={typeConvention === 'avenantRenduPoste'}>
-                  Avenant · poste rendu (0)
+                  Avenant · poste rendu ({reconventionnements?.items?.totalParConvention.avenantRenduPoste})
                 </button>
               </ul>
               <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
@@ -102,11 +105,15 @@ export default function TableauReconventionnement() {
                         </tr>
                       </thead>
                       <tbody>
-                        {!error && !loading && checkIfReconventionnement(typeConvention) && reconventionnements?.items?.data?.map((reconventionnement, idx) => {
-                          return (<Reconventionnement key={idx} reconventionnement={reconventionnement} />);
-                        })
+                        {!error && !loading && reconventionnements?.items?.data?.map((convention, idx) =>
+                          <tr key={idx}>
+                            {convention.dossierDemarcheSimplifiee ?
+                              <Reconventionnement reconventionnement={convention} /> : <Conventionnement conventionnement={convention} />
+                            }
+                          </tr>
+                        )
                         }
-                        {(!reconventionnements?.items || reconventionnements?.items?.total === 0 || !checkIfReconventionnement(typeConvention)) &&
+                        {(!reconventionnements?.items || reconventionnements?.items?.total === 0) &&
                           <tr>
                             <td colSpan="12" style={{ width: '60rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -119,7 +126,7 @@ export default function TableauReconventionnement() {
                     </table>
                   </div>
                 </div>
-                {(reconventionnements?.items?.total !== 0 && checkIfReconventionnement(typeConvention)) &&
+                {reconventionnements?.items?.total !== 0 &&
                   <Pagination />
                 }
               </div>

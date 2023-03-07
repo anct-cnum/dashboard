@@ -3,13 +3,14 @@ import { reconventionnementService } from '../services/reconventionnementService
 export const reconventionnementActions = {
   getAll,
   get,
+  reset
 };
 
-function getAll(page) {
+function getAll(page, typeConvention) {
   return dispatch => {
     dispatch(request());
 
-    reconventionnementService.getAll(page)
+    reconventionnementService.getAll(page, typeConvention)
     .then(
       reconventionnements => dispatch(success(reconventionnements)),
       error => {
@@ -51,4 +52,8 @@ function get(id) {
   function failure(error) {
     return { type: 'GET_RECONVENTIONNEMENT_FAILURE', error };
   }
+}
+
+function reset() {
+  return { type: 'RESET_RECONVENTIONNEMENT' };
 }

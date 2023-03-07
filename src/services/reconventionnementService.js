@@ -7,8 +7,8 @@ export const reconventionnementService = {
   get
 };
 
-function getAll(page) {
-  return API.get(`${apiUrlRoot}/reconventionnements?role=${roleActivated()}&page=${page}`)
+function getAll(page, typeConvention) {
+  return API.get(`${apiUrlRoot}/reconventionnements?role=${roleActivated()}&page=${page}&type=${typeConvention}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

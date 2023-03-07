@@ -39,6 +39,11 @@ export default function reconventionnement(state = initialState, action) {
         error: action.error,
         loading: false
       };
+    case 'RESET_RECONVENTIONNEMENT':
+      return {
+        ...state,
+        items: { ...state.items, data: [], total: 0 },
+      };
     default:
       return state;
   }
