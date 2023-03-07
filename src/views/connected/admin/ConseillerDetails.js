@@ -406,6 +406,16 @@ function ConseillerDetails() {
                     <span>{dayjs(misesEnRelationFinalisee[0]?.dateRecrutement).format('DD/MM/YYYY')}</span> :
                     <span>{dayjs(misesEnRelationNouvelleRupture.dateRecrutement).format('DD/MM/YYYY')}</span>
                   }
+                  <span>&nbsp;jusqu&lsquo;au&nbsp;</span>
+                  {(!misesEnRelationFinalisee[0]?.dateFinDeContrat && !misesEnRelationNouvelleRupture?.dateFinDeContrat) &&
+                    <span>date inconnue</span>
+                  }
+                  {misesEnRelationFinalisee[0]?.dateFinDeContrat &&
+                    <span>{misesEnRelationFinalisee[0]?.dateFinDeContrat}</span>
+                  }
+                  {misesEnRelationNouvelleRupture?.dateFinDeContrat &&
+                    <span>{misesEnRelationNouvelleRupture?.dateFinDeContrat}</span>
+                  }
                 </>
                 }
               </div>
