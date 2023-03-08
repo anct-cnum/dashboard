@@ -93,10 +93,10 @@ function ConventionDetails() {
             <hr style={{ borderWidth: '0.5px' }} />
           </div>
         </div>
-        {reconventionnement?.type === 'reconventionnement' &&
+        {reconventionnement?.statutConventionnement === 'Reconventionnement' &&
           <ReconventionnementDetails reconventionnement={reconventionnement} />
         }
-        {reconventionnement?.type === 'conventionnement' &&
+        {reconventionnement?.statutConventionnement === 'Conventionnement' &&
           <ConventionnementDetails conventionnement={reconventionnement} />
         }
       </div>

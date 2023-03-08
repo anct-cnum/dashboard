@@ -25,16 +25,16 @@ function ReconventionnementDetails({ reconventionnement }) {
                 Conventionnement phase 2
             </h3>
             <p className="fr-card__desc fr-text--lg fr-text--regular">
-                Demande initi&eacute;e le {dayjs(reconventionnement?.dossierDemarcheSimplifiee.dateDeCreation).format('DD/MM/YYYY')}
+                Demande initi&eacute;e le {dayjs(reconventionnement?.dossierReconventionnement.dateDeCreation).format('DD/MM/YYYY')}
             </p>
             <p className="fr-card__desc fr-text--lg fr-text--bold" style={{ color: '#000091' }}>
               {pluralize(
                 'Nombre de poste total demandé : ',
                 'Nombre de poste total demandé : ',
                 'Nombre de postes total demandés : ',
-                reconventionnement?.dossierDemarcheSimplifiee?.nbPostesAttribuees
+                reconventionnement?.dossierReconventionnement?.nbPostesAttribuees
               )}
-              {reconventionnement?.dossierDemarcheSimplifiee?.nbPostesAttribuees}
+              {reconventionnement?.dossierReconventionnement?.nbPostesAttribuees}
             </p>
             <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">
               <div className="fr-col-12">
@@ -213,7 +213,7 @@ function ReconventionnementDetails({ reconventionnement }) {
             </div>
             <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
               <p className="fr-badge fr-badge--new">
-                {calcNbJoursAvantDateFinContrat(reconventionnement?.dossierDemarcheSimplifiee?.dateFinProchainContrat)}
+                {calcNbJoursAvantDateFinContrat(reconventionnement?.dossierReconventionnement?.dateFinProchainContrat)}
                 &nbsp;jours restants avant la fin du premier contrat
               </p>
             </div>

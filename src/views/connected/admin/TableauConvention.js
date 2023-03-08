@@ -107,13 +107,16 @@ export default function TableauConvention() {
                       <tbody>
                         {!error && !loading && reconventionnements?.items?.data?.map((convention, idx) =>
                           <tr key={idx}>
-                            {convention.dossierDemarcheSimplifiee ?
-                              <Reconventionnement reconventionnement={convention} /> : <Conventionnement conventionnement={convention} />
+                            {convention.statutConventionnement === 'Reconventionnement' &&
+                              <Reconventionnement reconventionnement={convention} />
+                            }
+                            {convention.statutConventionnement === 'Conventionnement' &&
+                              <Conventionnement conventionnement={convention} />
                             }
                           </tr>
                         )
                         }
-                        {(!reconventionnements?.items || reconventionnements?.items?.total === 0) &&
+                        {(!reconventionnements?.items || reconventionnements?.items?.data.length === 0) &&
                           <tr>
                             <td colSpan="12" style={{ width: '60rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -126,7 +129,7 @@ export default function TableauConvention() {
                     </table>
                   </div>
                 </div>
-                {reconventionnements?.items?.total !== 0 &&
+                {reconventionnements?.items?.data.length > 0 &&
                   <Pagination />
                 }
               </div>
