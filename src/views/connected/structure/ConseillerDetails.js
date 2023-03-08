@@ -282,7 +282,7 @@ function ConseillerDetails() {
                   }
                   <span>&nbsp;jusqu&lsquo;au&nbsp;</span>
                   {misesEnRelationFinalisee?.dateFinDeContrat ?
-                    <span>{misesEnRelationFinalisee?.dateFinDeContrat}</span> : <span>date inconnue</span>
+                    <span>{misesEnRelationFinalisee?.dateFinDeContrat}</span> : <span>:&nbsp;date inconnue</span>
                   }
                 </>
                 }
