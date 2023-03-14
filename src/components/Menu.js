@@ -76,13 +76,21 @@ function Menu() {
                 className={`fr-collapse fr-menu ${activeMenu === 'listes-traitement-demandes' ? 'fr-collapse--expanded' : ''}`}
                 id="menu-listes-traitement-demandes"
               >
-                <ul className="fr-menu__list">
+                <ul className="fr-menu__list" style={{ width: '23rem' }}>
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/demandes/conventions`}
                       {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
                       onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
                     >
                       Demandes de conventions à traiter
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/historique/demandes/conventions`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
+                    >
+                      Historique des demandes de conventions traitées
                     </Link>
                   </li>
                 </ul>

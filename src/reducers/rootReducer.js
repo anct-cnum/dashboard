@@ -17,6 +17,7 @@ import reconventionnementReducer from './reconventionnementReducer';
 import filtresConseillers from './filtresConseillersReducer';
 import filtresStructuresReducer from './filtresStructuresReducer';
 import filtresGestionnairesReducer from './filtresGestionnairesReducer';
+import filtresHistoriqueConventionReducer from './filtresHistoriqueConventionReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,
   filtresGestionnaires: filtresGestionnairesReducer,
+  filtresHistoriqueConvention: filtresHistoriqueConventionReducer,
 });
 
 export default rootReducer;

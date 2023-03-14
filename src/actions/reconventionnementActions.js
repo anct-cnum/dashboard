@@ -2,6 +2,7 @@ import { reconventionnementService } from '../services/reconventionnementService
 
 export const reconventionnementActions = {
   getAll,
+  getAllHistorique,
   get,
   reset
 };
@@ -27,6 +28,30 @@ function getAll(page, typeConvention) {
   }
   function failure(error) {
     return { type: 'GETALL_RECONVENTIONNEMENT_FAILURE', error };
+  }
+}
+
+function getAllHistorique(page, typeConvention, dateDebut, dateFin) {
+  return dispatch => {
+    dispatch(request());
+
+    reconventionnementService.getAllHistorique(page, typeConvention, dateDebut, dateFin)
+    .then(
+      reconventionnements => dispatch(success(reconventionnements)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GETALL_HISTORIQUE_RECONVENTIONNEMENT_REQUEST' };
+  }
+  function success(reconventionnements) {
+    return { type: 'GETALL_HISTORIQUE_RECONVENTIONNEMENT_SUCCESS', reconventionnements };
+  }
+  function failure(error) {
+    return { type: 'GETALL_HISTORIQUE_RECONVENTIONNEMENT_FAILURE', error };
   }
 }
 

@@ -115,7 +115,7 @@ function ReconventionnementDetails({ reconventionnement }) {
               </li>
               <li className="fr-ml-auto">
                 <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                  {reconventionnement?.statut === 'en_instruction' ?
+                  {reconventionnement?.statut === 'accepté' ?
                     <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier complet</p> :
                     <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier incomplet</p>
                   }

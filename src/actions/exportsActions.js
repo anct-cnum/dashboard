@@ -12,6 +12,7 @@ export const exportsActions = {
   exportDonneesConseiller,
   exportDonneesStructure,
   exportDonneesGestionnaires,
+  exportDonneesHistoriqueDossiersConvention,
 };
 
 function exportFile(nameFile, collection = 'exports', hubName) {
@@ -155,5 +156,25 @@ function exportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrd
   }
   function failure(error) {
     return { type: 'EXPORT_GESTIONNAIRES_FAILURE', error };
+  }
+}
+
+function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin) {
+  return async dispatch => {
+    dispatch(request());
+    await exportsService.getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin)
+    .then(exportHistoriqueDossiersConventionFileBlob => dispatch(success(exportHistoriqueDossiersConventionFileBlob)))
+    .catch(exportHistoriqueDossiersConventionFileError => dispatch(failure(exportHistoriqueDossiersConventionFileError)));
+  };
+
+  function request() {
+    return { type: 'EXPORT_HISTORIQUE_DOSSIERS_CONVENTION_REQUEST' };
+  }
+  function success(exportHistoriqueDossiersConventionFileBlob) {
+    const nameFile = `export-historique-dossiers-convention_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+    return { type: 'EXPORT_HISTORIQUE_DOSSIERS_CONVENTION_SUCCESS', exportHistoriqueDossiersConventionFileBlob, nameFile };
+  }
+  function failure(error) {
+    return { type: 'EXPORT_HISTORIQUE_DOSSIERS_CONVENTION_FAILURE', error };
   }
 }

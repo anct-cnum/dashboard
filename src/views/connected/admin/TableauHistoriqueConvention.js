@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions, reconventionnementActions } from '../../../actions';
+import { alerteEtSpinnerActions, exportsActions, paginationActions, reconventionnementActions } from '../../../actions';
 import Spinner from '../../../components/Spinner';
 import Pagination from '../../../components/Pagination';
-import { scrollTopWindow } from '../../../utils/exportsUtils';
+import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import Reconventionnement from './reconventionnement/Reconventionnement';
 import Conventionnement from './conventionnement/Conventionnement';
+import BlockDatePickers from '../commun/statistiques/Components/commun/BlockDatePickers';
 
-export default function TableauConvention() {
+export default function TableauHistoriqueConvention() {
 
   const dispatch = useDispatch();
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
 
   const loading = useSelector(state => state.reconventionnement?.loading);
+  const loadingExport = useSelector(state => state.exports?.loading);
+  const exportHistoriqueDossiersConventionFileBlob = useSelector(state => state.exports);
+  const exportHistoriqueDossiersConventionFileError = useSelector(state => state.exports?.error);
   const error = useSelector(state => state.reconventionnement?.error);
   const reconventionnements = useSelector(state => state.reconventionnement);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
   const [typeConvention, setTypeConvention] = useState('toutes');
+  const dateDebut = useSelector(state => state.filtresHistoriqueConvention?.dateDebut);
+  const dateFin = useSelector(state => state.filtresHistoriqueConvention?.dateFin);
+
+  const has = value => value !== null && value !== undefined;
 
   useEffect(() => {
     if (reconventionnements?.items && reconventionnements?.items.limit !== 0) {
@@ -33,10 +41,10 @@ export default function TableauConvention() {
       if (typeConvention === 'avenantAjoutPoste' || typeConvention === 'avenantRenduPoste') {
         dispatch(reconventionnementActions.reset());
       } else {
-        dispatch(reconventionnementActions.getAll(currentPage, typeConvention));
+        dispatch(reconventionnementActions.getAllHistorique(currentPage, typeConvention, dateDebut, dateFin));
       }
     }
-  }, [currentPage, typeConvention]);
+  }, [currentPage, typeConvention, dateDebut, dateFin]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -46,7 +54,7 @@ export default function TableauConvention() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(reconventionnementActions.getAll(page, typeConvention));
+        dispatch(reconventionnementActions.getAllHistorique(page, typeConvention, dateDebut, dateFin));
         setInitConseiller(true);
       }
     } else {
@@ -58,15 +66,32 @@ export default function TableauConvention() {
     }
   }, [error, page]);
 
+  useEffect(() => {
+    if (has(exportHistoriqueDossiersConventionFileBlob?.blob) && exportHistoriqueDossiersConventionFileError === false) {
+      downloadFile(exportHistoriqueDossiersConventionFileBlob);
+      dispatch(exportsActions.resetFile());
+    }
+  }, [exportHistoriqueDossiersConventionFileBlob]);
+
+  useEffect(() => {
+    if (exportHistoriqueDossiersConventionFileError !== false) {
+      scrollTopWindow();
+    }
+  }, [exportHistoriqueDossiersConventionFileError]);
+
+  const exportHistoriqueConvention = () => {
+    dispatch(exportsActions.exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin));
+  };
+
   return (
-    <div className="reconventionnements">
-      <Spinner loading={loading} />
+    <div className="historiqueConventions">
+      <Spinner loading={loading || loadingExport} />
       <div className="">
         <div className="fr-grid-row">
           <div className="fr-col-12">
             <div className="fr-col fr-col-lg-12 fr-col-md-8">
-              <h1 style={{ color: '#000091' }} className="fr-h1">Demandes de conventions</h1>
-              <span>Retrouvez ici toutes les demandes de conventionnement, reconventionnement et avenants &agrave; valider.</span>
+              <h1 style={{ color: '#000091' }} className="fr-h1">Historique des demandes de conventions trait&eacute;es</h1>
+              <span>Retrouvez ici toutes les demandes de conventionnements, reconventionnements et avenants d&eacute;j&agrave; trait&eacute;es.</span>
             </div>
 
             <div className="fr-mt-4w">
@@ -87,6 +112,18 @@ export default function TableauConvention() {
                   Avenant · poste rendu ({reconventionnements?.items?.totalParConvention.avenantRenduPoste})
                 </button>
               </ul>
+              <div className="fr-container--fluid fr-mt-4w">
+                <div className="fr-grid-row fr-grid-row--end">
+                  <div className="fr-col-12 fr-col-md-8 fr-grid-row">
+                    <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+                  </div>
+                  <div className="fr-ml-auto">
+                    <button className="fr-btn fr-btn--secondary fr-icon-download-line fr-btn--icon-left" onClick={exportHistoriqueConvention}>
+                      Exporter les donn&eacute;es
+                    </button>
+                  </div>
+                </div>
+              </div>
               <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
                 <div className="fr-col-12">
                   <div className="fr-table">
@@ -105,10 +142,10 @@ export default function TableauConvention() {
                       <tbody>
                         {!error && !loading && reconventionnements?.items?.data?.map((convention, idx) =>
                           <tr key={idx}>
-                            {convention.statutConventionnement === 'RECONVENTIONNEMENT_EN_COURS' &&
+                            {convention.statutConventionnement === 'RECONVENTIONNEMENT_VALIDÉ' &&
                               <Reconventionnement reconventionnement={convention} />
                             }
-                            {convention.statutConventionnement === 'CONVENTIONNEMENT_EN_COURS' &&
+                            {convention.statutConventionnement === 'CONVENTIONNEMENT_VALIDÉ' || convention.statutConventionnement === 'RECONVENTIONNEMENT_EN_COURS' &&
                               <Conventionnement conventionnement={convention} />
                             }
                           </tr>

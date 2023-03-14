@@ -22,6 +22,24 @@ export default function reconventionnement(state = initialState, action) {
         loading: false,
         error: action.error
       };
+    case 'GETALL_HISTORIQUE_RECONVENTIONNEMENT_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'GETALL_HISTORIQUE_RECONVENTIONNEMENT_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: action.reconventionnements,
+      };
+    case 'GETALL_HISTORIQUE_RECONVENTIONNEMENT_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
     case 'GET_RECONVENTIONNEMENT_REQUEST':
       return {
         ...state,

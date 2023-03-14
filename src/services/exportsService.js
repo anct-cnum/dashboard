@@ -12,6 +12,7 @@ export const exportsService = {
   getExportDonneesConseiller,
   getExportDonneesStructure,
   getExportDonneesGestionnaires,
+  getExportDonneesHistoriqueDossiersConvention,
 };
 
 function getFile(name, collection) {
@@ -83,6 +84,15 @@ function getExportDonneesGestionnaires(filtreRole, filtreParNom, nomOrdre, ordre
     filterByRole,
   } = gestionnairesQueryStringParameters(nomOrdre, ordre, filtreRole, filtreParNom);
   return API.get(`${apiUrlRoot}/exports${exportGestionnairesRoute}?role=${roleActivated()}${filterByRole}${filterByName}${ordreColonne}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin) {
+  const exportHistoriqueDossiersConventionRoute = '/historique-dossiers-convention-csv';
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  return API.get(`${apiUrlRoot}/exports${exportHistoriqueDossiersConventionRoute}?role=${roleActivated()}&type=${typeConvention}${filterDateStart}${filterDateEnd}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
