@@ -71,7 +71,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                             </div>
                             <div className="fr-col-2">
                               <div>
-                                <span className="fr-text--md" style={{ fontWeight: '500' }}>Début de contrat</span><br/>
+                                <span className="fr-text--md" style={{ fontWeight: '500' }}>D&eacute;but de contrat</span><br/>
                                 {conseiller?.dateRecrutement ?
                                   <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
                                     {dayjs(conseiller?.dateRecrutement).format('DD/MM/YYYY')}
@@ -109,7 +109,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                   )}
                 </> :
                 <div className="fr-col-12">
-                  <span className="fr-h5">La structure n&lsquo;a pas s&eacute;l&eacute;ctionner de conseillers à renouvell&eacute;s pour le moment</span>
+                  <span className="fr-h5">La structure n&lsquo;a pas s&eacute;l&eacute;ctionner de conseillers &agrave; renouvell&eacute;s pour le moment</span>
                 </div>
               }
             </div>
@@ -206,7 +206,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                       <div className="fr-col-2 fr-grid-row">
                         {conseiller.statutMiseEnrelation === 'finalisee' ?
                           <p className="fr-badge fr-badge--new fr-p-0-5w">Renouvellement</p> :
-                          <p className="fr-badge fr-badge--info fr-p-0-5w">Non renouvelé</p>
+                          <p className="fr-badge fr-badge--info fr-p-0-5w">Non renouvel&eacute;</p>
                         }
                       </div>
                       <div style={{ flex: '0 0 10.2%', maxWidth: '10.2%', width: '10.2%', textAlign: 'end' }}>

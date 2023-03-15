@@ -27,7 +27,7 @@ function ConventionnementDetails({ conventionnement }) {
           </p>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
             {conventionnement?.conventionnement?.statut === 'CONVENTIONNEMENT_VALIDÉ' ?
-              <p className="fr-badge fr-badge--success">Demande validée</p> :
+              <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
               <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
             }
           </div>
