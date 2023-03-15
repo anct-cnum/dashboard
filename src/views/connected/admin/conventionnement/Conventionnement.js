@@ -5,11 +5,13 @@ import dayjs from 'dayjs';
 
 function Conventionnement({ conventionnement }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const dossierConventionnement = conventionnement?.conventionnement.dossierConventionnement;
+
   return (
     <>
       <td>{conventionnement?.idPG}</td>
       <td>{conventionnement?.nom}</td>
-      <td>{conventionnement?.dateDeCreation ? dayjs(conventionnement?.dateDeCreation).format('DD/MM/YYYY') : 'Non renseignée'}</td>
+      <td>{dossierConventionnement?.dateDeCreation ? dayjs(dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY') : 'Non renseignée'}</td>
       <td>{conventionnement?.dateFinProchainContrat ? dayjs(conventionnement?.dateFinProchainContrat).format('DD/MM/YYYY') : 'Non renseignée'}</td>
       <td>{conventionnement?.nombreConseillersSouhaites}</td>
       <td>Conventionnement</td>

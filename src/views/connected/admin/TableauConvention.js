@@ -105,10 +105,10 @@ export default function TableauConvention() {
                       <tbody>
                         {!error && !loading && reconventionnements?.items?.data?.map((convention, idx) =>
                           <tr key={idx}>
-                            {convention.statutConventionnement === 'RECONVENTIONNEMENT_EN_COURS' &&
+                            {convention.conventionnement.statut === 'RECONVENTIONNEMENT_EN_COURS' &&
                               <Reconventionnement reconventionnement={convention} />
                             }
-                            {convention.statutConventionnement === 'CONVENTIONNEMENT_EN_COURS' &&
+                            {convention.conventionnement.statut === 'CONVENTIONNEMENT_EN_COURS' &&
                               <Conventionnement conventionnement={convention} />
                             }
                           </tr>

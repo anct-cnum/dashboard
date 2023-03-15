@@ -4,7 +4,7 @@ import { pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 
 function ConventionnementDetails({ conventionnement }) {
-
+  const dossierConventionnement = conventionnement?.conventionnement?.dossierConventionnement;
   return (
     <div className="fr-card fr-card--no-border" style={{ backgroundColor: '#E8EDFF' }}>
       <div className="fr-card__body">
@@ -13,7 +13,9 @@ function ConventionnementDetails({ conventionnement }) {
             Conventionnement phase 1
           </h3>
           <p className="fr-card__desc fr-text--lg fr-text--regular">
-            Demande initi&eacute;e {conventionnement?.dateDeCreation ? `le ${dayjs(conventionnement?.dateDeCreation).format('DD/MM/YYYY')}` : 'à une date inconnue'}
+            Demande initi&eacute;e {
+              dossierConventionnement?.dateDeCreation ? `le ${dayjs(dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY')}` : 'à une date inconnue'
+            }
           </p>
           <p className="fr-card__desc fr-text--lg fr-text--bold" style={{ color: '#000091' }}>
             {pluralize(
@@ -25,19 +27,24 @@ function ConventionnementDetails({ conventionnement }) {
             {conventionnement?.nombreConseillersSouhaites}
           </p>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-            <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
+            {conventionnement?.conventionnement?.statut === 'CONVENTIONNEMENT_VALIDÉ' ?
+              <p className="fr-badge fr-badge--success">Demande validée</p> :
+              <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
+            }
           </div>
         </div>
         <div className="fr-card__footer">
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+            {conventionnement?.conventionnement?.statut === 'CONVENTIONNEMENT_EN_COURS' &&
             <li>
               <button className="fr-btn" disabled>
                 Valider la demande
               </button>
             </li>
+            }
             <li className="fr-ml-auto">
               <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                {conventionnement?.statut === 'accepté' ?
+                {dossierConventionnement?.statut === 'accepte' ?
                   <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier complet</p> :
                   <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier incomplet</p>
                 }

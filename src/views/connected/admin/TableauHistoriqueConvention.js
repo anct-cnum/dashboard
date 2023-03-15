@@ -142,10 +142,10 @@ export default function TableauHistoriqueConvention() {
                       <tbody>
                         {!error && !loading && reconventionnements?.items?.data?.map((convention, idx) =>
                           <tr key={idx}>
-                            {convention.statutConventionnement === 'RECONVENTIONNEMENT_VALIDÉ' &&
+                            {convention.conventionnement.statut === 'RECONVENTIONNEMENT_VALIDÉ' &&
                               <Reconventionnement reconventionnement={convention} />
                             }
-                            {convention.statutConventionnement === 'CONVENTIONNEMENT_VALIDÉ' || convention.statutConventionnement === 'RECONVENTIONNEMENT_EN_COURS' &&
+                            {convention.conventionnement.statut === 'CONVENTIONNEMENT_VALIDÉ' &&
                               <Conventionnement conventionnement={convention} />
                             }
                           </tr>

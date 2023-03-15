@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 function Reconventionnement({ reconventionnement }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const dossierReconventionnement = reconventionnement?.dossierReconventionnement;
+  const dossierReconventionnement = reconventionnement?.conventionnement.dossierReconventionnement;
   return (
     <>
       <td>{reconventionnement?.idPG}</td>
