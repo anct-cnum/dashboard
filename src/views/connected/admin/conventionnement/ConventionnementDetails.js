@@ -13,9 +13,8 @@ function ConventionnementDetails({ conventionnement }) {
             Conventionnement phase 1
           </h3>
           <p className="fr-card__desc fr-text--lg fr-text--regular">
-            Demande initi&eacute;e {
-              dossierConventionnement?.dateDeCreation ? `le ${dayjs(dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY')}` : 'à une date inconnue'
-            }
+            Demande initi&eacute;e&nbsp;
+            {dossierConventionnement?.dateDeCreation ? `le ${dayjs(dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY')}` : 'à une date inconnue'}
           </p>
           <p className="fr-card__desc fr-text--lg fr-text--bold" style={{ color: '#000091' }}>
             {pluralize(

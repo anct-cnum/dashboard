@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function popinRecrutee({ setDisplayModal }) {
+function popinRecrutee({ setDisplayModal, urlDossierConventionnement }) {
   const demarchesSimplifieesUrl = process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_HOSTNAME;
 
   return (
@@ -30,21 +30,29 @@ function popinRecrutee({ setDisplayModal }) {
                 <p>
                   <strong>Merci de bien vouloir :</strong>
                   <br/>
-                    Compléter les différents champs indispensables à l&rsquo;étude de votre demande de subvention en cliquant sur le lien correspondant :
+                    Compléter les différents champs indispensables à l&rsquo;étude de votre demande de subvention en cliquant sur&nbsp;
+                  {urlDossierConventionnement ? 'le bouton ci-dessous:' : ' le lien correspondant:'}
                   <br/><br/>
                     NB : Si vous avez validé plusieurs candidatures, merci de ne réaliser qu’une seule demande.
                   <br /><br />
-                  <strong>Structures publiques</strong> :&nbsp;
-                  <a href={`${demarchesSimplifieesUrl}/commencer/cnfs-sa-structures-publiques`}
-                    target="blank">{`${demarchesSimplifieesUrl}/commencer/cnfs-sa-structures-publiques`}</a>
-                  <br/>
-                  <strong>Entreprises</strong>&nbsp;:&nbsp;
-                  <a href={`${demarchesSimplifieesUrl}/commencer/cnfs-sa-entreprises`}
-                    target="blank">{`${demarchesSimplifieesUrl}/commencer/cnfs-sa-entreprises`}</a>
-                  <br/>
-                  <strong>Associations</strong>&nbsp;:&nbsp;
-                  <a href={`${demarchesSimplifieesUrl}/commencer/cnfs-associations`}
-                    target="blank">{`${demarchesSimplifieesUrl}/commencer/cnfs-associations`}</a>
+                  {urlDossierConventionnement ?
+                    <a className="fr-btn fr-btn--secondary" href={urlDossierConventionnement} target="_blank" rel="noopener noreferrer">
+                      Votre dossier D&eacute;marche Simplifi&eacute;e
+                    </a> :
+                    <>
+                      <strong>Structures publiques</strong> :&nbsp;
+                      <a rel="noopener noreferrer" href={`${demarchesSimplifieesUrl}/commencer/cnfs-sa-structures-publiques`}
+                        target="blank">{`${demarchesSimplifieesUrl}/commencer/cnfs-sa-structures-publiques`}</a>
+                      <br/>
+                      <strong>Entreprises</strong>&nbsp;:&nbsp;
+                      <a rel="noopener noreferrer" href={`${demarchesSimplifieesUrl}/commencer/cnfs-sa-entreprises`}
+                        target="blank">{`${demarchesSimplifieesUrl}/commencer/cnfs-sa-entreprises`}</a>
+                      <br/>
+                      <strong>Associations</strong>&nbsp;:&nbsp;
+                      <a rel="noopener noreferrer" href={`${demarchesSimplifieesUrl}/commencer/cnfs-associations`}
+                        target="blank">{`${demarchesSimplifieesUrl}/commencer/cnfs-associations`}</a>
+                    </>
+                  }
                 </p>
                 <p>
                   <strong>Important&nbsp;: l&rsquo;embauche reste conditionnée à la conformité de votre dossier de demande de subvention.</strong>
@@ -60,7 +68,8 @@ function popinRecrutee({ setDisplayModal }) {
 }
 
 popinRecrutee.propTypes = {
-  setDisplayModal: PropTypes.func
+  setDisplayModal: PropTypes.func,
+  urlDossierConventionnement: PropTypes.string,
 };
 
 export default popinRecrutee;

@@ -112,7 +112,7 @@ function CandidatDetails() {
           }
           {conseiller?.miseEnRelation?.statut === 'recrutee' &&
           <>
-            <PopinRecrutee setDisplayModal={setDisplayModal} />
+            <PopinRecrutee setDisplayModal={setDisplayModal} urlDossierConventionnement={conseiller?.urlDossierConventionnement} />
           </>
           }
           {conseiller?.miseEnRelation?.statut === 'nouvelle_rupture' &&
