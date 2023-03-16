@@ -32,7 +32,7 @@ function ConventionDetails() {
   }, [errorReconventionnement]);
 
   return (
-    <div className="candidatDetails">
+    <div>
       <Spinner loading={loading} />
       <button
         onClick={() => window.close()}
@@ -40,7 +40,7 @@ function ConventionDetails() {
         Retour &agrave; la liste
       </button>
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{reconventionnement ? reconventionnement?.nom : ''}</h1>
+        <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{reconventionnement?.nom ?? '-'}</h1>
       </div>
       <div className="fr-col-12 fr-mb-4w">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
@@ -96,7 +96,7 @@ function ConventionDetails() {
         {reconventionnement?.conventionnement?.statut.match(/\bRECONVENTIONNEMENT\B/) &&
           <ReconventionnementDetails reconventionnement={reconventionnement} />
         }
-        {reconventionnement?.conventionnement.statut.match(/\bCONVENTIONNEMENT\B/) &&
+        {reconventionnement?.conventionnement?.statut.match(/\bCONVENTIONNEMENT\B/) &&
           <ConventionnementDetails conventionnement={reconventionnement} />
         }
       </div>

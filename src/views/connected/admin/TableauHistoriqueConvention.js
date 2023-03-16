@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import Reconventionnement from './reconventionnement/Reconventionnement';
 import Conventionnement from './conventionnement/Conventionnement';
 import BlockDatePickers from '../commun/statistiques/Components/commun/BlockDatePickers';
+import { StatutConventionnement } from '../../../utils/enumUtils';
 
 export default function TableauHistoriqueConvention() {
 
@@ -60,7 +61,7 @@ export default function TableauHistoriqueConvention() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les dossiers de reconventionnements n\'ont pas pu être chargés !',
+        message: 'Les dossiers de reconventionnement n\'ont pas pu être chargés !',
         status: null, description: null
       }));
     }
@@ -70,21 +71,17 @@ export default function TableauHistoriqueConvention() {
     if (has(exportHistoriqueDossiersConventionFileBlob?.blob) && exportHistoriqueDossiersConventionFileError === false) {
       downloadFile(exportHistoriqueDossiersConventionFileBlob);
       dispatch(exportsActions.resetFile());
-    }
-  }, [exportHistoriqueDossiersConventionFileBlob]);
-
-  useEffect(() => {
-    if (exportHistoriqueDossiersConventionFileError !== false) {
+    } else {
       scrollTopWindow();
     }
-  }, [exportHistoriqueDossiersConventionFileError]);
+  }, [exportHistoriqueDossiersConventionFileBlob, exportHistoriqueDossiersConventionFileError]);
 
   const exportHistoriqueConvention = () => {
     dispatch(exportsActions.exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin));
   };
 
   return (
-    <div className="historiqueConventions">
+    <div>
       <Spinner loading={loading || loadingExport} />
       <div className="">
         <div className="fr-grid-row">
@@ -97,19 +94,19 @@ export default function TableauHistoriqueConvention() {
             <div className="fr-mt-4w">
               <ul className="tabs fr-tags-group">
                 <button onClick={() => setTypeConvention('toutes')} className="fr-tag" aria-pressed={typeConvention === 'toutes'}>
-                  Afficher toutes les demandes ({reconventionnements?.items?.totalParConvention.total})
+                  Afficher toutes les demandes ({reconventionnements?.items?.totalParConvention?.total})
                 </button>
                 <button onClick={() => setTypeConvention('conventionnement')} className="fr-tag" aria-pressed={typeConvention === 'conventionnement'}>
-                  Conventionnement initial ({reconventionnements?.items?.totalParConvention.conventionnement})
+                  Conventionnement initial ({reconventionnements?.items?.totalParConvention?.conventionnement})
                 </button>
                 <button onClick={() => setTypeConvention('reconventionnement')} className="fr-tag" aria-pressed={typeConvention === 'reconventionnement'}>
-                  Reconventionnement ({reconventionnements?.items?.totalParConvention.reconventionnement})
+                  Reconventionnement ({reconventionnements?.items?.totalParConvention?.reconventionnement})
                 </button>
                 <button onClick={() => setTypeConvention('avenantAjoutPoste')} className="fr-tag" aria-pressed={typeConvention === 'avenantAjoutPoste'}>
-                  Avenant · ajout de poste ({reconventionnements?.items?.totalParConvention.avenantAjoutPoste})
+                  Avenant · ajout de poste ({reconventionnements?.items?.totalParConvention?.avenantAjoutPoste})
                 </button>
                 <button onClick={() => setTypeConvention('avenantRenduPoste')} className="fr-tag" aria-pressed={typeConvention === 'avenantRenduPoste'}>
-                  Avenant · poste rendu ({reconventionnements?.items?.totalParConvention.avenantRenduPoste})
+                  Avenant · poste rendu ({reconventionnements?.items?.totalParConvention?.avenantRenduPoste})
                 </button>
               </ul>
               <div className="fr-container--fluid fr-mt-4w">
@@ -142,20 +139,20 @@ export default function TableauHistoriqueConvention() {
                       <tbody>
                         {!error && !loading && reconventionnements?.items?.data?.map((convention, idx) =>
                           <tr key={idx}>
-                            {convention.conventionnement.statut === 'RECONVENTIONNEMENT_VALIDÉ' &&
+                            {convention?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
                               <Reconventionnement reconventionnement={convention} />
                             }
-                            {convention.conventionnement.statut === 'CONVENTIONNEMENT_VALIDÉ' &&
+                            {convention?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_VALIDÉ &&
                               <Conventionnement conventionnement={convention} />
                             }
                           </tr>
                         )
                         }
-                        {(!reconventionnements?.items || reconventionnements?.items?.data.length === 0) &&
+                        {(!reconventionnements?.items || reconventionnements?.items?.data?.length === 0) &&
                           <tr>
                             <td colSpan="12" style={{ width: '60rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <span className="not-found pair">Aucune demande de convention trouv&eacute;</span>
+                                <span className="not-found pair">Aucune demande de convention trouv&eacute;e</span>
                               </div>
                             </td>
                           </tr>

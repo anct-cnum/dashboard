@@ -31,8 +31,7 @@ function popinRecrutee({ setDisplayModal, urlDossierConventionnement }) {
                   <strong>Merci de bien vouloir :</strong>
                   <br/>
                     Comp&eacute;lter les diff&eacute;rents champs indispensables &agrave; l&rsquo;&eacute;tude de votre&nbsp;
-                    demande de subvention en cliquant sur&nbsp;
-                  {urlDossierConventionnement ? 'le bouton ci-dessous:' : ' le lien correspondant:'}
+                    demande de subvention en cliquant sur le lien correspondant:
                   <br/><br/>
                     NB : Si vous avez valid&eacute; plusieurs candidatures, merci de ne r&eacute;aliser qu&rsquo;une seule demande.
                   <br /><br />

@@ -89,10 +89,9 @@ function getExportDonneesGestionnaires(filtreRole, filtreParNom, nomOrdre, ordre
 }
 
 function getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin) {
-  const exportHistoriqueDossiersConventionRoute = '/historique-dossiers-convention-csv';
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
-  return API.get(`${apiUrlRoot}/exports${exportHistoriqueDossiersConventionRoute}?role=${roleActivated()}&type=${typeConvention}${filterDateStart}${filterDateEnd}`)
+  return API.get(`${apiUrlRoot}/exports/historique-dossiers-convention-csv?role=${roleActivated()}&type=${typeConvention}${filterDateStart}${filterDateEnd}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

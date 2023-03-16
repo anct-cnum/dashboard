@@ -7,13 +7,13 @@
 @use './views/structureDetails';
 @use './views/conseillerDetails';
 @use './views/candidatDetails';
-@use './views/historiqueConventions';
 @use './components/tooltip';
 @use './components/FiltersAndSortsCandidatures';
 @use './components/pagination';
 @use './components/spinner';
 @use './components/modal';
 @use './components/inclusion-connect.scss';
+@use './components/reactDatePicker.scss';
 
 // @import
 @import '~@gouvfr/dsfr/dist/dsfr/dsfr.min.css';

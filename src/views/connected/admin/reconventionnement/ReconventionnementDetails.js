@@ -24,19 +24,21 @@ function ReconventionnementDetails({ reconventionnement }) {
         <div className="fr-card__body">
           <div className="fr-card__content">
             <h3 className="fr-card__title fr-h3">
-                Conventionnement phase 2
+              Conventionnement phase 2
             </h3>
-            <p className="fr-card__desc fr-text--lg fr-text--regular">
+            {dossierReconventionnement.dateDeCreation &&
+              <p className="fr-card__desc fr-text--lg fr-text--regular">
                 Demande initi&eacute;e le {dayjs(dossierReconventionnement.dateDeCreation).format('DD/MM/YYYY')}
-            </p>
+              </p>
+            }
             <p className="fr-card__desc fr-text--lg fr-text--bold" style={{ color: '#000091' }}>
               {pluralize(
                 'Nombre de poste total demandé : ',
                 'Nombre de poste total demandé : ',
                 'Nombre de postes total demandés : ',
-                dossierReconventionnement?.nbPostesAttribuees
+                dossierReconventionnement?.nbPostesAttribuees ?? 0
               )}
-              {dossierReconventionnement?.nbPostesAttribuees}
+              {dossierReconventionnement?.nbPostesAttribuees ?? 0}
             </p>
             <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">
               <div className="fr-col-12">
@@ -65,13 +67,13 @@ function ReconventionnementDetails({ reconventionnement }) {
                             </div>
                             <div className="fr-col-2">
                               <div>
-                                <span className="fr-text--md" style={{ fontWeight: '500' }}>Type de contrat</span><br/>
+                                <span className="fr-text--md" style={{ fontWeight: '500' }}>Type de contrat</span><br />
                                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>CDD</span>
                               </div>
                             </div>
                             <div className="fr-col-2">
                               <div>
-                                <span className="fr-text--md" style={{ fontWeight: '500' }}>D&eacute;but de contrat</span><br/>
+                                <span className="fr-text--md" style={{ fontWeight: '500' }}>D&eacute;but de contrat</span><br />
                                 {conseiller?.dateRecrutement ?
                                   <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
                                     {dayjs(conseiller?.dateRecrutement).format('DD/MM/YYYY')}
@@ -81,7 +83,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                             </div>
                             <div className="fr-col-2">
                               <div>
-                                <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br/>
+                                <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br />
                                 {conseiller?.dateRupture ?
                                   <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
                                     {dayjs(conseiller?.dateRupture).format('DD/MM/YYYY')}
@@ -109,7 +111,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                   )}
                 </> :
                 <div className="fr-col-12">
-                  <span className="fr-h5">La structure n&lsquo;a pas s&eacute;l&eacute;ctionner de conseillers &agrave; renouvell&eacute;s pour le moment</span>
+                  <span className="fr-h5">La structure n&lsquo;a pas s&eacute;l&eacute;ctionné de conseillers &agrave; renouvell&eacute;s pour le moment</span>
                 </div>
               }
             </div>
@@ -123,11 +125,11 @@ function ReconventionnementDetails({ reconventionnement }) {
           <div className="fr-card__footer">
             <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
               {reconventionnement?.conventionnement?.statut === 'RECONVENTIONNEMENT_EN_COURS' &&
-              <li>
-                <button className="fr-btn" disabled>
-                  Valider la demande
-                </button>
-              </li>
+                <li>
+                  <button className="fr-btn" disabled>
+                    Valider la demande
+                  </button>
+                </li>
               }
               <li className="fr-ml-auto">
                 <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
@@ -135,9 +137,9 @@ function ReconventionnementDetails({ reconventionnement }) {
                     <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier complet</p> :
                     <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier incomplet</p>
                   }
-                   
+
                   <a className="fr-btn fr-btn--secondary" href={reconventionnement?.url} target="_blank" rel="noopener noreferrer">
-                      Voir le dossier D&eacute;marche Simplifi&eacute;e
+                    Voir le dossier D&eacute;marche Simplifi&eacute;e
                   </a>
                 </div>
               </li>
@@ -149,9 +151,9 @@ function ReconventionnementDetails({ reconventionnement }) {
         <div className="fr-card__body">
           <div className="fr-card__content">
             <h3 className="fr-card__title fr-h3">
-                Conventionnement phase 1
+              Conventionnement phase 1
             </h3>
-            <p className="fr-card__desc fr-text--md"><strong>Date de d&eacute;but:</strong>&nbsp;
+            <p className="fr-card__desc fr-text--md"><strong>Date de d&eacute;but:&nbsp;</strong>
               {dossierConventionnement?.dateDeValidation ? dayjs(dossierConventionnement?.dateDeValidation).format('DD/MM/YYYY') : 'Non renseignée'}
             </p>
             <p className="fr-card__desc fr-text--xl" style={{ color: '#000091' }}><strong>{reconventionnement?.nombreConseillersCoselec} {pluralize(
@@ -204,7 +206,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                         </div>
                       </div>
                       <div className="fr-col-2 fr-grid-row">
-                        {conseiller.statutMiseEnrelation === 'finalisee' ?
+                        {conseiller?.statutMiseEnrelation === 'finalisee' ?
                           <p className="fr-badge fr-badge--new fr-p-0-5w">Renouvellement</p> :
                           <p className="fr-badge fr-badge--info fr-p-0-5w">Non renouvel&eacute;</p>
                         }

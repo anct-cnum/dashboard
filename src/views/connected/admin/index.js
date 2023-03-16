@@ -9,9 +9,9 @@ import Page404 from '../Page404';
 import TableauCandidatures from './candidatures/TableauCandidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
 import TableauConvention from './TableauConvention';
-import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 import ConventionDetails from './ConventionDetails';
 import TableauHistoriqueConvention from './TableauHistoriqueConvention';
+import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 
 export default function Admin() {
 

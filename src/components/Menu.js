@@ -68,7 +68,7 @@ function Menu() {
                 aria-expanded={ activeMenu === 'listes-traitement-demandes' }
                 aria-controls="menu-listes-traitement-demandes"
                 // eslint-disable-next-line max-len
-                {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
+                {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
                   Traiter les demandes
               </button>
@@ -82,7 +82,7 @@ function Menu() {
                       {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
                       onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
                     >
-                      Demandes de conventions à traiter
+                      Demandes de conventions &agrave; traiter
                     </Link>
                   </li>
                   <li>
@@ -90,7 +90,7 @@ function Menu() {
                       {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
                       onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
                     >
-                      Historique des demandes de conventions traitées
+                      Historique des demandes de conventions trait&eacute;es
                     </Link>
                   </li>
                 </ul>
