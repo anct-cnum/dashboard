@@ -21,9 +21,9 @@ function ConventionnementDetails({ conventionnement }) {
               'Nombre de poste total demandé : ',
               'Nombre de poste total demandé : ',
               'Nombre de postes total demandés : ',
-              conventionnement?.nombreConseillersSouhaites
+              conventionnement?.nombreConseillersCoselec
             )}
-            {conventionnement?.nombreConseillersSouhaites}
+            {conventionnement?.nombreConseillersCoselec}
           </p>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
             {conventionnement?.conventionnement?.statut === 'CONVENTIONNEMENT_VALIDÉ' ?

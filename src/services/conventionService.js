@@ -2,7 +2,7 @@ import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
 
-export const reconventionnementService = {
+export const conventionService = {
   getAll,
   getAllHistorique,
   get

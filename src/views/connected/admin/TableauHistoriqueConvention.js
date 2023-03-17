@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, exportsActions, paginationActions, reconventionnementActions } from '../../../actions';
+import { alerteEtSpinnerActions, exportsActions, paginationActions, conventionActions } from '../../../actions';
 import Spinner from '../../../components/Spinner';
 import Pagination from '../../../components/Pagination';
 import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
@@ -16,12 +16,12 @@ export default function TableauHistoriqueConvention() {
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
 
-  const loading = useSelector(state => state.reconventionnement?.loading);
+  const loading = useSelector(state => state.convention?.loading);
   const loadingExport = useSelector(state => state.exports?.loading);
   const exportHistoriqueDossiersConventionFileBlob = useSelector(state => state.exports);
   const exportHistoriqueDossiersConventionFileError = useSelector(state => state.exports?.error);
-  const error = useSelector(state => state.reconventionnement?.error);
-  const reconventionnements = useSelector(state => state.reconventionnement);
+  const error = useSelector(state => state.convention?.error);
+  const conventions = useSelector(state => state.convention);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
   const [typeConvention, setTypeConvention] = useState('toutes');
@@ -31,18 +31,18 @@ export default function TableauHistoriqueConvention() {
   const has = value => value !== null && value !== undefined;
 
   useEffect(() => {
-    if (reconventionnements?.items && reconventionnements?.items.limit !== 0) {
-      const count = Math.floor(reconventionnements.items.total / reconventionnements.items.limit);
-      dispatch(paginationActions.setPageCount(reconventionnements.items.total % reconventionnements.items.limit === 0 ? count : count + 1));
+    if (conventions?.items && conventions?.items.limit !== 0) {
+      const count = Math.floor(conventions.items.total / conventions.items.limit);
+      dispatch(paginationActions.setPageCount(conventions.items.total % conventions.items.limit === 0 ? count : count + 1));
     }
-  }, [reconventionnements]);
+  }, [conventions]);
 
   useEffect(() => {
     if (initConseiller === true) {
       if (typeConvention === 'avenantAjoutPoste' || typeConvention === 'avenantRenduPoste') {
-        dispatch(reconventionnementActions.reset());
+        dispatch(conventionActions.reset());
       } else {
-        dispatch(reconventionnementActions.getAllHistorique(currentPage, typeConvention, dateDebut, dateFin));
+        dispatch(conventionActions.getAllHistorique(currentPage, typeConvention, dateDebut, dateFin));
       }
     }
   }, [currentPage, typeConvention, dateDebut, dateFin]);
@@ -55,13 +55,13 @@ export default function TableauHistoriqueConvention() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(reconventionnementActions.getAllHistorique(page, typeConvention, dateDebut, dateFin));
+        dispatch(conventionActions.getAllHistorique(page, typeConvention, dateDebut, dateFin));
         setInitConseiller(true);
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les dossiers de reconventionnement n\'ont pas pu être chargés !',
+        message: 'Les dossiers n\'ont pas pu être chargés !',
         status: null, description: null
       }));
     }
@@ -94,19 +94,19 @@ export default function TableauHistoriqueConvention() {
             <div className="fr-mt-4w">
               <ul className="tabs fr-tags-group">
                 <button onClick={() => setTypeConvention('toutes')} className="fr-tag" aria-pressed={typeConvention === 'toutes'}>
-                  Afficher toutes les demandes ({reconventionnements?.items?.totalParConvention?.total})
+                  Afficher toutes les demandes ({conventions?.items?.totalParConvention?.total})
                 </button>
                 <button onClick={() => setTypeConvention('conventionnement')} className="fr-tag" aria-pressed={typeConvention === 'conventionnement'}>
-                  Conventionnement initial ({reconventionnements?.items?.totalParConvention?.conventionnement})
+                  Conventionnement initial ({conventions?.items?.totalParConvention?.conventionnement})
                 </button>
                 <button onClick={() => setTypeConvention('reconventionnement')} className="fr-tag" aria-pressed={typeConvention === 'reconventionnement'}>
-                  Reconventionnement ({reconventionnements?.items?.totalParConvention?.reconventionnement})
+                  Reconventionnement ({conventions?.items?.totalParConvention?.reconventionnement})
                 </button>
                 <button onClick={() => setTypeConvention('avenantAjoutPoste')} className="fr-tag" aria-pressed={typeConvention === 'avenantAjoutPoste'}>
-                  Avenant · ajout de poste ({reconventionnements?.items?.totalParConvention?.avenantAjoutPoste})
+                  Avenant · ajout de poste ({conventions?.items?.totalParConvention?.avenantAjoutPoste})
                 </button>
                 <button onClick={() => setTypeConvention('avenantRenduPoste')} className="fr-tag" aria-pressed={typeConvention === 'avenantRenduPoste'}>
-                  Avenant · poste rendu ({reconventionnements?.items?.totalParConvention?.avenantRenduPoste})
+                  Avenant · poste rendu ({conventions?.items?.totalParConvention?.avenantRenduPoste})
                 </button>
               </ul>
               <div className="fr-container--fluid fr-mt-4w">
@@ -137,7 +137,7 @@ export default function TableauHistoriqueConvention() {
                         </tr>
                       </thead>
                       <tbody>
-                        {!error && !loading && reconventionnements?.items?.data?.map((convention, idx) =>
+                        {!error && !loading && conventions?.items?.data?.map((convention, idx) =>
                           <tr key={idx}>
                             {convention?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
                               <Reconventionnement reconventionnement={convention} />
@@ -148,7 +148,7 @@ export default function TableauHistoriqueConvention() {
                           </tr>
                         )
                         }
-                        {(!reconventionnements?.items || reconventionnements?.items?.data?.length === 0) &&
+                        {(!conventions?.items || conventions?.items?.data?.length === 0) &&
                           <tr>
                             <td colSpan="12" style={{ width: '60rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -161,7 +161,7 @@ export default function TableauHistoriqueConvention() {
                     </table>
                   </div>
                 </div>
-                {reconventionnements?.items?.data.length > 0 &&
+                {conventions?.items?.data.length > 0 &&
                   <Pagination />
                 }
               </div>

@@ -2,62 +2,62 @@ const initialState = {
   error: false,
 };
 
-export default function reconventionnement(state = initialState, action) {
+export default function convention(state = initialState, action) {
   switch (action.type) {
-    case 'GETALL_RECONVENTIONNEMENT_REQUEST':
+    case 'GETALL_CONVENTION_REQUEST':
       return {
         ...state,
         error: false,
         loading: true
       };
-    case 'GETALL_RECONVENTIONNEMENT_SUCCESS':
+    case 'GETALL_CONVENTION_SUCCESS':
       return {
         ...state,
         loading: false,
-        items: action.reconventionnements,
+        items: action.conventions,
       };
-    case 'GETALL_RECONVENTIONNEMENT_FAILURE':
+    case 'GETALL_CONVENTION_FAILURE':
       return {
         ...state,
         loading: false,
         error: action.error
       };
-    case 'GETALL_HISTORIQUE_RECONVENTIONNEMENT_REQUEST':
+    case 'GETALL_HISTORIQUE_CONVENTION_REQUEST':
       return {
         ...state,
         error: false,
         loading: true
       };
-    case 'GETALL_HISTORIQUE_RECONVENTIONNEMENT_SUCCESS':
+    case 'GETALL_HISTORIQUE_CONVENTION_SUCCESS':
       return {
         ...state,
         loading: false,
-        items: action.reconventionnements,
+        items: action.conventions,
       };
-    case 'GETALL_HISTORIQUE_RECONVENTIONNEMENT_FAILURE':
+    case 'GETALL_HISTORIQUE_CONVENTION_FAILURE':
       return {
         ...state,
         loading: false,
         error: action.error
       };
-    case 'GET_RECONVENTIONNEMENT_REQUEST':
+    case 'GET_CONVENTION_REQUEST':
       return {
         ...state,
         error: false,
         loading: true
       };
-    case 'GET_RECONVENTIONNEMENT_SUCCESS':
+    case 'GET_CONVENTION_SUCCESS':
       return {
         ...state,
-        reconventionnement: action.reconventionnement,
+        convention: action.convention,
         loading: false
       };
-    case 'GET_RECONVENTIONNEMENT_FAILURE':
+    case 'GET_CONVENTION_FAILURE':
       return {
         error: action.error,
         loading: false
       };
-    case 'RESET_RECONVENTIONNEMENT':
+    case 'RESET_CONVENTION':
       return {
         ...state,
         items: { ...state.items, data: [], total: 0 },
