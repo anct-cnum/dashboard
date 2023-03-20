@@ -231,8 +231,16 @@ function ReconventionnementDetails({ reconventionnement }) {
             </div>
             <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
               <p className="fr-badge fr-badge--new">
-                {calcNbJoursAvantDateFinContrat(dossierReconventionnement?.dateFinProchainContrat)}
-                &nbsp;jours restants avant la fin du premier contrat
+                {
+                  calcNbJoursAvantDateFinContrat(dossierReconventionnement?.dateFinProchainContrat) > 0 ?
+                    calcNbJoursAvantDateFinContrat(dossierReconventionnement?.dateFinProchainContrat) : ''
+                }
+                {pluralize(
+                  'La date de fin du premier contrat est dépassée',
+                  ' jour restant avant la fin du premier contrat',
+                  ' jours restants avant la fin du premier contrat',
+                  calcNbJoursAvantDateFinContrat(dossierReconventionnement?.dateFinProchainContrat)
+                )}
               </p>
             </div>
           </div>

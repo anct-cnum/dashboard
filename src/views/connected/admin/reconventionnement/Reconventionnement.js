@@ -16,7 +16,7 @@ function Reconventionnement({ reconventionnement }) {
       <td>
         {dossierReconventionnement?.dateFinProchainContrat ? dayjs(dossierReconventionnement?.dateFinProchainContrat).format('DD/MM/YYYY') : 'Non renseignée'}
       </td>
-      <td>{dossierReconventionnement?.nbPostesAttribuees}</td>
+      <td>{dossierReconventionnement?.nbPostesAttribuees ?? '-'}</td>
       <td>Reconventionnement</td>
       <td>
         <button

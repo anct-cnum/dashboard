@@ -13,7 +13,7 @@ function Conventionnement({ conventionnement }) {
       <td>{conventionnement?.nom}</td>
       <td>{dossierConventionnement?.dateDeCreation ? dayjs(dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY') : 'Non renseignée'}</td>
       <td>{conventionnement?.dateFinProchainContrat ? dayjs(conventionnement?.dateFinProchainContrat).format('DD/MM/YYYY') : 'Non renseignée'}</td>
-      <td>{conventionnement?.nombreConseillersCoselec}</td>
+      <td>{conventionnement?.nombreConseillersCoselec ?? '-'}</td>
       <td>Conventionnement</td>
       <td>
         <button
