@@ -296,7 +296,7 @@ function StructureDetails() {
                     style={{ paddingLeft: '0' }}
                     title="D&eacute;tail"
                     className="fr-text--md"
-                    onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}>
+                    onClick={() => window.open(`/${roleActivated}/candidat/${conseiller?._id}`)}>
                     {conseiller?.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
                   </button>
                 </span>
