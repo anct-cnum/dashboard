@@ -273,7 +273,7 @@ function StructureDetails() {
             </div>
             <div className="fr-mb-3w fr-grid-row">
               <strong>Profils recrut&eacute;s</strong>
-              {structure?.conseillers?.map((conseiller, idx) =>
+              {structure?.conseillersRecruter?.map((conseiller, idx) =>
                 <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
                   <button
                     style={{ paddingLeft: '0' }}
@@ -284,7 +284,24 @@ function StructureDetails() {
                   </button>
                 </span>
               )}
-              {structure?.conseillers?.length === 0 &&
+              {structure?.conseillersRecruter?.length === 0 &&
+                <span className="fr-col-12">-</span>
+              }
+            </div>
+            <div className="fr-mb-3w fr-grid-row">
+              <strong>Profils valid&eacute;s</strong>
+              {structure?.conseillersValider?.map((conseiller, idx) =>
+                <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
+                  <button
+                    style={{ paddingLeft: '0' }}
+                    title="D&eacute;tail"
+                    className="fr-text--md"
+                    onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}>
+                    {conseiller?.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
+                  </button>
+                </span>
+              )}
+              {structure?.conseillersValider?.length === 0 &&
                 <span className="fr-col-12">-</span>
               }
             </div>
