@@ -4,7 +4,7 @@ import MesInformations from './MesInformations';
 import Exports from './Exports';
 import TableauGestionnaires from './gestionnaires/TableauGestionnaires';
 import ConseillerDetails from './ConseillerDetails';
-import StructureDetails from './structures/StructureDetails';
+import StructureDetails from '../structure/StructureDetails';
 import Page404 from '../Page404';
 import TableauCandidatures from './candidatures/TableauCandidatures';
 import CandidatDetails from './candidatures/CandidatDetails';

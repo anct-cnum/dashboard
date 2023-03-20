@@ -269,7 +269,8 @@ function ConseillerDetails() {
                       style={{ paddingLeft: '0', margin: '0' }}
                       title="D&eacute;tail d&rsquo;une structure"
                       className="fr-text--md"
-                      onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}>
+                      onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}
+                    >
                       {structure?.nom}
                     </button>
                   </> :
