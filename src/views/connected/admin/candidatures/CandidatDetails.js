@@ -97,14 +97,14 @@ function CandidatDetails() {
       <div className="fr-col-12 fr-mb-4w">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
           <h5 className="fr-h5">ID - {conseiller?.idPG ?? ''}</h5>
-          <button className="fr-btn delete-candidature fr-ml-auto" onClick={() => {
+          <button className="fr-btn fr-ml-auto fr-icon-mail-line fr-btn--icon-left" onClick={resendInvitCandidat}>
+            Renvoyer l&rsquo;email d&rsquo;invitation
+          </button>
+          <button className="fr-btn fr-ml-2w fr-icon-delete-line fr-btn--icon-left fr-btn--secondary" onClick={() => {
             setConfirmSuppressionCandidat(true);
             scrollTopWindow();
           }}>
             Supprimer la candidature
-          </button>
-          <button className="fr-btn fr-ml-2w" onClick={resendInvitCandidat}>
-            Renvoyer l&rsquo;email d&rsquo;invitation
           </button>
         </div>
         {confirmSuppressionCandidat &&
@@ -158,11 +158,11 @@ function CandidatDetails() {
             </div>
             <div className="fr-mb-3w">
               <strong>Code postal</strong><br/>
-              <span>{conseiller?.codeCommune ?? '-'}</span>
+              {conseiller?.codeCommune ? <span>{conseiller?.codeCommune}</span> : <span>-</span>}
             </div>
             <div className="fr-mb-3w">
               <strong>Lieu de r&eacute;sidence</strong><br/>
-              <span>{conseiller?.nomCommune ?? '-'}</span>
+              {conseiller?.nomCommune ? <span>{conseiller?.nomCommune}</span> : <span>-</span>}
             </div>
           </div>
           <div className="fr-col-6">
