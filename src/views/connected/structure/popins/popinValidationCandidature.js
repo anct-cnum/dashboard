@@ -34,7 +34,7 @@ function popinValidationCandidature({ setOpenModal, updateStatut, updateDateRecr
                     <strong className="important">Date de recrutement (obligatoire) :</strong>
                   </label>
                 </div>
-                <div className="fr-col-6 fr-col-xl-12 btn-fr-col-xl-3">
+                <div className="fr-col-xl-12 btn-fr-col-xl-3">
                   <DatePicker
                     id="datePicker"
                     name="datePicker"
