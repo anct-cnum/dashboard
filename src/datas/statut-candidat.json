@@ -1,0 +1,41 @@
+[
+    {
+      "name": "Nouvelles candidatures",
+      "name_singular": "Nouvelle candidature",
+      "filter": "nouvelle"
+    },
+    {
+      "name": "Candidatures pré sélectionnées",
+      "name_singular": "Candidature pré sélectionnée",
+      "filter": "interessee"
+    },
+    {
+      "name": "Candidatures non retenues",
+      "name_singular": "Candidature non retenue",
+      "filter": "nonInteressee"
+    },
+    {
+      "name": "Candidatures validées",
+      "name_singular": "Candidature validée",
+      "filter": "recrutee"
+    },
+    {
+      "name": "Candidats recrutés",
+      "name_singular": "Candidat recruté",
+      "filter": "finalisee"
+    },
+    {
+      "name": "Ruptures notifiées",
+      "name_singular": "Rupture notifiée",
+      "filter": "nouvelle_rupture"
+    },
+    {
+      "name": "Candidats en rupture",
+      "name_singular": "Candidat en rupture",
+      "filter": "finalisee_rupture"
+    },
+    {
+      "name": "Afficher toutes les candidatures",
+      "filter": "toutes"
+    }
+  ]

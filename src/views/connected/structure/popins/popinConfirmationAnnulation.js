@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function popinConfirmationAnnulation({ setOpenModal, updateStatut, updateDateRecrutement, setDateValidee }) {
+function popinConfirmationAnnulation({ setOpenModal, updateStatut, updateDateRecrutement }) {
 
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
@@ -34,7 +34,6 @@ function popinConfirmationAnnulation({ setOpenModal, updateStatut, updateDateRec
                     <button onClick={() => {
                       updateStatut('interessee');
                       updateDateRecrutement(null);
-                      setDateValidee(null);
                       setOpenModal(false);
                     }} className="fr-btn">
                       Je valide l&rsquo;annulation du recrutement
