@@ -271,7 +271,7 @@ function CandidatDetails() {
                       className="fr-link fr-link--icon-right fr-icon-download-fill"
                       target="blank"
                       rel="noopener noreferrer"
-                      title="Télécharger le document d&rsquo;analyse des résultats Pix">
+                      title="T&eacute;l&eacute;charger le document d&rsquo;analyse des r&eacute;sultats Pix">
                     T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
                     </a>
                     <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
