@@ -270,6 +270,7 @@ function CandidatDetails() {
                     <a href="https://cdn.conseiller-numerique.gouv.fr/Conseillernum_Lire%20les%20r%C3%A9sultats%20du%20diagnostic%20des%20candidats_V2-2.pdf"
                       className="fr-link fr-link--icon-right fr-icon-download-fill"
                       target="blank"
+                      rel="noopener noreferrer"
                       title="Télécharger le document d&rsquo;analyse des résultats Pix">
                     T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
                     </a>

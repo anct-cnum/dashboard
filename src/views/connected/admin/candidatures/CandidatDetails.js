@@ -224,8 +224,8 @@ function CandidatDetails() {
                   <p>
                     {conseiller?.pix?.competence1 &&
                     <img src={pixUtilisation}
-                      alt="Utilisation du numérique"
-                      title="Utilisation du numérique dans la vie professionnelle"
+                      alt="Utilisation du num&eacute;rique"
+                      title="Utilisation du num&eacute;rique dans la vie professionnelle"
                       className="fr-mr-2w"
                     />
                     }
@@ -238,8 +238,8 @@ function CandidatDetails() {
                     }
                     {conseiller?.pix?.competence3 &&
                   <img src={pixCitoyen}
-                    alt="Compétences numériques en lien avec la e-citoyenneté"
-                    title="Compétences numériques en lien avec la e-citoyenneté"
+                    alt="Comp&eacute;tences num&eacute;riques en lien avec la e-citoyennet&eacute;"
+                    title="Comp&eacute;tences num&eacute;riques en lien avec la e-citoyennet&eacute;"
                     className="fr-mr-2w"
                   />
                     }
@@ -248,6 +248,7 @@ function CandidatDetails() {
                     <a href="https://cdn.conseiller-numerique.gouv.fr/Conseillernum_Lire%20les%20r%C3%A9sultats%20du%20diagnostic%20des%20candidats_V2-2.pdf"
                       className="fr-link fr-link--icon-right fr-icon-download-fill"
                       target="blank"
+                      rel="noopener noreferrer"
                       title="Télécharger le document d&rsquo;analyse des résultats Pix">
                     T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
                     </a>
