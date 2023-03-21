@@ -103,7 +103,7 @@ function CandidatDetails() {
             'conseillers validés',
             conseiller.coselec.nombreConseillersCoselec
           )}
-        &nbsp;par l&rsquo;Agence nationale de la coh&eacute;sion des territoires
+          &nbsp;par l&rsquo;Agence nationale de la coh&eacute;sion des territoires
         </span>
       </div>
         }
@@ -112,19 +112,13 @@ function CandidatDetails() {
       {displayModal &&
         <>
           {conseiller?.miseEnRelation?.statut === 'interessee' &&
-          <>
             <PopinInteressee setDisplayModal={setDisplayModal} />
-          </>
           }
           {conseiller?.miseEnRelation?.statut === 'recrutee' &&
-          <>
             <PopinRecrutee setDisplayModal={setDisplayModal} />
-          </>
           }
           {conseiller?.miseEnRelation?.statut === 'nouvelle_rupture' &&
-          <>
             <PopinNouvelleRupture setDisplayModal={setDisplayModal} />
-          </>
           }
         </>
       }
@@ -275,7 +269,7 @@ function CandidatDetails() {
                     T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
                     </a>
                     <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-                    Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats
+                      Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats
                     </span>
                   </p>
                 </div> : <span>Comp&eacute;tences PIX non partag&eacute;es</span>

@@ -253,7 +253,7 @@ function CandidatDetails() {
                     T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
                     </a>
                     <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-                    Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats
+                      Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats
                     </span>
                   </p>
                 </div> : <span>Comp&eacute;tences PIX non partag&eacute;es</span>
