@@ -193,10 +193,16 @@ function CandidatDetails() {
             </div>
           </div>
           <div className="fr-col-6">
-            <h4 className="titre">Information de candidature</h4>
+            <h4 className="titre">Informations de candidatures</h4>
             <div className="fr-mb-3w">
               <strong>Mobilit&eacute; g&eacute;ographique</strong><br/>
               {conseiller?.distanceMax ? <span>{conseiller?.distanceMax}&nbsp;km</span> : <span>-</span>}
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Date de d&eacute;marrage possible</strong><br/>
+              {conseiller?.dateDisponibilite ?
+                <span>{dayjs(conseiller?.dateDisponibilite).format('DD/MM/YYYY')}</span> : <span>-</span>
+              }
             </div>
             <div className="fr-mb-3w">
               <strong>Date de recrutement pr&eacute;visionnelle</strong><br/>
