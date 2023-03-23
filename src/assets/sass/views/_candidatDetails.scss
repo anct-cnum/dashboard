@@ -14,6 +14,11 @@
         transform: translate3d(90%, 120px, 0px) !important;
     }
     @media (min-width: 1000px) {
+        .btn-actions-interessee {
+            margin-left: auto;
+        }
+    }
+    @media (min-width: 700px) {
         .btn-actions {
             margin-left: auto;
         }
