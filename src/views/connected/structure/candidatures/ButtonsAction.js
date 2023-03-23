@@ -45,7 +45,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
         <button onClick={() => {
           setOpenModalValidationCandidature(true);
         }}
-        className="fr-btn fr-icon-success-line fr-btn--icon-left fr-ml-auto"
+        className="fr-btn fr-icon-success-line fr-btn--icon-left"
         title="Valider cette candidature">
         Valider cette candidature
         </button>
