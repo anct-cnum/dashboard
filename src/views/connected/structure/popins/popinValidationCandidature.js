@@ -43,6 +43,7 @@ function popinValidationCandidature({ setOpenModal, updateStatut, updateDateRecr
                     placeholderText="../../...."
                     locale="fr"
                     popperPlacement="right"
+                    onChangeRaw={e => e.preventDefault()}
                     minDate={new Date()}
                     selected={dateValidee}
                     onChange={date => setDateValidee(date)}

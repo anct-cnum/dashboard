@@ -25,10 +25,10 @@ function CandidatDetails() {
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const errorUpdateStatus = useSelector(state => state.conseiller?.errorUpdateStatus);
+  const errorUpdateDate = useSelector(state => state.conseiller?.errorUpdateDate);
   const downloadError = useSelector(state => state.conseiller?.downloadError);
   const downloading = useSelector(state => state.conseiller?.downloading);
   let dateRecrutementUpdated = useSelector(state => state.conseiller?.dateRecrutementUpdated);
-  let dateRecrutement = useSelector(state => state.conseiller?.miseEnRelation?.dateRecrutement) ?? null;
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const loading = useSelector(state => state?.conseiller?.loading);
   const [displayModal, setDisplayModal] = useState(true);
@@ -87,9 +87,14 @@ function CandidatDetails() {
         <p>{errorUpdateStatus}</p>
       </div>
       }
-      { dateRecrutementUpdated === true && dateRecrutement !== null && (errorUpdateStatus === undefined || errorUpdateStatus === false) &&
+      { (errorUpdateDate !== undefined && errorUpdateDate !== false) &&
+      <div className="fr-alert fr-alert--info fr-mt-3w">
+        <p>{errorUpdateDate}</p>
+      </div>
+      }
+      {dateRecrutementUpdated === true && conseiller?.miseEnRelation?.dateRecrutement !== null &&
         <p className="fr-alert fr-alert--success fr-mt-3w">
-          La date d&rsquo;embauche au {dayjs(dateRecrutement).format('DD/MM/YYYY')} a bien &eacute;t&eacute; enregistr&eacute;e
+          La date d&rsquo;embauche au {dayjs(conseiller?.miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')} a bien &eacute;t&eacute; enregistr&eacute;e
         </p>
       }
       <div className="fr-col-12 fr-pt-6w">
