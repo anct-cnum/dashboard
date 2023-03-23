@@ -20,14 +20,14 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
   };
 
   return (
-    <div className="fr-ml-auto">
+    <div className="btn-actions fr-mt-3w fr-mt-md-0w">
       {statut === 'nouvelle' &&
       <>
         <button onClick={() => updateStatut('interessee')} className="fr-btn fr-icon-success-line fr-btn--icon-left" title="Pré sélectionner">
           Pr&eacute; s&eacute;lectionner
         </button>
         <button onClick={() => updateStatut('nonInteressee')}
-          className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary fr-ml-2w"
+          className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary fr-ml-md-2w fr-mt-2w fr-mt-md-0"
           title="Ce profil ne correspond pas">
             Ce profil ne correspond pas
         </button>
@@ -40,18 +40,17 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
             updateStatut={updateStatut}
             updateDateRecrutement={updateDateRecrutement}
             setOpenModal={setOpenModalValidationCandidature}
-          >
-          </PopinValidationCandidature>
+          />
         }
         <button onClick={() => {
           setOpenModalValidationCandidature(true);
         }}
-        className="fr-btn fr-icon-success-line fr-btn--icon-left"
+        className="fr-btn fr-icon-success-line fr-btn--icon-left fr-ml-auto"
         title="Valider cette candidature">
         Valider cette candidature
         </button>
         <button onClick={() => updateStatut('nouvelle')}
-          className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary fr-ml-2w"
+          className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary fr-ml-md-2w fr-mt-2w fr-mt-md-0"
           title="Annuler la pré-sélection">
         Annuler la pr&eacute;-s&eacute;lection
         </button>
@@ -70,8 +69,8 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
           <PopinConfirmationAnnulation
             updateStatut={updateStatut}
             updateDateRecrutement={updateDateRecrutement}
-            setOpenModal={setOpenModal}>
-          </PopinConfirmationAnnulation>
+            setOpenModal={setOpenModal}
+          />
           }
           <button id="btn-annuler" onClick={() => {
             setOpenModal(true);

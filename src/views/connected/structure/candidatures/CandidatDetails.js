@@ -150,7 +150,7 @@ function CandidatDetails() {
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-6">
+          <div className="fr-col-12 fr-col-md-6">
             <h4 className="titre">Informations personnelles</h4>
             <div className="fr-mb-3w">
               <strong>Sexe</strong><br/>
@@ -192,7 +192,7 @@ function CandidatDetails() {
               <span>{conseiller?.nomCommune ?? '-'}</span>
             </div>
           </div>
-          <div className="fr-col-6">
+          <div className="fr-col-12 fr-col-md-6">
             <h4 className="titre">Informations de candidatures</h4>
             <div className="fr-mb-3w">
               <strong>Mobilit&eacute; g&eacute;ographique</strong><br/>

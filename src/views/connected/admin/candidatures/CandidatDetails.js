@@ -96,11 +96,11 @@ function CandidatDetails() {
       </div>
       <div className="fr-col-12 fr-mb-4w">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5">ID - {conseiller?.idPG ?? ''}</h5>
-          <button className="fr-btn fr-ml-auto fr-icon-mail-line fr-btn--icon-left" onClick={resendInvitCandidat}>
+          <h5 className="fr-h5 text-id">ID - {conseiller?.idPG ?? ''}</h5>
+          <button className="fr-btn btn-actions fr-icon-mail-line fr-btn--icon-left" onClick={resendInvitCandidat}>
             Renvoyer l&rsquo;email d&rsquo;invitation
           </button>
-          <button className="fr-btn fr-ml-2w fr-icon-delete-line fr-btn--icon-left fr-btn--secondary" onClick={() => {
+          <button className="fr-btn fr-mt-2w fr-mt-md-0 fr-ml-md-2w fr-icon-delete-line fr-btn--icon-left fr-btn--secondary" onClick={() => {
             setConfirmSuppressionCandidat(true);
             scrollTopWindow();
           }}>
@@ -123,7 +123,7 @@ function CandidatDetails() {
           </div>
         </div>
         <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-6">
+          <div className="fr-col-12 fr-col-md-6">
             <h4 className="titre">Informations personnelles</h4>
             <div className="fr-mb-3w">
               <strong>Sexe</strong><br/>
@@ -165,7 +165,7 @@ function CandidatDetails() {
               {conseiller?.nomCommune ? <span>{conseiller?.nomCommune}</span> : <span>-</span>}
             </div>
           </div>
-          <div className="fr-col-6">
+          <div className="fr-col-12 fr-col-md-6">
             <h4 className="titre">Informations de candidatures</h4>
             <div className="fr-mb-3w">
               <strong>Mobilit&eacute; g&eacute;ographique</strong><br/>
