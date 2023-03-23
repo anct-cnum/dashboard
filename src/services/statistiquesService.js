@@ -2,7 +2,7 @@
 import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { territoireQueryString } from '../utils/queryUtils';
+import { statsGrandReseauQueryStringParameters, statsQueryStringParameters, territoireQueryString } from '../utils/queryUtils';
 
 export const statistiquesService = {
   getTerritoire,
@@ -46,27 +46,41 @@ function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, conseille
 }
 
 function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, ville) {
+  const { filterDateStart, filterDateEnd, filterByCodePostal, filterByVille } = statsQueryStringParameters(dateDebut, dateFin, codePostal, ville);
   return API.get(
-    `${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idStructure=${idStructure}&codePostal=${codePostal}&ville=${ville}`)
+    `${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByVille}&idStructure=${idStructure}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, ville) {
+  const { filterDateStart, filterDateEnd, filterByVille, filterByCodePostal } = statsQueryStringParameters(dateDebut, dateFin, codePostal, ville);
   return API.get(
-    `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&idConseiller=${idConseiller}&codePostal=${codePostal}&ville=${ville}`)
+    `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByVille}&idConseiller=${idConseiller}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getStatistiquesNationale(dateDebut, dateFin) {
-  return API.get(`stats/nationales/cras?role=anonyme&dateDebut=${dateDebut}&dateFin=${dateFin}`)
+  const { filterDateStart, filterDateEnd } = statsQueryStringParameters(dateDebut, dateFin);
+
+  return API.get(`stats/nationales/cras?role=anonyme${filterDateStart}${filterDateEnd}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, codeRegion, numeroDepartement, structureIds, conseillerIds) {
-  return API.get(`stats/nationales/cras/grand-reseau?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&codePostal=${codePostal}&ville=${ville}&codeRegion=${codeRegion}&numeroDepartement=${numeroDepartement}&structureIds=${JSON.stringify(structureIds)}&conseillerIds=${JSON.stringify(conseillerIds)}`)
+function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, region, departement, structureIds, conseillerIds) {
+  const {
+    filterDateStart,
+    filterDateEnd,
+    filterByVille,
+    filterByRegion,
+    filterByCodePostal,
+    filterByDepartement,
+    filterByConseillerIds,
+    filterByStructureIds
+  } = statsGrandReseauQueryStringParameters(dateDebut, dateFin, conseillerIds, codePostal, ville, region, departement, structureIds);
+  return API.get(`stats/nationales/cras/grand-reseau?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByVille}${filterByRegion}${filterByDepartement}${filterByStructureIds}${filterByConseillerIds}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
