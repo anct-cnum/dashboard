@@ -278,7 +278,7 @@ function StructureDetails() {
                     title="D&eacute;tail"
                     className="fr-text--md"
                     onClick={() => window.open(`/${roleActivated}/candidat/${conseiller?._id}`)}>
-                    {conseiller?.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
+                    {conseiller?.idPG}&nbsp;-&nbsp;{conseiller ? formatNomConseiller(conseiller) : ''}
                   </button>
                 </span>
               )}

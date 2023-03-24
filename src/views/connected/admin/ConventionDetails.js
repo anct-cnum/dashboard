@@ -93,10 +93,10 @@ function ConventionDetails() {
             <hr style={{ borderWidth: '0.5px' }} />
           </div>
         </div>
-        {convention?.conventionnement?.statut.match(/\bRECONVENTIONNEMENT\B/) &&
+        {convention?.conventionnement?.statut?.match(/\bRECONVENTIONNEMENT\B/) &&
           <ReconventionnementDetails reconventionnement={convention} />
         }
-        {convention?.conventionnement?.statut.match(/\bCONVENTIONNEMENT\B/) &&
+        {convention?.conventionnement?.statut?.match(/\bCONVENTIONNEMENT\B/) &&
           <ConventionnementDetails conventionnement={convention} />
         }
       </div>

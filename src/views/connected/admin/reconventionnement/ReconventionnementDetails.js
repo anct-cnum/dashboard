@@ -4,6 +4,7 @@ import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtil
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 function ReconventionnementDetails({ reconventionnement }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -26,9 +27,9 @@ function ReconventionnementDetails({ reconventionnement }) {
             <h3 className="fr-card__title fr-h3">
               Conventionnement phase 2
             </h3>
-            {dossierReconventionnement.dateDeCreation &&
+            {dossierReconventionnement?.dateDeCreation &&
               <p className="fr-card__desc fr-text--lg fr-text--regular">
-                Demande initi&eacute;e le {dayjs(dossierReconventionnement.dateDeCreation).format('DD/MM/YYYY')}
+                Demande initi&eacute;e le {dossierReconventionnement ? dayjs(dossierReconventionnement.dateDeCreation).format('DD/MM/YYYY') : ''}
               </p>
             }
             <p className="fr-card__desc fr-text--lg fr-text--bold" style={{ color: '#000091' }}>
@@ -47,11 +48,11 @@ function ReconventionnementDetails({ reconventionnement }) {
               {reconventionnement?.conseillersRenouveller?.length > 0 ?
                 <>
                   <div className="fr-col-12">
-                    <h6 className="fr-card__desc fr-h6">{reconventionnement?.conseillersRenouveller.length} {pluralize(
+                    <h6 className="fr-card__desc fr-h6">{reconventionnement?.conseillersRenouveller?.length} {pluralize(
                       'demande de renouvellement de poste',
                       'demande de renouvellement de poste',
                       'demandes de renouvellement de postes',
-                      reconventionnement?.conseillersRenouveller.length
+                      reconventionnement?.conseillersRenouveller?.length
                     )}</h6>
                   </div>
                   {reconventionnement?.conseillersRenouveller?.map((conseiller, index) =>
@@ -111,12 +112,12 @@ function ReconventionnementDetails({ reconventionnement }) {
                   )}
                 </> :
                 <div className="fr-col-12">
-                  <span className="fr-h5">La structure n&lsquo;a pas s&eacute;l&eacute;ctionné de conseillers &agrave; renouvell&eacute;s pour le moment</span>
+                  <span className="fr-h5">La structure n&lsquo;a pas s&eacute;l&eacute;ctionné de conseillers &agrave; renouveller pour le moment</span>
                 </div>
               }
             </div>
             <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-              {reconventionnement?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' ?
+              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ ?
                 <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
                 <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
               }
@@ -124,7 +125,7 @@ function ReconventionnementDetails({ reconventionnement }) {
           </div>
           <div className="fr-card__footer">
             <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
-              {reconventionnement?.conventionnement?.statut === 'RECONVENTIONNEMENT_EN_COURS' &&
+              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS &&
                 <li>
                   <button className="fr-btn" disabled>
                     Valider la demande
@@ -154,7 +155,10 @@ function ReconventionnementDetails({ reconventionnement }) {
               Conventionnement phase 1
             </h3>
             <p className="fr-card__desc fr-text--md"><strong>Date de d&eacute;but:&nbsp;</strong>
-              {dossierConventionnement?.dateDeValidation ? dayjs(dossierConventionnement?.dateDeValidation).format('DD/MM/YYYY') : 'Non renseignée'}
+              {dossierConventionnement?.dateDeValidation ?
+                <span>{dayjs(dossierConventionnement?.dateDeValidation).format('DD/MM/YYYY')}</span> :
+                <span>Non renseign&eacute;e</span>
+              }
             </p>
             <p className="fr-card__desc fr-text--xl" style={{ color: '#000091' }}><strong>{reconventionnement?.nombreConseillersCoselec} {pluralize(
               'poste de conseiller validé',
