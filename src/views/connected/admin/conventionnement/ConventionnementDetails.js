@@ -2,6 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 function ConventionnementDetails({ conventionnement }) {
   const dossierConventionnement = conventionnement?.conventionnement?.dossierConventionnement;
@@ -29,7 +30,7 @@ function ConventionnementDetails({ conventionnement }) {
             {conventionnement?.nombreConseillersCoselec}
           </p>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-            {conventionnement?.conventionnement?.statut === 'CONVENTIONNEMENT_VALIDÉ' ?
+            {conventionnement?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_VALIDÉ ?
               <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
               <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
             }
@@ -37,7 +38,7 @@ function ConventionnementDetails({ conventionnement }) {
         </div>
         <div className="fr-card__footer">
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
-            {conventionnement?.conventionnement?.statut === 'CONVENTIONNEMENT_EN_COURS' &&
+            {conventionnement?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_EN_COURS &&
             <li>
               <button className="fr-btn" disabled>
                 Valider la demande
