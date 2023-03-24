@@ -73,11 +73,53 @@ export function structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateF
   return { ordreColonne, filterDateStart, filterDateEnd, filterByName, filterByType, filterByStatut, filterByRegion, filterByComs, filterByDepartement };
 }
 
+// eslint-disable-next-line max-len
+export function statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom, region, departement, structureIds) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const filterIdType = idType ? `&idType=${idType}` : '';
+  const filterByType = type ? `&type=${type}` : '';
+  const filterByLastName = nom ? `&nom=${nom}` : '';
+  const filterByFirstName = prenom ? `&prenom=${prenom}` : '';
+  const filterByRegion = region !== 'tous' && region !== undefined ? `&codeRegion=${region}` : '';
+  const filterByDepartement = departement !== 'tous' && departement !== undefined ? `&numeroDepartement=${departement}` : '';
+  const filterByCodePostal = codePostal !== 'tous' && codePostal !== undefined ? `&codePostal=${codePostal}` : '';
+  const filterByVille = ville !== 'tous' && ville !== undefined ? `&ville=${ville}` : '';
+  const filterByConseillerIds = conseillerIds?.length > 0 ? `&conseillerIds=${JSON.stringify(conseillerIds)}` : '';
+  const filterByStructureIds = structureIds?.length > 0 ? `&structureIds=${JSON.stringify(structureIds)}` : '';
+  
+  // eslint-disable-next-line max-len
+  return { filterDateStart, filterDateEnd, filterIdType, filterByType, filterByVille, filterByRegion, filterByCodePostal, filterByDepartement, filterByLastName, filterByFirstName, filterByConseillerIds, filterByStructureIds };
+}
+
 export function gestionnairesQueryStringParameters(nomOrdre, ordre, filtreParRole, filtreParNom) {
   const filterByName = filtreParNom ? `&searchByNom=${filtreParNom}` : '';
   const filterByRole = filtreParRole !== 'tous' && filtreParRole !== undefined ? `&searchRole=${filtreParRole}` : '';
   const ordreColonne = nomOrdre && ordre !== undefined ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
   return { ordreColonne, filterByName, filterByRole };
+}
+
+export function statsGrandReseauQueryStringParameters(dateDebut, dateFin, conseillerIds, codePostal, ville, region, departement, structureIds) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const filterByRegion = region !== 'tous' && region !== undefined ? `&codeRegion=${region}` : '';
+  const filterByDepartement = departement !== 'tous' && departement !== undefined ? `&numeroDepartement=${departement}` : '';
+  const filterByCodePostal = codePostal !== 'tous' && codePostal !== undefined ? `&codePostal=${codePostal}` : '';
+  const filterByVille = ville !== 'tous' && ville !== undefined ? `&ville=${ville}` : '';
+  const filterByConseillerIds = conseillerIds?.length > 0 ? `&conseillerIds=${JSON.stringify(conseillerIds)}` : '';
+  const filterByStructureIds = structureIds?.length > 0 ? `&structureIds=${JSON.stringify(structureIds)}` : '';
+  
+  // eslint-disable-next-line max-len
+  return { filterDateStart, filterDateEnd, filterByVille, filterByRegion, filterByCodePostal, filterByDepartement, filterByConseillerIds, filterByStructureIds };
+}
+
+export function statsQueryStringParameters(dateDebut, dateFin, codePostal, ville) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const filterByCodePostal = codePostal !== 'tous' && codePostal !== undefined ? `&codePostal=${codePostal}` : '';
+  const filterByVille = ville !== 'tous' && ville !== undefined ? `&ville=${ville}` : '';
+
+  return { filterDateStart, filterDateEnd, filterByCodePostal, filterByVille };
 }
 
 export function candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement) {

@@ -2,8 +2,7 @@
 import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { conseillerQueryStringParameters, territoireQueryString, structureQueryStringParameters,
-  gestionnairesQueryStringParameters } from '../utils/queryUtils';
+import { conseillerQueryStringParameters, territoireQueryString, structureQueryStringParameters, gestionnairesQueryStringParameters, statsCsvQueryStringParameters } from '../utils/queryUtils';
 
 export const exportsService = {
   getFile,
@@ -70,8 +69,22 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
 
 function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom, region, departement, structureIds) {
   const role = type === 'nationales' ? 'anonyme' : roleActivated();
+  const {
+    filterDateStart,
+    filterDateEnd,
+    filterIdType,
+    filterByType,
+    filterByVille,
+    filterByRegion,
+    filterByCodePostal,
+    filterByDepartement,
+    filterByLastName,
+    filterByFirstName,
+    filterByConseillerIds,
+    filterByStructureIds
+  } = statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom, region, departement, structureIds);
   
-  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}&dateDebut=${dateDebut}&dateFin=${dateFin}&type=${type}&idType=${idType}&codePostal=${codePostal}&ville=${ville}&nom=${nom}&prenom=${prenom}&conseillerIds=${JSON.stringify(conseillerIds)}&codeRegion=${region}&numeroDepartement=${departement}&structureIds=${JSON.stringify(structureIds)}`)
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}${filterDateStart}${filterDateEnd}${filterIdType}${filterByType}${filterByVille}${filterByRegion}${filterByCodePostal}${filterByDepartement}${filterByLastName}${filterByFirstName}${filterByConseillerIds}${filterByStructureIds}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

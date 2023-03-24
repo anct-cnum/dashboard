@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import Pagination from '../../../components/Pagination';
 import { pluralize } from '../../../utils/formatagesUtils';
+import Tabs from '../../../datas/statut-candidat.json';
 
 function Candidatures() {
   const dispatch = useDispatch();
@@ -81,41 +82,6 @@ function Candidatures() {
     }
   }, [error, page]);
 
-  const tabs = [
-    {
-      name: 'Nouvelles candidatures',
-      filter: 'nouvelle'
-    },
-    {
-      name: 'Candidatures pré sélectionnées',
-      filter: 'interessee'
-    },
-    {
-      name: 'Candidatures non retenues',
-      filter: 'nonInteressee'
-    },
-    {
-      name: 'Candidatures validées',
-      filter: 'recrutee'
-    },
-    {
-      name: 'Candidats recrutés',
-      filter: 'finalisee'
-    },
-    {
-      name: 'Ruptures notifiées',
-      filter: 'nouvelle_rupture'
-    },
-    {
-      name: 'Candidats en rupture',
-      filter: 'finalisee_rupture'
-    },
-    {
-      name: 'Afficher toutes les candidatures',
-      filter: 'toutes'
-    }
-  ];
-
   const checkConseillerObjExist = conseillers => conseillers.every(conseiller => 'conseillerObj' in conseiller);
 
   useEffect(() => {
@@ -158,13 +124,11 @@ function Candidatures() {
       </div>
       }
       <ul className="tabs fr-tags-group">
-        {tabs.map((tab, idx) => <li key={idx}>
+        {Tabs.map((tab, idx) => <li key={idx}>
           <Link className={`fr-tag ${tab.filter === filter ? 'current' : ''}`}
+            onClick={() => dispatch(paginationActions.setPage(1))}
             to={{
               pathname: `/structure/candidats/${tab.filter}`,
-            }}
-            state={{
-              currentPage: 1
             }}>
             {tab.name}&nbsp;({ stats?.stats !== undefined && stats?.stats[tab.filter] !== undefined ? stats?.stats[tab.filter] : 0 })
           </Link>
