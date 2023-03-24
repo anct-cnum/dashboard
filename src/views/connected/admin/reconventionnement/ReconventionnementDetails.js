@@ -69,7 +69,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                             <div className="fr-col-2">
                               <div>
                                 <span className="fr-text--md" style={{ fontWeight: '500' }}>Type de contrat</span><br />
-                                <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>CDD</span>
+                                <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>-</span>
                               </div>
                             </div>
                             <div className="fr-col-2">
@@ -186,7 +186,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                       <div className="fr-col-2">
                         <div>
                           <span className="fr-text--md" style={{ fontWeight: '500' }}>Type de contrat</span><br />
-                          <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>CDD</span>
+                          <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>-</span>
                         </div>
                       </div>
                       <div className="fr-col-2">
