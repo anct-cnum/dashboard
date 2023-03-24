@@ -52,7 +52,6 @@ function popinConfirmationAnnulation({ setOpenModal, updateStatut, updateDateRec
 popinConfirmationAnnulation.propTypes = {
   updateStatut: PropTypes.func,
   updateDateRecrutement: PropTypes.func,
-  setDateValidee: PropTypes.func,
   setOpenModal: PropTypes.func,
 };
 
