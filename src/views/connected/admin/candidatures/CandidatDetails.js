@@ -117,12 +117,12 @@ function CandidatDetails() {
         </div>
       </div>
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
-        <div className="fr-grid-row fr-mt-5w fr-mb-4w">
+        <div className="fr-grid-row fr-mt-3w fr-mb-3w">
           <div className="fr-col-12 titreCol">
-            <h1>Informations CnFS</h1>
+            <h2 className="fr-h2">Informations CnFS</h2>
           </div>
         </div>
-        <div className="fr-grid-row fr-col-12">
+        <div className="fr-grid-row fr-col-12 color-text">
           <div className="fr-col-12 fr-col-md-6">
             <h4 className="titre">Informations personnelles</h4>
             <div className="fr-mb-3w">
@@ -148,7 +148,7 @@ function CandidatDetails() {
             <div className="fr-mb-3w">
               <strong>Email</strong><br/>
               {conseiller?.email &&
-              <a className="email"href={'mailto:' + conseiller?.email}>
+              <a className="email" href={'mailto:' + conseiller?.email}>
                 {conseiller?.email}
               </a>
               }
@@ -219,14 +219,16 @@ function CandidatDetails() {
               {conseiller?.cv?.file ?
                 <button className="fr-link fr-link--icon-right fr-icon-download-fill" onClick={downloadCV}>
                   T&eacute;l&eacute;charger le CV
-                </button> : 'Non renseigné'
+                </button> : <span>Non renseign&eacute;</span>
               }
             </div>
             <div className="fr-mb-3w">
               <strong>R&eacute;sultat Pix</strong><br/>
               {conseiller?.pix?.partage ?
                 <div>
-                  {formatRenderStars(conseiller?.pix?.palier)}
+                  <div className="color-render-stars">
+                    {formatRenderStars(conseiller?.pix?.palier)}
+                  </div>
                   <p>
                     {conseiller?.pix?.competence1 &&
                     <img src={pixUtilisation}
