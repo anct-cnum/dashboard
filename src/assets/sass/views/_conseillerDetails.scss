@@ -4,4 +4,13 @@
     .titre {
         color: $blue-france
     }
+    .color-text span {
+        color: $light-grey;
+    }
+    .color-render-stars p > span {
+        color: $light-black;
+    }
+    .color-render-stars p {
+        color: $light-black;
+    }
 }

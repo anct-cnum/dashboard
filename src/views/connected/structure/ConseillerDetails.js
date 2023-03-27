@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
@@ -19,7 +19,6 @@ function ConseillerDetails() {
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
-  const refPartActivite = useRef(null);
   const { trackEvent } = useMatomo();
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState({});
@@ -52,10 +51,6 @@ function ConseillerDetails() {
       setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
     }
   }, [conseiller]);
-
-  const clickToScrollIntoRupture = () => {
-    refPartActivite.current?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <div className="fr-container conseillerDetails">
@@ -93,8 +88,8 @@ function ConseillerDetails() {
         {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
           <>
             {misesEnRelationFinalisee?.dossierIncompletRupture ?
-              <button onClick={clickToScrollIntoRupture} className="fr-badge fr-badge--new" style={{ height: '20%' }}>Dossier incomplet</button> :
-              <button onClick={clickToScrollIntoRupture} className="fr-badge fr-badge--warning" style={{ height: '20%' }}>Rupture en cours</button>
+              <p className="fr-badge fr-badge--new" style={{ height: '20%' }}>Dossier incomplet</p> :
+              <p className="fr-badge fr-badge--warning" style={{ height: '20%' }}>Rupture en cours</p>
             }
             <button onClick={() => {
               updateStatut('finalisee');
@@ -294,7 +289,7 @@ function ConseillerDetails() {
             <h1>Informations CnFS</h1>
           </div>
         </div>
-        <div className="fr-grid-row fr-col-12">
+        <div className="fr-grid-row fr-col-12 color-text">
           <div className="fr-col-6 fr-mt-4w">
             <h4 className="titre">Informations professionelles</h4>
             <div className="fr-mb-3w">
@@ -339,13 +334,14 @@ function ConseillerDetails() {
             </div>
           </div>
           <div className="fr-col-6 fr-mt-4w">
-            <h4 className="titre">Lieu(x) d&lsquo;activit&eacute;</h4>
+            <h4 className="titre">Lieux d&lsquo;activit&eacute;</h4>
             {conseiller?.permanences.length > 0 ?
               <>
                 {conseiller?.permanences.map((permanence, idx) =>
                   <>
                     <div className="fr-mb-3w" key={idx}>
-                      <span><strong>{permanence?.nomEnseigne?.toUpperCase()}</strong><br/>{formatAdressePermanence(permanence?.adresse)?.toUpperCase()}</span>
+                      <strong>{permanence?.nomEnseigne?.toUpperCase()}</strong><br/>
+                      <span>{formatAdressePermanence(permanence?.adresse)?.toUpperCase()}</span>
                     </div>
                   </>
                 )}
