@@ -94,7 +94,7 @@ function CandidatDetails() {
       }
       {dateRecrutementUpdated === true && conseiller?.miseEnRelation?.dateRecrutement !== null &&
         <p className="fr-alert fr-alert--success fr-mt-3w">
-          La date d&rsquo;embauche au {dayjs(conseiller?.miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')} a bien &eacute;t&eacute; enregistr&eacute;e
+          La date de recrutement au {dayjs(conseiller?.miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')} a bien &eacute;t&eacute; enregistr&eacute;e
         </p>
       }
       <div className="fr-col-12 fr-pt-6w">
