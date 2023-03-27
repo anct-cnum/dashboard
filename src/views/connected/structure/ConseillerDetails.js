@@ -162,7 +162,8 @@ function ConseillerDetails() {
           </div>
         </div>
         }
-        <div className="fr-card fr-col-12 fr-p-4w fr-mt-3w">
+        {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
+        <div className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationFinalisee?.statut === 'nouvelle_rupture' ? 'fr-mt-3w' : ''}`}>
           <div className="fr-card__body" style={{ padding: '0 0' }}>
             <div>
               <div className="fr-grid-row" style={{ alignItems: 'center' }}>
@@ -199,9 +200,10 @@ function ConseillerDetails() {
             </div>
           </div>
         </div>
+        }
         {misesEnRelationFinaliseeRupture?.map((miseEnRelation, idx) =>
           <>
-            <div className="fr-card fr-col-12 fr-p-4w fr-mt-3w" key={idx}>
+            <div className={`fr-card fr-col-12 fr-p-4w ${Object.keys(misesEnRelationFinalisee || {}).length > 0 ? 'fr-mt-3w' : ''}`} key={idx}>
               <div className="fr-card__body" style={{ padding: '0 0' }}>
                 <div>
                   <div className="fr-grid-row" style={{ alignItems: 'center' }}>
