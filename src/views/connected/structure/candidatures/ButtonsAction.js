@@ -23,11 +23,11 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
     <div className={`${statut === 'interessee' ? 'btn-actions-interessee' : 'btn-actions'} fr-mt-3w fr-mt-md-0w`}>
       {statut === 'nouvelle' &&
       <>
-        <button onClick={() => updateStatut('interessee')} className="fr-btn fr-icon-success-line fr-btn--icon-left" title="Pré sélectionner">
+        <button onClick={() => updateStatut('interessee')} className="fr-btn" title="Pré sélectionner">
           Pr&eacute; s&eacute;lectionner
         </button>
         <button onClick={() => updateStatut('nonInteressee')}
-          className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary fr-ml-md-2w fr-mt-2w fr-mt-md-0"
+          className="fr-btn fr-btn--secondary fr-ml-md-2w fr-mt-2w fr-mt-md-0"
           title="Ce profil ne correspond pas">
             Ce profil ne correspond pas
         </button>
@@ -45,12 +45,12 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
         <button onClick={() => {
           setOpenModalValidationCandidature(true);
         }}
-        className="fr-btn fr-icon-success-line fr-btn--icon-left"
+        className="fr-btn"
         title="Valider cette candidature">
         Valider cette candidature
         </button>
         <button onClick={() => updateStatut('nouvelle')}
-          className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary fr-ml-md-2w fr-mt-2w fr-mt-md-0"
+          className="fr-btn fr-btn--secondary fr-ml-md-2w fr-mt-2w fr-mt-md-0"
           title="Annuler la pré-sélection">
         Annuler la pr&eacute;-s&eacute;lection
         </button>
@@ -58,7 +58,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
       }
       {statut === 'nonInteressee' &&
       <button onClick={() => updateStatut('nouvelle')}
-        className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary"
+        className="fr-btn fr-btn--secondary"
         title="Annuler le désintérêt">
         Annuler le d&eacute;sint&eacute;r&ecirc;t
       </button>
@@ -75,7 +75,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
           <button id="btn-annuler" onClick={() => {
             setOpenModal(true);
           }}
-          className="fr-btn fr-btn--secondary fr-icon-error-line fr-btn--icon-left"
+          className="fr-btn fr-btn--secondary"
           title="Annuler le recrutement">
             Annuler le recrutement
           </button>
