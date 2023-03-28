@@ -23,8 +23,8 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
     <div className={`${statut === 'interessee' ? 'btn-actions-interessee' : 'btn-actions'} fr-mt-3w fr-mt-md-0w`}>
       {statut === 'nouvelle' &&
       <>
-        <button onClick={() => updateStatut('interessee')} className="fr-btn" title="Pré sélectionner">
-          Pr&eacute; s&eacute;lectionner
+        <button onClick={() => updateStatut('interessee')} className="fr-btn" title="Présélectionner ce candidat">
+          Pr&eacute;s&eacute;lectionner ce candidat
         </button>
         <button onClick={() => updateStatut('nonInteressee')}
           className="fr-btn fr-btn--secondary fr-ml-md-2w fr-mt-2w fr-mt-md-0"
@@ -52,7 +52,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
         <button onClick={() => updateStatut('nouvelle')}
           className="fr-btn fr-btn--secondary fr-ml-md-2w fr-mt-2w fr-mt-md-0"
           title="Annuler la pré-sélection">
-        Annuler la pr&eacute;-s&eacute;lection
+        Annuler la pr&eacute;s&eacute;lection
         </button>
       </>
       }
