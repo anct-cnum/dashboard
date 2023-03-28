@@ -27,13 +27,13 @@ const CompleteApplicationCard = ({ url, structure }) => (
             </div>
           </div>
           <div className="fr-col-3">
-            <p className="fr-badge fr-badge--success">Label badge</p>
+            <p className="fr-badge fr-badge--warning">CONVENTIONNEMENT EN COURS</p>
           </div>
           <div className="fr-col-3" style={{ textAlign: 'end' }}>
             <button
               className="fr-btn fr-mx-3w"
               title="D&eacute;tail"
-              onClick={() => window.open(url, '_blank')}
+              onClick={() => window.open(url, '_blank', 'noopener,noreferrer')}
             >
               Compl&eacute;ter mon dossier
             </button>

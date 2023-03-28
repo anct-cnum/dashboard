@@ -8,11 +8,11 @@ const InformationCard = () => (
       contrat ?
     </h4>
     <p className="fr-callout__text">
-      Le renouvellement du dispositif Conseiller numérique France Services s&lsquo;accompagne par la
-      poursuite d un soutien financier de l&lsquo;Etat aux structures employant des CnFS. À ce titre, les
-      structures employeuses sont éligibles à une nouvelle convention de subvention pour une période de
-      trois ans si, à l&lsquo;échéance de la période couverte par la première convention, elles souhaitent
-      conserver les postes qui leurs ont été attribués. En savoir plus.
+    Le renouvellement du dispositif Conseiller num&eacute;rique France Services s&lsquo;accompagne par la
+      poursuite d&lsquo;un soutien financier de l&lsquo;Etat aux structures employant des CnFS. &Agrave; ce titre, les
+      structures employeuses sont &eacute;ligibles &agrave; une nouvelle convention de subvention pour une p&eacute;riode de
+      trois ans si, &agrave; l&lsquo;&eacute;ch&eacute;ance de la p&eacute;riode couverte par la premi&egrave;re convention, elles souhaitent
+      conserver les postes qui leurs ont &eacute;t&eacute; attribu&eacute;s. En savoir plus.
     </p>
   </div>
 );

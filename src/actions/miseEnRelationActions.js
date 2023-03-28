@@ -1,11 +1,11 @@
 import { miseEnRelationService } from '../services/miseEnRelationService.js';
 
 export const miseEnRelationAction = {
-  getMisesEnRelationStructure
+  getMisesEnRelationByStructure
 };
 
 
-function getMisesEnRelationStructure(id) {
+function getMisesEnRelationByStructure(id) {
   return dispatch => {
     dispatch(request());
 

@@ -41,14 +41,14 @@ function PopinRecapReconvention({ setOpenModal, checkedItems, structure, handleS
                   <ul>
                     <li>
                       <p className="fr-text--bold fr-mb-1w">
-                        {checkedItems.filter(item => item.statut === 'recrutee').length} postes
+                        {checkedItems.filter(item => item.statut === 'finalisee').length} postes
                         occup&eacute;s
                       </p>
                     </li>
                     <li>
                       <p className="fr-text--bold">
                         {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues -
-                          checkedItems.filter(item => item.statut === 'recrutee').length}{' '}
+                          checkedItems.filter(item => item.statut === 'finalisee').length}{' '}
                         postes vacants
                       </p>
                     </li>

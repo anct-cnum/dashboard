@@ -1,0 +1,88 @@
+@import "../colors/colors";
+
+.banner {
+  .warning {
+    .title__color {
+      color: $warning-425;
+    }
+    .icon__color {
+      color: $warning-425;
+    }
+  }
+  .success {
+    .title__color {
+      color: $success-425;
+    }
+    .icon__color {
+      color: $success-425;
+    }
+  }
+  .notice {
+    .title__color {
+      color: $info-425;
+    }
+    .icon__color {
+      color: $info-425;
+    }
+  }
+}
+
+.banner.warning.background {
+  background-color: $warning-925;
+}
+.banner.notice.background {
+  background-color: $info-975;
+}
+.banner.success.background {
+  background-color: $success-950;
+}
+
+
+.info__color {
+  color: $grey-425;
+}
+
+@media (max-width: 575px) {
+    .responsive__card {
+      display: block;
+    }
+  }
+
+.responsive__banner {
+    display: flex;
+    align-items: center;
+  }
+
+@media (max-width: 1220px) {
+    .responsive__banner {
+      display: block;
+      text-align: center;
+      padding: auto;
+    }
+  }
+  
+  @media (max-width: 1220px) {
+      .banner__text {
+        margin: auto;
+      }
+    }
+    
+@media (max-width: 1220px) {
+    .banner__button {
+      margin: auto;
+    }
+  }
+
+@media (min-width: 1220px) {
+    .banner__button {
+      margin-left: 17.7rem;
+    }
+  }
+
+@media (min-width: 1220px) {
+    .banner__button_progress {
+      margin-left: 16rem;
+    }
+  }
+  
+  

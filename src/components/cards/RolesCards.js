@@ -62,14 +62,14 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
         return;
     }
   };
-  console.log('user', user);
+  
   return (
     <>
       <div className="fr-card fr-col-8 fr-mt-2w fr-p-3w">
         <div className="fr-card__body fr-p-0">
           <div>
-            <h4>Mes rôles</h4>
-            {roles && roles.map(role => (
+            <h4>Mes r&ocirc;les</h4>
+            {roles && roles?.map(role => (
               displayRole(role)
             )) }
           </div>

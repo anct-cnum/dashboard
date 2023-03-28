@@ -52,22 +52,16 @@ function Menu() {
         <div className="fr-header__menu-links"></div>
         <nav className="fr-nav fr-display--none-lg" id="navigation-869" role="navigation" aria-label="Menu principal">
           <ul className="fr-nav__list">
-            {roleActivated === 'structure' && <li className="fr-nav__item">
-              <Link
-                to={`${roleActivated}/postes`}
-                className="fr-nav__link"
-                {...(location.pathname.startsWith(`/${roleActivated}/postes`) ? { 'aria-current': 'page' } : {})}>
-                  G&eacute;rer mes postes
-              </Link>
-            </li>}
-            <li className="fr-nav__item">
-              <Link
-                to={`${roleActivated}/informations`}
-                className="fr-nav__link"
-                {...(location.pathname.startsWith(`/${roleActivated}/informations`) ? { 'aria-current': 'page' } : {})}>
-                  Mes informations
-              </Link>
-            </li>
+            {roleActivated === 'structure' &&
+             <li className="fr-nav__item">
+               <Link
+                 to={`${roleActivated}/postes`}
+                 className="fr-nav__link"
+                 {...(location.pathname.startsWith(`/${roleActivated}/postes`) ? { 'aria-current': 'page' } : {})}>
+                      G&eacute;rer mes postes
+               </Link>
+             </li>
+            }
             <li className="fr-nav__item">
               <button
                 id="listes"

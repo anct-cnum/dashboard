@@ -27,7 +27,7 @@ function MesInformations() {
       <Spinner loading={loading} />
       <div className="fr-container">
         <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--left">
-          <ContactCard email={userAuth.name}/>
+          <ContactCard email={userAuth?.name}/>
           <div className="fr-col-offset-12"></div>
           <div className="fr-card fr-col-8 fr-col-lg-8 fr-col-md-8">
             <h4>Inviter un administrateur</h4>

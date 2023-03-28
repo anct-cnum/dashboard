@@ -23,7 +23,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
             <h4 className="fr-grid-row fr-grid-row--middle">Conventionnement phase 2</h4>
             {displayBadge()}
           </div>
-          <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : 28/02/2023</p>
+          <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : -</p>
           <div className="fr-card__desc">
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
               {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues} postes de conseillers{' '}
@@ -37,7 +37,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
               <hr style={{ borderWidth: '0.5px' }} />
             </div>
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - 2 postes de conseillers vacants <span className="fr-text--regular fr-text--md">rendu le 00/00/0000</span>
+              Avenant - 2 postes de conseillers vacants <span className="fr-text--regular fr-text--md">rendu le -</span>
             </p>
             <div className="fr-col-12 fr-my-1w">
               <hr style={{ borderWidth: '0.5px' }} />

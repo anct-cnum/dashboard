@@ -10,10 +10,11 @@ import HireAdvisorCard from './cards/HireAdvisorCard';
 import AdvisorCard from './cards/AdvisorCard';
 import { structureActions, reconventionnementActions, miseEnRelationAction } from '../../../actions';
 
+
 function MesPostes() {
   const [openModal, setOpenModal] = useState(false);
   const misesEnrelation = useSelector(state => state?.misesEnRelation?.misesEnRelation);
-  const userAuth = useSelector(state => state.authentication.user);
+  const userAuth = useSelector(state => state.authentication?.user);
   const dispatch = useDispatch();
   const structure = useSelector(state => state.structure?.structure);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -22,34 +23,33 @@ function MesPostes() {
   const [motif, setMotif] = useState('');
 
   const displayBanner = () => {
-    if (structure?.conventionnement?.statut === 'ENREGISTRÉ') {
-      return <CompleteRequestBanner structure={structure}/>;
+    switch (structure?.conventionnement?.statut) {
+      case 'ENREGISTRÉ':
+        return <CompleteRequestBanner structure={structure}/>;
+      case 'RECONVENTIONNEMENT_EN_COURS':
+        return <InProgressBanner structure={structure} roleActivated={roleActivated}/>;
+      case 'RECONVENTIONNEMENT_VALIDÉ':
+        return <ValidatedBanner structure={structure}/>;
+      case 'NON_INTERESSÉ':
+        return null;
+      default:
+        return <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
     }
-    if (structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_EN_COURS') {
-      return <InProgressBanner structure={structure} roleActivated={roleActivated}/>;
-    }
-    if (structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ') {
-      return <ValidatedBanner />;
-    }
-    if (structure?.conventionnement?.statut === 'NON_INTERESSÉ') {
-      return null;
-    }
-    return <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
   };
-
+  
   useEffect(() => {
     dispatch(structureActions.get(userAuth?.entity?.$id));
   }, []);
 
   useEffect(() => {
     if (structure?._id) {
-      dispatch(miseEnRelationAction.getMisesEnRelationStructure(structure?._id));
+      dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
     }
   }, [structure]);
 
   useEffect(() => {
     if (misesEnrelation) {
-      const recrutees = misesEnrelation.filter(({ statut }) => statut === 'recrutee').map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'recrutee' }));
+      const recrutees = misesEnrelation.filter(({ statut }) => statut === 'finalisee').map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'finalisee' }));
       const nouvellesRuptures = misesEnrelation
       .filter(({ statut }) => statut === 'nouvelle_rupture')
       .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'nouvelle_rupture' }));
@@ -72,7 +72,7 @@ function MesPostes() {
       {openModal && <PopinAnnulationReConvention setOpenModal={setOpenModal} handleCancel={handleCancel} motif={motif} setMotif={setMotif} />}
       <div className="fr-container">
         {structure?.conventionnement?.statut !== 'NON_INTERESSÉ' ? (
-          <h2 className="fr-mb-6w" style={{ color: '#000091', marginTop: '187px' }}>
+          <h2 className="fr-mb-6w" style={{ marginTop: '187px' }}>
             G&eacute;rer mes postes
           </h2>
         ) : (
@@ -81,23 +81,25 @@ function MesPostes() {
             G&eacute;rer mes postes
           </h2>
         )}
-        <ManagePositionsCard />
+        <ManagePositionsCard dossierConventionnement={structure?.conventionnement?.dossierConventionnement}/>
         {
           misesEnrelation?.length > 0 &&
         <>
-          <HireAdvisorCard />
+          <HireAdvisorCard nbreConseillersActifs={conseillersActifs.length} nbreConseillersInactifs={conseillersInactifs.length}/>
           <div className="container fr-mt-4w">
             <p className="fr-text--bold">Vos conseillers actifs ({conseillersActifs.length})</p>
-            {misesEnrelation && conseillersActifs.map((conseiller, idx) => <AdvisorCard conseiller={conseiller} roleActivated={roleActivated} key={idx} />)}
+            {misesEnrelation &&
+            conseillersActifs?.map((conseiller, idx) => <AdvisorCard conseiller={conseiller} roleActivated={roleActivated} key={idx} />)}
           </div>
           <section className="fr-accordion fr-mt-4w">
             <h3 className="fr-accordion__title">
               <button className="fr-accordion__btn fr-text--bold" aria-expanded="false" aria-controls="accordion-106">
-              Vos anciens conseillers ({conseillersInactifs.length})
+              Vos anciens conseillers ({conseillersInactifs?.length})
               </button>
             </h3>
             <div className="fr-collapse" id="accordion-106">
-              {misesEnrelation && conseillersInactifs.map((conseiller, idx) => <AdvisorCard conseiller={conseiller} roleActivated={roleActivated} key={idx} />)}
+              {misesEnrelation &&
+              conseillersInactifs?.map((conseiller, idx) => <AdvisorCard conseiller={conseiller} roleActivated={roleActivated} key={idx} />)}
             </div>
           </section>
         </>

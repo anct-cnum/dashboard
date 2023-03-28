@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 const SelectAdvisorCard = ({ conseiller, roleActivated, handleSelectAdvisor, checkedItems }) => {
   const displayBadge = statut => {
     switch (statut) {
-      case 'recrutee':
+      case 'finalisee':
         return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
       case 'finalisee_rupture':
         return <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>;
@@ -39,7 +39,7 @@ const SelectAdvisorCard = ({ conseiller, roleActivated, handleSelectAdvisor, che
                 </span>
                 <br />
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                  ID - {conseiller?.id}
+                  ID - {conseiller?.idPG}
                 </span>
               </div>
             </div>
@@ -50,7 +50,7 @@ const SelectAdvisorCard = ({ conseiller, roleActivated, handleSelectAdvisor, che
                 </span>
                 <br />
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                  CDD
+                  -
                 </span>
               </div>
             </div>
@@ -93,14 +93,14 @@ const SelectAdvisorCard = ({ conseiller, roleActivated, handleSelectAdvisor, che
 };
 
 SelectAdvisorCard.propTypes = {
-  nom: propTypes.string.isRequired,
-  prenom: propTypes.string.isRequired,
-  statut: propTypes.string.isRequired,
-  id: propTypes.string.isRequired,
-  roleActivated: propTypes.string.isRequired,
-  conseiller: propTypes.object.isRequired,
-  handleSelectAdvisor: propTypes.func.isRequired,
-  checkedItems: propTypes.array.isRequired,
+  nom: propTypes.string,
+  prenom: propTypes.string,
+  statut: propTypes.string,
+  id: propTypes.string,
+  roleActivated: propTypes.string,
+  conseiller: propTypes.object,
+  handleSelectAdvisor: propTypes.func,
+  checkedItems: propTypes.array,
 };
 
 export default SelectAdvisorCard;

@@ -14,11 +14,11 @@ import {
 import PopinRecapReconvention from './popins/popinRecapReconvention';
 import Spinner from '../../../components/Spinner';
 
-function DemandeReco() {
+function DemandeReconventionnement() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reconventionnement = useSelector(state => state.reconventionnement?.reconventionnement);
-  const misesEnRelation = useSelector(state => state.misesEnRelation.misesEnRelation);
+  const misesEnRelation = useSelector(state => state.misesEnRelation?.misesEnRelation);
   const loading = useSelector(state => state.reconventionnement?.loading);
   const errorReconventionnement = useSelector(state => state.reconventionnement?.error);
   const user = useSelector(state => state.authentication?.user);
@@ -51,12 +51,12 @@ function DemandeReco() {
   }, [errorReconventionnement, idDossier]);
 
   useEffect(() => {
-    dispatch(structureActions.getDetails(user.entity.$id));
+    dispatch(structureActions.getDetails(user?.entity?.$id));
   }, [user, reconventionnement]);
 
   useEffect(() => {
     if (structure?._id) {
-      dispatch(miseEnRelationAction.getMisesEnRelationStructure(structure?._id));
+      dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
     }
   }, [structure?._id, reconventionnement]);
 
@@ -65,13 +65,13 @@ function DemandeReco() {
       const conseillers = misesEnRelation
       .filter(
         miseEnRelation =>
-          miseEnRelation.statut === 'recrutee' || miseEnRelation.statut === 'finalisee_rupture'
+          miseEnRelation.statut === 'finalisee' || miseEnRelation.statut === 'finalisee_rupture'
       )
       .map(miseEnRelation => {
         const { conseillerObj, _id, statut, reconventionnement } = miseEnRelation;
         const updatedConseiller = { ...conseillerObj, miseEnRelationId: _id, reconventionnement };
-        if (statut === 'recrutee') {
-          updatedConseiller.statut = 'recrutee';
+        if (statut === 'finalisee') {
+          updatedConseiller.statut = 'finalisee';
         } else {
           updatedConseiller.statut = 'finalisee_rupture';
         }
@@ -79,11 +79,11 @@ function DemandeReco() {
       });
       setConseillersARenouveller(conseillers);
     }
-  }, [misesEnRelation?.length]);
+  }, [misesEnRelation]);
 
   useEffect(() => {
-    if (typeof structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues !== 'undefined') {
-      setNombreDePostes(structure.conventionnement.dossierReconventionnement.nbPostesAttribues);
+    if (structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues !== undefined) {
+      setNombreDePostes(structure.conventionnement?.dossierReconventionnement.nbPostesAttribues);
     }
   }, [structure?.conventionnement?.dossierReconventionnement]);
 
@@ -100,7 +100,7 @@ function DemandeReco() {
   useEffect(() => {
     setCheckedItems(
       conseillersARenouveller
-      ?.filter(c => c?.reconventionnement === 'ENREGISTRÉ')
+      ?.filter(conseiller => conseiller?.reconventionnement)
       .map(c => ({ miseEnRelationId: c.miseEnRelationId, statut: c.statut }))
     );
   }, [conseillersARenouveller]);
@@ -116,7 +116,6 @@ function DemandeReco() {
   const handleSend = () => {
     scrollTopWindow();
     dispatch(reconventionnementActions.update(structure?._id, 'envoyer', checkedItems, nombreDePostes));
-    dispatch(structureActions.getDetails(user.entity.$id));
     navigate('/structure/postes');
   };
 
@@ -137,13 +136,13 @@ function DemandeReco() {
         </h2>
         <p>
           Veuillez nous indiquer le nombre de postes que vous souhaitez ainsi que le(s) conseiller(s) que
-          vous souhaitez renouvelez pour ce nouveau conventionnement.
+          vous souhaitez renouveler pour ce nouveau conventionnement.
         </p>
         <InformationCard />
         <div className="fr-input-group">
           <label className="fr-label" htmlFor="text-input-groups1">
             <h5>Nombre de postes</h5>
-            <span>Renseignez le nombre de poste total que vous souhaitez :</span>
+            <span>Renseignez le nombre de poste total que vous souhaitez&nbsp;:</span>
           </label>
           <input
             className="fr-input"
@@ -176,10 +175,10 @@ function DemandeReco() {
         <div className="fr-col-12 fr-mb-1w">
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
-        <h5>Compl&eacute;ter votre dossier D&eacute;marche Simplifi&eacute;e</h5>
+        <h5>Compl&eacute;tez votre dossier D&eacute;marche Simplifi&eacute;e</h5>
         <p>
-          Renseignez les informations concernant votre structure et les pièces justificatives
-          demand&eacute;s avnt de pouvoir envoyer votre demande.
+          Renseignez les informations concernant votre structure et les pi&egrave;ces justificatives
+          demand&eacute;s avant de pouvoir envoyer votre demande.
         </p>
         <CompleteApplicationCard url={reconventionnement?.url} structure={structure} />
         {structure?.conventionnement?.statut === 'ENREGISTRÉ' && (
@@ -189,23 +188,23 @@ function DemandeReco() {
             </div>
             <h5>R&eacute;capitulatif de votre demande</h5>
             <p>
-              Vous allez faire une demande pour{' '}
+              Vous allez faire une demande pour&nbsp;
               <span className="fr-text fr-text--bold">
                 {nombreDePostes} postes
                 subventionn&eacute;s,{' '}
               </span>
-              dont:
+              dont&nbsp;:
             </p>
             <ul>
               <li>
                 <p className="fr-text--bold">
-                  {checkedItems.filter(item => item.statut === 'recrutee').length} postes occup&eacute;s
+                  {checkedItems?.filter(item => item.statut === 'finalisee' || item.statut === 'nouvelle_rupture').length} postes occup&eacute;s
                 </p>
               </li>
               <li>
                 <p className="fr-text--bold">
                   {nombreDePostes -
-                    checkedItems.filter(item => item.statut === 'recrutee').length}{' '}
+                    checkedItems?.filter(item => item.statut === 'finalisee').length}{' '}
                   postes vacants
                 </p>
               </li>
@@ -229,4 +228,4 @@ function DemandeReco() {
   );
 }
 
-export default DemandeReco;
+export default DemandeReconventionnement;

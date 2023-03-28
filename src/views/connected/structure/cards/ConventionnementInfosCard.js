@@ -8,9 +8,9 @@ const ConventionnementInfosCard = () => {
         <div className="fr-card__content">
           <div className="fr-grid-row fr-grid-row--middle">
             <h4 className="fr-grid-row fr-grid-row--middle">Conventionnement phase 1</h4>
-            <p className="fr-badge fr-badge--warning fr-ml-auto">6 jours restants avant la fin du premier contrat</p>
+            <p className="fr-badge fr-badge--warning fr-ml-auto">- jours restants avant la fin du premier contrat</p>
           </div>
-          <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : 28/02/2023</p>
+          <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : -</p>
           <div className="fr-card__desc">
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
               4 postes de conseillers{' '}
@@ -21,7 +21,7 @@ const ConventionnementInfosCard = () => {
             </div>
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
               Avenant - 2 postes de conseillers vacants{' '}
-              <span className="fr-text--regular fr-text--md">rendu le 00/00/0000</span>
+              <span className="fr-text--regular fr-text--md">rendu le -</span>
             </p>
             <div className="fr-col-12 fr-my-1w">
               <hr style={{ borderWidth: '0.5px' }} />
@@ -47,7 +47,6 @@ const ConventionnementInfosCard = () => {
 };
 
 ConventionnementInfosCard.propTypes = {
-  positions: PropTypes.aray,
   onPositionClick: PropTypes.func,
 };
 

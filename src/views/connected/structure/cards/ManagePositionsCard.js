@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 
-const ManagePositionsCard = () => {
+const ManagePositionsCard = ({ dossierConventionnement }) => {
   return (
     <div className="fr-card fr-card--no-border fr-mb-4w" style={{ backgroundColor: '#E8EDFF' }}>
       <div className="fr-card__body">
@@ -9,13 +10,16 @@ const ManagePositionsCard = () => {
           <div className="fr-grid-row fr-grid-row--middle">
             <h4 className="fr-grid-row fr-grid-row--middle">Conventionnement phase 1</h4>
             <p className="fr-badge fr-badge--warning fr-ml-auto">
-              6 JOURS RESTANTS AVANT LA FIN DU PREMIER CONTRAT
+              - JOURS RESTANTS AVANT LA FIN DU PREMIER CONTRAT
             </p>
           </div>
-          <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : 28/02/2023</p>
+          <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {dossierConventionnement?.dateDeValidation ?
+            <span>le&nbsp;{dayjs(dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
+            <span>date inconnue</span>
+          }</p>
           <div className="fr-card__desc">
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              4 postes de conseillers{' '}
+              - postes de conseillers{' '}
               <span className="fr-text--regular fr-text--md">valid&eacute; pour ce conventionnement</span>
             </p>
             <div>
@@ -44,6 +48,7 @@ const ManagePositionsCard = () => {
 ManagePositionsCard.propTypes = {
   positions: PropTypes.array,
   onPositionClick: PropTypes.func,
+  dossierConventionnement: PropTypes.object,
 };
 
 export default ManagePositionsCard;

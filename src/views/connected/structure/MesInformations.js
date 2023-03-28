@@ -10,8 +10,8 @@ function MesInformations() {
   const userAuth = useSelector(state => state.authentication.user);
   const { entity } = useSelector(state => state.authentication.user);
   const { error, success, loading } = useSelector(state => state.invitations);
-  const errorUser = useSelector(state => state?.user?.error);
-  const structure = useSelector(state => state.structure.structure);
+  const errorUser = useSelector(state => state.user?.error);
+  const structure = useSelector(state => state.structure?.structure);
   const errorStructure = useSelector(state => state.structure?.error);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
@@ -68,8 +68,8 @@ function MesInformations() {
   return (
     <div className="fr-container">
       <Spinner loading={loading} />
-      <ContactCard email={userAuth.name} structureId={structure?._id}/>
-      <RolesCards user={userAuth} reseau={userAuth.reseau} roles={userAuth.roles} roleActivated={roleActivated} structure={structure}/>
+      <ContactCard email={userAuth?.name} structureId={structure?._id}/>
+      <RolesCards user={userAuth} reseau={userAuth?.reseau} roles={userAuth?.roles} roleActivated={roleActivated} structure={structure}/>
     </div>
   );
 }

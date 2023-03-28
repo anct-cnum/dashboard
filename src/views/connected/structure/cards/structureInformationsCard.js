@@ -58,7 +58,7 @@ const StructureInformationsCard = ({ structure }) => (
 );
 
 StructureInformationsCard.propTypes = {
-  structure: propType.object.isRequired,
+  structure: propType.object,
 };
 
 export default StructureInformationsCard;
