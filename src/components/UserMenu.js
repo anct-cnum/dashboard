@@ -102,7 +102,7 @@ const UserMenu = ({
                 {roles?.length > 1 && (
                   <li>
                     <p className="fr-nav__link fr-text--bold" href="#" target="_self">
-                      Mes autres rôles
+                    Mes r&ocirc;les
                     </p>
                     {roles
                     .filter(role => role !== roleActivated)
