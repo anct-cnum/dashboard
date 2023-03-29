@@ -97,14 +97,14 @@ function CandidatDetails() {
       <div className="fr-col-12 fr-mb-4w">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
           <h5 className="fr-h5 text-id">ID - {conseiller?.idPG ?? ''}</h5>
-          <button className="fr-btn btn-actions" onClick={resendInvitCandidat}>
-            Renvoyer l&rsquo;email d&rsquo;invitation
-          </button>
-          <button className="fr-btn fr-mt-2w fr-mt-md-0 fr-ml-md-2w fr-btn--secondary" onClick={() => {
+          <button className="fr-btn btn-actions fr-btn--secondary" onClick={() => {
             setConfirmSuppressionCandidat(true);
             scrollTopWindow();
           }}>
             Supprimer la candidature
+          </button>
+          <button className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0" onClick={resendInvitCandidat}>
+            Renvoyer l&rsquo;email d&rsquo;invitation
           </button>
         </div>
         {confirmSuppressionCandidat &&
