@@ -13,7 +13,7 @@ const HireAdvisorCard = ({ nbreConseillersActifs, nbreConseillersInactifs }) => 
                   {nbreConseillersActifs + nbreConseillersInactifs > 0 ? `${nbreConseillersActifs}/${nbreConseillersActifs + nbreConseillersInactifs}` : 0}
                 </span>
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                  Postes de conseillers actifs
+                  {''} Postes de conseillers actifs
                 </span>
               </div>
             </div>

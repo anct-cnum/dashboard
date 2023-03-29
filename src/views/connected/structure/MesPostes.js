@@ -59,8 +59,8 @@ function MesPostes() {
       // conseillers qui ont été recrutés dont le contrat est terminé et n'ont pas de nouveau contrat ou nouvelle rupture
       const finaliseesRuptures = misesEnrelation
       .filter(({ statut, conseillerObj }) => statut === 'finalisee_rupture' &&
-      !recrutees.find(({ _id }) => _id === conseillerObj._id) &&
-       !nouvellesRuptures.find(({ _id }) => _id === conseillerObj._id))
+      !recrutees.find(({ _id }) => _id === conseillerObj?._id) &&
+       !nouvellesRuptures.find(({ _id }) => _id === conseillerObj?._id))
       .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'finalisee_rupture' }));
 
       setConseillersActifs([...recrutees, ...nouvellesRuptures]);
