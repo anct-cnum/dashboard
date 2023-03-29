@@ -28,7 +28,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
           title="Ce profil ne correspond pas">
             Ce profil ne correspond pas
         </button>
-        <button onClick={() => updateStatut('interessee')} className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0" title="Présélectionner ce candidat">
+        <button onClick={() => updateStatut('interessee')} className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0" title="Pr&eacute;s&eacute;lectionner ce candidat">
           Pr&eacute;s&eacute;lectionner ce candidat
         </button>
       </>
@@ -44,7 +44,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
         }
         <button onClick={() => updateStatut('nouvelle')}
           className="fr-btn fr-btn--secondary"
-          title="Annuler la pré-sélection">
+          title="Annuler la pr&eacute;-s&eacute;lection">
         Annuler la pr&eacute;s&eacute;lection
         </button>
         <button onClick={() => {
@@ -59,7 +59,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
       {statut === 'nonInteressee' &&
       <button onClick={() => updateStatut('nouvelle')}
         className="fr-btn fr-btn--secondary"
-        title="Annuler le désintérêt">
+        title="Annuler le d&eacute;sint&eacute;r&ecirc;t">
         Annuler le d&eacute;sint&eacute;r&ecirc;t
       </button>
       }
