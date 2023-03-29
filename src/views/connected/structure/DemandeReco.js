@@ -25,7 +25,7 @@ function DemandeReconventionnement() {
   const structure = useSelector(state => state.structure?.structure);
   const idDossier = structure?.dossierDemarcheSimplifiee?.numero;
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const [conseillersARenouveller, setConseillersARenouveller] = useState([]);
+  const [misesEnRelationARenouveller, setMisesEnRelationARenouveller] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
   const [nombreDePostes, setNombreDePostes] = useState(
@@ -56,30 +56,16 @@ function DemandeReconventionnement() {
 
   useEffect(() => {
     if (structure?._id) {
-      dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
+      dispatch(miseEnRelationAction.getMisesEnRelationARenouveller(structure?._id));
     }
   }, [structure?._id, reconventionnement]);
 
   useEffect(() => {
     if (misesEnRelation) {
-      const conseillers = misesEnRelation
-      .filter(
-        miseEnRelation =>
-          miseEnRelation.statut === 'finalisee' || miseEnRelation.statut === 'finalisee_rupture'
-      )
-      .map(miseEnRelation => {
-        const { conseillerObj, _id, statut, reconventionnement } = miseEnRelation;
-        const updatedConseiller = { ...conseillerObj, miseEnRelationId: _id, reconventionnement };
-        if (statut === 'finalisee') {
-          updatedConseiller.statut = 'finalisee';
-        } else {
-          updatedConseiller.statut = 'finalisee_rupture';
-        }
-        return updatedConseiller;
-      });
-      setConseillersARenouveller(conseillers);
+      setMisesEnRelationARenouveller(misesEnRelation);
     }
   }, [misesEnRelation]);
+
 
   useEffect(() => {
     if (structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues !== undefined) {
@@ -93,17 +79,16 @@ function DemandeReconventionnement() {
     if (checked) {
       setCheckedItems([...checkedItems, value]);
     } else {
-      setCheckedItems(checkedItems.filter(item => item.miseEnRelationId !== value.miseEnRelationId));
+      setCheckedItems(checkedItems.filter(item => item?.miseEnRelationId !== value?.miseEnRelationId));
     }
   };
 
   useEffect(() => {
     setCheckedItems(
-      conseillersARenouveller
+      misesEnRelationARenouveller
       ?.filter(conseiller => conseiller?.reconventionnement)
-      .map(c => ({ miseEnRelationId: c.miseEnRelationId, statut: c.statut }))
     );
-  }, [conseillersARenouveller]);
+  }, [misesEnRelationARenouveller]);
 
   const handleSave = async () => {
     scrollTopWindow();
@@ -161,12 +146,12 @@ function DemandeReconventionnement() {
         <div className="container fr-mb-6w">
           <h5 className="fr-text--bold">Renouvellement de postes</h5>
           <p>S&eacute;lectionez les conseillers que vous souhaitez renouveller.</p>
-          {conseillersARenouveller &&
-            conseillersARenouveller.map((conseiller, idx) => (
+          {misesEnRelationARenouveller &&
+            misesEnRelationARenouveller.map((miseEnrealation, idx) => (
               <SelectAdvisorCard
                 handleSelectAdvisor={handleSelectAdvisor}
                 roleActivated={roleActivated}
-                conseiller={conseiller}
+                miseEnrealation={miseEnrealation}
                 checkedItems={checkedItems}
                 key={idx}
               />

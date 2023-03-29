@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-const SelectAdvisorCard = ({ conseiller, roleActivated, handleSelectAdvisor, checkedItems }) => {
+const SelectAdvisorCard = ({ miseEnrealation, roleActivated, handleSelectAdvisor, checkedItems }) => {
   const displayBadge = statut => {
     switch (statut) {
       case 'finalisee':
@@ -26,8 +26,8 @@ const SelectAdvisorCard = ({ conseiller, roleActivated, handleSelectAdvisor, che
                   name="checkbox"
                   checked={checkedItems
                   .map(item => item.miseEnRelationId)
-                  .includes(conseiller.miseEnRelationId)}
-                  value={JSON.stringify(conseiller)}
+                  .includes(miseEnrealation?.miseEnRelationId)}
+                  value={JSON.stringify(miseEnrealation)}
                   onChange={handleSelectAdvisor}
                 />
               </div>
@@ -35,11 +35,11 @@ const SelectAdvisorCard = ({ conseiller, roleActivated, handleSelectAdvisor, che
             <div className="fr-col-2">
               <div>
                 <span className="fr-text--md fr-text--bold">
-                  {conseiller?.prenom} {conseiller?.nom}
+                  {miseEnrealation?.conseiller?.prenom} {miseEnrealation?.conseiller?.nom}
                 </span>
                 <br />
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                  ID - {conseiller?.idPG}
+                  ID - {miseEnrealation?.conseiller?.idPG}
                 </span>
               </div>
             </div>
@@ -60,7 +60,7 @@ const SelectAdvisorCard = ({ conseiller, roleActivated, handleSelectAdvisor, che
                   Début de contrat
                 </span>
                 <br />
-                test
+                -
               </div>
             </div>
             <div className="fr-col-2">
@@ -69,20 +69,20 @@ const SelectAdvisorCard = ({ conseiller, roleActivated, handleSelectAdvisor, che
                   Fin de contrat
                 </span>
                 <br />
-                test
+                -
               </div>
             </div>
-            <div className="fr-col-2">{displayBadge(conseiller?.statut)}</div>
+            <div className="fr-col-2">{displayBadge(miseEnrealation?.statut)}</div>
             <div className="fr-col-1.5" style={{ textAlign: 'end' }}>
               <button
                 className="fr-btn fr-icon-eye-line fr-mx-3w"
                 title="D&eacute;tail"
-                onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}
+                onClick={() => window.open(`/${roleActivated}/conseiller/${miseEnrealation?.conseiller?._id}`)}
               />
               <button
                 className="fr-btn fr-icon-line-chart-line"
                 title="Statistiques"
-                onClick={() => window.open(`/statistiques-conseiller/${conseiller?._id}`)}
+                onClick={() => window.open(`/statistiques-conseiller/${miseEnrealation?.conseiller?._id}`)}
               />
             </div>
           </div>
@@ -98,7 +98,7 @@ SelectAdvisorCard.propTypes = {
   statut: propTypes.string,
   id: propTypes.string,
   roleActivated: propTypes.string,
-  conseiller: propTypes.object,
+  miseEnrealation: propTypes.object,
   handleSelectAdvisor: propTypes.func,
   checkedItems: propTypes.array,
 };

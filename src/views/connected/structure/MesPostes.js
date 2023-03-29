@@ -49,13 +49,20 @@ function MesPostes() {
 
   useEffect(() => {
     if (misesEnrelation) {
-      const recrutees = misesEnrelation.filter(({ statut }) => statut === 'finalisee').map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'finalisee' }));
+      // conseillers qui ont été recrutés et dont le contrat est en cours
+      const recrutees = misesEnrelation.filter(({ statut }) => statut === 'finalisee')
+      .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'finalisee' }));
+      // conseillers qui ont été recrutés et dont le contrat est en cours de rupture
       const nouvellesRuptures = misesEnrelation
       .filter(({ statut }) => statut === 'nouvelle_rupture')
       .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'nouvelle_rupture' }));
+      // conseillers qui ont été recrutés dont le contrat est terminé et n'ont pas de nouveau contrat ou nouvelle rupture
       const finaliseesRuptures = misesEnrelation
-      .filter(({ statut }) => statut === 'finalisee_rupture')
+      .filter(({ statut, conseillerObj }) => statut === 'finalisee_rupture' &&
+      !recrutees.find(({ _id }) => _id === conseillerObj._id) &&
+       !nouvellesRuptures.find(({ _id }) => _id === conseillerObj._id))
       .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'finalisee_rupture' }));
+
       setConseillersActifs([...recrutees, ...nouvellesRuptures]);
       setConseillersInactifs(finaliseesRuptures);
     }

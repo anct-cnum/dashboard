@@ -24,7 +24,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
             <div className="fr-col-2">
               <div>
                 <span className="fr-text--md fr-text--bold">
-                  {formatNomConseiller(conseiller)}
+                  {conseiller ? formatNomConseiller(conseiller) : ''}
                 </span>
                 <br />
                 <span className="fr-text--regular fr-text--md info__color">
