@@ -23,13 +23,13 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
     <div className={`${statut === 'interessee' ? 'btn-actions-interessee' : 'btn-actions'} fr-mt-3w fr-mt-md-0w`}>
       {statut === 'nouvelle' &&
       <>
-        <button onClick={() => updateStatut('interessee')} className="fr-btn fr-icon-success-line fr-btn--icon-left" title="Pré sélectionner">
-          Pr&eacute; s&eacute;lectionner
-        </button>
         <button onClick={() => updateStatut('nonInteressee')}
-          className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary fr-ml-md-2w fr-mt-2w fr-mt-md-0"
+          className="fr-btn fr-btn--secondary"
           title="Ce profil ne correspond pas">
             Ce profil ne correspond pas
+        </button>
+        <button onClick={() => updateStatut('interessee')} className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0" title="Pr&eacute;s&eacute;lectionner ce candidat">
+          Pr&eacute;s&eacute;lectionner ce candidat
         </button>
       </>
       }
@@ -42,24 +42,24 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
             setOpenModal={setOpenModalValidationCandidature}
           />
         }
+        <button onClick={() => updateStatut('nouvelle')}
+          className="fr-btn fr-btn--secondary"
+          title="Annuler la pr&eacute;-s&eacute;lection">
+        Annuler la pr&eacute;s&eacute;lection
+        </button>
         <button onClick={() => {
           setOpenModalValidationCandidature(true);
         }}
-        className="fr-btn fr-icon-success-line fr-btn--icon-left"
+        className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0"
         title="Valider cette candidature">
         Valider cette candidature
-        </button>
-        <button onClick={() => updateStatut('nouvelle')}
-          className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary fr-ml-md-2w fr-mt-2w fr-mt-md-0"
-          title="Annuler la pré-sélection">
-        Annuler la pr&eacute;-s&eacute;lection
         </button>
       </>
       }
       {statut === 'nonInteressee' &&
       <button onClick={() => updateStatut('nouvelle')}
-        className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary"
-        title="Annuler le désintérêt">
+        className="fr-btn fr-btn--secondary"
+        title="Annuler le d&eacute;sint&eacute;r&ecirc;t">
         Annuler le d&eacute;sint&eacute;r&ecirc;t
       </button>
       }
@@ -75,7 +75,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
           <button id="btn-annuler" onClick={() => {
             setOpenModal(true);
           }}
-          className="fr-btn fr-btn--secondary fr-icon-error-line fr-btn--icon-left"
+          className="fr-btn fr-btn--secondary"
           title="Annuler le recrutement">
             Annuler le recrutement
           </button>
