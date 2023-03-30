@@ -11,8 +11,18 @@ function Conventionnement({ conventionnement }) {
     <>
       <td>{conventionnement?.idPG}</td>
       <td>{conventionnement?.nom}</td>
-      <td>{dossierConventionnement?.dateDeCreation ? dayjs(dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY') : 'Non renseignée'}</td>
-      <td>{conventionnement?.dateFinProchainContrat ? dayjs(conventionnement?.dateFinProchainContrat).format('DD/MM/YYYY') : 'Non renseignée'}</td>
+      <td>
+        {dossierConventionnement?.dateDeCreation ?
+          <span>{dayjs(dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
+          <span>Non renseign&eacute;e</span>
+        }
+      </td>
+      <td>
+        {conventionnement?.dateFinProchainContrat ?
+          <span>{dayjs(conventionnement?.dateFinProchainContrat).format('DD/MM/YYYY')}</span> :
+          <span>Non renseign&eacute;e</span>
+        }
+      </td>
       <td>{conventionnement?.nombreConseillersCoselec ?? '-'}</td>
       <td>Conventionnement</td>
       <td>
