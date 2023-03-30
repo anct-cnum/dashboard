@@ -16,7 +16,7 @@ function Structure({ structure }) {
         <td>{structure?.contact?.nom}</td>
         <td>{structure?.contact?.prenom}</td>
         <td colSpan="12" style={{ width: '20rem' }}>{structure?.contact?.email}</td>
-        <td>{structure?.contact?.telephone}</td>
+        <td>{structure?.siret}</td>
         <td>
           <div className="btn-actions-structures">
             <button
