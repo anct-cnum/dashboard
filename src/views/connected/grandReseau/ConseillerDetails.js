@@ -42,7 +42,7 @@ function ConseillerDetails() {
     if (!errorStructure) {
       if (conseiller !== undefined) {
         setMisesEnRelationFinalisee(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
-        setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture'));
+        setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
         setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
         if (conseiller?.statut !== 'RUPTURE') {
           dispatch(structureActions.get(conseiller?.structureId));
@@ -72,13 +72,13 @@ function ConseillerDetails() {
         <h2 className="fr-h2">Id: {conseiller?.idPG ?? ''}</h2>
       </div>
       <div className="fr-col-12 fr-grid-row">
-        {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture.length > 0) &&
+        {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
         <p className="fr-badge fr-mr-2w fr-badge--success fr-badge--no-icon">Contrat en cours</p>
         }
         {conseiller?.statut === 'RUPTURE' &&
         <p className="fr-badge fr-badge--error fr-badge--no-icon">Contrat termin&eacute;</p>
         }
-        {misesEnRelationNouvelleRupture.length > 0 &&
+        {misesEnRelationNouvelleRupture &&
         <p className="fr-badge fr-badge--info">Rupture en cours</p>
         }
       </div>
@@ -338,14 +338,32 @@ function ConseillerDetails() {
           <div className="fr-col-8 fr-mr-3w">
             <h4 className="titre">Contrat</h4>
             <div className="fr-mb-5w fr-grid-row">
-              {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture.length > 0) &&
+              {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
+              <div className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-mb-2w' : ''}>
+                <span className="fr-col-12">
+                  <strong className="fr-badge fr-badge--success fr-badge--no-icon">Contrat En cours</strong>&nbsp;avec {structure?.nom}&nbsp;-
+                    Id&nbsp;&#91;{structure?.idPG}&#93;&nbsp;
+                </span>
+                {(misesEnRelationFinalisee[0]?.dateRecrutement || misesEnRelationNouvelleRupture?.dateRecrutement) &&
                 <>
-                  <span className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-col-12 fr-mb-2w' : 'fr-col-12'}>
-                    <strong className="fr-badge fr-badge--success fr-badge--no-icon">Contrat En cours</strong>&nbsp;avec {structure?.nom}&nbsp;-
-                    Id&nbsp;&#91;{structure?.idPG}&#93;
-                    depuis le {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
-                  </span>
+                  <span>depuis le&nbsp;</span>
+                  {misesEnRelationFinalisee[0]?.dateRecrutement ?
+                    <span>{dayjs(misesEnRelationFinalisee[0]?.dateRecrutement).format('DD/MM/YYYY')}</span> :
+                    <span>{dayjs(misesEnRelationNouvelleRupture.dateRecrutement).format('DD/MM/YYYY')}</span>
+                  }
+                  <span>&nbsp;jusqu&lsquo;au&nbsp;</span>
+                  {(!misesEnRelationFinalisee[0]?.dateFinDeContrat && !misesEnRelationNouvelleRupture?.dateFinDeContrat) &&
+                    <span>:&nbsp;date inconnue</span>
+                  }
+                  {misesEnRelationFinalisee[0]?.dateFinDeContrat &&
+                    <span>{misesEnRelationFinalisee[0]?.dateFinDeContrat}</span>
+                  }
+                  {misesEnRelationNouvelleRupture?.dateFinDeContrat &&
+                    <span>{misesEnRelationNouvelleRupture?.dateFinDeContrat}</span>
+                  }
                 </>
+                }
+              </div>
               }
               {misesEnRelationFinaliseeRupture.map((miseEnRelation, idx) =>
                 <>
@@ -360,7 +378,7 @@ function ConseillerDetails() {
                 </>
               )}
             </div>
-            {(misesEnRelationNouvelleRupture.length > 0 || misesEnRelationFinaliseeRupture.length > 0) &&
+            {(misesEnRelationNouvelleRupture || misesEnRelationFinaliseeRupture.length > 0) &&
               <>
                 <h4 className="titre">Demande de rupture initi&eacute;e</h4>
                 <div>
@@ -379,16 +397,25 @@ function ConseillerDetails() {
                       </div>
                     </>
                   )}
-                  {misesEnRelationNouvelleRupture.map((miseEnRelation, idx) =>
+                  {misesEnRelationNouvelleRupture &&
                     <>
-                      <div key={idx} className="fr-grid-row">
-                        <span>le {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}</span>
-                        <span>&nbsp;pour le motif de&nbsp;</span>
-                        <span>{formatMotifRupture(miseEnRelation?.motifRupture)}</span>
-                        <span>&nbsp;-&nbsp;<strong className="fr-badge fr-badge--info fr-badge--no-icon">{formatStatut(miseEnRelation?.statut)}</strong></span>
+                      <div className={misesEnRelationFinaliseeRupture.length > 0 ? 'fr-mt-2w fr-grid-row' : 'fr-grid-row'}>
+                        {misesEnRelationNouvelleRupture?.emetteurRupture?.date ?
+                          <>
+                            <span>Le {dayjs(misesEnRelationNouvelleRupture?.emetteurRupture?.date).format('DD/MM/YYYY')}</span>
+                            <span>&nbsp;pour le motif de&nbsp;</span>
+                          </> : <span>Pour le motif de&nbsp;</span>
+                        }
+                        <span>{formatMotifRupture(misesEnRelationNouvelleRupture?.motifRupture)}</span>
+                        {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
+                          <span>&nbsp;-&nbsp;<strong className="fr-badge fr-badge--warning fr-badge--no-icon">Dossier incomplet</strong></span> :
+                          <span>&nbsp;-&nbsp;<strong className="fr-badge fr-badge--info fr-badge--no-icon">
+                            {formatStatut(misesEnRelationNouvelleRupture?.statut)}
+                          </strong></span>
+                        }
                       </div>
                     </>
-                  )}
+                  }
                 </div>
               </>
             }

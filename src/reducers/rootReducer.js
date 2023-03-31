@@ -18,6 +18,8 @@ import filtresConseillers from './filtresConseillersReducer';
 import filtresStructuresReducer from './filtresStructuresReducer';
 import filtresGestionnairesReducer from './filtresGestionnairesReducer';
 import miseEnRelationReducer from './miseEnRelationReducer';
+import conventionReducer from './conventionReducer';
+import filtresHistoriqueConventionReducer from './filtresHistoriqueConventionReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -36,9 +38,11 @@ const rootReducer = combineReducers({
   structure: structureReducer,
   gestionnaire: gestionnaireReducer,
   reconventionnement: reconventionnementReducer,
+  convention: conventionReducer,
   invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,
   filtresGestionnaires: filtresGestionnairesReducer,
+  filtresHistoriqueConvention: filtresHistoriqueConventionReducer,
 });
 
 export default rootReducer;

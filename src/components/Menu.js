@@ -63,6 +63,51 @@ function Menu() {
              </li>
             }
             <li className="fr-nav__item">
+              <Link
+                to={`${roleActivated}/informations`}
+                className="fr-nav__link"
+                {...(location.pathname.startsWith(`/${roleActivated}/informations`) ? { 'aria-current': 'page' } : {})}>
+                  Mes informations
+              </Link>
+            </li>
+            { roleActivated === 'admin' &&
+            <li className="fr-nav__item">
+              <button
+                id="listes-traitement-demandes"
+                className="fr-nav__btn"
+                aria-expanded={ activeMenu === 'listes-traitement-demandes' }
+                aria-controls="menu-listes-traitement-demandes"
+                // eslint-disable-next-line max-len
+                {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
+                onClick={onClickMenu}>
+                  Traiter les demandes
+              </button>
+              <div
+                className={`fr-collapse fr-menu ${activeMenu === 'listes-traitement-demandes' ? 'fr-collapse--expanded' : ''}`}
+                id="menu-listes-traitement-demandes"
+              >
+                <ul className="fr-menu__list" style={{ width: '23rem' }}>
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/demandes/conventions`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
+                    >
+                      Demandes de conventions &agrave; traiter
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/historique/demandes/conventions`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
+                    >
+                      Historique des demandes de conventions trait&eacute;es
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            }
+            <li className="fr-nav__item">
               <button
                 id="listes"
                 className="fr-nav__btn"
@@ -78,7 +123,9 @@ function Menu() {
                   { roleActivated === 'structure' &&
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}>
+                      {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'liste-candidatures', action: `click-${roleActivated}` })}
+                    >
                       Liste des candidatures
                     </Link>
                   </li>
