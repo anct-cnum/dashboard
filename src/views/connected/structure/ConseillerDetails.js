@@ -331,7 +331,7 @@ function ConseillerDetails() {
               <span>{conseiller?.groupeCRA ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Compte activé</strong><br/>
+              <strong>Compte activ&eacute;</strong><br/>
               <span>{conseiller?.mattermost?.id ? 'Oui' : 'Non'}</span>
             </div>
           </div>
@@ -397,7 +397,7 @@ function ConseillerDetails() {
                 }
               </div>
               <div className="fr-mb-3w">
-                <strong>Lieu de résidence</strong><br/>
+                <strong>Lieu de r&eacute;sidence</strong><br/>
                 {conseiller?.nomCommune ?
                   <span>{conseiller?.nomCommune}</span> :
                   <span>-</span>
@@ -407,7 +407,7 @@ function ConseillerDetails() {
             <div className="fr-col-6">
               <h4 className="titre">Informations de candidature</h4>
               <div className="fr-mb-3w">
-                <strong>Mobilit&eacute; géographique</strong><br/>
+                <strong>Mobilit&eacute; g&eacute;ographique</strong><br/>
                 {conseiller?.distanceMax ? <span>{conseiller?.distanceMax}&nbsp;km</span> : <span>-</span>}
               </div>
               <div className="fr-mb-3w">
@@ -417,15 +417,17 @@ function ConseillerDetails() {
                 }
               </div>
               <div className="fr-mb-3w">
-                <strong>Résultat Pix</strong><br/>
+                <strong>R&eacute;sultat Pix</strong><br/>
                 {conseiller?.pix?.partage ?
                   <div>
-                    {formatRenderStars(conseiller?.pix?.palier)}
+                    <div className="color-render-stars">
+                      {formatRenderStars(conseiller?.pix?.palier)}
+                    </div>
                     <p>
                       {conseiller?.pix?.competence1 &&
                     <img src={pixUtilisation}
-                      alt="Utilisation du numérique"
-                      title="Utilisation du numérique dans la vie professionnelle"
+                      alt="Utilisation du num&eacute;rique"
+                      title="Utilisation du num&eacute;rique dans la vie professionnelle"
                       className="fr-mr-2w"
                     />
                       }
@@ -438,21 +440,21 @@ function ConseillerDetails() {
                       }
                       {conseiller?.pix?.competence3 &&
                   <img src={pixCitoyen}
-                    alt="Compétences numériques en lien avec la e-citoyenneté"
-                    title="Compétences numériques en lien avec la e-citoyenneté"
+                    alt="Comp&eacute;tences num&eacute;riques en lien avec la e-citoyennet&eacute;"
+                    title="Comp&eacute;tences num&eacute;riques en lien avec la e-citoyennet&eacute;"
                     className="fr-mr-2w"
                   />
                       }
                     </p>
                     <p>
                       <a href="https://cdn.conseiller-numerique.gouv.fr/Conseillernum_Lire%20les%20r%C3%A9sultats%20du%20diagnostic%20des%20candidats_V2-2.pdf"
-                        className="fr-link"
+                        className="fr-link fr-link--icon-right fr-icon-download-fill"
                         target="blank"
                         title="Télécharger le document d&rsquo;analyse des résultats Pix">
-                    T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
+                      T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
                       </a>
                       <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-                    Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats
+                        Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats
                       </span>
                     </p>
                   </div> : <span>Comp&eacute;tences PIX non partag&eacute;es</span>
