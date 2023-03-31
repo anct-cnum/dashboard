@@ -38,7 +38,7 @@ export default function GraphiqueTerritoire() {
       if (stateTypeTerritoire !== maille) {
         dispatch(filtresEtTrisStatsActions.changeTerritoire(typeTerritoire));
       }
-      if (territoires?.length === 0) {
+      if ((territoires ?? [])?.length === 0) {
         dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, 1, ordreNom, ordre ? 1 : -1));
       }
       if (!territoire) {
@@ -61,7 +61,7 @@ export default function GraphiqueTerritoire() {
 
   useEffect(() => {
     if (!error) {
-      if (territoire && !donneesStatistiques) {
+      if (territoire) {
         dispatch(statistiquesActions.getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, territoire?.conseillerIds));
       }
     } else {
