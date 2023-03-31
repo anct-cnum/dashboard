@@ -13,7 +13,7 @@ function getMisesEnRelationStructure(id) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 function getMisesEnRelationARenouveller(id) {
-  return API.get(`${apiUrlRoot}/misesEnRelationARenouveller-structure/${id}?role=${roleActivated()}`)
+  return API.get(`${apiUrlRoot}/misesEnRelation-renouvellement-structure/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
