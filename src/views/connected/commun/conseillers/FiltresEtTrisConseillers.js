@@ -91,11 +91,7 @@ function FiltresEtTrisConseillers() {
             <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
               <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
-                <>
-                  {filtreRegion === region.code ?
-                    <option key={idx} value={region.code} selected>{region.nom}</option> : <option key={idx} value={region.code}>{region.nom}</option>
-                  }
-                </>
+                <option key={idx} value={region.code}>{region.nom}</option>
               )}
             </select>
           </div>

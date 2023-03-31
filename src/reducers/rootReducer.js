@@ -13,9 +13,11 @@ import conseillerReducer from './conseillerReducer';
 import statsReducer from './statsReducer';
 import structureReducer from './structureReducer';
 import gestionnaireReducer from './gestionnaireReducer';
+import conventionReducer from './conventionReducer';
 import filtresConseillers from './filtresConseillersReducer';
 import filtresStructuresReducer from './filtresStructuresReducer';
 import filtresGestionnairesReducer from './filtresGestionnairesReducer';
+import filtresHistoriqueConventionReducer from './filtresHistoriqueConventionReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -32,9 +34,11 @@ const rootReducer = combineReducers({
   stats: statsReducer,
   structure: structureReducer,
   gestionnaire: gestionnaireReducer,
+  convention: conventionReducer,
   invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,
   filtresGestionnaires: filtresGestionnairesReducer,
+  filtresHistoriqueConvention: filtresHistoriqueConventionReducer,
 });
 
 export default rootReducer;

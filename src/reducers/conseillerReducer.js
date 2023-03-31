@@ -83,13 +83,20 @@ export default function conseiller(state = initialState, action) {
     case 'UPDATE_DATE_REQUEST':
       return {
         ...state,
-        dateRecrutementUpdated: false
+        dateRecrutementUpdated: false,
+        errorUpdateDate: false,
       };
     case 'UPDATE_DATE_SUCCESS':
       return {
         ...state,
-        miseEnRelation: action.miseEnRelation,
+        conseiller: { ...state.conseiller, miseEnRelation: action.miseEnRelation },
         dateRecrutementUpdated: true
+      };
+    case 'UPDATE_DATE_FAILURE':
+      return {
+        ...state,
+        dateRecrutementUpdated: false,
+        errorUpdateDate: action.error,
       };
     case 'PRESELECTIONNER_CONSEILLER_REQUEST':
       return {

@@ -12,13 +12,14 @@ export const exportsActions = {
   exportDonneesConseiller,
   exportDonneesStructure,
   exportDonneesGestionnaires,
+  exportDonneesHistoriqueDossiersConvention,
 };
 
-function exportFile(nameFile, hubName) {
+function exportFile(nameFile, collection = 'exports', hubName) {
   return dispatch => {
     dispatch(request());
 
-    exportsService.getFile(nameFile)
+    exportsService.getFile(nameFile, collection)
     .then(
       blob => dispatch(success(blob, nameFile, hubName)),
       error => dispatch(failure(error))
@@ -37,6 +38,9 @@ function exportFile(nameFile, hubName) {
     }
     if (nameFile === 'cnfs-hub') {
       nameFile = `export-cnfs_${dayjs(new Date()).format('DD-MM-YYYY')}_${hubName}`;
+    }
+    if (nameFile === 'historique-ruptures') {
+      nameFile = `${nameFile}_${dayjs(new Date()).format('DD-MM-YYYY')}`;
     }
     return { type: 'EXPORT_FILE_SUCCESS', blob, nameFile };
   }
@@ -152,5 +156,25 @@ function exportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrd
   }
   function failure(error) {
     return { type: 'EXPORT_GESTIONNAIRES_FAILURE', error };
+  }
+}
+
+function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin) {
+  return async dispatch => {
+    dispatch(request());
+    await exportsService.getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin)
+    .then(exportHistoriqueDossiersConventionFileBlob => dispatch(success(exportHistoriqueDossiersConventionFileBlob)))
+    .catch(exportHistoriqueDossiersConventionFileError => dispatch(failure(exportHistoriqueDossiersConventionFileError)));
+  };
+
+  function request() {
+    return { type: 'EXPORT_HISTORIQUE_DOSSIERS_CONVENTION_REQUEST' };
+  }
+  function success(exportHistoriqueDossiersConventionFileBlob) {
+    const nameFile = `export-historique-dossiers-convention_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+    return { type: 'EXPORT_HISTORIQUE_DOSSIERS_CONVENTION_SUCCESS', exportHistoriqueDossiersConventionFileBlob, nameFile };
+  }
+  function failure(error) {
+    return { type: 'EXPORT_HISTORIQUE_DOSSIERS_CONVENTION_FAILURE', error };
   }
 }

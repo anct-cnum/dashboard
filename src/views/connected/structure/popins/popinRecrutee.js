@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function popinRecrutee({ setDisplayModal }) {
+function popinRecrutee({ setDisplayModal, urlDossierConventionnement }) {
   const demarchesSimplifieesUrl = process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_HOSTNAME;
 
   return (
@@ -22,32 +22,42 @@ function popinRecrutee({ setDisplayModal }) {
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true">
                   </span>Important</h1>
                 <p>
-                    Vous avez actionné le bouton &laquo;&nbsp;Valider cette candidature&nbsp;&raquo;
+                    Vous avez actionn&eacute; le bouton &laquo;&nbsp;Valider cette candidature&nbsp;&raquo;
                   <br/>
-                    Votre choix est donc arrêté sur un ou plusieurs Conseillers numériques France Services.
+                    Votre choix est donc arr&ecirc;t&eacute; sur un ou plusieurs Conseillers num&eacute;riques France Services.
                     Vous allez donc passer à l&rsquo;étape de conventionnement.
                 </p>
                 <p>
                   <strong>Merci de bien vouloir :</strong>
                   <br/>
-                    Compléter les différents champs indispensables à l&rsquo;étude de votre demande de subvention en cliquant sur le lien correspondant :
+                    Comp&eacute;lter les diff&eacute;rents champs indispensables &agrave; l&rsquo;&eacute;tude de votre&nbsp;
+                    demande de subvention en cliquant sur le lien correspondant:
                   <br/><br/>
-                    NB : Si vous avez validé plusieurs candidatures, merci de ne réaliser qu’une seule demande.
+                    NB : Si vous avez valid&eacute; plusieurs candidatures, merci de ne r&eacute;aliser qu&rsquo;une seule demande.
                   <br /><br />
-                  <strong>Structures publiques</strong> :&nbsp;
-                  <a href={`${demarchesSimplifieesUrl}/commencer/cnfs-sa-structures-publiques`}
-                    target="blank">{`${demarchesSimplifieesUrl}/commencer/cnfs-sa-structures-publiques`}</a>
-                  <br/>
-                  <strong>Entreprises</strong>&nbsp;:&nbsp;
-                  <a href={`${demarchesSimplifieesUrl}/commencer/cnfs-sa-entreprises`}
-                    target="blank">{`${demarchesSimplifieesUrl}/commencer/cnfs-sa-entreprises`}</a>
-                  <br/>
-                  <strong>Associations</strong>&nbsp;:&nbsp;
-                  <a href={`${demarchesSimplifieesUrl}/commencer/cnfs-associations`}
-                    target="blank">{`${demarchesSimplifieesUrl}/commencer/cnfs-associations`}</a>
+                  {urlDossierConventionnement ?
+                    <a className="fr-btn fr-btn--secondary" href={urlDossierConventionnement} target="_blank" rel="noopener noreferrer">
+                      Votre dossier D&eacute;marche Simplifi&eacute;e
+                    </a> :
+                    <>
+                      <strong>Structures publiques</strong> :&nbsp;
+                      <a rel="noopener noreferrer" href={`${demarchesSimplifieesUrl}/commencer/cnfs-sa-structures-publiques`}
+                        target="blank">{`${demarchesSimplifieesUrl}/commencer/cnfs-sa-structures-publiques`}</a>
+                      <br/>
+                      <strong>Entreprises</strong>&nbsp;:&nbsp;
+                      <a rel="noopener noreferrer" href={`${demarchesSimplifieesUrl}/commencer/cnfs-sa-entreprises`}
+                        target="blank">{`${demarchesSimplifieesUrl}/commencer/cnfs-sa-entreprises`}</a>
+                      <br/>
+                      <strong>Associations</strong>&nbsp;:&nbsp;
+                      <a rel="noopener noreferrer" href={`${demarchesSimplifieesUrl}/commencer/cnfs-associations`}
+                        target="blank">{`${demarchesSimplifieesUrl}/commencer/cnfs-associations`}</a>
+                    </>
+                  }
                 </p>
                 <p>
-                  <strong>Important&nbsp;: l&rsquo;embauche reste conditionnée à la conformité de votre dossier de demande de subvention.</strong>
+                  <strong>
+                    Important&nbsp;: l&rsquo;embauche reste conditionn&eacute;e &agrave; la conformit&eacute; de votre dossier de demande de subvention.
+                  </strong>
                 </p>
               </div>
             </div>
@@ -60,7 +70,8 @@ function popinRecrutee({ setDisplayModal }) {
 }
 
 popinRecrutee.propTypes = {
-  setDisplayModal: PropTypes.func
+  setDisplayModal: PropTypes.func,
+  urlDossierConventionnement: PropTypes.string,
 };
 
 export default popinRecrutee;
