@@ -15,12 +15,12 @@ const CollaborateurCard = ({ user }) => (
           </div>
           <div className="fr-col-offset-7"></div>
           <div className="fr-col-2" style={{ textAlign: 'end' }}>
-            <p className="fr-badge fr-badge--info">Label badge</p>
+            <p className="fr-badge fr-badge--info">Actif</p>
           </div>
           <div className="fr-col-1" style={{ textAlign: 'end' }}>
             <button
               className="fr-btn fr-icon-delete-line fr-btn--tertiary-no-outline"
-              title="Label bouton"
+              title="Supprimer"
             />
           </div>
         </div>

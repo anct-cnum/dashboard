@@ -5,8 +5,8 @@ const CompleteApplicationCard = ({ url, structure }) => (
   <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
     <div className="fr-card__body fr-p-0">
       <div>
-        <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <div className="fr-col-3">
+        <div className="fr-grid-row responsive__wide-card" style={{ alignItems: 'center' }}>
+          <div className="fr-col-3 card__text">
             <div>
               <span className="fr-text--md fr-text--bold">ID de votre structure</span>
               <br />
@@ -15,7 +15,7 @@ const CompleteApplicationCard = ({ url, structure }) => (
               </span>
             </div>
           </div>
-          <div className="fr-col-3">
+          <div className="fr-col-3 card__text">
             <div>
               <span className="fr-text--md fr-text--bold" style={{ fontWeight: '500' }}>
                 N° Siret de votre structure
@@ -26,12 +26,12 @@ const CompleteApplicationCard = ({ url, structure }) => (
               </span>
             </div>
           </div>
-          <div className="fr-col-3">
+          <div className="fr-col-3 card__text">
             <p className="fr-badge fr-badge--warning">CONVENTIONNEMENT EN COURS</p>
           </div>
-          <div className="fr-col-3" style={{ textAlign: 'end' }}>
+          <div className="fr-col-3 card__text">
             <button
-              className="fr-btn fr-mx-3w"
+              className="fr-btn fr-mx-3w card__button"
               title="D&eacute;tail"
               onClick={() => window.open(url, '_blank', 'noopener,noreferrer')}
             >

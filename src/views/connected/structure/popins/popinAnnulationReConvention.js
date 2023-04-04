@@ -37,7 +37,7 @@ function popinAnnulationReConvention({ setOpenModal, handleCancel, motif, setMot
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg"></span>
-                  Vous ne souhaitez pas renouveler votre conventionnement ?
+                  Vous ne souhaitez pas renouveler votre conventionnement&nbsp;?
                 </h1>
                 {radioValues.map(radio => (
                   <div className="fr-radio-group" key={radio.id}>

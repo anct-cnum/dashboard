@@ -14,7 +14,7 @@ const ManagePositionsCard = ({ dossierConventionnement }) => {
             </p>
           </div>
           <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {dossierConventionnement?.dateDeValidation ?
-            <span>le&nbsp;{dayjs(dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
+            <span>le&nbsp;{dayjs(dossierConventionnement?.dateDeValidation).format('DD/MM/YYYY')}</span> :
             <span>date inconnue</span>
           }</p>
           <div className="fr-card__desc">

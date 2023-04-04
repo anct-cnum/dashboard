@@ -1,23 +1,13 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-const SelectAdvisorCard = ({ miseEnrealation, roleActivated, handleSelectAdvisor, checkedItems }) => {
-  const displayBadge = statut => {
-    switch (statut) {
-      case 'finalisee':
-        return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
-      case 'finalisee_rupture':
-        return <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>;
-      default:
-        return;
-    }
-  };
+const SelectAdvisorCard = ({ miseEnrelation, roleActivated, handleSelectAdvisor, checkedItems }) => {
 
   return (
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
       <div className="fr-card__body fr-p-0">
         <div>
-          <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+          <div className="fr-grid-row responsive__wide-card">
             <div style={{ marginRight: '20px' }}>
               <div className="fr-radio-group fr-radio-group--md">
                 <input
@@ -25,25 +15,25 @@ const SelectAdvisorCard = ({ miseEnrealation, roleActivated, handleSelectAdvisor
                   id="checkbox"
                   name="checkbox"
                   checked={checkedItems
-                  .map(item => item.miseEnRelationId)
-                  .includes(miseEnrealation?.miseEnRelationId)}
-                  value={JSON.stringify(miseEnrealation)}
+                  ?.map(item => item.miseEnRelationId)
+                  ?.includes(miseEnrelation?.miseEnRelationId)}
+                  value={JSON.stringify(miseEnrelation)}
                   onChange={handleSelectAdvisor}
                 />
               </div>
             </div>
-            <div className="fr-col-2">
+            <div className="fr-col-2 card__text">
               <div>
                 <span className="fr-text--md fr-text--bold">
-                  {miseEnrealation?.conseiller?.prenom} {miseEnrealation?.conseiller?.nom}
+                  {miseEnrelation?.conseiller?.prenom} {miseEnrelation?.conseiller?.nom}
                 </span>
                 <br />
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                  ID - {miseEnrealation?.conseiller?.idPG}
+                  ID - {miseEnrelation?.conseiller?.idPG}
                 </span>
               </div>
             </div>
-            <div className="fr-col-2">
+            <div className="fr-col-2 card__text">
               <div>
                 <span className="fr-text--md" style={{ fontWeight: '500' }}>
                   Type de contrat
@@ -54,7 +44,7 @@ const SelectAdvisorCard = ({ miseEnrealation, roleActivated, handleSelectAdvisor
                 </span>
               </div>
             </div>
-            <div className="fr-col-2">
+            <div className="fr-col-2 card__text">
               <div>
                 <span className="fr-text--md" style={{ fontWeight: '500' }}>
                   Début de contrat
@@ -63,7 +53,7 @@ const SelectAdvisorCard = ({ miseEnrealation, roleActivated, handleSelectAdvisor
                 -
               </div>
             </div>
-            <div className="fr-col-2">
+            <div className="fr-col-2 card__text">
               <div>
                 <span className="fr-text--md" style={{ fontWeight: '500' }}>
                   Fin de contrat
@@ -72,17 +62,19 @@ const SelectAdvisorCard = ({ miseEnrealation, roleActivated, handleSelectAdvisor
                 -
               </div>
             </div>
-            <div className="fr-col-2">{displayBadge(miseEnrealation?.statut)}</div>
+            <div className="fr-col-2 card__text">
+              <p className="fr-badge fr-badge--success">En activit&eacute;</p>
+            </div>
             <div className="fr-col-1.5" style={{ textAlign: 'end' }}>
               <button
-                className="fr-btn fr-icon-eye-line fr-mx-3w"
+                className="fr-btn fr-icon-eye-line fr-mx-3w card__button"
                 title="D&eacute;tail"
-                onClick={() => window.open(`/${roleActivated}/conseiller/${miseEnrealation?.conseiller?._id}`)}
+                onClick={() => window.open(`/${roleActivated}/conseiller/${miseEnrelation?.conseiller?._id}`)}
               />
               <button
-                className="fr-btn fr-icon-line-chart-line"
+                className="fr-btn fr-icon-line-chart-line card__button"
                 title="Statistiques"
-                onClick={() => window.open(`/statistiques-conseiller/${miseEnrealation?.conseiller?._id}`)}
+                onClick={() => window.open(`/statistiques-conseiller/${miseEnrelation?.conseiller?._id}`)}
               />
             </div>
           </div>
@@ -98,7 +90,7 @@ SelectAdvisorCard.propTypes = {
   statut: propTypes.string,
   id: propTypes.string,
   roleActivated: propTypes.string,
-  miseEnrealation: propTypes.object,
+  miseEnrelation: propTypes.object,
   handleSelectAdvisor: propTypes.func,
   checkedItems: propTypes.array,
 };

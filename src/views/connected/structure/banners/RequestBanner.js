@@ -12,7 +12,7 @@ const RequestBanner = ({ setOpenModal, openModal }) => {
       <div className="fr-container">
         <div className="fr-notice__body fr-grid-row fr-grid-row--middle fr-py-1w">
           <div>
-            <p className="fr-notice__title">Vous arrivez &agrave; la fin de votre conventionnement?</p>
+            <p className="fr-notice__title">Vous arrivez &agrave; la fin de votre conventionnement&nbsp;?</p>
             <p className="fr-text--md">
             Vous pouvez d&egrave;s &agrave; pr&eacute;sent faire votre demande de reconventionnement
             </p>

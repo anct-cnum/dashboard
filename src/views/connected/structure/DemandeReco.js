@@ -7,6 +7,7 @@ import CompleteApplicationCard from './cards/CompleteApplicationCard';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import {
   alerteEtSpinnerActions,
+  conventionActions,
   reconventionnementActions,
   structureActions,
   miseEnRelationAction
@@ -35,8 +36,8 @@ function DemandeReconventionnement() {
   useEffect(() => {
     if (!errorReconventionnement) {
       scrollTopWindow();
-      if (idDossier) {
-        dispatch(reconventionnementActions.get(idDossier));
+      if (structure) {
+        dispatch(conventionActions.get(structure?._id));
       }
     } else {
       dispatch(
@@ -147,11 +148,11 @@ function DemandeReconventionnement() {
           <h5 className="fr-text--bold">Renouvellement de postes</h5>
           <p>S&eacute;lectionez les conseillers que vous souhaitez renouveller.</p>
           {misesEnRelationARenouveller &&
-            misesEnRelationARenouveller.map((miseEnrealation, idx) => (
+            misesEnRelationARenouveller.map((miseEnrelation, idx) => (
               <SelectAdvisorCard
                 handleSelectAdvisor={handleSelectAdvisor}
                 roleActivated={roleActivated}
-                miseEnrealation={miseEnrealation}
+                miseEnrelation={miseEnrelation}
                 checkedItems={checkedItems}
                 key={idx}
               />

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { pluralize } from '../../../../utils/formatagesUtils';
 
 function PopinRecapReconvention({ setOpenModal, checkedItems, structure, handleSend }) {
   const navigate = useNavigate();
@@ -34,22 +35,38 @@ function PopinRecapReconvention({ setOpenModal, checkedItems, structure, handleS
                   <p>
                     Vous allez faire une demande pour{' '}
                     <span className="fr-text fr-text--bold">
-                      {structure?.conventionnement?.nombreDePostes} postes subventionn&eacute;s,{' '}
+                      {structure?.conventionnement?.nombreDePostes}
+                      {pluralize(
+                        'poste subventionné',
+                        'poste subventionné',
+                        'postes subventionnés',
+                        structure?.conventionnement?.nombreDePostes
+                      )},{' '}
                     </span>
                     dont:
                   </p>
                   <ul>
                     <li>
                       <p className="fr-text--bold fr-mb-1w">
-                        {checkedItems.filter(item => item.statut === 'finalisee').length} postes
-                        occup&eacute;s
+                        {checkedItems.filter(item => item.statut === 'finalisee').length}
+                        {pluralize(
+                          'poste occupé',
+                          'poste occupé',
+                          'postes occupés',
+                          checkedItems.filter(item => item.statut === 'finalisee').length
+                        )}
                       </p>
                     </li>
                     <li>
                       <p className="fr-text--bold">
                         {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues -
                           checkedItems.filter(item => item.statut === 'finalisee').length}{' '}
-                        postes vacants
+                        {pluralize(
+                          'poste vacant',
+                          'poste vacant',
+                          'postes vacants',
+                          structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues
+                        )}
                       </p>
                     </li>
                   </ul>

@@ -9,8 +9,6 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
         return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
       case 'nouvelle_rupture':
         return <p className="fr-badge fr-badge--info">Rupture en cours</p>;
-      case 'finalisee_rupture':
-        return <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>;
       default:
         return;
     }
@@ -20,8 +18,8 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
       <div className="fr-card__body fr-p-0">
         <div>
-          <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-            <div className="fr-col-2">
+          <div className="fr-grid-row responsive__wide-card" style={{ alignItems: 'center' }}>
+            <div className="fr-col-2 card__text">
               <div>
                 <span className="fr-text--md fr-text--bold">
                   {conseiller ? formatNomConseiller(conseiller) : ''}
@@ -32,7 +30,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                 </span>
               </div>
             </div>
-            <div className="fr-col-2">
+            <div className="fr-col-2 card__text">
               <div>
                 <span className="fr-text--md" style={{ fontWeight: '500' }}>
                     Type de contrat
@@ -43,7 +41,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                 </span>
               </div>
             </div>
-            <div className="fr-col-2">
+            <div className="fr-col-2 card__text">
               <div>
                 <span className="fr-text--md" style={{ fontWeight: '500' }}>
                     D&eacute;but de contrat
@@ -54,7 +52,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                 </span>
               </div>
             </div>
-            <div className="fr-col-2">
+            <div className="fr-col-2 card__text">
               <div>
                 <span className="fr-text--md" style={{ fontWeight: '500' }}>
                     Fin de contrat
@@ -65,15 +63,15 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                 </span>
               </div>
             </div>
-            <div className="fr-col-2">{displayBadge(conseiller?.statut)}</div>
-            <div className="fr-col-2" style={{ textAlign: 'end' }}>
+            <div className="fr-col-2 card__text">{displayBadge(conseiller?.statut)}</div>
+            <div className="fr-col-2">
               <button
-                className="fr-btn fr-icon-eye-line fr-mx-3w"
+                className="fr-btn fr-icon-eye-line fr-mx-3w card__button"
                 title="D&eacute;tail"
                 onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}
               />
               <button
-                className="fr-btn fr-icon-line-chart-line"
+                className="fr-btn fr-icon-line-chart-line card__button"
                 title="Statistiques"
                 onClick={() => window.open(`/statistiques-conseiller/${conseiller?._id}`)}
               />

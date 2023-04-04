@@ -13,14 +13,14 @@ const ConventionnementInfosCard = () => {
           <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : -</p>
           <div className="fr-card__desc">
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              4 postes de conseillers{' '}
+              - postes de conseillers{' '}
               <span className="fr-text--regular fr-text--md">valid&eacute; pour ce conventionnement</span>
             </p>
             <div className="fr-col-12 fr-mt-1w">
               <hr style={{ borderWidth: '0.5px' }} />
             </div>
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - 2 postes de conseillers vacants{' '}
+              Avenant - - postes de conseillers vacants{' '}
               <span className="fr-text--regular fr-text--md">rendu le -</span>
             </p>
             <div className="fr-col-12 fr-my-1w">
@@ -29,7 +29,7 @@ const ConventionnementInfosCard = () => {
             <div>
               <ul className="fr-btns-group fr-btns-group--inline-md">
                 <li>
-                  <p className="fr-text--bold">Profils recrut&eacute;</p>
+                  <p className="fr-text--bold">Profils recrut&eacute;s</p>
                 </li>
                 <li className="fr-ml-auto">
                   <button className="fr-btn">

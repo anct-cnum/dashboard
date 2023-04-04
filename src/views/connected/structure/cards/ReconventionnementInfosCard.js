@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { pluralize } from '../../../../utils/formatagesUtils';
 
 const ReconventionnementInfosCard = ({ structure }) => {
   const displayBadge = () => {
@@ -26,7 +27,16 @@ const ReconventionnementInfosCard = ({ structure }) => {
           <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : -</p>
           <div className="fr-card__desc">
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues} postes de conseillers{' '}
+              {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues}
+              {
+                pluralize(
+                  ' poste de conseiller',
+                  ' poste de conseiller',
+                  ' postes de conseillers',
+                  structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues
+                )
+              }
+              {' '}
               {structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' ? (
                 <span className="fr-text--regular fr-text--md">valid&eacute; pour ce conventionnement</span>
               ) : (
@@ -37,7 +47,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
               <hr style={{ borderWidth: '0.5px' }} />
             </div>
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - 2 postes de conseillers vacants <span className="fr-text--regular fr-text--md">rendu le -</span>
+              Avenant - - postes de conseillers vacants <span className="fr-text--regular fr-text--md">rendu le -</span>
             </p>
             <div className="fr-col-12 fr-my-1w">
               <hr style={{ borderWidth: '0.5px' }} />

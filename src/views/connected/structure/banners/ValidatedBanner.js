@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { pluralize } from '../../../../utils/formatagesUtils';
 
 const ValidatedBanner = ({ structure }) => {
   return (
@@ -12,11 +13,17 @@ const ValidatedBanner = ({ structure }) => {
         <div className="fr-notice__body responsive__banner" style={{ paddingLeft: '20px' }}>
           <div>
             <p className="fr-notice__title title__color">
-              Votre demande de reconventionnement a &eacute;t&eacute; accept&eacute; !
+              Votre demande de reconventionnement a &eacute;t&eacute; accept&eacute;&nbsp;!
             </p>
             <p className="fr-text--md">
-              Vous avez {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues} postes à pourvoir d&egrave;s &agrave; pr&eacute;sent.
-              En savoir plus sur comment recruter vos conseillers.
+              Vous avez {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues}
+              {pluralize(
+                'poste à pourvoir dès à présent',
+                ' poste à pourvoir dès à présent',
+                ' postes à pourvoir dès à présent',
+                structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues
+              )}
+              . En savoir plus sur comment recruter vos conseillers.
             </p>
           </div>
           <div className="banner__button">

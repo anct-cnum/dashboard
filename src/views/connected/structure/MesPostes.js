@@ -19,7 +19,6 @@ function MesPostes() {
   const structure = useSelector(state => state.structure?.structure);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const [conseillersActifs, setConseillersActifs] = useState([]);
-  const [conseillersInactifs, setConseillersInactifs] = useState([]);
   const [motif, setMotif] = useState('');
 
   const displayBanner = () => {
@@ -33,7 +32,8 @@ function MesPostes() {
       case 'NON_INTERESSÉ':
         return null;
       default:
-        return <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
+        return structure?.conventionnement?.statut &&
+         <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
     }
   };
   
@@ -56,15 +56,8 @@ function MesPostes() {
       const nouvellesRuptures = misesEnrelation
       .filter(({ statut }) => statut === 'nouvelle_rupture')
       .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'nouvelle_rupture' }));
-      // conseillers qui ont été recrutés dont le contrat est terminé et n'ont pas de nouveau contrat ou nouvelle rupture
-      const finaliseesRuptures = misesEnrelation
-      .filter(({ statut, conseillerObj }) => statut === 'finalisee_rupture' &&
-      !recrutees.find(({ _id }) => _id === conseillerObj?._id) &&
-       !nouvellesRuptures.find(({ _id }) => _id === conseillerObj?._id))
-      .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'finalisee_rupture' }));
 
       setConseillersActifs([...recrutees, ...nouvellesRuptures]);
-      setConseillersInactifs(finaliseesRuptures);
     }
   }, [misesEnrelation]);
 
@@ -92,7 +85,7 @@ function MesPostes() {
         {
           misesEnrelation?.length > 0 &&
         <>
-          <HireAdvisorCard nbreConseillersActifs={conseillersActifs.length} nbreConseillersInactifs={conseillersInactifs.length}/>
+          <HireAdvisorCard nbreConseillersActifs={conseillersActifs.length} />
           <div className="container fr-mt-4w">
             <p className="fr-text--bold">Vos conseillers actifs ({conseillersActifs.length})</p>
             {misesEnrelation &&
@@ -101,12 +94,11 @@ function MesPostes() {
           <section className="fr-accordion fr-mt-4w">
             <h3 className="fr-accordion__title">
               <button className="fr-accordion__btn fr-text--bold" aria-expanded="false" aria-controls="accordion-106">
-              Vos anciens conseillers ({conseillersInactifs?.length})
+              Vos anciens conseillers -
               </button>
             </h3>
             <div className="fr-collapse" id="accordion-106">
-              {misesEnrelation &&
-              conseillersInactifs?.map((conseiller, idx) => <AdvisorCard conseiller={conseiller} roleActivated={roleActivated} key={idx} />)}
+              Aucun conseiller inactif associ&eacute; &agrave; la structure
             </div>
           </section>
         </>
