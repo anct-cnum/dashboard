@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-const SelectAdvisorCard = ({ miseEnrelation, roleActivated, handleSelectAdvisor, checkedItems }) => {
+const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor, checkedItems }) => {
 
   return (
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
@@ -16,8 +16,8 @@ const SelectAdvisorCard = ({ miseEnrelation, roleActivated, handleSelectAdvisor,
                   name="checkbox"
                   checked={checkedItems
                   ?.map(item => item.miseEnRelationId)
-                  ?.includes(miseEnrelation?.miseEnRelationId)}
-                  value={JSON.stringify(miseEnrelation)}
+                  ?.includes(miseEnRelation?.miseEnRelationId)}
+                  value={JSON.stringify(miseEnRelation)}
                   onChange={handleSelectAdvisor}
                 />
               </div>
@@ -25,11 +25,11 @@ const SelectAdvisorCard = ({ miseEnrelation, roleActivated, handleSelectAdvisor,
             <div className="fr-col-2 card__text">
               <div>
                 <span className="fr-text--md fr-text--bold">
-                  {miseEnrelation?.conseiller?.prenom} {miseEnrelation?.conseiller?.nom}
+                  {miseEnRelation?.conseiller?.prenom} {miseEnRelation?.conseiller?.nom}
                 </span>
                 <br />
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                  ID - {miseEnrelation?.conseiller?.idPG}
+                  ID - {miseEnRelation?.conseiller?.idPG}
                 </span>
               </div>
             </div>
@@ -69,12 +69,12 @@ const SelectAdvisorCard = ({ miseEnrelation, roleActivated, handleSelectAdvisor,
               <button
                 className="fr-btn fr-icon-eye-line fr-mx-3w card__button"
                 title="D&eacute;tail"
-                onClick={() => window.open(`/${roleActivated}/conseiller/${miseEnrelation?.conseiller?._id}`)}
+                onClick={() => window.open(`/${roleActivated}/conseiller/${miseEnRelation?.conseiller?._id}`)}
               />
               <button
                 className="fr-btn fr-icon-line-chart-line card__button"
                 title="Statistiques"
-                onClick={() => window.open(`/statistiques-conseiller/${miseEnrelation?.conseiller?._id}`)}
+                onClick={() => window.open(`/statistiques-conseiller/${miseEnRelation?.conseiller?._id}`)}
               />
             </div>
           </div>
@@ -90,7 +90,7 @@ SelectAdvisorCard.propTypes = {
   statut: propTypes.string,
   id: propTypes.string,
   roleActivated: propTypes.string,
-  miseEnrelation: propTypes.object,
+  miseEnRelation: propTypes.object,
   handleSelectAdvisor: propTypes.func,
   checkedItems: propTypes.array,
 };

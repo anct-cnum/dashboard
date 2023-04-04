@@ -2,12 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import { structureActions, alerteEtSpinnerActions, invitationsActions } from '../../../actions';
+import { structureActions, alerteEtSpinnerActions, invitationsActions, userActions } from '../../../actions';
 import SiretForm from '../admin/structures/SiretForm';
 import Spinner from '../../../components/Spinner';
 import { valideInputEmail } from '../../../utils/formatagesUtils';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
-import { StructureInformationsCard, ReconventionnementInfosCard, ConventionnementInfosCard, AccompagnementsCard, CollaborateurCard } from './cards';
+import {
+  StructureInformationsCard,
+  ReconventionnementInfosCard,
+  ConventionnementInfosCard,
+  AccompagnementsCard,
+  CollaborateurCard
+} from './cards';
 import PopinFormulaireInvitation from './popins/popinFormulaireInvitation';
 
 function StructureDetails() {
@@ -23,12 +29,26 @@ function StructureDetails() {
   const [activeMessage, setActiveMessage] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const users = useSelector(state => state.user?.users);
+  const { entity } = useSelector(state => state.authentication?.user);
+  const [collaborateurs, setCollaborateurs] = useState([]);
 
   useEffect(() => {
     if (structure?._id !== idStructure) {
       dispatch(structureActions.getDetails(idStructure));
     }
   }, [structure]);
+
+  useEffect(() => {
+    if (entity) {
+      dispatch(userActions.getUsers());
+    }
+  }, [entity]);
+
+  useEffect(() => {
+    if (users) {
+      setCollaborateurs(users);
+    }
+  }, [users]);
 
   useEffect(() => {
     if (success) {
@@ -67,12 +87,18 @@ function StructureDetails() {
       dispatch(invitationsActions.resetInvitation());
     }, 10000);
   };
- 
+
   return (
     <>
       {openModal && (
-        <PopinFormulaireInvitation structure={structure} setOpenModal={setOpenModal} email={email}
-          setEmail={setEmail} sendInvitation={sendInvitation} activeMessage={activeMessage}/>
+        <PopinFormulaireInvitation
+          structure={structure}
+          setOpenModal={setOpenModal}
+          email={email}
+          setEmail={setEmail}
+          sendInvitation={sendInvitation}
+          activeMessage={activeMessage}
+        />
       )}
       <div className="fr-container">
         <Spinner loading={loadingStructure || loadingInvitation} />
@@ -85,8 +111,9 @@ function StructureDetails() {
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <h2>Activit&eacute;</h2>
-        {structure?.conventionnement?.statut && structure?.conventionnement?.statut !== 'NON_INTERESSÉ' &&
-        <ReconventionnementInfosCard structure={structure} />}
+        {structure?.conventionnement?.statut && structure?.conventionnement?.statut !== 'NON_INTERESSÉ' && (
+          <ReconventionnementInfosCard structure={structure} />
+        )}
         <ConventionnementInfosCard />
         <h2>Accompagnements</h2>
         <AccompagnementsCard structure={structure} />
@@ -105,7 +132,11 @@ function StructureDetails() {
               <br />
               {displaySiretForm === true ? (
                 <div style={{ width: '320px' }}>
-                  <SiretForm setDisplaySiretForm={setDisplaySiretForm} structureId={structure?._id} structureSiret={structure?.siret} />
+                  <SiretForm
+                    setDisplaySiretForm={setDisplaySiretForm}
+                    structureId={structure?._id}
+                    structureSiret={structure?.siret}
+                  />
                 </div>
               ) : (
                 <div>
@@ -153,12 +184,20 @@ function StructureDetails() {
         </div>
         <div className="fr-grid-row" style={{ alignItems: 'start' }}>
           <h2>Collaborateurs</h2>
-          <button className="fr-btn fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-ml-auto" onClick={() => setOpenModal(true)}>
+          <button
+            className="fr-btn fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-ml-auto"
+            onClick={() => setOpenModal(true)}
+          >
             Ajouter un collaborateur
           </button>
         </div>
-        {users?.length > 0 ? users
-        .map((user, idx) => <CollaborateurCard user={user} key={idx} />) : <div className="fr-mt-3w">Aucun compte associ&eacute;.</div>}
+        {collaborateurs?.length > 0 ? (
+          collaborateurs?.map((collaborateur, idx) => (
+            <CollaborateurCard gestionnaire={collaborateur} setCollaborateurs={setCollaborateurs} key={idx} />
+          ))
+        ) : (
+          <div className="fr-mt-3w">Aucun compte associ&eacute;.</div>
+        )}
       </div>
     </>
   );

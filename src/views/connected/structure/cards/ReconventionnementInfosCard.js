@@ -33,7 +33,8 @@ const ReconventionnementInfosCard = ({ structure }) => {
                   ' poste de conseiller',
                   ' poste de conseiller',
                   ' postes de conseillers',
-                  structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues
+                  structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
+                  true
                 )
               }
               {' '}
