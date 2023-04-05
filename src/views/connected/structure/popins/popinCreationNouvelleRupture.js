@@ -44,7 +44,6 @@ function popinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
                     dateFormat="dd/MM/yyyy"
                     placeholderText="../../...."
                     locale="fr"
-                    // popperPlacement="right"
                     onChangeRaw={e => e.preventDefault()}
                     maxDate={new Date(today.setMonth(today.getMonth() + 2))} //Max date à M+2
                     minDate={new Date('11/01/2020')}
