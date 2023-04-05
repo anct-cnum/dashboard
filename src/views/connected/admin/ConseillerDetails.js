@@ -90,11 +90,11 @@ function ConseillerDetails() {
         </div>
       }
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1" style={{ color: '#000091', marginBottom: '0.5rem' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+        <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5" style={{ marginBottom: '0.5rem' }}>ID - {conseiller?.idPG ?? ''}</h5>
+          <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
         </div>
       </div>
       <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
@@ -258,8 +258,8 @@ function ConseillerDetails() {
                     </div>
                     <div className={`${checkMotifRupture(miseEnRelation?.motifRupture) ? 'structure-long' : 'structure-court'}`}>
                       <strong className="fr-text--md" title={miseEnRelation?.structureObj?.nom}>
-                        {miseEnRelation?.structureObj?.nom.length > 17 ?
-                          `${miseEnRelation?.structureObj?.nom.substring(0, 17)}...` : miseEnRelation?.structureObj?.nom
+                        {miseEnRelation?.structureObj?.nom.length > 15 ?
+                          `${miseEnRelation?.structureObj?.nom.substring(0, 15)}...` : miseEnRelation?.structureObj?.nom
                         }
                       </strong><br/>
                       <span className="fr-text--md">ID - {miseEnRelation?.structureObj?.idPG}</span>

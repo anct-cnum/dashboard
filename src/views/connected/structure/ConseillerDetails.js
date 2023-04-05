@@ -11,6 +11,7 @@ import Spinner from '../../../components/Spinner';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import PopinCreationNouvelleRupture from './popins/popinCreationNouvelleRupture';
+import AccordeonActiviter from '../../../components/AccordeonActiviter';
 
 function ConseillerDetails() {
 
@@ -19,6 +20,7 @@ function ConseillerDetails() {
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const { trackEvent } = useMatomo();
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState({});
@@ -61,11 +63,11 @@ function ConseillerDetails() {
         Retour &agrave; la liste
       </button>
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1" style={{ color: '#000091', marginBottom: '0.5rem' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+        <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5" style={{ marginBottom: '0.5rem' }}>ID - {conseiller?.idPG ?? ''}</h5>
+          <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
         </div>
       </div>
       <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
@@ -73,7 +75,7 @@ function ConseillerDetails() {
         <>
           <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
           {misesEnRelationFinalisee?.statut === 'finalisee' &&
-          <button className="fr-btn fr-btn--secondary fr-ml-auto" onClick={() => setOpenModal(true)}>
+          <button className="fr-btn fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0" onClick={() => setOpenModal(true)}>
             Initier une rupture de contrat
           </button>
           }
@@ -88,13 +90,13 @@ function ConseillerDetails() {
         {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
           <>
             {misesEnRelationFinalisee?.dossierIncompletRupture ?
-              <p className="fr-badge fr-badge--new" style={{ height: '20%' }}>Dossier incomplet</p> :
-              <p className="fr-badge fr-badge--warning" style={{ height: '20%' }}>Rupture en cours</p>
+              <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
+              <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
             }
             <button onClick={() => {
               updateStatut('finalisee');
             }}
-            className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary fr-ml-auto"
+            className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0"
             title="Annuler la rupture de contrat">
             Annuler la rupture de contrat
             </button>
@@ -107,22 +109,28 @@ function ConseillerDetails() {
         </div>
       </div>
       <div className="fr-grid-row fr-mt-2w fr-mb-2w">
-        <div className="fr-col-6 titreCol">
+        <div className="fr-col-md-6 fr-col-12 titreCol">
           <h2>Activit&eacute;</h2>
         </div>
-        <div className="fr-col-6" style={{ textAlign: 'right' }}>
+        <div className="fr-col-md-6 fr-col-12 btn-statistiques fr-mb-2w fr-mb-md-0">
           <Link
-            onClick={() => trackEvent({ category: 'statistiques-conseillers', action: 'click-structure' })}
+            onClick={() => trackEvent({ category: 'statistiques-conseillers', action: `click-${roleActivated}` })}
             className="fr-btn fr-icon-line-chart-line fr-btn--icon-left fr-ml-auto"
             title="Statistiques"
             to={`/statistiques-conseiller/${conseiller?._id}`}
-            state={{ 'origin': `/structure/conseiller/${conseiller?._id}`, conseiller }}
+            state={{ 'origin': `/${roleActivated}/conseiller/${conseiller?._id}`, conseiller }}
           >
             Voir ses statistiques
           </Link>
         </div>
       </div>
-      <div className="fr-grid-row fr-col-12">
+      <AccordeonActiviter
+        conseiller={conseiller}
+        misesEnRelationFinalisee={misesEnRelationFinalisee}
+        misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        misesEnRelationNouvelleRupture={misesEnRelationFinalisee?.statut === 'nouvelle_rupture' ? misesEnRelationFinalisee : null}
+      />
+      <div className="fr-grid-row fr-col-12 display-desktop color-text color-title-subpart">
         {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
         <div className="fr-card fr-col-12 fr-p-4w">
           <div className="fr-card__body" style={{ padding: '0 0' }}>
@@ -280,7 +288,7 @@ function ConseillerDetails() {
           </div>
         </div>
       </div>
-      <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
+      <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12 display-desktop">
         <div className="fr-col-12">
           <hr style={{ borderWidth: '0.5px' }}/>
         </div>
@@ -292,7 +300,7 @@ function ConseillerDetails() {
           </div>
         </div>
         <div className="fr-grid-row fr-col-12 color-text">
-          <div className="fr-col-6 fr-mt-4w">
+          <div className="fr-col-12 fr-col-md-6 fr-mt-4w">
             <h4 className="titre">Informations professionelles</h4>
             <div className="fr-mb-3w">
               <strong>Email</strong><br/>
@@ -335,7 +343,7 @@ function ConseillerDetails() {
               <span>{conseiller?.mattermost?.id ? 'Oui' : 'Non'}</span>
             </div>
           </div>
-          <div className="fr-col-6 fr-mt-4w">
+          <div className="fr-col-12 fr-col-md-6 fr-mt-4w">
             <h4 className="titre">Lieux d&lsquo;activit&eacute;</h4>
             {conseiller?.permanences.length > 0 ?
               <>
@@ -356,7 +364,7 @@ function ConseillerDetails() {
             </div>
           </div>
           <div className="fr-grid-row fr-col-12">
-            <div className="fr-col-6">
+            <div className="fr-col-12 fr-col-md-6">
               <h4 className="titre">Informations personnelles</h4>
               <div className="fr-mb-3w">
                 <strong>Sexe</strong><br/>
@@ -404,7 +412,7 @@ function ConseillerDetails() {
                 }
               </div>
             </div>
-            <div className="fr-col-6">
+            <div className="fr-col-12 fr-col-md-6">
               <h4 className="titre">Informations de candidature</h4>
               <div className="fr-mb-3w">
                 <strong>Mobilit&eacute; g&eacute;ographique</strong><br/>
