@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 function HistoriqueConventionnement({ conventionnement }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const dossierConventionnement = conventionnement?.conventionnement.dossierConventionnement;
+  const dossierConventionnement = conventionnement?.conventionnement?.dossierConventionnement;
 
   return (
     <>
