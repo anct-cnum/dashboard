@@ -4,7 +4,13 @@
     .titre {
         color: $blue-france
     }
+    .color-title-subpart strong {
+        font-weight: 500;
+    }
     .color-text span {
+        color: $light-grey;
+    }
+    .email {
         color: $light-grey;
     }
     .color-render-stars p > span {
