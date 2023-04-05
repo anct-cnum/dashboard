@@ -141,9 +141,9 @@ function ConseillerDetails() {
                 </div>
                 <div className="fr-col-3">
                   <div>
-                    <span className="fr-text--md" style={{ fontWeight: '500' }}>Rupture initi&eacute;e</span><br/>
+                    <strong className="fr-text--md">Rupture initi&eacute;e</strong><br/>
                     {misesEnRelationFinalisee?.emetteurRupture?.date ?
-                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                      <span className="fr-text--regular fr-text--md">
                         {dayjs(misesEnRelationFinalisee?.emetteurRupture?.date).format('DD/MM/YYYY')}
                       </span> : <span>-</span>
                     }
@@ -151,16 +151,16 @@ function ConseillerDetails() {
                 </div>
                 <div className="fr-col-3">
                   <div>
-                    <span className="fr-text--md" style={{ fontWeight: '500' }}>Motif</span><br/>
-                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                    <strong className="fr-text--md">Motif</strong><br/>
+                    <span className="fr-text--regular fr-text--md">
                       {formatMotifRupture(misesEnRelationFinalisee?.motifRupture)}
                     </span>
                   </div>
                 </div>
                 <div className="fr-col-3">
                   <div>
-                    <span className="fr-text--md" style={{ fontWeight: '500' }}>Etat du dossier</span><br/>
-                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                    <strong className="fr-text--md">Etat du dossier</strong><br/>
+                    <span className="fr-text--regular fr-text--md">
                       {misesEnRelationFinalisee?.dossierIncompletRupture ? 'Incomplet' : 'Complet'}
                     </span>
                   </div>
@@ -180,15 +180,15 @@ function ConseillerDetails() {
                 </div>
                 <div className="fr-col-3">
                   <div>
-                    <span className="fr-text--md" style={{ fontWeight: '500' }}>Type de contrat</span><br/>
-                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>-</span>
+                    <strong className="fr-text--md">Type de contrat</strong><br/>
+                    <span className="fr-text--regular fr-text--md">-</span>
                   </div>
                 </div>
                 <div className="fr-col-3">
                   <div>
-                    <span className="fr-text--md" style={{ fontWeight: '500' }}>D&eacute;but de contrat</span><br/>
+                    <strong className="fr-text--md">D&eacute;but de contrat</strong><br/>
                     {misesEnRelationFinalisee?.dateRecrutement ?
-                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                      <span className="fr-text--regular fr-text--md">
                         {dayjs(misesEnRelationFinalisee?.dateRecrutement).format('DD/MM/YYYY')}
                       </span> : <span>-</span>
                     }
@@ -196,9 +196,9 @@ function ConseillerDetails() {
                 </div>
                 <div className="fr-col-3">
                   <div>
-                    <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br/>
+                    <strong className="fr-text--md">Fin de contrat</strong><br/>
                     {misesEnRelationFinalisee?.dateRupture ?
-                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                      <span className="fr-text--regular fr-text--md">
                         {dayjs(misesEnRelationFinalisee?.dateRupture).format('DD/MM/YYYY')}
                       </span> : <span>-</span>
                     }
@@ -220,15 +220,15 @@ function ConseillerDetails() {
                     </div>
                     <div className="fr-col-3">
                       <div>
-                        <span className="fr-text--md" style={{ fontWeight: '500' }}>Type de contrat</span><br/>
-                        <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>-</span>
+                        <strong className="fr-text--md">Type de contrat</strong><br/>
+                        <span className="fr-text--regular fr-text--md">-</span>
                       </div>
                     </div>
                     <div className="fr-col-3">
                       <div>
-                        <span className="fr-text--md" style={{ fontWeight: '500' }}>D&eacute;but de contrat</span><br/>
+                        <strong className="fr-text--md">D&eacute;but de contrat</strong><br/>
                         {miseEnRelation?.dateRecrutement ?
-                          <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                          <span className="fr-text--regular fr-text--md">
                             {dayjs(miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}
                           </span> : <span>-</span>
                         }
@@ -236,9 +236,9 @@ function ConseillerDetails() {
                     </div>
                     <div className="fr-col-3">
                       <div>
-                        <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br/>
+                        <strong className="fr-text--md">Fin de contrat</strong><br/>
                         {miseEnRelation?.dateRupture ?
-                          <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                          <span className="fr-text--regular fr-text--md">
                             {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
                           </span> : <span>-</span>
                         }
@@ -259,15 +259,15 @@ function ConseillerDetails() {
                 </div>
                 <div className="fr-col-3">
                   <div>
-                    <span className="fr-text--md" style={{ fontWeight: '500' }}>Formation certifi&eacute;(e)</span><br/>
-                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{conseiller?.certifie ? 'Oui' : 'Non'}</span>
+                    <strong className="fr-text--md">Formation certifi&eacute;(e)</strong><br/>
+                    <span className="fr-text--regular fr-text--md">{conseiller?.certifie ? 'Oui' : 'Non'}</span>
                   </div>
                 </div>
                 <div className="fr-col-3">
                   <div>
-                    <span className="fr-text--md" style={{ fontWeight: '500' }}>D&eacute;but de formation</span><br/>
+                    <strong className="fr-text--md">D&eacute;but de formation</strong><br/>
                     {conseiller?.datePrisePoste ?
-                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                      <span className="fr-text--regular fr-text--md">
                         {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
                       </span> : <span>-</span>
                     }
@@ -275,9 +275,9 @@ function ConseillerDetails() {
                 </div>
                 <div className="fr-col-3">
                   <div>
-                    <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de formation</span><br/>
+                    <strong className="fr-text--md">Fin de formation</strong><br/>
                     {conseiller?.dateFinFormation ?
-                      <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                      <span className="fr-text--regular fr-text--md">
                         {dayjs(conseiller?.dateFinFormation).format('DD/MM/YYYY')}
                       </span> : <span>-</span>
                     }
@@ -299,7 +299,7 @@ function ConseillerDetails() {
             <h2 className="fr-h2 fr-mb-1w">Informations CnFS</h2>
           </div>
         </div>
-        <div className="fr-grid-row fr-col-12 color-text">
+        <div className="fr-grid-row fr-col-12 color-text color-title-subpart">
           <div className="fr-col-12 fr-col-md-6 fr-mt-4w">
             <h4 className="titre">Informations professionelles</h4>
             <div className="fr-mb-3w">
