@@ -272,7 +272,12 @@ function StructureDetails() {
               <span>{structure?.posteValiderCoselec ?? '-'}</span>
             </div>
             <div className="fr-mb-3w fr-grid-row">
-              <strong>Profils recrut&eacute;s</strong>
+              <strong>{pluralize(
+                'Profil recruté',
+                'Profil recruté',
+                'Profils recrutés',
+                structure?.conseillersRecruter?.length
+              )}</strong>
               {structure?.conseillersRecruter?.map((conseiller, idx) =>
                 <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
                   <button
@@ -289,7 +294,12 @@ function StructureDetails() {
               }
             </div>
             <div className="fr-mb-3w fr-grid-row">
-              <strong>Profils valid&eacute;s</strong>
+              <strong>{pluralize(
+                'Profil validé',
+                'Profil validé',
+                'Profils validés',
+                structure?.conseillersValider?.length
+              )}</strong>
               {structure?.conseillersValider?.map((conseiller, idx) =>
                 <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
                   <button
