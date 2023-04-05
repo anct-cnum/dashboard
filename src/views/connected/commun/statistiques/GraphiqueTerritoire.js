@@ -28,18 +28,11 @@ export default function GraphiqueTerritoire() {
   const territoireRequest = useSelector(state => state.statistiques?.territoire);
   const errorTerritoire = useSelector(state => state.statistiques?.errorTerritoire);
   const loadingTerritoire = useSelector(state => state.statistiques?.loadingTerritoire);
-  const filtreTerritoire = useSelector(state => state.filtresEtTris?.territoire);
-  const ordre = useSelector(state => state.filtresEtTris?.ordre);
-  const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
-  const territoires = useSelector(state => state.statistiques?.statsTerritoires);
   
   useEffect(() => {
     if (!errorTerritoire) {
       if (stateTypeTerritoire !== maille) {
         dispatch(filtresEtTrisStatsActions.changeTerritoire(typeTerritoire));
-      }
-      if ((territoires ?? [])?.length === 0) {
-        dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, 1, ordreNom, ordre ? 1 : -1));
       }
       if (!territoire) {
         dispatch(statistiquesActions.getTerritoire(typeTerritoire, codeTerritoire, dateFin));
