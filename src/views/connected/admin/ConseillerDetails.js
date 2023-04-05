@@ -102,7 +102,7 @@ function ConseillerDetails() {
           <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
         }
         {conseiller?.statut === 'RUPTURE' &&
-          <p className="fr-badge fr-badge--error fr-badge--no-icon" style={{ height: '20%' }}>Contrat termin&eacute;</p>
+          <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
         }
         {misesEnRelationNouvelleRupture &&
         <>
@@ -257,15 +257,12 @@ function ConseillerDetails() {
                       <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
                     </div>
                     <div className={`${checkMotifRupture(miseEnRelation?.motifRupture) ? 'structure-long' : 'structure-court'}`}>
-                      <div className="fr-grid-row">
-                        <span className="fr-text--md fr-col-12 fr-mb-0" style={{ fontWeight: '500' }}>Nom de la structure</span><br/>
-                        <span className="fr-text--regular fr-text--md fr-col-12 fr-mb-0" title={miseEnRelation?.structureObj?.nom} style={{ color: '#666666' }}>
-                          {miseEnRelation?.structureObj?.nom.length > 17 ?
-                            `${miseEnRelation?.structureObj?.nom.substring(0, 17)}...` : miseEnRelation?.structureObj?.nom
-                          }
-                        </span>
-                        <span className="fr-text--md" style={{ color: '#666666' }}>ID - {miseEnRelation?.structureObj?.idPG}</span>
-                      </div>
+                      <span className="fr-text--md" title={miseEnRelation?.structureObj?.nom} style={{ fontWeight: '500' }}>
+                        {miseEnRelation?.structureObj?.nom.length > 17 ?
+                          `${miseEnRelation?.structureObj?.nom.substring(0, 17)}...` : miseEnRelation?.structureObj?.nom
+                        }
+                      </span><br/>
+                      <span className="fr-text--md" style={{ color: '#666666' }}>ID - {miseEnRelation?.structureObj?.idPG}</span>
                     </div>
                     <div className={`${checkMotifRupture(miseEnRelation?.motifRupture) ? 'fr-col-2' : 'type-contrat'}`}>
                       <div>

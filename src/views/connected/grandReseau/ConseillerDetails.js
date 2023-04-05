@@ -73,10 +73,10 @@ function ConseillerDetails() {
       </div>
       <div className="fr-col-12 fr-grid-row">
         {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
-        <p className="fr-badge fr-mr-2w fr-badge--success fr-badge--no-icon">Contrat en cours</p>
+        <p className="fr-badge fr-mr-2w fr-badge--success">Contrat en cours</p>
         }
         {conseiller?.statut === 'RUPTURE' &&
-        <p className="fr-badge fr-badge--error fr-badge--no-icon">Contrat termin&eacute;</p>
+        <p className="fr-badge fr-badge--error">Contrat termin&eacute;</p>
         }
         {misesEnRelationNouvelleRupture &&
         <p className="fr-badge fr-badge--info">Rupture en cours</p>
