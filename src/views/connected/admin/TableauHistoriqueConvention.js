@@ -5,10 +5,10 @@ import Spinner from '../../../components/Spinner';
 import Pagination from '../../../components/Pagination';
 import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import Reconventionnement from './reconventionnement/Reconventionnement';
-import Conventionnement from './conventionnement/Conventionnement';
 import BlockDatePickers from '../commun/statistiques/Components/commun/BlockDatePickers';
 import { StatutConventionnement } from '../../../utils/enumUtils';
+import HistoriqueReconventionnement from './reconventionnement/HistoriqueReconventionnement';
+import HistoriqueConventionnement from './conventionnement/HistoriqueConventionnement';
 
 export default function TableauHistoriqueConvention() {
 
@@ -127,23 +127,22 @@ export default function TableauHistoriqueConvention() {
                     <table>
                       <thead>
                         <tr>
-                          <th style={{ width: '5rem' }}>Id</th>
-                          <th style={{ width: '15rem' }}>Nom de la structure</th>
-                          <th>Date de la demande</th>
-                          <th>Date de fin du prochain contrat</th>
-                          <th>Nombre de postes</th>
-                          <th style={{ width: '12rem' }}>Type de la demande</th>
-                          <th style={{ width: '12rem' }}></th>
+                          <th style={{ width: '9rem' }}>ID Structure</th>
+                          <th style={{ width: '30rem' }}>Nom de la structure</th>
+                          <th style={{ width: '13rem' }}>Date de la demande</th>
+                          <th style={{ width: '12rem' }}>Nombre de postes</th>
+                          <th style={{ width: '15rem' }}>Type de demande</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
                         {!error && !loading && conventions?.items?.data?.map((convention, idx) =>
                           <tr key={idx}>
                             {convention?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
-                              <Reconventionnement reconventionnement={convention} />
+                              <HistoriqueReconventionnement reconventionnement={convention} />
                             }
                             {convention?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_VALIDÉ &&
-                              <Conventionnement conventionnement={convention} />
+                              <HistoriqueConventionnement conventionnement={convention} />
                             }
                           </tr>
                         )

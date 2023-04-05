@@ -101,10 +101,10 @@ export default function TableauStructures() {
                               </span>
                             </button>
                           </th>
+                          <th>Siret</th>
                           <th>Nom</th>
                           <th>Pr&eacute;nom</th>
                           <th colSpan={structures?.items?.total > 0 ? '12' : ''}>Email</th>
-                          <th>Siret</th>
                           <th></th>
                         </tr>
                       </thead>
