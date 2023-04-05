@@ -159,7 +159,7 @@ function ConseillerDetails() {
                 </div>
                 <div className="fr-col-3">
                   <div>
-                    <strong className="fr-text--md">Etat du dossier</strong><br/>
+                    <strong className="fr-text--md">&Eacute;tat du dossier</strong><br/>
                     <span className="fr-text--regular fr-text--md">
                       {misesEnRelationFinalisee?.dossierIncompletRupture ? 'Incomplet' : 'Complet'}
                     </span>
