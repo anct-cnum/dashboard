@@ -5,8 +5,6 @@ import Spinner from '../../../components/Spinner';
 import Pagination from '../../../components/Pagination';
 import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import Reconventionnement from './reconventionnement/Reconventionnement';
-import Conventionnement from './conventionnement/Conventionnement';
 import BlockDatePickers from '../commun/statistiques/Components/commun/BlockDatePickers';
 import { StatutConventionnement } from '../../../utils/enumUtils';
 import HistoriqueReconventionnement from './reconventionnement/HistoriqueReconventionnement';
