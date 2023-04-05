@@ -114,7 +114,7 @@ function StructureDetails() {
         {structure?.conventionnement?.statut && structure?.conventionnement?.statut !== 'NON_INTERESSÉ' && (
           <ReconventionnementInfosCard structure={structure} />
         )}
-        <ConventionnementInfosCard />
+        <ConventionnementInfosCard structure={structure}/>
         <h2>Accompagnements</h2>
         <AccompagnementsCard structure={structure} />
         <div className="fr-col-12 fr-my-6w">

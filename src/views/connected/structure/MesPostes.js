@@ -81,7 +81,7 @@ function MesPostes() {
             G&eacute;rer mes postes
           </h2>
         )}
-        <ManagePositionsCard dossierConventionnement={structure?.conventionnement?.dossierConventionnement}/>
+        <ManagePositionsCard structure={structure}/>
         {
           misesEnrelation?.length > 0 &&
         <>

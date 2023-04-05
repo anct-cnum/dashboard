@@ -84,6 +84,11 @@
     align-items: center;
   }
 
+  .responsive__wide-card {
+    display: flex;
+    align-items: center;
+  }
+
 @media (max-width: 1220px) {
     .responsive__banner {
       display: block;

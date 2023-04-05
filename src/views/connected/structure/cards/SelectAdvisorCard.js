@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 
 const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor, checkedItems }) => {
 
@@ -7,7 +8,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
       <div className="fr-card__body fr-p-0">
         <div>
-          <div className="fr-grid-row responsive__wide-card">
+          <div className="fr-grid-row responsive__wide-card" style={{ alignItems: 'center' }}>
             <div style={{ marginRight: '20px' }}>
               <div className="fr-radio-group fr-radio-group--md">
                 <input
@@ -25,7 +26,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
             <div className="fr-col-2 card__text">
               <div>
                 <span className="fr-text--md fr-text--bold">
-                  {miseEnRelation?.conseiller?.prenom} {miseEnRelation?.conseiller?.nom}
+                  {miseEnRelation?.conseiller ? formatNomConseiller(miseEnRelation?.conseiller) : ''}
                 </span>
                 <br />
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>

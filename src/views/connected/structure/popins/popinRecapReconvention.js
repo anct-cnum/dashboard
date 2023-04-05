@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { pluralize } from '../../../../utils/formatagesUtils';
 
-function PopinRecapReconvention({ setOpenModal, checkedItems, structure, handleSend }) {
+function PopinRecapReconvention({ setOpenModal, checkedItems, handleSend, nombreDePostes }) {
   const navigate = useNavigate();
   return (
     <dialog
@@ -30,17 +30,17 @@ function PopinRecapReconvention({ setOpenModal, checkedItems, structure, handleS
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   R&eacute;capitulatif de votre demande
                 </h1>
-                <p>Veuillez confirmez ces informations avant d’envoyer votre demande en validation.</p>
+                <p>Veuillez confirmez ces informations avant d&rsquo;envoyer votre demande en validation.</p>
                 <>
                   <p>
                     Vous allez faire une demande pour{' '}
                     <span className="fr-text fr-text--bold">
-                      {structure?.conventionnement?.nombreDePostes}
+                      {nombreDePostes}{' '}
                       {pluralize(
                         'poste subventionné',
                         'poste subventionné',
                         'postes subventionnés',
-                        structure?.conventionnement?.nombreDePostes
+                        true
                       )},{' '}
                     </span>
                     dont:
@@ -48,24 +48,24 @@ function PopinRecapReconvention({ setOpenModal, checkedItems, structure, handleS
                   <ul>
                     <li>
                       <p className="fr-text--bold fr-mb-1w">
-                        {checkedItems.filter(item => item.statut === 'finalisee').length}
+                        {checkedItems.filter(item => item.statut === 'finalisee').length}{' '}
                         {pluralize(
                           'poste occupé',
                           'poste occupé',
                           'postes occupés',
-                          checkedItems.filter(item => item.statut === 'finalisee').length
+                          true
                         )}
                       </p>
                     </li>
                     <li>
                       <p className="fr-text--bold">
-                        {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues -
+                        {nombreDePostes -
                           checkedItems.filter(item => item.statut === 'finalisee').length}{' '}
                         {pluralize(
                           'poste vacant',
                           'poste vacant',
                           'postes vacants',
-                          structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues
+                          true
                         )}
                       </p>
                     </li>
@@ -107,8 +107,8 @@ PopinRecapReconvention.propTypes = {
   setDateValidee: PropTypes.func,
   setOpenModal: PropTypes.func,
   checkedItems: PropTypes.array,
-  structure: PropTypes.object,
   handleSend: PropTypes.func,
+  nombreDePostes: PropTypes.number,
 };
 
 export default PopinRecapReconvention;

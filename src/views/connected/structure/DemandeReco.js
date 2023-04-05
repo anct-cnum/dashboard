@@ -14,6 +14,7 @@ import {
 } from '../../../actions';
 import PopinRecapReconvention from './popins/popinRecapReconvention';
 import Spinner from '../../../components/Spinner';
+import { pluralize } from '../../../utils/formatagesUtils';
 
 function DemandeReconventionnement() {
   const dispatch = useDispatch();
@@ -113,6 +114,7 @@ function DemandeReconventionnement() {
           structure={structure}
           setOpenModal={setOpenModal}
           handleSend={handleSend}
+          nombreDePostes={nombreDePostes}
         />
       )}
       <div className="fr-container">
@@ -148,11 +150,11 @@ function DemandeReconventionnement() {
           <h5 className="fr-text--bold">Renouvellement de postes</h5>
           <p>S&eacute;lectionez les conseillers que vous souhaitez renouveller.</p>
           {misesEnRelationARenouveller &&
-            misesEnRelationARenouveller.map((miseEnrelation, idx) => (
+            misesEnRelationARenouveller.map((miseEnRelation, idx) => (
               <SelectAdvisorCard
                 handleSelectAdvisor={handleSelectAdvisor}
                 roleActivated={roleActivated}
-                miseEnrelation={miseEnrelation}
+                miseEnRelation={miseEnRelation}
                 checkedItems={checkedItems}
                 key={idx}
               />
@@ -176,22 +178,38 @@ function DemandeReconventionnement() {
             <p>
               Vous allez faire une demande pour&nbsp;
               <span className="fr-text fr-text--bold">
-                {nombreDePostes} postes
-                subventionn&eacute;s,{' '}
+                {nombreDePostes}{' '}
+                {pluralize(
+                  'poste subventionné',
+                  'poste subventionné',
+                  'postes subventionnés',
+                  nombreDePostes
+                )},{' '}
               </span>
               dont&nbsp;:
             </p>
             <ul>
               <li>
                 <p className="fr-text--bold">
-                  {checkedItems?.filter(item => item.statut === 'finalisee' || item.statut === 'nouvelle_rupture').length} postes occup&eacute;s
+                  {checkedItems.filter(item => item.statut === 'finalisee').length}{' '}
+                  {pluralize(
+                    'poste occupé',
+                    'poste occupé',
+                    'postes occupés',
+                    checkedItems.filter(item => item.statut === 'finalisee').length
+                  )}
                 </p>
               </li>
               <li>
                 <p className="fr-text--bold">
                   {nombreDePostes -
-                    checkedItems?.filter(item => item.statut === 'finalisee').length}{' '}
-                  postes vacants
+                          checkedItems.filter(item => item.statut === 'finalisee').length}{' '}
+                  {pluralize(
+                    'poste vacant',
+                    'poste vacant',
+                    'postes vacants',
+                    nombreDePostes
+                  )}
                 </p>
               </li>
             </ul>

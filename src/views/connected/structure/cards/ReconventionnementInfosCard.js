@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
+import dayjs from 'dayjs';
 
 const ReconventionnementInfosCard = ({ structure }) => {
   const displayBadge = () => {
@@ -24,24 +25,47 @@ const ReconventionnementInfosCard = ({ structure }) => {
             <h4 className="fr-grid-row fr-grid-row--middle">Conventionnement phase 2</h4>
             {displayBadge()}
           </div>
-          <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : -</p>
+          <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
+            structure?.conventionnement?.dossierReconventionnement?.dateDeValidation ?
+              <span>
+              le&nbsp;{dayjs(structure?.conventionnement?.dossierReconventionnement?.dateDeValidation).format('DD/MM/YYYY')}
+              </span> :
+              <span>
+              date inconnue
+              </span>
+          }</p>
           <div className="fr-card__desc">
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues}
               {
                 pluralize(
                   ' poste de conseiller',
                   ' poste de conseiller',
-                  ' postes de conseillers',
+                  ' postes de conseiller',
                   structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
                   true
                 )
               }
               {' '}
               {structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' ? (
-                <span className="fr-text--regular fr-text--md">valid&eacute; pour ce conventionnement</span>
+                <span className="fr-text--regular fr-text--md">
+                  {
+                    pluralize(
+                      'validé pour ce conventionnementr',
+                      'validé pour ce conventionnement',
+                      'validés pour ce conventionnement',
+                      structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
+                    )
+                  }
+                </span>
               ) : (
-                <span className="fr-text--regular fr-text--md">demand&eacute;s pour ce conventionnement</span>
+                <span className="fr-text--regular fr-text--md">{
+                  pluralize(
+                    'demandé pour ce conventionnementr',
+                    'demandé pour ce conventionnement',
+                    'demandés pour ce conventionnement',
+                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
+                  )
+                }</span>
               )}
             </p>
             <div className="fr-col-12 fr-mt-1w">
