@@ -20,7 +20,7 @@ const InProgressBanner = ({ structure, roleActivated }) => {
               }
             </p>
             <p className="fr-text--md">
-              Votre demande est en cours de traitement, vous aurez une r&eacute;ponse tr&agrave;s prochainement.
+              Votre demande est en cours de traitement, vous aurez une r&eacute;ponse tr&egrave;s prochainement.
             </p>
           </div>
           <div className="banner__button_progress">

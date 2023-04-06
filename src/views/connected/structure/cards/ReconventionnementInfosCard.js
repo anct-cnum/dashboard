@@ -50,7 +50,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                 <span className="fr-text--regular fr-text--md">
                   {
                     pluralize(
-                      'validé pour ce conventionnementr',
+                      'validé pour ce conventionnement',
                       'validé pour ce conventionnement',
                       'validés pour ce conventionnement',
                       structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
@@ -60,7 +60,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
               ) : (
                 <span className="fr-text--regular fr-text--md">{
                   pluralize(
-                    'demandé pour ce conventionnementr',
+                    'demandé pour ce conventionnement',
                     'demandé pour ce conventionnement',
                     'demandés pour ce conventionnement',
                     structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
