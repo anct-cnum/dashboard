@@ -32,7 +32,7 @@ function MesPostes() {
       case 'NON_INTERESSÉ':
         return null;
       default:
-        return structure?.conventionnement?.statut &&
+        return !structure?.conventionnement?.statut &&
          <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
     }
   };

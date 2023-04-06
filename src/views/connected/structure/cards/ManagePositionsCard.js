@@ -31,7 +31,14 @@ const ManagePositionsCard = ({ structure }) => (
               structure?.coselec[0]?.nombreConseillersCoselec
             )}
             {' '}
-            <span className="fr-text--regular fr-text--md">valid&eacute; pour ce conventionnement</span>
+            <span className="fr-text--regular fr-text--md">
+              {pluralize(
+                'validé pour ce conventionnement',
+                'validé pour ce conventionnement',
+                'validés pour ce conventionnement',
+                structure?.coselec[0]?.nombreConseillersCoselec
+              )}
+            </span>
           </p>
           <div>
             <ul className="fr-btns-group fr-btns-group--inline-md">

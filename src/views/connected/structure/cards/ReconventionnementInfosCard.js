@@ -72,7 +72,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
               <hr style={{ borderWidth: '0.5px' }} />
             </div>
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - - postes de conseillers vacants <span className="fr-text--regular fr-text--md">rendu le -</span>
+              Avenant - - postes de conseiller vacants <span className="fr-text--regular fr-text--md">rendu le -</span>
             </p>
             <div className="fr-col-12 fr-my-1w">
               <hr style={{ borderWidth: '0.5px' }} />

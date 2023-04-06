@@ -28,7 +28,7 @@ export default function InvitationGrandReseau() {
 
   return (
     <div>
-      <div className="fr-my-3w fr-my-md-6w fr-col-md-8">
+      <div className="fr-my-3w fr-my-md-6w fr-col-md-12">
         <div className="fr-input-group">
           <span>
             <select

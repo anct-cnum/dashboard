@@ -32,13 +32,20 @@ const ConventionnementInfosCard = ({ structure }) => {
                 structure?.coselec[0]?.nombreConseillersCoselec
               )}
               {' '}
-              <span className="fr-text--regular fr-text--md">valid&eacute; pour ce conventionnement</span>
+              <span className="fr-text--regular fr-text--md">
+                {pluralize(
+                  'validé pour ce conventionnement',
+                  'validé pour ce conventionnement',
+                  'validés pour ce conventionnement',
+                  structure?.coselec[0]?.nombreConseillersCoselec
+                )}
+              </span>
             </p>
             <div className="fr-col-12 fr-mt-1w">
               <hr style={{ borderWidth: '0.5px' }} />
             </div>
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - - postes de conseillers vacants{' '}
+              Avenant - - postes de conseiller vacants{' '}
               <span className="fr-text--regular fr-text--md">rendu le -</span>
             </p>
             <div className="fr-col-12 fr-my-1w">
