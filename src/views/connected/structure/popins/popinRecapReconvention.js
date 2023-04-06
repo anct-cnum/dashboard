@@ -40,6 +40,7 @@ function PopinRecapReconvention({ setOpenModal, checkedItems, handleSend, nombre
                         'poste subventionné',
                         'poste subventionné',
                         'postes subventionnés',
+                        true
                       )},{' '}
                     </span>
                     dont:
