@@ -30,9 +30,8 @@ function MesPostes() {
         return <InProgressBanner structure={structure} roleActivated={roleActivated}/>;
       case 'RECONVENTIONNEMENT_VALIDÉ':
         return <ValidatedBanner structure={structure}/>;
-      case undefined:
-        return !statut &&
-      <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
+      case 'CONVENTIONNEMENT_VALIDÉ':
+        return <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
       default:
         return null;
     }

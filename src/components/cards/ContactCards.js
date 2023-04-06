@@ -38,10 +38,10 @@ const ContactCard = ({ structureId, email }) => {
 };
 
 ContactCard.propTypes = {
-  setDisplayFormEmail: propType.func.isRequired,
-  structureId: propType.string.isRequired,
-  structureEmail: propType.string.isRequired,
-  email: propType.string.isRequired,
+  setDisplayFormEmail: propType.func,
+  structureId: propType.string,
+  structureEmail: propType.string,
+  email: propType.string,
 };
 
 export default ContactCard;

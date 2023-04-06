@@ -3,10 +3,10 @@ import propType from 'prop-types';
 
 const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
 
-  const displayRole = role => {
+  const displayRole = (role, idx) => {
     switch (role) {
       case 'structure':
-        return <>
+        return <div key={idx}>
           <hr className="fr-mt-4w fr-mb-2w" style={{ borderWidth: '0.5px' }} />
           <div className="fr-grid-row" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
             <div className="fr-col-4">
@@ -23,10 +23,10 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
               </button>
             </div>
           </div>
-        </>
+        </div>
         ;
       case 'grandReseau':
-        return <>
+        return <div key={idx}>
           <hr className="fr-mt-4w fr-mb-2w" style={{ borderWidth: '0.5px' }} />
           <div className="fr-grid-row" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
             <div className="fr-col-4">
@@ -43,9 +43,9 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
               </button>
             </div>
           </div>
-        </>;
+        </div>;
       case 'prefet':
-        return <>
+        return <div key={idx}>
           <hr className="fr-mt-4w fr-mb-1w" style={{ borderWidth: '0.5px' }} />
           <div className="fr-grid-row" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
             <div className="fr-col-4">
@@ -57,7 +57,7 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
               </div>
             </div>
           </div>
-        </>;
+        </div>;
       default:
         return;
     }
@@ -69,8 +69,8 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
         <div className="fr-card__body fr-p-0">
           <div>
             <h4>Mes r&ocirc;les</h4>
-            {roles && roles?.map(role => (
-              displayRole(role)
+            {roles && roles?.map((role, idx) => (
+              displayRole(role, idx)
             )) }
           </div>
         </div>
