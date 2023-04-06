@@ -20,30 +20,32 @@ function MesPostes() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const [conseillersActifs, setConseillersActifs] = useState([]);
   const [motif, setMotif] = useState('');
+  const [statut, setStatut] = useState('');
 
   const displayBanner = () => {
-    switch (structure?.conventionnement?.statut) {
+    switch (statut) {
       case 'ENREGISTRÉ':
         return <CompleteRequestBanner structure={structure}/>;
       case 'RECONVENTIONNEMENT_EN_COURS':
         return <InProgressBanner structure={structure} roleActivated={roleActivated}/>;
       case 'RECONVENTIONNEMENT_VALIDÉ':
         return <ValidatedBanner structure={structure}/>;
-      case 'NON_INTERESSÉ':
-        return null;
+      case undefined:
+        return !statut &&
+      <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
       default:
-        return !structure?.conventionnement?.statut &&
-         <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
+        return null;
     }
   };
   
   useEffect(() => {
     dispatch(structureActions.get(userAuth?.entity?.$id));
-  }, []);
+  }, [statut]);
 
   useEffect(() => {
     if (structure?._id) {
       dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
+      setStatut(structure?.conventionnement?.statut);
     }
   }, [structure]);
 
@@ -64,8 +66,9 @@ function MesPostes() {
   const handleCancel = () => {
     dispatch(reconventionnementActions.update(structure?._id, 'annuler', [], null, motif));
     dispatch(structureActions.get(userAuth?.entity?.$id));
+    setStatut('NON_INTERESSÉ');
   };
-  
+
   return (
     <>
       {structure ? displayBanner() : null}
