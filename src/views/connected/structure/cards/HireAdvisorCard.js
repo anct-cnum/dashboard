@@ -26,7 +26,7 @@ const HireAdvisorCard = ({ nbreConseillersActifs, nbreConseillersInactifs }) => 
               </div>
             </div>
             <div className="fr-col-3 fr-ml-auto card__text">
-              <button className="fr-btn">Recruter un conseiller</button>
+              <button className="fr-btn" disabled>Recruter un conseiller</button>
             </div>
           </div>
         </div>

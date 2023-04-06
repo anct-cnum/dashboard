@@ -43,10 +43,10 @@ const ManagePositionsCard = ({ structure }) => (
           <div>
             <ul className="fr-btns-group fr-btns-group--inline-md">
               <li>
-                <button className="fr-btn fr-btn--secondary">Ajouter un poste</button>
+                <button className="fr-btn fr-btn--secondary" disabled>Ajouter un poste</button>
               </li>
               <li>
-                <button className="fr-btn fr-btn--secondary">Rendre un poste</button>
+                <button className="fr-btn fr-btn--secondary" disabled>Rendre un poste</button>
               </li>
               <li className="fr-ml-auto">
                 <button className="fr-btn">
