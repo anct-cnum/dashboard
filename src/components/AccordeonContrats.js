@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { formatMotifRupture } from '../utils/formatagesUtils';
 import dayjs from 'dayjs';
 
-function AccordeonActiviter({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, conseiller }) {
+function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, conseiller }) {
 
   return (
     <section className="fr-accordion display-mobile fr-mb-2w">
@@ -40,7 +40,7 @@ function AccordeonActiviter({ misesEnRelationNouvelleRupture, misesEnRelationFin
                 </div>
                 <div className="fr-col-12 fr-col-md-4">
                   <div>
-                    <strong className="fr-text--md">Etat du dossier</strong><br/>
+                    <strong className="fr-text--md">&Eacute;tat du dossier</strong><br/>
                     <span className="fr-text--regular fr-text--md">
                       {misesEnRelationNouvelleRupture?.dossierIncompletRupture ? 'Incomplet' : 'Complet'}
                     </span>
@@ -67,7 +67,7 @@ function AccordeonActiviter({ misesEnRelationNouvelleRupture, misesEnRelationFin
                   </div>
                   <div className="fr-col-12 fr-col-md-4 fr-mb-md-0 fr-mb-2w">
                     <div>
-                      <strong className="fr-text--md">Début de contrat</strong><br/>
+                      <strong className="fr-text--md">D&eacute;but de contrat</strong><br/>
                       {misesEnRelationFinalisee[0]?.dateRecrutement ?
                         <span className="fr-text--regular fr-text--md">
                           {dayjs(misesEnRelationFinalisee[0]?.dateRecrutement).format('DD/MM/YYYY')}
@@ -86,7 +86,7 @@ function AccordeonActiviter({ misesEnRelationNouvelleRupture, misesEnRelationFin
                       }
                       {misesEnRelationFinalisee[0]?.dateFinDeContrat &&
                         <span className="fr-text--regular fr-text--md">
-                          {dayjs(misesEnRelationFinalisee[0]?.dateFinDeContrat).format('DD/MM/YYYY')}
+                          {dayjs(misesEnRelationFinalisee[0].dateFinDeContrat).format('DD/MM/YYYY')}
                         </span>
                       }
                       {misesEnRelationNouvelleRupture?.dateFinDeContrat &&
@@ -169,13 +169,13 @@ function AccordeonActiviter({ misesEnRelationNouvelleRupture, misesEnRelationFin
                   </div>
                   <div className="fr-col-12 fr-col-md-4 fr-mb-md-0 fr-mb-2w">
                     <div>
-                      <strong className="fr-text--md" style={{ fontWeight: '500' }}>Formation certifié(e)</strong><br/>
+                      <strong className="fr-text--md" style={{ fontWeight: '500' }}>Formation certifi&eacute;(e)</strong><br/>
                       <span className="fr-text--regular fr-text--md">{conseiller?.certifie ? 'Oui' : 'Non'}</span>
                     </div>
                   </div>
                   <div className="fr-col-12 fr-col-md-4 fr-mb-md-0 fr-mb-2w">
                     <div>
-                      <strong className="fr-text--md" style={{ fontWeight: '500' }}>Début de formation</strong><br/>
+                      <strong className="fr-text--md" style={{ fontWeight: '500' }}>D&eacute;but de formation</strong><br/>
                       {conseiller?.datePrisePoste ?
                         <span className="fr-text--regular fr-text--md">
                           {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
@@ -203,12 +203,12 @@ function AccordeonActiviter({ misesEnRelationNouvelleRupture, misesEnRelationFin
   );
 }
 
-AccordeonActiviter.propTypes = {
+AccordeonContrats.propTypes = {
   setForm: PropTypes.func,
   misesEnRelationNouvelleRupture: PropTypes.object,
   misesEnRelationFinaliseeRupture: PropTypes.object,
   misesEnRelationFinalisee: PropTypes.object,
   conseiller: PropTypes.object,
 };
-export default AccordeonActiviter;
+export default AccordeonContrats;
 

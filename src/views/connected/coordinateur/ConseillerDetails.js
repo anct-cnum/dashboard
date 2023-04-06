@@ -8,7 +8,7 @@ import pixUtilisation from '../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../assets/icons/pix-citoyen.png';
 import Spinner from '../../../components/Spinner';
-import AccordeonActiviter from '../../../components/AccordeonActiviter';
+import AccordeonContrats from '../../../components/AccordeonContrats';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
 
 function ConseillerDetails() {
@@ -110,7 +110,7 @@ function ConseillerDetails() {
           </Link>
         </div>
       </div>
-      <AccordeonActiviter
+      <AccordeonContrats
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
@@ -478,11 +478,11 @@ function ConseillerDetails() {
                       <a href="https://cdn.conseiller-numerique.gouv.fr/Conseillernum_Lire%20les%20r%C3%A9sultats%20du%20diagnostic%20des%20candidats_V2-2.pdf"
                         className="fr-link fr-link--icon-right fr-icon-download-fill"
                         target="blank"
-                        title="Télécharger le document d&rsquo;analyse des résultats Pix">
+                        title="T&eacute;l&eacute;charger le document d&rsquo;analyse des r&eacute;sultats Pix">
                     T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
                       </a>
                       <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-                    Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats
+                        Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats
                       </span>
                     </p>
                   </div> : <span>Comp&eacute;tences PIX non partag&eacute;es</span>
