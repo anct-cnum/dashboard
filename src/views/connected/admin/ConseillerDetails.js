@@ -401,9 +401,9 @@ function ConseillerDetails() {
           </div>
           <div className="fr-col-12 fr-col-md-6">
             <h4 className="titre">Lieux d&lsquo;activit&eacute;</h4>
-            {conseiller?.permanences.length > 0 ?
+            {conseiller?.permanences?.length > 0 ?
               <>
-                {conseiller?.permanences.map((permanence, idx) =>
+                {conseiller?.permanences?.map((permanence, idx) =>
                   <>
                     <div className="fr-mb-3w" key={idx}>
                       <strong>{permanence?.nomEnseigne?.toUpperCase()}</strong><br/>
