@@ -163,7 +163,7 @@ function ReconventionnementDetails({ reconventionnement }) {
             <p className="fr-card__desc fr-text--xl" style={{ color: '#000091' }}><strong>{reconventionnement?.nombreConseillersCoselec} {pluralize(
               'poste de conseiller validé',
               'poste de conseiller validé',
-              'postes de conseillers validés',
+              'postes de conseiller validés',
               reconventionnement?.nombreConseillersCoselec
             )}</strong> pour ce conventionnement</p>
             <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">

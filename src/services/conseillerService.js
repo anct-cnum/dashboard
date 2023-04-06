@@ -20,7 +20,7 @@ export const conseillerService = {
   dossierIncompletRupture,
   resendInvitCandidat,
   suppressionCandidat,
-  getCandidatStructure
+  getCandidatStructure,
 };
 
 function get(id) {
