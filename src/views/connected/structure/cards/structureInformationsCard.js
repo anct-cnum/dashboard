@@ -45,7 +45,7 @@ const StructureInformationsCard = ({ structure }) => (
             </div>
           </div>
           <div className="fr-col-1 card__text">
-            <button className="fr-btn fr-btn--tertiary-no-outline">
+            <button className="fr-btn fr-btn--tertiary-no-outline" disabled>
               <i className="ri-edit-line fr-mr-1w"></i>Modifier
             </button>
           </div>

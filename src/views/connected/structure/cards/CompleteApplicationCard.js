@@ -34,6 +34,7 @@ const CompleteApplicationCard = ({ url, structure }) => (
               className="fr-btn fr-mx-3w card__button"
               title="D&eacute;tail"
               onClick={() => window.open(url, '_blank', 'noopener,noreferrer')}
+              disabled
             >
               Compl&eacute;ter mon dossier
             </button>

@@ -57,7 +57,7 @@ const ConventionnementInfosCard = ({ structure }) => {
                   <p className="fr-text--bold">Profils recrut&eacute;s</p>
                 </li>
                 <li className="fr-ml-auto">
-                  <button className="fr-btn">
+                  <button className="fr-btn" disabled>
                     <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche
                     Simplifi&eacute;e
                   </button>

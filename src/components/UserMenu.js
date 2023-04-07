@@ -12,13 +12,13 @@ const UserMenu = ({
 }) => {
   const formatRoleMenu = role => {
     if (role === 'grandReseau') {
-      return `Grand réseau - ${user?.reseau}`;
+      return user?.reseau ? `Grand réseau - ${user.reseau}` : 'Grand réseau';
     } else if (role === 'prefet') {
       return `Préfet - ${user?.departement ? 'dép ' + user?.departement : 'région ' + user?.region}`;
     } else if (role === 'hub_coop') {
       return `Hub - ${user?.hub}`;
     } else if (role === 'structure') {
-      return `Structure - ${user?.reseau}`;
+      return user?.reseau ? `Structure - ${user.reseau}` : 'Structure';
     }
     return role?.charAt(0).toUpperCase() + role?.slice(1).split('_')[0];
   };

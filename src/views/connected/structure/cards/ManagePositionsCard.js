@@ -49,7 +49,7 @@ const ManagePositionsCard = ({ structure }) => (
                 <button className="fr-btn fr-btn--secondary" disabled>Rendre un poste</button>
               </li>
               <li className="fr-ml-auto">
-                <button className="fr-btn">
+                <button className="fr-btn" disabled>
                   <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche
                     Simplifi&eacute;e
                 </button>

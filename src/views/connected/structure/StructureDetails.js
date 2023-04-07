@@ -33,10 +33,8 @@ function StructureDetails() {
   const [collaborateurs, setCollaborateurs] = useState([]);
 
   useEffect(() => {
-    if (structure?._id !== idStructure) {
-      dispatch(structureActions.getDetails(idStructure));
-    }
-  }, [structure]);
+    dispatch(structureActions.getDetails(idStructure));
+  }, [idStructure]);
 
   useEffect(() => {
     if (entity) {
@@ -187,6 +185,7 @@ function StructureDetails() {
           <button
             className="fr-btn fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-ml-auto"
             onClick={() => setOpenModal(true)}
+            disabled
           >
             Ajouter un collaborateur
           </button>
