@@ -23,54 +23,62 @@ function StructureDetails() {
   const [displaySiretForm, setDisplaySiretForm] = useState(false);
   const loadingStructure = useSelector(state => state.structure?.loading);
   const loadingInvitation = useSelector(state => state.invitations?.loading);
-  const success = useSelector(state => state.invitations?.success);
+  const loadingSuppression = useSelector(state => state.invitations?.loading);
+  const successInvitation = useSelector(state => state.invitations?.success);
+  const successSuppression = useSelector(state => state.gestionnaire?.deleteMessageSuccess);
   const errorInvitation = useSelector(state => state.invitations?.error);
+  const errorSuppression = useSelector(state => state.gestionnaire?.errorGestionnaire);
   const [email, setEmail] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const users = useSelector(state => state.user?.users);
-  const { entity } = useSelector(state => state.authentication?.user);
-  const [collaborateurs, setCollaborateurs] = useState([]);
+  const errorStructure = useSelector(state => state.structure?.error);
+  const errorUsers = useSelector(state => state.user?.error);
+
+  const errorInvitationMessage = 'L\'invitation du gestionnnaire a échouée, veuillez réessayer plus tard';
+  const errorSuppressionMessage = 'La suppression du gestionnnaire a échouée, veuillez réessayer plus tard';
+  const errorStructureMessage = 'La structure n\'a pas pu être chargé !';
+  const errorUsersMessage = 'Les gestionnaires n\'ont pas pu être chargés !';
+
 
   useEffect(() => {
     dispatch(structureActions.getDetails(idStructure));
   }, [idStructure]);
 
   useEffect(() => {
-    if (entity) {
-      dispatch(userActions.getUsers());
-    }
-  }, [entity]);
+    dispatch(userActions.getUsers());
+  }, [successSuppression]);
 
   useEffect(() => {
-    if (users) {
-      setCollaborateurs(users);
-    }
-  }, [users]);
-
-  useEffect(() => {
-    if (success) {
+    if (successInvitation) {
       scrollTopWindow();
       dispatch(
         alerteEtSpinnerActions.getMessageAlerte({
           type: 'success',
-          message: success,
-          status: null,
-          description: null,
-        })
-      );
-    } else if (errorInvitation) {
-      scrollTopWindow();
-      dispatch(
-        alerteEtSpinnerActions.getMessageAlerte({
-          type: 'error',
-          message: errorInvitation,
+          message: successInvitation,
           status: null,
           description: null,
         })
       );
     }
-  }, [errorInvitation, success]);
+  });
+
+  useEffect(() => {
+    const errors = [errorInvitationMessage, errorSuppressionMessage, errorStructureMessage, errorUsersMessage];
+    const errorMessages = errors.filter(error => error !== null);
+  
+    if (errorMessages.length > 0) {
+      scrollTopWindow();
+      dispatch(
+        alerteEtSpinnerActions.getMessageAlerte({
+          type: 'error',
+          message: errorMessages[0],
+          status: null,
+          description: null,
+        })
+      );
+    }
+  }, [errorInvitation, errorSuppression, errorStructure, errorUsers]);
 
   const sendInvitation = () => {
     if (!valideInputEmail(email)) {
@@ -99,7 +107,7 @@ function StructureDetails() {
         />
       )}
       <div className="fr-container">
-        <Spinner loading={loadingStructure || loadingInvitation} />
+        <Spinner loading={loadingStructure || loadingInvitation || loadingSuppression} />
         <h2 className="fr-mb-1w" style={{ color: '#000091' }}>
           {structure?.nom}
         </h2>
@@ -190,9 +198,9 @@ function StructureDetails() {
             Ajouter un collaborateur
           </button>
         </div>
-        {collaborateurs?.length > 0 ? (
-          collaborateurs?.map((collaborateur, idx) => (
-            <CollaborateurCard gestionnaire={collaborateur} setCollaborateurs={setCollaborateurs} key={idx} />
+        {users?.length > 0 ? (
+          users?.map((collaborateur, idx) => (
+            <CollaborateurCard gestionnaire={collaborateur} key={idx} />
           ))
         ) : (
           <div className="fr-mt-3w">Aucun compte associ&eacute;.</div>

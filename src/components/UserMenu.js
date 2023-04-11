@@ -12,7 +12,7 @@ const UserMenu = ({
 }) => {
   const formatRoleMenu = role => {
     if (role === 'grandReseau') {
-      return user?.reseau ? `Grand réseau - ${user.reseau}` : 'Grand réseau';
+      return `Grand réseau - ${user.reseau}`;
     } else if (role === 'prefet') {
       return `Préfet - ${user?.departement ? 'dép ' + user?.departement : 'région ' + user?.region}`;
     } else if (role === 'hub_coop') {

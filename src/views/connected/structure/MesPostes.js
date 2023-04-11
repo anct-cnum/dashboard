@@ -8,19 +8,25 @@ import ValidatedBanner from './banners/ValidatedBanner';
 import ManagePositionsCard from './cards/ManagePositionsCard';
 import HireAdvisorCard from './cards/HireAdvisorCard';
 import AdvisorCard from './cards/AdvisorCard';
-import { structureActions, reconventionnementActions, miseEnRelationAction } from '../../../actions';
+import Spinner from '../../../components/Spinner';
+import { scrollTopWindow } from '../../../utils/exportsUtils';
+import { structureActions, reconventionnementActions, miseEnRelationAction, alerteEtSpinnerActions } from '../../../actions';
 
 
 function MesPostes() {
   const [openModal, setOpenModal] = useState(false);
   const misesEnrelation = useSelector(state => state?.misesEnRelation?.misesEnRelation);
+  const errorMisesEnRelation = useSelector(state => state?.misesEnRelation?.error);
+  const errorStructure = useSelector(state => state?.structure?.error);
   const userAuth = useSelector(state => state.authentication?.user);
-  const dispatch = useDispatch();
   const structure = useSelector(state => state.structure?.structure);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const loadingStructure = useSelector(state => state.structure?.loading);
+  const loadingMisesEnRelation = useSelector(state => state.misesEnRelations?.loading);
   const [conseillersActifs, setConseillersActifs] = useState([]);
   const [motif, setMotif] = useState('');
   const [statut, setStatut] = useState('');
+  const dispatch = useDispatch();
 
   const displayBanner = () => {
     switch (statut) {
@@ -36,9 +42,12 @@ function MesPostes() {
         return null;
     }
   };
+
+  const errorStructureMessage = 'La structure n\'a pas pu être chargée !';
+  const errorMisesEnRelationMessage = 'Les mises en relation n\'ont pas pu être chargées !';
   
   useEffect(() => {
-    dispatch(structureActions.get(userAuth?.entity?.$id));
+    dispatch(structureActions.getDetails(userAuth?.entity?.$id));
   }, [statut]);
 
   useEffect(() => {
@@ -46,7 +55,7 @@ function MesPostes() {
       dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
       setStatut(structure?.conventionnement?.statut);
     }
-  }, [structure]);
+  }, [structure?._id]);
 
   useEffect(() => {
     if (misesEnrelation) {
@@ -64,15 +73,33 @@ function MesPostes() {
 
   const handleCancel = () => {
     dispatch(reconventionnementActions.update(structure?._id, 'annuler', [], null, motif));
-    dispatch(structureActions.get(userAuth?.entity?.$id));
+    dispatch(structureActions.getDetails(userAuth?.entity?.$id));
     setStatut('NON_INTERESSÉ');
   };
 
+  useEffect(() => {
+    const errors = [errorStructureMessage, errorMisesEnRelationMessage];
+    const errorMessages = errors.filter(error => error !== null);
+  
+    if (errorMessages.length > 0) {
+      scrollTopWindow();
+      dispatch(
+        alerteEtSpinnerActions.getMessageAlerte({
+          type: 'error',
+          message: errorMessages[0],
+          status: null,
+          description: null,
+        })
+      );
+    }
+  }, [errorMisesEnRelation, errorStructure]);
+  
   return (
     <>
       {structure ? displayBanner() : null}
       {openModal && <PopinAnnulationReConvention setOpenModal={setOpenModal} handleCancel={handleCancel} motif={motif} setMotif={setMotif} />}
       <div className="fr-container">
+        <Spinner loading={loadingStructure || loadingMisesEnRelation} />
         {structure?.conventionnement?.statut !== 'NON_INTERESSÉ' ? (
           <h2 className="fr-mb-6w" style={{ marginTop: '187px' }}>
             G&eacute;rer mes postes

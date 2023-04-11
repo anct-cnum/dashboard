@@ -57,7 +57,12 @@ const ConventionnementInfosCard = ({ structure }) => {
                   <p className="fr-text--bold">Profils recrut&eacute;s</p>
                 </li>
                 <li className="fr-ml-auto">
-                  <button className="fr-btn" disabled>
+                  <button className="fr-btn" onClick={
+                    () => window.open(
+                      structure?.conventionnement?.urlDemarcheSimplifiee?.conventionnement,
+                      '_blank', 'noopener,noreferrer'
+                    )
+                  }>
                     <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche
                     Simplifi&eacute;e
                   </button>
