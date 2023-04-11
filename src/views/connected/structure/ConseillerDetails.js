@@ -70,8 +70,9 @@ function ConseillerDetails() {
           <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
         </div>
       </div>
-      <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
-        {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
+      {conseiller &&
+        <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
+          {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
         <>
           <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
           {misesEnRelationFinalisee?.statut === 'finalisee' &&
@@ -83,11 +84,11 @@ function ConseillerDetails() {
             <PopinCreationNouvelleRupture setOpenModal={setOpenModal} updateStatut={updateStatut} />
           }
         </>
-        }
-        {conseiller?.statut === 'RUPTURE' &&
+          }
+          {conseiller?.statut === 'RUPTURE' &&
           <p className="fr-badge fr-badge--error fr-badge--no-icon" style={{ height: '20%' }}>Contrat termin&eacute;</p>
-        }
-        {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
+          }
+          {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
           <>
             {misesEnRelationFinalisee?.dossierIncompletRupture ?
               <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
@@ -101,8 +102,9 @@ function ConseillerDetails() {
             Annuler la rupture de contrat
             </button>
           </>
-        }
-      </div>
+          }
+        </div>
+      }
       <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
         <div className="fr-col-12">
           <hr style={{ borderWidth: '0.5px' }}/>
@@ -124,14 +126,16 @@ function ConseillerDetails() {
           </Link>
         </div>
       </div>
-      <AccordeonContrats
-        conseiller={conseiller}
-        misesEnRelationFinalisee={misesEnRelationFinalisee}
-        misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
-        misesEnRelationNouvelleRupture={misesEnRelationFinalisee?.statut === 'nouvelle_rupture' ? misesEnRelationFinalisee : null}
-      />
-      <div className="fr-grid-row fr-col-12 display-desktop color-text color-title-subpart">
-        {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
+      {conseiller &&
+      <>
+        <AccordeonContrats
+          conseiller={conseiller}
+          misesEnRelationFinalisee={misesEnRelationFinalisee}
+          misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+          misesEnRelationNouvelleRupture={misesEnRelationFinalisee?.statut === 'nouvelle_rupture' ? misesEnRelationFinalisee : null}
+        />
+        <div className="fr-grid-row fr-col-12 display-desktop color-text color-title-subpart">
+          {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
         <div className="fr-card fr-col-12 fr-p-4w">
           <div className="fr-card__body" style={{ padding: '0 0' }}>
             <div>
@@ -169,8 +173,8 @@ function ConseillerDetails() {
             </div>
           </div>
         </div>
-        }
-        {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
+          }
+          {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
         <div className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationFinalisee?.statut === 'nouvelle_rupture' ? 'fr-mt-3w' : ''}`}>
           <div className="fr-card__body" style={{ padding: '0 0' }}>
             <div>
@@ -208,86 +212,88 @@ function ConseillerDetails() {
             </div>
           </div>
         </div>
-        }
-        {misesEnRelationFinaliseeRupture?.map((miseEnRelation, idx) =>
-          <>
-            <div className={`fr-card fr-col-12 fr-p-4w ${Object.keys(misesEnRelationFinalisee || {}).length > 0 ? 'fr-mt-3w' : ''}`} key={idx}>
-              <div className="fr-card__body" style={{ padding: '0 0' }}>
-                <div>
-                  <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-                    <div className="fr-col-3">
-                      <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
-                    </div>
-                    <div className="fr-col-3">
-                      <div>
-                        <strong className="fr-text--md">Type de contrat</strong><br/>
-                        <span className="fr-text--regular fr-text--md">-</span>
+          }
+          {misesEnRelationFinaliseeRupture?.map((miseEnRelation, idx) =>
+            <>
+              <div className={`fr-card fr-col-12 fr-p-4w ${Object.keys(misesEnRelationFinalisee || {}).length > 0 ? 'fr-mt-3w' : ''}`} key={idx}>
+                <div className="fr-card__body" style={{ padding: '0 0' }}>
+                  <div>
+                    <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+                      <div className="fr-col-3">
+                        <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
                       </div>
-                    </div>
-                    <div className="fr-col-3">
-                      <div>
-                        <strong className="fr-text--md">D&eacute;but de contrat</strong><br/>
-                        {miseEnRelation?.dateRecrutement ?
-                          <span className="fr-text--regular fr-text--md">
-                            {dayjs(miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}
-                          </span> : <span>-</span>
-                        }
+                      <div className="fr-col-3">
+                        <div>
+                          <strong className="fr-text--md">Type de contrat</strong><br/>
+                          <span className="fr-text--regular fr-text--md">-</span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="fr-col-3">
-                      <div>
-                        <strong className="fr-text--md">Fin de contrat</strong><br/>
-                        {miseEnRelation?.dateRupture ?
-                          <span className="fr-text--regular fr-text--md">
-                            {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
-                          </span> : <span>-</span>
-                        }
+                      <div className="fr-col-3">
+                        <div>
+                          <strong className="fr-text--md">D&eacute;but de contrat</strong><br/>
+                          {miseEnRelation?.dateRecrutement ?
+                            <span className="fr-text--regular fr-text--md">
+                              {dayjs(miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}
+                            </span> : <span>-</span>
+                          }
+                        </div>
+                      </div>
+                      <div className="fr-col-3">
+                        <div>
+                          <strong className="fr-text--md">Fin de contrat</strong><br/>
+                          {miseEnRelation?.dateRupture ?
+                            <span className="fr-text--regular fr-text--md">
+                              {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
+                            </span> : <span>-</span>
+                          }
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </>
-        )}
-        <div className="fr-card fr-col-12 fr-mt-3w fr-p-4w">
-          <div className="fr-card__body" style={{ padding: '0 0' }}>
-            <div>
-              <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-                <div className="fr-col-3">
-                  <p className="fr-badge fr-badge--info">Formation</p>
-                </div>
-                <div className="fr-col-3">
-                  <div>
-                    <strong className="fr-text--md">Formation certifi&eacute;(e)</strong><br/>
-                    <span className="fr-text--regular fr-text--md">{conseiller?.certifie ? 'Oui' : 'Non'}</span>
+            </>
+          )}
+          <div className="fr-card fr-col-12 fr-mt-3w fr-p-4w">
+            <div className="fr-card__body" style={{ padding: '0 0' }}>
+              <div>
+                <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+                  <div className="fr-col-3">
+                    <p className="fr-badge fr-badge--info">Formation</p>
                   </div>
-                </div>
-                <div className="fr-col-3">
-                  <div>
-                    <strong className="fr-text--md">D&eacute;but de formation</strong><br/>
-                    {conseiller?.datePrisePoste ?
-                      <span className="fr-text--regular fr-text--md">
-                        {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
-                      </span> : <span>-</span>
-                    }
+                  <div className="fr-col-3">
+                    <div>
+                      <strong className="fr-text--md">Formation certifi&eacute;(e)</strong><br/>
+                      <span className="fr-text--regular fr-text--md">{conseiller?.certifie ? 'Oui' : 'Non'}</span>
+                    </div>
                   </div>
-                </div>
-                <div className="fr-col-3">
-                  <div>
-                    <strong className="fr-text--md">Fin de formation</strong><br/>
-                    {conseiller?.dateFinFormation ?
-                      <span className="fr-text--regular fr-text--md">
-                        {dayjs(conseiller?.dateFinFormation).format('DD/MM/YYYY')}
-                      </span> : <span>-</span>
-                    }
+                  <div className="fr-col-3">
+                    <div>
+                      <strong className="fr-text--md">D&eacute;but de formation</strong><br/>
+                      {conseiller?.datePrisePoste ?
+                        <span className="fr-text--regular fr-text--md">
+                          {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
+                        </span> : <span>-</span>
+                      }
+                    </div>
+                  </div>
+                  <div className="fr-col-3">
+                    <div>
+                      <strong className="fr-text--md">Fin de formation</strong><br/>
+                      {conseiller?.dateFinFormation ?
+                        <span className="fr-text--regular fr-text--md">
+                          {dayjs(conseiller?.dateFinFormation).format('DD/MM/YYYY')}
+                        </span> : <span>-</span>
+                      }
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
+      }
       <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12 display-desktop">
         <div className="fr-col-12">
           <hr style={{ borderWidth: '0.5px' }}/>
