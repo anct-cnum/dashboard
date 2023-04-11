@@ -7,7 +7,7 @@ import ElementText from './ElementText';
 function StatistiquesTotalAccompagnements({ nbTotalAccompagnements }) {
   return (
     <div className="fr-grid-row">
-      <div className={`fr-col-12 print-chiffre`}>
+      <div className="fr-col-12 print-chiffre">
         <ElementNumber nombre={nbTotalAccompagnements} classe="number"/>
       </div>
       <div className={`fr-col-12 print-texte`}>
