@@ -101,7 +101,7 @@ export default function GraphiqueStructure() {
           <div className="fr-grid-row">
             <LeftPage donneesStats={donneesStatistiques}/>
             <RightPage donneesStats={donneesStatistiques}/>
-            <BottomPage donneesStats={donneesStatistiques}/>
+            <BottomPage donneesStats={donneesStatistiques} typeStats="structure"/>
             <StatistiquesBanniere
               dateDebut={dateDebut}
               dateFin={dateFin}

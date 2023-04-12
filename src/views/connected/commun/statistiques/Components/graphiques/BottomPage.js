@@ -9,7 +9,7 @@ import labelsCorrespondance from '../../../../../../datas/labelsCorrespondance.j
 import { statistiquesActions } from '../../../../../../actions';
 require('dayjs/locale/fr');
 
-function BottomPage({ donneesStats }) {
+function BottomPage({ donneesStats, typeStats }) {
 
   const dispatch = useDispatch();
 
@@ -27,21 +27,23 @@ function BottomPage({ donneesStats }) {
   //Formatage des stats temps d'accompagnement pour affichage en heures et minutes
   statsTempsAccompagnement.map(stats => {
     if (stats.valeur > 0) {
-      const hours = Math.floor(stats.valeurFormat / 60);
-      const remainingMinutes = stats.valeurFormat % 60;
-      if (remainingMinutes === 0) {
-        stats.valeurFormatString = `${hours}h`;
+      const hours = Math.floor(stats.minutes / 60);
+      const remainingMinutes = stats.minutes % 60;
+      if (remainingMinutes === 0 || typeStats !== 'conseiller' || typeStats !== 'structure') {
+        stats.temps = `${hours}h`;
         return stats;
       }
-      stats.valeurFormatString = `${hours}h${remainingMinutes}min`;
+      stats.temps = `${hours}h${remainingMinutes}min`;
       return stats;
     }
     return stats;
   });
-  const statsTempsAccompagnementFormat = statsTempsAccompagnement.filter(stats => stats.nom !== 'total');
+  const statsTempsAccompagnementAteliers = statsTempsAccompagnement.filter(stats => stats.nom !== 'total');
   const statsTempsAccompagnementTotal = statsTempsAccompagnement.find(stats => stats.nom === 'total');
 
+  // Formatage nom type d'atelier
   const capitalized = word => word.charAt(0).toUpperCase() + word.slice(1);
+
   //Tri liste des réorientations autres
   useEffect(() => {
     if (statsReorientations?.length > 0) {
@@ -72,13 +74,13 @@ function BottomPage({ donneesStats }) {
   const legendTempAccompagnement = {
     labelFormatter: function() {
       if (this.y > 0) {
-        const activty = statsTempsAccompagnementFormat.find(stats => stats.nom === this.name);
-        return `${capitalized(this.name)}: ${activty.valeurFormatString}`;
+        const tempsAccompagnement = statsTempsAccompagnementAteliers.find(stats => stats.nom === this.name);
+        return `${capitalized(this.name)}: ${tempsAccompagnement.temps}`;
       }
       return `${this.name}: 0h`;
     },
     title: {
-      text: 'Total : ' + statsTempsAccompagnementTotal?.valeurFormatString,
+      text: 'Total : ' + statsTempsAccompagnementTotal?.temps,
       style: {
         fontFamily: 'Marianne',
         fontWeight: 'bold',
@@ -110,7 +112,7 @@ function BottomPage({ donneesStats }) {
       </div>
       <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 print-graphique">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
-        <ElementHighcharts donneesStats={statsTempsAccompagnementFormat} variablesGraphique={pieGraphiqueTemps}/>
+        <ElementHighcharts donneesStats={statsTempsAccompagnementAteliers} variablesGraphique={pieGraphiqueTemps}/>
       </div>
       <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 fr-col-lg-3 print-graphique">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
@@ -141,6 +143,6 @@ function BottomPage({ donneesStats }) {
 
 BottomPage.propTypes = {
   donneesStats: PropTypes.object,
-  type: PropTypes.string,
+  typeStats: PropTypes.string,
 };
 export default BottomPage;
