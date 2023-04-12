@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import dayjs from 'dayjs';
 import ElementHighcharts from './ElementHighcharts';
-import { sortByMonthAndYear, get4lastMonths } from '../utils/functionsSort';
 import { getStyle } from '../utils/functionsStyle';
-import { getGraphiqueEvolution, getGraphiqueStacked, getGraphiquePie } from '../utils/functionsGraphique';
+import { getGraphiqueStacked, getGraphiquePie, getGraphiqueColumn } from '../utils/functionsGraphique';
 import largeurEcran from '../utils/functionsLargeurEcran';
 import labelsCorrespondance from '../../../../../../datas/labelsCorrespondance.json';
 import { statistiquesActions } from '../../../../../../actions';
@@ -20,43 +18,30 @@ function BottomPage({ donneesStats }) {
   const tabColorAge = getStyle('age');
   const tabColorStatut = getStyle('statut');
   const tabColorReorientation = getStyle('reorientation');
+  const tabColorDuree = getStyle('duree');
+  const tabColorLieux = getStyle('lieux');
+  const tabColorTemps = getStyle('temps');
   const largeur = largeurEcran();
 
-  const { statsEvolutions, statsUsagers, statsAges, statsReorientations } = donneesStats;
-
-  //Map des stats evolutions pour ajouter les données nécessaires pour le graph (label mois année, valeur)
-  let statsEvolutionsMapped = [];
-  for (const [annee, moisListe] of Object.entries(statsEvolutions)) {
-    let statsEvolutionsMapped2 = moisListe.map(mois => {
-      mois.nom = dayjs().locale('fr').month(`${mois.mois}`).format('MMMM');
-      mois.nom = mois.nom?.concat(' ', annee);
-      mois.annee = annee;
-      mois.valeur = mois.totalCras;
-      return mois;
-    });
-    statsEvolutionsMapped.push(...statsEvolutionsMapped2);
-  }
-
-  //Filtrage pour ne garder que le mois en cours et les 3 précédents max
-  let monthToPrint = get4lastMonths(new Date().getMonth(), new Date().getUTCFullYear());
-  let statsEvolutionsFiltered = Object.values(statsEvolutionsMapped).filter(mois => {
-    // eslint-disable-next-line max-len
-    return monthToPrint[0].includes(mois.mois) && monthToPrint[1][monthToPrint[0].findIndex(mois2 => mois.mois === mois2)].toString() === mois.annee ? mois : '';
-  });
-
-  //Ajout des mois manquants (donc avec totalCras à 0)
-  monthToPrint[0].forEach((value, index) => {
-    if (statsEvolutionsFiltered.some(mois => mois.mois === value) === false) {
-      let annee = monthToPrint[1][index];
-      let nom = dayjs().locale('fr').month(`${value}`).format('MMMM');
-      nom = nom?.concat(' ', annee);
-      statsEvolutionsFiltered.push({ 'mois': value, 'valeur': 0, 'annee': annee.toString(), 'nom': nom });
+  const { statsUsagers, statsAges, statsReorientations, statsDurees, statsLieux, statsTempsAccompagnement } = donneesStats;
+  //Formatage des stats temps d'accompagnement pour affichage en heures et minutes
+  statsTempsAccompagnement.map(stats => {
+    if (stats.valeur > 0) {
+      const hours = Math.floor(stats.valeurFormat / 60);
+      const remainingMinutes = stats.valeurFormat % 60;
+      if (remainingMinutes === 0) {
+        stats.valeurFormatString = `${hours}h`;
+        return stats;
+      }
+      stats.valeurFormatString = `${hours}h${remainingMinutes}min`;
+      return stats;
     }
+    return stats;
   });
+  const statsTempsAccompagnementFormat = statsTempsAccompagnement.filter(stats => stats.nom !== 'total');
+  const statsTempsAccompagnementTotal = statsTempsAccompagnement.find(stats => stats.nom === 'total');
 
-  //Tri par mois/annee croissant
-  statsEvolutionsFiltered.sort(sortByMonthAndYear);
-
+  const capitalized = word => word.charAt(0).toUpperCase() + word.slice(1);
   //Tri liste des réorientations autres
   useEffect(() => {
     if (statsReorientations?.length > 0) {
@@ -84,28 +69,57 @@ function BottomPage({ donneesStats }) {
     }
   }, [statsReorientations]);
 
-  const graphiqueEvolution = getGraphiqueEvolution(tabColorAge, '&Eacute;volution des comptes rendus d&rsquo;activit&eacute;');
-  const graphiqueAge = getGraphiqueStacked(tabColorAge, 'Tranches d&rsquo;&acirc;ge des usagers');
-  const graphiqueStatut = getGraphiqueStacked(tabColorStatut, 'Statut des usagers');
+  const legendTempAccompagnement = {
+    labelFormatter: function() {
+      if (this.y > 0) {
+        const activty = statsTempsAccompagnementFormat.find(stats => stats.nom === this.name);
+        return `${capitalized(this.name)}: ${activty.valeurFormatString}`;
+      }
+      return `${this.name}: 0h`;
+    },
+    title: {
+      text: 'Total : ' + statsTempsAccompagnementTotal?.valeurFormatString,
+      style: {
+        fontFamily: 'Marianne',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        marginLeft: '20px',
+      }
+    },
+  };
+
+  const graphiqueAge = getGraphiqueStacked(tabColorAge, 'Tranches d&rsquo;&acirc;ge des usagers', largeur);
+  const graphiqueStatut = getGraphiqueStacked(tabColorStatut, 'Statut des usagers', largeur);
   const graphiqueReorientations = getGraphiquePie(tabColorReorientation, 'Usager.&egrave;res r&eacute;orient&eacute;.es', largeur, true);
+  const pieGraphique = getGraphiquePie(tabColorLieux, 'Canaux d\'accompagnements', largeur, false);
+  const pieGraphiqueTemps = getGraphiquePie(tabColorTemps, 'Temps d\'accompagnements', largeur, false, legendTempAccompagnement);
+  const columnGraphique = getGraphiqueColumn(tabColorDuree, 'Dur&eacute;e des accompagnements');
 
   return (
     <>
-      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 print-graphique">
-        <div className="print-blank"></div>
-        <div className="fr-mt-6w fr-mb-5w"><hr/></div>
-        <ElementHighcharts donneesStats={statsEvolutionsFiltered} variablesGraphique={graphiqueEvolution}/>
-      </div>
-
-      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 fr-col-lg-3 print-graphique">
+      <div className="fr-col-12 fr-col-md-5">
         <div className="print-blank"></div>
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
         <ElementHighcharts donneesStats={statsAges} variablesGraphique={graphiqueAge}/>
       </div>
 
-      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 fr-col-offset-lg-1 print-graphique">
+      <div className="fr-col-12 fr-col-md-5 fr-col-offset-md-1">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
         <ElementHighcharts donneesStats={statsUsagers} variablesGraphique={graphiqueStatut}/>
+        <div className="print-blank"></div>
+      </div>
+      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 print-graphique">
+        <div className="fr-mt-6w fr-mb-5w"><hr/></div>
+        <ElementHighcharts donneesStats={statsTempsAccompagnementFormat} variablesGraphique={pieGraphiqueTemps}/>
+      </div>
+      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 fr-col-lg-3 print-graphique">
+        <div className="fr-mt-6w fr-mb-5w"><hr/></div>
+        <ElementHighcharts donneesStats={statsLieux} variablesGraphique={pieGraphique}/>
+      </div>
+
+      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 fr-col-offset-lg-1 print-graphique">
+        <div className="fr-mt-6w fr-mb-5w"><hr/></div>
+        <ElementHighcharts donneesStats={statsDurees} variablesGraphique={columnGraphique}/>
         <div className="print-blank"></div>
       </div>
       <div className="fr-col-lg-11 hide-graphique-lg">
