@@ -26,9 +26,9 @@ function BottomPage({ donneesStats, typeStats }) {
   const { statsUsagers, statsAges, statsReorientations, statsDurees, statsLieux, statsTempsAccompagnement } = donneesStats;
   //Formatage des stats temps d'accompagnement pour affichage en heures et minutes
   statsTempsAccompagnement.map(stats => {
-    if (stats.valeur > 0) {
-      const hours = Math.floor(stats.minutes / 60);
-      const remainingMinutes = stats.minutes % 60;
+    if (stats?.valeur > 0) {
+      const hours = Math.floor(stats?.minutes / 60);
+      const remainingMinutes = stats?.minutes % 60;
       if (remainingMinutes === 0 || typeStats !== 'conseiller' || typeStats !== 'structure') {
         stats.temps = `${hours}h`;
         return stats;
@@ -74,8 +74,8 @@ function BottomPage({ donneesStats, typeStats }) {
   const legendTempAccompagnement = {
     labelFormatter: function() {
       if (this.y > 0) {
-        const tempsAccompagnement = statsTempsAccompagnementAteliers.find(stats => stats.nom === this.name);
-        return `${capitalized(this.name)}: ${tempsAccompagnement.temps}`;
+        const tempsAccompagnement = statsTempsAccompagnementAteliers.find(stats => stats?.nom === this.name);
+        return `${capitalized(this.name)}: ${tempsAccompagnement?.temps}`;
       }
       return `${this.name}: 0h`;
     },
