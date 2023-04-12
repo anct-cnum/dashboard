@@ -39,7 +39,7 @@ function DemandeReconventionnement() {
   );
 
   const errorStructureMessage = 'La structure n\'a pas pu être chargée !';
-  const errorMisesEnRelationMessage = 'Les ml n\'ont pas pu être chargées !';
+  const errorMisesEnRelationMessage = 'Les mises en relation n\'ont pas pu être chargées !';
   const errorReconventionnementMessage = 'Le dossier de reconventionnement n\'a pas pu être chargé !';
 
   useEffect(() => {

@@ -35,8 +35,8 @@ function StructureDetails() {
   const errorStructure = useSelector(state => state.structure?.error);
   const errorUsers = useSelector(state => state.user?.error);
 
-  const errorInvitationMessage = 'L\'invitation du gestionnnaire a échouée, veuillez réessayer plus tard';
-  const errorSuppressionMessage = 'La suppression du gestionnnaire a échouée, veuillez réessayer plus tard';
+  const errorInvitationMessage = 'L\'invitation du gestionnaire a échoué, veuillez réessayer plus tard';
+  const errorSuppressionMessage = 'La suppression du gestionnaire a échoué, veuillez réessayer plus tard';
   const errorStructureMessage = 'La structure n\'a pas pu être chargé !';
   const errorUsersMessage = 'Les gestionnaires n\'ont pas pu être chargés !';
 
