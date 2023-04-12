@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { invitationsActions, structureActions, alerteEtSpinnerActions } from '../../../actions';
-import { formatNomConseiller, pluralize, valideInputEmail } from '../../../utils/formatagesUtils';
+import { capitalizedFirstLetter, formatNomConseiller, pluralize, valideInputEmail } from '../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import Spinner from '../../../components/Spinner';
@@ -114,8 +114,13 @@ function StructureDetails() {
             <div className="fr-mb-3w">
               <strong>Nom</strong><br/>
               <div className="fr-grid-row">
-                <span>{structure?.contact?.nom ?? '-'}&nbsp;</span>
-                <span>{structure?.contact?.prenom ?? ''}</span>
+                <span>{capitalizedFirstLetter(structure?.contact?.nom)}</span>
+              </div>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Pr&eacute;nom</strong><br/>
+              <div className="fr-grid-row">
+                <span>{capitalizedFirstLetter(structure?.contact?.prenom)}</span>
               </div>
             </div>
             <div className="fr-mb-3w">

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { structureActions } from '../../../actions';
-import { formatNomConseiller, pluralize } from '../../../utils/formatagesUtils';
+import { capitalizedFirstLetter, formatNomConseiller, pluralize } from '../../../utils/formatagesUtils';
 
 function StructureDetails() {
 
@@ -68,8 +68,13 @@ function StructureDetails() {
             <div className="fr-mb-3w">
               <strong>Nom</strong><br/>
               <div className="fr-grid-row">
-                <span>{structure?.contact?.nom ?? '-'}&nbsp;</span>
-                <span>{structure?.contact?.prenom ?? ''}</span>
+                <span>{capitalizedFirstLetter(structure?.contact?.nom)}</span>
+              </div>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Pr&eacute;nom</strong><br/>
+              <div className="fr-grid-row">
+                <span>{capitalizedFirstLetter(structure?.contact?.prenom)}</span>
               </div>
             </div>
             <div className="fr-mb-3w">

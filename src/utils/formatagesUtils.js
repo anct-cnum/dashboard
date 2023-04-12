@@ -44,6 +44,8 @@ export const validInputSiret = siret => {
   return regexValidSiret.test(siret);
 };
 
+export const capitalizedFirstLetter = word => word ? word.charAt(0).toUpperCase() + word.slice(1) : '-';
+
 export const formatNomConseiller = conseiller =>
   (conseiller?.nom + ' ' + conseiller?.prenom).toLowerCase().replace(/(^\w{1})|([\s,-]+\w{1})/g, letter => letter.toUpperCase());
 

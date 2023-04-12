@@ -7,6 +7,7 @@ import { getGraphiqueStacked, getGraphiquePie, getGraphiqueColumn } from '../uti
 import largeurEcran from '../utils/functionsLargeurEcran';
 import labelsCorrespondance from '../../../../../../datas/labelsCorrespondance.json';
 import { statistiquesActions } from '../../../../../../actions';
+import { capitalizedFirstLetter } from '../../../../../../utils/formatagesUtils';
 require('dayjs/locale/fr');
 
 function BottomPage({ donneesStats, typeStats }) {
@@ -41,9 +42,6 @@ function BottomPage({ donneesStats, typeStats }) {
   const statsTempsAccompagnementAteliers = statsTempsAccompagnement.filter(stats => stats.nom !== 'total');
   const statsTempsAccompagnementTotal = statsTempsAccompagnement.find(stats => stats.nom === 'total');
 
-  // Formatage nom type d'atelier
-  const capitalized = word => word.charAt(0).toUpperCase() + word.slice(1);
-
   //Tri liste des réorientations autres
   useEffect(() => {
     if (statsReorientations?.length > 0) {
@@ -75,7 +73,7 @@ function BottomPage({ donneesStats, typeStats }) {
     labelFormatter: function() {
       if (this.y > 0) {
         const tempsAccompagnement = statsTempsAccompagnementAteliers.find(stats => stats?.nom === this.name);
-        return `${capitalized(this.name)}: ${tempsAccompagnement?.temps}`;
+        return `${capitalizedFirstLetter(this.name)}: ${tempsAccompagnement?.temps}`;
       }
       return `${this.name}: 0h`;
     },

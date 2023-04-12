@@ -6,7 +6,7 @@ import { structureActions, alerteEtSpinnerActions, invitationsActions } from '..
 import SiretForm from './SiretForm';
 import EmailForm from './EmailForm';
 import Spinner from '../../../../components/Spinner';
-import { formatNomConseiller, pluralize, valideInputEmail } from '../../../../utils/formatagesUtils';
+import { capitalizedFirstLetter, formatNomConseiller, pluralize, valideInputEmail } from '../../../../utils/formatagesUtils';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function StructureDetails() {
@@ -123,8 +123,13 @@ function StructureDetails() {
             <div className="fr-mb-3w">
               <strong>Nom</strong><br/>
               <div className="fr-grid-row">
-                <span>{structure?.contact?.nom ?? '-'}&nbsp;</span>
-                <span>{structure?.contact?.prenom ?? ''}</span>
+                <span>{capitalizedFirstLetter(structure?.contact?.nom)}</span>
+              </div>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Pr&eacute;nom</strong><br/>
+              <div className="fr-grid-row">
+                <span>{capitalizedFirstLetter(structure?.contact?.prenom)}</span>
               </div>
             </div>
             <div className="fr-mb-3w">
