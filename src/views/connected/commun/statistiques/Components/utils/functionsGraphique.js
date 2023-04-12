@@ -4,7 +4,7 @@ export function setCategoriesStatistiques(donneesStats, typeGraphique, labelsCor
   donneesStats.forEach(element => {
     let libelle = labelsCorrespondance.find(label => label.nom === element.nom)?.correspondance ?? element.nom;
     if (typeGraphique === 'bar') {
-      categories.push(libelle + '&nbsp;&nbsp;&nbsp;&nbsp;<b>' + element.valeur + '</b>');
+      categories.push(`${libelle}&nbsp;&nbsp;&nbsp;&nbsp;<b>${element.valeur}</b>&nbsp;&nbsp;${element.percent}%`);
     } else {
       categories.push(libelle);
     }
@@ -665,8 +665,8 @@ export function getGraphiqueBar(tabColor, titre, largeur) {
       typeGraphique: 'bar',
       largeurGraphique: null,
       hauteurGraphique: largeur >= 768 && largeur <= 1170 ? 930 : 472,
-      margeGaucheGraphique: largeur <= 1170 ? 0 : 264,
-      margeDroiteGraphique: largeur <= 1170 ? 0 : 125,
+      margeGaucheGraphique: largeur <= 1170 ? 0 : 294,
+      margeDroiteGraphique: largeur <= 1170 ? 0 : 55,
       optionResponsive: largeur <= 1170,
       couleursGraphique: tabColor
     },

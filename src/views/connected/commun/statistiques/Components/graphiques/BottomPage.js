@@ -80,7 +80,7 @@ function BottomPage({ donneesStats, typeStats }) {
       return `${this.name}: 0h`;
     },
     title: {
-      text: 'Total : ' + statsTempsAccompagnementTotal?.temps,
+      text: `Total : ${statsTempsAccompagnementTotal?.valeur > 0 ? statsTempsAccompagnementTotal?.temps : '0h'}`,
       style: {
         fontFamily: 'Marianne',
         fontWeight: 'bold',
