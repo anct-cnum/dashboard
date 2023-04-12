@@ -101,12 +101,12 @@ function BottomPage({ donneesStats, typeStats }) {
     <>
       <div className="fr-col-12 fr-col-md-5">
         <div className="print-blank"></div>
-        <div className="fr-mt-6w fr-mb-5w"><hr/></div>
+        <div className="fr-mt-md-3w fr-mt-6w fr-mb-5w"><hr/></div>
         <ElementHighcharts donneesStats={statsAges} variablesGraphique={graphiqueAge}/>
       </div>
 
       <div className="fr-col-12 fr-col-md-5 fr-col-offset-md-1">
-        <div className="fr-mt-6w fr-mb-5w"><hr/></div>
+        <div className="fr-mt-md-3w fr-mt-6w fr-mb-5w"><hr/></div>
         <ElementHighcharts donneesStats={statsUsagers} variablesGraphique={graphiqueStatut}/>
         <div className="print-blank"></div>
       </div>
