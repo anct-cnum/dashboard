@@ -274,28 +274,6 @@ function StructureDetails() {
                 <span className="fr-col-12">-</span>
               }
             </div>
-            <div className="fr-mb-3w fr-grid-row">
-              <strong>{pluralize(
-                'Profil validé',
-                'Profil validé',
-                'Profils validés',
-                structure?.conseillersValider?.length
-              )}</strong>
-              {structure?.conseillersValider?.map((conseiller, idx) =>
-                <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
-                  <button
-                    style={{ paddingLeft: '0' }}
-                    title="D&eacute;tail"
-                    className="fr-text--md"
-                    onClick={() => window.open(`/${roleActivated}/candidat/${conseiller?._id}`)}>
-                    {conseiller?.idPG}&nbsp;-&nbsp;{conseiller ? formatNomConseiller(conseiller) : ''}
-                  </button>
-                </span>
-              )}
-              {structure?.conseillersValider?.length === 0 &&
-                <span className="fr-col-12">-</span>
-              }
-            </div>
           </div>
         </div>
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
