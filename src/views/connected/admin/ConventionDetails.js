@@ -32,7 +32,7 @@ function ConventionDetails() {
   }, [errorConvention]);
 
   return (
-    <div>
+    <div className="conventionDetails">
       <Spinner loading={loading} />
       <button
         onClick={() => window.close()}
@@ -51,15 +51,15 @@ function ConventionDetails() {
           </button>
         </div>
       </div>
-      <div>
+      <div className="color-text color-title-subpart">
         <div className="fr-card">
           <div className="fr-card__body fr-p-0">
-            <div className="fr-container  fr-mt-3w">
+            <div className="fr-container fr-mt-3w">
               <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--bottom">
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
                     <strong>Contact de la structure</strong><br />
-                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                    <span className="fr-text--regular fr-text--md">
                       {convention ? formatNomContactStructure(convention) : ''}
                     </span>
                   </div>
@@ -67,13 +67,13 @@ function ConventionDetails() {
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
                     <strong>Fonction</strong><br />
-                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{convention?.contact?.fonction ?? '-'}</span>
+                    <span className="fr-text--regular fr-text--md">{convention?.contact?.fonction ?? '-'}</span>
                   </div>
                 </div>
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
                     <strong>T&eacute;l&eacute;phone</strong><br />
-                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                    <span className="fr-text--regular fr-text--md">
                       {convention?.contact?.telephone ?? '-'}
                     </span>
                   </div>
@@ -81,7 +81,7 @@ function ConventionDetails() {
                 <div className="fr-col-3">
                   <div className="fr-mb-3w">
                     <strong>Email</strong><br />
-                    <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{convention?.contact?.email ?? '-'}</span>
+                    <span className="fr-text--regular fr-text--md">{convention?.contact?.email ?? '-'}</span>
                   </div>
                 </div>
               </div>
