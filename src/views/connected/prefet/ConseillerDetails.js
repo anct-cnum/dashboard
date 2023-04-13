@@ -61,8 +61,6 @@ function ConseillerDetails() {
     }
   }, [conseiller, errorStructure]);
 
-  const checkMotifRupture = motif => !!(motif === 'licenciement' || motif === 'demission');
-
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
