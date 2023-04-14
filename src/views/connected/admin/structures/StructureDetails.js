@@ -6,7 +6,7 @@ import { structureActions, alerteEtSpinnerActions, invitationsActions } from '..
 import SiretForm from './SiretForm';
 import EmailForm from './EmailForm';
 import Spinner from '../../../../components/Spinner';
-import { capitalizedFirstLetter, formatNomConseiller, pluralize, valideInputEmail } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, pluralize, valideInputEmail } from '../../../../utils/formatagesUtils';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function StructureDetails() {
