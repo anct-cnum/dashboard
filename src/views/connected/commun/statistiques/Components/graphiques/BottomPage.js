@@ -24,20 +24,6 @@ function BottomPage({ donneesStats }) {
   const largeur = largeurEcran();
 
   const { statsUsagers, statsAges, statsReorientations, statsDurees, statsLieux, statsTempsAccompagnement } = donneesStats;
-  //Formatage des stats temps d'accompagnement pour affichage en heures et minutes
-  statsTempsAccompagnement.map(stats => {
-    if (stats?.valeur > 0) {
-      const hours = Math.floor(stats?.minutes / 60);
-      const remainingMinutes = stats?.minutes % 60;
-      if (remainingMinutes === 0) {
-        stats.temps = `${hours}h`;
-        return stats;
-      }
-      stats.temps = `${hours}h${remainingMinutes}min`;
-      return stats;
-    }
-    return stats;
-  });
   const statsTempsAccompagnementAteliers = statsTempsAccompagnement.filter(stats => stats.nom !== 'total');
   const statsTempsAccompagnementTotal = statsTempsAccompagnement.find(stats => stats.nom === 'total');
 
@@ -68,17 +54,27 @@ function BottomPage({ donneesStats }) {
     }
   }, [statsReorientations]);
 
+  const formatNameCraActiviter = activiter => {
+    switch (activiter) {
+      case 'collectif':
+        return 'Collectives';
+      case 'individuel':
+        return 'Individuelles';
+      case 'ponctuel':
+        return 'Ponctuelles';
+      default:
+        return activiter;
+    }
+  };
+
   const legendTempAccompagnement = {
     labelFormatter: function() {
-      if (this.y > 0) {
-        const activiter = this.name.charAt(0).toUpperCase() + this.name.slice(1);
-        const tempsAccompagnement = statsTempsAccompagnementAteliers.find(stats => stats?.nom === this.name);
-        return `${activiter}: ${tempsAccompagnement?.temps}`;
-      }
-      return `${this.name}: 0h`;
+      const activiter = formatNameCraActiviter(this.name);
+      const tempsAccompagnement = statsTempsAccompagnementAteliers.find(stats => stats?.nom === this.name);
+      return `${activiter}: ${tempsAccompagnement?.temps}`;
     },
     title: {
-      text: `Total : ${statsTempsAccompagnementTotal?.valeur > 0 ? statsTempsAccompagnementTotal?.temps : '0h'}`,
+      text: `Total : ${statsTempsAccompagnementTotal?.temps}`,
       style: {
         fontFamily: 'Marianne',
         fontWeight: 'bold',
