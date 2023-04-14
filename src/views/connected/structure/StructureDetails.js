@@ -20,6 +20,7 @@ function StructureDetails() {
   const dispatch = useDispatch();
   const { idStructure } = useParams();
   const structure = useSelector(state => state.structure?.structure);
+  const [formInformationContact, setFormInformationContact] = useState(false);
   const [displaySiretForm, setDisplaySiretForm] = useState(false);
   const loadingStructure = useSelector(state => state.structure?.loading);
   const loadingInvitation = useSelector(state => state.invitations?.loading);
@@ -34,6 +35,7 @@ function StructureDetails() {
   const users = useSelector(state => state.user?.users);
   const errorStructure = useSelector(state => state.structure?.error);
   const errorUsers = useSelector(state => state.user?.error);
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const errorInvitationMessage = 'L\'invitation du gestionnaire a échoué, veuillez réessayer plus tard';
   const errorSuppressionMessage = 'La suppression du gestionnaire a échoué, veuillez réessayer plus tard';
@@ -43,7 +45,7 @@ function StructureDetails() {
 
   useEffect(() => {
     dispatch(structureActions.getDetails(idStructure));
-  }, [idStructure]);
+  }, [idStructure, formInformationContact]);
 
   useEffect(() => {
     dispatch(userActions.getUsers());
@@ -112,7 +114,7 @@ function StructureDetails() {
           {structure?.nom}
         </h2>
         <h6>{`ID - ${structure?.idPG}`}</h6>
-        <StructureInformationsCard structure={structure} />
+        <StructureInformationsCard structure={structure} formInformationContact={formInformationContact} setFormInformationContact={setFormInformationContact}/>
         <div className="fr-col-12 fr-mb-2w fr-mt-7w">
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
@@ -120,7 +122,7 @@ function StructureDetails() {
         {structure?.conventionnement?.statut && structure?.conventionnement?.statut !== 'NON_INTERESSÉ' && (
           <ReconventionnementInfosCard structure={structure} />
         )}
-        <ConventionnementInfosCard structure={structure}/>
+        <ConventionnementInfosCard structure={structure} roleActivated={roleActivated}/>
         <h2>Accompagnements</h2>
         <AccompagnementsCard structure={structure} />
         <div className="fr-col-12 fr-my-6w">

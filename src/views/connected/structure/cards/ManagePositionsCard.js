@@ -51,7 +51,7 @@ const ManagePositionsCard = ({ structure }) => (
               <li className="fr-ml-auto">
                 <button className="fr-btn" onClick={
                   () => window.open(
-                    structure?.urlDemarcheSimplifiee?.conventionnement,
+                    structure?.urlDossierConventionnement,
                     '_blank', 'noopener,noreferrer'
                   )
                 }>

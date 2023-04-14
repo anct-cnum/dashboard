@@ -87,7 +87,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                 </li>
                 <li className="fr-ml-auto">
                   <button className="fr-btn" onClick={
-                    () => window.open(structure?.urlDemarcheSimplifiee.reconventionnement,
+                    () => window.open(structure?.urlDossierReconventionnement,
                       '_blank', 'noopener,noreferrer')
                   }>
                     <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche Simplifi&eacute;e

@@ -1,7 +1,7 @@
 import React from 'react';
 import propType from 'prop-types';
 
-const CompleteApplicationCard = ({ url, structure }) => (
+const CompleteApplicationCard = ({ structure }) => (
   <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
     <div className="fr-card__body fr-p-0">
       <div>
@@ -27,14 +27,17 @@ const CompleteApplicationCard = ({ url, structure }) => (
             </div>
           </div>
           <div className="fr-col-3 card__text">
-            <p className="fr-badge fr-badge--warning">CONVENTIONNEMENT EN COURS</p>
+            {structure?.dossierConventionnement?.statut === 'accepte' ?
+              <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier complet</p> :
+              <p className="fr-badge fr-badge--new fr-mr-3w" style={{ height: '20%' }}>Dossier &agrave; compl&eacute;ter</p>
+            }
           </div>
           <div className="fr-col-3 card__text">
             <button
               className="fr-btn fr-mx-3w card__button"
               title="D&eacute;tail"
-              onClick={() => window.open(url, '_blank', 'noopener,noreferrer')}
-              disabled
+              onClick={() => window.open(structure.urlDossierReconventionnement, '_blank', 'noopener,noreferrer')}
+              
             >
               Compl&eacute;ter mon dossier
             </button>
@@ -46,7 +49,6 @@ const CompleteApplicationCard = ({ url, structure }) => (
 );
 
 CompleteApplicationCard.propTypes = {
-  url: propType.string,
   structure: propType.object,
 };
 

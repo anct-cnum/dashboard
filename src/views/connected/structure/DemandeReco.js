@@ -38,20 +38,27 @@ function DemandeReconventionnement() {
     structure?.conventionnement?.nombreDePostes ?? 0
   );
 
-  const errorStructureMessage = 'La structure n\'a pas pu être chargée !';
-  const errorMisesEnRelationMessage = 'Les mises en relation n\'ont pas pu être chargées !';
-  const errorReconventionnementMessage = 'Le dossier de reconventionnement n\'a pas pu être chargé !';
+
+  const errorMessages = {
+    errorStructure: 'La structure n\'a pas pu être chargée !',
+    errorMisesEnRelation: 'Les mises en relation n\'ont pas pu être chargées !',
+    errorReconventionnement: 'Le dossier de reconventionnement n\'a pas pu être chargé !'
+  };
+
+  const getErrorMessage = detectedError => {
+    return errorMessages[detectedError];
+  };
 
   useEffect(() => {
-    const errors = [errorStructureMessage, errorMisesEnRelationMessage, errorReconventionnementMessage];
-    const errorMessages = errors.filter(error => error !== null);
+    const errors = [errorStructure, errorMisesEnRelation, errorReconventionnement];
+    const detectedErrors = errors.filter(error => error !== false);
   
-    if (errorMessages.length > 0) {
+    if (detectedErrors.length > 0) {
       scrollTopWindow();
       dispatch(
         alerteEtSpinnerActions.getMessageAlerte({
           type: 'error',
-          message: errorMessages[0],
+          message: getErrorMessage(detectedErrors[0]),
           status: null,
           description: null,
         })
@@ -184,7 +191,7 @@ function DemandeReconventionnement() {
           Renseignez les informations concernant votre structure et les pi&egrave;ces justificatives
           demand&eacute;s avant de pouvoir envoyer votre demande.
         </p>
-        <CompleteApplicationCard url={reconventionnement?.url} structure={structure} />
+        <CompleteApplicationCard structure={structure} />
         {structure?.conventionnement?.statut === 'ENREGISTRÉ' && (
           <>
             <div className="fr-col-12 fr-mt-6w fr-mb-2w">

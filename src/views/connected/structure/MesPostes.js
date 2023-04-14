@@ -25,11 +25,10 @@ function MesPostes() {
   const loadingMisesEnRelation = useSelector(state => state.misesEnRelations?.loading);
   const [conseillersActifs, setConseillersActifs] = useState([]);
   const [motif, setMotif] = useState('');
-  const [statut, setStatut] = useState('');
   const dispatch = useDispatch();
 
   const displayBanner = () => {
-    switch (statut) {
+    switch (structure?.conventionnement?.statut) {
       case 'ENREGISTRÉ':
         return <CompleteRequestBanner structure={structure}/>;
       case 'RECONVENTIONNEMENT_EN_COURS':
@@ -43,20 +42,17 @@ function MesPostes() {
     }
   };
 
-  const errorStructureMessage = 'La structure n\'a pas pu être chargée !';
-  const errorMisesEnRelationMessage = 'Les mises en relation n\'ont pas pu être chargées !';
   
   useEffect(() => {
     dispatch(structureActions.getDetails(userAuth?.entity?.$id));
-  }, [statut]);
-
+  }, []);
+  
   useEffect(() => {
     if (structure?._id) {
       dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
-      setStatut(structure?.conventionnement?.statut);
     }
   }, [structure?._id]);
-
+  
   useEffect(() => {
     if (misesEnrelation) {
       // conseillers qui ont été recrutés et dont le contrat est en cours
@@ -66,33 +62,42 @@ function MesPostes() {
       const nouvellesRuptures = misesEnrelation
       .filter(({ statut }) => statut === 'nouvelle_rupture')
       .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'nouvelle_rupture' }));
-
+      
       setConseillersActifs([...recrutees, ...nouvellesRuptures]);
     }
   }, [misesEnrelation]);
-
+  
   const handleCancel = () => {
     dispatch(reconventionnementActions.update(structure?._id, 'annuler', [], null, motif));
     dispatch(structureActions.getDetails(userAuth?.entity?.$id));
-    setStatut('NON_INTERESSÉ');
+  };
+
+  const errorMessages = {
+    errorStructure: 'La structure n\'a pas pu être chargée !',
+    errorMisesEnRelation: 'Les mises en relation n\'ont pas pu être chargées !',
+  };
+
+  const getErrorMessage = detectedError => {
+    return errorMessages[detectedError];
   };
 
   useEffect(() => {
-    const errors = [errorStructureMessage, errorMisesEnRelationMessage];
-    const errorMessages = errors.filter(error => error !== null);
+    const errors = [errorStructure, errorMisesEnRelation];
+    const detectedErrors = errors.filter(error => error !== false);
   
-    if (errorMessages.length > 0) {
+    if (detectedErrors.length > 0) {
       scrollTopWindow();
       dispatch(
         alerteEtSpinnerActions.getMessageAlerte({
           type: 'error',
-          message: errorMessages[0],
+          message: getErrorMessage(detectedErrors[0]),
           status: null,
           description: null,
         })
       );
     }
   }, [errorMisesEnRelation, errorStructure]);
+
   
   return (
     <>
