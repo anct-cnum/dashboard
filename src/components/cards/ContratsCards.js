@@ -63,7 +63,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                         <span className="fr-text--regular fr-text--md">-</span>
                       }
                       {misesEnRelationFinalisee[0]?.typeDeContrat ?
-                        <span className="fr-text--regular fr-text--md">{misesEnRelationFinalisee[0]?.typeDeContrat}</span> :
+                        <span className="fr-text--regular fr-text--md">{misesEnRelationFinalisee[0].typeDeContrat}</span> :
                         <span className="fr-text--regular fr-text--md">{misesEnRelationNouvelleRupture?.typeDeContrat}</span>
                       }
                     </div>
@@ -76,7 +76,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                       }
                       {misesEnRelationFinalisee[0]?.dateDebutDeContrat ?
                         <span className="fr-text--regular fr-text--md">
-                          {dayjs(misesEnRelationFinalisee[0]?.dateDebutDeContrat).format('DD/MM/YYYY')}
+                          {dayjs(misesEnRelationFinalisee[0].dateDebutDeContrat).format('DD/MM/YYYY')}
                         </span> :
                         <span className="fr-text--regular fr-text--md">
                           {dayjs(misesEnRelationNouvelleRupture?.dateDebutDeContrat).format('DD/MM/YYYY')}
@@ -92,7 +92,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                       }
                       {misesEnRelationFinalisee[0]?.dateFinDeContrat &&
                         <span className="fr-text--regular fr-text--md">
-                          {dayjs(misesEnRelationFinalisee[0]?.dateFinDeContrat).format('DD/MM/YYYY')}
+                          {dayjs(misesEnRelationFinalisee[0].dateFinDeContrat).format('DD/MM/YYYY')}
                         </span>
                       }
                       {misesEnRelationNouvelleRupture?.dateFinDeContrat &&
@@ -123,7 +123,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                     </div>
                     <div className={`${checkMotifRupture(miseEnRelation?.motifRupture) ? 'structure-long' : 'structure-court'}`}>
                       <strong className="fr-text--md" title={miseEnRelation?.structureObj?.nom}>
-                        {miseEnRelation?.structureObj?.nom.length > 15 ?
+                        {miseEnRelation?.structureObj?.nom?.length > 15 ?
                           `${miseEnRelation?.structureObj?.nom.substring(0, 15)}...` : miseEnRelation?.structureObj?.nom
                         }
                       </strong><br/>
