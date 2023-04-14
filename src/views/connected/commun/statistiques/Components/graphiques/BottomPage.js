@@ -7,10 +7,9 @@ import { getGraphiqueStacked, getGraphiquePie, getGraphiqueColumn } from '../uti
 import largeurEcran from '../utils/functionsLargeurEcran';
 import labelsCorrespondance from '../../../../../../datas/labelsCorrespondance.json';
 import { statistiquesActions } from '../../../../../../actions';
-import { capitalizedFirstLetter } from '../../../../../../utils/formatagesUtils';
 require('dayjs/locale/fr');
 
-function BottomPage({ donneesStats, typeStats }) {
+function BottomPage({ donneesStats }) {
 
   const dispatch = useDispatch();
 
@@ -30,7 +29,7 @@ function BottomPage({ donneesStats, typeStats }) {
     if (stats?.valeur > 0) {
       const hours = Math.floor(stats?.minutes / 60);
       const remainingMinutes = stats?.minutes % 60;
-      if (remainingMinutes === 0 || typeStats !== 'conseiller' || typeStats !== 'structure') {
+      if (remainingMinutes === 0) {
         stats.temps = `${hours}h`;
         return stats;
       }
@@ -68,6 +67,8 @@ function BottomPage({ donneesStats, typeStats }) {
       }
     }
   }, [statsReorientations]);
+
+  const capitalizedFirstLetter = word => word.charAt(0).toUpperCase() + word.slice(1);
 
   const legendTempAccompagnement = {
     labelFormatter: function() {
@@ -141,6 +142,5 @@ function BottomPage({ donneesStats, typeStats }) {
 
 BottomPage.propTypes = {
   donneesStats: PropTypes.object,
-  typeStats: PropTypes.string,
 };
 export default BottomPage;

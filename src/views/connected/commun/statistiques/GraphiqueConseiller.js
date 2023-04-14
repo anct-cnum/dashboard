@@ -111,7 +111,7 @@ export default function GraphiqueConseiller() {
           <div className="fr-grid-row">
             <LeftPage donneesStats={donneesStatistiques}/>
             <RightPage donneesStats={donneesStatistiques}/>
-            <BottomPage donneesStats={donneesStatistiques} typeStats="conseiller"/>
+            <BottomPage donneesStats={donneesStatistiques}/>
             <StatistiquesBanniere
               dateDebut={dateDebut}
               dateFin={dateFin}
