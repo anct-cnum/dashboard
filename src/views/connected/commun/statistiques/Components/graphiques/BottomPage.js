@@ -68,13 +68,12 @@ function BottomPage({ donneesStats }) {
     }
   }, [statsReorientations]);
 
-  const capitalizedFirstLetter = word => word.charAt(0).toUpperCase() + word.slice(1);
-
   const legendTempAccompagnement = {
     labelFormatter: function() {
       if (this.y > 0) {
+        const activiter = this.name.charAt(0).toUpperCase() + this.name.slice(1);
         const tempsAccompagnement = statsTempsAccompagnementAteliers.find(stats => stats?.nom === this.name);
-        return `${capitalizedFirstLetter(this.name)}: ${tempsAccompagnement?.temps}`;
+        return `${activiter}: ${tempsAccompagnement?.temps}`;
       }
       return `${this.name}: 0h`;
     },
