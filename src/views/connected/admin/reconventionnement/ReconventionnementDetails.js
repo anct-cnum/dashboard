@@ -2,14 +2,16 @@ import React from 'react';
 import dayjs from 'dayjs';
 import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
+import { reconventionnementActions } from '../../../../actions';
 
 function ReconventionnementDetails({ reconventionnement }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const dossierReconventionnement = reconventionnement?.conventionnement?.dossierReconventionnement;
   const dossierConventionnement = reconventionnement?.conventionnement?.dossierConventionnement;
+  const dispatch = useDispatch();
 
   const calcNbJoursAvantDateFinContrat = dateFinContrat => {
     const dateFin = dayjs(dateFinContrat);
@@ -17,6 +19,10 @@ function ReconventionnementDetails({ reconventionnement }) {
     const nbJours = dateFin.diff(dateAujourdhui, 'day');
 
     return Math.max(nbJours, 0);
+  };
+
+  const validationReconventionnement = () => {
+    dispatch(reconventionnementActions.validationReconventionnement(reconventionnement._id));
   };
 
   return (
@@ -112,7 +118,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                   )}
                 </> :
                 <div className="fr-col-12">
-                  <span className="fr-h5">La structure n&lsquo;a pas s&eacute;l&eacute;ctionné de conseillers &agrave; renouveller pour le moment</span>
+                  <span className="fr-h6">La structure n&lsquo;a pas s&eacute;l&eacute;ctionné de conseillers &agrave; renouveller</span>
                 </div>
               }
             </div>
@@ -127,14 +133,18 @@ function ReconventionnementDetails({ reconventionnement }) {
             <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
               {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS &&
                 <li>
-                  <button className="fr-btn" disabled>
+                  <button
+                    className="fr-btn"
+                    onClick={validationReconventionnement}
+                    disabled={reconventionnement?.conventionnement?.statut !== 'accepte'}
+                  >
                     Valider la demande
                   </button>
                 </li>
               }
               <li className="fr-ml-auto">
                 <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                  {reconventionnement?.conventionnement?.statut === 'accepté' ?
+                  {reconventionnement?.conventionnement?.statut === 'accepte' ?
                     <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier complet</p> :
                     <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier incomplet</p>
                   }

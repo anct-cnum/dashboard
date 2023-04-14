@@ -5,7 +5,8 @@ import { API } from './api';
 export const reconventionnementService = {
   getAll,
   get,
-  update
+  update,
+  validationReconventionnement
 };
 
 function getAll(page) {
@@ -22,6 +23,12 @@ function get(id) {
 function update(structureId, action, conseillers, nombreDePostes, motif) {
   return API.patch(`${apiUrlRoot}/reconventionnement?structureId=${structureId}&action=${action}
   &nombreDePostes=${nombreDePostes}&motif=${motif}&role=${roleActivated()}`, { conseillers })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function validationReconventionnement(id) {
+  return API.patch(`${apiUrlRoot}/validation/reconventionnement/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
