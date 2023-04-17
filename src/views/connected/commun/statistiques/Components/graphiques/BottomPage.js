@@ -72,16 +72,7 @@ function BottomPage({ donneesStats }) {
       const activiter = formatNameCraActiviter(this.name);
       const tempsAccompagnement = statsTempsAccompagnementAteliers.find(stats => stats?.nom === this.name);
       return `${activiter}: ${tempsAccompagnement?.temps}`;
-    },
-    title: {
-      text: `Total : ${statsTempsAccompagnementTotal?.temps}`,
-      style: {
-        fontFamily: 'Marianne',
-        fontWeight: 'bold',
-        fontSize: '14px',
-        marginLeft: '20px',
-      }
-    },
+    }
   };
 
   const graphiqueAge = getGraphiqueStacked(tabColorAge, 'Tranches d&rsquo;&acirc;ge des usagers', largeur);
@@ -104,8 +95,22 @@ function BottomPage({ donneesStats }) {
         <ElementHighcharts donneesStats={statsUsagers} variablesGraphique={graphiqueStatut}/>
         <div className="print-blank"></div>
       </div>
-      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 print-graphique">
+      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 print-graphique" style={{ position: 'relative' }}>
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
+        <div className="legend-total-pie">
+          <div className="tooltip">
+            <span className="fr-icon-information-line"></span>
+            <div className="tooltiptextlarge">
+              <span>Comment calculons nous la donn&eacute;e ?</span>
+              <ul>
+                <li>30min ou moins =&gt; 30min</li>
+                <li>30min à 1h =&gt; 1h</li>
+                <li>Au dela d&rsquo;1h nous prenons le temps exacte renseign&eacute;</li>
+              </ul>
+            </div>
+          </div>
+          <span className="fr-ml-1v">Total: {statsTempsAccompagnementTotal?.temps}</span>
+        </div>
         <ElementHighcharts donneesStats={statsTempsAccompagnementAteliers} variablesGraphique={pieGraphiqueTemps}/>
       </div>
       <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 fr-col-lg-3 print-graphique">
