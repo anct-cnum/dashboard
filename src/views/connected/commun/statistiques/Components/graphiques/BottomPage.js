@@ -101,11 +101,11 @@ function BottomPage({ donneesStats }) {
           <div className="tooltip">
             <span className="fr-icon-information-line"></span>
             <div className="tooltiptextlarge">
-              <span>Comment calculons nous la donn&eacute;e ?</span>
+              <span>Comment calculons nous la donn&eacute;e&nbsp;?</span>
               <ul>
                 <li>30min ou moins =&gt; 30min</li>
                 <li>30min à 1h =&gt; 1h</li>
-                <li>Au dela d&rsquo;1h nous prenons le temps exacte renseign&eacute;</li>
+                <li>Au dela d&rsquo;1h nous prenons le temps exact renseign&eacute;</li>
               </ul>
             </div>
           </div>
