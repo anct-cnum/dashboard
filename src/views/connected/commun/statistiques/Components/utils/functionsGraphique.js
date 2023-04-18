@@ -187,7 +187,6 @@ export function setStatistiquesLegende(typeGraphique, isReoriente, optionRespons
           },
         };
       } else {
-        const x = 0;
         legende = {
           ...optionLegend,
           symbolPadding: 12,
