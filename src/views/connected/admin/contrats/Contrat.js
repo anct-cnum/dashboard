@@ -8,8 +8,8 @@ function Contrat({ contrat }) {
     if (contrat?.statut === 'nouvelle_rupture' && contrat?.emetteurRupture?.date) {
       return dayjs(contrat.emetteurRupture.date).format('DD/MM/YYYY');
     }
-    if (contrat?.statut === 'nouvelle_recrutement' && contrat?.emetteurRecrutement?.date) {
-      return dayjs(contrat.emetteurRecrutement.date).format('DD/MM/YYYY');
+    if (contrat?.statut === 'renouvellement' && contrat?.emetteurRenouvellement?.date) {
+      return dayjs(contrat.emetteurRenouvellement.date).format('DD/MM/YYYY');
     }
     return 'Non renseignée';
   };
@@ -24,8 +24,7 @@ function Contrat({ contrat }) {
           <span className="fr-text--bold">{contrat?.conseillerObj?.prenom}</span><br/>
           <span>ID {contrat?.conseillerObj?.idPG}</span>
         </td>
-        <td>{dateDeLaDemande(contrat)}
-        </td>
+        <td>{dateDeLaDemande(contrat)}</td>
         <td>{formatStatutContrat(contrat?.statut)}</td>
         <td>
           <button
