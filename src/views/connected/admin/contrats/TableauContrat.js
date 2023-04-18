@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions, conseillerActions } from '../../../../actions';
+import { alerteEtSpinnerActions, paginationActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Contrat from './Contrat';
+import { contratActions } from '../../../../actions/contratActions';
 
 export default function TableauContrat() {
 
@@ -13,29 +14,25 @@ export default function TableauContrat() {
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
 
-  const loading = useSelector(state => state.conseiller?.loading);
-  const downloading = useSelector(state => state.conseiller?.downloading);
-  const error = useSelector(state => state.conseiller?.error);
-  const conseillers = useSelector(state => state.conseiller);
-  const filtreParNomCandidat = useSelector(state => state.filtresCandidatures?.nomCandidat);
-  const filtreRegion = useSelector(state => state.filtresCandidatures?.region);
-  const filterDepartement = useSelector(state => state.filtresCandidatures?.departement);
-  const filtreComs = useSelector(state => state.filtresCandidatures?.coms);
+  const loading = useSelector(state => state.contrat?.loading);
+  const error = useSelector(state => state.contrat?.error);
+  const contrats = useSelector(state => state.contrat);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
+  const [typeContrat, setTypeContrat] = useState('toutes');
 
   useEffect(() => {
-    if (conseillers?.items) {
-      const count = Math.floor(conseillers.items.total / conseillers.items.limit);
-      dispatch(paginationActions.setPageCount(conseillers.items.total % conseillers.items.limit === 0 ? count : count + 1));
+    if (contrats?.items) {
+      const count = Math.floor(contrats.items.total / contrats.items.limit);
+      dispatch(paginationActions.setPageCount(contrats.items.total % contrats.items.limit === 0 ? count : count + 1));
     }
-  }, [conseillers]);
+  }, [contrats]);
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(conseillerActions.getAllCandidatsByAdmin(currentPage, filtreParNomCandidat, filtreRegion, filtreComs, filterDepartement));
+      dispatch(contratActions.getAll(currentPage, typeContrat));
     }
-  }, [currentPage, filterDepartement, filtreComs, filtreParNomCandidat, filtreRegion]);
+  }, [currentPage, typeContrat]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -45,71 +42,67 @@ export default function TableauContrat() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(conseillerActions.getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreRegion, filtreComs, filterDepartement));
+        dispatch(contratActions.getAll(page, typeContrat));
         setInitConseiller(true);
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les candidats n\'ont pas pu être chargées !',
+        message: 'Les contrats n\'ont pas pu être chargés !',
         status: null, description: null
       }));
     }
   }, [error, page]);
 
-  useEffect(() => {
-    if (conseillers.downloadError && conseillers.downloadError !== false) {
-      scrollTopWindow();
-      dispatch(alerteEtSpinnerActions.getMessageAlerte({
-        type: 'error',
-        message: 'Le CV n\'a pas pu être récupéré !',
-        status: null, description: null
-      }));
-    }
-  }, [conseillers.downloadError]);
-
   return (
-    <div className="conseillers">
-      <Spinner loading={loading || downloading} />
+    <div className="contrats">
+      <Spinner loading={loading} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
             <div className="fr-col fr-col-lg-12 fr-col-md-8">
-              <h1 style={{ color: '#000091' }} className="fr-h1">Demandes de contrats</h1>
-              <span>Retrouvez ici toutes les demandes de recrutements, renouvellements et ruptures de contrat à valider.</span>
+              <h1 className="fr-h1 title">Demandes de contrats</h1>
+              <span>Retrouvez ici toutes les demandes de recrutements, renouvellements et ruptures de contrat &agrave; valider.</span>
             </div>
-            
             <div className="fr-container--fluid fr-mt-4w">
               <ul className="tabs fr-tags-group">
-                <Link className="fr-tag" aria-pressed="true">Afficher toutes les demandes (42)</Link>
-                <Link className="fr-tag" aria-pressed="false">Recrutements (8)</Link>
-                <Link className="fr-tag" aria-pressed="false">Renouvellements de contrat (5)</Link>
-                <Link className="fr-tag" aria-pressed="false">Rupture de contrat (0)</Link>
+                <button onClick={() => setTypeContrat('toutes')} className="fr-tag" aria-pressed={typeContrat === 'toutes'}>
+                  Afficher toutes les demandes ({contrats?.items?.totalParContrat?.total})
+                </button>
+                <button onClick={() => setTypeContrat('recrutee')} className="fr-tag" aria-pressed={typeContrat === 'recrutee'}>
+                  Recrutements ({contrats?.items?.totalParContrat?.recrutement})
+                </button>
+                <button onClick={() => setTypeContrat('renouvellement')} className="fr-tag" aria-pressed={typeContrat === 'renouvellement'}>
+                  Renouvellements de contrat ({contrats?.items?.totalParContrat?.renouvellementDeContrat})
+                </button>
+                <button onClick={() => setTypeContrat('nouvelle_rupture')} className="fr-tag" aria-pressed={typeContrat === 'nouvelle_rupture'}>
+                  Rupture de contrat ({contrats?.items?.totalParContrat?.ruptureDeContrat})
+                </button>
               </ul>
               <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
                 <div className="fr-col-12">
                   <div className="fr-table">
-                    <table className={conseillers?.items?.data?.length < 2 ? 'no-result-table' : ''}>
+                    <table className={contrats?.items?.data?.length < 2 ? 'no-result-table' : ''}>
                       <thead>
                         <tr>
-                          <th style={{ width: '8rem' }}>Id structure</th>
-                          <th style={{ width: '15rem' }}>Nom de la structure</th>
+                          <th style={{ width: '8rem' }}>ID structure</th>
+                          <th style={{ width: '17rem' }}>Nom de la structure</th>
                           <th style={{ width: '13rem' }}>Nom du candidat</th>
-                          <th>Date de la demande</th>
-                          <th style={{ width: '16rem' }}>Type de la demande</th>
+                          <th style={{ width: '11rem' }}>Date de la demande</th>
+                          <th style={{ width: '11rem' }}>Type de la demande</th>
                           <th style={{ width: '12.1rem' }}></th>
                         </tr>
                       </thead>
                       <tbody>
-                        {!error && !loading && conseillers?.items?.data?.map((conseiller, idx) => {
-                          return (<Contrat key={idx} candidat={conseiller} />);
+                        {!error && !loading && contrats?.items?.data?.map((contrat, idx) => {
+                          return (<Contrat key={idx} contrat={contrat} />);
                         })
                         }
-                        {(!conseillers?.items || conseillers?.items?.total === 0) &&
+                        {(!contrats?.items || contrats?.items?.total === 0) &&
                           <tr>
                             <td colSpan="12" style={{ width: '60rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <span className="not-found pair">Aucun candidat trouv&eacute;</span>
+                                <span className="not-found pair">Aucun contrat trouv&eacute;</span>
                               </div>
                             </td>
                           </tr>
@@ -118,7 +111,7 @@ export default function TableauContrat() {
                     </table>
                   </div>
                 </div>
-                {conseillers?.items?.total !== 0 &&
+                {contrats?.items?.total !== 0 &&
                   <Pagination />
                 }
               </div>
