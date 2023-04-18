@@ -9,7 +9,6 @@ import Page404 from '../Page404';
 import TableauCandidatures from './candidatures/TableauCandidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
 import TableauContrat from './contrats/TableauContrat';
-import ContratDetails from './contrats/ContratDetails';
 import TableauConvention from './TableauConvention';
 import ConventionDetails from './ConventionDetails';
 import TableauHistoriqueConvention from './TableauHistoriqueConvention';
@@ -39,7 +38,6 @@ export default function Admin() {
         <Route path="/admin/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/admin/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/admin/candidat/:idCandidat" element={<CandidatDetails />} />
-        <Route path="/admin/demandes/contrat/:idCandidat" element={<ContratDetails />} />
         <Route path="/admin/demandes/convention/:idStructure" element={<ConventionDetails />} />
         <Route path="/admin/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />
