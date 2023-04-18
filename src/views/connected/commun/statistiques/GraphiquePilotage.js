@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
@@ -27,11 +27,17 @@ export default function GraphiqueNationale() {
   const error = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const loadingExport = useSelector(state => state.exports?.loading);
+  const [initStats, setInitStats] = useState(false);
   
   useEffect(() => {
     if (!error) {
-      // eslint-disable-next-line max-len
-      dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, region, departement, structureIds, conseillerIds));
+      if (!initStats) {
+        setInitStats(true);
+        dispatch(statistiquesActions.resetFiltre());
+      } else {
+        // eslint-disable-next-line max-len
+        dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, region, departement, structureIds, conseillerIds));
+      }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
@@ -39,7 +45,7 @@ export default function GraphiqueNationale() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, codePostal, region, departement, structureIds, conseillerIds, ville, error]);
+  }, [initStats, dateDebut, dateFin, codePostal, region, departement, structureIds, conseillerIds, ville, error]);
 
   return (
     <div className="statistiques">
@@ -68,7 +74,7 @@ export default function GraphiqueNationale() {
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
             <StatistiquesBanniere
-              dateDebut={new Date('2020-09-01')}
+              dateDebut={dateDebut}
               dateFin={dateFin}
               structureIds={structureIds}
               conseillerIds={conseillerIds}

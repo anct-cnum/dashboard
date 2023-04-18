@@ -2,10 +2,11 @@ import React, { useEffect, createRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/brands/logo-rf-conseiller-numerique-min.svg';
-import { menuActions, authenticationActions } from '../actions';
+import { menuActions, authenticationActions, structureActions } from '../actions';
 import Menu from './Menu';
 import { useAuth } from 'react-oidc-context';
 import signOut from '../services/auth/logout';
+import UserMenu from './UserMenu';
 
 function Header() {
 
@@ -17,27 +18,16 @@ function Header() {
   const roles = useSelector(state => state.authentication?.rolesAllowed)?.filter(role => !['admin_coop', 'structure_coop', 'conseiller'].includes(role));
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const user = useSelector(state => state.authentication?.user);
+  const structure = useSelector(state => state.structure?.structure);
   const buttonLogoutRef = createRef();
 
   const toggleBurgerMenu = () => {
     dispatch(menuActions.toggleBurgerMenu());
   };
 
-  const changeRoleActivated = e => {
-    const { value } = e.target;
-    dispatch(authenticationActions.changeRoleActivated(value));
+  const changeRoleActivated = role => {
+    dispatch(authenticationActions.changeRoleActivated(role));
     navigate('/');
-  };
-
-  const formatRoleMenu = role => {
-    if (role === 'grandReseau') {
-      return `Grand réseau - ${user.reseau}`;
-    } else if (role === 'prefet') {
-      return `Préfet - ${user.departement ? 'dép ' + user.departement : 'région ' + user.region}`;
-    } else if (role === 'hub_coop') {
-      return `Hub - ${user.hub}`;
-    }
-    return role.charAt(0).toUpperCase() + role.slice(1).split('_')[0];
   };
 
   const handleClickButtonLogout = async e => {
@@ -60,6 +50,12 @@ function Header() {
       return () => buttonLogoutRef.current.removeEventListener('click', handleClickButtonLogout);
     }
   }, []);
+
+  useEffect(() => {
+    if (user?.entity?.$ref === 'structures' && location.pathname !== '/structure') {
+      dispatch(structureActions.get(user?.entity?.$id));
+    }
+  }, [user]);
 
   return (
     <header role="banner" className="fr-header">
@@ -102,34 +98,12 @@ function Header() {
               </div>
             </div>
             { localStorage.getItem('user') && !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
-              <div className="fr-header__tools">
-                <div className="fr-header__tools-links">
-                  <ul className="fr-links-group">
-                    {/* Affichage de la liste des rôles autorisés si l'utilisateur en possède plusieurs */}
-                    {roles?.length > 1 &&
-                      <li>
-                        <div className="fr-select-group">
-                          <select className="fr-select" id="select" name="select" value={roleActivated} onChange={changeRoleActivated}>
-                            {roles?.map((role, idx) => {
-                              return (<option key={idx} value={role}>{formatRoleMenu(role)}</option>);
-                            })}
-                          </select>
-                        </div>
-                      </li>
-                    }
-                    {auth.isAuthenticated ? <li>
-                      <button ref={buttonLogoutRef} className="fr-btn fr-btn--sm fr-mr-md-2w button-disconnect-auth" title="Se d&eacute;connecter">
-                        D&eacute;connexion
-                      </button>
-                    </li> :
-                      <li>
-                        <button ref={buttonLogoutRef} className="fr-btn fr-btn--sm fr-mr-md-2w button-disconnect" title="Se d&eacute;connecter">
-                          D&eacute;connexion
-                        </button>
-                      </li>}
-                  </ul>
-                </div>
+            <div className="fr-header__tools" style={{ height: '57px' }}>
+              <div className=" fr-header__tools-links" id="navigation-774" role="navigation" aria-label="Compte utilisateur">
+                <UserMenu user={user} roleActivated={roleActivated} roles={roles} changeRoleActivated={changeRoleActivated}
+                  structure={structure} auth={auth} buttonLogoutRef={buttonLogoutRef}/>
               </div>
+            </div>
             }
           </div>
         </div>

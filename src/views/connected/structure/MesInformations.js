@@ -2,19 +2,18 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions, structureActions, alerteEtSpinnerActions } from '../../../actions';
 import Spinner from '../../../components/Spinner';
-
-import ContactStructure from './informations/ContactStructure';
-import Multicompte from './informations/Multicompte';
-import Structure from './informations/Structure';
+import ContactCard from '../../../components/cards/ContactCards';
+import RolesCards from '../../../components/cards/RolesCards';
 
 function MesInformations() {
   const dispatch = useDispatch();
   const userAuth = useSelector(state => state.authentication.user);
   const { entity } = useSelector(state => state.authentication.user);
   const { error, success, loading } = useSelector(state => state.invitations);
-  const errorUser = useSelector(state => state?.user?.error);
-  const structure = useSelector(state => state.structure);
+  const errorUser = useSelector(state => state.user?.error);
+  const structure = useSelector(state => state.structure?.structure);
   const errorStructure = useSelector(state => state.structure?.error);
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   useEffect(() => {
     if (entity) {
@@ -67,23 +66,10 @@ function MesInformations() {
   }, [error, success, errorUser, structure?.flashMessage]);
 
   return (
-    <div className="fr-mt-5w fr-mb-5w">
+    <div className="fr-container">
       <Spinner loading={loading} />
-      <div className="fr-grid-row">
-        <div className="fr-col-12 fr-col-lg-6 fr-col-xl-4 fr-mb-3w fr-mb-lg-0w">
-          <h2>Mon compte</h2>
-          <p>Email : <b>{userAuth?.name}</b></p>
-        </div>
-        <div className="fr-col-12 fr-mb-3w fr-col-lg-6 fr-col-xl-4 fr-mb-lg-0w">
-          <Structure/>
-        </div>
-        <div className="fr-col-12 fr-col-lg-6 fr-col-xl-4 fr-mb-lg-0w">
-          <ContactStructure/>
-        </div>
-        <div className="fr-col-12 fr-col-md-6 fr-col-sm-6">
-          <Multicompte/>
-        </div>
-      </div>
+      <ContactCard email={userAuth?.name} structureId={structure?._id}/>
+      <RolesCards user={userAuth} reseau={userAuth?.reseau} roles={userAuth?.roles} roleActivated={roleActivated} structure={structure}/>
     </div>
   );
 }

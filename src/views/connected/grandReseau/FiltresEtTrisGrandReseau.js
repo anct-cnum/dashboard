@@ -24,7 +24,7 @@ function FiltresEtTrisGrandReseau() {
   const loading = useSelector(state => state.exports?.loading);
   
   const getDepartements = () => {
-    if (filtreRegion !== 'tous' && filtreRegion !== '') {
+    if (filtreRegion !== 'tous') {
       return departementsRegionList.filter(region => region.region_name === codeRegions.find(r => r.code === filtreRegion)?.nom);
     }
     return departementsRegionList;
@@ -37,7 +37,7 @@ function FiltresEtTrisGrandReseau() {
         <div className="fr-select-group fr-col-xs-12 fr-col-sm-4 fr-col-lg-2 fr-mr-1w" style={{ width: '100%' }} id="filtre-region">
           <select style={{ fontSize: '12px' }} className="fr-select" onChange={e => {
             selectFiltreRegion(dispatch, e);
-            setValue('');
+            setValue('tous');
           }} value={filtreRegion}>
             <SelectOptions options={[...codeRegions, ...codeRegionTom]} valueName="code"
               labelName="nom" title="Toutes les r&eacute;gions" defaultValue={'tous'}/>

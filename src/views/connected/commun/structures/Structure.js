@@ -13,10 +13,10 @@ function Structure({ structure }) {
       <tr>
         <td>{structure?.idPG}</td>
         <td colSpan="12" style={{ width: '28rem' }}>{structure?.nom}</td>
+        <td>{structure?.siret}</td>
         <td>{structure?.contact?.nom}</td>
         <td>{structure?.contact?.prenom}</td>
         <td colSpan="12" style={{ width: '20rem' }}>{structure?.contact?.email}</td>
-        <td>{structure?.contact?.telephone}</td>
         <td>
           <div className="btn-actions-structures">
             <button

@@ -119,8 +119,8 @@ function FiltresEtTrisStructures() {
           <div className="fr-ml-auto fr-col-12 fr-col-md-5 fr-mb-4w fr-mb-md-0">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
               <input onKeyDown={rechercheParNomStructureToucheEnter} className="fr-input" defaultValue={searchInput ?? ''}
-                placeholder="Rechercher par nom ou par id" type="search" id="search-input" name="search-input" />
-              <button className="fr-btn" onClick={rechercheParNomStructure} title="Rechercher par nom ou par id">
+                placeholder="Rechercher par nom, par id, par siret ou par email" type="search" id="search-input" name="search-input" />
+              <button className="fr-btn" onClick={rechercheParNomStructure} title="Rechercher par nom, par id, par siret ou par email">
                 Rechercher
               </button>
             </div>
