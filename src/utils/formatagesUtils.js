@@ -65,19 +65,6 @@ export const formatStatut = statut => {
   }
 };
 
-export const formatStatutContrat = statut => {
-  switch (statut) {
-    case 'nouvelle_rupture':
-      return 'Rupture de contrat';
-    case 'recrutee':
-      return 'Recrutement';
-    case 'renouvellement':
-      return 'Renouvellement';
-    default:
-      return '';
-  }
-};
-
 export const formatMotifRupture = motif => {
   switch (motif) {
     case 'nonReconductionCDD':

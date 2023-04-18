@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-import { formatStatutContrat } from '../../../../utils/formatagesUtils';
 
 function Contrat({ contrat }) {
   const dateDeLaDemande = contrat => {
@@ -12,6 +11,19 @@ function Contrat({ contrat }) {
       return dayjs(contrat.emetteurRenouvellement.date).format('DD/MM/YYYY');
     }
     return 'Non renseignée';
+  };
+
+  const formatStatutContrat = statut => {
+    switch (statut) {
+      case 'nouvelle_rupture':
+        return 'Rupture de contrat';
+      case 'recrutee':
+        return 'Recrutement';
+      case 'renouvellement':
+        return 'Renouvellement';
+      default:
+        return '';
+    }
   };
 
   return (
