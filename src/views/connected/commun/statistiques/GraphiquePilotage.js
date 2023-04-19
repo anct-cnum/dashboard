@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
-import BlockDatePickers from './Components/commun/BlockDatePickers';
+import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
 import LeftPage from './Components/graphiques/LeftPage';
 import RightPage from './Components/graphiques/RightPage';
 import BottomPage from './Components/graphiques/BottomPage';
@@ -14,8 +14,8 @@ import FiltresEtTrisGrandReseau from '../../grandReseau/FiltresEtTrisGrandReseau
 export default function GraphiqueNationale() {
   const dispatch = useDispatch();
 
-  const dateDebut = useSelector(state => state.statistiques?.dateDebut);
-  const dateFin = useSelector(state => state.statistiques?.dateFin);
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const ville = useSelector(state => state.statistiques?.villeStats);
   const structureIds = useSelector(state => state.statistiques?.structureStats);

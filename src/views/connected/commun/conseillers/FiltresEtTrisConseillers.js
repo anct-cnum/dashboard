@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { exportsActions, filtresConseillersActions, paginationActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
-import BlockDatePickers from '../statistiques/Components/commun/BlockDatePickers';
+import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
 import codeRegions from '../../../../datas/code_region.json';
 
 function FiltresEtTrisConseillers() {
   const dispatch = useDispatch();
-  
-  const dateDebut = useSelector(state => state.filtresConseillers?.dateDebut);
+
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const ordreNom = useSelector(state => state.filtresConseillers?.ordreNom);
   const filtreCoordinateur = useSelector(state => state.filtresConseillers?.coordinateur);
   const filtreRupture = useSelector(state => state.filtresConseillers?.rupture);
   const filtreParNomConseiller = useSelector(state => state.filtresConseillers?.nomConseiller);
   const filtreParNomStructure = useSelector(state => state.filtresConseillers?.nomStructure);
   const filtreRegion = useSelector(state => state.filtresConseillers?.region);
-  const dateFin = useSelector(state => state.filtresConseillers?.dateFin);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresConseillers?.ordre);
 
   const exportConseillerFileBlob = useSelector(state => state.exports);
@@ -111,7 +111,7 @@ function FiltresEtTrisConseillers() {
         </div>
         <div className="fr-grid-row fr-grid-row--end">
           <div className="fr-col-12 fr-col-md-8 fr-mb-4w fr-mb-md-0 fr-grid-row">
-            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
           </div>
           <div className="fr-ml-auto">
             <button className="fr-btn fr-btn--secondary" onClick={exportDonneesConseiller}>Exporter les donn&eacute;es</button>

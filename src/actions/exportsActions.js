@@ -13,6 +13,7 @@ export const exportsActions = {
   exportDonneesStructure,
   exportDonneesGestionnaires,
   exportDonneesHistoriqueDossiersConvention,
+  exportDonneesHistoriqueContrat,
 };
 
 function exportFile(nameFile, collection = 'exports', hubName) {
@@ -176,5 +177,25 @@ function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, da
   }
   function failure(error) {
     return { type: 'EXPORT_HISTORIQUE_DOSSIERS_CONVENTION_FAILURE', error };
+  }
+}
+
+function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin) {
+  return async dispatch => {
+    dispatch(request());
+    await exportsService.getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin)
+    .then(exportHistoriqueContratFileBlob => dispatch(success(exportHistoriqueContratFileBlob)))
+    .catch(exportHistoriqueContratFileError => dispatch(failure(exportHistoriqueContratFileError)));
+  };
+
+  function request() {
+    return { type: 'EXPORT_HISTORIQUE_CONTRAT_REQUEST' };
+  }
+  function success(exportHistoriqueContratFileBlob) {
+    const nameFile = `export-historique-contrat_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+    return { type: 'EXPORT_HISTORIQUE_CONTRAT_SUCCESS', exportHistoriqueContratFileBlob, nameFile };
+  }
+  function failure(error) {
+    return { type: 'EXPORT_HISTORIQUE_CONTRAT_FAILURE', error };
   }
 }
