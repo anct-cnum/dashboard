@@ -17,6 +17,9 @@ import reconventionnementReducer from './reconventionnementReducer';
 import filtresConseillers from './filtresConseillersReducer';
 import filtresStructuresReducer from './filtresStructuresReducer';
 import filtresGestionnairesReducer from './filtresGestionnairesReducer';
+import miseEnRelationReducer from './miseEnRelationReducer';
+import conventionReducer from './conventionReducer';
+import filtresHistoriqueConventionReducer from './filtresHistoriqueConventionReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -30,13 +33,16 @@ const rootReducer = combineReducers({
   alerteEtSpinner: alerteEtSpinnerReducer,
   user: userReducer,
   conseiller: conseillerReducer,
+  misesEnRelation: miseEnRelationReducer,
   stats: statsReducer,
   structure: structureReducer,
   gestionnaire: gestionnaireReducer,
   reconventionnement: reconventionnementReducer,
+  convention: conventionReducer,
   invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,
   filtresGestionnaires: filtresGestionnairesReducer,
+  filtresHistoriqueConvention: filtresHistoriqueConventionReducer,
 });
 
 export default rootReducer;

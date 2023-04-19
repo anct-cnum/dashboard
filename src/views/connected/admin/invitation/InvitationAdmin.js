@@ -26,7 +26,7 @@ export default function InvitationAdmin() {
 
   return (
     <div>
-      <div className="fr-my-3w fr-my-md-6w fr-col-md-8">
+      <div className="fr-my-3w fr-my-md-6w fr-col-md-12">
         <div className={`fr-input-group ${prenom === '' && activeMessage ? 'fr-input-group--error' : ''}`}>
           <label className="fr-label" htmlFor="prenom-input">
             Pr&eacute;nom&nbsp;:

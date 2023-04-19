@@ -3,6 +3,7 @@ import { reconventionnementService } from '../services/reconventionnementService
 export const reconventionnementActions = {
   getAll,
   get,
+  update
 };
 
 function getAll(page) {
@@ -50,5 +51,29 @@ function get(id) {
   }
   function failure(error) {
     return { type: 'GET_RECONVENTIONNEMENT_FAILURE', error };
+  }
+}
+
+function update(structureId, action, conseillersIds = [], nombreDePostes = null, motif = null) {
+  return dispatch => {
+    dispatch(request());
+
+    reconventionnementService.update(structureId, action, conseillersIds, nombreDePostes, motif)
+    .then(
+      reconventionnement => dispatch(success(reconventionnement)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_RECONVENTIONNEMENT_REQUEST' };
+  }
+  function success(reconventionnement) {
+    return { type: 'UPDATE_RECONVENTIONNEMENT_SUCCESS', reconventionnement };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_RECONVENTIONNEMENT_FAILURE', error };
   }
 }

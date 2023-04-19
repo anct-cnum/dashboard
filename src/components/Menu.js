@@ -52,6 +52,16 @@ function Menu() {
         <div className="fr-header__menu-links"></div>
         <nav className="fr-nav fr-display--none-lg" id="navigation-869" role="navigation" aria-label="Menu principal">
           <ul className="fr-nav__list">
+            {roleActivated === 'structure' &&
+             <li className="fr-nav__item">
+               <Link
+                 to={`${roleActivated}/postes`}
+                 className="fr-nav__link"
+                 {...(location.pathname.startsWith(`/${roleActivated}/postes`) ? { 'aria-current': 'page' } : {})}>
+                      G&eacute;rer mes postes
+               </Link>
+             </li>
+            }
             <li className="fr-nav__item">
               <Link
                 to={`${roleActivated}/informations`}
@@ -63,13 +73,12 @@ function Menu() {
             { roleActivated === 'admin' &&
             <li className="fr-nav__item">
               <button
-                disabled
                 id="listes-traitement-demandes"
                 className="fr-nav__btn"
                 aria-expanded={ activeMenu === 'listes-traitement-demandes' }
                 aria-controls="menu-listes-traitement-demandes"
                 // eslint-disable-next-line max-len
-                {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
+                {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
                   Traiter les demandes
               </button>
@@ -77,13 +86,21 @@ function Menu() {
                 className={`fr-collapse fr-menu ${activeMenu === 'listes-traitement-demandes' ? 'fr-collapse--expanded' : ''}`}
                 id="menu-listes-traitement-demandes"
               >
-                <ul className="fr-menu__list">
+                <ul className="fr-menu__list" style={{ width: '23rem' }}>
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/demandes/conventions`}
                       {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
                       onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
                     >
-                      Demandes de conventions à traiter
+                      Demandes de conventions &agrave; traiter
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/historique/demandes/conventions`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
+                    >
+                      Historique des demandes de conventions trait&eacute;es
                     </Link>
                   </li>
                 </ul>

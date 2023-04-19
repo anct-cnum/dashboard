@@ -120,7 +120,7 @@ function CandidatDetails() {
             <PopinInteressee setDisplayModal={setDisplayModal} />
           }
           {conseiller?.miseEnRelation?.statut === 'recrutee' &&
-            <PopinRecrutee setDisplayModal={setDisplayModal} />
+            <PopinRecrutee setDisplayModal={setDisplayModal} urlDossierConventionnement={conseiller?.urlDossierConventionnement} />
           }
           {conseiller?.miseEnRelation?.statut === 'nouvelle_rupture' &&
             <PopinNouvelleRupture setDisplayModal={setDisplayModal} />

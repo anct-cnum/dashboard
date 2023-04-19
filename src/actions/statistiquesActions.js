@@ -138,7 +138,7 @@ function getTerritoire(typeTerritoire, idTerritoire, date) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getTerritoire(typeTerritoire, idTerritoire, date)
+    statistiquesService.getTerritoire(typeTerritoire, idTerritoire, formatDate(date))
     .then(
       territoire => dispatch(success(territoire)),
       error => {

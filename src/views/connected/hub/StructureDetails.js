@@ -148,8 +148,13 @@ function StructureDetails() {
               <span>{structure?.posteValiderCoselec ?? '-'}</span>
             </div>
             <div className="fr-mb-3w fr-grid-row">
-              <strong>Profils recrut&eacute;s</strong>
-              {structure?.conseillers?.map((conseiller, idx) =>
+              <strong>{pluralize(
+                'Profil recruté',
+                'Profil recruté',
+                'Profils recrutés',
+                structure?.conseillersRecruter?.length
+              )}</strong>
+              {structure?.conseillersRecruter?.map((conseiller, idx) =>
                 <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
                   <button
                     style={{ paddingLeft: '0' }}
@@ -160,7 +165,29 @@ function StructureDetails() {
                   </button>
                 </span>
               )}
-              {structure?.conseillers?.length === 0 &&
+              {structure?.conseillersRecruter?.length === 0 &&
+                <span className="fr-col-12">-</span>
+              }
+            </div>
+            <div className="fr-mb-3w fr-grid-row">
+              <strong>{pluralize(
+                'Profil validé',
+                'Profil validé',
+                'Profils validés',
+                structure?.conseillersValider?.length
+              )}</strong>
+              {structure?.conseillersValider?.map((conseiller, idx) =>
+                <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
+                  <button
+                    style={{ paddingLeft: '0' }}
+                    title="D&eacute;tail"
+                    className="fr-text--md"
+                    onClick={() => window.open(`/${roleActivated}/candidat/${conseiller?._id}`)}>
+                    {conseiller?.idPG}&nbsp;-&nbsp;{conseiller ? formatNomConseiller(conseiller) : ''}
+                  </button>
+                </span>
+              )}
+              {structure?.conseillersValider?.length === 0 &&
                 <span className="fr-col-12">-</span>
               }
             </div>

@@ -1,7 +1,7 @@
 const initialState = {
   error: false,
 };
-
+  
 export default function reconventionnement(state = initialState, action) {
   switch (action.type) {
     case 'GETALL_RECONVENTIONNEMENT_REQUEST':
@@ -35,6 +35,23 @@ export default function reconventionnement(state = initialState, action) {
         loading: false
       };
     case 'GET_RECONVENTIONNEMENT_FAILURE':
+      return {
+        error: action.error,
+        loading: false
+      };
+    case 'UPDATE_RECONVENTIONNEMENT_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'UPDATE_RECONVENTIONNEMENT_SUCCESS':
+      return {
+        ...state,
+        reconventionnement: action.reconventionnement,
+        loading: false
+      };
+    case 'UPDATE_RECONVENTIONNEMENT_FAILURE':
       return {
         error: action.error,
         loading: false
