@@ -18,7 +18,7 @@ export default function TableauContrat() {
   const error = useSelector(state => state.contrat?.error);
   const contrats = useSelector(state => state.contrat);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  const [initConseiller, setInitConseiller] = useState(false);
+  const [initContrat, setInitContrat] = useState(false);
   const [statutContrat, setStatutContrat] = useState('toutes');
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function TableauContrat() {
   }, [contrats]);
 
   useEffect(() => {
-    if (initConseiller === true) {
+    if (initContrat === true) {
       dispatch(contratActions.getAll(currentPage, statutContrat));
     }
   }, [currentPage, statutContrat]);
@@ -41,9 +41,9 @@ export default function TableauContrat() {
       setPage(1);
     }
     if (!error) {
-      if (initConseiller === false && page !== undefined) {
+      if (initContrat === false && page !== undefined) {
         dispatch(contratActions.getAll(page, statutContrat));
-        setInitConseiller(true);
+        setInitContrat(true);
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -111,7 +111,7 @@ export default function TableauContrat() {
                     </table>
                   </div>
                 </div>
-                {contrats?.items?.total !== 0 &&
+                {contrats?.items?.data?.length > 0 &&
                   <Pagination />
                 }
               </div>

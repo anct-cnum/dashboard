@@ -7,7 +7,7 @@ function Contrat({ contrat }) {
     if (contrat?.statut === 'nouvelle_rupture' && contrat?.emetteurRupture?.date) {
       return dayjs(contrat.emetteurRupture.date).format('DD/MM/YYYY');
     }
-    if (contrat?.statut === 'renouvellement' && contrat?.emetteurRenouvellement?.date) {
+    if (contrat?.statut === 'renouvellement' && contrat?.emetteurRenouvellement?.date) { // à définir
       return dayjs(contrat.emetteurRenouvellement.date).format('DD/MM/YYYY');
     }
     return 'Non renseignée';
@@ -19,7 +19,7 @@ function Contrat({ contrat }) {
         return 'Rupture de contrat';
       case 'recrutee':
         return 'Recrutement';
-      case 'renouvellement':
+      case 'renouvellement': // à définir pour statut du renouvellement de contrat
         return 'Renouvellement';
       default:
         return '';
