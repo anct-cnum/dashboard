@@ -4,10 +4,10 @@ import dayjs from 'dayjs';
 
 function HistoriqueContrat({ contrat }) {
   const dateDeLaDemande = contrat => {
-    if (contrat?.statut === 'nouvelle_rupture' && contrat?.emetteurRupture?.date) {
+    if (contrat?.statut === 'finalisee_rupture' && contrat?.emetteurRupture?.date) {
       return dayjs(contrat.emetteurRupture.date).format('DD/MM/YYYY');
     }
-    if (contrat?.statut === 'renouvellement' && contrat?.emetteurRenouvellement?.date) {
+    if (contrat?.statut === 'renouvelee' && contrat?.emetteurRenouvellement?.date) {
       return dayjs(contrat.emetteurRenouvellement.date).format('DD/MM/YYYY');
     }
     return 'Non renseignée';
@@ -15,11 +15,11 @@ function HistoriqueContrat({ contrat }) {
 
   const formatStatutContrat = statut => {
     switch (statut) {
-      case 'nouvelle_rupture':
+      case 'finalisee_rupture':
         return 'Rupture de contrat';
-      case 'recrutee':
+      case 'finalisee':
         return 'Recrutement';
-      case 'renouvellement':
+      case 'renouvellee':
         return 'Renouvellement';
       default:
         return '';
@@ -38,9 +38,9 @@ function HistoriqueContrat({ contrat }) {
         </td>
         <td>{dateDeLaDemande(contrat)}</td>
         <td>{formatStatutContrat(contrat?.statut)}</td>
-        <td>CDD</td>
-        <td>15/02/1998</td>
-        <td>15/02/1998</td>
+        <td>{contrat?.typeDeContrat ?? '-'}</td>
+        <td>{contrat?.dateDebutDeContrat ? dayjs(contrat?.dateDebutDeContrat).format('DD/MM/YYYY') : '-'}</td>
+        <td>{contrat?.dateFinDeContrat ? dayjs(contrat?.dateFinDeContrat).format('DD/MM/YYYY') : '-'}</td>
         <td>
           <button
             disabled
