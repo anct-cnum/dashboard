@@ -19,10 +19,10 @@ export default function TableauContrat() {
   const contrats = useSelector(state => state.contrat);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
-  const [typeContrat, setTypeContrat] = useState('toutes');
+  const [statutContrat, setStatutContrat] = useState('toutes');
 
   useEffect(() => {
-    if (contrats?.items) {
+    if (contrats?.items && contrats?.items?.total > 0) {
       const count = Math.floor(contrats.items.total / contrats.items.limit);
       dispatch(paginationActions.setPageCount(contrats.items.total % contrats.items.limit === 0 ? count : count + 1));
     }
@@ -30,9 +30,9 @@ export default function TableauContrat() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(contratActions.getAll(currentPage, typeContrat));
+      dispatch(contratActions.getAll(currentPage, statutContrat));
     }
-  }, [currentPage, typeContrat]);
+  }, [currentPage, statutContrat]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -42,7 +42,7 @@ export default function TableauContrat() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(contratActions.getAll(page, typeContrat));
+        dispatch(contratActions.getAll(page, statutContrat));
         setInitConseiller(true);
       }
     } else {
@@ -66,16 +66,16 @@ export default function TableauContrat() {
             </div>
             <div className="fr-container--fluid fr-mt-4w">
               <ul className="tabs fr-tags-group">
-                <button onClick={() => setTypeContrat('toutes')} className="fr-tag" aria-pressed={typeContrat === 'toutes'}>
+                <button onClick={() => setStatutContrat('toutes')} className="fr-tag" aria-pressed={statutContrat === 'toutes'}>
                   Afficher toutes les demandes ({contrats?.items?.totalParContrat?.total})
                 </button>
-                <button onClick={() => setTypeContrat('recrutee')} className="fr-tag" aria-pressed={typeContrat === 'recrutee'}>
+                <button onClick={() => setStatutContrat('recrutee')} className="fr-tag" aria-pressed={statutContrat === 'recrutee'}>
                   Recrutements ({contrats?.items?.totalParContrat?.recrutement})
                 </button>
-                <button onClick={() => setTypeContrat('renouvellement')} className="fr-tag" aria-pressed={typeContrat === 'renouvellement'}>
+                <button onClick={() => setStatutContrat('renouvellement')} className="fr-tag" aria-pressed={statutContrat === 'renouvellement'}>
                   Renouvellements de contrat ({contrats?.items?.totalParContrat?.renouvellementDeContrat})
                 </button>
-                <button onClick={() => setTypeContrat('nouvelle_rupture')} className="fr-tag" aria-pressed={typeContrat === 'nouvelle_rupture'}>
+                <button onClick={() => setStatutContrat('nouvelle_rupture')} className="fr-tag" aria-pressed={statutContrat === 'nouvelle_rupture'}>
                   Rupture de contrat ({contrats?.items?.totalParContrat?.ruptureDeContrat})
                 </button>
               </ul>
