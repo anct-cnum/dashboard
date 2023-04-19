@@ -76,13 +76,13 @@ export default function TableauHistoriqueContrat() {
                 <button onClick={() => setStatutContrat('toutes')} className="fr-tag" aria-pressed={statutContrat === 'toutes'}>
                   Afficher toutes les demandes ({contrats?.items?.totalParContrat?.total})
                 </button>
-                <button onClick={() => setStatutContrat('recrutee')} className="fr-tag" aria-pressed={statutContrat === 'recrutee'}>
+                <button onClick={() => setStatutContrat('recrutee')} className="fr-tag" aria-pressed={statutContrat === 'finalisee'}>
                   Recrutements ({contrats?.items?.totalParContrat?.recrutement})
                 </button>
-                <button onClick={() => setStatutContrat('renouvellement')} className="fr-tag" aria-pressed={statutContrat === 'renouvellement'}>
+                <button onClick={() => setStatutContrat('renouvellement')} className="fr-tag" aria-pressed={statutContrat === 'renouvellee'}>
                   Renouvellements de contrat ({contrats?.items?.totalParContrat?.renouvellementDeContrat})
                 </button>
-                <button onClick={() => setStatutContrat('nouvelle_rupture')} className="fr-tag" aria-pressed={statutContrat === 'nouvelle_rupture'}>
+                <button onClick={() => setStatutContrat('nouvelle_rupture')} className="fr-tag" aria-pressed={statutContrat === 'finalisee_rupture'}>
                   Rupture de contrat ({contrats?.items?.totalParContrat?.ruptureDeContrat})
                 </button>
               </ul>
@@ -133,7 +133,7 @@ export default function TableauHistoriqueContrat() {
                     </table>
                   </div>
                 </div>
-                {contrats?.items?.data.length > 0 &&
+                {contrats?.items?.data?.length > 0 &&
                   <Pagination />
                 }
               </div>
