@@ -89,6 +89,19 @@ export default function Documents() {
             </span>
           </p>
         </div>
+        <div className="fr-grid-row">
+          <p>
+            <a href="https://cdn.conseiller-numerique.gouv.fr/Convention_36_mois.pdf"
+              className="fr-link" target="blank"
+              rel="noreferrer noopener"
+              title="T&eacute;l&eacute;charger le mod&egrave;le de convention de subvention 36 mois">
+              T&eacute;l&eacute;charger le mod&egrave;le de convention de subvention 36 mois (pdf)
+            </a>
+            <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
+              Mod&egrave;le de convention de subvention avec la Banque des Territoires
+            </span>
+          </p>
+        </div>
         <h4>3) Pr&eacute;parer le recrutement de votre/vos Conseiller(s) num&eacute;rique(s)</h4>
         <div className="fr-grid-row">
           <p>
