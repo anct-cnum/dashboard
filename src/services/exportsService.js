@@ -113,7 +113,7 @@ function getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut,
 function getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
-  return API.get(`${apiUrlRoot}/exports/historique-contrat-csv?role=${roleActivated()}&statut=${statutContrat}${filterDateStart}${filterDateEnd}`)
+  return API.get(`${apiUrlRoot}/exports/historique-contrats-csv?role=${roleActivated()}&statut=${statutContrat}${filterDateStart}${filterDateEnd}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

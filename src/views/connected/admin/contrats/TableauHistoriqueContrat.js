@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, exportsActions, paginationActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import { contratActions } from '../../../../actions/contratActions';
 import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
@@ -16,13 +16,18 @@ export default function TableauHistoriqueContrat() {
   const [page, setPage] = useState(location.state?.currentPage);
 
   const loading = useSelector(state => state.contrat?.loading);
+  const loadingExport = useSelector(state => state.exports?.loading);
   const error = useSelector(state => state.contrat?.error);
   const contrats = useSelector(state => state.contrat);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  const [initConseiller, setInitConseiller] = useState(false);
+  const [initContrat, setInitContrat] = useState(false);
   const [statutContrat, setStatutContrat] = useState('toutes');
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
+  const exportHistoriqueContratFileBlob = useSelector(state => state.exports);
+  const exportHistoriqueContratError = useSelector(state => state.exports?.error);
+
+  const has = value => value !== null && value !== undefined;
 
   useEffect(() => {
     if (contrats?.items && contrats?.items?.total > 0) {
@@ -32,7 +37,7 @@ export default function TableauHistoriqueContrat() {
   }, [contrats]);
 
   useEffect(() => {
-    if (initConseiller === true) {
+    if (initContrat === true) {
       dispatch(contratActions.getAllHistorique(currentPage, statutContrat, dateDebut, dateFin));
     }
   }, [currentPage, statutContrat, dateDebut, dateFin]);
@@ -44,9 +49,9 @@ export default function TableauHistoriqueContrat() {
       setPage(1);
     }
     if (!error) {
-      if (initConseiller === false && page !== undefined) {
+      if (initContrat === false && page !== undefined) {
         dispatch(contratActions.getAllHistorique(page, statutContrat, dateDebut, dateFin));
-        setInitConseiller(true);
+        setInitContrat(true);
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -57,13 +62,22 @@ export default function TableauHistoriqueContrat() {
     }
   }, [error, page]);
 
+  useEffect(() => {
+    if (has(exportHistoriqueContratFileBlob?.blob) && exportHistoriqueContratError === false) {
+      downloadFile(exportHistoriqueContratFileBlob);
+      dispatch(exportsActions.resetFile());
+    } else {
+      scrollTopWindow();
+    }
+  }, [exportHistoriqueContratFileBlob, exportHistoriqueContratError]);
+
   const exportHistoriqueContrat = () => {
     dispatch(exportsActions.exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin));
   };
 
   return (
     <div className="contrats">
-      <Spinner loading={loading} />
+      <Spinner loading={loading || loadingExport} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
@@ -76,13 +90,13 @@ export default function TableauHistoriqueContrat() {
                 <button onClick={() => setStatutContrat('toutes')} className="fr-tag" aria-pressed={statutContrat === 'toutes'}>
                   Afficher toutes les demandes ({contrats?.items?.totalParContrat?.total})
                 </button>
-                <button onClick={() => setStatutContrat('recrutee')} className="fr-tag" aria-pressed={statutContrat === 'finalisee'}>
+                <button onClick={() => setStatutContrat('finalisee')} className="fr-tag" aria-pressed={statutContrat === 'finalisee'}>
                   Recrutements ({contrats?.items?.totalParContrat?.recrutement})
                 </button>
-                <button onClick={() => setStatutContrat('renouvellement')} className="fr-tag" aria-pressed={statutContrat === 'renouvellee'}>
+                <button onClick={() => setStatutContrat('renouvellee')} className="fr-tag" aria-pressed={statutContrat === 'renouvellee'}>
                   Renouvellements de contrat ({contrats?.items?.totalParContrat?.renouvellementDeContrat})
                 </button>
-                <button onClick={() => setStatutContrat('nouvelle_rupture')} className="fr-tag" aria-pressed={statutContrat === 'finalisee_rupture'}>
+                <button onClick={() => setStatutContrat('finalisee_rupture')} className="fr-tag" aria-pressed={statutContrat === 'finalisee_rupture'}>
                   Rupture de contrat ({contrats?.items?.totalParContrat?.ruptureDeContrat})
                 </button>
               </ul>
