@@ -7,14 +7,6 @@
     letter-spacing: 0;
     line-height: 64px;
   }
-  .legend-total-pie {
-    position: absolute;
-    top: 79%;
-    z-index: 1;
-    font-family: Marianne;
-    font-size: 14px;
-    font-weight: 600;
-  }
   .chevron-stats {
     margin: 0px 2px 0px 4px;
     position: relative;
@@ -316,10 +308,6 @@
     width: 50%;
     .duree {
       margin-top:-3.5rem !important;
-    }
-    .legend-total-pie {
-      top: 83%;
-      margin-left: 2rem;
     }
   }
   .print-blank {
