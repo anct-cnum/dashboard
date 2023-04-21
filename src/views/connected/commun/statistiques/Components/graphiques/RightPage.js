@@ -43,11 +43,6 @@ function RightPage({ donneesStats }) {
       statsEvolutionsFiltered.push({ 'mois': value, 'valeur': 0, 'annee': annee.toString(), 'nom': nom });
     }
   });
-  const statsThemesTotal = statsThemes.reduce((a, b) => a + b.valeur, 0);
-  statsThemes.map(theme => {
-    theme.percent = theme.valeur > 0 ? Math.round(theme.valeur / statsThemesTotal * 100) : 0;
-    return theme;
-  });
 
   //Tri par mois/annee croissant
   statsEvolutionsFiltered.sort(sortByMonthAndYear);

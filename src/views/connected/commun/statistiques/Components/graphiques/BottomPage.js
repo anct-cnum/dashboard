@@ -7,6 +7,8 @@ import { getGraphiqueStacked, getGraphiquePie, getGraphiqueColumn } from '../uti
 import largeurEcran from '../utils/functionsLargeurEcran';
 import labelsCorrespondance from '../../../../../../datas/labelsCorrespondance.json';
 import { statistiquesActions } from '../../../../../../actions';
+import ReactTooltip from 'react-tooltip';
+
 require('dayjs/locale/fr');
 
 function BottomPage({ donneesStats }) {
@@ -71,8 +73,17 @@ function BottomPage({ donneesStats }) {
     labelFormatter: function() {
       const activiter = formatNameCraActiviter(this.name);
       const tempsAccompagnement = statsTempsAccompagnementAteliers.find(stats => stats?.nom === this.name);
-      return `${activiter}: ${tempsAccompagnement?.temps}`;
-    }
+      return activiter + '&nbsp;&nbsp;&nbsp;' + tempsAccompagnement?.valeur + '%&nbsp;&nbsp;&nbsp;<b>' + tempsAccompagnement?.temps + '</b>';
+    },
+    title: {
+      text: '<span>&nbsp;Au total <b>' + statsTempsAccompagnementTotal?.temps + ' </b><br/> dont : <br/></span>',
+      style: {
+        fontFamily: 'Marianne',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        marginLeft: '20px',
+      }
+    },
   };
 
   const graphiqueAge = getGraphiqueStacked(tabColorAge, 'Tranches d&rsquo;&acirc;ge des usagers', largeur);
@@ -95,23 +106,19 @@ function BottomPage({ donneesStats }) {
         <ElementHighcharts donneesStats={statsUsagers} variablesGraphique={graphiqueStatut}/>
         <div className="print-blank"></div>
       </div>
-      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 print-graphique" style={{ position: 'relative' }}>
+      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 print-graphique">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
-        <div className="legend-total-pie">
-          <div className="tooltip">
-            <span className="fr-icon-information-line"></span>
-            <div className="tooltiptextlarge">
-              <span>Comment calculons nous la donn&eacute;e&nbsp;?</span>
-              <ul>
-                <li>30min ou moins =&gt; 30min</li>
-                <li>30min à 1h =&gt; 1h</li>
-                <li>Au dela d&rsquo;1h nous prenons le temps exact renseign&eacute;</li>
-              </ul>
-            </div>
-          </div>
-          <span className="fr-ml-1v">Total: {statsTempsAccompagnementTotal?.temps}</span>
+        <div data-tip={`
+          <span>Comment calculons nous la donn&eacute;e&nbsp;?</span>
+          <ul>
+            <li>30min ou moins: 30min</li>
+            <li>30min &agrave; 1h: 1h</li>
+            <li>Au del&agrave; d&rsquo;1h nous prenons le temps exact renseign&eacute;</li>
+          </ul>
+          `}>
+          <ElementHighcharts donneesStats={statsTempsAccompagnementAteliers} variablesGraphique={pieGraphiqueTemps}/>
         </div>
-        <ElementHighcharts donneesStats={statsTempsAccompagnementAteliers} variablesGraphique={pieGraphiqueTemps}/>
+        <ReactTooltip html={true} className="infobulle tooltip-temps"/>
       </div>
       <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 fr-col-lg-3 print-graphique">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>

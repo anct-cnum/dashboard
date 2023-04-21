@@ -193,8 +193,8 @@ export function setStatistiquesLegende(typeGraphique, isReoriente, optionRespons
           itemMarginBottom: 5,
           align: 'left',
           x: optionLegend ? 6 : -10,
-          y: optionLegend ? 8 : -20,
-          margin: optionLegend ? 50 : -10,
+          y: optionLegend ? 8 : -30,
+          margin: optionLegend ? 50 : 25,
           width: '100%',
           itemStyle: {
             color: '#1e1e1e',
@@ -690,7 +690,7 @@ export function getGraphiquePie(tabColor, titre, largeur, isReoriente, legend) {
     },
     titre: {
       optionTitre: titre,
-      margeTitre: legend ? 48 : 4,
+      margeTitre: legend ? 60 : 15,
       placementTitre: 0
     }
   };
