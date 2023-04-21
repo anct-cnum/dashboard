@@ -19,7 +19,7 @@ function StructureDetails() {
   }, [structure]);
 
   return (
-    <div className="fr-container conseillerDetails">
+    <div className="fr-container structureDetails">
       {(error !== undefined && error !== false) &&
         <div className="fr-alert fr-alert--error fr-alert--sm fr-mb-4w">
           <p>Une erreur est survenue : {error?.toString()}</p>
@@ -68,8 +68,13 @@ function StructureDetails() {
             <div className="fr-mb-3w">
               <strong>Nom</strong><br/>
               <div className="fr-grid-row">
-                <span>{structure?.contact?.nom ?? '-'}&nbsp;</span>
-                <span>{structure?.contact?.prenom ?? ''}</span>
+                <span className="uppercase-letter">{structure?.contact?.nom}</span>
+              </div>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Pr&eacute;nom</strong><br/>
+              <div className="fr-grid-row">
+                <span className="uppercase-letter">{structure?.contact?.prenom}</span>
               </div>
             </div>
             <div className="fr-mb-3w">

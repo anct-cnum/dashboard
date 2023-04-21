@@ -4,4 +4,7 @@
     .titre {
         color: $blue-france
     }
+    .uppercase-letter::first-letter {
+        text-transform: uppercase;
+    }
 }

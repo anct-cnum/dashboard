@@ -19,6 +19,9 @@ export function getStyle(type) {
         '#cac5b0', '#abb8df', '#fdcf41', '#169b62', '#80d5c6', '#ff8d7e', '#714753', '#956052', '#ffed33', '#be9b31'
       ];
       break;
+    case 'temps':
+      color = ['#76ADF8', '#A96751', '#496B30'];
+      break;
     case 'reorientation':
       color = [
         '#ff007a', '#6945bd', '#c6c9ae', '#ff5e3b', '#00ba8e', '#a2b4b1', '#ffdbd2', '#a3a6bc', '#ddb094', '#fff480',
