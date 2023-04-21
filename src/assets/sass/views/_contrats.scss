@@ -1,0 +1,10 @@
+@import '../colors/colors';
+
+.contrats {
+    .title {
+        color: $blue-france
+    }
+    .uppercase-letter {
+        text-transform: capitalize;
+    }
+}

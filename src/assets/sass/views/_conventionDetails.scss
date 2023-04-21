@@ -1,0 +1,13 @@
+@import '../colors/colors';
+
+.conventionDetails {
+    .color-text span {
+        color: $light-grey;
+    }
+    .color-title-subpart strong {
+        font-weight: 500;
+    }
+    .text-aucun-conseiller span {
+        color: $black
+    }
+}
