@@ -666,7 +666,7 @@ export function getGraphiqueBar(tabColor, titre, largeur) {
       largeurGraphique: null,
       hauteurGraphique: largeur >= 768 && largeur <= 1170 ? 930 : 472,
       margeGaucheGraphique: largeur <= 1170 ? 0 : 306,
-      margeDroiteGraphique: largeur <= 1170 ? 0 : 125,
+      margeDroiteGraphique: largeur <= 1170 ? 0 : 70,
       optionResponsive: largeur <= 1170,
       couleursGraphique: tabColor
     },
