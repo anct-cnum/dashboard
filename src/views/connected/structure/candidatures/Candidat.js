@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions } from '../../../../actions';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
+import ReactTooltip from 'react-tooltip';
 
 function Candidat({ miseEnRelation, currentFilter, search }) {
 
@@ -61,10 +62,12 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
       <td>{miseEnRelation.conseillerObj.codePostal}</td>
       { !search && <td>
         { miseEnRelation.conseillerObj?.pix?.partage &&
-          <div className="tooltip">
+        <>
+          <div data-tooltip-content="A partag&eacute; ses r&eacute;sultats Pix">
             <img src={logoPix} alt="logo Pix" style={{ height: '36px' }}/>
-            <span className="tooltiptext">A partagé ses résultats Pix</span>
           </div>
+          <ReactTooltip html={true} className="infobulle"/>
+        </>
         }
       </td> }
       <td>

@@ -68,32 +68,32 @@ function ReconventionnementDetails({ reconventionnement }) {
                           <div className="fr-grid-row" style={{ alignItems: 'center' }}>
                             <div className="fr-col-3">
                               <div>
-                                <span className="fr-text--md fr-text--bold">{conseiller ? formatNomConseiller(conseiller) : ''}</span><br />
-                                <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>ID - {conseiller?.idPG}</span>
+                                <strong className="fr-text--md fr-text--bold">{conseiller ? formatNomConseiller(conseiller) : ''}</strong><br />
+                                <span className="fr-text--regular fr-text--md">ID - {conseiller?.idPG ?? ''}</span>
                               </div>
                             </div>
                             <div className="fr-col-2">
                               <div>
-                                <span className="fr-text--md" style={{ fontWeight: '500' }}>Type de contrat</span><br />
-                                <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>-</span>
+                                <strong className="fr-text--md">Type de contrat</strong><br />
+                                <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
                               </div>
                             </div>
                             <div className="fr-col-2">
                               <div>
-                                <span className="fr-text--md" style={{ fontWeight: '500' }}>D&eacute;but de contrat</span><br />
-                                {conseiller?.dateRecrutement ?
-                                  <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                                    {dayjs(conseiller?.dateRecrutement).format('DD/MM/YYYY')}
+                                <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
+                                {conseiller?.dateDebutDeContrat ?
+                                  <span className="fr-text--regular fr-text--md">
+                                    {dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY')}
                                   </span> : <span>-</span>
                                 }
                               </div>
                             </div>
                             <div className="fr-col-2">
                               <div>
-                                <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br />
-                                {conseiller?.dateRupture ?
-                                  <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                                    {dayjs(conseiller?.dateRupture).format('DD/MM/YYYY')}
+                                <strong className="fr-text--md">Fin de contrat</strong><br />
+                                {conseiller?.dateFinDeContrat ?
+                                  <span className="fr-text--regular fr-text--md">
+                                    {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
                                   </span> : <span>-</span>
                                 }
                               </div>
@@ -117,8 +117,8 @@ function ReconventionnementDetails({ reconventionnement }) {
                     </div>
                   )}
                 </> :
-                <div className="fr-col-12">
-                  <span className="fr-h6">La structure n&lsquo;a pas s&eacute;l&eacute;ctionné de conseillers &agrave; renouveller</span>
+                <div className="fr-col-12 text-aucun-conseiller">
+                  <span className="fr-h5">La structure n&lsquo;a pas s&eacute;l&eacute;ctionné de conseillers &agrave; renouveller</span>
                 </div>
               }
             </div>
@@ -170,7 +170,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                 <span>Non renseign&eacute;e</span>
               }
             </p>
-            <p className="fr-card__desc fr-text--xl" style={{ color: '#000091' }}><strong>{reconventionnement?.nombreConseillersCoselec} {pluralize(
+            <p className="fr-card__desc fr-text--xl"><strong className="fr-text--bold">{reconventionnement?.nombreConseillersCoselec} {pluralize(
               'poste de conseiller validé',
               'poste de conseiller validé',
               'postes de conseiller validés',
@@ -189,38 +189,46 @@ function ReconventionnementDetails({ reconventionnement }) {
                     <div className="fr-grid-row" style={{ alignItems: 'center' }}>
                       <div className="fr-col-3">
                         <div>
-                          <span className="fr-text--md fr-text--bold">{conseiller ? formatNomConseiller(conseiller) : ''}</span><br />
-                          <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>ID - {conseiller?.idPG}</span>
+                          <strong className="fr-text--md fr-text--bold">{conseiller ? formatNomConseiller(conseiller) : ''}</strong><br />
+                          <span className="fr-text--regular fr-text--md">ID - {conseiller?.idPG ?? ''}</span>
                         </div>
                       </div>
                       <div className="fr-col-2">
                         <div>
-                          <span className="fr-text--md" style={{ fontWeight: '500' }}>Type de contrat</span><br />
-                          <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>-</span>
+                          <strong className="fr-text--md">Type de contrat</strong><br />
+                          <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
                         </div>
                       </div>
                       <div className="fr-col-2">
                         <div>
-                          <span className="fr-text--md" style={{ fontWeight: '500' }}>D&eacute;but de contrat</span><br />
-                          {conseiller?.dateRecrutement ?
-                            <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                              {dayjs(conseiller?.dateRecrutement).format('DD/MM/YYYY')}
+                          <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
+                          {conseiller?.dateDebutDeContrat ?
+                            <span className="fr-text--regular fr-text--md">
+                              {dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY')}
                             </span> : <span>-</span>
                           }
                         </div>
                       </div>
                       <div className="fr-col-2" style={{ maxWidth: '14.7%' }}>
                         <div>
-                          <span className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</span><br />
-                          {conseiller?.dateRupture ?
-                            <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                          <strong className="fr-text--md">Fin de contrat</strong><br />
+                          {(!conseiller?.dateFinDeContrat && !conseiller?.dateRupture) &&
+                            <span className="fr-text--regular fr-text--md">-</span>
+                          }
+                          {conseiller?.dateFinDeContrat &&
+                            <span className="fr-text--regular fr-text--md">
+                              {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
+                            </span>
+                          }
+                          {conseiller?.dateRupture &&
+                            <span className="fr-text--regular fr-text--md">
                               {dayjs(conseiller?.dateRupture).format('DD/MM/YYYY')}
-                            </span> : <span>-</span>
+                            </span>
                           }
                         </div>
                       </div>
                       <div className="fr-col-2 fr-grid-row">
-                        {conseiller?.statutMiseEnrelation === 'finalisee' ?
+                        {conseiller?.reconventionnement === true ?
                           <p className="fr-badge fr-badge--new fr-p-0-5w">Renouvellement</p> :
                           <p className="fr-badge fr-badge--info fr-p-0-5w">Non renouvel&eacute;</p>
                         }

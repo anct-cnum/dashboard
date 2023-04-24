@@ -4,7 +4,7 @@ export function setCategoriesStatistiques(donneesStats, typeGraphique, labelsCor
   donneesStats.forEach(element => {
     let libelle = labelsCorrespondance.find(label => label.nom === element.nom)?.correspondance ?? element.nom;
     if (typeGraphique === 'bar') {
-      categories.push(libelle + '&nbsp;&nbsp;&nbsp;&nbsp;<b>' + element.valeur + '</b>');
+      categories.push(libelle + '&nbsp;&nbsp;&nbsp;&nbsp;' + element.percent + '%&nbsp;&nbsp;&nbsp;&nbsp;<b>' + element.valeur + '</b>');
     } else {
       categories.push(libelle);
     }
@@ -42,14 +42,14 @@ export function setStatistiquesGraphique(typeGraphique, largeurGraphique, hauteu
   return chart;
 }
 
-export function setStatistiquesTitre(optionTitre, margeTitre, placementTitre) {
+export function setStatistiquesTitre(optionTitre, margeTitre, placementTitre, optionResponsive) {
 
   let titre = {
     text: optionTitre,
     margin: margeTitre,
     x: placementTitre,
     y: 13,
-    width: 300,
+    width: optionResponsive ? 300 : 400,
     align: 'left',
     style: {
       color: '#1e1e1e',
@@ -143,7 +143,7 @@ export function setStatistiquesDonnees(donneesStats, typeGraphique, couleursGrap
   return donnees;
 }
 
-export function setStatistiquesLegende(typeGraphique, isReoriente, optionResponsive) {
+export function setStatistiquesLegende(typeGraphique, isReoriente, optionResponsive, optionLegend) {
   let legende = { };
 
   switch (typeGraphique) {
@@ -188,11 +188,13 @@ export function setStatistiquesLegende(typeGraphique, isReoriente, optionRespons
         };
       } else {
         legende = {
+          ...optionLegend,
           symbolPadding: 12,
           itemMarginBottom: 5,
           align: 'left',
-          x: -10,
-          y: 0,
+          x: optionLegend ? 6 : -10,
+          y: optionLegend ? 8 : -30,
+          margin: optionLegend ? 50 : 25,
           width: '100%',
           itemStyle: {
             color: '#1e1e1e',
@@ -663,8 +665,8 @@ export function getGraphiqueBar(tabColor, titre, largeur) {
       typeGraphique: 'bar',
       largeurGraphique: null,
       hauteurGraphique: largeur >= 768 && largeur <= 1170 ? 930 : 472,
-      margeGaucheGraphique: largeur <= 1170 ? 0 : 236,
-      margeDroiteGraphique: largeur <= 1170 ? 0 : 125,
+      margeGaucheGraphique: largeur <= 1170 ? 0 : 306,
+      margeDroiteGraphique: largeur <= 1170 ? 0 : 70,
       optionResponsive: largeur <= 1170,
       couleursGraphique: tabColor
     },
@@ -678,16 +680,17 @@ export function getGraphiqueBar(tabColor, titre, largeur) {
   return barGraphique;
 }
 
-export function getGraphiquePie(tabColor, titre, largeur, isReoriente) {
+export function getGraphiquePie(tabColor, titre, largeur, isReoriente, legend) {
   let pieGraphique = {
     graphique: {
       typeGraphique: 'pie',
       optionResponsive: true,
-      couleursGraphique: tabColor
+      couleursGraphique: tabColor,
+      optionLegend: legend
     },
     titre: {
       optionTitre: titre,
-      margeTitre: 48,
+      margeTitre: legend ? 60 : 15,
       placementTitre: 0
     }
   };
@@ -727,15 +730,15 @@ export function getGraphiqueColumn(tabColor, titre) {
   return columnGraphique;
 }
 
-export function getGraphiqueEvolution(tabColor, titre) {
+export function getGraphiqueEvolution(tabColor, titre, largeur) {
   const graphiqueEvolution = {
     graphique: {
       typeGraphique: 'xy',
-      largeurGraphique: 320,
+      largeurGraphique: largeur <= 1170 ? 300 : 750,
       hauteurGraphique: 310,
       margeGaucheGraphique: 40,
       margeDroiteGraphique: 70,
-      optionResponsive: false,
+      optionResponsive: !(largeur >= 768),
       couleursGraphique: tabColor
     },
     titre: {
@@ -743,15 +746,22 @@ export function getGraphiqueEvolution(tabColor, titre) {
       margeTitre: 48,
     }
   };
+  if (largeur >= 768 && largeur <= 1170) {
+    graphiqueEvolution.graphique.largeurGraphique = 450;
+  } else if (largeur < 768) {
+    graphiqueEvolution.graphique.largeurGraphique = 300;
+  } else {
+    graphiqueEvolution.graphique.largeurGraphique = 750;
+  }
 
   return graphiqueEvolution;
 }
 
-export function getGraphiqueStacked(tabColor, titre) {
+export function getGraphiqueStacked(tabColor, titre, largeur) {
   const graphiqueStacked = {
     graphique: {
       typeGraphique: 'stacked',
-      largeurGraphique: 300,
+      largeurGraphique: largeur <= 1170 ? 380 : 600,
       hauteurGraphique: 300,
       margeGaucheGraphique: 0,
       margeDroiteGraphique: 0,
