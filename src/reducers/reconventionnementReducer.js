@@ -65,7 +65,6 @@ export default function reconventionnement(state = initialState, action) {
     case 'VALIDATION_RECONVENTIONNEMENT_SUCCESS':
       return {
         ...state,
-        reconventionnement: { ...state.reconventionnement, statut: action.statutReconventionnementUpdated },
         loading: false
       };
     case 'VALIDATION_RECONVENTIONNEMENT_FAILURE':

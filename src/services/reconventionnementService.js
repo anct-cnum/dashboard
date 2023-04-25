@@ -6,7 +6,7 @@ export const reconventionnementService = {
   getAll,
   get,
   update,
-  validationReconventionnement
+  validation
 };
 
 function getAll(page) {
@@ -27,7 +27,7 @@ function update(structureId, action, conseillers, nombreDePostes, motif) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function validationReconventionnement(id) {
+function validation(id) {
   return API.patch(`${apiUrlRoot}/validation/reconventionnement/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));

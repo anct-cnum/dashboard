@@ -4,7 +4,7 @@ export const reconventionnementActions = {
   getAll,
   get,
   update,
-  validationReconventionnement,
+  validation,
 };
 
 function getAll(page) {
@@ -79,12 +79,15 @@ function update(structureId, action, conseillersIds = [], nombreDePostes = null,
   }
 }
 
-function validationReconventionnement(id) {
+function validation(id) {
   return dispatch => {
     dispatch(request());
-    reconventionnementService.validationReconventionnement(id)
+    reconventionnementService.validation(id)
     .then(
-      statutReconventionnementUpdated => dispatch(success(statutReconventionnementUpdated)),
+      response => {
+        dispatch(success());
+        dispatch(updateStatutConventionnement(response.statutReconventionnementUpdated));
+      },
       error => {
         dispatch(failure(error));
       }
@@ -94,8 +97,11 @@ function validationReconventionnement(id) {
   function request() {
     return { type: 'VALIDATION_RECONVENTIONNEMENT_REQUEST' };
   }
-  function success(statutReconventionnementUpdated) {
-    return { type: 'VALIDATION_RECONVENTIONNEMENT_SUCCESS', statutReconventionnementUpdated };
+  function success() {
+    return { type: 'VALIDATION_RECONVENTIONNEMENT_SUCCESS' };
+  }
+  function updateStatutConventionnement(statutReconventionnementUpdated) {
+    return { type: 'UPDATE_STATUT_CONVENTIONNEMENT', statutReconventionnementUpdated };
   }
   function failure(error) {
     return { type: 'VALIDATION_RECONVENTIONNEMENT_FAILURE', error };

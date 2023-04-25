@@ -21,8 +21,21 @@ function ReconventionnementDetails({ reconventionnement }) {
     return Math.max(nbJours, 0);
   };
 
-  const validationReconventionnement = () => {
-    dispatch(reconventionnementActions.validationReconventionnement(reconventionnement._id));
+  const validation = () => {
+    dispatch(reconventionnementActions.validation(reconventionnement._id));
+  };
+
+  const badgeStatutDossierDS = statut => {
+    switch (statut) {
+      case 'en_instruction':
+        return <p className="fr-badge fr-badge--new fr-mr-3w" style={{ height: '20%' }}>Dossier en instruction</p>;
+      case 'accepte':
+        return <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier validé</p>;
+      case 'en_construction':
+        return <p className="fr-badge fr-badge--new fr-mr-3w" style={{ height: '20%' }}>Dossier en construction</p>;
+      default:
+        return <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier refusé</p>;
+    }
   };
 
   return (
@@ -135,8 +148,8 @@ function ReconventionnementDetails({ reconventionnement }) {
                 <li>
                   <button
                     className="fr-btn"
-                    onClick={validationReconventionnement}
-                    disabled={reconventionnement?.conventionnement?.statut !== 'accepte'}
+                    onClick={validation}
+                    disabled={dossierReconventionnement?.statut !== 'accepte'}
                   >
                     Valider la demande
                   </button>
@@ -144,11 +157,7 @@ function ReconventionnementDetails({ reconventionnement }) {
               }
               <li className="fr-ml-auto">
                 <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                  {reconventionnement?.conventionnement?.statut === 'accepte' ?
-                    <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier complet</p> :
-                    <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier incomplet</p>
-                  }
-
+                  {badgeStatutDossierDS(dossierReconventionnement?.statut)}
                   <a className="fr-btn fr-btn--secondary" href={reconventionnement?.url} target="_blank" rel="noopener noreferrer">
                     Voir le dossier D&eacute;marche Simplifi&eacute;e
                   </a>
