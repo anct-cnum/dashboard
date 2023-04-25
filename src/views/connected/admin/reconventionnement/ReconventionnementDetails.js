@@ -30,11 +30,11 @@ function ReconventionnementDetails({ reconventionnement }) {
       case 'en_instruction':
         return <p className="fr-badge fr-badge--new fr-mr-3w" style={{ height: '20%' }}>Dossier en instruction</p>;
       case 'accepte':
-        return <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier validé</p>;
+        return <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier valid&eacute;</p>;
       case 'en_construction':
         return <p className="fr-badge fr-badge--new fr-mr-3w" style={{ height: '20%' }}>Dossier en construction</p>;
       default:
-        return <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier refusé</p>;
+        return <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier refus&eacute;</p>;
     }
   };
 
@@ -79,19 +79,19 @@ function ReconventionnementDetails({ reconventionnement }) {
                       <div className="fr-card__body fr-p-0">
                         <div>
                           <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-                            <div className="fr-col-3">
+                            <div className="fr-col-12 fr-col-xl-3">
                               <div>
                                 <strong className="fr-text--md fr-text--bold">{conseiller ? formatNomConseiller(conseiller) : ''}</strong><br />
                                 <span className="fr-text--regular fr-text--md">ID - {conseiller?.idPG ?? ''}</span>
                               </div>
                             </div>
-                            <div className="fr-col-2">
+                            <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">Type de contrat</strong><br />
                                 <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
                               </div>
                             </div>
-                            <div className="fr-col-2">
+                            <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
                                 {conseiller?.dateDebutDeContrat ?
@@ -101,7 +101,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                                 }
                               </div>
                             </div>
-                            <div className="fr-col-2">
+                            <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">Fin de contrat</strong><br />
                                 {conseiller?.dateFinDeContrat ?
@@ -196,19 +196,19 @@ function ReconventionnementDetails({ reconventionnement }) {
                 <div key={index} className="fr-card fr-col-12 fr-mt-3w fr-p-3w">
                   <div className="fr-card__body fr-p-0">
                     <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-                      <div className="fr-col-3">
+                      <div className="fr-col-12 fr-col-xl-3">
                         <div>
                           <strong className="fr-text--md fr-text--bold">{conseiller ? formatNomConseiller(conseiller) : ''}</strong><br />
                           <span className="fr-text--regular fr-text--md">ID - {conseiller?.idPG ?? ''}</span>
                         </div>
                       </div>
-                      <div className="fr-col-2">
+                      <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top">
                         <div>
                           <strong className="fr-text--md">Type de contrat</strong><br />
                           <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
                         </div>
                       </div>
-                      <div className="fr-col-2">
+                      <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top">
                         <div>
                           <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
                           {conseiller?.dateDebutDeContrat ?
@@ -218,7 +218,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                           }
                         </div>
                       </div>
-                      <div className="fr-col-2" style={{ maxWidth: '14.7%' }}>
+                      <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top fin-contrat">
                         <div>
                           <strong className="fr-text--md">Fin de contrat</strong><br />
                           {(!conseiller?.dateFinDeContrat && !conseiller?.dateRupture) &&
@@ -236,13 +236,13 @@ function ReconventionnementDetails({ reconventionnement }) {
                           }
                         </div>
                       </div>
-                      <div className="fr-col-2 fr-grid-row">
+                      <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 fr-grid-row margin-top">
                         {conseiller?.reconventionnement === true ?
                           <p className="fr-badge fr-badge--new fr-p-0-5w">Renouvellement</p> :
                           <p className="fr-badge fr-badge--info fr-p-0-5w">Non renouvel&eacute;</p>
                         }
                       </div>
-                      <div style={{ flex: '0 0 10.2%', maxWidth: '10.2%', width: '10.2%', textAlign: 'end' }}>
+                      <div className="btn-actions-conseiller margin-top">
                         <button
                           className="fr-btn fr-icon-eye-line fr-ml-auto fr-mr-2w"
                           onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}

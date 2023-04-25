@@ -57,7 +57,7 @@ function ConventionDetails() {
           <div className="fr-card__body fr-p-0">
             <div className="fr-container fr-mt-3w">
               <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--bottom">
-                <div className="fr-col-3">
+                <div className="fr-col-12 fr-col-lg-3">
                   <div className="fr-mb-3w">
                     <strong>Contact de la structure</strong><br />
                     <span className="fr-text--regular fr-text--md">
@@ -65,7 +65,7 @@ function ConventionDetails() {
                     </span>
                   </div>
                 </div>
-                <div className="fr-col-3">
+                <div className="fr-col-12 fr-col-md-3">
                   <div className="fr-mb-3w">
                     <strong>Fonction</strong><br />
                     <span className="fr-text--regular fr-text--md" title={convention?.contact?.fonction ?? ''}>
@@ -79,7 +79,7 @@ function ConventionDetails() {
                     </span>
                   </div>
                 </div>
-                <div className="fr-col-3">
+                <div className="fr-col-12 fr-col-md-3">
                   <div className="fr-mb-3w">
                     <strong>T&eacute;l&eacute;phone</strong><br />
                     <span className="fr-text--regular fr-text--md">
@@ -87,7 +87,7 @@ function ConventionDetails() {
                     </span>
                   </div>
                 </div>
-                <div className="fr-col-3">
+                <div className="fr-col-12 fr-col-md-3">
                   <div className="fr-mb-3w">
                     <strong>Email</strong><br />
                     <span className="fr-text--regular fr-text--md" title={convention?.contact?.email ?? ''}>

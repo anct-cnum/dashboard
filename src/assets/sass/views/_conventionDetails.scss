@@ -10,4 +10,44 @@
     .text-aucun-conseiller span {
         color: $black
     }
+    .fin-contrat {
+        max-width: 14.7%;
+    }
+    .btn-actions-conseiller {
+        flex: 0 0 10.2%;
+        max-width: 10.2%;
+        width: 10.2%;
+        text-align: end;
+    }
+    @media (max-width: 1240px) {
+        .fin-contrat {
+            max-width: 33.33333%;
+        }
+        .margin-top {
+            margin-top: 1rem;
+        }    
+        .btn-actions-conseiller {
+            flex: 0 0 16.2%;
+            max-width: 16.2%;
+            width: 16.2%;
+            text-align: left;
+        }
+        .color-title-subpart strong {
+            font-weight: 500;
+        }
+        .text-aucun-conseiller span {
+            color: $black
+        }
+    }
+    @media (max-width: 575px) {
+        .fin-contrat {
+            max-width: 100%;
+        }
+        .btn-actions-conseiller {
+            flex: 0 0 50.2%;
+            max-width: 50.2%;
+            width: 50.2%;
+            text-align: left;
+        }
+    }
 }
