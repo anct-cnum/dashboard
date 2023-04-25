@@ -87,16 +87,28 @@ export default function TableauHistoriqueContrat() {
             </div>
             <div className="fr-container--fluid fr-mt-4w">
               <ul className="tabs fr-tags-group">
-                <button onClick={() => setStatutContrat('toutes')} className="fr-tag" aria-pressed={statutContrat === 'toutes'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setStatutContrat('toutes');
+                }} className="fr-tag" aria-pressed={statutContrat === 'toutes'}>
                   Afficher toutes les demandes ({contrats?.items?.totalParContrat?.total})
                 </button>
-                <button onClick={() => setStatutContrat('finalisee')} className="fr-tag" aria-pressed={statutContrat === 'finalisee'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setStatutContrat('finalisee');
+                }} className="fr-tag" aria-pressed={statutContrat === 'finalisee'}>
                   Recrutements ({contrats?.items?.totalParContrat?.recrutement})
                 </button>
-                <button onClick={() => setStatutContrat('renouvellee')} className="fr-tag" aria-pressed={statutContrat === 'renouvellee'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setStatutContrat('renouvellee');
+                }} className="fr-tag" aria-pressed={statutContrat === 'renouvellee'}>
                   Renouvellements de contrat ({contrats?.items?.totalParContrat?.renouvellementDeContrat})
                 </button>
-                <button onClick={() => setStatutContrat('finalisee_rupture')} className="fr-tag" aria-pressed={statutContrat === 'finalisee_rupture'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setStatutContrat('finalisee_rupture');
+                }} className="fr-tag" aria-pressed={statutContrat === 'finalisee_rupture'}>
                   Rupture de contrat ({contrats?.items?.totalParContrat?.ruptureDeContrat})
                 </button>
               </ul>

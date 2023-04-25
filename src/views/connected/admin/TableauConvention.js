@@ -72,19 +72,34 @@ export default function TableauConvention() {
 
             <div className="fr-mt-4w">
               <ul className="tabs fr-tags-group">
-                <button onClick={() => setTypeConvention('toutes')} className="fr-tag" aria-pressed={typeConvention === 'toutes'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setTypeConvention('toutes');
+                }} className="fr-tag" aria-pressed={typeConvention === 'toutes'}>
                   Afficher toutes les demandes ({conventions?.items?.totalParConvention?.total})
                 </button>
-                <button onClick={() => setTypeConvention('conventionnement')} className="fr-tag" aria-pressed={typeConvention === 'conventionnement'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setTypeConvention('conventionnement');
+                }} className="fr-tag" aria-pressed={typeConvention === 'conventionnement'}>
                   Conventionnement initial ({conventions?.items?.totalParConvention?.conventionnement})
                 </button>
-                <button onClick={() => setTypeConvention('reconventionnement')} className="fr-tag" aria-pressed={typeConvention === 'reconventionnement'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setTypeConvention('reconventionnement');
+                }} className="fr-tag" aria-pressed={typeConvention === 'reconventionnement'}>
                   Reconventionnement ({conventions?.items?.totalParConvention?.reconventionnement})
                 </button>
-                <button onClick={() => setTypeConvention('avenantAjoutPoste')} className="fr-tag" aria-pressed={typeConvention === 'avenantAjoutPoste'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setTypeConvention('avenantAjoutPoste');
+                }} className="fr-tag" aria-pressed={typeConvention === 'avenantAjoutPoste'}>
                   Avenant · ajout de poste ({conventions?.items?.totalParConvention?.avenantAjoutPoste})
                 </button>
-                <button onClick={() => setTypeConvention('avenantRenduPoste')} className="fr-tag" aria-pressed={typeConvention === 'avenantRenduPoste'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setTypeConvention('avenantRenduPoste');
+                }} className="fr-tag" aria-pressed={typeConvention === 'avenantRenduPoste'}>
                   Avenant · poste rendu ({conventions?.items?.totalParConvention?.avenantRenduPoste})
                 </button>
               </ul>
