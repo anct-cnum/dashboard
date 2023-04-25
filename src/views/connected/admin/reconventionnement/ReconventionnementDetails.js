@@ -158,7 +158,7 @@ function ReconventionnementDetails({ reconventionnement }) {
               <li className="fr-ml-auto">
                 <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
                   {badgeStatutDossierDS(dossierReconventionnement?.statut)}
-                  <a className="fr-btn fr-btn--secondary" href={reconventionnement?.url} target="_blank" rel="noopener noreferrer">
+                  <a className="fr-btn fr-btn--secondary margin-top" href={reconventionnement?.url} target="_blank" rel="noopener noreferrer">
                     Voir le dossier D&eacute;marche Simplifi&eacute;e
                   </a>
                 </div>
