@@ -1,6 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
+import { badgeStatutDossierDS, formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -23,19 +23,6 @@ function ReconventionnementDetails({ reconventionnement }) {
 
   const validation = () => {
     dispatch(reconventionnementActions.validation(reconventionnement._id));
-  };
-
-  const badgeStatutDossierDS = statut => {
-    switch (statut) {
-      case 'en_instruction':
-        return <p className="fr-badge fr-badge--new fr-mr-3w" style={{ height: '20%' }}>Dossier en instruction</p>;
-      case 'accepte':
-        return <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier valid&eacute;</p>;
-      case 'en_construction':
-        return <p className="fr-badge fr-badge--new fr-mr-3w" style={{ height: '20%' }}>Dossier en construction</p>;
-      default:
-        return <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier refus&eacute;</p>;
-    }
   };
 
   return (
