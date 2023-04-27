@@ -112,12 +112,12 @@ export const formatRenderStars = palier => {
 export const badgeStatutDossierDS = statut => {
   switch (statut) {
     case 'en_instruction':
-      return <p className="fr-badge fr-badge--new fr-mr-3w" style={{ height: '20%' }}>Dossier en instruction</p>;
+      return <p className="fr-badge fr-badge--new fr-mr-3w">Dossier en instruction</p>;
     case 'accepte':
-      return <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier valid&eacute;</p>;
+      return <p className="fr-badge fr-badge--success fr-mr-3w">Dossier valid&eacute;</p>;
     case 'en_construction':
-      return <p className="fr-badge fr-badge--new fr-mr-3w" style={{ height: '20%' }}>Dossier en construction</p>;
+      return <p className="fr-badge fr-badge--new fr-mr-3w">Dossier en construction</p>;
     default:
-      return <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier refus&eacute;</p>;
+      return <p className="fr-badge fr-badge--error fr-mr-3w">Dossier refus&eacute;</p>;
   }
 };
