@@ -14,6 +14,7 @@ function ConventionDetails() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const convention = useSelector(state => state.convention?.convention);
   const loading = useSelector(state => state.convention?.loading);
+  const loadingValidationReconventionnement = useSelector(state => state.reconventionnement?.loading);
   const errorConvention = useSelector(state => state.convention?.error);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ function ConventionDetails() {
 
   return (
     <div className="conventionDetails">
-      <Spinner loading={loading} />
+      <Spinner loading={loading || loadingValidationReconventionnement} />
       <button
         onClick={() => window.close()}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
@@ -56,7 +57,7 @@ function ConventionDetails() {
           <div className="fr-card__body fr-p-0">
             <div className="fr-container fr-mt-3w">
               <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--bottom">
-                <div className="fr-col-3">
+                <div className="fr-col-12 fr-col-lg-3">
                   <div className="fr-mb-3w">
                     <strong>Contact de la structure</strong><br />
                     <span className="fr-text--regular fr-text--md">
@@ -64,13 +65,21 @@ function ConventionDetails() {
                     </span>
                   </div>
                 </div>
-                <div className="fr-col-3">
+                <div className="fr-col-12 fr-col-md-3">
                   <div className="fr-mb-3w">
                     <strong>Fonction</strong><br />
-                    <span className="fr-text--regular fr-text--md">{convention?.contact?.fonction ?? '-'}</span>
+                    <span className="fr-text--regular fr-text--md" title={convention?.contact?.fonction ?? ''}>
+                      {convention?.contact?.fonction ?
+                        <>
+                          {convention?.contact?.fonction?.length > 28 ?
+                            `${convention?.contact?.fonction.substring(0, 28)}...` : convention?.contact?.fonction
+                          }
+                        </> : '-'
+                      }
+                    </span>
                   </div>
                 </div>
-                <div className="fr-col-3">
+                <div className="fr-col-12 fr-col-md-3">
                   <div className="fr-mb-3w">
                     <strong>T&eacute;l&eacute;phone</strong><br />
                     <span className="fr-text--regular fr-text--md">
@@ -78,10 +87,18 @@ function ConventionDetails() {
                     </span>
                   </div>
                 </div>
-                <div className="fr-col-3">
+                <div className="fr-col-12 fr-col-md-3">
                   <div className="fr-mb-3w">
                     <strong>Email</strong><br />
-                    <span className="fr-text--regular fr-text--md">{convention?.contact?.email ?? '-'}</span>
+                    <span className="fr-text--regular fr-text--md" title={convention?.contact?.email ?? ''}>
+                      {convention?.contact?.email ?
+                        <>
+                          {convention?.contact?.email?.length > 30 ?
+                            `${convention?.contact?.email.substring(0, 30)}...` : convention?.contact?.email
+                          }
+                        </> : '-'
+                      }
+                    </span>
                   </div>
                 </div>
               </div>

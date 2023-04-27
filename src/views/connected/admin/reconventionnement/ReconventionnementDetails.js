@@ -1,15 +1,17 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
+import { badgeStatutDossierDS, formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
+import { reconventionnementActions } from '../../../../actions';
 
 function ReconventionnementDetails({ reconventionnement }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const dossierReconventionnement = reconventionnement?.conventionnement?.dossierReconventionnement;
   const dossierConventionnement = reconventionnement?.conventionnement?.dossierConventionnement;
+  const dispatch = useDispatch();
 
   const calcNbJoursAvantDateFinContrat = dateFinContrat => {
     const dateFin = dayjs(dateFinContrat);
@@ -17,6 +19,10 @@ function ReconventionnementDetails({ reconventionnement }) {
     const nbJours = dateFin.diff(dateAujourdhui, 'day');
 
     return Math.max(nbJours, 0);
+  };
+
+  const validation = () => {
+    dispatch(reconventionnementActions.validation(reconventionnement._id));
   };
 
   return (
@@ -60,19 +66,19 @@ function ReconventionnementDetails({ reconventionnement }) {
                       <div className="fr-card__body fr-p-0">
                         <div>
                           <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-                            <div className="fr-col-3">
+                            <div className="fr-col-12 fr-col-xl-3">
                               <div>
                                 <strong className="fr-text--md fr-text--bold">{conseiller ? formatNomConseiller(conseiller) : ''}</strong><br />
                                 <span className="fr-text--regular fr-text--md">ID - {conseiller?.idPG ?? ''}</span>
                               </div>
                             </div>
-                            <div className="fr-col-2">
+                            <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">Type de contrat</strong><br />
                                 <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
                               </div>
                             </div>
-                            <div className="fr-col-2">
+                            <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
                                 {conseiller?.dateDebutDeContrat ?
@@ -82,7 +88,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                                 }
                               </div>
                             </div>
-                            <div className="fr-col-2">
+                            <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">Fin de contrat</strong><br />
                                 {conseiller?.dateFinDeContrat ?
@@ -112,7 +118,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                   )}
                 </> :
                 <div className="fr-col-12 text-aucun-conseiller">
-                  <span className="fr-h5">La structure n&lsquo;a pas s&eacute;l&eacute;ctionné de conseillers &agrave; renouveller pour le moment</span>
+                  <span className="fr-h5">La structure n&lsquo;a pas s&eacute;l&eacute;ctionné de conseillers &agrave; renouveller</span>
                 </div>
               }
             </div>
@@ -127,19 +133,19 @@ function ReconventionnementDetails({ reconventionnement }) {
             <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
               {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS &&
                 <li>
-                  <button className="fr-btn" disabled>
+                  <button
+                    className="fr-btn"
+                    onClick={validation}
+                    disabled={dossierReconventionnement?.statut !== 'accepte'}
+                  >
                     Valider la demande
                   </button>
                 </li>
               }
               <li className="fr-ml-auto">
                 <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                  {reconventionnement?.conventionnement?.statut === 'accepté' ?
-                    <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier complet</p> :
-                    <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier incomplet</p>
-                  }
-
-                  <a className="fr-btn fr-btn--secondary" href={reconventionnement?.url} target="_blank" rel="noopener noreferrer">
+                  {badgeStatutDossierDS(dossierReconventionnement?.statut)}
+                  <a className="fr-btn fr-btn--secondary margin-top" href={reconventionnement?.url} target="_blank" rel="noopener noreferrer">
                     Voir le dossier D&eacute;marche Simplifi&eacute;e
                   </a>
                 </div>
@@ -177,19 +183,19 @@ function ReconventionnementDetails({ reconventionnement }) {
                 <div key={index} className="fr-card fr-col-12 fr-mt-3w fr-p-3w">
                   <div className="fr-card__body fr-p-0">
                     <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-                      <div className="fr-col-3">
+                      <div className="fr-col-12 fr-col-xl-3">
                         <div>
                           <strong className="fr-text--md fr-text--bold">{conseiller ? formatNomConseiller(conseiller) : ''}</strong><br />
                           <span className="fr-text--regular fr-text--md">ID - {conseiller?.idPG ?? ''}</span>
                         </div>
                       </div>
-                      <div className="fr-col-2">
+                      <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top">
                         <div>
                           <strong className="fr-text--md">Type de contrat</strong><br />
                           <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
                         </div>
                       </div>
-                      <div className="fr-col-2">
+                      <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top">
                         <div>
                           <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
                           {conseiller?.dateDebutDeContrat ?
@@ -199,7 +205,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                           }
                         </div>
                       </div>
-                      <div className="fr-col-2" style={{ maxWidth: '14.7%' }}>
+                      <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top fin-contrat">
                         <div>
                           <strong className="fr-text--md">Fin de contrat</strong><br />
                           {(!conseiller?.dateFinDeContrat && !conseiller?.dateRupture) &&
@@ -217,13 +223,13 @@ function ReconventionnementDetails({ reconventionnement }) {
                           }
                         </div>
                       </div>
-                      <div className="fr-col-2 fr-grid-row">
+                      <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 fr-grid-row margin-top">
                         {conseiller?.reconventionnement === true ?
                           <p className="fr-badge fr-badge--new fr-p-0-5w">Renouvellement</p> :
                           <p className="fr-badge fr-badge--info fr-p-0-5w">Non renouvel&eacute;</p>
                         }
                       </div>
-                      <div style={{ flex: '0 0 10.2%', maxWidth: '10.2%', width: '10.2%', textAlign: 'end' }}>
+                      <div className="btn-actions-conseiller margin-top">
                         <button
                           className="fr-btn fr-icon-eye-line fr-ml-auto fr-mr-2w"
                           onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}
