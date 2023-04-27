@@ -1,5 +1,6 @@
 import React from 'react';
 import propType from 'prop-types';
+import { badgeStatutDossierDS } from '../../../../utils/formatagesUtils';
 
 const CompleteApplicationCard = ({ structure }) => (
   <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
@@ -27,17 +28,13 @@ const CompleteApplicationCard = ({ structure }) => (
             </div>
           </div>
           <div className="fr-col-3 card__text">
-            {structure?.dossierConventionnement?.statut === 'accepte' ?
-              <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier complet</p> :
-              <p className="fr-badge fr-badge--new fr-mr-3w" style={{ height: '20%' }}>Dossier &agrave; compl&eacute;ter</p>
-            }
+            {badgeStatutDossierDS(structure?.dossierConventionnement?.statut) }
           </div>
           <div className="fr-col-3 card__text">
             <button
               className="fr-btn fr-mx-3w card__button"
               title="D&eacute;tail"
               onClick={() => window.open(structure.urlDossierReconventionnement, '_blank', 'noopener,noreferrer')}
-              
             >
               Compl&eacute;ter mon dossier
             </button>
