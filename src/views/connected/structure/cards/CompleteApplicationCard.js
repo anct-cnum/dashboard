@@ -34,7 +34,7 @@ const CompleteApplicationCard = ({ structure }) => (
             <button
               className="fr-btn fr-mx-3w card__button"
               title="D&eacute;tail"
-              onClick={() => window.open(structure.urlDossierReconventionnement, '_blank', 'noopener,noreferrer')}
+              onClick={() => window.open(structure.urlDossierReconventionnement)}
             >
               Compl&eacute;ter mon dossier
             </button>
