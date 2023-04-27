@@ -21,7 +21,11 @@ function DemandeReconventionnement() {
   const navigate = useNavigate();
   const reconventionnement = useSelector(state => state.reconventionnement?.reconventionnement);
   const misesEnRelation = useSelector(state => state.misesEnRelation?.misesEnRelation);
-  const loading = useSelector(state => state.reconventionnement?.loading);
+  const errorMisesEnRelation = useSelector(state => state?.misesEnRelation?.error);
+  const loadingMisesEnRelation = useSelector(state => state.misesEnRelations?.loading);
+  const loadingStructure = useSelector(state => state.structure?.loading);
+  const errorStructure = useSelector(state => state?.structure?.error);
+  const loadingReconventionnement = useSelector(state => state.reconventionnement?.loading);
   const errorReconventionnement = useSelector(state => state.reconventionnement?.error);
   const user = useSelector(state => state.authentication?.user);
   const structure = useSelector(state => state.structure?.structure);
@@ -34,23 +38,42 @@ function DemandeReconventionnement() {
     structure?.conventionnement?.nombreDePostes ?? 0
   );
 
+
+  const errorMessages = {
+    errorStructure: 'La structure n\'a pas pu être chargée !',
+    errorMisesEnRelation: 'Les mises en relation n\'ont pas pu être chargées !',
+    errorReconventionnement: 'Le dossier de reconventionnement n\'a pas pu être chargé !'
+  };
+
+  const getErrorMessage = detectedError => {
+    return errorMessages[detectedError];
+  };
+
+  useEffect(() => {
+    const errors = [errorStructure, errorMisesEnRelation, errorReconventionnement];
+    const detectedErrors = errors.filter(error => error !== false);
+  
+    if (detectedErrors.length > 0) {
+      scrollTopWindow();
+      dispatch(
+        alerteEtSpinnerActions.getMessageAlerte({
+          type: 'error',
+          message: getErrorMessage(detectedErrors[0]),
+          status: null,
+          description: null,
+        })
+      );
+    }
+  }, [errorMisesEnRelation, errorStructure, errorReconventionnement]);
+
   useEffect(() => {
     if (!errorReconventionnement) {
       scrollTopWindow();
       if (structure) {
         dispatch(conventionActions.get(structure?._id));
       }
-    } else {
-      dispatch(
-        alerteEtSpinnerActions.getMessageAlerte({
-          type: 'error',
-          message: errorReconventionnement ?? 'Le dossier de reconventionnement n\'a pas pu être chargé !',
-          status: null,
-          description: null,
-        })
-      );
     }
-  }, [errorReconventionnement, idDossier]);
+  }, [idDossier]);
 
   useEffect(() => {
     dispatch(structureActions.getDetails(user?.entity?.$id));
@@ -118,7 +141,7 @@ function DemandeReconventionnement() {
         />
       )}
       <div className="fr-container">
-        <Spinner loading={loading} />
+        <Spinner loading={loadingMisesEnRelation || loadingReconventionnement || loadingStructure} />
         <h2 className="fr-mb-1w" style={{ color: '#000091' }}>
           Demande de reconventionnement
         </h2>
@@ -168,7 +191,7 @@ function DemandeReconventionnement() {
           Renseignez les informations concernant votre structure et les pi&egrave;ces justificatives
           demand&eacute;s avant de pouvoir envoyer votre demande.
         </p>
-        <CompleteApplicationCard url={reconventionnement?.url} structure={structure} />
+        <CompleteApplicationCard structure={structure} />
         {structure?.conventionnement?.statut === 'ENREGISTRÉ' && (
           <>
             <div className="fr-col-12 fr-mt-6w fr-mb-2w">

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { gestionnaireActions } from '../../../../src/actions';
 
-function FormSuppressionGestionnaire({ setConfirmSuppressionGestionnaire, idGestionnaire, setCollaborateurs }) {
+function FormSuppressionGestionnaire({ setConfirmSuppressionGestionnaire, idGestionnaire }) {
   const dispatch = useDispatch();
 
   const annulerSuppressionGestionnaire = () => {
@@ -12,7 +12,6 @@ function FormSuppressionGestionnaire({ setConfirmSuppressionGestionnaire, idGest
 
   const suppressionGestionnaire = () => {
     dispatch(gestionnaireActions.suppressionGestionnaire(idGestionnaire));
-    setCollaborateurs(prevState => prevState.filter(collaborateur => collaborateur._id !== idGestionnaire));
     setConfirmSuppressionGestionnaire(false);
   };
 

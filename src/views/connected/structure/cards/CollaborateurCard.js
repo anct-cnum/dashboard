@@ -3,7 +3,7 @@ import propType from 'prop-types';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import FormSuppressionGestionnaire from '../FormSuppressionGestionnaire';
 
-const CollaborateurCard = ({ gestionnaire, setCollaborateurs }) => {
+const CollaborateurCard = ({ gestionnaire }) => {
   const [confirmSuppressionGestionnaire, setConfirmSuppressionGestionnaire] = useState(false);
   const compteActif = gestionnaire => (!!gestionnaire?.sub);
 
@@ -34,7 +34,7 @@ const CollaborateurCard = ({ gestionnaire, setCollaborateurs }) => {
               />
               {confirmSuppressionGestionnaire &&
             <FormSuppressionGestionnaire setConfirmSuppressionGestionnaire={setConfirmSuppressionGestionnaire}
-              setCollaborateurs={setCollaborateurs} idGestionnaire={gestionnaire?._id} />
+              idGestionnaire={gestionnaire?._id} />
               }
             </div>
           </div>

@@ -10,15 +10,17 @@ const UserMenu = ({
   roles,
   structure,
 }) => {
+  const truncate = input => input?.length > 27 ? `${input?.substring(0, 27)}...` : input;
+  
   const formatRoleMenu = role => {
     if (role === 'grandReseau') {
-      return user?.reseau ? `Grand réseau - ${user.reseau}` : 'Grand réseau';
+      return `Grand réseau - ${user.reseau}`;
     } else if (role === 'prefet') {
       return `Préfet - ${user?.departement ? 'dép ' + user?.departement : 'région ' + user?.region}`;
     } else if (role === 'hub_coop') {
       return `Hub - ${user?.hub}`;
     } else if (role === 'structure') {
-      return user?.reseau ? `Structure - ${user.reseau}` : 'Structure';
+      return user?.reseau ? `Structure - ${truncate(structure?.nom)}` : 'Structure';
     }
     return role?.charAt(0).toUpperCase() + role?.slice(1).split('_')[0];
   };
@@ -37,7 +39,7 @@ const UserMenu = ({
               <span className="fr-text--md fr-text--bold">{user?.name}</span>
             </button>
             <div className="fr-collapse fr-menu" id="menu-774" style={{ top: '50%' }}>
-              <ul className="fr-menu__list" style={{ width: '251px' }}>
+              <ul className="fr-menu__list">
                 <li>
                   <p
                     className="fr-nav__link fr-text--bold"
