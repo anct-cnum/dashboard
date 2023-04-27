@@ -1,6 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { pluralize } from '../../../../utils/formatagesUtils';
+import { badgeStatutDossierDS, pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
 
@@ -47,11 +47,7 @@ function ConventionnementDetails({ conventionnement }) {
             }
             <li className="fr-ml-auto">
               <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                {dossierConventionnement?.statut === 'accepte' ?
-                  <p className="fr-badge fr-badge--success fr-mr-3w" style={{ height: '20%' }}>Dossier complet</p> :
-                  <p className="fr-badge fr-badge--error fr-mr-3w" style={{ height: '20%' }}>Dossier incomplet</p>
-                }
-                   
+                {badgeStatutDossierDS(dossierConventionnement?.statut)}
                 <a className="fr-btn fr-btn--secondary" href={conventionnement?.url} target="_blank" rel="noopener noreferrer">
                     Voir le dossier D&eacute;marche Simplifi&eacute;e
                 </a>

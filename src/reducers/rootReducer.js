@@ -20,6 +20,7 @@ import filtresGestionnairesReducer from './filtresGestionnairesReducer';
 import miseEnRelationReducer from './miseEnRelationReducer';
 import conventionReducer from './conventionReducer';
 import filtresHistoriqueConventionReducer from './filtresHistoriqueConventionReducer';
+import contratReducer from './contratReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
   gestionnaire: gestionnaireReducer,
   reconventionnement: reconventionnementReducer,
   convention: conventionReducer,
+  contrat: contratReducer,
   invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,
   filtresGestionnaires: filtresGestionnairesReducer,
