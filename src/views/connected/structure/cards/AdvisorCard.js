@@ -33,18 +33,18 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
             </div>
             <div className="fr-col-2 card__text">
               <div>
-                <span className="fr-text--md">
+                <strong className="fr-text--md">
                   Type de contrat
-                </span>
+                </strong>
                 <br />
                 <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
               </div>
             </div>
             <div className="fr-col-2 card__text">
               <div>
-                <span className="fr-text--md">
+                <strong className="fr-text--md">
                   D&eacute;but de contrat
-                </span>
+                </strong>
                 <br />
                 {conseiller?.dateDebutDeContrat ?
                   <span className="fr-text--regular fr-text--md">
@@ -55,9 +55,9 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
             </div>
             <div className="fin-contrat card__text">
               <div>
-                <span className="fr-text--md">
+                <strong className="fr-text--md">
                   Fin de contrat
-                </span>
+                </strong>
                 <br />
                 {conseiller?.dateFinDeContrat ?
                   <span className="fr-text--regular fr-text--md">
