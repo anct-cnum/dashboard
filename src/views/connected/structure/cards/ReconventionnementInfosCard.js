@@ -26,9 +26,9 @@ const ReconventionnementInfosCard = ({ structure }) => {
             {displayBadge()}
           </div>
           <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
-            structure?.conventionnement?.dossierReconventionnement?.dateDeValidation ?
+            structure?.conventionnement?.dossierReconventionnement?.dateDeCreation ?
               <span>
-              le&nbsp;{dayjs(structure?.conventionnement?.dossierReconventionnement?.dateDeValidation).format('DD/MM/YYYY')}
+              le&nbsp;{dayjs(structure?.conventionnement?.dossierReconventionnement?.dateDeCreation).format('DD/MM/YYYY')}
               </span> :
               <span>
               date inconnue
