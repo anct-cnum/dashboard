@@ -27,12 +27,10 @@ const CompleteApplicationCard = ({ structure }) => (
               </span>
             </div>
           </div>
-          <div className="fr-col-3 card__text">
-            {badgeStatutDossierDS(structure?.dossierConventionnement?.statut) }
-          </div>
-          <div className="fr-col-3 card__text">
+          <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
+            {badgeStatutDossierDS(structure?.dossierConventionnement?.statut)}
             <button
-              className="fr-btn fr-mx-3w card__button"
+              className="fr-btn card__button"
               title="D&eacute;tail"
               onClick={() => window.open(structure.urlDossierReconventionnement)}
             >
