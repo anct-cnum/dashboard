@@ -93,8 +93,8 @@ function DemandeReconventionnement() {
 
 
   useEffect(() => {
-    if (structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues !== undefined) {
-      setNombreDePostes(structure.conventionnement?.dossierReconventionnement.nbPostesAttribues);
+    if (structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees !== undefined) {
+      setNombreDePostes(structure.conventionnement?.dossierReconventionnement.nbPostesAttribuees);
     }
   }, [structure?.conventionnement?.dossierReconventionnement]);
 
@@ -128,6 +128,7 @@ function DemandeReconventionnement() {
     dispatch(reconventionnementActions.update(structure?._id, 'envoyer', checkedItems, nombreDePostes));
     navigate('/structure/postes');
   };
+  console.log(misesEnRelationARenouveller);
 
   return (
     <>

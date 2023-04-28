@@ -16,12 +16,12 @@ const ValidatedBanner = ({ structure }) => {
               Votre demande de reconventionnement a &eacute;t&eacute; accept&eacute;&nbsp;!
             </p>
             <p className="fr-text--md">
-              Vous avez {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues}
+              Vous avez {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees}
               {pluralize(
                 'poste à pourvoir dès à présent',
                 ' poste à pourvoir dès à présent',
                 ' postes à pourvoir dès à présent',
-                structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues
+                structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
               )}
               . En savoir plus sur comment recruter vos conseillers.
             </p>

@@ -9,20 +9,20 @@ const CompleteApplicationCard = ({ structure }) => (
         <div className="fr-grid-row responsive__wide-card" style={{ alignItems: 'center' }}>
           <div className="fr-col-3 card__text">
             <div>
-              <span className="fr-text--md fr-text--bold">ID de votre structure</span>
+              <strong className="fr-text--md fr-text--bold">ID de votre structure</strong>
               <br />
-              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+              <span className="fr-text--regular fr-text--md">
                 {structure?.idPG}
               </span>
             </div>
           </div>
           <div className="fr-col-3 card__text">
             <div>
-              <span className="fr-text--md fr-text--bold" style={{ fontWeight: '500' }}>
+              <strong className="fr-text--md fr-text--bold">
                 N° Siret de votre structure
-              </span>
+              </strong>
               <br />
-              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+              <span className="fr-text--regular fr-text--md">
                 {structure?.siret}
               </span>
             </div>

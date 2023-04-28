@@ -41,7 +41,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                   ' poste de conseiller',
                   ' poste de conseiller',
                   ' postes de conseiller',
-                  structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
+                  structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
                   true
                 )
               }
@@ -53,7 +53,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                       'validé pour ce conventionnement',
                       'validé pour ce conventionnement',
                       'validés pour ce conventionnement',
-                      structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
+                      structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
                     )
                   }
                 </span>
@@ -63,7 +63,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                     'demandé pour ce conventionnement',
                     'demandé pour ce conventionnement',
                     'demandés pour ce conventionnement',
-                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
+                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
                   )
                 }</span>
               )}

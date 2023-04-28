@@ -8,7 +8,7 @@ const HireAdvisorCard = ({ nbreConseillersActifs, nbreConseillersInactifs }) => 
       <div className="fr-card__body fr-p-0">
         <div>
           <div className="fr-grid-row responsive__card" style={{ alignItems: 'center' }}>
-            <div className="fr-col-3 card__text">
+            <div className="fr-col-6 card__text">
               <div>
                 <span className="fr-text--md fr-text--bold">
                   {nbreConseillersActifs + nbreConseillersInactifs > 0 ? `${nbreConseillersActifs}/${nbreConseillersActifs + nbreConseillersInactifs}` : 0}
@@ -25,7 +25,7 @@ const HireAdvisorCard = ({ nbreConseillersActifs, nbreConseillersInactifs }) => 
                 </span>
               </div>
             </div>
-            <div className="fr-col-3 fr-ml-auto card__text">
+            <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
               <button className="fr-btn" disabled>Recruter un conseiller</button>
             </div>
           </div>

@@ -74,12 +74,14 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                       {(!misesEnRelationFinalisee[0]?.dateDebutDeContrat && !misesEnRelationNouvelleRupture?.dateDebutDeContrat) &&
                         <span className="fr-text--regular fr-text--md">-</span>
                       }
-                      {misesEnRelationFinalisee[0]?.dateDebutDeContrat ?
+                      {misesEnRelationFinalisee[0]?.dateDebutDeContrat &&
                         <span className="fr-text--regular fr-text--md">
                           {dayjs(misesEnRelationFinalisee[0].dateDebutDeContrat).format('DD/MM/YYYY')}
-                        </span> :
+                        </span>
+                      }
+                      {misesEnRelationNouvelleRupture?.dateDebutDeContrat &&
                         <span className="fr-text--regular fr-text--md">
-                          {dayjs(misesEnRelationNouvelleRupture?.dateDebutDeContrat).format('DD/MM/YYYY')}
+                          {dayjs(misesEnRelationNouvelleRupture.dateDebutDeContrat).format('DD/MM/YYYY')}
                         </span>
                       }
                     </div>
@@ -96,7 +98,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                         </span>
                       }
                       {misesEnRelationNouvelleRupture?.dateFinDeContrat &&
-                        <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                        <span className="fr-text--regular fr-text--md">
                           {dayjs(misesEnRelationNouvelleRupture.dateFinDeContrat).format('DD/MM/YYYY')}
                         </span>
                       }
