@@ -57,11 +57,23 @@ function MesPostes() {
     if (misesEnrelation) {
       // conseillers qui ont été recrutés et dont le contrat est en cours
       const recrutees = misesEnrelation.filter(({ statut }) => statut === 'finalisee')
-      .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'finalisee' }));
+      .map(miseEnRelation => ({
+        ...miseEnRelation.conseillerObj,
+        statut: miseEnRelation.statut,
+        dateDebutDeContrat: miseEnRelation.dateDebutDeContrat,
+        dateFinDeContrat: miseEnRelation.dateFinDeContrat,
+        typeDeContrat: miseEnRelation.typeDeContrat,
+      }));
       // conseillers qui ont été recrutés et dont le contrat est en cours de rupture
       const nouvellesRuptures = misesEnrelation
       .filter(({ statut }) => statut === 'nouvelle_rupture')
-      .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'nouvelle_rupture' }));
+      .map(miseEnRelation => ({
+        ...miseEnRelation.conseillerObj,
+        statut: miseEnRelation.statut,
+        dateDebutDeContrat: miseEnRelation.dateDebutDeContrat,
+        dateFinDeContrat: miseEnRelation.dateFinDeContrat,
+        typeDeContrat: miseEnRelation.typeDeContrat,
+      }));
       
       setConseillersActifs([...recrutees, ...nouvellesRuptures]);
     }
@@ -97,7 +109,6 @@ function MesPostes() {
       );
     }
   }, [errorMisesEnRelation, errorStructure]);
-
   
   return (
     <>
