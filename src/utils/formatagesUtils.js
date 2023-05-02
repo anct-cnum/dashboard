@@ -118,7 +118,6 @@ export const badgeStatutDossierDS = statut => {
     case 'en_construction':
       return <p className="fr-badge fr-badge--new fr-mr-3w">Dossier en construction</p>;
     case 'refuse':
-      return <p className="fr-badge fr-badge--error fr-mr-3w">Dossier refus&eacute;</p>;
     case 'sans_suite':
       return <p className="fr-badge fr-badge--error fr-mr-3w">Dossier refus&eacute;</p>;
     default:
