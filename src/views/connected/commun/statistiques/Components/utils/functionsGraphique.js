@@ -710,11 +710,11 @@ export function getGraphiquePie(tabColor, titre, largeur, isReoriente, legend) {
   return pieGraphique;
 }
 
-export function getGraphiqueColumn(tabColor, titre) {
+export function getGraphiqueColumn(tabColor, titre, largeur) {
   const columnGraphique = {
     graphique: {
       typeGraphique: 'column',
-      largeurGraphique: 360,
+      largeurGraphique: largeur <= 1200 ? 300 : 360,
       hauteurGraphique: 310,
       margeGaucheGraphique: 55,
       margeDroiteGraphique: 55,

@@ -102,7 +102,7 @@ function BottomPage({ donneesStats }) {
   const graphiqueReorientations = getGraphiquePie(tabColorReorientation, 'Usager.&egrave;res r&eacute;orient&eacute;.es', largeur, true);
   const pieGraphique = getGraphiquePie(tabColorLieux, 'Canaux d\'accompagnements', largeur, false);
   const pieGraphiqueTemps = getGraphiquePie(tabColorTemps, 'Temps d\'accompagnements', largeur, false, legendTempAccompagnement);
-  const columnGraphique = getGraphiqueColumn(tabColorDuree, 'Dur&eacute;e des accompagnements');
+  const columnGraphique = getGraphiqueColumn(tabColorDuree, 'Dur&eacute;e des accompagnements', largeur);
 
   return (
     <>
