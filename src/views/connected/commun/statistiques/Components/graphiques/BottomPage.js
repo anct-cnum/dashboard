@@ -59,21 +59,32 @@ function BottomPage({ donneesStats }) {
   const formatNameCraActiviter = activiter => {
     switch (activiter) {
       case 'collectif':
-        return 'Collectives';
+        return 'Collectifs&nbsp;&nbsp;';
       case 'individuel':
-        return 'Individuelles';
+        return 'Individuels';
       case 'ponctuel':
-        return 'Ponctuelles';
+        return 'Ponctuels&nbsp;&nbsp;';
       default:
         return activiter;
     }
+  };
+
+  const formatSpaceBetweenValeurActiviter = valeur => {
+    if (valeur < 10) {
+      return '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    }
+    if (valeur < 100 && valeur > 10) {
+      return '&nbsp;&nbsp;&nbsp;&nbsp;';
+    }
+    return '&nbsp;&nbsp;&nbsp;';
   };
 
   const legendTempAccompagnement = {
     labelFormatter: function() {
       const activiter = formatNameCraActiviter(this.name);
       const tempsAccompagnement = statsTempsAccompagnementAteliers.find(stats => stats?.nom === this.name);
-      return activiter + '&nbsp;&nbsp;&nbsp;' + tempsAccompagnement?.valeur + '%&nbsp;&nbsp;&nbsp;<b>' + tempsAccompagnement?.temps + '</b>';
+      const spaceValeur = formatSpaceBetweenValeurActiviter(parseInt(tempsAccompagnement?.valeur));
+      return activiter + spaceValeur + tempsAccompagnement?.valeur + '%&nbsp;&nbsp;&nbsp;<b>' + tempsAccompagnement?.temps + '</b>';
     },
     title: {
       text: '<span>&nbsp;Au total <b>' + statsTempsAccompagnementTotal?.temps + ' </b><br/> dont : <br/></span>',
@@ -111,8 +122,8 @@ function BottomPage({ donneesStats }) {
         <div data-tip={`
           <span>Comment calculons nous la donn&eacute;e&nbsp;?</span>
           <ul>
-            <li>30min ou moins: 30min</li>
-            <li>30min &agrave; 1h: 1h</li>
+            <li>30min ou moins = 30min</li>
+            <li>30min &agrave; 1h = 1h</li>
             <li>Au del&agrave; d&rsquo;1h nous prenons le temps exact renseign&eacute;</li>
           </ul>
           `}>
