@@ -13,6 +13,7 @@ export * from './filtresCandidaturesActions';
 export * from './structureActions';
 export * from './conseillerActions';
 export * from './conventionActions';
+export * from './contratActions';
 export * from './filtresConseillersActions';
 export * from './filtresStructuresActions';
 export * from './filtresGestionnairesActions';

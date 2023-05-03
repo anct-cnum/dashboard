@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions } from '../../../../actions';
+import { alerteEtSpinnerActions, paginationActions, contratActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import Contrat from './Contrat';
-import { contratActions } from '../../../../actions/contratActions';
 
 export default function TableauContrat() {
 

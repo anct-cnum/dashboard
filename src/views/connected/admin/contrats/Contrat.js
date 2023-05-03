@@ -39,13 +39,19 @@ function Contrat({ contrat }) {
         <td>{dateDeLaDemande(contrat)}</td>
         <td>{formatStatutContrat(contrat?.statut)}</td>
         <td>
-          <button
-            disabled
-            className="fr-btn"
-            title="D&eacute;tail"
-            onClick={() => window.open(`/admin/demandes/contrat/${contrat?._id}`)}>
+          {contrat?.statut === 'recrutee' ?
+            <button
+              className="fr-btn"
+              title="D&eacute;tail"
+              onClick={() => window.open(`/admin/candidat/${contrat?.conseillerObj?._id}`)}>
               Voir la demande
-          </button>
+            </button> : <button
+              className="fr-btn"
+              title="D&eacute;tail"
+              onClick={() => window.open(`/admin/conseiller/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
+              Voir la demande
+            </button>
+          }
         </td>
       </tr>
     </>

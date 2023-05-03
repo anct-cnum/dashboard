@@ -10,6 +10,7 @@ import pixRessources from '../../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../../assets/icons/pix-citoyen.png';
 import FormSuppressionCandidat from './FormSuppressionCandidat';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import CardsRecrutement from '../contrats/CardsRecrutement';
 
 function CandidatDetails() {
   const dispatch = useDispatch();
@@ -92,25 +93,39 @@ function CandidatDetails() {
         </div>
       }
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1" style={{ color: '#000091', marginBottom: '0.5rem' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+        <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
-      <div className="fr-col-12 fr-mb-4w">
+      <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5 text-id">ID - {conseiller?.idPG ?? ''}</h5>
-          <button className="fr-btn btn-actions fr-btn--secondary" title="Supprimer la candidature" onClick={() => {
-            setConfirmSuppressionCandidat(true);
-            scrollTopWindow();
-          }}>
-            Supprimer la candidature
-          </button>
-          <button className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0" title="Renvoyer l&rsquo;email d&rsquo;invitation" onClick={resendInvitCandidat}>
-            Renvoyer l&rsquo;email d&rsquo;invitation
-          </button>
+          <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
         </div>
-        {confirmSuppressionCandidat &&
-          <FormSuppressionCandidat setConfirmSuppressionCandidat={setConfirmSuppressionCandidat} />
-        }
       </div>
+      {conseiller?.miseEnRelation?.length > 0 ?
+        <>
+          {conseiller?.miseEnRelation?.map(miseEnRelation =>
+            <>
+              <CardsRecrutement miseEnRelation={miseEnRelation} conseiller={conseiller} />
+            </>
+          )}
+        </> : <div className="fr-col-12 fr-mb-4w">
+          <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+            <h5 className="fr-h5 text-id">ID - {conseiller?.idPG ?? ''}</h5>
+            <button className="fr-btn btn-actions fr-btn--secondary" title="Supprimer la candidature" onClick={() => {
+              setConfirmSuppressionCandidat(true);
+              scrollTopWindow();
+            }}>
+            Supprimer la candidature
+            </button>
+            <button className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0" title="Renvoyer l&rsquo;email d&rsquo;invitation" onClick={resendInvitCandidat}>
+            Renvoyer l&rsquo;email d&rsquo;invitation
+            </button>
+          </div>
+          {confirmSuppressionCandidat &&
+          <FormSuppressionCandidat setConfirmSuppressionCandidat={setConfirmSuppressionCandidat} />
+          }
+        </div>
+      }
+      
       <div className="fr-grid-row fr-mt-4w fr-col-12">
         <div className="fr-col-12">
           <hr style={{ borderWidth: '0.5px' }}/>

@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { conseillerActions, structureActions, alerteEtSpinnerActions } from '../../../actions';
-import { formatAdressePermanence, formatNomConseiller, formatRenderStars } from '../../../utils/formatagesUtils';
+import { formatAdressePermanence, formatNomConseiller, formatNomContactStructure, formatRenderStars } from '../../../utils/formatagesUtils';
 import pixUtilisation from '../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../assets/icons/pix-citoyen.png';
@@ -12,11 +12,12 @@ import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import ModalValidationRupture from './modals/ModalValidationRupture';
 import AccordeonContrats from '../../../components/AccordeonContrats';
 import ContratsCards from '../../../components/cards/ContratsCards';
+import CardsRupture from './contrats/CardsRupture';
 
 function ConseillerDetails() {
 
   const dispatch = useDispatch();
-  const { idConseiller } = useParams();
+  const { idConseiller, idMiseEnRelation } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const structure = useSelector(state => state.structure?.structure);
   const errorStructure = useSelector(state => state.structure?.error);
@@ -36,7 +37,7 @@ function ConseillerDetails() {
   useEffect(() => {
     if (!errorConseiller) {
       if (conseiller?._id !== idConseiller) {
-        dispatch(conseillerActions.get(idConseiller));
+        dispatch(conseillerActions.get(idConseiller, idMiseEnRelation));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -88,7 +89,82 @@ function ConseillerDetails() {
           </p>
         </div>
       }
-      <div className="fr-col-12 fr-pt-6w">
+      {conseiller?.statut === 'RECRUTE' &&
+      <>
+        <div className="fr-col-12 fr-pt-6w">
+          <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
+        </div>
+        <div className="fr-col-12 fr-mb-4w">
+          <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+            <span className="fr-h5" style={{ marginBottom: '0' }}>ID - {structure?.idPG ?? ''}</span>
+            <button className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-auto"
+              onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}>
+              D&eacute;tails structure
+            </button>
+          </div>
+        </div>
+        <div className="color-text color-title-subpart">
+          <div className="fr-card">
+            <div className="fr-card__body fr-p-0">
+              <div className="fr-container fr-mt-3w">
+                <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--bottom">
+                  <div className="fr-col-12 fr-col-lg-3">
+                    <div className="fr-mb-3w">
+                      <strong>Contact de la structure</strong><br />
+                      <span className="fr-text--regular fr-text--md">
+                        {structure ? formatNomContactStructure(structure) : ''}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="fr-col-12 fr-col-md-3">
+                    <div className="fr-mb-3w">
+                      <strong>Fonction</strong><br />
+                      <span className="fr-text--regular fr-text--md" title={structure?.contact?.fonction ?? ''}>
+                        {structure?.contact?.fonction ?
+                          <>
+                            {structure?.contact?.fonction?.length > 28 ?
+                              `${structure?.contact?.fonction.substring(0, 28)}...` : structure?.contact?.fonction
+                            }
+                          </> : '-'
+                        }
+                      </span>
+                    </div>
+                  </div>
+                  <div className="fr-col-12 fr-col-md-3">
+                    <div className="fr-mb-3w">
+                      <strong>T&eacute;l&eacute;phone</strong><br />
+                      <span className="fr-text--regular fr-text--md">
+                        {structure?.contact?.telephone ?? '-'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="fr-col-12 fr-col-md-3">
+                    <div className="fr-mb-3w">
+                      <strong>Email</strong><br />
+                      <span className="fr-text--regular fr-text--md" title={structure?.contact?.email ?? ''}>
+                        {structure?.contact?.email ?
+                          <>
+                            {structure?.contact?.email?.length > 30 ?
+                              `${structure?.contact?.email.substring(0, 30)}...` : structure?.contact?.email
+                            }
+                          </> : '-'
+                        }
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="fr-grid-row fr-mt-7w fr-mb-2w fr-col-12">
+          <div className="fr-col-12">
+            <hr style={{ borderWidth: '0.5px' }} />
+          </div>
+        </div>
+      </>
+      }
+      <div className={`fr-col-12 ${conseiller?.statut !== 'RECRUTE' ? 'fr-pt-6w' : ''}`}>
         <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
       <div className="fr-col-12">
@@ -97,6 +173,7 @@ function ConseillerDetails() {
         </div>
       </div>
       {conseiller &&
+      <>
         <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
           {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
           <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
@@ -110,7 +187,7 @@ function ConseillerDetails() {
             <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
             <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
           }
-          <button className="fr-btn fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0" onClick={() => setOpenModal(true)}>
+          {/* <button className="fr-btn fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0" onClick={() => setOpenModal(true)}>
             Valider la rupture de contrat
           </button>
           {openModal &&
@@ -121,10 +198,25 @@ function ConseillerDetails() {
               setDateFinDeContrat={setDateFinDeContrat}
               datePrisePoste={conseiller?.datePrisePoste}
             />
-          }
+          } */}
         </>
           }
         </div>
+        {conseiller?.contrat &&
+        <>
+          <CardsRupture miseEnRelation={misesEnRelationNouvelleRupture} setOpenModal={setOpenModal} />
+          {openModal &&
+            <ModalValidationRupture
+              setOpenModal={setOpenModal}
+              idConseiller={idConseiller}
+              dateFinDeContrat={dateFinDeContrat}
+              setDateFinDeContrat={setDateFinDeContrat}
+              datePrisePoste={conseiller?.datePrisePoste}
+            />
+          }
+        </>
+        }
+      </>
       }
       <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
         <div className="fr-col-12">
@@ -346,82 +438,6 @@ function ConseillerDetails() {
             </div>
           </div>
         </div>
-        {conseiller?.statut === 'RECRUTE' &&
-        <>
-          <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
-            <div className="fr-col-12">
-              <hr style={{ borderWidth: '0.5px' }}/>
-            </div>
-          </div>
-          <div className="fr-grid-row fr-mt-2w fr-mb-4w">
-            <div className="fr-col-12 titreCol">
-              <h2 className="fr-h2 fr-mb-1w">Informations de la structure</h2>
-            </div>
-          </div>
-          <div className="fr-grid-row fr-col-12 color-text">
-            <div className="fr-col-md-6 fr-col-12">
-              <div className="fr-mb-3w">
-                <strong>Nom de la structure</strong><br/>
-                {structure?.nom ?
-                  <>
-                    <button
-                      style={{ paddingLeft: '0', margin: '0', color: '#666666' }}
-                      title="D&eacute;tail d&rsquo;une structure"
-                      className="fr-text--md"
-                      onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}>
-                      {structure?.nom}
-                    </button>
-                  </> :
-                  <span>-</span>
-                }
-              </div>
-              <div className="fr-mb-3w">
-                <strong>Id</strong><br/>
-                <span>{structure?.idPG ?? '-'}</span>
-              </div>
-              <div className="fr-mb-3w">
-                <strong>T&eacute;l&eacute;phone</strong><br/>
-                <span>
-                  {structure?.contact?.telephone ?
-                  /* espace tous les 2 chiffres après l'indicatif*/
-                    structure?.contact?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
-                    <>-</>
-                  }
-                </span>
-              </div>
-              <div className="fr-mb-3w">
-                <strong>Siret</strong><br/>
-                <span>{structure?.siret ?? '-'}</span>
-              </div>
-            </div>
-            <div className="fr-col-md-3 fr-col-12">
-              <div className="fr-mb-3w">
-                <strong>Email</strong><br/>
-                {structure?.contact?.email &&
-              <a className="email"href={'mailto:' + structure?.contact?.email}>
-                {structure?.contact?.email}
-              </a>
-                }
-                {!structure?.contact?.email &&
-              <span>-</span>
-                }
-              </div>
-              <div className="fr-mb-3w">
-                <strong>Nom</strong><br/>
-                <span>{structure?.contact?.nom ?? '-'}</span>
-              </div>
-              <div className="fr-mb-3w">
-                <strong>Pr&eacute;nom</strong><br/>
-                <span>{structure?.contact?.prenom ?? '-'}</span>
-              </div>
-              <div className="fr-mb-3w">
-                <strong>Fonction</strong><br/>
-                <span>{structure?.contact?.fonction ?? '-'}</span>
-              </div>
-            </div>
-          </div>
-        </>
-        }
       </div>
     </div>
   );

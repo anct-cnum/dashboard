@@ -21,11 +21,11 @@ export const conseillerActions = {
   getCandidatStructure,
 };
 
-function get(id) {
+function get(id, idMiseEnRelation) {
   return dispatch => {
     dispatch(request());
 
-    conseillerService.get(id)
+    conseillerService.get(id, idMiseEnRelation)
     .then(
       conseiller => dispatch(success(conseiller)),
       error => {
