@@ -3,7 +3,6 @@ import propTypes from 'prop-types';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 
 const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor, checkedItems }) => {
-
   return (
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
       <div className="fr-card__body fr-p-0">
@@ -15,9 +14,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   type="checkbox"
                   id="checkbox"
                   name="checkbox"
-                  checked={checkedItems
-                  ?.map(item => item.miseEnRelationId)
-                  ?.includes(miseEnRelation?.miseEnRelationId)}
+                  checked={checkedItems?.map(item => item?.miseEnRelationId)?.includes(miseEnRelation?.miseEnRelationId)}
                   value={JSON.stringify(miseEnRelation)}
                   onChange={handleSelectAdvisor}
                 />
@@ -50,8 +47,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                 <span className="fr-text--md" style={{ fontWeight: '500' }}>
                   Début de contrat
                 </span>
-                <br />
-                -
+                <br />-
               </div>
             </div>
             <div className="fr-col-2 card__text">
@@ -59,8 +55,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                 <span className="fr-text--md" style={{ fontWeight: '500' }}>
                   Fin de contrat
                 </span>
-                <br />
-                -
+                <br />-
               </div>
             </div>
             <div className="fr-col-2 card__text">

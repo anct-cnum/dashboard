@@ -9,7 +9,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
       return <p className="fr-badge fr-badge--warning fr-ml-auto">RECONVENTIONNEMENT ENREGISTRE</p>;
     }
     if (structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_EN_COURS') {
-      return <p className="fr-badge fr-badge--info fr-ml-auto">CONVENTIONNEMENT EN COURS</p>;
+      return <p className="fr-badge fr-badge--info fr-ml-auto">RECONVENTIONNEMENT EN COURS</p>;
     }
     if (structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ') {
       return <p className="fr-badge fr-badge--success fr-ml-auto">RECONVENTIONNEMENT VALID&Eacute;</p>;
@@ -25,47 +25,41 @@ const ReconventionnementInfosCard = ({ structure }) => {
             <h4 className="fr-grid-row fr-grid-row--middle">Conventionnement phase 2</h4>
             {displayBadge()}
           </div>
-          <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
-            structure?.conventionnement?.dossierReconventionnement?.dateDeValidation ?
-              <span>
-              le&nbsp;{dayjs(structure?.conventionnement?.dossierReconventionnement?.dateDeValidation).format('DD/MM/YYYY')}
-              </span> :
-              <span>
-              date inconnue
-              </span>
-          }</p>
+          <p className="fr-card__desc fr-text--lg fr-text--regular">
+            Date de d&eacute;but :{' '}
+            {structure?.conventionnement?.dossierReconventionnement?.dateDeValidation ? (
+              <span>le&nbsp;{dayjs(structure?.conventionnement?.dossierReconventionnement?.dateDeValidation).format('DD/MM/YYYY')}</span>
+            ) : (
+              <span>date inconnue</span>
+            )}
+          </p>
           <div className="fr-card__desc">
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              {
-                pluralize(
-                  ' poste de conseiller',
-                  ' poste de conseiller',
-                  ' postes de conseiller',
-                  structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
-                  true
-                )
-              }
-              {' '}
+              {pluralize(
+                ' poste de conseiller',
+                ' poste de conseiller',
+                ' postes de conseiller',
+                structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
+                true
+              )}{' '}
               {structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' ? (
                 <span className="fr-text--regular fr-text--md">
-                  {
-                    pluralize(
-                      'validé pour ce conventionnement',
-                      'validé pour ce conventionnement',
-                      'validés pour ce conventionnement',
-                      structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
-                    )
-                  }
+                  {pluralize(
+                    'validé pour ce conventionnement',
+                    'validé pour ce conventionnement',
+                    'validés pour ce conventionnement',
+                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
+                  )}
                 </span>
               ) : (
-                <span className="fr-text--regular fr-text--md">{
-                  pluralize(
+                <span className="fr-text--regular fr-text--md">
+                  {pluralize(
                     'demandé pour ce conventionnement',
                     'demandé pour ce conventionnement',
                     'demandés pour ce conventionnement',
-                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
-                  )
-                }</span>
+                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
+                  )}
+                </span>
               )}
             </p>
             <div className="fr-col-12 fr-mt-1w">
@@ -80,16 +74,20 @@ const ReconventionnementInfosCard = ({ structure }) => {
             <div>
               <ul className="fr-btns-group fr-btns-group--inline-md">
                 <li>
-                  <button className="fr-btn fr-btn--secondary" disabled>Ajouter un poste</button>
+                  <button className="fr-btn fr-btn--secondary" disabled>
+                    Ajouter un poste
+                  </button>
                 </li>
                 <li>
-                  <button className="fr-btn fr-btn--secondary" disabled>Rendre un poste</button>
+                  <button className="fr-btn fr-btn--secondary" disabled>
+                    Rendre un poste
+                  </button>
                 </li>
                 <li className="fr-ml-auto">
-                  <button className="fr-btn" onClick={
-                    () => window.open(structure?.urlDossierReconventionnement,
-                      '_blank', 'noopener,noreferrer')
-                  }>
+                  <button
+                    className="fr-btn"
+                    onClick={() => window.open(structure?.urlDossierReconventionnement, '_blank', 'noopener,noreferrer')}
+                  >
                     <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche Simplifi&eacute;e
                   </button>
                 </li>

@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PopinAnnulationReConvention from './popins/popinAnnulationReConvention';
+import PopinEditionContrat from './popins/popinEditionContrat';
 import RequestBanner from './banners/RequestBanner';
 import InProgressBanner from './banners/InProgessBanner';
 import CompleteRequestBanner from './banners/CompleteRequestBanner';
 import ValidatedBanner from './banners/ValidatedBanner';
 import ManagePositionsCard from './cards/ManagePositionsCard';
 import HireAdvisorCard from './cards/HireAdvisorCard';
-import AdvisorCard from './cards/AdvisorCard';
 import Spinner from '../../../components/Spinner';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
-import { structureActions, reconventionnementActions, miseEnRelationAction, alerteEtSpinnerActions } from '../../../actions';
-
+import {
+  structureActions,
+  reconventionnementActions,
+  renouvellementActions,
+  miseEnRelationAction,
+  alerteEtSpinnerActions
+} from '../../../actions';
+import InactiveAdvisorsSection from './views/InactiveAdvisorsSection';
+import ActiveAdvisorsSection from './views/ActiveAdvisorsSection';
+import RenewAdvisorsSection from './views/RenewAdvisorsSection';
+import ActiveNoRenewalAdvisorsSection from './views/ActiveNoRenewalAdvisorsSection';
 
 function MesPostes() {
   const [openModal, setOpenModal] = useState(false);
+  const [openModalContrat, setOpenModalContrat] = useState(false);
   const misesEnrelation = useSelector(state => state?.misesEnRelation?.misesEnRelation);
   const errorMisesEnRelation = useSelector(state => state?.misesEnRelation?.error);
   const errorStructure = useSelector(state => state?.structure?.error);
@@ -23,18 +33,29 @@ function MesPostes() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const loadingStructure = useSelector(state => state.structure?.loading);
   const loadingMisesEnRelation = useSelector(state => state.misesEnRelations?.loading);
+  const loadingRenouvellement = useSelector(state => state.renouvellement?.loading);
+  const [miseEnrelationId, setMiseEnrelationId] = useState('');
   const [conseillersActifs, setConseillersActifs] = useState([]);
+  const [conseillersARenouveler, setConseillersARenouveler] = useState([]);
+  const [conseillersActifsNonRenouveles, setConseillersActifsNonRenouveles] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+  const [selectedConseiller, setSelectedConseiller] = useState(null);
+  const [showValidateBanner, setShowValidateBanner] = useState(true);
   const [motif, setMotif] = useState('');
   const dispatch = useDispatch();
 
   const displayBanner = () => {
     switch (structure?.conventionnement?.statut) {
       case 'ENREGISTRÉ':
-        return <CompleteRequestBanner structure={structure}/>;
+        return <CompleteRequestBanner structure={structure} />;
       case 'RECONVENTIONNEMENT_EN_COURS':
-        return <InProgressBanner structure={structure} roleActivated={roleActivated}/>;
+        return <InProgressBanner structure={structure} roleActivated={roleActivated} />;
       case 'RECONVENTIONNEMENT_VALIDÉ':
-        return <ValidatedBanner structure={structure}/>;
+        return (
+          showValidateBanner && (
+            <ValidatedBanner structure={structure} conseillersActifs={conseillersActifs} setShowValidateBanner={setShowValidateBanner} />
+          )
+        );
       case 'CONVENTIONNEMENT_VALIDÉ':
         return <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
       default:
@@ -42,34 +63,103 @@ function MesPostes() {
     }
   };
 
-  
+  const handleOpenModalContrat = (editMode = false, conseiller = null) => {
+    setEditMode(editMode);
+    setSelectedConseiller(conseiller);
+    setOpenModalContrat(true);
+  };
+
   useEffect(() => {
     dispatch(structureActions.getDetails(userAuth?.entity?.$id));
-  }, []);
-  
+  }, [openModal]);
+
   useEffect(() => {
     if (structure?._id) {
       dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
     }
-  }, [structure?._id]);
-  
+  }, [structure?._id, loadingRenouvellement]);
+
+  const createConseiller = miseEnRelation => {
+    const {
+      conseillerObj,
+      reconventionnement,
+      _id,
+      renouvellement,
+      dateDebut,
+      dateFin,
+      typeDeContrat,
+      salaire,
+      statut,
+      originalMiseEnRelation,
+      miseEnRelationConventionnement,
+    } = miseEnRelation;
+    return {
+      ...conseillerObj,
+      originalMiseEnRelation,
+      miseEnRelationConventionnement,
+      reconventionnement,
+      miseEnrelationId: _id,
+      renouvellement,
+      dateDebut,
+      dateFin,
+      typeDeContrat,
+      salaire,
+      statut,
+    };
+  };
+
   useEffect(() => {
     if (misesEnrelation) {
-      // conseillers qui ont été recrutés et dont le contrat est en cours
-      const recrutees = misesEnrelation.filter(({ statut }) => statut === 'finalisee')
-      .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'finalisee' }));
-      // conseillers qui ont été recrutés et dont le contrat est en cours de rupture
+      const recrutees = misesEnrelation
+      .filter(({ statut }) => statut === 'finalisee')
+      .map(miseEnRelation => {
+        if (miseEnRelation?.reconventionnement) {
+          return createConseiller(miseEnRelation);
+        } else {
+          const { conseillerObj, typeDeContrat } = miseEnRelation;
+          return { ...conseillerObj, typeDeContrat, statut: 'finalisee' };
+        }
+      });
+
       const nouvellesRuptures = misesEnrelation
       .filter(({ statut }) => statut === 'nouvelle_rupture')
       .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'nouvelle_rupture' }));
-      
+
+      const conseillersARenouveler = misesEnrelation
+      .filter(
+        miseEnRelation =>
+          miseEnRelation?.reconventionnement && miseEnRelation?.typeDeContrat !== 'CDI' && miseEnRelation?.statut !== 'finalisee'
+      )
+      .map(createConseiller);
+
+      const conseillersActifsNonRenouveles = misesEnrelation
+      .filter(miseEnRelation => !miseEnRelation.reconventionnement)
+      .map(createConseiller);
+
+      setConseillersActifsNonRenouveles(conseillersActifsNonRenouveles);
+      setConseillersARenouveler(conseillersARenouveler);
       setConseillersActifs([...recrutees, ...nouvellesRuptures]);
     }
   }, [misesEnrelation]);
-  
+
+  useEffect(() => {
+    const bannerClosed = localStorage.getItem('bannerClosed');
+    if (bannerClosed === 'true') {
+      setShowValidateBanner(false);
+    }
+  }, []);
+
   const handleCancel = () => {
     dispatch(reconventionnementActions.update(structure?._id, 'annuler', [], null, motif));
     dispatch(structureActions.getDetails(userAuth?.entity?.$id));
+  };
+
+  const createContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
+    dispatch(renouvellementActions.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
+  };
+
+  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, id) => {
+    dispatch(renouvellementActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
   };
 
   const errorMessages = {
@@ -84,7 +174,7 @@ function MesPostes() {
   useEffect(() => {
     const errors = [errorStructure, errorMisesEnRelation];
     const detectedErrors = errors.filter(error => error !== false);
-  
+
     if (detectedErrors.length > 0) {
       scrollTopWindow();
       dispatch(
@@ -98,45 +188,53 @@ function MesPostes() {
     }
   }, [errorMisesEnRelation, errorStructure]);
 
-  
   return (
     <>
       {structure ? displayBanner() : null}
+      {openModalContrat && (
+        <PopinEditionContrat
+          setOpenModalContrat={setOpenModalContrat}
+          createContract={createContract}
+          editMode={editMode}
+          conseiller={selectedConseiller}
+          updateContract={updateContract}
+        />
+      )}
       {openModal && <PopinAnnulationReConvention setOpenModal={setOpenModal} handleCancel={handleCancel} motif={motif} setMotif={setMotif} />}
       <div className="fr-container">
-        <Spinner loading={loadingStructure || loadingMisesEnRelation} />
-        {structure?.conventionnement?.statut !== 'NON_INTERESSÉ' ? (
-          <h2 className="fr-mb-6w" style={{ marginTop: '187px' }}>
-            G&eacute;rer mes postes
-          </h2>
-        ) : (
-          <h2 className="fr-mb-6w" style={{ color: '#000091' }}>
-            {' '}
-            G&eacute;rer mes postes
-          </h2>
+        <Spinner loading={loadingStructure || loadingMisesEnRelation || loadingRenouvellement} />
+        <h2
+          className="fr-mb-6w"
+          style={{
+            marginTop: showValidateBanner && structure?.conventionnement?.statut !== 'NON_INTERESSÉ' ? '240px' : '100px',
+            color: '#000091',
+          }}
+        >
+          G&eacute;rer mes postes
+        </h2>
+        <ManagePositionsCard structure={structure} />
+        {misesEnrelation?.length > 0 && (
+          <>
+            <HireAdvisorCard
+              nbreConseillersActifs={conseillersActifs.length}
+              nbPostesAttribuees={structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees}
+            />
+            <RenewAdvisorsSection
+              conseillersARenouveler={conseillersARenouveler}
+              structure={structure}
+              setMiseEnrelationId={setMiseEnrelationId}
+              setOpenModalContrat={setOpenModalContrat}
+              handleOpenModalContrat={handleOpenModalContrat}
+            />
+            <ActiveAdvisorsSection conseillersActifs={conseillersActifs} structure={structure} setMiseEnrelationId={setMiseEnrelationId} />
+            <ActiveNoRenewalAdvisorsSection
+              conseillersActifsNonRenouveles={conseillersActifsNonRenouveles}
+              structure={structure}
+              roleActivated={roleActivated}
+            />
+            <InactiveAdvisorsSection />
+          </>
         )}
-        <ManagePositionsCard structure={structure}/>
-        {
-          misesEnrelation?.length > 0 &&
-        <>
-          <HireAdvisorCard nbreConseillersActifs={conseillersActifs.length} />
-          <div className="container fr-mt-4w">
-            <p className="fr-text--bold">Vos conseillers actifs ({conseillersActifs.length})</p>
-            {misesEnrelation &&
-            conseillersActifs?.map((conseiller, idx) => <AdvisorCard conseiller={conseiller} roleActivated={roleActivated} key={idx} />)}
-          </div>
-          <section className="fr-accordion fr-mt-4w">
-            <h3 className="fr-accordion__title">
-              <button className="fr-accordion__btn fr-text--bold" aria-expanded="false" aria-controls="accordion-106">
-              Vos anciens conseillers -
-              </button>
-            </h3>
-            <div className="fr-collapse" id="accordion-106">
-              Aucun conseiller inactif associ&eacute; &agrave; la structure
-            </div>
-          </section>
-        </>
-        }
       </div>
     </>
   );

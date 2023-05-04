@@ -13,7 +13,6 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
         return;
     }
   };
-
   return (
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
       <div className="fr-card__body fr-p-0">
@@ -37,7 +36,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                 </span>
                 <br />
                 <span className="fr-text--regular fr-text--md info__color">
-                    -
+                  {conseiller?.typeDeContrat ?? '-'}
                 </span>
               </div>
             </div>
