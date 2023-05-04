@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import dayjs from 'dayjs';
 
 const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor, checkedItems }) => {
   return (
@@ -20,50 +21,58 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                 />
               </div>
             </div>
-            <div className="fr-col-2 card__text">
+            <div className="fr-col-3 card__text">
               <div>
-                <span className="fr-text--md fr-text--bold">
+                <strong className="fr-text--md fr-text--bold">
                   {miseEnRelation?.conseiller ? formatNomConseiller(miseEnRelation?.conseiller) : ''}
-                </span>
+                </strong>
                 <br />
-                <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+                <span className="fr-text--regular fr-text--md">
                   ID - {miseEnRelation?.conseiller?.idPG}
                 </span>
               </div>
             </div>
             <div className="fr-col-2 card__text">
               <div>
-                <span className="fr-text--md" style={{ fontWeight: '500' }}>
+                <strong className="fr-text--md">
                   Type de contrat
-                </span>
+                </strong>
                 <br />
-                <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                  -
-                </span>
+                <span className="fr-text--regular fr-text--md">{miseEnRelation?.typeDeContrat ?? '-'}</span>
               </div>
             </div>
             <div className="fr-col-2 card__text">
               <div>
-                <span className="fr-text--md" style={{ fontWeight: '500' }}>
+                <strong className="fr-text--md">
                   Début de contrat
-                </span>
-                <br />-
+                </strong>
+                <br />
+                {miseEnRelation?.dateDebutDeContrat ?
+                  <span className="fr-text--regular fr-text--md">
+                    {dayjs(miseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY')}
+                  </span> : <span>-</span>
+                }
               </div>
             </div>
-            <div className="fr-col-2 card__text">
+            <div className="fin-contrat card__text">
               <div>
-                <span className="fr-text--md" style={{ fontWeight: '500' }}>
+                <strong className="fr-text--md">
                   Fin de contrat
-                </span>
-                <br />-
+                </strong>
+                <br />
+                {miseEnRelation?.dateFinDeContrat ?
+                  <span className="fr-text--regular fr-text--md">
+                    {dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}
+                  </span> : <span>-</span>
+                }
               </div>
             </div>
-            <div className="fr-col-2 card__text">
+            <div className="badge-statut-renouvellement card__text">
               <p className="fr-badge fr-badge--success">En activit&eacute;</p>
             </div>
-            <div className="fr-col-1.5" style={{ textAlign: 'end' }}>
+            <div className="btn-actions-conseiller">
               <button
-                className="fr-btn fr-icon-eye-line fr-mx-3w card__button"
+                className="fr-btn fr-icon-eye-line fr-mr-2w card__button"
                 title="D&eacute;tail"
                 onClick={() => window.open(`/${roleActivated}/conseiller/${miseEnRelation?.conseiller?._id}`)}
               />

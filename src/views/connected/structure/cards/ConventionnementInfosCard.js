@@ -77,9 +77,7 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
               <div className="fr-ml-auto fr-my-auto">
                 <button className="fr-btn" onClick={
                   () => window.open(
-                    structure?.urlDossierConventionnement,
-                    '_blank', 'noopener,noreferrer'
-                  )
+                    structure?.urlDossierConventionnement)
                 }>
                   <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche
                     Simplifi&eacute;e

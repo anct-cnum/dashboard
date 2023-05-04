@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import dayjs from 'dayjs';
 
 const AdvisorCard = ({ conseiller, roleActivated }) => {
   const displayBadge = statut => {
@@ -18,54 +19,56 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
       <div className="fr-card__body fr-p-0">
         <div>
           <div className="fr-grid-row responsive__wide-card" style={{ alignItems: 'center' }}>
-            <div className="fr-col-2 card__text">
+            <div className="fr-col-3 card__text">
               <div>
-                <span className="fr-text--md fr-text--bold">
+                <strong className="fr-text--md fr-text--bold">
                   {conseiller ? formatNomConseiller(conseiller) : ''}
-                </span>
+                </strong>
                 <br />
-                <span className="fr-text--regular fr-text--md info__color">
-                    ID - {conseiller?.idPG}
+                <span className="fr-text--regular fr-text--md">
+                  ID - {conseiller?.idPG ?? ''}
                 </span>
               </div>
             </div>
             <div className="fr-col-2 card__text">
               <div>
-                <span className="fr-text--md" style={{ fontWeight: '500' }}>
-                    Type de contrat
-                </span>
+                <strong className="fr-text--md">
+                  Type de contrat
+                </strong>
                 <br />
-                <span className="fr-text--regular fr-text--md info__color">
-                  {conseiller?.typeDeContrat ?? '-'}
-                </span>
+                <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
               </div>
             </div>
             <div className="fr-col-2 card__text">
               <div>
-                <span className="fr-text--md" style={{ fontWeight: '500' }}>
-                    D&eacute;but de contrat
-                </span>
+                <strong className="fr-text--md">
+                  D&eacute;but de contrat
+                </strong>
                 <br />
-                <span className="info__color">
-                   -
-                </span>
+                {conseiller?.dateDebutDeContrat ?
+                  <span className="fr-text--regular fr-text--md">
+                    {dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY')}
+                  </span> : <span>-</span>
+                }
               </div>
             </div>
-            <div className="fr-col-2 card__text">
+            <div className="fin-contrat card__text">
               <div>
-                <span className="fr-text--md" style={{ fontWeight: '500' }}>
-                    Fin de contrat
-                </span>
+                <strong className="fr-text--md">
+                  Fin de contrat
+                </strong>
                 <br />
-                <span className="info__color">
-                 -
-                </span>
+                {conseiller?.dateFinDeContrat ?
+                  <span className="fr-text--regular fr-text--md">
+                    {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
+                  </span> : <span>-</span>
+                }
               </div>
             </div>
-            <div className="fr-col-2 card__text">{displayBadge(conseiller?.statut)}</div>
-            <div className="fr-col-2">
+            <div className="badge-statut card__text">{displayBadge(conseiller?.statut)}</div>
+            <div className="btn-actions-conseiller">
               <button
-                className="fr-btn fr-icon-eye-line fr-mx-3w card__button"
+                className="fr-btn fr-icon-eye-line fr-mr-2w card__button"
                 title="D&eacute;tail"
                 onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}
               />

@@ -108,3 +108,19 @@ export const formatRenderStars = palier => {
       return <p>Degr&eacute; de maîtrise non communiqu&eacute;</p>;
   }
 };
+
+export const badgeStatutDossierDS = statut => {
+  switch (statut) {
+    case 'en_instruction':
+      return <p className="fr-badge fr-badge--new fr-mr-3w">Dossier en instruction</p>;
+    case 'accepte':
+      return <p className="fr-badge fr-badge--success fr-mr-3w">Dossier valid&eacute;</p>;
+    case 'en_construction':
+      return <p className="fr-badge fr-badge--new fr-mr-3w">Dossier en construction</p>;
+    case 'refuse':
+    case 'sans_suite':
+      return <p className="fr-badge fr-badge--error fr-mr-3w">Dossier refus&eacute;</p>;
+    default:
+      return <p className="fr-badge fr-badge--warning fr-mr-3w">Dossier non cr&eacute;&eacute;</p>;
+  }
+};

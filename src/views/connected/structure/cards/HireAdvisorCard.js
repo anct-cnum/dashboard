@@ -8,7 +8,7 @@ const HireAdvisorCard = ({ nbreConseillersActifs, nbPostesAttribuees }) => {
       <div className="fr-card__body fr-p-0">
         <div>
           <div className="fr-grid-row responsive__card" style={{ alignItems: 'center' }}>
-            <div className="fr-col-3 card__text">
+            <div className="fr-col-6 card__text">
               <div>
                 <span className="fr-text--md fr-text--bold">{`${nbreConseillersActifs}/${nbPostesAttribuees}`}</span>
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
@@ -17,10 +17,8 @@ const HireAdvisorCard = ({ nbreConseillersActifs, nbPostesAttribuees }) => {
                 </span>
               </div>
             </div>
-            <div className="fr-col-3 fr-ml-auto card__text">
-              <button className="fr-btn" disabled>
-                Recruter un conseiller
-              </button>
+            <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
+              <button className="fr-btn" disabled>Recruter un conseiller</button>
             </div>
           </div>
         </div>
