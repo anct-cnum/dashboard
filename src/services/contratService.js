@@ -5,6 +5,7 @@ import { API } from './api';
 export const contratService = {
   getAll,
   get,
+  validationRenouvellement
 };
 
 function getAll(page, statutContrat) {
@@ -15,6 +16,12 @@ function getAll(page, statutContrat) {
 
 function get(id) {
   return API.get(`${apiUrlRoot}/contrat/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function validationRenouvellement(id) {
+  return API.patch(`${apiUrlRoot}/contrat/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

@@ -53,7 +53,7 @@ const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
                     <div className="fr-col-3 fr-col-xl-3">
                       <div>
                         <strong className="fr-text--md">Salaire brut mensuel</strong><br />
-                        <span className="fr-text--regular fr-text--md">{miseEnRelation?.salaireBrutMensuel ?? '-'}</span>
+                        <span className="fr-text--regular fr-text--md">{miseEnRelation?.salaire ?? '-'}</span>
                       </div>
                     </div>
                   </div>

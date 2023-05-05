@@ -71,7 +71,7 @@ export default function TableauContrat() {
                 <button onClick={() => setStatutContrat('recrutee')} className="fr-tag" aria-pressed={statutContrat === 'recrutee'}>
                   Recrutements ({contrats?.items?.totalParContrat?.recrutement})
                 </button>
-                <button onClick={() => setStatutContrat('renouvellement')} className="fr-tag" aria-pressed={statutContrat === 'renouvellement'}>
+                <button onClick={() => setStatutContrat('renouvellement_initié')} className="fr-tag" aria-pressed={statutContrat === 'renouvellement_initié'}>
                   Renouvellements de contrat ({contrats?.items?.totalParContrat?.renouvellementDeContrat})
                 </button>
                 <button onClick={() => setStatutContrat('nouvelle_rupture')} className="fr-tag" aria-pressed={statutContrat === 'nouvelle_rupture'}>

@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 
-const CardsRenouvellement = ({ miseEnRelation, setOpenModal }) => {
+const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS }) => {
 
   return (
     <div className="fr-card fr-mt-4w fr-card--no-border" style={{ backgroundColor: '#E8EDFF' }}>
@@ -11,9 +11,9 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal }) => {
           <h3 className="fr-card__title fr-h3">
             Demande de renouvellement de contrat
           </h3>
-          {miseEnRelation?.emetteurRupture?.date &&
+          {miseEnRelation?.emetteurRenouvellement?.date &&
           <p className="fr-card__desc fr-text--lg fr-text--regular">
-            Demande initi&eacute;e le {miseEnRelation ? dayjs(miseEnRelation.emetteurRupture.date).format('DD/MM/YYYY') : ''}
+            Demande initi&eacute;e le {miseEnRelation ? dayjs(miseEnRelation.emetteurRenouvellement.date).format('DD/MM/YYYY') : ''}
           </p>
           }
           <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">
@@ -53,7 +53,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal }) => {
                     <div className="fr-col-3 fr-col-xl-3">
                       <div>
                         <strong className="fr-text--md">Salaire brut mensuel</strong><br />
-                        <span className="fr-text--regular fr-text--md">{miseEnRelation?.salaireBrutMensuel ?? '-'}</span>
+                        <span className="fr-text--regular fr-text--md">{miseEnRelation?.salaire ?? '-'}</span>
                       </div>
                     </div>
                   </div>
@@ -65,7 +65,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal }) => {
             </div>
           </div>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-            {miseEnRelation?.statut === 'finalisee_rupture' ?
+            {miseEnRelation?.statut === 'finalisee' ?
               <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
               <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
             }
@@ -73,7 +73,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal }) => {
         </div>
         <div className="fr-card__footer">
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
-            {miseEnRelation?.statut === 'nouvelle_rupture' &&
+            {miseEnRelation?.statut === 'renouvellement_initié' &&
             <li>
               <button
                 className="fr-btn fr-btn--secondary"
@@ -82,6 +82,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal }) => {
               </button>
               <button
                 className="fr-btn"
+                aria-controls="fr-modal-3"
                 onClick={() => setOpenModal(true)}
               >
                 Valider la demande
@@ -89,7 +90,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal }) => {
             </li>
             }
             <li className="fr-ml-auto">
-              <a className="fr-btn fr-btn--secondary" href={miseEnRelation?.url} target="_blank" rel="noopener noreferrer">
+              <a className="fr-btn fr-btn--secondary" href={urlDossierDS} target="_blank" rel="noopener noreferrer">
                 Voir le dossier D&eacute;marche Simplifi&eacute;e
               </a>
             </li>
@@ -103,6 +104,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal }) => {
 CardsRenouvellement.propTypes = {
   miseEnRelation: propTypes.object,
   setOpenModal: propTypes.func,
+  urlDossierDS: propTypes.string,
 };
 
 export default CardsRenouvellement;

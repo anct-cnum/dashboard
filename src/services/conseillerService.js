@@ -24,7 +24,7 @@ export const conseillerService = {
 };
 
 function get(id, idMiseEnRelation) {
-  return API.get(`${apiUrlRoot}/conseiller/${id}/${idMiseEnRelation}?role=${roleActivated()}`)
+  return API.get(`${apiUrlRoot}/conseiller/${id}${idMiseEnRelation ? `/${idMiseEnRelation}` : ''}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

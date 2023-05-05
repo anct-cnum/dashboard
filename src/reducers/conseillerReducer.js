@@ -308,6 +308,15 @@ export default function conseiller(state = initialState, action) {
         loading: false,
         errorCandidat: action.error
       };
+    case 'UPDATE_MISE_EN_RELATION_RENOUVELLEMENT_CONTRAT':
+      return {
+        ...state,
+        conseiller: { ...state.conseiller,
+          contrat: action.miseEnRelationUpdated,
+          misesEnRelation: state.conseiller.misesEnRelation.map(
+            miseEnRelation => (miseEnRelation.statut === action.miseEnRelationUpdated.statut) ? action.miseEnRelationUpdated : miseEnRelation
+          ) },
+      };
     default:
       return state;
   }

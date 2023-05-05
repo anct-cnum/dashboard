@@ -13,6 +13,8 @@ import ModalValidationRupture from './modals/ModalValidationRupture';
 import AccordeonContrats from '../../../components/AccordeonContrats';
 import ContratsCards from '../../../components/cards/ContratsCards';
 import CardsRupture from './contrats/CardsRupture';
+import CardsRenouvellement from './contrats/CardsRenouvellement';
+import ModalValidationRenouvellement from './modals/ModalValidationRenouvellement';
 
 function ConseillerDetails() {
 
@@ -23,8 +25,10 @@ function ConseillerDetails() {
   const errorStructure = useSelector(state => state.structure?.error);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
+  const loadingValidationRenouvellement = useSelector(state => state.contrat?.loading);
   const dossierIncompletRupture = useSelector(state => state.conseiller?.dossierIncompletRupture);
   const errorRupture = useSelector(state => state.conseiller?.errorRupture);
+  const errorValidationRenouvellement = useSelector(state => state.contrat?.error);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
@@ -76,7 +80,7 @@ function ConseillerDetails() {
 
   return (
     <div className="fr-container conseillerDetails">
-      <Spinner loading={loading} />
+      <Spinner loading={loading || loadingValidationRenouvellement} />
       <button
         onClick={() => window.close()}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
@@ -86,6 +90,13 @@ function ConseillerDetails() {
         <div className="fr-alert fr-alert--error fr-mt-4w">
           <p className="fr-alert__title">
             {errorRupture}
+          </p>
+        </div>
+      }
+      {errorValidationRenouvellement &&
+        <div className="fr-alert fr-alert--error fr-mt-4w">
+          <p className="fr-alert__title">
+            {errorValidationRenouvellement}
           </p>
         </div>
       }
@@ -202,10 +213,10 @@ function ConseillerDetails() {
         </>
           }
         </div>
-        {conseiller?.contrat &&
-        <>
-          <CardsRupture miseEnRelation={misesEnRelationNouvelleRupture} setOpenModal={setOpenModal} />
-          {openModal &&
+        {(conseiller?.contrat?.statut === 'finalisee_rupture' || conseiller?.contrat?.statut === 'nouvelle_rupture') &&
+          <>
+            <CardsRupture miseEnRelation={conseiller?.contrat} setOpenModal={setOpenModal} />
+            {openModal &&
             <ModalValidationRupture
               setOpenModal={setOpenModal}
               idConseiller={idConseiller}
@@ -213,8 +224,16 @@ function ConseillerDetails() {
               setDateFinDeContrat={setDateFinDeContrat}
               datePrisePoste={conseiller?.datePrisePoste}
             />
-          }
-        </>
+            }
+          </>
+        }
+        {(conseiller?.contrat?.statut === 'finalisee' || conseiller?.contrat?.statut === 'renouvellement_initié') &&
+          <>
+            <CardsRenouvellement urlDossierDS={conseiller?.url} miseEnRelation={conseiller?.contrat} setOpenModal={setOpenModal} />
+            {openModal &&
+              <ModalValidationRenouvellement setOpenModal={setOpenModal} idMiseEnRelation={conseiller?.contrat?._id} />
+            }
+          </>
         }
       </>
       }

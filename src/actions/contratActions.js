@@ -3,6 +3,7 @@ import { contratService } from '../services/contratService.js';
 export const contratActions = {
   getAll,
   get,
+  validationRenouvellement
 };
 
 function getAll(page, statutContrat) {
@@ -50,5 +51,35 @@ function get(id) {
   }
   function failure(error) {
     return { type: 'GET_CONTRAT_FAILURE', error };
+  }
+}
+
+function validationRenouvellement(id) {
+  return dispatch => {
+    dispatch(request());
+
+    contratService.validationRenouvellement(id)
+    .then(
+      response => {
+        dispatch(success());
+        dispatch(updateMiseEnRelation(response.miseEnRelationUpdated));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_CONTRAT_REQUEST' };
+  }
+  function success() {
+    return { type: 'UPDATE_CONTRAT_SUCCESS' };
+  }
+  function updateMiseEnRelation(miseEnRelationUpdated) {
+    return { type: 'UPDATE_MISE_EN_RELATION_RENOUVELLEMENT_CONTRAT', miseEnRelationUpdated };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_CONTRAT_FAILURE', error };
   }
 }
