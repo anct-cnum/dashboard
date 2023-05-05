@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS }) => {
 
   return (
-    <div className="fr-card fr-mt-4w fr-card--no-border" style={{ backgroundColor: '#E8EDFF' }}>
+    <div className="fr-card fr-mt-4w fr-card--no-border background-cards-contrat">
       <div className="fr-card__body">
         <div className="fr-card__content fr-pb-2w">
           <h3 className="fr-card__title fr-h3">
@@ -20,17 +20,17 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS }) => 
             <div className="fr-col-12">
               <hr style={{ borderWidth: '0.5px' }} />
             </div>
-            <div className="fr-card fr-card--no-background fr-card--no-border fr-col-12">
+            <div className="fr-card fr-card--no-background fr-card--no-border fr-col-12 color-text color-title-subpart">
               <div className="fr-card__body fr-p-0">
                 <div>
                   <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-                    <div className="fr-col-3 fr-col-xl-3">
+                    <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Type de contrat</strong><br />
                         <span className="fr-text--regular fr-text--md">{miseEnRelation?.typeDeContrat ?? '-'}</span>
                       </div>
                     </div>
-                    <div className="fr-col-3 fr-col-xl-3">
+                    <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
                         {miseEnRelation?.dateDebutDeContrat ?
@@ -40,7 +40,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS }) => 
                         }
                       </div>
                     </div>
-                    <div className="fr-col-3 fr-col-xl-3">
+                    <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Fin de contrat</strong><br />
                         {miseEnRelation?.dateFinDeContrat ?
@@ -50,7 +50,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS }) => 
                         }
                       </div>
                     </div>
-                    <div className="fr-col-3 fr-col-xl-3">
+                    <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Salaire brut mensuel</strong><br />
                         <span className="fr-text--regular fr-text--md">{miseEnRelation?.salaire ?? '-'}</span>

@@ -29,8 +29,8 @@ function get(id, idMiseEnRelation) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getCandidat(id) {
-  return API.get(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`)
+function getCandidat(id, idMiseEnRelation) {
+  return API.get(`${apiUrlRoot}/candidat/${id}${idMiseEnRelation ? `/${idMiseEnRelation}` : ''}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -192,8 +192,8 @@ function validationRupture(id, dateFinDeContrat) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function dossierIncompletRupture(id, dateFinDeContrat) {
-  return API.patch(`${apiUrlRoot}/conseiller/rupture/incomplet/${id}?role=${roleActivated()}`, { dateFinDeContrat })
+function dossierIncompletRupture(id, dateFinDeContrat, dossierIncomplet) {
+  return API.patch(`${apiUrlRoot}/conseiller/rupture/incomplet/${id}?role=${roleActivated()}`, { dateFinDeContrat, dossierIncomplet })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

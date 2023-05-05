@@ -2,10 +2,10 @@ import React from 'react';
 import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 
-const CardsRupture = ({ miseEnRelation, setOpenModal }) => {
+const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal, setOpenModalValidationRupture }) => {
 
   return (
-    <div className="fr-card fr-mt-4w fr-card--no-border" style={{ backgroundColor: '#E8EDFF' }}>
+    <div className="fr-card fr-mt-4w fr-card--no-border background-cards-contrat">
       <div className="fr-card__body">
         <div className="fr-card__content fr-pb-2w">
           <h3 className="fr-card__title fr-h3">
@@ -20,17 +20,17 @@ const CardsRupture = ({ miseEnRelation, setOpenModal }) => {
             <div className="fr-col-12">
               <hr style={{ borderWidth: '0.5px' }} />
             </div>
-            <div className="fr-card fr-card--no-background fr-card--no-border fr-col-12">
+            <div className="fr-card fr-card--no-background fr-card--no-border fr-col-12 color-text color-title-subpart">
               <div className="fr-card__body fr-p-0">
                 <div>
                   <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-                    <div className="fr-col-3 fr-col-xl-3">
+                    <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Type de contrat</strong><br />
                         <span className="fr-text--regular fr-text--md">{miseEnRelation?.typeDeContrat ?? '-'}</span>
                       </div>
                     </div>
-                    <div className="fr-col-3 fr-col-xl-3">
+                    <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
                         {miseEnRelation?.dateDebutDeContrat ?
@@ -40,7 +40,7 @@ const CardsRupture = ({ miseEnRelation, setOpenModal }) => {
                         }
                       </div>
                     </div>
-                    <div className="fr-col-3 fr-col-xl-3">
+                    <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Fin de contrat</strong><br />
                         {miseEnRelation?.dateFinDeContrat ?
@@ -50,7 +50,7 @@ const CardsRupture = ({ miseEnRelation, setOpenModal }) => {
                         }
                       </div>
                     </div>
-                    <div className="fr-col-3 fr-col-xl-3">
+                    <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Salaire brut mensuel</strong><br />
                         <span className="fr-text--regular fr-text--md">{miseEnRelation?.salaire ?? '-'}</span>
@@ -76,21 +76,22 @@ const CardsRupture = ({ miseEnRelation, setOpenModal }) => {
             {miseEnRelation?.statut === 'nouvelle_rupture' &&
             <li>
               <button
-                className="fr-btn fr-btn--secondary"
+                className="fr-btn fr-btn--secondary" onClick={() => setOpenModal(true)}
               >
                 Modifier la demande
               </button>
               <button
                 className="fr-btn"
                 aria-controls="fr-modal-2"
-                onClick={() => setOpenModal(true)}
+                disabled={miseEnRelation?.dossierIncompletRupture === true || miseEnRelation?.dossierIncompletRupture === undefined}
+                onClick={() => setOpenModalValidationRupture(true)}
               >
                 Valider la demande
               </button>
             </li>
             }
             <li className="fr-ml-auto">
-              <a className="fr-btn fr-btn--secondary" href={miseEnRelation?.url} target="_blank" rel="noopener noreferrer">
+              <a className="fr-btn fr-btn--secondary" href={urlDossierDS} target="_blank" rel="noopener noreferrer">
                 Voir le dossier D&eacute;marche Simplifi&eacute;e
               </a>
             </li>
@@ -102,8 +103,10 @@ const CardsRupture = ({ miseEnRelation, setOpenModal }) => {
 };
 
 CardsRupture.propTypes = {
+  urlDossierDS: propTypes.string,
   miseEnRelation: propTypes.object,
   setOpenModal: propTypes.func,
+  setOpenModalValidationRupture: propTypes.func,
 };
 
 export default CardsRupture;

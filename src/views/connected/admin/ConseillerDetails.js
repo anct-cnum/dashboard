@@ -15,6 +15,7 @@ import ContratsCards from '../../../components/cards/ContratsCards';
 import CardsRupture from './contrats/CardsRupture';
 import CardsRenouvellement from './contrats/CardsRenouvellement';
 import ModalValidationRenouvellement from './modals/ModalValidationRenouvellement';
+import ModalConfirmationRupture from './modals/ModalConfirmationRupture';
 
 function ConseillerDetails() {
 
@@ -26,7 +27,6 @@ function ConseillerDetails() {
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
   const loadingValidationRenouvellement = useSelector(state => state.contrat?.loading);
-  const dossierIncompletRupture = useSelector(state => state.conseiller?.dossierIncompletRupture);
   const errorRupture = useSelector(state => state.conseiller?.errorRupture);
   const errorValidationRenouvellement = useSelector(state => state.contrat?.error);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -36,6 +36,7 @@ function ConseillerDetails() {
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
   const [dateFinDeContrat, setDateFinDeContrat] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [openModalValidationRupture, setOpenModalValidationRupture] = useState(false);
   const { trackEvent } = useMatomo();
 
   useEffect(() => {
@@ -71,12 +72,6 @@ function ConseillerDetails() {
       }));
     }
   }, [conseiller, errorStructure]);
-
-  useEffect(() => {
-    if (dossierIncompletRupture === true) {
-      setMisesEnRelationNouvelleRupture({ ...misesEnRelationNouvelleRupture, dossierIncompletRupture: true, dateRupture: dateFinDeContrat });
-    }
-  }, [dossierIncompletRupture]);
 
   return (
     <div className="fr-container conseillerDetails">
@@ -215,7 +210,12 @@ function ConseillerDetails() {
         </div>
         {(conseiller?.contrat?.statut === 'finalisee_rupture' || conseiller?.contrat?.statut === 'nouvelle_rupture') &&
           <>
-            <CardsRupture miseEnRelation={conseiller?.contrat} setOpenModal={setOpenModal} />
+            <CardsRupture
+              urlDossierDS={conseiller?.url}
+              miseEnRelation={conseiller?.contrat}
+              setOpenModal={setOpenModal}
+              setOpenModalValidationRupture={setOpenModalValidationRupture}
+            />
             {openModal &&
             <ModalValidationRupture
               setOpenModal={setOpenModal}
@@ -225,11 +225,22 @@ function ConseillerDetails() {
               datePrisePoste={conseiller?.datePrisePoste}
             />
             }
+            {openModalValidationRupture &&
+              <ModalConfirmationRupture
+                setOpenModalValidationRupture={setOpenModalValidationRupture}
+                idConseiller={idConseiller}
+                dateFinDeContrat={dateFinDeContrat}
+              />
+            }
           </>
         }
         {(conseiller?.contrat?.statut === 'finalisee' || conseiller?.contrat?.statut === 'renouvellement_initié') &&
           <>
-            <CardsRenouvellement urlDossierDS={conseiller?.url} miseEnRelation={conseiller?.contrat} setOpenModal={setOpenModal} />
+            <CardsRenouvellement
+              urlDossierDS={conseiller?.url}
+              miseEnRelation={conseiller?.contrat}
+              setOpenModal={setOpenModal}
+            />
             {openModal &&
               <ModalValidationRenouvellement setOpenModal={setOpenModal} idMiseEnRelation={conseiller?.contrat?._id} />
             }

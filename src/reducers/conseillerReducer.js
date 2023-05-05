@@ -308,7 +308,7 @@ export default function conseiller(state = initialState, action) {
         loading: false,
         errorCandidat: action.error
       };
-    case 'UPDATE_MISE_EN_RELATION_RENOUVELLEMENT_CONTRAT':
+    case 'UPDATE_MISE_EN_RELATION_CONTRAT':
       return {
         ...state,
         conseiller: { ...state.conseiller,

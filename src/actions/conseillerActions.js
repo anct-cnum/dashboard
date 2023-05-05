@@ -45,11 +45,11 @@ function get(id, idMiseEnRelation) {
   }
 }
 
-function getCandidat(id) {
+function getCandidat(id, idMiseEnRelation) {
   return dispatch => {
     dispatch(request());
 
-    conseillerService.getCandidat(id)
+    conseillerService.getCandidat(id, idMiseEnRelation)
     .then(
       candidat => dispatch(success(candidat)),
       error => {
@@ -408,13 +408,16 @@ function validationRupture(id, dateFinDeContrat) {
   }
 }
 
-function dossierIncompletRupture(id, dateFinDeContrat) {
+function dossierIncompletRupture(id, dateFinDeContrat, dossierIncomplet) {
   return dispatch => {
     dispatch(request());
 
-    conseillerService.dossierIncompletRupture(id, dateFinDeContrat)
+    conseillerService.dossierIncompletRupture(id, dateFinDeContrat, dossierIncomplet)
     .then(
-      response => dispatch(success(response.dossierIncompletRupture)),
+      miseEnRelationUpdated => {
+        dispatch(success());
+        dispatch(updateMiseEnRelation(miseEnRelationUpdated));
+      },
       error => {
         dispatch(failure(error));
       }
@@ -424,8 +427,11 @@ function dossierIncompletRupture(id, dateFinDeContrat) {
   function request() {
     return { type: 'DOSSIER_INCOMPLET_RUPTURE_REQUEST' };
   }
-  function success(dossierIncompletRupture) {
-    return { type: 'DOSSIER_INCOMPLET_RUPTURE_SUCCESS', dossierIncompletRupture };
+  function success() {
+    return { type: 'DOSSIER_INCOMPLET_RUPTURE_SUCCESS' };
+  }
+  function updateMiseEnRelation(miseEnRelationUpdated) {
+    return { type: 'UPDATE_MISE_EN_RELATION_CONTRAT', miseEnRelationUpdated };
   }
   function failure(error) {
     return { type: 'DOSSIER_INCOMPLET_RUPTURE_FAILURE', error };

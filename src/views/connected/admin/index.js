@@ -39,6 +39,7 @@ export default function Admin() {
         <Route path="/admin/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/admin/conseiller/:idConseiller/:idMiseEnRelation" element={<ConseillerDetails />} />
         <Route path="/admin/candidat/:idCandidat" element={<CandidatDetails />} />
+        <Route path="/admin/candidat/:idCandidat/:idMiseEnRelation" element={<CandidatDetails />} />
         <Route path="/admin/demandes/convention/:idStructure" element={<ConventionDetails />} />
         <Route path="/admin/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />

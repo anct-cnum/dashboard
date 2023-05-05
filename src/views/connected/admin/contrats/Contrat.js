@@ -43,7 +43,7 @@ function Contrat({ contrat }) {
             <button
               className="fr-btn"
               title="D&eacute;tail"
-              onClick={() => window.open(`/admin/candidat/${contrat?.conseillerObj?._id}`)}>
+              onClick={() => window.open(`/admin/candidat/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
               Voir la demande
             </button> : <button
               className="fr-btn"

@@ -14,7 +14,7 @@ import CardsRecrutement from '../contrats/CardsRecrutement';
 
 function CandidatDetails() {
   const dispatch = useDispatch();
-  const { idCandidat } = useParams();
+  const { idCandidat, idMiseEnRelation } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ function CandidatDetails() {
     if (!errorConseiller) {
       scrollTopWindow();
       if (conseiller?._id !== idCandidat) {
-        dispatch(conseillerActions.getCandidat(idCandidat));
+        dispatch(conseillerActions.getCandidat(idCandidat, idMiseEnRelation));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -95,33 +95,30 @@ function CandidatDetails() {
       <div className="fr-col-12 fr-pt-6w">
         <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
-      <div className="fr-col-12">
-        <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
-        </div>
-      </div>
-      {conseiller?.miseEnRelation?.length > 0 ?
+      {conseiller?.contrat ?
         <>
-          {conseiller?.miseEnRelation?.map(miseEnRelation =>
-            <>
-              <CardsRecrutement miseEnRelation={miseEnRelation} conseiller={conseiller} />
-            </>
-          )}
-        </> : <div className="fr-col-12 fr-mb-4w">
+          <div className="fr-col-12">
+            <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+              <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
+            </div>
+          </div>
+          <CardsRecrutement miseEnRelation={conseiller?.contrat[0]} conseiller={conseiller} />
+        </> :
+        <div className="fr-col-12 fr-mb-4w">
           <div className="fr-grid-row" style={{ alignItems: 'center' }}>
             <h5 className="fr-h5 text-id">ID - {conseiller?.idPG ?? ''}</h5>
             <button className="fr-btn btn-actions fr-btn--secondary" title="Supprimer la candidature" onClick={() => {
               setConfirmSuppressionCandidat(true);
               scrollTopWindow();
             }}>
-            Supprimer la candidature
+              Supprimer la candidature
             </button>
             <button className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0" title="Renvoyer l&rsquo;email d&rsquo;invitation" onClick={resendInvitCandidat}>
-            Renvoyer l&rsquo;email d&rsquo;invitation
+              Renvoyer l&rsquo;email d&rsquo;invitation
             </button>
           </div>
           {confirmSuppressionCandidat &&
-          <FormSuppressionCandidat setConfirmSuppressionCandidat={setConfirmSuppressionCandidat} />
+            <FormSuppressionCandidat setConfirmSuppressionCandidat={setConfirmSuppressionCandidat} />
           }
         </div>
       }
