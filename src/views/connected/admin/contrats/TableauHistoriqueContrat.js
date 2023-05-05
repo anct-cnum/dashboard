@@ -136,7 +136,7 @@ export default function TableauHistoriqueContrat() {
                           <th style={{ width: '11rem' }}>Date de la demande</th>
                           <th style={{ width: '11rem' }}>Type de la demande</th>
                           <th style={{ width: '12rem' }}>Type de contrat</th>
-                          <th style={{ width: '12rem' }}>Début de contrat</th>
+                          <th style={{ width: '12rem' }}>D&eacute;but de contrat</th>
                           <th style={{ width: '12rem' }}>Fin de contrat</th>
                           <th style={{ width: '3.1rem' }}></th>
                         </tr>
