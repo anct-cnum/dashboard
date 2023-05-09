@@ -101,8 +101,8 @@ export default function TableauHistoriqueContrat() {
                 </button>
                 <button onClick={() => {
                   dispatch(paginationActions.setPage(1));
-                  setStatutContrat('renouvellee');
-                }} className="fr-tag" aria-pressed={statutContrat === 'renouvellee'}>
+                  setStatutContrat('renouvelee');
+                }} className="fr-tag" aria-pressed={statutContrat === 'renouvelee'}>
                   Renouvellements de contrat ({contrats?.items?.totalParContrat?.renouvellementDeContrat})
                 </button>
                 <button onClick={() => {

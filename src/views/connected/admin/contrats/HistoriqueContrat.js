@@ -19,7 +19,7 @@ function HistoriqueContrat({ contrat }) {
         return 'Rupture de contrat';
       case 'finalisee':
         return 'Recrutement';
-      case 'renouvellee':
+      case 'renouvelee':
         return 'Renouvellement';
       default:
         return '';
