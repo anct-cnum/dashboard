@@ -120,7 +120,7 @@ function FiltresEtTrisConseillers() {
           </div>
         </div>
         <div className="fr-grid-row fr-grid-row--end">
-          <div className="date-picker fr-mb-4w fr-mb-xl-0 fr-mt-1w fr-grid-row">
+          <div className="date-picker fr-mb-4w fr-mt-1w fr-grid-row">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
           </div>
           <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-3 fr-mr-4w" id="filtre-region">
