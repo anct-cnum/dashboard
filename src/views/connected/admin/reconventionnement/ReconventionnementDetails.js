@@ -209,8 +209,8 @@ function ReconventionnementDetails({ reconventionnement }) {
                           <span className="fr-text--regular fr-text--md" title={conseiller?.typeDeContrat ?? ''}>
                             {conseiller?.typeDeContrat ?
                               <>
-                                {conseiller?.typeDeContrat?.length > 17 ?
-                                  `${conseiller?.typeDeContrat.substring(0, 17)}...` : conseiller?.typeDeContrat
+                                {conseiller?.typeDeContrat?.length > 15 ?
+                                  `${conseiller?.typeDeContrat.substring(0, 15)}...` : conseiller?.typeDeContrat
                                 }
                               </> : '-'
                             }
@@ -225,7 +225,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                               {dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY')}
                             </span> :
                             <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
-                              En attente de pi&egrave;ces...
+                              En attente de pi&egrave;...
                             </span>
                           }
                         </div>
@@ -235,7 +235,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                           <strong className="fr-text--md">Fin de contrat</strong><br />
                           {(!conseiller?.dateFinDeContrat && !conseiller?.dateRupture) &&
                             <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
-                              En attente de pi&egrave;ces...
+                              En attente de pi&egrave;...
                             </span>
                           }
                           {conseiller?.dateFinDeContrat &&
