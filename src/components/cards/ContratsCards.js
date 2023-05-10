@@ -72,7 +72,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                     <div>
                       <strong className="fr-text--md">D&eacute;but de contrat</strong><br/>
                       {(!misesEnRelationFinalisee[0]?.dateDebutDeContrat && !misesEnRelationNouvelleRupture?.dateDebutDeContrat) &&
-                        <span className="fr-text--regular fr-text--md">-</span>
+                        <span className="fr-text--regular fr-text--md">En attente de pi&egrave;ces justificatives</span>
                       }
                       {misesEnRelationFinalisee[0]?.dateDebutDeContrat &&
                         <span className="fr-text--regular fr-text--md">
@@ -90,7 +90,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                     <div>
                       <strong className="fr-text--md">Fin de contrat</strong><br/>
                       {(!misesEnRelationFinalisee[0]?.dateFinDeContrat && !misesEnRelationNouvelleRupture?.dateFinDeContrat) &&
-                        <span className="fr-text--regular fr-text--md">-</span>
+                        <span className="fr-text--regular fr-text--md">En attente de pi&egrave;ces justificatives</span>
                       }
                       {misesEnRelationFinalisee[0]?.dateFinDeContrat &&
                         <span className="fr-text--regular fr-text--md">
