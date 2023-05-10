@@ -93,7 +93,7 @@ function FiltresEtTrisConseillers() {
           <h1 style={{ color: '#000091' }} className="fr-h1">Liste des conseillers</h1>
         </div>
         <div className="fr-grid-row">
-          <div className="fr-col-12 fr-col-md-6 fr-mb-4w fr-mb-md-0">
+          <div className="fr-col-12 fr-col-md-6 fr-col-xl-8 fr-mb-4w fr-mb-md-0">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
               <input onKeyDown={rechercheParNomOuNomStructureToucheEnter} className="fr-input"
                 defaultValue={(filtreParNomConseiller || filtreParNomStructure) ?? ''}
