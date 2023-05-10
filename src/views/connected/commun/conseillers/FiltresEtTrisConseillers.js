@@ -93,7 +93,7 @@ function FiltresEtTrisConseillers() {
           <h1 style={{ color: '#000091' }} className="fr-h1">Liste des conseillers</h1>
         </div>
         <div className="fr-grid-row">
-          <div className="fr-col-12 fr-col-md-8 fr-mb-4w fr-mb-md-0">
+          <div className="fr-col-12 fr-col-md-6 fr-mb-4w fr-mb-md-0">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
               <input onKeyDown={rechercheParNomOuNomStructureToucheEnter} className="fr-input"
                 defaultValue={(filtreParNomConseiller || filtreParNomStructure) ?? ''}
@@ -120,10 +120,10 @@ function FiltresEtTrisConseillers() {
           </div>
         </div>
         <div className="fr-grid-row fr-grid-row--end">
-          <div style={{ flex: '0 0 29.33333%' }} className="fr-col-12 fr-col-md-4 fr-mb-4w fr-mb-md-0 fr-mt-1w fr-grid-row">
+          <div className="date-picker fr-mb-4w fr-mb-xl-0 fr-mt-1w fr-grid-row">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
           </div>
-          <div className="fr-select-group fr-col-3 fr-mr-4w" id="filtre-region">
+          <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-3 fr-mr-4w" id="filtre-region">
             <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
               <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
@@ -131,7 +131,7 @@ function FiltresEtTrisConseillers() {
               )}
             </select>
           </div>
-          <div className="fr-select-group fr-col-3" id="filtre-departement">
+          <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-3" id="filtre-departement">
             <select className="fr-select" value={filterDepartement} onChange={selectFiltreDepartement}>
               <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
               {getDepartements().map((departement, idx) =>

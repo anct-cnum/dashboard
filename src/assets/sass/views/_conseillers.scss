@@ -107,4 +107,18 @@
             padding-right: 6rem;
         }
     }
+    @media (max-width: 1200px) {
+        .date-picker {
+            flex: 0 0 100%;
+            max-width: 100%;
+            width: 100%;
+        }
+    }
+    @media (min-width: 1201px) {
+        .date-picker {
+            flex: 0 0 29%;
+            max-width: 29%;
+            width: 29%;
+        }
+    }
 }
