@@ -13,7 +13,6 @@ import Documents from './views/connected/Documents';
 import Certifications from './views/connected/Certifications';
 import InscriptionFormation from './views/connected/InscriptionFormation';
 import GraphiqueNationale from './views/connected/commun/statistiques/GraphiqueNationale';
-import GraphiquePilotage from './views/connected/commun/statistiques/GraphiquePilotage';
 import GraphiqueStructure from './views/connected/commun/statistiques/GraphiqueStructure';
 import GraphiqueTerritoire from './views/connected/commun/statistiques/GraphiqueTerritoire';
 import TableauTerritoires from './views/connected/commun/statistiques/TableauTerritoires';
@@ -24,6 +23,7 @@ import { getAccessToken } from './helpers/getAccessToken';
 import GraphiqueConseiller from './views/connected/commun/statistiques/GraphiqueConseiller';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import TableauStructures from './views/connected/commun/structures/TableauStructures';
+import GraphiquePilotageGrandReseau from './views/connected/commun/statistiques/GraphiquePilotageGrandReseau';
 
 function App() {
 
@@ -62,7 +62,7 @@ function App() {
           <Route path="/liste-conseillers" element={<TableauConseillers />} />
           <Route path="/liste-structures" element={<TableauStructures />} />
           <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
-          <Route path="/statistiques-pilotage" element={<GraphiquePilotage />} />
+          <Route path="/statistiques-pilotage" element={<GraphiquePilotageGrandReseau />} />
           <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
           <Route path="/statistiques-conseiller/:idConseiller" element={<GraphiqueConseiller />} />
           <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
