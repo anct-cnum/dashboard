@@ -73,6 +73,7 @@ function Menu() {
             { roleActivated === 'admin' &&
             <li className="fr-nav__item">
               <button
+                disabled
                 id="listes-traitement-demandes"
                 className="fr-nav__btn"
                 aria-expanded={ activeMenu === 'listes-traitement-demandes' }
