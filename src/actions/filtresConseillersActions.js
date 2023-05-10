@@ -11,6 +11,7 @@ export const filtresConseillersActions = {
   changeNomConseiller,
   changeCoordinateur,
   changeRupture,
+  changeFiltreDepartement,
   resetFiltre,
 };
 
@@ -60,6 +61,10 @@ function saveSearchInput(searchInput, region) {
   
 function changeFiltreRegion(region) {
   return { type: 'CHANGE_REGION', region };
+}
+
+function changeFiltreDepartement(departement) {
+  return { type: 'CHANGE_DEPARTEMENT', departement };
 }
   
 function resetFiltre() {
