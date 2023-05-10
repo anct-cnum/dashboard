@@ -143,7 +143,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                           {miseEnRelation?.dateDebutDeContrat ?
                             <span className="fr-text--regular fr-text--md">
                               {dayjs(miseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY')}
-                            </span> : <span>-</span>
+                            </span> : <span>En attente de pi&egrave;ces justificatives</span>
                           }
                         </div>
                       </div>
