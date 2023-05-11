@@ -99,7 +99,7 @@ function FiltresEtTrisStructures() {
       <Spinner loading={loading} />
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
-          <h1 style={{ color: '#000091' }} className="fr-h1">Liste des structures</h1>
+          <h1 className="fr-h1 title">Liste des structures</h1>
         </div>
         <div className="fr-grid-row">
           <div className="fr-col-12 fr-col-xl-5 fr-mb-4w">

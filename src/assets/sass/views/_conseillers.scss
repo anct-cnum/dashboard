@@ -1,6 +1,9 @@
 @import "../colors/colors";
 
 .conseillers {
+    .title {
+        color: $blue-france;
+    }
     #menu-rupture,
     #menu-coordinateur {
         width: 221px !important;
