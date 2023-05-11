@@ -63,7 +63,7 @@ export default function TableauStructures() {
   }, [error, page]);
 
   return (
-    <div className="conseillers">
+    <div className="structures">
       <Spinner loading={loading} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
