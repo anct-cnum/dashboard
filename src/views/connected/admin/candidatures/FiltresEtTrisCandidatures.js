@@ -44,7 +44,7 @@ function FiltresEtTrisCandidatures() {
     <>
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
-          <h3 className="fr-h3 fr-col-12">Liste des candidatures</h3>
+          <h1 className="fr-h1 title fr-col-12">Liste des candidatures</h1>
           <div className="fr-col-12 fr-col-xl-10 fr-mb-4w">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
               <input className="fr-input" onKeyDown={rechercheParNomCandidatToucheEnter} defaultValue={filtreParNomCandidat ?? ''}
