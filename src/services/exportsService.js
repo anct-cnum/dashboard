@@ -48,7 +48,7 @@ function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoo
   
 }
 
-function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre) {
+function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre) {
   const exportConseillersRoute = '/liste-structures-csv';
   const {
     ordreColonne,
@@ -58,12 +58,11 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
     filterByType,
     filterByStatut,
     filterByRegion,
-    filterByComs,
     filterByDepartement,
   
-  } = structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs);
+  } = structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut);
   
-  return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}${filterByComs}`)
+  return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

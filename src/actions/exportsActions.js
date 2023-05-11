@@ -93,10 +93,10 @@ function exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordi
   }
 }
 
-function exportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre = 'nom', ordre = 1) {
+function exportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre = 'nom', ordre = 1) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportDonneesStructure(formatDate(dateDebut), formatDate(dateFin), filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre)
+    await exportsService.getExportDonneesStructure(formatDate(dateDebut), formatDate(dateFin), filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre)
     .then(exportStructureFileBlob => dispatch(success(exportStructureFileBlob)))
     .catch(exportStructureFileError => dispatch(failure(exportStructureFileError)));
   };

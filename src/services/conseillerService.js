@@ -76,17 +76,16 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement) {
+function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParDepartement) {
   let {
     filterByNameCandidat,
     filterByRegion,
-    filterByComs,
     filterByDepartement,
   // eslint-disable-next-line max-len
-  } = candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement);
+  } = candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParDepartement);
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/candidats?skip=${page}${filterByNameCandidat}${filterByComs}${filterByDepartement}${filterByRegion}&role=${roleActivated()}`;
+  let uri = `${apiUrlRoot}/candidats?skip=${page}${filterByNameCandidat}${filterByDepartement}${filterByRegion}&role=${roleActivated()}`;
 
   return API.get(uri)
   .then(response => response.data)

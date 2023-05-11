@@ -168,10 +168,10 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
   }
 }
 
-function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement) {
+function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParDepartement) {
   return dispatch => {
     dispatch(request());
-    conseillerService.getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement)
+    conseillerService.getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParDepartement)
     .then(
       candidats => {
         dispatch(success(candidats));

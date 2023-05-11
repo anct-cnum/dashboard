@@ -61,18 +61,17 @@ export function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, da
 }
 
 // eslint-disable-next-line max-len
-export function structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs) {
+export function structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const filterByName = filtreParNom ? `&searchByNom=${filtreParNom}` : '';
   const filterByRegion = filtreParRegion !== 'tous' && filtreParRegion !== undefined ? `&region=${filtreParRegion}` : '';
   const filterByDepartement = filtreParDepartement !== 'tous' && filtreParDepartement !== undefined ? `&departement=${filtreParDepartement}` : '';
-  const filterByComs = filtreParComs !== 'tous' && filtreParComs !== undefined ? `&coms=${filtreParComs}` : '';
   const filterByType = filtreParType !== 'tous' && filtreParType !== undefined ? `&type=${filtreParType}` : '';
   const filterByStatut = filtreParStatut !== 'tous' && filtreParStatut !== undefined ? `&statut=${filtreParStatut}` : '';
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
   
-  return { ordreColonne, filterDateStart, filterDateEnd, filterByName, filterByType, filterByStatut, filterByRegion, filterByComs, filterByDepartement };
+  return { ordreColonne, filterDateStart, filterDateEnd, filterByName, filterByType, filterByStatut, filterByRegion, filterByDepartement };
 }
 
 // eslint-disable-next-line max-len
@@ -124,11 +123,10 @@ export function statsQueryStringParameters(dateDebut, dateFin, codePostal, ville
   return { filterDateStart, filterDateEnd, filterByCodePostal, filterByVille };
 }
 
-export function candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement) {
+export function candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParDepartement) {
   const filterByNameCandidat = filtreParNomCandidat ? `&searchByNomCandidat=${filtreParNomCandidat}` : '';
   const filterByRegion = filtreParRegion !== 'tous' && filtreParRegion !== undefined ? `&region=${filtreParRegion}` : '';
   const filterByDepartement = filtreParDepartement !== 'tous' && filtreParDepartement !== undefined ? `&departement=${filtreParDepartement}` : '';
-  const filterByComs = filtreParComs !== 'tous' && filtreParComs !== undefined ? `&coms=${filtreParComs}` : '';
   
-  return { filterByNameCandidat, filterByRegion, filterByComs, filterByDepartement };
+  return { filterByNameCandidat, filterByRegion, filterByDepartement };
 }

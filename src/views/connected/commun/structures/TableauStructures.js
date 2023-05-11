@@ -23,7 +23,6 @@ export default function TableauStructures() {
   const filtreParNomConseiller = useSelector(state => state.filtresStructures?.nomConseiller);
   const filtreRegion = useSelector(state => state.filtresStructures?.region);
   const filterDepartement = useSelector(state => state.filtresStructures?.departement);
-  const filtreComs = useSelector(state => state.filtresStructures?.coms);
   const filtreStatut = useSelector(state => state.filtresStructures?.statut);
   const filtreType = useSelector(state => state.filtresStructures?.type);
   const [initConseiller, setInitConseiller] = useState(false);
@@ -51,7 +50,7 @@ export default function TableauStructures() {
       if (initConseiller === false && page !== undefined) {
         dispatch(statistiquesActions.resetFiltre());
         dispatch(structureActions.getAll(page, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreType, filtreRegion,
-          filtreStatut, filtreComs, ordreNom, ordre ? 1 : -1));
+          filtreStatut, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
     } else {
@@ -70,7 +69,7 @@ export default function TableauStructures() {
         <div className="fr-grid-row">
           <div className="fr-col-12">
             <FiltresEtTrisStructures />
-            <div className="fr-container--fluid fr-mt-2w">
+            <div className="fr-container--fluid">
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
                   <div className="fr-table fr-col-12">
