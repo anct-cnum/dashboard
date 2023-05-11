@@ -26,9 +26,9 @@ const ReconventionnementInfosCard = ({ structure }) => {
             {displayBadge()}
           </div>
           <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
-            structure?.conventionnement?.dossierReconventionnement?.dateDeValidation ?
+            structure?.conventionnement?.dossierReconventionnement?.dateDeCreation ?
               <span>
-              le&nbsp;{dayjs(structure?.conventionnement?.dossierReconventionnement?.dateDeValidation).format('DD/MM/YYYY')}
+              le&nbsp;{dayjs(structure?.conventionnement?.dossierReconventionnement?.dateDeCreation).format('DD/MM/YYYY')}
               </span> :
               <span>
               date inconnue
@@ -41,7 +41,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                   ' poste de conseiller',
                   ' poste de conseiller',
                   ' postes de conseiller',
-                  structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
+                  structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
                   true
                 )
               }
@@ -53,7 +53,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                       'validé pour ce conventionnement',
                       'validé pour ce conventionnement',
                       'validés pour ce conventionnement',
-                      structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
+                      structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
                     )
                   }
                 </span>
@@ -63,7 +63,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                     'demandé pour ce conventionnement',
                     'demandé pour ce conventionnement',
                     'demandés pour ce conventionnement',
-                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribues,
+                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
                   )
                 }</span>
               )}
@@ -86,7 +86,9 @@ const ReconventionnementInfosCard = ({ structure }) => {
                   <button className="fr-btn fr-btn--secondary" disabled>Rendre un poste</button>
                 </li>
                 <li className="fr-ml-auto">
-                  <button className="fr-btn" disabled>
+                  <button className="fr-btn" onClick={
+                    () => window.open(structure?.urlDossierReconventionnement)
+                  }>
                     <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche Simplifi&eacute;e
                   </button>
                 </li>

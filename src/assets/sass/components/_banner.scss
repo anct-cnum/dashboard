@@ -87,6 +87,33 @@
   .responsive__wide-card {
     display: flex;
     align-items: center;
+    .btn-actions-conseiller {
+      flex: 0 0 9.2%;
+      max-width: 9.2%;
+      width: 9.2%;
+      text-align: end;
+  }
+  .badge-statut {
+      flex: 0 0 17.4%;
+      max-width: 17.4%;
+      width: 17.4%;
+  }
+  .badge-statut-renouvellement {
+      flex: 0 0 14.4%;
+      max-width: 14.4%;
+      width: 14.4%;
+  }
+  .fin-contrat {
+      flex: 0 0 15%;
+      max-width: 15%;
+      width: 15%;
+  }
+  .card__text span {
+    color: $light-grey;
+  }
+  .card__text strong {
+    font-weight: 500;
+  }
   }
 
 @media (max-width: 1220px) {

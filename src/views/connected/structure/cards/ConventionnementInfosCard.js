@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-import { pluralize } from '../../../../utils/formatagesUtils';
+import { pluralize, formatNomConseiller } from '../../../../utils/formatagesUtils';
 
-const ConventionnementInfosCard = ({ structure }) => {
+const ConventionnementInfosCard = ({ structure, roleActivated }) => {
   return (
     <div className="fr-card fr-mb-4w">
       <div className="fr-card__body">
@@ -51,18 +51,38 @@ const ConventionnementInfosCard = ({ structure }) => {
             <div className="fr-col-12 fr-my-1w">
               <hr style={{ borderWidth: '0.5px' }} />
             </div>
-            <div>
-              <ul className="fr-btns-group fr-btns-group--inline-md">
-                <li>
-                  <p className="fr-text--bold">Profils recrut&eacute;s</p>
-                </li>
-                <li className="fr-ml-auto">
-                  <button className="fr-btn" disabled>
-                    <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche
+            <div className="fr-grid-row">
+              <div>
+                <p className="fr-text--bold" style={{ marginBottom: 0 }}>{pluralize(
+                  'Profil recruté',
+                  'Profil recruté',
+                  'Profils recrutés',
+                  structure?.conseillersRecruter?.length
+                )}
+                </p>
+                {structure?.conseillersRecruter?.map((conseiller, idx) =>
+                  <ul key={idx}style={{ listStyleType: 'none', padding: 0 }}>
+                    <li>
+                      <button
+                        style={{ paddingLeft: 0, marginBottom: 0 }}
+                        title="D&eacute;tail"
+                        className="fr-text"
+                        onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}>
+                        {conseiller?.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </div>
+              <div className="fr-ml-auto fr-my-auto">
+                <button className="fr-btn" onClick={
+                  () => window.open(
+                    structure?.urlDossierConventionnement)
+                }>
+                  <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche
                     Simplifi&eacute;e
-                  </button>
-                </li>
-              </ul>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -73,7 +93,8 @@ const ConventionnementInfosCard = ({ structure }) => {
 
 ConventionnementInfosCard.propTypes = {
   onPositionClick: PropTypes.func,
-  structure: PropTypes.object
+  structure: PropTypes.object,
+  roleActivated: PropTypes.string
 };
 
 export default ConventionnementInfosCard;

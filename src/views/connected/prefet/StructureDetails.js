@@ -19,7 +19,7 @@ function StructureDetails() {
   }, [structure]);
 
   return (
-    <div className="fr-container conseillerDetails">
+    <div className="fr-container structureDetails">
       {(error !== undefined && error !== false) &&
         <div className="fr-alert fr-alert--error fr-alert--sm fr-mb-4w">
           <p>Une erreur est survenue : {error?.toString()}</p>
@@ -68,8 +68,13 @@ function StructureDetails() {
             <div className="fr-mb-3w">
               <strong>Nom</strong><br/>
               <div className="fr-grid-row">
-                <span>{structure?.contact?.nom ?? '-'}&nbsp;</span>
-                <span>{structure?.contact?.prenom ?? ''}</span>
+                <span className="uppercase-letter">{structure?.contact?.nom}</span>
+              </div>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Pr&eacute;nom</strong><br/>
+              <div className="fr-grid-row">
+                <span className="uppercase-letter">{structure?.contact?.prenom}</span>
               </div>
             </div>
             <div className="fr-mb-3w">
@@ -166,28 +171,6 @@ function StructureDetails() {
                 </span>
               )}
               {structure?.conseillersRecruter?.length === 0 &&
-                <span className="fr-col-12">-</span>
-              }
-            </div>
-            <div className="fr-mb-3w fr-grid-row">
-              <strong>{pluralize(
-                'Profil validé',
-                'Profil validé',
-                'Profils validés',
-                structure?.conseillersValider?.length
-              )}</strong>
-              {structure?.conseillersValider?.map((conseiller, idx) =>
-                <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
-                  <button
-                    style={{ paddingLeft: '0' }}
-                    title="D&eacute;tail"
-                    className="fr-text--md"
-                    onClick={() => window.open(`/${roleActivated}/candidat/${conseiller?._id}`)}>
-                    {conseiller?.idPG}&nbsp;-&nbsp;{conseiller ? formatNomConseiller(conseiller) : ''}
-                  </button>
-                </span>
-              )}
-              {structure?.conseillersValider?.length === 0 &&
                 <span className="fr-col-12">-</span>
               }
             </div>
