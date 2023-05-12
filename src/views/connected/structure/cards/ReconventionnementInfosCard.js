@@ -9,7 +9,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
       return <p className="fr-badge fr-badge--warning fr-ml-auto">RECONVENTIONNEMENT ENREGISTRE</p>;
     }
     if (structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_EN_COURS') {
-      return <p className="fr-badge fr-badge--info fr-ml-auto">CONVENTIONNEMENT EN COURS</p>;
+      return <p className="fr-badge fr-badge--info fr-ml-auto">RECONVENTIONNEMENT EN COURS</p>;
     }
     if (structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ') {
       return <p className="fr-badge fr-badge--success fr-ml-auto">RECONVENTIONNEMENT VALID&Eacute;</p>;
@@ -58,14 +58,14 @@ const ReconventionnementInfosCard = ({ structure }) => {
                   }
                 </span>
               ) : (
-                <span className="fr-text--regular fr-text--md">{
-                  pluralize(
+                <span className="fr-text--regular fr-text--md">
+                  {pluralize(
                     'demandé pour ce conventionnement',
                     'demandé pour ce conventionnement',
                     'demandés pour ce conventionnement',
                     structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
                   )
-                }</span>
+                  }</span>
               )}
             </p>
             <div className="fr-col-12 fr-mt-1w">
@@ -80,10 +80,14 @@ const ReconventionnementInfosCard = ({ structure }) => {
             <div>
               <ul className="fr-btns-group fr-btns-group--inline-md">
                 <li>
-                  <button className="fr-btn fr-btn--secondary" disabled>Ajouter un poste</button>
+                  <button className="fr-btn fr-btn--secondary" disabled>
+                    Ajouter un poste
+                  </button>
                 </li>
                 <li>
-                  <button className="fr-btn fr-btn--secondary" disabled>Rendre un poste</button>
+                  <button className="fr-btn fr-btn--secondary" disabled>
+                    Rendre un poste
+                  </button>
                 </li>
                 <li className="fr-ml-auto">
                   <button className="fr-btn" onClick={

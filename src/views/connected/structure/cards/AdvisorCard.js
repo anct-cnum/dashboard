@@ -14,7 +14,6 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
         return;
     }
   };
-
   return (
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
       <div className="fr-card__body fr-p-0">

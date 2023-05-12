@@ -20,6 +20,7 @@ import filtresGestionnairesReducer from './filtresGestionnairesReducer';
 import miseEnRelationReducer from './miseEnRelationReducer';
 import conventionReducer from './conventionReducer';
 import filtresHistoriqueConventionReducer from './filtresHistoriqueConventionReducer';
+import renouvellementReducer from './renouvellementReducer';
 import contratReducer from './contratReducer';
 
 const rootReducer = combineReducers({
@@ -45,6 +46,7 @@ const rootReducer = combineReducers({
   filtresStructures: filtresStructuresReducer,
   filtresGestionnaires: filtresGestionnairesReducer,
   filtresHistoriqueConvention: filtresHistoriqueConventionReducer,
+  renouvellement: renouvellementReducer,
 });
 
 export default rootReducer;
