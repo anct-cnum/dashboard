@@ -6,10 +6,13 @@ import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
 import BlockDatePickers from '../statistiques/Components/commun/BlockDatePickers';
 import codeRegions from '../../../../datas/code_region.json';
 import departementsRegionRaw from '../../../../datas/departements-region.json';
+import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
 
 function FiltresEtTrisStructures() {
   const dispatch = useDispatch();
-  const departementsRegionList = Array.from(departementsRegionRaw);
+  const departementsRegionArray = Array.from(departementsRegionRaw);
+  const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
+  const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
   const dateDebut = useSelector(state => state.filtresStructures?.dateDebut);
   const ordreNom = useSelector(state => state.filtresStructures?.ordreNom);
   const filterDepartement = useSelector(state => state.filtresStructures?.departement);

@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filtresCandidaturesActions, paginationActions } from '../../../../actions';
 import codeRegions from '../../../../datas/code_region.json';
 import departementsRegionRaw from '../../../../datas/departements-region.json';
+import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
 
 function FiltresEtTrisCandidatures() {
   const dispatch = useDispatch();
-  const departementsRegionList = Array.from(departementsRegionRaw);
+  const departementsRegionArray = Array.from(departementsRegionRaw);
+  const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
+  const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
   const filtreParNomCandidat = useSelector(state => state.filtresCandidatures?.nomCandidat);
   const filtreRegion = useSelector(state => state.filtresCandidatures?.region);
   const filtreDepartement = useSelector(state => state.filtresCandidatures?.departement);
