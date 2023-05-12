@@ -102,7 +102,15 @@ function FiltresEtTrisStructures() {
           <h1 className="fr-h1 title">Liste des structures</h1>
         </div>
         <div className="fr-grid-row">
-          <div className="fr-col-12 fr-col-xl-5 fr-mb-4w">
+          <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-4 display-desktop" id="filtre-region">
+            <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
+              <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
+              {codeRegions.map((region, idx) =>
+                <option key={idx} value={region.code}>{region.nom}</option>
+              )}
+            </select>
+          </div>
+          <div className="fr-col-12 fr-col-xl-8 fr-mb-4w fr-ml-auto">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
               <input onKeyDown={rechercheParNomStructureToucheEnter} className="fr-input" defaultValue={searchInput ?? ''}
                 placeholder="Rechercher par nom, par id, par siret ou par email" type="search" id="search-input" name="search-input" />
@@ -111,6 +119,24 @@ function FiltresEtTrisStructures() {
               </button>
             </div>
           </div>
+        </div>
+        <div className="fr-grid-row fr-grid-row--end">
+          <div className="fr-select-group fr-col-12 fr-col-md-6 display-mobile" id="filtre-region">
+            <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
+              <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
+              {codeRegions.map((region, idx) =>
+                <option key={idx} value={region.code}>{region.nom}</option>
+              )}
+            </select>
+          </div>
+          <div className="fr-select-group fr-col-12 fr-col-md-5 fr-col-xl-4" id="filtre-departement">
+            <select className="fr-select" value={filterDepartement} onChange={selectFiltreDepartement}>
+              <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
+              {getDepartements().map((departement, idx) =>
+                <option key={idx} value={departement.num_dep}>{departement.num_dep} - {departement.dep_name}</option>
+              )}
+            </select>
+          </div>
           <div className="fr-select-group fr-col-xl-4 fr-col-12 fr-col-md-6" id="filtre-type">
             <select className="fr-select" value={filtreType} onChange={selectFiltreType}>
               <option value={'tous'}>S&eacute;lectionner un type de structure</option>
@@ -118,7 +144,7 @@ function FiltresEtTrisStructures() {
               <option value="PRIVATE">Priv&eacute;e</option>
             </select>
           </div>
-          <div className="fr-select-group fr-ml-auto fr-col-xl-2 fr-col-12 fr-col-md-5" id="filtre-statut">
+          <div className="fr-select-group fr-ml-auto fr-col-xl-4 fr-col-12 fr-col-md-5" id="filtre-statut">
             <select className="fr-select" value={filtreStatut} onChange={selectFiltreStatut}>
               <option value={'tous'}>S&eacute;lectionner le statut de la structure</option>
               <option value="VALIDATION_COSELEC">Valid&eacute;e</option>
@@ -131,25 +157,9 @@ function FiltresEtTrisStructures() {
             </select>
           </div>
         </div>
-        <div className="fr-grid-row fr-grid-row--end">
-          <div className="date-picker fr-mb-4w fr-mt-1w fr-grid-row">
+        <div className="fr-grid-row">
+          <div className="date-picker fr-mb-4w fr-mt-3w fr-mt-md-1w fr-grid-row">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
-          </div>
-          <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-3 fr-mr-4w" id="filtre-region">
-            <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
-              <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
-              {codeRegions.map((region, idx) =>
-                <option key={idx} value={region.code}>{region.nom}</option>
-              )}
-            </select>
-          </div>
-          <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-3" id="filtre-departement">
-            <select className="fr-select" value={filterDepartement} onChange={selectFiltreDepartement}>
-              <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
-              {getDepartements().map((departement, idx) =>
-                <option key={idx} value={departement.num_dep}>{departement.num_dep} - {departement.dep_name}</option>
-              )}
-            </select>
           </div>
           <div className="fr-ml-auto">
             <button className="fr-btn fr-btn--secondary" onClick={exportDonneesStructures}>Exporter les donn&eacute;es</button>

@@ -24,6 +24,22 @@
 
     @media (max-width: 1200px) {
         .date-picker {
+            flex: 0 0 60%;
+            max-width: 60%;
+            width: 60%;
+        }
+        #filtre-departement {
+            margin-left: auto;
+        }
+        .display-desktop {
+            display: none;
+        }
+        .display-mobile {
+            display: block;
+        }
+    }
+    @media (max-width: 480px) {
+        .date-picker {
             flex: 0 0 100%;
             max-width: 100%;
             width: 100%;
@@ -35,8 +51,15 @@
             max-width: 29.3%;
             width: 29.3%;
         }
+        #filtre-departement, #filtre-region {
+            flex: 0 0 31%;
+        }
         #filtre-type {
             margin-left: auto;
+            flex: 0 0 31%;
+        }
+        .display-mobile {
+            display: none;
         }
     }
 }
