@@ -40,7 +40,7 @@ const ValidatedBanner = ({ structure, conseillersActifs, setShowValidateBanner }
                 </li>
                 <li>
                   <p className="fr-text fr-text--sm">
-                    {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees - conseillersActifs.length}{' '}
+                    {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees - conseillersActifs?.length}{' '}
                     {pluralize('poste vacant', 'poste vacant', 'postes vacants', true)}
                   </p>
                 </li>

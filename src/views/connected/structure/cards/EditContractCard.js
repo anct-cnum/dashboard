@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import dayjs from 'dayjs';
 
 const EditContractCard = ({ conseiller, roleActivated, setOpenModalContrat, setMiseEnrelationId }) => {
+
   useEffect(() => {
     if (conseiller?.miseEnrelationId) {
       setMiseEnrelationId(conseiller?.miseEnrelationId);
@@ -37,7 +39,7 @@ const EditContractCard = ({ conseiller, roleActivated, setOpenModalContrat, setM
                     D&eacute;but de contrat
                   </span>
                   <br />
-                  <span className="info__color">-</span>
+                  <span className="fr-text--regular fr-text--md info__color">{dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY') ?? '-'}</span>
                 </div>
               </div>
               <div className="fr-col-2 card__text">
@@ -46,7 +48,7 @@ const EditContractCard = ({ conseiller, roleActivated, setOpenModalContrat, setM
                     Fin de contrat
                   </span>
                   <br />
-                  <span className="info__color">-</span>
+                  <span className="fr-text--regular fr-text--md info__color">{dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY') ?? '-'}</span>
                 </div>
               </div>
               <div className="fr-col-2 card__text">

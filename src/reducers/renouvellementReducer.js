@@ -1,7 +1,6 @@
 const initialState = {
   error: false,
-  loading: false,
-  renouvellement: null
+  loading: false
 };
   
 export default function renouvellement(state = initialState, action) {

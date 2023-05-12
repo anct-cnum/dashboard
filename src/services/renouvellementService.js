@@ -1,5 +1,6 @@
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
+import { roleActivated } from '../helpers';
 
 export const renouvellementService = {
   createContract,
@@ -7,14 +8,15 @@ export const renouvellementService = {
 };
 
 
-function createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId) {
-  return API.post(`${apiUrlRoot}/reconventionnement/contrat`, { typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId })
+function createContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId) {
+  // eslint-disable-next-line max-len
+  return API.post(`${apiUrlRoot}/reconventionnement/contrat?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function updateContract(typeDeContrat, dateDebut, dateFin, salaire, id) {
-  return API.patch(`${apiUrlRoot}/reconventionnement/contrat/${id}`, { typeDeContrat, dateDebut, dateFin, salaire })
+function updateContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, id) {
+  return API.patch(`${apiUrlRoot}/reconventionnement/contrat/${id}role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

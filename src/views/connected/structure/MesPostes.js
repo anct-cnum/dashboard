@@ -63,6 +63,16 @@ function MesPostes() {
     }
   };
 
+  const computeMarginTop = () => {
+    if (!showValidateBanner && structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ') {
+      return '100px';
+    }
+    if (showValidateBanner || structure?.conventionnement?.statut !== 'NON_INTERESSÉ') {
+      return '240px';
+    }
+    return '100px';
+  };
+
   const handleOpenModalContrat = (editMode = false, conseiller = null) => {
     setEditMode(editMode);
     setSelectedConseiller(conseiller);
@@ -85,8 +95,8 @@ function MesPostes() {
       reconventionnement,
       _id,
       renouvellement,
-      dateDebut,
-      dateFin,
+      dateDebutDeContrat,
+      dateFinDeContrat,
       typeDeContrat,
       salaire,
       statut,
@@ -100,8 +110,8 @@ function MesPostes() {
       reconventionnement,
       miseEnrelationId: _id,
       renouvellement,
-      dateDebut,
-      dateFin,
+      dateDebutDeContrat,
+      dateFinDeContrat,
       typeDeContrat,
       salaire,
       statut,
@@ -126,10 +136,17 @@ function MesPostes() {
       .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'nouvelle_rupture' }));
 
       const conseillersARenouveler = misesEnrelation
-      .filter(
-        miseEnRelation =>
-          miseEnRelation?.reconventionnement && miseEnRelation?.typeDeContrat !== 'CDI' && miseEnRelation?.statut !== 'finalisee'
-      )
+      .filter(miseEnRelation => {
+        if (!miseEnRelation) {
+          return false;
+        }
+        const hasReconventionnement = miseEnRelation.reconventionnement;
+        const isNotCDI = miseEnRelation.typeDeContrat !== 'CDI';
+        const isRenouvellementInitie = miseEnRelation.statut === 'renouvellement_initié';
+        const isFinaliseeWithoutConventionnement = miseEnRelation.statut === 'finalisee' &&
+         !miseEnRelation.miseEnRelationConventionnement;
+        return hasReconventionnement && isNotCDI && (isRenouvellementInitie || isFinaliseeWithoutConventionnement);
+      })
       .map(createConseiller);
 
       const conseillersActifsNonRenouveles = misesEnrelation
@@ -206,7 +223,7 @@ function MesPostes() {
         <h2
           className="fr-mb-6w"
           style={{
-            marginTop: showValidateBanner && structure?.conventionnement?.statut !== 'NON_INTERESSÉ' ? '240px' : '100px',
+            marginTop: computeMarginTop(),
             color: '#000091',
           }}
         >

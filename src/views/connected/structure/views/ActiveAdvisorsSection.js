@@ -20,8 +20,8 @@ const ActiveAdvisorsSection = ({ structure, conseillersActifs, roleActivated }) 
 
   return (
     <div className="container fr-mt-4w">
-      <p className="fr-text--bold">Vos conseillers actifs ({filteredActiveAdvisors.length})</p>
-      {filteredActiveAdvisors.map((conseiller, idx) => (
+      <p className="fr-text--bold">Vos conseillers actifs ({filteredActiveAdvisors?.length})</p>
+      {filteredActiveAdvisors?.map((conseiller, idx) => (
         <AdvisorCard conseiller={conseiller} roleActivated={roleActivated} key={idx} />
       ))}
     </div>

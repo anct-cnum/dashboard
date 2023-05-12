@@ -5,9 +5,9 @@ import dayjs from 'dayjs';
 import { calculateMonthsDifference } from '../../../../utils/calculateUtils';
 
 const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContrat }) => {
-  const { dateDebut, dateFin, typeDeContrat } = conseiller;
+  const { dateDebutDeContrat, dateFinDeContrat, typeDeContrat } = conseiller;
 
-  const months = calculateMonthsDifference(dateDebut, dateFin);
+  const months = calculateMonthsDifference(dateDebutDeContrat, dateFinDeContrat);
 
   const handleEditContract = conseiller => {
     handleOpenModalContrat(true, conseiller);
@@ -41,7 +41,7 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
                     D&eacute;but de contrat
                   </span>
                   <br />
-                  <span className="info__color">{conseiller?.originalMiseEnRelation?.dateDebut ?? '-'}</span>
+                  <span className="info__color">{conseiller?.originalMiseEnRelation?.dateDebutDeContrat ?? '-'}</span>
                 </div>
               </div>
               <div className="fr-col-2 card__text">
@@ -50,7 +50,7 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
                     Fin de contrat
                   </span>
                   <br />
-                  <span className="info__color">{conseiller?.originalMiseEnRelation?.dateFin ?? '-'}</span>
+                  <span className="info__color">{conseiller?.originalMiseEnRelation?.dateFinDeContrat ?? '-'}</span>
                 </div>
               </div>
               <div className="fr-col-2 card__text">
@@ -80,7 +80,7 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
             <div className="banner__text">
               <p className="fr-notice__title title__color">Envoyer les pi&egrave;ces justificatives pour finaliser la demande de renouvellement</p>
               <p className="fr-text--sm">
-                {`Demande d'un ${typeDeContrat?.toUpperCase()} de ${months} mois avec une date de début le ${dayjs(dateDebut).format(
+                {`Demande d'un ${typeDeContrat?.toUpperCase()} de ${months} mois avec une date de début le ${dayjs(dateDebutDeContrat).format(
                   'DD/MM/YYYY'
                 )}.`}
               </p>
