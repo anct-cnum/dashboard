@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import { conseillerActions, structureActions, alerteEtSpinnerActions } from '../../../actions';
+import { conseillerActions, structureActions, alerteEtSpinnerActions, renouvellementActions } from '../../../actions';
 import { formatAdressePermanence, formatNomConseiller, formatNomContactStructure, formatRenderStars } from '../../../utils/formatagesUtils';
 import pixUtilisation from '../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../assets/icons/pix-ressources.png';
@@ -16,6 +16,7 @@ import CardsRupture from './contrats/CardsRupture';
 import CardsRenouvellement from './contrats/CardsRenouvellement';
 import ModalValidationRenouvellement from './modals/ModalValidationRenouvellement';
 import ModalConfirmationRupture from './modals/ModalConfirmationRupture';
+import PopinEditionContrat from '../../connected/structure/popins/popinEditionContrat';
 
 function ConseillerDetails() {
 
@@ -27,6 +28,8 @@ function ConseillerDetails() {
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
   const loadingValidationRenouvellement = useSelector(state => state.contrat?.loading);
+  const loadingEditContrat = useSelector(state => state.renouvellement?.loading);
+  const errorEditContrat = useSelector(state => state.renouvellement?.error);
   const errorRupture = useSelector(state => state.conseiller?.errorRupture);
   const errorValidationRenouvellement = useSelector(state => state.contrat?.error);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -36,6 +39,7 @@ function ConseillerDetails() {
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
   const [dateFinDeContrat, setDateFinDeContrat] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [openModalContrat, setOpenModalContrat] = useState(false);
   const [openModalValidationRupture, setOpenModalValidationRupture] = useState(false);
   const { trackEvent } = useMatomo();
 
@@ -73,9 +77,13 @@ function ConseillerDetails() {
     }
   }, [conseiller, errorStructure]);
 
+  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
+    dispatch(renouvellementActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.contrat?._id, roleActivated));
+  };
+
   return (
     <div className="fr-container conseillerDetails">
-      <Spinner loading={loading || loadingValidationRenouvellement} />
+      <Spinner loading={loading || loadingValidationRenouvellement || loadingEditContrat} />
       <button
         onClick={() => window.close()}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
@@ -85,6 +93,13 @@ function ConseillerDetails() {
         <div className="fr-alert fr-alert--error fr-mt-4w">
           <p className="fr-alert__title">
             {errorRupture}
+          </p>
+        </div>
+      }
+      {errorEditContrat &&
+        <div className="fr-alert fr-alert--error fr-mt-4w">
+          <p className="fr-alert__title">
+            {errorEditContrat}
           </p>
         </div>
       }
@@ -193,18 +208,6 @@ function ConseillerDetails() {
             <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
             <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
           }
-          {/* <button className="fr-btn fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0" onClick={() => setOpenModal(true)}>
-            Valider la rupture de contrat
-          </button>
-          {openModal &&
-            <ModalValidationRupture
-              setOpenModal={setOpenModal}
-              idConseiller={idConseiller}
-              dateFinDeContrat={dateFinDeContrat}
-              setDateFinDeContrat={setDateFinDeContrat}
-              datePrisePoste={conseiller?.datePrisePoste}
-            />
-          } */}
         </>
           }
         </div>
@@ -240,9 +243,18 @@ function ConseillerDetails() {
               urlDossierDS={conseiller?.url}
               miseEnRelation={conseiller?.contrat}
               setOpenModal={setOpenModal}
+              setOpenModalContrat={setOpenModalContrat}
             />
             {openModal &&
               <ModalValidationRenouvellement setOpenModal={setOpenModal} idMiseEnRelation={conseiller?.contrat?._id} />
+            }
+            {openModalContrat &&
+              <PopinEditionContrat
+                setOpenModalContrat={setOpenModalContrat}
+                updateContract={updateContract}
+                conseiller={conseiller?.contrat}
+                editMode={true}
+              />
             }
           </>
         }

@@ -30,13 +30,18 @@ function createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelati
   }
 }
 
-function updateContract(typeDeContrat, dateDebut, dateFin, salaire, id) {
+function updateContract(typeDeContrat, dateDebut, dateFin, salaire, id, role = 'structure') {
   return dispatch => {
     dispatch(request());
 
     renouvellementService.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id)
     .then(
-      miseEnRelationRelation => dispatch(success(miseEnRelationRelation)),
+      miseEnRelation => {
+        if (role === 'admin') {
+          dispatch(updateContratConseiller(miseEnRelation));
+        }
+        dispatch(success(miseEnRelation));
+      },
       error => {
         dispatch(failure(error));
       }
@@ -46,8 +51,11 @@ function updateContract(typeDeContrat, dateDebut, dateFin, salaire, id) {
   function request() {
     return { type: 'UPDATE_CONTRACT_RENOUVELLEMENT_REQUEST' };
   }
-  function success(miseEnRelationRelation) {
-    return { type: 'UPDATE_CONTRACT_RENOUVELLEMENT_SUCCESS', miseEnRelationRelation };
+  function success(miseEnRelation) {
+    return { type: 'UPDATE_CONTRACT_RENOUVELLEMENT_SUCCESS', miseEnRelation };
+  }
+  function updateContratConseiller(miseEnRelationUpdated) {
+    return { type: 'UPDATE_MISE_EN_RELATION_CONTRAT', miseEnRelationUpdated };
   }
   function failure(error) {
     return { type: 'UPDATE_CONTRACT_RENOUVELLEMENT_FAILURE', error };

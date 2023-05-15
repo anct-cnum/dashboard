@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 
-const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS }) => {
+const CardsRenouvellement = ({ miseEnRelation, setOpenModal, setOpenModalContrat, urlDossierDS }) => {
 
   return (
     <div className="fr-card fr-mt-4w fr-card--no-border background-cards-contrat">
@@ -53,7 +53,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS }) => 
                     <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Salaire brut mensuel</strong><br />
-                        <span className="fr-text--regular fr-text--md">{miseEnRelation?.salaire ?? '-'}</span>
+                        <span className="fr-text--regular fr-text--md">{miseEnRelation?.salaire ? `${miseEnRelation?.salaire} €` : '-'}</span>
                       </div>
                     </div>
                   </div>
@@ -77,6 +77,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS }) => 
             <li>
               <button
                 className="fr-btn fr-btn--secondary"
+                onClick={() => setOpenModalContrat(true)}
               >
                 Modifier la demande
               </button>
@@ -104,6 +105,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS }) => 
 CardsRenouvellement.propTypes = {
   miseEnRelation: propTypes.object,
   setOpenModal: propTypes.func,
+  setOpenModalContrat: propTypes.func,
   urlDossierDS: propTypes.string,
 };
 

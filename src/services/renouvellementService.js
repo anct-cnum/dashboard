@@ -16,7 +16,7 @@ function createContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, sal
 }
 
 function updateContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, id) {
-  return API.patch(`${apiUrlRoot}/reconventionnement/contrat/${id}role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire })
+  return API.patch(`${apiUrlRoot}/reconventionnement/contrat/${id}?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

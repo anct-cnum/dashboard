@@ -53,7 +53,7 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal, setOpenModal
                     <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Salaire brut mensuel</strong><br />
-                        <span className="fr-text--regular fr-text--md">{miseEnRelation?.salaire ?? '-'}</span>
+                        <span className="fr-text--regular fr-text--md">{miseEnRelation?.salaire ? `${miseEnRelation?.salaire} €` : '-'}</span>
                       </div>
                     </div>
                   </div>

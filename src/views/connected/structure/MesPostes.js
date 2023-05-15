@@ -211,10 +211,10 @@ function MesPostes() {
       {openModalContrat && (
         <PopinEditionContrat
           setOpenModalContrat={setOpenModalContrat}
-          createContract={createContract}
-          editMode={editMode}
-          conseiller={selectedConseiller}
           updateContract={updateContract}
+          conseiller={selectedConseiller}
+          editMode={editMode}
+          createContract={createContract}
         />
       )}
       {openModal && <PopinAnnulationReConvention setOpenModal={setOpenModal} handleCancel={handleCancel} motif={motif} setMotif={setMotif} />}

@@ -243,6 +243,7 @@ export default function conseiller(state = initialState, action) {
           telephonePro: '',
           statut: 'RUPTURE',
           mattermost: '',
+          contrat: action.miseEnRelationUpdated,
           misesEnRelation: state.conseiller.misesEnRelation.map(
             miseEnRelation => (miseEnRelation._id === action.miseEnRelationUpdated._id) ? action.miseEnRelationUpdated : miseEnRelation
           ),

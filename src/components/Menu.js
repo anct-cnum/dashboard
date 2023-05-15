@@ -9,7 +9,7 @@ function Menu() {
   const dispatch = useDispatch();
   const location = useLocation();
   const { trackEvent } = useMatomo();
-  
+
   const urlAide = `${process.env.REACT_APP_AIDE_HOSTNAME}/category/tableau-de-pilotage-1i6u8in`;
 
   const burgerMenuHidden = useSelector(state => state.menu?.hiddenBurgerMenu);
@@ -73,7 +73,6 @@ function Menu() {
             { roleActivated === 'admin' &&
             <li className="fr-nav__item">
               <button
-                disabled
                 id="listes-traitement-demandes"
                 className="fr-nav__btn"
                 aria-expanded={ activeMenu === 'listes-traitement-demandes' }
