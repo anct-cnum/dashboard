@@ -100,13 +100,13 @@ function updateContact(id, info) {
   };
 
   function request() {
-    return { type: 'PATCH_STRUCTURE_REQUEST' };
+    return { type: 'PATCH_STRUCTURE_CONTACT_REQUEST' };
   }
   function success(structure) {
-    return { type: 'PATCH_STRUCTURE_SUCCESS', structure };
+    return { type: 'PATCH_STRUCTURE_CONTACT_SUCCESS', structure };
   }
   function failure(error) {
-    return { type: 'PATCH_STRUCTURE_FAILURE', error };
+    return { type: 'PATCH_STRUCTURE_CONTACT_FAILURE', error };
   }
 }
 

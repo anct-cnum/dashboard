@@ -12,10 +12,13 @@ function StructureContactForm({ setForm, structure }) {
     const { name, value } = event.target;
     setInfoForm({
       ...infoForm,
-      [name]: value.trim()
+      [name]: value
     });
   };
   const updateInfo = () => {
+    Object.keys(infoForm).forEach(k => {
+      infoForm[k] = infoForm[k].trim();
+    });
     dispatch(structureActions.updateContact({ id: structure?._id, contact: infoForm }));
     if (structure?.contact?.email !== infoForm?.email) {
       dispatch(structureActions.updateStructureEmail(infoForm.email.trim(), structure?._id));

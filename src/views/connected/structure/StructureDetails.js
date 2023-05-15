@@ -38,6 +38,12 @@ function StructureDetails() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   useEffect(() => {
+    if (structure === undefined) {
+      dispatch(structureActions.getDetails(idStructure));
+    }
+  }, [structure]);
+
+  useEffect(() => {
     dispatch(structureActions.getDetails(idStructure));
   }, [idStructure, formInformationContact]);
 
