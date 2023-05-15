@@ -4,7 +4,7 @@ export const structureActions = {
   get,
   getDetails,
   getAll,
-  patch,
+  updateContact,
   updateStructureEmail,
   updateStructureSiret,
   verifyStructureSiret,
@@ -86,11 +86,11 @@ function getDetails(id) {
   }
 }
 
-function patch(id, info) {
+function updateContact(id, info) {
   return dispatch => {
     dispatch(request());
 
-    structureService.patch(id, info)
+    structureService.updateContact(id, info)
     .then(
       structure => dispatch(success(structure)),
       error => {

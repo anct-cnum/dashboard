@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions, structureActions, alerteEtSpinnerActions } from '../../../actions';
 import Spinner from '../../../components/Spinner';
-import ContactCard from '../../../components/cards/ContactCards';
+import AccountCard from '../../../components/cards/AccountCard';
 import RolesCards from '../../../components/cards/RolesCards';
 
 function MesInformations() {
@@ -68,8 +68,9 @@ function MesInformations() {
   return (
     <div className="fr-container">
       <Spinner loading={loading} />
-      <ContactCard email={userAuth?.name} structureId={structure?._id}/>
-      <RolesCards user={userAuth} reseau={userAuth?.reseau} roles={userAuth?.roles} roleActivated={roleActivated} structure={structure}/>
+      <h2 className="fr-h2" style={{ color: '#000091' }}>Mon profil</h2>
+      <AccountCard email={userAuth?.name} />
+      <RolesCards user={userAuth} reseau={userAuth?.reseau} roles={userAuth?.roles} roleActivated={roleActivated} structure={structure} />
     </div>
   );
 }
