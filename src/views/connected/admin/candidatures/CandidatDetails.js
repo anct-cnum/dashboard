@@ -95,14 +95,14 @@ function CandidatDetails() {
       <div className="fr-col-12 fr-pt-6w">
         <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
-      {conseiller?.contrat ?
+      {!Array.isArray(conseiller?.miseEnRelation) ?
         <>
           <div className="fr-col-12">
             <div className="fr-grid-row" style={{ alignItems: 'center' }}>
               <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
             </div>
           </div>
-          <CardsRecrutement miseEnRelation={conseiller?.contrat[0]} conseiller={conseiller} />
+          <CardsRecrutement miseEnRelation={conseiller?.miseEnRelation} conseiller={conseiller} />
         </> :
         <div className="fr-col-12 fr-mb-4w">
           <div className="fr-grid-row" style={{ alignItems: 'center' }}>
@@ -122,7 +122,7 @@ function CandidatDetails() {
           }
         </div>
       }
-      
+
       <div className="fr-grid-row fr-mt-4w fr-col-12">
         <div className="fr-col-12">
           <hr style={{ borderWidth: '0.5px' }}/>
@@ -191,7 +191,10 @@ function CandidatDetails() {
             </div>
             <div className="fr-mb-3w">
               <strong>Date de recrutement pr&eacute;visionnelle</strong><br/>
-              {conseiller?.miseEnRelation?.length > 0 ?
+              {(conseiller?.miseEnRelation?.length === 0 || !conseiller?.miseEnRelation) &&
+                <span>-</span>
+              }
+              {conseiller?.miseEnRelation?.length > 0 &&
                 <>
                   {conseiller?.miseEnRelation?.map((miseEnRelation, idx) =>
                     <>
@@ -203,7 +206,17 @@ function CandidatDetails() {
                       </span>
                     </>
                   )}
-                </> : <span>-</span>
+                </>
+              }
+              {(!Array.isArray(conseiller?.miseEnRelation) && conseiller?.miseEnRelation) &&
+              <>
+                <span>
+                  {conseiller?.miseEnRelation?.dateRecrutement ? dayjs(conseiller?.miseEnRelation.dateRecrutement).format('DD/MM/YYYY') : 'Non renseignée'}
+                  {conseiller?.miseEnRelation?.structureObj?.nom &&
+                    <>&nbsp;par {conseiller?.miseEnRelation?.structureObj?.nom}</>
+                  }
+                </span>
+              </>
               }
             </div>
             <div className="fr-mb-3w">

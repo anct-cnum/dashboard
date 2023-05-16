@@ -76,12 +76,12 @@ const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
             {conseiller?.statut !== 'RECRUTE' &&
             <li>
               <button
-                className="fr-btn fr-btn--secondary"
+                className="fr-btn fr-btn--secondary" disabled
               >
                 Modifier la demande
               </button>
               <button
-                className="fr-btn"
+                className="fr-btn" disabled
               >
                 Valider la demande
               </button>
