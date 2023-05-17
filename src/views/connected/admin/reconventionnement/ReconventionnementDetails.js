@@ -79,7 +79,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                                   {conseiller?.typeDeContrat ?
                                     <>
                                       {conseiller?.typeDeContrat?.length > 15 ?
-                                        `${conseiller?.typeDeContrat.substring(0, 15)}...` : conseiller?.typeDeContrat
+                                        `${conseiller?.typeDeContrat?.substring(0, 15)}...` : conseiller?.typeDeContrat
                                       }
                                     </> : '-'
                                   }
@@ -210,7 +210,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                             {conseiller?.typeDeContrat ?
                               <>
                                 {conseiller?.typeDeContrat?.length > 15 ?
-                                  `${conseiller?.typeDeContrat.substring(0, 15)}...` : conseiller?.typeDeContrat
+                                  `${conseiller?.typeDeContrat?.substring(0, 15)}...` : conseiller?.typeDeContrat
                                 }
                               </> : '-'
                             }

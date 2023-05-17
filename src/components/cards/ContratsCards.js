@@ -138,7 +138,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                           {miseEnRelation?.typeDeContrat ?
                             <>
                               {miseEnRelation?.typeDeContrat?.length > 15 ?
-                                `${miseEnRelation?.typeDeContrat.substring(0, 15)}...` : miseEnRelation?.typeDeContrat
+                                `${miseEnRelation?.typeDeContrat?.substring(0, 15)}...` : miseEnRelation?.typeDeContrat
                               }
                             </> : '-'
                           }
