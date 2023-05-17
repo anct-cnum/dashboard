@@ -7,7 +7,7 @@ export const structureService = {
   get,
   getAll,
   getDetails,
-  patch,
+  updateContact,
   updateStructureEmail,
   updateStructureSiret,
   verifyStructureSiret
@@ -44,8 +44,8 @@ function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, fi
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function patch({ id, contact }) {
-  return API.patch(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`, { contact })
+function updateContact({ id, contact }) {
+  return API.patch(`${apiUrlRoot}/structure/contact/${id}?role=${roleActivated()}`, { contact })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

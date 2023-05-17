@@ -37,11 +37,11 @@ function StructureDetails() {
   const errorUsers = useSelector(state => state.user?.error);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
-  const errorInvitationMessage = 'L\'invitation du gestionnaire a échoué, veuillez réessayer plus tard';
-  const errorSuppressionMessage = 'La suppression du gestionnaire a échoué, veuillez réessayer plus tard';
-  const errorStructureMessage = 'La structure n\'a pas pu être chargé !';
-  const errorUsersMessage = 'Les gestionnaires n\'ont pas pu être chargés !';
-
+  useEffect(() => {
+    if (structure === undefined) {
+      dispatch(structureActions.getDetails(idStructure));
+    }
+  }, [structure]);
 
   useEffect(() => {
     dispatch(structureActions.getDetails(idStructure));
@@ -66,15 +66,15 @@ function StructureDetails() {
   });
 
   useEffect(() => {
-    const errors = [errorInvitationMessage, errorSuppressionMessage, errorStructureMessage, errorUsersMessage];
-    const errorMessages = errors.filter(error => error !== null);
+    const errors = [errorInvitation, errorSuppression, errorStructure, errorUsers];
+    const errorMessage = errors.filter(error => error);
   
-    if (errorMessages.length > 0) {
+    if (errorMessage.length > 0) {
       scrollTopWindow();
       dispatch(
         alerteEtSpinnerActions.getMessageAlerte({
           type: 'error',
-          message: errorMessages[0],
+          message: errorMessage[0],
           status: null,
           description: null,
         })
