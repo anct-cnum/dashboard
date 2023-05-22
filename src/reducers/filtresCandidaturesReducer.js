@@ -7,7 +7,6 @@ const initialState = {
   cv: undefined,
   nomCandidat: undefined,
   region: 'tous',
-  coms: 'tous',
   search: '',
 };
 
@@ -44,11 +43,6 @@ export default function filtresCandidatures(state = initialState, action) {
       return {
         ...state,
         departement: action.departement
-      };
-    case 'CHANGE_COMS':
-      return {
-        ...state,
-        coms: action.coms
       };
     case 'CHANGE_REGION':
       return {

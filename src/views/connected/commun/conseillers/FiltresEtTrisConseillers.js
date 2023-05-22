@@ -5,10 +5,15 @@ import Spinner from '../../../../components/Spinner';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
 import BlockDatePickers from '../statistiques/Components/commun/BlockDatePickers';
 import codeRegions from '../../../../datas/code_region.json';
+import departementsRegionRaw from '../../../../datas/departements-region.json';
+import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
 
 function FiltresEtTrisConseillers() {
   const dispatch = useDispatch();
-  
+
+  const departementsRegionArray = Array.from(departementsRegionRaw);
+  const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
+  const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
   const dateDebut = useSelector(state => state.filtresConseillers?.dateDebut);
   const ordreNom = useSelector(state => state.filtresConseillers?.ordreNom);
   const filtreCoordinateur = useSelector(state => state.filtresConseillers?.coordinateur);
@@ -16,6 +21,7 @@ function FiltresEtTrisConseillers() {
   const filtreParNomConseiller = useSelector(state => state.filtresConseillers?.nomConseiller);
   const filtreParNomStructure = useSelector(state => state.filtresConseillers?.nomStructure);
   const filtreRegion = useSelector(state => state.filtresConseillers?.region);
+  const filterDepartement = useSelector(state => state.filtresConseillers?.departement);
   const dateFin = useSelector(state => state.filtresConseillers?.dateFin);
   const ordre = useSelector(state => state.filtresConseillers?.ordre);
 
@@ -29,11 +35,17 @@ function FiltresEtTrisConseillers() {
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresConseillersActions.changeFiltreRegion(e.target.value));
+    dispatch(filtresConseillersActions.changeFiltreDepartement('tous'));
+  };
+
+  const selectFiltreDepartement = e => {
+    dispatch(paginationActions.setPage(1));
+    dispatch(filtresConseillersActions.changeFiltreDepartement(e.target?.value));
   };
 
   const exportDonneesConseiller = () => {
     dispatch(exportsActions.exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
-      filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+      filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
   };
 
   const rechercheParNomOuNomStructure = e => {
@@ -69,13 +81,22 @@ function FiltresEtTrisConseillers() {
     setSearchByStructure(e.target?.checked);
   };
 
+  const getDepartements = () => {
+    if (filtreRegion !== 'tous') {
+      return departementsRegionList.filter(region => region.region_name === codeRegions.find(r => r.code === filtreRegion).nom);
+    }
+    return departementsRegionList;
+  };
+
   return (
     <>
       <Spinner loading={loading} />
       <div className="fr-container--fluid">
         <div className="fr-grid-row">
-          <h3 className="fr-h3">Liste des conseillers</h3>
-          <div className="fr-ml-auto fr-col-12 fr-col-md-4 fr-mb-4w fr-mb-md-0">
+          <h1 className="fr-h1 title">Liste des conseillers</h1>
+        </div>
+        <div className="fr-grid-row">
+          <div className="fr-col-12 fr-col-md-6 fr-col-xl-8 fr-mb-4w fr-mb-md-0">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
               <input onKeyDown={rechercheParNomOuNomStructureToucheEnter} className="fr-input"
                 defaultValue={(filtreParNomConseiller || filtreParNomStructure) ?? ''}
@@ -85,9 +106,27 @@ function FiltresEtTrisConseillers() {
               </button>
             </div>
           </div>
+          <div className="fr-ml-md-auto fr-mt-n1w">
+            <div className="fr-toggle fr-toggle--label-left">
+              <input
+                checked={searchByStructure}
+                type="checkbox"
+                onChange={handleChangeToggle}
+                className="fr-toggle__input"
+                aria-describedby="toggle-698-hint-text"
+                id="toggle-698"
+              />
+              <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
+              S&eacute;lectionner le type de recherche
+              </label>
+            </div>
+          </div>
         </div>
-        <div className="fr-grid-row">
-          <div className="fr-select-group" id="filtre-region">
+        <div className="fr-grid-row fr-grid-row--end">
+          <div className="date-picker fr-mb-4w fr-mt-1w fr-grid-row">
+            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+          </div>
+          <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-3 fr-mr-4w" id="filtre-region">
             <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
               <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
               {codeRegions.map((region, idx) =>
@@ -95,23 +134,13 @@ function FiltresEtTrisConseillers() {
               )}
             </select>
           </div>
-          <div className="fr-toggle fr-ml-md-auto fr-toggle--label-left">
-            <input
-              checked={searchByStructure}
-              type="checkbox"
-              onChange={handleChangeToggle}
-              className="fr-toggle__input"
-              aria-describedby="toggle-698-hint-text"
-              id="toggle-698"
-            />
-            <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
-              S&eacute;lectionner le type de recherche
-            </label>
-          </div>
-        </div>
-        <div className="fr-grid-row fr-grid-row--end">
-          <div className="fr-col-12 fr-col-md-8 fr-mb-4w fr-mb-md-0 fr-grid-row">
-            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+          <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-3" id="filtre-departement">
+            <select className="fr-select" value={filterDepartement} onChange={selectFiltreDepartement}>
+              <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
+              {getDepartements().map((departement, idx) =>
+                <option key={idx} value={departement.num_dep}>{departement.num_dep} - {departement.dep_name}</option>
+              )}
+            </select>
           </div>
           <div className="fr-ml-auto">
             <button className="fr-btn fr-btn--secondary" onClick={exportDonneesConseiller}>Exporter les donn&eacute;es</button>

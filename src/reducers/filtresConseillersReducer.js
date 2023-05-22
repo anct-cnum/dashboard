@@ -8,6 +8,7 @@ const initialState = {
   ordreNom: undefined,
   searchInput: undefined,
   region: 'tous',
+  departement: 'tous',
 };
   
 export default function filtresConseillers(state = initialState, action) {
@@ -69,6 +70,11 @@ export default function filtresConseillers(state = initialState, action) {
       return {
         ...state,
         region: action.region
+      };
+    case 'CHANGE_DEPARTEMENT':
+      return {
+        ...state,
+        departement: action.departement
       };
     case 'SAVE_SEARCH_INPUT':
       return {
