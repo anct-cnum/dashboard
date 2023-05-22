@@ -39,7 +39,9 @@ const EditContractCard = ({ conseiller, roleActivated, setOpenModalContrat, setM
                     D&eacute;but de contrat
                   </span>
                   <br />
-                  <span className="fr-text--regular fr-text--md info__color">{dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY') ?? '-'}</span>
+                  <span className="fr-text--regular fr-text--md info__color">
+                    {conseiller?.dateDebutDeContrat ? dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY') : '-'}
+                  </span>
                 </div>
               </div>
               <div className="fr-col-2 card__text">
@@ -48,7 +50,9 @@ const EditContractCard = ({ conseiller, roleActivated, setOpenModalContrat, setM
                     Fin de contrat
                   </span>
                   <br />
-                  <span className="fr-text--regular fr-text--md info__color">{dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY') ?? '-'}</span>
+                  <span className="fr-text--regular fr-text--md info__color">
+                    {conseiller?.dateFinDeContrat ? dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY') : '-'}
+                  </span>
                 </div>
               </div>
               <div className="fr-col-2 card__text">
@@ -87,7 +91,7 @@ const EditContractCard = ({ conseiller, roleActivated, setOpenModalContrat, setM
               title="D&eacute;tail"
               onClick={() => setOpenModalContrat(true)}
             >
-              Editer son nouveau contrat
+              &Eacute;diter son nouveau contrat
             </button>
           </div>
         </div>

@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import EditContractCard from '../cards/EditContractCard';
 import CompleteContractCard from '../cards/CompleteContractCard';
 
-const renderCard = (conseiller, idx, roleActivated, setMiseEnrelationId, setOpenModalContrat, handleOpenModalContrat) => {
+const renderCard = (conseiller, idx, roleActivated, setMiseEnrelationId, setOpenModalContrat, handleOpenModalContrat, structure) => {
 
   if (conseiller?.reconventionnement && conseiller?.statut !== 'renouvellement_initié') {
     return (
@@ -23,6 +23,7 @@ const renderCard = (conseiller, idx, roleActivated, setMiseEnrelationId, setOpen
         roleActivated={roleActivated}
         setOpenModalContrat={setOpenModalContrat}
         handleOpenModalContrat={handleOpenModalContrat}
+        structure={structure}
         key={idx}
       />
     );
@@ -43,7 +44,7 @@ const RenewAdvisorsSection = ({
       <div className="container fr-mt-4w">
         <p className="fr-text--bold">Contrats &agrave; renouveller ({conseillersARenouveler?.length})</p>
         {conseillersARenouveler?.map((conseiller, idx) =>
-          renderCard(conseiller, idx, roleActivated, setMiseEnrelationId, setOpenModalContrat, handleOpenModalContrat)
+          renderCard(conseiller, idx, roleActivated, setMiseEnrelationId, setOpenModalContrat, handleOpenModalContrat, structure)
         )}
       </div>
     )

@@ -4,7 +4,7 @@ import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import { calculateMonthsDifference } from '../../../../utils/calculateUtils';
 
-const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContrat }) => {
+const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContrat, structure }) => {
   const { dateDebutDeContrat, dateFinDeContrat, typeDeContrat } = conseiller;
 
   const months = calculateMonthsDifference(dateDebutDeContrat, dateFinDeContrat);
@@ -41,7 +41,7 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
                     D&eacute;but de contrat
                   </span>
                   <br />
-                  <span className="info__color">{conseiller?.originalMiseEnRelation?.dateDebutDeContrat ?? '-'}</span>
+                  <span className="info__color">{dayjs(conseiller?.originalMiseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY') ?? '-'}</span>
                 </div>
               </div>
               <div className="fr-col-2 card__text">
@@ -50,7 +50,7 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
                     Fin de contrat
                   </span>
                   <br />
-                  <span className="info__color">{conseiller?.originalMiseEnRelation?.dateFinDeContrat ?? '-'}</span>
+                  <span className="info__color">{dayjs(conseiller?.originalMiseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY') ?? '-'}</span>
                 </div>
               </div>
               <div className="fr-col-2 card__text">
@@ -87,7 +87,7 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
             </div>
             <ul className="fr-btns-group fr-btns-group--inline-sm small__banner__button">
               <li>
-                <button className="fr-btn" style={{ margin: 'auto' }}>
+                <button className="fr-btn" style={{ margin: 'auto' }} onClick={() => window.open(`${structure?.urlDossierReconventionnement}/messagerie`)}>
                   Compl&eacute;ter le dossier
                 </button>
               </li>
@@ -112,6 +112,7 @@ CompleteContractCard.propTypes = {
   roleActivated: propTypes.string,
   setOpenModalContrat: propTypes.func,
   handleOpenModalContrat: propTypes.func,
+  structure: propTypes.object,
 };
 
 export default CompleteContractCard;
