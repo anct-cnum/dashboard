@@ -11,7 +11,7 @@ import BottomPage from './Components/graphiques/BottomPage';
 import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 import FiltresEtTrisGrandReseau from '../../grandReseau/FiltresEtTrisGrandReseau';
 
-export default function GraphiqueNationale() {
+export default function GraphiquePilotage() {
   const dispatch = useDispatch();
 
   const dateDebut = useSelector(state => state.statistiques?.dateDebut);
