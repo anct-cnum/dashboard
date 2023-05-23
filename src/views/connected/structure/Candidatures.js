@@ -147,11 +147,11 @@ function Candidatures() {
             <table>
               <thead>
                 <tr>
-                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '5rem' }}>Id</th>
-                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '6rem' }}>Prénom</th>
-                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '6rem' }}>Nom</th>
+                  <th style={{ width: '5rem' }}>Id</th>
+                  <th style={{ width: '6rem' }}>Prénom</th>
+                  <th style={{ width: '6rem' }}>Nom</th>
                   {filtersAndSorts.search !== '' && <th style={{ width: '15rem' }}>Email</th>}
-                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '15rem' }}>Statut</th>
+                  <th style={{ width: '15rem' }}>Statut</th>
                   <th>
                     <button id="createdAt" className="filtre-btn" onClick={ordreColonne}>
                       <span>Date de candidature</span>
@@ -160,7 +160,7 @@ function Candidatures() {
                   <th>Code postal</th>
                   {filtersAndSorts.search === '' && <th style={{ width: '8rem' }}>Résultat Pix</th> }
                   <th>Curriculum Vit&aelig;</th>
-                  <th style={{ width: filtersAndSorts.search !== '' && !checkConseillerObjExist(conseillers.items.data) ? '14.2rem' : '' }}></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -168,7 +168,7 @@ function Candidatures() {
                   return (
                     conseiller.conseillerObj ?
                       <Candidat key={idx} miseEnRelation={conseiller} currentPage={page} currentFilter={filter} search={filtersAndSorts.search !== ''} /> :
-                      <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={filtersAndSorts.search !== ''} />
+                      <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={filtersAndSorts.search !== ''} currentFilter={filter} />
                   );
                 })
                 }

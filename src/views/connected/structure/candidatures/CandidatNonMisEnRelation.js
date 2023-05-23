@@ -1,22 +1,15 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions } from '../../../../actions';
 import PropTypes from 'prop-types';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function ConseillerNonMisEnRelation({ conseiller, search }) {
-  const navigate = useNavigate();
+function CandidatNonMisEnRelation({ conseiller, search, currentFilter }) {
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const dispatch = useDispatch();
-
-  const preSelectionnerCandidat = () => {
-    dispatch(conseillerActions.preSelectionner(conseiller._id));
-    scrollTopWindow();
-    navigate('/structure/candidats/interessee');
-  };
 
   const downloadCV = () => {
     dispatch(conseillerActions.getCurriculumVitae(conseiller?._id, conseiller));
@@ -53,26 +46,30 @@ function ConseillerNonMisEnRelation({ conseiller, search }) {
           <></>
         }
       </td>
-      <td className="td-preselection">
+      <td>
         {conseiller?.miseEnRelation?.statut === 'finalisee' ?
-          <button className="fr-btn fr-mx-1w fr-icon-success-line fr-btn--icon-left"
-            style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
-            Pr&eacute; s&eacute;lectionner
-          </button> :
-          <button className="fr-btn fr-mx-1w fr-icon-success-line fr-btn--icon-left"
-            style={{ boxShadow: 'none' }}
-            onClick={preSelectionnerCandidat}>
-            Pr&eacute; s&eacute;lectionner
-          </button>
+          <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-1w" to={{
+            pathname: `/structure/preselection/conseiller/${conseiller._id}`
+          }}
+          state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
+              Détails
+          </Link> :
+          <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-1w" to={{
+            pathname: `/structure/preselection/candidat/${conseiller._id}`
+          }}
+          state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
+              Détails
+          </Link>
         }
       </td>
     </tr>
   );
 }
 
-ConseillerNonMisEnRelation.propTypes = {
+CandidatNonMisEnRelation.propTypes = {
   conseiller: PropTypes.object,
   search: PropTypes.bool,
+  currentFilter: PropTypes.string,
 };
 
-export default ConseillerNonMisEnRelation;
+export default CandidatNonMisEnRelation;
