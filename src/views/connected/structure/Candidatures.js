@@ -151,12 +151,12 @@ function Candidatures() {
                   {filtersAndSorts.search !== '' && <th style={{ width: '15rem' }}>Email</th>}
                   <th>
                     <button id="createdAt" className="filtre-btn" onClick={ordreColonne}>
-                      <span>Date de disponibilité</span>
+                      <span>Date de disponibilit&eacute;</span>
                     </button>
                   </th>
                   <th>CP</th>
                   <th>Formation CCP1</th>
-                  {filtersAndSorts.search === '' && <th style={{ width: '6rem' }}>Résultats Pix</th> }
+                  {filtersAndSorts.search === '' && <th style={{ width: '6rem' }}>R&eacute;sultats Pix</th> }
                   <th>CV</th>
                   <th style={{ width: filtersAndSorts.search !== '' ? '' : '18rem' }}>Statut</th>
                   <th style={{ width: filtersAndSorts.search !== '' && !checkConseillerObjExist(conseillers.items.data) ? '14.2rem' : '' }}></th>
