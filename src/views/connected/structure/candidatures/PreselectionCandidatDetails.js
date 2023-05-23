@@ -104,7 +104,7 @@ function PreselectionCandidatDetails() {
         <button onClick={preSelectionnerCandidat}
           className="fr-btn fr-ml-md-auto"
           title="Pr&eacute;selectionner ce candidat">
-          Préselectionner ce candidat
+          Pr&eacute;selectionner ce candidat
         </button>
       </div>
       <InformationCandidat conseiller={conseiller} />
