@@ -82,8 +82,6 @@ function Candidatures() {
     }
   }, [error, page]);
 
-  const checkConseillerObjExist = conseillers => conseillers.every(conseiller => 'conseillerObj' in conseiller);
-
   useEffect(() => {
     if (conseillers.downloadError && conseillers.downloadError !== false) {
       scrollTopWindow();

@@ -243,8 +243,8 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
 
 InformationConseiller.propTypes = {
   conseiller: PropTypes.object,
-  misesEnRelationFinalisee: PropTypes.object,
-  misesEnRelationFinaliseeRupture: PropTypes.object,
+  misesEnRelationFinalisee: PropTypes.array,
+  misesEnRelationFinaliseeRupture: PropTypes.array,
   roleActivated: PropTypes.string
 };
 

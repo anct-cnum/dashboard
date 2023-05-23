@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, conseillerActions } from '../../../../actions';
-import PropTypes from 'prop-types';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
@@ -12,12 +11,13 @@ function PreselectionCandidatDetails() {
 
   const location = useLocation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id } = useParams();
 
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const errorUpdateStatus = useSelector(state => state.conseiller?.errorUpdateStatus);
+  const errorPreselection = useSelector(state => state.conseiller?.errorPreselection);
+  const successPreselection = useSelector(state => state.conseiller?.successPreselection);
   const downloadError = useSelector(state => state.conseiller?.downloadError);
   const downloading = useSelector(state => state.conseiller?.downloading);
   const currentPage = useSelector(state => state.pagination?.currentPage);
@@ -41,15 +41,19 @@ function PreselectionCandidatDetails() {
     if ((errorUpdateStatus !== undefined && errorUpdateStatus !== false) ||
       (downloadError !== undefined && downloadError !== false)) {
       scrollTopWindow();
-
     }
   }, [errorUpdateStatus, downloadError]);
 
   const preSelectionnerCandidat = () => {
     dispatch(conseillerActions.preSelectionner(conseiller._id));
     scrollTopWindow();
-    navigate('/structure/candidats/interessee');
   };
+
+  useEffect(() => {
+    if (successPreselection !== undefined && successPreselection !== false) {
+      window.location.href = '/structure/candidats/interessee';
+    }
+  }, [successPreselection]);
 
   return (
     <div className="fr-container candidatDetails">
@@ -64,9 +68,14 @@ function PreselectionCandidatDetails() {
         <p>Le CV n&rsquo;a pas pu &ecirc;tre r&eacute;cup&eacute;r&eacute; !</p>
       </div>
       }
-      { (errorUpdateStatus !== undefined && errorUpdateStatus !== false) &&
+      {(errorUpdateStatus !== undefined && errorUpdateStatus !== false) &&
       <div className="fr-alert fr-alert--info fr-mt-3w">
         <p>{errorUpdateStatus}</p>
+      </div>
+      }
+      {(errorPreselection !== undefined && errorPreselection !== false) &&
+      <div className="fr-alert fr-alert--info fr-mt-3w">
+        <p>{errorPreselection}</p>
       </div>
       }
       <div className="fr-col-12 fr-pt-6w">
@@ -102,9 +111,5 @@ function PreselectionCandidatDetails() {
     </div>
   );
 }
-
-PreselectionCandidatDetails.propTypes = {
-  location: PropTypes.object
-};
 
 export default PreselectionCandidatDetails;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions, alerteEtSpinnerActions } from '../../../../actions';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
@@ -11,14 +11,15 @@ function PreselectionConseillerDetails() {
 
   const dispatch = useDispatch();
   const { idConseiller } = useParams();
-  const navigate = useNavigate();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
+  const errorPreselection = useSelector(state => state.conseiller?.errorPreselection);
+  const successPreselection = useSelector(state => state.conseiller?.successPreselection);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const currentPage = useSelector(state => state.pagination?.currentPage);
 
-  const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState({});
+  const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
 
   useEffect(() => {
@@ -45,8 +46,13 @@ function PreselectionConseillerDetails() {
   const preSelectionnerCandidat = () => {
     dispatch(conseillerActions.preSelectionner(conseiller._id));
     scrollTopWindow();
-    navigate('/structure/candidats/interessee');
   };
+
+  useEffect(() => {
+    if (successPreselection !== undefined && successPreselection !== false) {
+      window.location.href = '/structure/candidats/interessee';
+    }
+  }, [successPreselection]);
 
   return (
     <div className="fr-container conseillerDetails">
@@ -56,6 +62,11 @@ function PreselectionConseillerDetails() {
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </Link>
+      {(errorPreselection !== undefined && errorPreselection !== false) &&
+      <div className="fr-alert fr-alert--info fr-mt-3w">
+        <p>{errorPreselection}</p>
+      </div>
+      }
       <div className="fr-col-12 fr-pt-6w">
         <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
