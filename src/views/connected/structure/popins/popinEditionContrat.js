@@ -102,6 +102,7 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
                           name="motifRupture"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="contrat_de_projet_prive"
+                          checked={typeDeContrat === 'contrat_de_projet_prive'}
                         />
                         <label className="fr-label" htmlFor="radio-3">
                           Contrat de projet priv&eacute;
@@ -114,6 +115,7 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
                           name="motifRupture"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="contrat_de_projet_public"
+                          checked={typeDeContrat === 'contrat_de_projet_public'}
                         />
                         <label className="fr-label" htmlFor="radio-4">
                           Contrat de projet public
