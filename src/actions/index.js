@@ -19,3 +19,4 @@ export * from './filtresGestionnairesActions';
 export * from './reconventionnementActions';
 export * from './miseEnRelationActions';
 export * from './renouvellementActions';
+export * from './closeBannerActions';

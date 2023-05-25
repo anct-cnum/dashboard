@@ -31,8 +31,8 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
   useEffect(() => {
     if (editMode && conseiller) {
       setTypeDeContrat(conseiller?.typeDeContrat);
-      setDateDebut(conseiller?.dateDebut ? new Date(conseiller?.dateDebut) : null);
-      setDateFin(conseiller?.dateFin ? new Date(conseiller?.dateFin) : null);
+      setDateDebut(conseiller?.dateDebutDeContrat ? new Date(conseiller?.dateDebutDeContrat) : null);
+      setDateFin(conseiller?.dateFinDeContrat ? new Date(conseiller?.dateFinDeContrat) : null);
       setSalaire(conseiller?.salaire || '');
     }
   }, [editMode, conseiller]);
@@ -60,7 +60,7 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Renseigner un contrat pour ce candidat
                 </h1>
-                <p>Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat avant de fournir ces pi&egrave;ces justificatives.</p>
+                <p>Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat avant de fournir ses pi&egrave;ces justificatives.</p>
                 <div className="fr-col-12 fr-mt-1w">
                   <label className="fr-label" style={{ fontSize: 'unset' }} htmlFor="datePicker">
                     <p>Type de contrat</p>
@@ -75,8 +75,8 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
                           id="radio-1"
                           name="motifRupture"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
-                          value="CDI"
-                          checked={typeDeContrat === 'CDI'}
+                          value="cdi"
+                          checked={typeDeContrat === 'cdi'}
                         />
                         <label className="fr-label" htmlFor="radio-1">
                           CDI
@@ -88,8 +88,8 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
                           id="radio-2"
                           name="motifRupture"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
-                          value="CDD"
-                          checked={typeDeContrat === 'CDD'}
+                          value="cdd"
+                          checked={typeDeContrat === 'cdd'}
                         />
                         <label className="fr-label" htmlFor="radio-2">
                           CDD
@@ -110,12 +110,12 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
                       <div className="fr-radio-group fr-radio-group--sm">
                         <input
                           type="radio"
-                          id="radio-3"
+                          id="radio-4"
                           name="motifRupture"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="contrat_de_projet_public"
                         />
-                        <label className="fr-label" htmlFor="radio-3">
+                        <label className="fr-label" htmlFor="radio-4">
                           Contrat de projet public
                         </label>
                       </div>
@@ -124,7 +124,7 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
                 </div>
                 <div className="fr-col-12">
                   <label className="fr-label" style={{ fontSize: 'unset' }}>
-                    Date de début de contrat
+                    Date de d&eacute;but de contrat
                   </label>
                 </div>
                 <div className="fr-col-xl-12 btn-fr-col-xl-3">

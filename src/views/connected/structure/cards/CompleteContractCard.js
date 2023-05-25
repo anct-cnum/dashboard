@@ -41,7 +41,10 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
                     D&eacute;but de contrat
                   </span>
                   <br />
-                  <span className="info__color">{dayjs(conseiller?.originalMiseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY') ?? '-'}</span>
+                  <span className="info__color">{
+                    conseiller?.originalMiseEnRelation?.dateDebutDeContrat ?
+                      dayjs(conseiller?.originalMiseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY') : '-'
+                  }</span>
                 </div>
               </div>
               <div className="fr-col-2 card__text">
@@ -50,7 +53,12 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
                     Fin de contrat
                   </span>
                   <br />
-                  <span className="info__color">{dayjs(conseiller?.originalMiseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY') ?? '-'}</span>
+                  <span className="info__color">
+                    {
+                      conseiller?.originalMiseEnRelation?.dateFinDeContrat ?
+                        dayjs(conseiller?.originalMiseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY') : '-'
+                    }
+                  </span>
                 </div>
               </div>
               <div className="fr-col-2 card__text">
@@ -80,7 +88,8 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
             <div className="banner__text">
               <p className="fr-notice__title title__color">Envoyer les pi&egrave;ces justificatives pour finaliser la demande de renouvellement</p>
               <p className="fr-text--sm">
-                {`Demande d'un ${typeDeContrat?.toUpperCase()} de ${months} mois avec une date de début le ${dayjs(dateDebutDeContrat).format(
+                {`Demande d'un ${typeDeContrat?.toUpperCase().split('_').join(' ')} de ${months} mois avec une date de début le ${dayjs(dateDebutDeContrat)
+                .format(
                   'DD/MM/YYYY'
                 )}.`}
               </p>

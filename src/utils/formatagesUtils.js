@@ -131,6 +131,12 @@ export function formatTypeDeContrat(conseiller) {
   let output = '';
   
   switch (typeDeContrat) {
+    case 'cdi':
+      output = 'CDI';
+      break;
+    case 'cdd':
+      output = 'CDD';
+      break;
     case 'contrat_de_projet_prive':
       output = 'Projet privé';
       break;

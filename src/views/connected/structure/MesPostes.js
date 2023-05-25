@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PopinAnnulationReConvention from './popins/popinAnnulationReConvention';
 import PopinEditionContrat from './popins/popinEditionContrat';
-import ValidatedRenouvellementBanner from './banners/ValidatedRenouvellementBanner';
-import ValidatedAvenantBanner from './banners/ValidatedAvenantBanner';
-import ManagePositionsCard from './cards/ManagePositionsCard';
-import HireAdvisorCard from './cards/HireAdvisorCard';
+import { ValidatedRenouvellementBanner } from './banners';
+import { ManagePositionsCard, HireAdvisorCard } from './cards';
 import Spinner from '../../../components/Spinner';
 import {
   structureActions,
@@ -13,11 +11,13 @@ import {
   renouvellementActions,
   miseEnRelationAction
 } from '../../../actions';
-import InactiveAdvisorsSection from './views/InactiveAdvisorsSection';
-import ActiveAdvisorsSection from './views/ActiveAdvisorsSection';
-import RenewAdvisorsSection from './views/RenewAdvisorsSection';
-import ActiveNoRenewalAdvisorsSection from './views/ActiveNoRenewalAdvisorsSection';
-import ReconventionnementBanner from './views/ReconventionnementBanner';
+import {
+  InactiveAdvisorsSection,
+  ActiveAdvisorsSection,
+  RenewAdvisorsSection,
+  ActiveNoRenewalAdvisorsSection,
+  ReconventionnementBanner
+} from './views';
 import { useAdvisors } from './hooks/useAdvisors';
 import { useErrors } from './hooks/useErrors';
 import { useStructure } from './hooks/useStructure';
@@ -33,7 +33,6 @@ function MesPostes() {
   const loadingMisesEnRelation = useSelector(state => state.misesEnRelations?.loading);
   const loadingRenouvellement = useSelector(state => state.renouvellement?.loading);
   const [miseEnrelationId, setMiseEnrelationId] = useState('');
-  const [dernierAvenantValide, setDernierAvenantValide] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [selectedConseiller, setSelectedConseiller] = useState(null);
   const [showValidateBanner, setShowValidateBanner] = useState(true);
@@ -49,17 +48,31 @@ function MesPostes() {
   const { handleErrors } = useErrors([errorStructure, errorMisesEnRelation]);
   const { structure, openModal, setOpenModal } = useStructure();
 
+  function getClassName() {
+    const withBannerOnTopStatuses = [
+      'CONVENTIONNEMENT_VALIDÉ',
+      'RECONVENTIONNEMENT_EN_COURS',
+      'ENREGISTRÉ',
+    ];
+    if (withBannerOnTopStatuses.includes(structure?.conventionnement?.statut)) {
+      return 'withBannerOnTop';
+    }
+    if (bannieresRenouvellementValide?.length > 0) {
+      return 'withBannerOnTop';
+    }
+    if (showValidateBanner && structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ') {
+      return 'withBannerOnTop';
+    }
+    if (structure?.conventionnement?.statut === 'NON_INTERESSÉ') {
+      return 'withoutBannerOnTop';
+    }
+  }
+
   useEffect(() => {
     if (structure?._id) {
       dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
     }
   }, [structure?._id, loadingRenouvellement]);
-  
-  useEffect(() => {
-    if (structure?.demandesCoselec) {
-      setDernierAvenantValide(structure?.lastDemandeCoselecValidee);
-    }
-  }, [structure]);
   
   useEffect(() => {
     const bannerClosed = localStorage.getItem('bannerClosed');
@@ -105,13 +118,6 @@ function MesPostes() {
             />
           );
         })}
-      {dernierAvenantValide?.banniereValidationAvenant && (
-        <ValidatedAvenantBanner
-          demande={dernierAvenantValide}
-          setDernierAvenantValide={setDernierAvenantValide}
-          structure={structure}
-        />
-      )}
       <ReconventionnementBanner
         structure={structure}
         roleActivated={roleActivated}
@@ -136,17 +142,12 @@ function MesPostes() {
       <div className="fr-container">
         <Spinner loading={loadingStructure || loadingMisesEnRelation || loadingRenouvellement} />
         <h2
-          className={`fr-mb-6w ${
-            (!showValidateBanner && structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ') ||
-            structure?.conventionnement?.statut === 'NON_INTERESSÉ' ?
-              'withoutBannerOnTop' :
-              'withBannerOnTop'
-          }`}
+          className={`fr-mb-6w ${getClassName()}`}
           style={{ color: '#000091' }}
         >
           G&eacute;rer mes postes
         </h2>
-        <ManagePositionsCard structure={structure} setDernierAvenantValide={setDernierAvenantValide} />
+        <ManagePositionsCard structure={structure} />
         {misesEnRelation?.length > 0 && (
           <>
             <HireAdvisorCard
