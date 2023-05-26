@@ -84,6 +84,11 @@
     align-items: center;
   }
 
+  .responsive__banner__edit {
+    display: flex;
+    align-items: center;
+  }
+
   .responsive__wide-card {
     display: flex;
     align-items: center;
@@ -116,6 +121,43 @@
   }
   }
 
+
+  .card-banner-top{
+    border: solid 1px #e5e5e5;
+    border-bottom: none;
+  }
+
+  .card-banner-bottom-edit{
+    border: solid 1px #e5e5e5;
+    border-top: none;
+    background-color: $info-975;
+    .icon__color {
+      color: $info-425;
+    }
+    .title__color {
+      color: $info-425;
+    }
+  }
+
+  .banner__text {
+   width: 47rem;
+  }
+
+  .withoutBannerOnTop {
+    margin-top: 100px;
+  }
+  
+  .withBannerOnTop {
+    margin-top: 240px;
+  }
+  
+
+@media (max-width: 1220px) {
+    .small__banner__button {
+    justify-content: center;
+    }
+  }
+
 @media (max-width: 1220px) {
     .responsive__banner {
       display: block;
@@ -123,10 +165,24 @@
       padding: auto;
     }
   }
+@media (max-width: 1220px) {
+    .responsive__banner__edit {
+      display: block;
+      text-align: center;
+      padding: auto;
+    }
+    .text {
+      margin: 0 auto;
+    }
+    .buttons {
+      margin: 0 auto;
+    }
+  }
   
   @media (max-width: 1220px) {
       .banner__text {
         margin: auto;
+        width: 100%;
       }
     }
     
@@ -138,7 +194,7 @@
 
 @media (min-width: 1220px) {
     .banner__button {
-      margin-left: 17.7rem;
+      margin-left: 8.7rem;
     }
   }
 

@@ -119,7 +119,9 @@ function StructureDetails() {
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <h2>Activit&eacute;</h2>
-        {structure?.conventionnement?.statut && structure?.conventionnement?.statut !== 'NON_INTERESSÉ' && (
+        {structure?.conventionnement?.statut && (structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' ||
+        structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_EN_COURS') &&
+        (
           <ReconventionnementInfosCard structure={structure} />
         )}
         <ConventionnementInfosCard structure={structure} roleActivated={roleActivated}/>

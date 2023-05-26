@@ -124,3 +124,28 @@ export const badgeStatutDossierDS = statut => {
       return <p className="fr-badge fr-badge--warning fr-mr-3w">Dossier non cr&eacute;&eacute;</p>;
   }
 };
+
+
+export function formatTypeDeContrat(conseiller) {
+  let typeDeContrat = conseiller?.typeDeContrat ?? '-';
+  let output = '';
+  
+  switch (typeDeContrat) {
+    case 'cdi':
+      output = 'CDI';
+      break;
+    case 'cdd':
+      output = 'CDD';
+      break;
+    case 'contrat_de_projet_prive':
+      output = 'Projet privé';
+      break;
+    case 'contrat_de_projet_public':
+      output = 'Projet public';
+      break;
+    default:
+      output = typeDeContrat;
+  }
+  
+  return output;
+}
