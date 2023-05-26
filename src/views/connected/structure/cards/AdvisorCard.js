@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, formatTypeDeContrat } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 
 const AdvisorCard = ({ conseiller, roleActivated }) => {
@@ -14,6 +14,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
         return;
     }
   };
+
   return (
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
       <div className="fr-card__body fr-p-0">
@@ -36,7 +37,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                   Type de contrat
                 </strong>
                 <br />
-                <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
+                <span className="fr-text--regular fr-text--md">{formatTypeDeContrat(conseiller)}</span>
               </div>
             </div>
             <div className="fr-col-2 card__text">

@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export const calculateMonthsDifference = (dateDebut, dateFin) => {
   const startDate = new Date(dateDebut);
   const endDate = new Date(dateFin);
@@ -7,4 +9,12 @@ export const calculateMonthsDifference = (dateDebut, dateFin) => {
   months += endDate.getMonth();
   
   return months <= 0 ? 0 : months;
+};
+
+export const calcNbJoursAvantDateFinContrat = dateFinContrat => {
+  const dateFin = dayjs(dateFinContrat);
+  const dateAujourdhui = dayjs();
+  const nbJours = dateFin.diff(dateAujourdhui, 'day');
+
+  return Math.max(nbJours, 0);
 };

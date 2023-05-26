@@ -143,6 +143,15 @@
    width: 47rem;
   }
 
+  .withoutBannerOnTop {
+    margin-top: 100px;
+  }
+  
+  .withBannerOnTop {
+    margin-top: 240px;
+  }
+  
+
 @media (max-width: 1220px) {
     .small__banner__button {
     justify-content: center;
@@ -185,7 +194,7 @@
 
 @media (min-width: 1220px) {
     .banner__button {
-      margin-left: 17.7rem;
+      margin-left: 8.7rem;
     }
   }
 

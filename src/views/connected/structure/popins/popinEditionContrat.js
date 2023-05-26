@@ -76,7 +76,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Renseigner un contrat pour ce candidat
                 </h1>
-                <p>Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat avant de fournir ces pi&egrave;ces justificatives.</p>
+                <p>Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat avant de fournir ses pi&egrave;ces justificatives.</p>
                 <div className="fr-col-12 fr-mt-1w">
                   <label className="fr-label" style={{ fontSize: 'unset' }} htmlFor="datePicker">
                     <p>Type de contrat</p>
@@ -142,7 +142,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                 </div>
                 <div className="fr-col-12">
                   <label className="fr-label" style={{ fontSize: 'unset' }}>
-                    Date de début de contrat
+                    Date de d&eacute;but de contrat
                   </label>
                 </div>
                 <div className="fr-col-xl-12 btn-fr-col-xl-3">
