@@ -75,7 +75,15 @@ function ReconventionnementDetails({ reconventionnement }) {
                             <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">Type de contrat</strong><br />
-                                <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
+                                <span className="fr-text--regular fr-text--md" title={conseiller?.typeDeContrat ?? ''}>
+                                  {conseiller?.typeDeContrat ?
+                                    <>
+                                      {conseiller?.typeDeContrat?.length > 15 ?
+                                        `${conseiller?.typeDeContrat?.substring(0, 15)}...` : conseiller?.typeDeContrat
+                                      }
+                                    </> : '-'
+                                  }
+                                </span>
                               </div>
                             </div>
                             <div className="fr-col-3 fr-col-xl-2">
@@ -84,7 +92,10 @@ function ReconventionnementDetails({ reconventionnement }) {
                                 {conseiller?.dateDebutDeContrat ?
                                   <span className="fr-text--regular fr-text--md">
                                     {dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY')}
-                                  </span> : <span>-</span>
+                                  </span> :
+                                  <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                                    En attente de pi&egrave;ces...
+                                  </span>
                                 }
                               </div>
                             </div>
@@ -94,7 +105,10 @@ function ReconventionnementDetails({ reconventionnement }) {
                                 {conseiller?.dateFinDeContrat ?
                                   <span className="fr-text--regular fr-text--md">
                                     {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
-                                  </span> : <span>-</span>
+                                  </span> :
+                                  <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                                    En attente de pi&egrave;ces...
+                                  </span>
                                 }
                               </div>
                             </div>
@@ -192,7 +206,15 @@ function ReconventionnementDetails({ reconventionnement }) {
                       <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top">
                         <div>
                           <strong className="fr-text--md">Type de contrat</strong><br />
-                          <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
+                          <span className="fr-text--regular fr-text--md" title={conseiller?.typeDeContrat ?? ''}>
+                            {conseiller?.typeDeContrat ?
+                              <>
+                                {conseiller?.typeDeContrat?.length > 15 ?
+                                  `${conseiller?.typeDeContrat?.substring(0, 15)}...` : conseiller?.typeDeContrat
+                                }
+                              </> : '-'
+                            }
+                          </span>
                         </div>
                       </div>
                       <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top">
@@ -201,7 +223,10 @@ function ReconventionnementDetails({ reconventionnement }) {
                           {conseiller?.dateDebutDeContrat ?
                             <span className="fr-text--regular fr-text--md">
                               {dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY')}
-                            </span> : <span>-</span>
+                            </span> :
+                            <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                              En attente de pi&egrave;...
+                            </span>
                           }
                         </div>
                       </div>
@@ -209,7 +234,9 @@ function ReconventionnementDetails({ reconventionnement }) {
                         <div>
                           <strong className="fr-text--md">Fin de contrat</strong><br />
                           {(!conseiller?.dateFinDeContrat && !conseiller?.dateRupture) &&
-                            <span className="fr-text--regular fr-text--md">-</span>
+                            <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                              En attente de pi&egrave;...
+                            </span>
                           }
                           {conseiller?.dateFinDeContrat &&
                             <span className="fr-text--regular fr-text--md">

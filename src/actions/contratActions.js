@@ -2,7 +2,8 @@ import { contratService } from '../services/contratService.js';
 
 export const contratActions = {
   getAll,
-  validationRenouvellement
+  validationRenouvellement,
+  getAllHistorique,
 };
 
 function getAll(page, statutContrat) {
@@ -51,10 +52,33 @@ function validationRenouvellement(id) {
   function success() {
     return { type: 'UPDATE_CONTRAT_SUCCESS' };
   }
+  function failure(error) {
+    return { type: 'UPDATE_CONTRAT_FAILURE', error };
+  }
   function updateMiseEnRelation(miseEnRelationUpdated) {
     return { type: 'UPDATE_MISE_EN_RELATION_CONTRAT', miseEnRelationUpdated };
   }
+}
+function getAllHistorique(page, statutContrat, dateDebut, dateFin) {
+  return dispatch => {
+    dispatch(request());
+
+    contratService.getAllHistorique(page, statutContrat, dateDebut, dateFin)
+    .then(
+      contrats => dispatch(success(contrats)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GETALL_HISTORIQUE_CONTRAT_REQUEST' };
+  }
+  function success(contrats) {
+    return { type: 'GETALL_HISTORIQUE_CONTRAT_SUCCESS', contrats };
+  }
   function failure(error) {
-    return { type: 'UPDATE_CONTRAT_FAILURE', error };
+    return { type: 'GETALL_HISTORIQUE_CONTRAT_FAILURE', error };
   }
 }

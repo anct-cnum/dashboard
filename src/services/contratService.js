@@ -4,7 +4,8 @@ import { API } from './api';
 
 export const contratService = {
   getAll,
-  validationRenouvellement
+  validationRenouvellement,
+  getAllHistorique,
 };
 
 function getAll(page, statutContrat) {
@@ -15,6 +16,15 @@ function getAll(page, statutContrat) {
 
 function validationRenouvellement(id) {
   return API.patch(`${apiUrlRoot}/contrat/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getAllHistorique(page, statutContrat, dateDebut, dateFin) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+
+  return API.get(`${apiUrlRoot}/historique/contrats?role=${roleActivated()}&page=${page}&statut=${statutContrat}${filterDateStart}${filterDateEnd}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
