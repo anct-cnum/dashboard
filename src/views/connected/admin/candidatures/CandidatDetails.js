@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { alerteEtSpinnerActions, conseillerActions } from '../../../../actions';
@@ -10,12 +10,11 @@ import pixRessources from '../../../../assets/icons/pix-ressources.png';
 import pixCitoyen from '../../../../assets/icons/pix-citoyen.png';
 import FormSuppressionCandidat from './FormSuppressionCandidat';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import CardsRecrutement from '../contrats/CardsRecrutement';
+import CardsRecrutement from '../contrats/cards/CardsRecrutement';
 
 function CandidatDetails() {
   const dispatch = useDispatch();
   const { idCandidat, idMiseEnRelation } = useParams();
-  const location = useLocation();
   const navigate = useNavigate();
 
   const conseiller = useSelector(state => state.conseiller?.conseiller);
@@ -27,7 +26,6 @@ function CandidatDetails() {
   const successSendMail = useSelector(state => state.conseiller?.successResendInvitCandidatConseiller);
   const errorCandidat = useSelector(state => state.conseiller?.errorCandidat);
   const [confirmSuppressionCandidat, setConfirmSuppressionCandidat] = useState(false);
-  const currentPage = useSelector(state => state.pagination?.currentPage);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   useEffect(() => {
@@ -68,11 +66,11 @@ function CandidatDetails() {
   return (
     <div className="fr-container candidatDetails">
       <Spinner loading={loading || downloading} />
-      <Link
-        to={location?.state?.origin ?? '/admin/liste-candidatures'} state={{ currentPage }}
+      <button
+        onClick={() => window.close()}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
-      </Link>
+      </button>
       {(downloadError !== undefined && downloadError !== false) &&
       <div className="fr-alert fr-alert--error">
         <p>Le CV n&rsquo;a pas pu &ecirc;tre r&eacute;cup&eacute;r&eacute; !</p>

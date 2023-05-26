@@ -42,12 +42,17 @@ function HistoriqueContrat({ contrat }) {
         <td>{contrat?.dateDebutDeContrat ? dayjs(contrat?.dateDebutDeContrat).format('DD/MM/YYYY') : '-'}</td>
         <td>{contrat?.dateFinDeContrat ? dayjs(contrat?.dateFinDeContrat).format('DD/MM/YYYY') : '-'}</td>
         <td>
-          <button
-            disabled
-            className="fr-btn fr-icon-eye-line"
-            title="D&eacute;tail"
-            onClick={() => window.open(`/admin/demandes/contrat/${contrat?._id}`)}>
-          </button>
+          {contrat?.statut === 'finalisee' ?
+            <button
+              className="fr-btn fr-icon-eye-line"
+              title="D&eacute;tail"
+              onClick={() => window.open(`/admin/candidat/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
+            </button> : <button
+              className="fr-btn fr-icon-eye-line"
+              title="D&eacute;tail"
+              onClick={() => window.open(`/admin/conseiller/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
+            </button>
+          }
         </td>
       </tr>
     </>

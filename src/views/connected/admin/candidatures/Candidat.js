@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { conseillerActions } from '../../../../actions';
@@ -41,11 +40,11 @@ function Candidat({ candidat }) {
           }
         </td>
         <td>
-          <Link
+          <button
             className="fr-btn fr-icon-eye-line"
-            title="Détails"
-            to={`/${roleActivated}/candidat/${candidat?._id}`}
-            state={{ 'origin': `/${roleActivated}/liste-candidatures` }}>D&eacute;tails</Link>
+            title="D&eacute;tail"
+            onClick={() => window.open(`/${roleActivated}/candidat/${candidat?._id}`)}>
+          </button>
         </td>
       </tr>
     </>
