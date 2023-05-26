@@ -14,8 +14,8 @@ export default function TableauTerritoires() {
   const location = useLocation();
 
   const filtreTerritoire = useSelector(state => state.filtresEtTris?.territoire);
-  const dateDebut = useSelector(state => state.filtresEtTris?.dateDebut);
-  const dateFin = useSelector(state => state.filtresEtTris?.dateFin);
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresEtTris?.ordre);
   const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
   const loading = useSelector(state => state.statistiques?.loading);

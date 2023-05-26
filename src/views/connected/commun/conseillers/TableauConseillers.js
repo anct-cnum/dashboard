@@ -14,8 +14,8 @@ export default function TableauConseillers() {
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
 
-  const dateDebut = useSelector(state => state.filtresConseillers?.dateDebut);
-  const dateFin = useSelector(state => state.filtresConseillers?.dateFin);
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresConseillers?.ordre);
   const [basculerFiltreRupture, setBasculerFiltreRupture] = useState(false);
   const [basculerFiltreCoordinateur, setBasculerFiltreCoordinateur] = useState(false);
@@ -28,6 +28,7 @@ export default function TableauConseillers() {
   const filtreParNomConseiller = useSelector(state => state.filtresConseillers?.nomConseiller);
   const filtreParNomStructure = useSelector(state => state.filtresConseillers?.nomStructure);
   const filtreRegion = useSelector(state => state.filtresConseillers?.region);
+  const filterDepartement = useSelector(state => state.filtresConseillers?.departement);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
   
@@ -67,9 +68,10 @@ export default function TableauConseillers() {
   useEffect(() => {
     if (initConseiller === true) {
       dispatch(conseillerActions.getAllRecruter(currentPage, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
-        filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+        filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
     }
-  }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filtreParNomStructure]);
+  // eslint-disable-next-line max-len
+  }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filterDepartement, filtreParNomStructure]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -81,7 +83,7 @@ export default function TableauConseillers() {
       if (initConseiller === false && page !== undefined) {
         dispatch(statistiquesActions.resetFiltre());
         dispatch(conseillerActions.getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
-          filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+          filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
     } else {
@@ -100,7 +102,7 @@ export default function TableauConseillers() {
         <div className="fr-grid-row">
           <div className="fr-col-12">
             <FiltresEtTrisConseillers />
-            <div className="fr-container--fluid fr-mt-2w">
+            <div className="fr-container--fluid">
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
                   <div className="fr-table">

@@ -72,7 +72,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                     <div>
                       <strong className="fr-text--md">D&eacute;but de contrat</strong><br/>
                       {(!misesEnRelationFinalisee[0]?.dateDebutDeContrat && !misesEnRelationNouvelleRupture?.dateDebutDeContrat) &&
-                        <span className="fr-text--regular fr-text--md">-</span>
+                        <span className="fr-text--regular fr-text--md">En attente de pi&egrave;ces justificatives</span>
                       }
                       {misesEnRelationFinalisee[0]?.dateDebutDeContrat &&
                         <span className="fr-text--regular fr-text--md">
@@ -90,7 +90,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                     <div>
                       <strong className="fr-text--md">Fin de contrat</strong><br/>
                       {(!misesEnRelationFinalisee[0]?.dateFinDeContrat && !misesEnRelationNouvelleRupture?.dateFinDeContrat) &&
-                        <span className="fr-text--regular fr-text--md">-</span>
+                        <span className="fr-text--regular fr-text--md">En attente de pi&egrave;ces justificatives</span>
                       }
                       {misesEnRelationFinalisee[0]?.dateFinDeContrat &&
                         <span className="fr-text--regular fr-text--md">
@@ -134,7 +134,15 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                     <div className={`${checkMotifRupture(miseEnRelation?.motifRupture) ? 'fr-col-2' : 'type-contrat'}`}>
                       <div>
                         <strong className="fr-text--md">Type de contrat</strong><br/>
-                        <span className="fr-text--regular fr-text--md">{miseEnRelation?.typeDeContrat ?? '-'}</span>
+                        <span className="fr-text--regular fr-text--md" title={miseEnRelation?.typeDeContrat ?? ''}>
+                          {miseEnRelation?.typeDeContrat ?
+                            <>
+                              {miseEnRelation?.typeDeContrat?.length > 15 ?
+                                `${miseEnRelation?.typeDeContrat?.substring(0, 15)}...` : miseEnRelation?.typeDeContrat
+                              }
+                            </> : '-'
+                          }
+                        </span>
                       </div>
                     </div>
                     <div className="fr-col-2">
@@ -143,7 +151,10 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                         {miseEnRelation?.dateDebutDeContrat ?
                           <span className="fr-text--regular fr-text--md">
                             {dayjs(miseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY')}
-                          </span> : <span>-</span>
+                          </span> :
+                          <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                            En attente de pi&egrave;ces...
+                          </span>
                         }
                       </div>
                     </div>

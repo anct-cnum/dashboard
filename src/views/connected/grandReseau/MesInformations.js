@@ -4,6 +4,7 @@ import InvitationGrandReseau from './informations/InvitationGrandReseau';
 import Spinner from '../../../components/Spinner';
 import { alerteEtSpinnerActions } from '../../../actions';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
+import AccountCard from '../../../components/cards/AccountCard';
 
 function MesInformations() {
 
@@ -52,13 +53,14 @@ function MesInformations() {
         </div>
       }
       <Spinner loading={loading || loadingUserDelete} />
+      <h2 className="fr-h2" style={{ color: '#000091' }}>Mon profil</h2>
       <div className="fr-grid-row">
-        <div className="fr-col-12 fr-col-lg-6 fr-col-xl-6 fr-mb-3w fr-mb-lg-0w">
-          <h2>Mon compte</h2>
-          <p>Email : <b>{userAuth?.name}</b></p>
-        </div>
-        <div className="fr-col-12 fr-col-md-6 fr-col-sm-6">
-          <InvitationGrandReseau />
+        <AccountCard email={userAuth?.name}/>
+        <div className="fr-card fr-col-8 fr-mt-3w fr-col-lg-8 fr-col-md-8">
+          <div className="fr-card__body fr-p-3w">
+            <h4>Inviter un administrateur</h4>
+            <InvitationGrandReseau />
+          </div>
         </div>
       </div>
     </div>

@@ -1,32 +1,19 @@
 const initialState = {
-  dateDebut: new Date(1605571200000),
-  dateFin: new Date(),
   departement: 'tous',
   nomStructure: undefined,
   ordre: true,
   ordreNom: undefined,
   region: 'tous',
-  coms: 'tous',
   type: 'tous',
   statut: 'VALIDATION_COSELEC',
 };
   
 export default function filtresStructures(state = initialState, action) {
   switch (action.type) {
-    case 'CHANGE_DATE_DEBUT':
-      return {
-        ...state,
-        dateDebut: action.dateDebut,
-      };
     case 'CHANGE_NOM_STRUCTURE':
       return {
         ...state,
         nomStructure: action.nomStructure,
-      };
-    case 'CHANGE_DATE_FIN':
-      return {
-        ...state,
-        dateFin: action.dateFin,
       };
     case 'CHANGE_ORDRE':
       return {
@@ -48,11 +35,6 @@ export default function filtresStructures(state = initialState, action) {
       return {
         ...state,
         departement: action.departement
-      };
-    case 'CHANGE_COMS':
-      return {
-        ...state,
-        coms: action.coms
       };
     case 'SAVE_SEARCH_INPUT':
       return {

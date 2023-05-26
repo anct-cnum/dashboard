@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions } from '../../../../actions';
+import { alerteEtSpinnerActions, exportsActions, paginationActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import Contrat from './Contrat';
 import { contratActions } from '../../../../actions/contratActions';
+import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
+import HistoriqueContrat from './HistoriqueContrat';
 
-export default function TableauContrat() {
+export default function TableauHistoriqueContrat() {
 
   const dispatch = useDispatch();
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
 
   const loading = useSelector(state => state.contrat?.loading);
+  const loadingExport = useSelector(state => state.exports?.loading);
   const error = useSelector(state => state.contrat?.error);
   const contrats = useSelector(state => state.contrat);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initContrat, setInitContrat] = useState(false);
   const [statutContrat, setStatutContrat] = useState('toutes');
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
+  const exportHistoriqueContratFileBlob = useSelector(state => state.exports);
+  const exportHistoriqueContratError = useSelector(state => state.exports?.error);
+
+  const has = value => value !== null && value !== undefined;
 
   useEffect(() => {
     if (contrats?.items && contrats?.items?.total > 0) {
@@ -30,9 +38,9 @@ export default function TableauContrat() {
 
   useEffect(() => {
     if (initContrat === true) {
-      dispatch(contratActions.getAll(currentPage, statutContrat));
+      dispatch(contratActions.getAllHistorique(currentPage, statutContrat, dateDebut, dateFin));
     }
-  }, [currentPage, statutContrat]);
+  }, [currentPage, statutContrat, dateDebut, dateFin]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -42,7 +50,7 @@ export default function TableauContrat() {
     }
     if (!error) {
       if (initContrat === false && page !== undefined) {
-        dispatch(contratActions.getAll(page, statutContrat));
+        dispatch(contratActions.getAllHistorique(page, statutContrat, dateDebut, dateFin));
         setInitContrat(true);
       }
     } else {
@@ -54,15 +62,28 @@ export default function TableauContrat() {
     }
   }, [error, page]);
 
+  useEffect(() => {
+    if (has(exportHistoriqueContratFileBlob?.blob) && exportHistoriqueContratError === false) {
+      downloadFile(exportHistoriqueContratFileBlob);
+      dispatch(exportsActions.resetFile());
+    } else {
+      scrollTopWindow();
+    }
+  }, [exportHistoriqueContratFileBlob, exportHistoriqueContratError]);
+
+  const exportHistoriqueContrat = () => {
+    dispatch(exportsActions.exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin));
+  };
+
   return (
     <div className="contrats">
-      <Spinner loading={loading} />
+      <Spinner loading={loading || loadingExport} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
             <div className="fr-col fr-col-lg-12 fr-col-md-8">
-              <h1 className="fr-h1 title">Demandes de contrats</h1>
-              <span>Retrouvez ici toutes les demandes de recrutements, renouvellements et ruptures de contrat &agrave; valider.</span>
+              <h1 className="fr-h1 title">Historique des demandes de contrats trait&eacute;es</h1>
+              <span>Retrouvez ici toutes les demandes de recrutements, renouvellements et ruptures de contrat d&eacute;j&agrave; trait&eacute;es.</span>
             </div>
             <div className="fr-container--fluid fr-mt-4w">
               <ul className="tabs fr-tags-group">
@@ -74,23 +95,35 @@ export default function TableauContrat() {
                 </button>
                 <button onClick={() => {
                   dispatch(paginationActions.setPage(1));
-                  setStatutContrat('recrutee');
-                }} className="fr-tag" aria-pressed={statutContrat === 'recrutee'}>
+                  setStatutContrat('finalisee');
+                }} className="fr-tag" aria-pressed={statutContrat === 'finalisee'}>
                   Recrutements ({contrats?.items?.totalParContrat?.recrutement})
                 </button>
                 <button onClick={() => {
                   dispatch(paginationActions.setPage(1));
-                  setStatutContrat('renouvellement');
-                }} className="fr-tag" aria-pressed={statutContrat === 'renouvellement'}>
+                  setStatutContrat('renouvelee');
+                }} className="fr-tag" aria-pressed={statutContrat === 'renouvelee'}>
                   Renouvellements de contrat ({contrats?.items?.totalParContrat?.renouvellementDeContrat})
                 </button>
                 <button onClick={() => {
                   dispatch(paginationActions.setPage(1));
-                  setStatutContrat('nouvelle_rupture');
-                }} className="fr-tag" aria-pressed={statutContrat === 'nouvelle_rupture'}>
+                  setStatutContrat('finalisee_rupture');
+                }} className="fr-tag" aria-pressed={statutContrat === 'finalisee_rupture'}>
                   Rupture de contrat ({contrats?.items?.totalParContrat?.ruptureDeContrat})
                 </button>
               </ul>
+              <div className="fr-container--fluid fr-mt-4w">
+                <div className="fr-grid-row fr-grid-row--end">
+                  <div className="fr-col-12 fr-col-md-8 fr-grid-row">
+                    <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+                  </div>
+                  <div className="fr-ml-auto">
+                    <button className="fr-btn fr-btn--secondary fr-icon-download-line fr-btn--icon-left" onClick={exportHistoriqueContrat}>
+                      Exporter les donn&eacute;es
+                    </button>
+                  </div>
+                </div>
+              </div>
               <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
                 <div className="fr-col-12">
                   <div className="fr-table">
@@ -102,12 +135,15 @@ export default function TableauContrat() {
                           <th style={{ width: '13rem' }}>Nom du candidat</th>
                           <th style={{ width: '11rem' }}>Date de la demande</th>
                           <th style={{ width: '11rem' }}>Type de la demande</th>
-                          <th style={{ width: '12.1rem' }}></th>
+                          <th style={{ width: '12rem' }}>Type de contrat</th>
+                          <th style={{ width: '12rem' }}>D&eacute;but de contrat</th>
+                          <th style={{ width: '12rem' }}>Fin de contrat</th>
+                          <th style={{ width: '3.1rem' }}></th>
                         </tr>
                       </thead>
                       <tbody>
                         {!error && !loading && contrats?.items?.data?.map((contrat, idx) => {
-                          return (<Contrat key={idx} contrat={contrat} />);
+                          return (<HistoriqueContrat key={idx} contrat={contrat} />);
                         })
                         }
                         {(!contrats?.items || contrats?.items?.total === 0) &&

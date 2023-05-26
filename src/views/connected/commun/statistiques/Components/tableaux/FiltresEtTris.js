@@ -4,15 +4,15 @@ import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUt
 import { exportsActions, filtresEtTrisStatsActions, paginationActions } from '../../../../../../actions';
 
 import Spinner from '../../../../../../components/Spinner';
-import BlockDatePickers from '../commun/BlockDatePickers';
+import BlockDatePickers from '../../../../../../components/datePicker/BlockDatePickers';
 
 function FiltresEtTris() {
   const dispatch = useDispatch();
 
   const territoire = useSelector(state => state.filtresEtTris?.territoire);
-  const dateDebut = useSelector(state => state.statistiques?.dateDebut);
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
-  const dateFin = useSelector(state => state.statistiques?.dateFin);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresEtTris?.ordre);
 
   const exportTerritoireFileBlob = useSelector(state => state.exports);

@@ -1,6 +1,4 @@
 const initialState = {
-  dateDebut: new Date(1605571200000),
-  dateFin: new Date(),
   codePostalStats: 'tous',
   villeStats: 'tous',
   listeAutresReorientations: [],
@@ -15,16 +13,6 @@ const initialState = {
 
 export default function statistiques(state = initialState, action) {
   switch (action.type) {
-    case 'CHANGE_DATE_DEBUT':
-      return {
-        ...state,
-        dateDebut: action.dateDebut,
-      };
-    case 'CHANGE_DATE_FIN':
-      return {
-        ...state,
-        dateFin: action.dateFin,
-      };
     case 'CHANGE_CODE_POSTAL_STATS':
       return {
         ...state,
