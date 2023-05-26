@@ -1,9 +1,9 @@
-export const filtresGestionnairesActions = {
+export const datePickerActions = {
   changeDateDebut,
   changeDateFin,
-  resetFiltre,
+  resetDatePicker,
 };
-  
+
 function changeDateDebut(dateDebut) {
   return { type: 'CHANGE_DATE_DEBUT', dateDebut };
 }
@@ -11,8 +11,7 @@ function changeDateDebut(dateDebut) {
 function changeDateFin(dateFin) {
   return { type: 'CHANGE_DATE_FIN', dateFin };
 }
-    
-function resetFiltre() {
-  return { type: 'RESET_FILTER_AND_SORTS' };
+
+function resetDatePicker() {
+  return { type: 'RESET_DATE_PICKER' };
 }
-  

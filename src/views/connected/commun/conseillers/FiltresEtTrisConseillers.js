@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { exportsActions, filtresConseillersActions, paginationActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
-import BlockDatePickers from '../statistiques/Components/commun/BlockDatePickers';
+import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
 import codeRegions from '../../../../datas/code_region.json';
 import departementsRegionRaw from '../../../../datas/departements-region.json';
 import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';

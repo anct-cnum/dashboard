@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { exportsActions, filtresStructuresActions, paginationActions, structureActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
-import BlockDatePickers from '../statistiques/Components/commun/BlockDatePickers';
+import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
 import codeRegions from '../../../../datas/code_region.json';
 import departementsRegionRaw from '../../../../datas/departements-region.json';
 import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
@@ -22,7 +22,7 @@ function FiltresEtTrisStructures() {
   const filtreRegion = useSelector(state => state.filtresStructures?.region);
   let searchInput = useSelector(state => state.filtresStructures?.searchInput);
   const structures = useSelector(state => state.structure);
-  const dateFin = useSelector(state => state.filtresStructures?.dateFin);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresStructures?.ordre);
   const currentPage = useSelector(state => state.pagination?.currentPage);
 

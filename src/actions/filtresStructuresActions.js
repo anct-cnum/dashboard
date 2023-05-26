@@ -1,6 +1,4 @@
 export const filtresStructuresActions = {
-  changeDateDebut,
-  changeDateFin,
   changeOrdre,
   changeNomStructure,
   saveSearchInput,
@@ -10,14 +8,6 @@ export const filtresStructuresActions = {
   changeFiltreStatut,
   resetFiltre,
 };
-
-function changeDateDebut(dateDebut) {
-  return { type: 'CHANGE_DATE_DEBUT', dateDebut };
-}
-  
-function changeDateFin(dateFin) {
-  return { type: 'CHANGE_DATE_FIN', dateFin };
-}
   
 function changeOrdre(ordreNom) {
   return { type: 'CHANGE_ORDRE', ordreNom };

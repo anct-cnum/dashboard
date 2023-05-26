@@ -5,7 +5,7 @@ import Spinner from '../../../components/Spinner';
 import Pagination from '../../../components/Pagination';
 import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import BlockDatePickers from '../commun/statistiques/Components/commun/BlockDatePickers';
+import BlockDatePickers from '../../../components/datePicker/BlockDatePickers';
 import { StatutConventionnement } from '../../../utils/enumUtils';
 import HistoriqueReconventionnement from './reconventionnement/HistoriqueReconventionnement';
 import HistoriqueConventionnement from './conventionnement/HistoriqueConventionnement';
@@ -25,8 +25,8 @@ export default function TableauHistoriqueConvention() {
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
   const [typeConvention, setTypeConvention] = useState('toutes');
-  const dateDebut = useSelector(state => state.filtresHistoriqueConvention?.dateDebut);
-  const dateFin = useSelector(state => state.filtresHistoriqueConvention?.dateFin);
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
 
   const has = value => value !== null && value !== undefined;
 
@@ -93,26 +93,41 @@ export default function TableauHistoriqueConvention() {
 
             <div className="fr-mt-4w">
               <ul className="tabs fr-tags-group">
-                <button onClick={() => setTypeConvention('toutes')} className="fr-tag" aria-pressed={typeConvention === 'toutes'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setTypeConvention('toutes');
+                }} className="fr-tag" aria-pressed={typeConvention === 'toutes'}>
                   Afficher toutes les demandes ({conventions?.items?.totalParConvention?.total})
                 </button>
-                <button onClick={() => setTypeConvention('conventionnement')} className="fr-tag" aria-pressed={typeConvention === 'conventionnement'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setTypeConvention('conventionnement');
+                }} className="fr-tag" aria-pressed={typeConvention === 'conventionnement'}>
                   Conventionnement initial ({conventions?.items?.totalParConvention?.conventionnement})
                 </button>
-                <button onClick={() => setTypeConvention('reconventionnement')} className="fr-tag" aria-pressed={typeConvention === 'reconventionnement'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setTypeConvention('reconventionnement');
+                }} className="fr-tag" aria-pressed={typeConvention === 'reconventionnement'}>
                   Reconventionnement ({conventions?.items?.totalParConvention?.reconventionnement})
                 </button>
-                <button onClick={() => setTypeConvention('avenantAjoutPoste')} className="fr-tag" aria-pressed={typeConvention === 'avenantAjoutPoste'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setTypeConvention('avenantAjoutPoste');
+                }} className="fr-tag" aria-pressed={typeConvention === 'avenantAjoutPoste'}>
                   Avenant · ajout de poste ({conventions?.items?.totalParConvention?.avenantAjoutPoste})
                 </button>
-                <button onClick={() => setTypeConvention('avenantRenduPoste')} className="fr-tag" aria-pressed={typeConvention === 'avenantRenduPoste'}>
+                <button onClick={() => {
+                  dispatch(paginationActions.setPage(1));
+                  setTypeConvention('avenantRenduPoste');
+                }} className="fr-tag" aria-pressed={typeConvention === 'avenantRenduPoste'}>
                   Avenant · poste rendu ({conventions?.items?.totalParConvention?.avenantRenduPoste})
                 </button>
               </ul>
               <div className="fr-container--fluid fr-mt-4w">
                 <div className="fr-grid-row fr-grid-row--end">
                   <div className="fr-col-12 fr-col-md-8 fr-grid-row">
-                    <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+                    <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
                   </div>
                   <div className="fr-ml-auto">
                     <button className="fr-btn fr-btn--secondary fr-icon-download-line fr-btn--icon-left" onClick={exportHistoriqueConvention}>

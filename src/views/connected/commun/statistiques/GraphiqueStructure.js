@@ -5,7 +5,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { alerteEtSpinnerActions, statistiquesActions, structureActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
-import BlockDatePickers from './Components/commun/BlockDatePickers';
+import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
 import ElementCodePostal from './Components/graphiques/ElementCodePostal';
 import LeftPage from './Components/graphiques/LeftPage';
 import RightPage from './Components/graphiques/RightPage';
@@ -31,8 +31,8 @@ export default function GraphiqueStructure() {
   const loadingExport = useSelector(state => state.exports?.loading);
   const [structure, setStructure] = useState(location?.state?.structure);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
-  const dateDebut = useSelector(state => state.statistiques?.dateDebut);
-  const dateFin = useSelector(state => state.statistiques?.dateFin);
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
 
   useEffect(() => {
     if (!structureError) {
