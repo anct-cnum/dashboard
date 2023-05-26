@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import { conseillerActions, structureActions, alerteEtSpinnerActions, renouvellementActions } from '../../../actions';
+import { conseillerActions, structureActions, alerteEtSpinnerActions, contratActions } from '../../../actions';
 import { formatAdressePermanence, formatNomConseiller, formatNomContactStructure, formatRenderStars } from '../../../utils/formatagesUtils';
 import pixUtilisation from '../../../assets/icons/pix-utilisation.png';
 import pixRessources from '../../../assets/icons/pix-ressources.png';
@@ -28,8 +28,8 @@ function ConseillerDetails() {
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
   const loadingValidationRenouvellement = useSelector(state => state.contrat?.loading);
-  const loadingEditContrat = useSelector(state => state.renouvellement?.loading);
-  const errorEditContrat = useSelector(state => state.renouvellement?.error);
+  const loadingEditContrat = useSelector(state => state.contrat?.loading);
+  const errorEditContrat = useSelector(state => state.contrat?.error);
   const errorRupture = useSelector(state => state.conseiller?.errorRupture);
   const errorValidationRenouvellement = useSelector(state => state.contrat?.error);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -78,7 +78,7 @@ function ConseillerDetails() {
   }, [conseiller, errorStructure]);
 
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
-    dispatch(renouvellementActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.contrat?._id, roleActivated));
+    dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.contrat?._id, roleActivated));
   };
 
   return (

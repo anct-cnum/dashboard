@@ -8,8 +8,8 @@ import Spinner from '../../../components/Spinner';
 import {
   structureActions,
   reconventionnementActions,
-  renouvellementActions,
-  miseEnRelationAction
+  miseEnRelationAction,
+  contratActions
 } from '../../../actions';
 import {
   InactiveAdvisorsSection,
@@ -31,7 +31,7 @@ function MesPostes() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const loadingStructure = useSelector(state => state.structure?.loading);
   const loadingMisesEnRelation = useSelector(state => state.misesEnRelations?.loading);
-  const loadingRenouvellement = useSelector(state => state.renouvellement?.loading);
+  const loadingRenouvellement = useSelector(state => state.contrat?.loading);
   const [miseEnrelationId, setMiseEnrelationId] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [selectedConseiller, setSelectedConseiller] = useState(null);
@@ -73,18 +73,18 @@ function MesPostes() {
       dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
     }
   }, [structure?._id, loadingRenouvellement]);
-  
+
   useEffect(() => {
     const bannerClosed = localStorage.getItem('bannerClosed');
     if (bannerClosed === 'true') {
       setShowValidateBanner(false);
     }
   }, []);
-  
+
   useEffect(() => {
     handleErrors();
   }, [errorMisesEnRelation, errorStructure]);
-  
+
   const handleOpenModalContrat = (editMode = false, conseiller = null) => {
     setEditMode(editMode);
     setSelectedConseiller(conseiller);
@@ -97,11 +97,11 @@ function MesPostes() {
   };
 
   const createContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
-    dispatch(renouvellementActions.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
+    dispatch(contratActions.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
   };
 
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, id) => {
-    dispatch(renouvellementActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
+    dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
   };
 
 
