@@ -1,40 +1,38 @@
 import React from 'react';
 import propType from 'prop-types';
+import { badgeStatutDossierDS } from '../../../../utils/formatagesUtils';
 
-const CompleteApplicationCard = ({ url, structure }) => (
+const CompleteApplicationCard = ({ structure }) => (
   <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
     <div className="fr-card__body fr-p-0">
       <div>
         <div className="fr-grid-row responsive__wide-card" style={{ alignItems: 'center' }}>
           <div className="fr-col-3 card__text">
             <div>
-              <span className="fr-text--md fr-text--bold">ID de votre structure</span>
+              <strong className="fr-text--md fr-text--bold">ID de votre structure</strong>
               <br />
-              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+              <span className="fr-text--regular fr-text--md">
                 {structure?.idPG}
               </span>
             </div>
           </div>
           <div className="fr-col-3 card__text">
             <div>
-              <span className="fr-text--md fr-text--bold" style={{ fontWeight: '500' }}>
+              <strong className="fr-text--md fr-text--bold">
                 N° Siret de votre structure
-              </span>
+              </strong>
               <br />
-              <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
+              <span className="fr-text--regular fr-text--md">
                 {structure?.siret}
               </span>
             </div>
           </div>
-          <div className="fr-col-3 card__text">
-            <p className="fr-badge fr-badge--warning">CONVENTIONNEMENT EN COURS</p>
-          </div>
-          <div className="fr-col-3 card__text">
+          <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
+            {badgeStatutDossierDS(structure?.dossierConventionnement?.statut)}
             <button
-              className="fr-btn fr-mx-3w card__button"
+              className="fr-btn card__button"
               title="D&eacute;tail"
-              onClick={() => window.open(url, '_blank', 'noopener,noreferrer')}
-              disabled
+              onClick={() => window.open(structure.urlDossierReconventionnement)}
             >
               Compl&eacute;ter mon dossier
             </button>
@@ -46,7 +44,6 @@ const CompleteApplicationCard = ({ url, structure }) => (
 );
 
 CompleteApplicationCard.propTypes = {
-  url: propType.string,
   structure: propType.object,
 };
 

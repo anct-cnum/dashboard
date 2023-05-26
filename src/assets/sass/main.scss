@@ -2,13 +2,14 @@
 @use './components/footer';
 @use './views/statistiques';
 @use './views/conseillers';
+@use './views/structures';
 @use './views/candidatures';
 @use './views/gestionnaires';
 @use './views/contrats';
 @use './views/structureDetails';
 @use './views/conseillerDetails';
 @use './views/candidatDetails';
-@use './components/tooltip';
+@use './views/conventionDetails';
 @use './components/FiltersAndSortsCandidatures';
 @use './components/pagination';
 @use './components/spinner';

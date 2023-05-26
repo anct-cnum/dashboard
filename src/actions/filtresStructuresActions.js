@@ -6,7 +6,6 @@ export const filtresStructuresActions = {
   changeFiltreType,
   changeFiltreDepartement,
   changeFiltreStatut,
-  changeFiltreComs,
   resetFiltre,
 };
   
@@ -30,10 +29,6 @@ function changeFiltreDepartement(departement) {
   return { type: 'CHANGE_DEPARTEMENT', departement };
 }
 
-function changeFiltreComs(coms) {
-  return { type: 'CHANGE_COMS', coms };
-}
-  
 function saveSearchInput(searchInput, region) {
   return { type: 'SAVE_SEARCH_INPUT', searchInput, region };
 }

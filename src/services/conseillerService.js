@@ -54,7 +54,7 @@ function suppressionCandidat({ id, motif }) {
 }
 
 // eslint-disable-next-line max-len
-function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre) {
+function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre) {
   let {
     ordreColonne,
     filterDateStart,
@@ -63,29 +63,29 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
     rupture,
     coordinateur,
     filterByRegion,
+    filterByDepartement,
     filterByNameStructure,
   // eslint-disable-next-line max-len
-  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParNomStructure);
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement, filtreParNomStructure);
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/conseillers-recruter?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}&role=${roleActivated()}`;
+  let uri = `${apiUrlRoot}/conseillers-recruter?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}${filterByNameStructure}&role=${roleActivated()}`;
 
   return API.get(uri)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement) {
+function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParDepartement) {
   let {
     filterByNameCandidat,
     filterByRegion,
-    filterByComs,
     filterByDepartement,
   // eslint-disable-next-line max-len
-  } = candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement);
+  } = candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParDepartement);
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/candidats?skip=${page}${filterByNameCandidat}${filterByComs}${filterByDepartement}${filterByRegion}&role=${roleActivated()}`;
+  let uri = `${apiUrlRoot}/candidats?skip=${page}${filterByNameCandidat}${filterByDepartement}${filterByRegion}&role=${roleActivated()}`;
 
   return API.get(uri)
   .then(response => response.data)

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const UserMenu = ({
@@ -10,15 +11,17 @@ const UserMenu = ({
   roles,
   structure,
 }) => {
+  const truncate = input => input?.length > 27 ? `${input?.substring(0, 27)}...` : input;
+  
   const formatRoleMenu = role => {
     if (role === 'grandReseau') {
-      return user?.reseau ? `Grand réseau - ${user.reseau}` : 'Grand réseau';
+      return `Grand réseau - ${user.reseau}`;
     } else if (role === 'prefet') {
       return `Préfet - ${user?.departement ? 'dép ' + user?.departement : 'région ' + user?.region}`;
     } else if (role === 'hub_coop') {
       return `Hub - ${user?.hub}`;
     } else if (role === 'structure') {
-      return user?.reseau ? `Structure - ${user.reseau}` : 'Structure';
+      return user?.reseau ? `Structure - ${truncate(structure?.nom)}` : 'Structure';
     }
     return role?.charAt(0).toUpperCase() + role?.slice(1).split('_')[0];
   };
@@ -37,7 +40,7 @@ const UserMenu = ({
               <span className="fr-text--md fr-text--bold">{user?.name}</span>
             </button>
             <div className="fr-collapse fr-menu" id="menu-774" style={{ top: '50%' }}>
-              <ul className="fr-menu__list" style={{ width: '251px' }}>
+              <ul className="fr-menu__list">
                 <li>
                   <p
                     className="fr-nav__link fr-text--bold"
@@ -49,29 +52,21 @@ const UserMenu = ({
                   </p>
                 </li>
                 <li>
-                  <button
+                  <Link
+                    to={`${roleActivated}/informations`}
                     className="fr-nav__link"
-                    href="#"
-                    target="_self"
-                    style={{ display: 'flex', alignItems: 'center' }}
-                    onClick={() => window.open(`/${roleActivated}/informations`)}
-                  >
-                    <i className="ri-settings-3-line ri-xl fr-mr-1w" style={{ color: '#000091' }}></i>{' '}
-                    G&eacute;rer mon profil
-                  </button>
+                    {...(location.pathname.startsWith(`/${roleActivated}/informations`) ? { 'aria-current': 'page' } : {})}>
+                    <i className="ri-settings-3-line ri-xl fr-mr-1w" style={{ color: '#000091' }}></i>{' '}G&eacute;rer mon profil
+                  </Link>
                 </li>
                 {roleActivated === 'structure' && (
                   <li>
-                    <button
+                    <Link
+                      to={`${roleActivated}/structure/${structure?._id}`}
                       className="fr-nav__link"
-                      href="#"
-                      target="_self"
-                      style={{ display: 'flex', alignItems: 'center' }}
-                      onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}
-                    >
-                      <i className="ri-home-4-line ri-xl fr-mr-1w" style={{ color: '#000091' }}></i>{' '}
-                      G&eacute;rer ma structure
-                    </button>
+                      {...(location.pathname.startsWith(`/${roleActivated}/structure/${structure?._id}`) ? { 'aria-current': 'page' } : {})}>
+                      <i className="ri-home-4-line ri-xl fr-mr-1w" style={{ color: '#000091' }}></i>{' '}G&eacute;rer ma structure
+                    </Link>
                   </li>
                 )}
                 <li>

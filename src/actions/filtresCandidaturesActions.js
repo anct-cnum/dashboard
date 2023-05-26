@@ -5,7 +5,6 @@ export const filtresCandidaturesActions = {
   updateCV,
   changeNomCandidat,
   changeFiltreDepartement,
-  changeFiltreComs,
   changeFiltreRegion,
   changeOrdreColonne,
   updateSearch,
@@ -62,10 +61,6 @@ function changeNomCandidat(nomCandidat) {
   
 function changeFiltreDepartement(departement) {
   return { type: 'CHANGE_DEPARTEMENT', departement };
-}
-
-function changeFiltreComs(coms) {
-  return { type: 'CHANGE_COMS', coms };
 }
   
 function changeFiltreRegion(region) {

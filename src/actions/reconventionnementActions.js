@@ -3,7 +3,8 @@ import { reconventionnementService } from '../services/reconventionnementService
 export const reconventionnementActions = {
   getAll,
   get,
-  update
+  update,
+  validation,
 };
 
 function getAll(page) {
@@ -75,5 +76,34 @@ function update(structureId, action, conseillersIds = [], nombreDePostes = null,
   }
   function failure(error) {
     return { type: 'UPDATE_RECONVENTIONNEMENT_FAILURE', error };
+  }
+}
+
+function validation(id) {
+  return dispatch => {
+    dispatch(request());
+    reconventionnementService.validation(id)
+    .then(
+      response => {
+        dispatch(success());
+        dispatch(updateStatutConventionnement(response.statutReconventionnementUpdated));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'VALIDATION_RECONVENTIONNEMENT_REQUEST' };
+  }
+  function success() {
+    return { type: 'VALIDATION_RECONVENTIONNEMENT_SUCCESS' };
+  }
+  function updateStatutConventionnement(statutReconventionnementUpdated) {
+    return { type: 'UPDATE_STATUT_CONVENTIONNEMENT', statutReconventionnementUpdated };
+  }
+  function failure(error) {
+    return { type: 'VALIDATION_RECONVENTIONNEMENT_FAILURE', error };
   }
 }

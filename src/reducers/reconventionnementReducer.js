@@ -56,6 +56,22 @@ export default function reconventionnement(state = initialState, action) {
         error: action.error,
         loading: false
       };
+    case 'VALIDATION_RECONVENTIONNEMENT_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'VALIDATION_RECONVENTIONNEMENT_SUCCESS':
+      return {
+        ...state,
+        loading: false
+      };
+    case 'VALIDATION_RECONVENTIONNEMENT_FAILURE':
+      return {
+        error: action.error,
+        loading: false
+      };
     default:
       return state;
   }

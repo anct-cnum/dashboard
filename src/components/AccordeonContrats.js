@@ -62,18 +62,29 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                   <div className="fr-col-12 fr-col-md-4 fr-mb-md-0 fr-mb-2w">
                     <div>
                       <strong className="fr-text--md">Type de contrat</strong><br/>
-                      <span className="fr-text--regular fr-text--md">-</span>
+                      {(!misesEnRelationFinalisee[0]?.typeDeContrat && !misesEnRelationNouvelleRupture?.typeDeContrat) &&
+                        <span className="fr-text--regular fr-text--md">-</span>
+                      }
+                      {misesEnRelationFinalisee[0]?.typeDeContrat ?
+                        <span className="fr-text--regular fr-text--md">{misesEnRelationFinalisee[0]?.typeDeContrat}</span> :
+                        <span className="fr-text--regular fr-text--md">{misesEnRelationNouvelleRupture?.typeDeContrat}</span>
+                      }
                     </div>
                   </div>
                   <div className="fr-col-12 fr-col-md-4 fr-mb-md-0 fr-mb-2w">
                     <div>
                       <strong className="fr-text--md">D&eacute;but de contrat</strong><br/>
-                      {misesEnRelationFinalisee[0]?.dateRecrutement ?
+                      {(!misesEnRelationFinalisee[0]?.dateDebutDeContrat && !misesEnRelationNouvelleRupture?.dateDebutDeContrat) &&
+                        <span className="fr-text--regular fr-text--md">En attente de pi&egrave;ces justificatives</span>
+                      }
+                      {misesEnRelationFinalisee[0]?.dateDebutDeContrat &&
                         <span className="fr-text--regular fr-text--md">
-                          {dayjs(misesEnRelationFinalisee[0]?.dateRecrutement).format('DD/MM/YYYY')}
-                        </span> :
+                          {dayjs(misesEnRelationFinalisee[0].dateDebutDeContrat).format('DD/MM/YYYY')}
+                        </span>
+                      }
+                      {misesEnRelationNouvelleRupture?.dateDebutDeContrat &&
                         <span className="fr-text--regular fr-text--md">
-                          {dayjs(misesEnRelationNouvelleRupture?.dateRecrutement).format('DD/MM/YYYY')}
+                          {dayjs(misesEnRelationNouvelleRupture.dateDebutDeContrat).format('DD/MM/YYYY')}
                         </span>
                       }
                     </div>
@@ -82,7 +93,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                     <div>
                       <strong className="fr-text--md">Fin de contrat</strong><br/>
                       {(!misesEnRelationFinalisee[0]?.dateFinDeContrat && !misesEnRelationNouvelleRupture?.dateFinDeContrat) &&
-                        <span>-</span>
+                        <span>En attente de pi&egrave;ces justificatives</span>
                       }
                       {misesEnRelationFinalisee[0]?.dateFinDeContrat &&
                         <span className="fr-text--regular fr-text--md">
@@ -123,16 +134,16 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                       <div className="fr-col-12 fr-mb-md-0 fr-mb-2w fr-col-md-4">
                         <div>
                           <strong className="fr-text--md">Type de contrat</strong><br/>
-                          <span className="fr-text--regular fr-text--md">-</span>
+                          <span className="fr-text--regular fr-text--md">{miseEnRelation?.typeDeContrat ?? '-'}</span>
                         </div>
                       </div>
                       <div className="fr-col-12 fr-col-md-4 fr-mb-md-0 fr-mb-2w">
                         <div>
                           <strong className="fr-text--md">D&eacute;but de contrat</strong><br/>
-                          {miseEnRelation?.dateRecrutement ?
+                          {miseEnRelation?.dateDebutDeContrat ?
                             <span className="fr-text--regular fr-text--md">
-                              {dayjs(miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')}
-                            </span> : <span>-</span>
+                              {dayjs(miseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY')}
+                            </span> : <span>En attente de pi&egrave;ces justificatives</span>
                           }
                         </div>
                       </div>
@@ -204,11 +215,10 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
 }
 
 AccordeonContrats.propTypes = {
-  setForm: PropTypes.func,
   misesEnRelationNouvelleRupture: PropTypes.object,
   misesEnRelationFinaliseeRupture: PropTypes.object,
   misesEnRelationFinalisee: PropTypes.object,
   conseiller: PropTypes.object,
 };
-export default AccordeonContrats;
 
+export default AccordeonContrats;

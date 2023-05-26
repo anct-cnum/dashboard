@@ -62,17 +62,10 @@ function Menu() {
                </Link>
              </li>
             }
-            <li className="fr-nav__item">
-              <Link
-                to={`${roleActivated}/informations`}
-                className="fr-nav__link"
-                {...(location.pathname.startsWith(`/${roleActivated}/informations`) ? { 'aria-current': 'page' } : {})}>
-                  Mes informations
-              </Link>
-            </li>
             { roleActivated === 'admin' &&
             <li className="fr-nav__item">
               <button
+                disabled
                 id="listes-traitement-demandes"
                 className="fr-nav__btn"
                 aria-expanded={ activeMenu === 'listes-traitement-demandes' }
