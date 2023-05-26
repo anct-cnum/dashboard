@@ -13,7 +13,7 @@ function FiltresEtTrisStructures() {
   const departementsRegionArray = Array.from(departementsRegionRaw);
   const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
   const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
-  const dateDebut = useSelector(state => state.filtresStructures?.dateDebut);
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const ordreNom = useSelector(state => state.filtresStructures?.ordreNom);
   const filterDepartement = useSelector(state => state.filtresStructures?.departement);
   const filtreStatut = useSelector(state => state.filtresStructures?.statut);

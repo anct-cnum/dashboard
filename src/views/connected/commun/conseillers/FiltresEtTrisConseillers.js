@@ -14,7 +14,7 @@ function FiltresEtTrisConseillers() {
   const departementsRegionArray = Array.from(departementsRegionRaw);
   const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
   const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
-  const dateDebut = useSelector(state => state.filtresConseillers?.dateDebut);
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const ordreNom = useSelector(state => state.filtresConseillers?.ordreNom);
   const filtreCoordinateur = useSelector(state => state.filtresConseillers?.coordinateur);
   const filtreRupture = useSelector(state => state.filtresConseillers?.rupture);
@@ -22,7 +22,7 @@ function FiltresEtTrisConseillers() {
   const filtreParNomStructure = useSelector(state => state.filtresConseillers?.nomStructure);
   const filtreRegion = useSelector(state => state.filtresConseillers?.region);
   const filterDepartement = useSelector(state => state.filtresConseillers?.departement);
-  const dateFin = useSelector(state => state.filtresConseillers?.dateFin);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresConseillers?.ordre);
 
   const exportConseillerFileBlob = useSelector(state => state.exports);
