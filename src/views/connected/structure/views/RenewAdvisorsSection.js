@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import EditContractCard from '../cards/EditContractCard';
 import CompleteContractCard from '../cards/CompleteContractCard';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 const renderCard = (conseiller, idx, roleActivated, setMiseEnrelationId, setOpenModalContrat, handleOpenModalContrat, structure) => {
 
@@ -40,7 +41,7 @@ const RenewAdvisorsSection = ({
   handleOpenModalContrat,
 }) => {
   return (
-    structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' && (
+    structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ && (
       <div className="container fr-mt-4w">
         <p className="fr-text--bold">Contrats &agrave; renouveller ({conseillersARenouveler?.length})</p>
         {conseillersARenouveler?.map((conseiller, idx) =>

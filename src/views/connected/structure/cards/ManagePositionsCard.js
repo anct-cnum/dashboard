@@ -7,7 +7,7 @@ import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils
 const ManagePositionsCard = ({ structure }) => {
 
   const isReconventionnement = structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ';
-  const dossier = isReconventionnement ? structure?.conventionnement?.structure?.dossierReconventionnement :
+  const dossier = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement :
     structure?.conventionnement?.dossierConventionnement;
   const urlDossier = isReconventionnement ? structure?.urlstructure?.DossierReconventionnement : structure?.urlDossierConventionnement;
   const phase = isReconventionnement ? 'Conventionnement phase 2' : 'Conventionnement phase 1';

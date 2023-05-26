@@ -1,15 +1,16 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import AdvisorCard from '../cards/AdvisorCard';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 const ActiveAdvisorsSection = ({ structure, conseillersActifs, roleActivated }) => {
-  const isReconventionnementValide = structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ';
+  const isReconventionnementValide = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
 
   const filterActiveAdvisors = conseiller => {
     if (isReconventionnementValide) {
       return (
-        (conseiller?.typeDeContrat !== 'CDI' && conseiller?.miseEnRelationConventionnement && conseiller?.statut === 'finalisee') ||
-        (conseiller?.typeDeContrat === 'CDI' && conseiller?.reconventionnement)
+        (conseiller?.typeDeContrat !== 'cdi' && conseiller?.miseEnRelationConventionnement && conseiller?.statut === 'finalisee') ||
+        (conseiller?.typeDeContrat === 'cdi' && conseiller?.reconventionnement)
       );
     }
 

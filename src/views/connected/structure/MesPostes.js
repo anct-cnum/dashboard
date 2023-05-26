@@ -152,7 +152,7 @@ function MesPostes() {
           <>
             <HireAdvisorCard
               nbreConseillersActifs={conseillersActifs.length}
-              nbPostesAttribuees={structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees}
+              structure={structure}
             />
             <RenewAdvisorsSection
               conseillersARenouveler={conseillersARenouveler}

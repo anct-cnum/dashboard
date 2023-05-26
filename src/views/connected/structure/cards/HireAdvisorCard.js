@@ -1,8 +1,14 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
-const HireAdvisorCard = ({ nbreConseillersActifs, nbPostesAttribuees }) => {
+const HireAdvisorCard = ({ nbreConseillersActifs, structure }) => {
+
+  const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+  const nbPostesAttribuees = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees :
+    structure?.conventionnement?.dossierConventionnement?.nbPostesAttribuees;
+
   return (
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
       <div className="fr-card__body fr-p-0">
@@ -29,6 +35,7 @@ const HireAdvisorCard = ({ nbreConseillersActifs, nbPostesAttribuees }) => {
 
 HireAdvisorCard.propTypes = {
   nbreConseillersActifs: propTypes.number,
+  structure: propTypes.object,
   nbPostesAttribuees: propTypes.number,
 };
 

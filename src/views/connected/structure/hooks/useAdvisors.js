@@ -71,7 +71,7 @@ export function useAdvisors() {
           return false;
         }
         const hasReconventionnement = miseEnRelation.reconventionnement;
-        const isNotCDI = miseEnRelation.typeDeContrat !== 'CDI';
+        const isNotCDI = miseEnRelation.typeDeContrat !== 'cdi';
         const isRenouvellementInitie = miseEnRelation.statut === 'renouvellement_initié';
         const isFinaliseeWithoutConventionnement =
             miseEnRelation.statut === 'finalisee' && !miseEnRelation.miseEnRelationConventionnement;
