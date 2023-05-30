@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatMotifRupture } from '../../utils/formatagesUtils';
+import { formatMotifRupture, formatTypeDeContrat } from '../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 
 function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, conseiller }) {
@@ -63,8 +63,8 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                         <span className="fr-text--regular fr-text--md">-</span>
                       }
                       {misesEnRelationFinalisee[0]?.typeDeContrat ?
-                        <span className="fr-text--regular fr-text--md">{misesEnRelationFinalisee[0].typeDeContrat}</span> :
-                        <span className="fr-text--regular fr-text--md">{misesEnRelationNouvelleRupture?.typeDeContrat}</span>
+                        <span className="fr-text--regular fr-text--md">{formatTypeDeContrat(misesEnRelationFinalisee[0].typeDeContrat)}</span> :
+                        <span className="fr-text--regular fr-text--md">{formatTypeDeContrat(misesEnRelationNouvelleRupture?.typeDeContrat)}</span>
                       }
                     </div>
                   </div>
@@ -134,11 +134,15 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                     <div className={`${checkMotifRupture(miseEnRelation?.motifRupture) ? 'fr-col-2' : 'type-contrat'}`}>
                       <div>
                         <strong className="fr-text--md">Type de contrat</strong><br/>
-                        <span className="fr-text--regular fr-text--md" title={miseEnRelation?.typeDeContrat ?? ''}>
+                        <span
+                          className="fr-text--regular fr-text--md"
+                          title={miseEnRelation?.typeDeContrat ? formatTypeDeContrat(miseEnRelation?.typeDeContrat) : ''}
+                        >
                           {miseEnRelation?.typeDeContrat ?
                             <>
                               {miseEnRelation?.typeDeContrat?.length > 15 ?
-                                `${miseEnRelation?.typeDeContrat?.substring(0, 15)}...` : miseEnRelation?.typeDeContrat
+                                `${formatTypeDeContrat(miseEnRelation?.typeDeContrat)?.substring(0, 15)}...` :
+                                formatTypeDeContrat(miseEnRelation?.typeDeContrat)
                               }
                             </> : '-'
                           }

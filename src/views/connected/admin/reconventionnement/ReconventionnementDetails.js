@@ -1,6 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { badgeStatutDossierDS, formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
+import { badgeStatutDossierDS, formatNomConseiller, formatTypeDeContrat, pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -75,11 +75,15 @@ function ReconventionnementDetails({ reconventionnement }) {
                             <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">Type de contrat</strong><br />
-                                <span className="fr-text--regular fr-text--md" title={conseiller?.typeDeContrat ?? ''}>
+                                <span
+                                  className="fr-text--regular fr-text--md"
+                                  title={conseiller?.typeDeContrat ? formatTypeDeContrat(conseiller?.typeDeContrat) : ''}
+                                >
                                   {conseiller?.typeDeContrat ?
                                     <>
                                       {conseiller?.typeDeContrat?.length > 15 ?
-                                        `${conseiller?.typeDeContrat?.substring(0, 15)}...` : conseiller?.typeDeContrat
+                                        `${formatTypeDeContrat(conseiller?.typeDeContrat)?.substring(0, 15)}...` :
+                                        formatTypeDeContrat(conseiller?.typeDeContrat)
                                       }
                                     </> : '-'
                                   }
@@ -206,11 +210,14 @@ function ReconventionnementDetails({ reconventionnement }) {
                       <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top">
                         <div>
                           <strong className="fr-text--md">Type de contrat</strong><br />
-                          <span className="fr-text--regular fr-text--md" title={conseiller?.typeDeContrat ?? ''}>
+                          <span
+                            className="fr-text--regular fr-text--md"
+                            title={conseiller?.typeDeContrat ? formatTypeDeContrat(conseiller?.typeDeContrat) : ''}
+                          >
                             {conseiller?.typeDeContrat ?
                               <>
                                 {conseiller?.typeDeContrat?.length > 15 ?
-                                  `${conseiller?.typeDeContrat?.substring(0, 15)}...` : conseiller?.typeDeContrat
+                                  `${formatTypeDeContrat(conseiller?.typeDeContrat)?.substring(0, 15)}...` : formatTypeDeContrat(conseiller?.typeDeContrat)
                                 }
                               </> : '-'
                             }

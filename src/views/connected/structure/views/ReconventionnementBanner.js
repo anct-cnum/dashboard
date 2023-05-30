@@ -9,7 +9,7 @@ import { StatutConventionnement } from '../../../../utils/enumUtils';
 const ReconventionnementBanner = ({ structure, roleActivated, conseillersActifs, showValidateBanner, setShowValidateBanner, openModal, setOpenModal }) => {
   switch (structure?.conventionnement?.statut) {
     case StatutConventionnement.ENREGISTRÉ:
-      return <CompleteRequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
+      return <CompleteRequestBanner structure={structure} />;
     case StatutConventionnement.RECONVENTIONNEMENT_EN_COURS:
       return <InProgressBanner structure={structure} roleActivated={roleActivated} />;
     case StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ:

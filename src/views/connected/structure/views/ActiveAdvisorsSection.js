@@ -9,8 +9,8 @@ const ActiveAdvisorsSection = ({ structure, conseillersActifs, roleActivated }) 
   const filterActiveAdvisors = conseiller => {
     if (isReconventionnementValide) {
       return (
-        (conseiller?.typeDeContrat !== 'cdi' && conseiller?.miseEnRelationConventionnement && conseiller?.statut === 'finalisee') ||
-        (conseiller?.typeDeContrat === 'cdi' && conseiller?.reconventionnement)
+        (conseiller?.typeDeContrat !== 'CDI' && conseiller?.miseEnRelationConventionnement && conseiller?.statut === 'finalisee') ||
+        (conseiller?.typeDeContrat === 'CDI' && conseiller?.reconventionnement)
       );
     }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, formatTypeDeContrat } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import { calculateMonthsDifference } from '../../../../utils/calculateUtils';
 
@@ -32,7 +32,19 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
                     Type de contrat
                   </span>
                   <br />
-                  <span className="fr-text--regular fr-text--md info__color">{conseiller?.originalMiseEnRelation?.typeDeContrat ?? '-'}</span>
+                  <span
+                    className="fr-text--regular fr-text--md info__color"
+                    title={conseiller?.originalMiseEnRelation?.typeDeContrat ? formatTypeDeContrat(conseiller?.originalMiseEnRelation?.typeDeContrat) : ''}
+                  >
+                    {conseiller?.originalMiseEnRelation?.typeDeContrat ?
+                      <>
+                        {conseiller?.originalMiseEnRelation?.typeDeContrat?.length > 15 ?
+                          `${formatTypeDeContrat(conseiller?.originalMiseEnRelation?.typeDeContrat)?.substring(0, 15)}...` :
+                          formatTypeDeContrat(conseiller?.originalMiseEnRelation?.typeDeContrat)
+                        }
+                      </> : '-'
+                    }
+                  </span>
                 </div>
               </div>
               <div className="fr-col-2 card__text">
@@ -96,14 +108,19 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
             </div>
             <ul className="fr-btns-group fr-btns-group--inline-sm small__banner__button">
               <li>
-                <button className="fr-btn" style={{ margin: 'auto' }} onClick={() => window.open(`${structure?.urlDossierReconventionnement}/messagerie`)}>
+                <button
+                  title="Compl&eacute;ter le dossier"
+                  className="fr-btn"
+                  style={{ margin: 'auto' }}
+                  onClick={() => window.open(`${structure?.urlDossierReconventionnement}/messagerie`)}
+                >
                   Compl&eacute;ter le dossier
                 </button>
               </li>
               <li>
                 <button
-                  className="fr-btn  fr-icon-edit-line"
-                  title="Label bouton"
+                  className="fr-btn fr-icon-edit-line"
+                  title="&Eacute;diter le contrat"
                   style={{ margin: 'auto', marginLeft: '25px' }}
                   onClick={() => handleEditContract(conseiller)}
                 ></button>
@@ -119,7 +136,6 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
 CompleteContractCard.propTypes = {
   conseiller: propTypes.object,
   roleActivated: propTypes.string,
-  setOpenModalContrat: propTypes.func,
   handleOpenModalContrat: propTypes.func,
   structure: propTypes.object,
 };

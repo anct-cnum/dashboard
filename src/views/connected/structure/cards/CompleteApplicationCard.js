@@ -31,7 +31,7 @@ const CompleteApplicationCard = ({ structure }) => (
             {badgeStatutDossierDS(structure?.dossierConventionnement?.statut)}
             <button
               className="fr-btn card__button"
-              title="D&eacute;tail"
+              title="Compl&eacute;ter mon dossier"
               onClick={() => window.open(structure.urlDossierReconventionnement)}
             >
               Compl&eacute;ter mon dossier

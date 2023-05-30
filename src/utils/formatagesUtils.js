@@ -22,7 +22,7 @@ export function pluralize(zero, singulier, pluriel, count, showCount = false) {
     case 1:
       phrase += singulier;
       break;
-  
+
     default:
       phrase += pluriel;
       break;
@@ -34,13 +34,13 @@ export const valideInputEmail = email => {
   const regexValidEmail = new RegExp(
     /^[a-zA-Z0-9-._]+@[a-zA-Z0-9-._]{2,}[.][a-zA-Z]{2,3}$/
   );
-  
+
   return regexValidEmail.test(email);
 };
 
 export const validInputSiret = siret => {
   const regexValidSiret = new RegExp(/^[0-9]{14}$/);
-  
+
   return regexValidSiret.test(siret);
 };
 
@@ -125,27 +125,17 @@ export const badgeStatutDossierDS = statut => {
   }
 };
 
-
-export function formatTypeDeContrat(conseiller) {
-  let typeDeContrat = conseiller?.typeDeContrat ?? '-';
-  let output = '';
-  
+export const formatTypeDeContrat = typeDeContrat => {
   switch (typeDeContrat) {
     case 'cdi':
-      output = 'CDI';
-      break;
+      return 'CDI';
     case 'cdd':
-      output = 'CDD';
-      break;
+      return 'CDD';
     case 'contrat_de_projet_prive':
-      output = 'Projet privé';
-      break;
+      return 'Projet privé';
     case 'contrat_de_projet_public':
-      output = 'Projet public';
-      break;
+      return 'Projet public';
     default:
-      output = typeDeContrat;
+      return typeDeContrat;
   }
-  
-  return output;
-}
+};

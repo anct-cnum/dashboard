@@ -21,6 +21,7 @@ import {
 import { useAdvisors } from './hooks/useAdvisors';
 import { useErrors } from './hooks/useErrors';
 import { useStructure } from './hooks/useStructure';
+import { StatutConventionnement } from '../../../utils/enumUtils';
 
 function MesPostes() {
   const [openModalContrat, setOpenModalContrat] = useState(false);
@@ -50,9 +51,9 @@ function MesPostes() {
 
   function getClassName() {
     const withBannerOnTopStatuses = [
-      'CONVENTIONNEMENT_VALIDÉ',
-      'RECONVENTIONNEMENT_EN_COURS',
-      'ENREGISTRÉ',
+      StatutConventionnement.CONVENTIONNEMENT_VALIDÉ,
+      StatutConventionnement.RECONVENTIONNEMENT_EN_COURS,
+      StatutConventionnement.ENREGISTRÉ,
     ];
     if (withBannerOnTopStatuses.includes(structure?.conventionnement?.statut)) {
       return 'withBannerOnTop';
@@ -60,10 +61,10 @@ function MesPostes() {
     if (bannieresRenouvellementValide?.length > 0) {
       return 'withBannerOnTop';
     }
-    if (showValidateBanner && structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ') {
+    if (showValidateBanner && structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) {
       return 'withBannerOnTop';
     }
-    if (structure?.conventionnement?.statut === 'NON_INTERESSÉ') {
+    if (structure?.conventionnement?.statut === StatutConventionnement.NON_INTERESSÉ) {
       return 'withoutBannerOnTop';
     }
   }

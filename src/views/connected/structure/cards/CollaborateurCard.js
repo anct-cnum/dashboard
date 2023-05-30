@@ -33,8 +33,10 @@ const CollaborateurCard = ({ gestionnaire }) => {
                 }}
               />
               {confirmSuppressionGestionnaire &&
-            <FormSuppressionGestionnaire setConfirmSuppressionGestionnaire={setConfirmSuppressionGestionnaire}
-              idGestionnaire={gestionnaire?._id} />
+                <FormSuppressionGestionnaire
+                  setConfirmSuppressionGestionnaire={setConfirmSuppressionGestionnaire}
+                  idGestionnaire={gestionnaire?._id}
+                />
               }
             </div>
           </div>
@@ -46,7 +48,6 @@ const CollaborateurCard = ({ gestionnaire }) => {
 
 CollaborateurCard.propTypes = {
   gestionnaire: propType.object,
-  setCollaborateurs: propType.func,
 };
 
 export default CollaborateurCard;

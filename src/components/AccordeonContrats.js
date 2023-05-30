@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatMotifRupture } from '../utils/formatagesUtils';
+import { formatMotifRupture, formatTypeDeContrat } from '../utils/formatagesUtils';
 import dayjs from 'dayjs';
 
 function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, conseiller }) {
@@ -66,8 +66,8 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                         <span className="fr-text--regular fr-text--md">-</span>
                       }
                       {misesEnRelationFinalisee[0]?.typeDeContrat ?
-                        <span className="fr-text--regular fr-text--md">{misesEnRelationFinalisee[0]?.typeDeContrat}</span> :
-                        <span className="fr-text--regular fr-text--md">{misesEnRelationNouvelleRupture?.typeDeContrat}</span>
+                        <span className="fr-text--regular fr-text--md">{formatTypeDeContrat(misesEnRelationFinalisee[0]?.typeDeContrat)}</span> :
+                        <span className="fr-text--regular fr-text--md">{formatTypeDeContrat(misesEnRelationNouvelleRupture?.typeDeContrat)}</span>
                       }
                     </div>
                   </div>
@@ -134,7 +134,9 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                       <div className="fr-col-12 fr-mb-md-0 fr-mb-2w fr-col-md-4">
                         <div>
                           <strong className="fr-text--md">Type de contrat</strong><br/>
-                          <span className="fr-text--regular fr-text--md">{miseEnRelation?.typeDeContrat ?? '-'}</span>
+                          <span className="fr-text--regular fr-text--md">
+                            {miseEnRelation?.typeDeContrat ? formatTypeDeContrat(miseEnRelation?.typeDeContrat) : '-'}
+                          </span>
                         </div>
                       </div>
                       <div className="fr-col-12 fr-col-md-4 fr-mb-md-0 fr-mb-2w">

@@ -17,9 +17,9 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   name="checkbox"
                   checked={
                     checkedItems?.map(item => item?.miseEnRelationId)?.includes(miseEnRelation?.miseEnRelationId) ||
-                    (miseEnRelation?.typeDeContrat === 'cdi')
+                    (miseEnRelation?.typeDeContrat?.includes('CDI'))
                   }
-                  disabled={miseEnRelation?.typeDeContrat === 'cdi'}
+                  disabled={miseEnRelation?.typeDeContrat?.includes('CDI')}
                   value={JSON.stringify(miseEnRelation)}
                   onChange={handleSelectAdvisor}
                 />
@@ -42,13 +42,25 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   Type de contrat
                 </strong>
                 <br />
-                <span className="fr-text--regular fr-text--md">{formatTypeDeContrat(miseEnRelation)}</span>
+                <span
+                  className="fr-text--regular fr-text--md"
+                  title={miseEnRelation?.typeDeContrat ? formatTypeDeContrat(miseEnRelation?.typeDeContrat) : ''}
+                >
+                  {miseEnRelation?.typeDeContrat ?
+                    <>
+                      {miseEnRelation?.typeDeContrat?.length > 15 ?
+                        `${formatTypeDeContrat(miseEnRelation?.typeDeContrat)?.substring(0, 15)}...` :
+                        formatTypeDeContrat(miseEnRelation?.typeDeContrat)
+                      }
+                    </> : '-'
+                  }
+                </span>
               </div>
             </div>
             <div className="fr-col-2 card__text">
               <div>
                 <strong className="fr-text--md">
-                  Début de contrat
+                  D&eacute;but de contrat
                 </strong>
                 <br />
                 {miseEnRelation?.dateDebutDeContrat ?
@@ -94,10 +106,6 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
 };
 
 SelectAdvisorCard.propTypes = {
-  nom: propTypes.string,
-  prenom: propTypes.string,
-  statut: propTypes.string,
-  id: propTypes.string,
   roleActivated: propTypes.string,
   miseEnRelation: propTypes.object,
   handleSelectAdvisor: propTypes.func,

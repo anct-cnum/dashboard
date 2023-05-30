@@ -4,10 +4,9 @@ import { pluralize } from '../../../../utils/formatagesUtils';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 const HireAdvisorCard = ({ nbreConseillersActifs, structure }) => {
-
   const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
   const nbPostesAttribuees = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees :
-    structure?.conventionnement?.dossierConventionnement?.nbPostesAttribuees;
+    structure?.posteValiderCoselec;
 
   return (
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
@@ -36,7 +35,6 @@ const HireAdvisorCard = ({ nbreConseillersActifs, structure }) => {
 HireAdvisorCard.propTypes = {
   nbreConseillersActifs: propTypes.number,
   structure: propTypes.object,
-  nbPostesAttribuees: propTypes.number,
 };
 
 export default HireAdvisorCard;

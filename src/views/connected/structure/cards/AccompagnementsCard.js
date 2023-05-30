@@ -18,7 +18,7 @@ const StructureInformationsCard = ({ structure }) => (
           <div className="fr-col-6">
             <div>
               <span className="fr-text--md fr-text--bold" style={{ fontWeight: '500' }}>
-                  Personnes accompagn&eacute;es
+                Personnes accompagn&eacute;es
               </span>
               <br />
               <span className="fr-text--regular fr-text--md info__color">

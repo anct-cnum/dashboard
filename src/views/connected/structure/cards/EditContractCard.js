@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
-import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, formatTypeDeContrat } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 
 const EditContractCard = ({ conseiller, roleActivated, setOpenModalContrat, setMiseEnrelationId }) => {
@@ -30,7 +30,19 @@ const EditContractCard = ({ conseiller, roleActivated, setOpenModalContrat, setM
                     Type de contrat
                   </span>
                   <br />
-                  <span className="fr-text--regular fr-text--md info__color">{conseiller?.typeDeContrat ?? '-'}</span>
+                  <span
+                    className="fr-text--regular fr-text--md info__color"
+                    title={conseiller?.typeDeContrat ? formatTypeDeContrat(conseiller?.typeDeContrat) : ''}
+                  >
+                    {conseiller?.typeDeContrat ?
+                      <>
+                        {conseiller?.typeDeContrat?.length > 15 ?
+                          `${formatTypeDeContrat(conseiller?.typeDeContrat)?.substring(0, 15)}...` :
+                          formatTypeDeContrat(conseiller?.typeDeContrat)
+                        }
+                      </> : '-'
+                    }
+                  </span>
                 </div>
               </div>
               <div className="fr-col-2 card__text">
@@ -105,7 +117,6 @@ EditContractCard.propTypes = {
   roleActivated: propTypes.string,
   setOpenModalContrat: propTypes.func,
   setMiseEnrelationId: propTypes.func,
-  handleOpenModalContrat: propTypes.func,
 };
 
 export default EditContractCard;

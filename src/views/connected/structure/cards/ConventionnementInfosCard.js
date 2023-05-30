@@ -87,12 +87,15 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
                 )}
               </div>
               <div className="fr-ml-auto fr-my-auto">
-                <button className="fr-btn" onClick={
-                  () => window.open(
-                    structure?.urlDossierConventionnement)
-                }>
-                  <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche
-                    Simplifi&eacute;e
+                <button
+                  className="fr-btn"
+                  title="Voir le dossier D&eacute;marche Simplifi&eacute;e"
+                  onClick={
+                    () => window.open(
+                      structure?.urlDossierConventionnement)
+                  }>
+                  <i className="ri-folder-2-line fr-mr-1w"></i>
+                  Voir le dossier D&eacute;marche Simplifi&eacute;e
                 </button>
               </div>
             </div>
@@ -104,7 +107,6 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
 };
 
 ConventionnementInfosCard.propTypes = {
-  onPositionClick: PropTypes.func,
   structure: PropTypes.object,
   roleActivated: PropTypes.string
 };

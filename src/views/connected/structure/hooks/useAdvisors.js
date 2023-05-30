@@ -41,7 +41,7 @@ export function useAdvisors() {
       statut,
     };
   };
-  
+
   useEffect(() => {
     if (structure?._id) {
       dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
@@ -71,7 +71,7 @@ export function useAdvisors() {
           return false;
         }
         const hasReconventionnement = miseEnRelation.reconventionnement;
-        const isNotCDI = miseEnRelation.typeDeContrat !== 'cdi';
+        const isNotCDI = miseEnRelation.typeDeContrat !== 'CDI';
         const isRenouvellementInitie = miseEnRelation.statut === 'renouvellement_initié';
         const isFinaliseeWithoutConventionnement =
             miseEnRelation.statut === 'finalisee' && !miseEnRelation.miseEnRelationConventionnement;

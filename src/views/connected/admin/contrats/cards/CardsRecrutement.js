@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import dayjs from 'dayjs';
+import { formatTypeDeContrat } from '../../../../../utils/formatagesUtils';
 
 const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
 
@@ -27,7 +28,19 @@ const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
                     <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Type de contrat</strong><br />
-                        <span className="fr-text--regular fr-text--md">{miseEnRelation?.typeDeContrat ?? '-'}</span>
+                        <span
+                          className="fr-text--regular fr-text--md"
+                          title={miseEnRelation?.typeDeContrat ? formatTypeDeContrat(miseEnRelation?.typeDeContrat) : ''}
+                        >
+                          {miseEnRelation?.typeDeContrat ?
+                            <>
+                              {miseEnRelation?.typeDeContrat?.length > 15 ?
+                                `${formatTypeDeContrat(miseEnRelation?.typeDeContrat)?.substring(0, 15)}...` :
+                                formatTypeDeContrat(miseEnRelation?.typeDeContrat)
+                              }
+                            </> : '-'
+                          }
+                        </span>
                       </div>
                     </div>
                     <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">

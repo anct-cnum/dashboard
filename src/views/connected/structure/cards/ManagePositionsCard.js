@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 const ManagePositionsCard = ({ structure }) => {
 
-  const isReconventionnement = structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ';
+  const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
   const dossier = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement :
     structure?.conventionnement?.dossierConventionnement;
   const urlDossier = isReconventionnement ? structure?.urlstructure?.DossierReconventionnement : structure?.urlDossierConventionnement;
@@ -82,11 +83,14 @@ const ManagePositionsCard = ({ structure }) => {
                     <button className="fr-btn fr-btn--secondary" disabled>Rendre un poste</button>
                   </li>
                   <li className="fr-ml-auto">
-                    <button className="fr-btn" onClick={
-                      () => window.open(urlDossier)
-                    }>
-                      <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche
-                    Simplifi&eacute;e
+                    <button
+                      className="fr-btn"
+                      title="Voir le dossier D&eacute;marche Simplifi&eacute;e"
+                      onClick={
+                        () => window.open(urlDossier)
+                      }>
+                      <i className="ri-folder-2-line fr-mr-1w"></i>
+                      Voir le dossier D&eacute;marche Simplifi&eacute;e
                     </button>
                   </li>
                 </ul>
@@ -101,10 +105,7 @@ const ManagePositionsCard = ({ structure }) => {
 
 
 ManagePositionsCard.propTypes = {
-  positions: PropTypes.array,
-  onPositionClick: PropTypes.func,
   structure: PropTypes.object,
-  setDernierAvenantValide: PropTypes.func
 };
 
 export default ManagePositionsCard;

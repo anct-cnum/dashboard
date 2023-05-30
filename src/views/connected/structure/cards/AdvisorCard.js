@@ -37,7 +37,19 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                   Type de contrat
                 </strong>
                 <br />
-                <span className="fr-text--regular fr-text--md">{formatTypeDeContrat(conseiller)}</span>
+                <span
+                  className="fr-text--regular fr-text--md"
+                  title={conseiller?.typeDeContrat ? formatTypeDeContrat(conseiller?.typeDeContrat) : ''}
+                >
+                  {conseiller?.typeDeContrat ?
+                    <>
+                      {conseiller?.typeDeContrat?.length > 15 ?
+                        `${formatTypeDeContrat(conseiller?.typeDeContrat)?.substring(0, 15)}...` :
+                        formatTypeDeContrat(conseiller?.typeDeContrat)
+                      }
+                    </> : '-'
+                  }
+                </span>
               </div>
             </div>
             <div className="fr-col-2 card__text">
