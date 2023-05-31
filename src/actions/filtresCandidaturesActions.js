@@ -57,13 +57,7 @@ function updateCV(cv) {
 }
 
 function updateCCP1(ccp1) {
-  return dispatch => {
-    dispatch(success(ccp1));
-  };
-
-  function success(ccp1) {
-    return { type: 'UPDATE_CCP1', ccp1 };
-  }
+  return { type: 'UPDATE_CCP1', ccp1 };
 }
 
 function changeNomCandidat(nomCandidat) {
