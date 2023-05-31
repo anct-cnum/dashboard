@@ -11,8 +11,8 @@ const CollaborateurCard = ({ gestionnaire }) => {
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
       <div className="fr-card__body fr-p-0">
         <div>
-          <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-            <div className="fr-col-2">
+          <div className="fr-grid-row fr-grid-row--middle">
+            <div className="fr-col-md-2 fr-col-12">
               <div>
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
                   {gestionnaire?.name}
@@ -20,7 +20,7 @@ const CollaborateurCard = ({ gestionnaire }) => {
               </div>
             </div>
             <div className="fr-col-offset-7"></div>
-            <div className="fr-col-2" style={{ textAlign: 'end' }}>
+            <div className="fr-col-md-2 fr-col-6" style={{ textAlign: 'end' }}>
               {compteActif(gestionnaire) ? <p className="fr-badge fr-badge--info">Actif</p> : <p className="fr-badge fr-badge--warning">Inactif</p>}
             </div>
             <div className="fr-col-1" style={{ textAlign: 'end' }}>

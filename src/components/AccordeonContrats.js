@@ -16,7 +16,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
         <div className="fr-card fr-col-12 fr-p-4w">
           <div className="fr-card__body" style={{ padding: '0 0' }}>
             <div>
-              <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+              <div className="fr-grid-row fr-grid-row--middle">
                 <div className="fr-col-12 fr-mb-2w">
                   <p className="fr-badge fr-badge--warning">Rupture en cours</p>
                 </div>
@@ -55,7 +55,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
           <div className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}>
             <div className="fr-card__body" style={{ padding: '0 0' }}>
               <div>
-                <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+                <div className="fr-grid-row fr-grid-row--middle">
                   <div className="fr-col-12 fr-mb-2w">
                     <p className="fr-badge fr-badge--success">Contrat en cours</p>
                   </div>
@@ -121,7 +121,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
               >
                 <div className="fr-card__body" style={{ padding: '0 0' }}>
                   <div>
-                    <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+                    <div className="fr-grid-row fr-grid-row--middle">
                       <div className="fr-col-12 fr-mb-2w">
                         <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
                       </div>
@@ -176,7 +176,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
           <div className="fr-card fr-col-12 fr-mt-3w fr-p-4w">
             <div className="fr-card__body" style={{ padding: '0 0' }}>
               <div>
-                <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+                <div className="fr-grid-row fr-grid-row--middle">
                   <div className="fr-col-12 fr-mb-2w">
                     <p className="fr-badge fr-badge--info">Formation</p>
                   </div>

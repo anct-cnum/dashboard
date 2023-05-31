@@ -105,7 +105,7 @@ function MaStructure() {
           activeMessage={activeMessage}
         />
       )}
-      <div className="fr-container">
+      <div className="fr-container maStructure">
         {deleteMessageSuccess &&
         <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }}>
           <p className="fr-alert__title">
@@ -114,7 +114,7 @@ function MaStructure() {
         </div>
         }
         <Spinner loading={loadingStructure || loadingInvitation || loadingSuppression} />
-        <h2 className="fr-mb-1w" style={{ color: '#000091' }}>
+        <h2 className="fr-mb-1w titre">
           {structure?.nom}
         </h2>
         <h6>{`ID - ${structure?.idPG}`}</h6>
@@ -135,12 +135,11 @@ function MaStructure() {
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <h2>Informations structure</h2>
-        <div className="fr-grid-row">
-          <div className="fr-col-6 fr-mt-4w">
-            <h4 className="titre" style={{ color: '#000091' }}>
+        <div className="fr-grid-row color-text color-title-subpart">
+          <div className="fr-col-md-6 fr-col-12 fr-mt-4w">
+            <h4 className="titre">
               Informations g&eacute;n&eacute;rales
             </h4>
-
             <div className="fr-mb-3w">
               <strong>Siret</strong>
               <br />
@@ -177,8 +176,8 @@ function MaStructure() {
               <span>{structure?.qpvStatut ?? '-'}</span>
             </div>
           </div>
-          <div className="fr-col-6 fr-mt-4w">
-            <h4 className="titre" style={{ color: '#000091' }}>
+          <div className="fr-col-md-6 fr-col-12 fr-mt-4w">
+            <h4 className="titre">
               Adresse
             </h4>
             <div className="fr-mb-3w">
