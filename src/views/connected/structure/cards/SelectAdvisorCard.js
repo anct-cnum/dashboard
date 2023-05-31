@@ -17,9 +17,9 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   name="checkbox"
                   checked={
                     checkedItems?.map(item => item?.miseEnRelationId)?.includes(miseEnRelation?.miseEnRelationId) ||
-                    (miseEnRelation?.typeDeContrat?.includes('CDI'))
+                    (miseEnRelation?.typeDeContrat === 'CDI')
                   }
-                  disabled={miseEnRelation?.typeDeContrat?.includes('CDI')}
+                  disabled={miseEnRelation?.typeDeContrat === 'CDI'}
                   value={JSON.stringify(miseEnRelation)}
                   onChange={handleSelectAdvisor}
                 />
