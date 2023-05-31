@@ -69,6 +69,7 @@ export default function structure(state = initialState, action) {
       return {
         ...state,
         contactUpdated: true,
+        structure: action.structure,
         flashMessage: true
       };
     case 'PATCH_STRUCTURE_CONTACT_FAILURE':
@@ -132,6 +133,7 @@ export default function structure(state = initialState, action) {
       return {
         ...state,
         loading: false,
+        structure: { ...state.structure, contact: { ...state.structure.contact, email: action.emailUpdated } },
         emailUpdated: true,
       };
     case 'UPDATE_STRUCTURE_EMAIL_FAILURE':

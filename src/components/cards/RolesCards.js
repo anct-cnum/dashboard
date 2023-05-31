@@ -17,7 +17,7 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
             </div>
             <div className="fr-col-4 fr fr-grid-row--end" style={{ textAlign: 'right' }}>
               <button className="fr-btn fr-btn--tertiary-no-outline"
-                onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}
+                onClick={() => window.open(`/${roleActivated}/ma-structure/`)}
               >
                 <i className="ri-home-4-line fr-mr-1w"></i>G&eacute;rer ma structure
               </button>
@@ -62,7 +62,7 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
         return;
     }
   };
-  
+
   return (
     <>
       <div className="fr-card fr-col-8 fr-mt-2w fr-p-3w">

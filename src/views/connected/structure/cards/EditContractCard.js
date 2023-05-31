@@ -100,7 +100,7 @@ const EditContractCard = ({ conseiller, roleActivated, setOpenModalContrat, setM
           <div className="fr-col-4 buttons">
             <button
               className="fr-btn fr-btn--icon-left fr-icon-edit-line fr-ml-6w card__button"
-              title="D&eacute;tail"
+              title="&Eacute;diter son nouveau contrat"
               onClick={() => setOpenModalContrat(true)}
             >
               &Eacute;diter son nouveau contrat

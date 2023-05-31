@@ -28,7 +28,7 @@ const InProgressBanner = ({ structure, roleActivated }) => {
               className="fr-btn fr-btn--secondary"
               data-fr-opened="false"
               aria-controls="fr-modal-2"
-              onClick={() => navigate(`/${roleActivated}/structure/${structure?._id}`)}
+              onClick={() => navigate(`/${roleActivated}/ma-structure/`)}
             >
               Voir ma demande
             </button>

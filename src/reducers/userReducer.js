@@ -50,6 +50,7 @@ export default function user(state = null, action) {
         ...state,
         loading: false,
         deleteSuccess: action.response.deleteSuccess,
+        deleteMessageSuccess: action.response.deleteMessageSuccess,
         userDeleted: [...state.users.filter(user => user._id === action.response.idUser)],
         users: [...state.users.filter(user => user._id !== action.response.idUser)]
       };

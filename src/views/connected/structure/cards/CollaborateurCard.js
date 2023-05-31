@@ -36,6 +36,7 @@ const CollaborateurCard = ({ gestionnaire }) => {
                 <FormSuppressionGestionnaire
                   setConfirmSuppressionGestionnaire={setConfirmSuppressionGestionnaire}
                   idGestionnaire={gestionnaire?._id}
+                  roles={gestionnaire.roles}
                 />
               }
             </div>
