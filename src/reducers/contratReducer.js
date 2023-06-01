@@ -32,7 +32,6 @@ export default function contrat(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        items: action.contrats,
       };
     case 'VALIDATION_CONTRAT_RENOUVELLEMENT_FAILURE':
       return {
@@ -67,7 +66,6 @@ export default function contrat(state = initialState, action) {
     case 'CREATE_CONTRAT_RENOUVELLEMENT_SUCCESS':
       return {
         ...state,
-        renouvellement: action.renouvellement,
         loading: false
       };
     case 'CREATE_CONTRAT_RENOUVELLEMENT_FAILURE':
@@ -85,7 +83,6 @@ export default function contrat(state = initialState, action) {
     case 'UPDATE_CONTRAT_RENOUVELLEMENT_SUCCESS':
       return {
         ...state,
-        renouvellement: action.renouvellement,
         loading: false
       };
     case 'UPDATE_CONTRAT_RENOUVELLEMENT_FAILURE':

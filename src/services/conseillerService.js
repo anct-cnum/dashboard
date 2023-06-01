@@ -5,7 +5,9 @@ import { conseillerQueryStringParameters, candidatQueryStringParameters } from '
 
 export const conseillerService = {
   get,
+  getConseillerContrat,
   getCandidat,
+  getCandidatRecrutement,
   getAllRecruter,
   getAllCandidats,
   getAllCandidatsByAdmin,
@@ -23,14 +25,26 @@ export const conseillerService = {
   getCandidatStructure,
 };
 
-function get(id, idMiseEnRelation) {
-  return API.get(`${apiUrlRoot}/conseiller/${id}${idMiseEnRelation ? `/${idMiseEnRelation}` : ''}?role=${roleActivated()}`)
+function get(id) {
+  return API.get(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getCandidat(id, idMiseEnRelation) {
-  return API.get(`${apiUrlRoot}/candidat/${id}${idMiseEnRelation ? `/${idMiseEnRelation}` : ''}?role=${roleActivated()}`)
+function getConseillerContrat(idConseiller, idMiseEnRelation) {
+  return API.get(`${apiUrlRoot}/conseiller/contrat/${idConseiller}/${idMiseEnRelation}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getCandidat(id) {
+  return API.get(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getCandidatRecrutement(idConseiller, idMiseEnRelation) {
+  return API.get(`${apiUrlRoot}/candidat/contrat/${idConseiller}/${idMiseEnRelation}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

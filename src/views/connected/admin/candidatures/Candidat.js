@@ -6,6 +6,7 @@ import { conseillerActions } from '../../../../actions';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
 import ReactTooltip from 'react-tooltip';
+import { Link } from 'react-router-dom';
 
 function Candidat({ candidat }) {
   const dispatch = useDispatch();
@@ -40,11 +41,13 @@ function Candidat({ candidat }) {
           }
         </td>
         <td>
-          <button
+          <Link
+            to={`/${roleActivated}/candidat/${candidat?._id}`}
+            state={{ 'origin': `/${roleActivated}/liste-candidatures` }}
             className="fr-btn fr-icon-eye-line"
-            title="D&eacute;tail"
-            onClick={() => window.open(`/${roleActivated}/candidat/${candidat?._id}`)}>
-          </button>
+            title="D&eacute;tail">
+            D&eacute;tail
+          </Link>
         </td>
       </tr>
     </>

@@ -1,3 +1,4 @@
+import { roleActivated } from '../helpers/rolesUser.js';
 import { contratService } from '../services/contratService.js';
 
 export const contratActions = {
@@ -90,8 +91,7 @@ function createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelati
     dispatch(request());
 
     contratService.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId)
-    .then(
-      miseEnRelationRelation => dispatch(success(miseEnRelationRelation)),
+    .then(() => dispatch(success()),
       error => {
         dispatch(failure(error));
       }
@@ -101,25 +101,26 @@ function createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelati
   function request() {
     return { type: 'CREATE_CONTRAT_RENOUVELLEMENT_REQUEST' };
   }
-  function success(miseEnRelationRelation) {
-    return { type: 'CREATE_CONTRAT_RENOUVELLEMENT_SUCCESS', miseEnRelationRelation };
+  function success() {
+    return { type: 'CREATE_CONTRAT_RENOUVELLEMENT_SUCCESS' };
   }
   function failure(error) {
     return { type: 'CREATE_CONTRAT_RENOUVELLEMENT_FAILURE', error };
   }
 }
 
-function updateContract(typeDeContrat, dateDebut, dateFin, salaire, id, role = 'structure') {
+function updateContract(typeDeContrat, dateDebut, dateFin, salaire, id) {
   return dispatch => {
     dispatch(request());
 
     contratService.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id)
     .then(
       miseEnRelation => {
-        if (role === 'admin') {
+        const roleUser = roleActivated();
+        if (roleUser === 'admin') {
           dispatch(updateContratConseiller(miseEnRelation));
         }
-        dispatch(success(miseEnRelation));
+        dispatch(success());
       },
       error => {
         dispatch(failure(error));
@@ -130,8 +131,8 @@ function updateContract(typeDeContrat, dateDebut, dateFin, salaire, id, role = '
   function request() {
     return { type: 'UPDATE_CONTRAT_RENOUVELLEMENT_REQUEST' };
   }
-  function success(miseEnRelation) {
-    return { type: 'UPDATE_CONTRAT_RENOUVELLEMENT_SUCCESS', miseEnRelation };
+  function success() {
+    return { type: 'UPDATE_CONTRAT_RENOUVELLEMENT_SUCCESS' };
   }
   function updateContratConseiller(miseEnRelationUpdated) {
     return { type: 'UPDATE_MISE_EN_RELATION_CONTRAT', miseEnRelationUpdated };

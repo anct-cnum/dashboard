@@ -4,7 +4,9 @@ import download from 'downloadjs';
 
 export const conseillerActions = {
   get,
+  getConseillerContrat,
   getCandidat,
+  getCandidatRecrutement,
   getAllRecruter,
   updateStatus,
   updateDateRecrutement,
@@ -21,11 +23,35 @@ export const conseillerActions = {
   getCandidatStructure,
 };
 
-function get(id, idMiseEnRelation) {
+function get(id) {
   return dispatch => {
     dispatch(request());
 
-    conseillerService.get(id, idMiseEnRelation)
+    conseillerService.get(id)
+    .then(
+      conseiller => dispatch(success(conseiller)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CONSEILLER_REQUEST' };
+  }
+  function success(conseiller) {
+    return { type: 'GET_CONSEILLER_SUCCESS', conseiller };
+  }
+  function failure(error) {
+    return { type: 'GET_CONSEILLER_FAILURE', error };
+  }
+}
+
+function getConseillerContrat(id, idMiseEnRelation) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.getConseillerContrat(id, idMiseEnRelation)
     .then(
       conseiller => dispatch(success(conseiller)),
       error => {
@@ -50,6 +76,30 @@ function getCandidat(id, idMiseEnRelation) {
     dispatch(request());
 
     conseillerService.getCandidat(id, idMiseEnRelation)
+    .then(
+      candidat => dispatch(success(candidat)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CANDIDAT_REQUEST' };
+  }
+  function success(candidat) {
+    return { type: 'GET_CANDIDAT_SUCCESS', candidat };
+  }
+  function failure(error) {
+    return { type: 'GET_CANDIDAT_FAILURE', error };
+  }
+}
+
+function getCandidatRecrutement(id, idMiseEnRelation) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.getCandidatRecrutement(id, idMiseEnRelation)
     .then(
       candidat => dispatch(success(candidat)),
       error => {

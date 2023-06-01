@@ -10,7 +10,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
         return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
       case 'nouvelle_rupture':
         return <p className="fr-badge fr-badge--info">Rupture en cours</p>;
-      case 'renouvellement_initié':
+      case 'renouvellement_initiee':
         return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
       default:
         return;

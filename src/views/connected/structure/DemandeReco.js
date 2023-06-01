@@ -156,7 +156,7 @@ function DemandeReconventionnement() {
             <span>Veuillez inscrire le nombre de postes de Conseillers num&eacute;riques attribu&eacute;s &agrave; votre structure</span>
             <span className="fr-hint-text">
               Merci d&rsquo;indiquer le nombre total de postes qui ont &eacute;t&eacute; attribu&eacute;s &agrave; votre structure,
-              y compris ceux qui ne sont pas pourvus à ce jour.
+              y compris ceux qui ne sont pas pourvus &agrave; ce jour.
             </span>
           </label>
           <input

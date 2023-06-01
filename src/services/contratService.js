@@ -18,7 +18,7 @@ function getAll(page, statutContrat) {
 }
 
 function validationRenouvellement(id) {
-  return API.patch(`${apiUrlRoot}/contrat/${id}?role=${roleActivated()}`)
+  return API.patch(`${apiUrlRoot}/contrat/validation-renouvellement/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -34,13 +34,13 @@ function getAllHistorique(page, statutContrat, dateDebut, dateFin) {
 
 function createContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId) {
   // eslint-disable-next-line max-len
-  return API.post(`${apiUrlRoot}/reconventionnement/contrat?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId })
+  return API.post(`${apiUrlRoot}/contrat?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
 function updateContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, id) {
-  return API.patch(`${apiUrlRoot}/reconventionnement/contrat/${id}?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire })
+  return API.patch(`${apiUrlRoot}/contrat/${id}?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

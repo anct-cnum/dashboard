@@ -96,7 +96,7 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal, setOpenModal
               <button
                 className="fr-btn"
                 aria-controls="fr-modal-2"
-                disabled={miseEnRelation?.dossierIncompletRupture === true || miseEnRelation?.dossierIncompletRupture === undefined}
+                disabled={miseEnRelation?.dossierIncompletRupture !== false}
                 onClick={() => setOpenModalValidationRupture(true)}
               >
                 Valider la demande

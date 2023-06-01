@@ -21,7 +21,7 @@ function MesInformations() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'La structure n\'a pas pu être chargé !',
+        message: 'La structure n\'a pas pu être chargée !',
         status: null, description: null
       }));
     }

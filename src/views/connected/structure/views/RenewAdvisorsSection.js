@@ -5,7 +5,7 @@ import CompleteContractCard from '../cards/CompleteContractCard';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 const renderCard = (conseiller, idx, roleActivated, setMiseEnrelationId, setOpenModalContrat, handleOpenModalContrat, structure) => {
-  if (conseiller?.reconventionnement && conseiller?.statut !== 'renouvellement_initié') {
+  if (conseiller?.reconventionnement && conseiller?.statut !== 'renouvellement_initiee') {
     return (
       <EditContractCard
         conseiller={conseiller}
@@ -16,7 +16,7 @@ const renderCard = (conseiller, idx, roleActivated, setMiseEnrelationId, setOpen
         key={idx}
       />
     );
-  } else if (conseiller?.statut === 'renouvellement_initié') {
+  } else if (conseiller?.statut === 'renouvellement_initiee') {
     return (
       <CompleteContractCard
         conseiller={conseiller}

@@ -86,7 +86,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, setOpenModalContrat
         </div>
         <div className="fr-card__footer">
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
-            {miseEnRelation?.statut === 'renouvellement_initié' &&
+            {miseEnRelation?.statut === 'renouvellement_initiee' &&
             <li>
               <button
                 className="fr-btn fr-btn--secondary"

@@ -7,7 +7,7 @@ function Contrat({ contrat }) {
     if (contrat?.statut === 'nouvelle_rupture' && contrat?.emetteurRupture?.date) {
       return dayjs(contrat.emetteurRupture.date).format('DD/MM/YYYY');
     }
-    if (contrat?.statut === 'renouvellement_initié' && contrat?.emetteurRenouvellement?.date) {
+    if (contrat?.statut === 'renouvellement_initiee' && contrat?.emetteurRenouvellement?.date) {
       return dayjs(contrat.emetteurRenouvellement.date).format('DD/MM/YYYY');
     }
     return 'Non renseignée';
@@ -19,7 +19,7 @@ function Contrat({ contrat }) {
         return 'Rupture de contrat';
       case 'recrutee':
         return 'Recrutement';
-      case 'renouvellement_initié':
+      case 'renouvellement_initiee':
         return 'Renouvellement';
       default:
         return '';
@@ -43,12 +43,12 @@ function Contrat({ contrat }) {
             <button
               className="fr-btn"
               title="D&eacute;tail"
-              onClick={() => window.open(`/admin/candidat/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
+              onClick={() => window.open(`/admin/demandes/contrat/candidat/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
               Voir la demande
             </button> : <button
               className="fr-btn"
               title="D&eacute;tail"
-              onClick={() => window.open(`/admin/conseiller/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
+              onClick={() => window.open(`/admin/demandes/contrat/conseiller/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
               Voir la demande
             </button>
           }

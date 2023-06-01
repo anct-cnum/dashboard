@@ -24,11 +24,11 @@ function ModalValidationRenouvellement({ setOpenModal, idMiseEnRelation }) {
               <div className="fr-modal__content">
                 <h1 id="fr-modal-3-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                  Important&nbsp;: Vous êtes sur le point de valider la demande de renouvellement de contrat.
+                  Important&nbsp;: Vous &ecirc;tes sur le point de valider la demande de renouvellement de contrat.
                 </h1>
                 <p>
                   <strong>
-                     Êtes-vous sûr de vouloir réaliser cette action ?
+                    &Ecirc;tes-vous s&ucirc;r de vouloir r&eacute;aliser cette action&nbsp;?
                   </strong>
                 </p>
               </div>

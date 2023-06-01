@@ -18,7 +18,7 @@ import { StatutConventionnement } from '../../../utils/enumUtils';
 
 function MaStructure() {
   const dispatch = useDispatch();
-  const userAuth = useSelector(state => state.authentication.user);
+  const userAuth = useSelector(state => state.authentication?.user);
   const structure = useSelector(state => state.structure?.structure);
   const [formInformationContact, setFormInformationContact] = useState(false);
   const [displaySiretForm, setDisplaySiretForm] = useState(false);
@@ -39,12 +39,10 @@ function MaStructure() {
   const [initStructure, setInitStructure] = useState(false);
 
   useEffect(() => {
-    if (!errorStructure) {
-      if (!initStructure) {
-        setInitStructure(true);
-        dispatch(structureActions.getDetails(userAuth?.entity?.$id));
-        dispatch(userActions.getUsers());
-      }
+    if (!errorStructure && !initStructure) {
+      setInitStructure(true);
+      dispatch(structureActions.getDetails(userAuth?.entity?.$id));
+      dispatch(userActions.getUsers());
     }
   }, [structure]);
 

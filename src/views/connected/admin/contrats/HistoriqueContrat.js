@@ -46,11 +46,11 @@ function HistoriqueContrat({ contrat }) {
             <button
               className="fr-btn fr-icon-eye-line"
               title="D&eacute;tail"
-              onClick={() => window.open(`/admin/candidat/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
+              onClick={() => window.open(`/admin/demandes/contrat/candidat/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
             </button> : <button
               className="fr-btn fr-icon-eye-line"
               title="D&eacute;tail"
-              onClick={() => window.open(`/admin/conseiller/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
+              onClick={() => window.open(`/admin/demandes/contrat/conseiller/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
             </button>
           }
         </td>

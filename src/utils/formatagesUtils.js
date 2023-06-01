@@ -127,10 +127,6 @@ export const badgeStatutDossierDS = statut => {
 
 export const formatTypeDeContrat = typeDeContrat => {
   switch (typeDeContrat) {
-    case 'cdi':
-      return 'CDI';
-    case 'cdd':
-      return 'CDD';
     case 'contrat_de_projet_prive':
       return 'Projet privé';
     case 'contrat_de_projet_public':

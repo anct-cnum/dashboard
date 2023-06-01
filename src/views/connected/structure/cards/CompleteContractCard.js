@@ -25,21 +25,24 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
             <div className="banner__text">
               <p className="fr-notice__title title__color">Envoyer les pi&egrave;ces justificatives pour finaliser la demande de renouvellement</p>
               <p className="fr-text--sm">
-                {
-                  `Demande d'un contrat ${formatTypeDeContrat(typeDeContrat)} ${typeDeContrat === 'CDI' ? '' : `de ${months} mois`} avec une date de début le
-                  ${dayjs(dateDebutDeContrat).format('DD/MM/YYYY')}.`
+                {typeDeContrat ?
+                  <>
+                  Demande d&rsquo;un contrat {formatTypeDeContrat(typeDeContrat)}&nbsp;{typeDeContrat === 'CDI' ? '' : `de ${months} mois `}
+                  avec une date de début le {dayjs(dateDebutDeContrat).format('DD/MM/YYYY')}
+                  </> : ''
                 }
               </p>
             </div>
           </div>
           <div className="fr-ml-auto fr-grid-row">
-            <button
-              title="Compl&eacute;ter le dossier"
+            <a
+              href={structure?.urlDossierReconventionnementMessagerie}
+              target="_blank"
+              rel="noopener noreferrer"
               className="fr-btn"
-              onClick={() => window.open(structure?.urlDossierReconventionnementMessagerie)}
             >
               Compl&eacute;ter le dossier
-            </button>
+            </a>
             <button
               className="fr-btn fr-btn--secondary fr-icon-edit-line fr-ml-2w"
               title="&Eacute;diter le contrat"

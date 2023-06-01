@@ -83,15 +83,15 @@ const ManagePositionsCard = ({ structure }) => {
                     <button className="fr-btn fr-btn--secondary" disabled>Rendre un poste</button>
                   </li>
                   <li className="fr-ml-auto">
-                    <button
+                    <a
+                      href={urlDossier}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="fr-btn"
-                      title="Voir le dossier D&eacute;marche Simplifi&eacute;e"
-                      onClick={
-                        () => window.open(urlDossier)
-                      }>
+                    >
                       <i className="ri-folder-2-line fr-mr-1w"></i>
                       Voir le dossier D&eacute;marche Simplifi&eacute;e
-                    </button>
+                    </a>
                   </li>
                 </ul>
               </div>

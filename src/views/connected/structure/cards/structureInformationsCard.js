@@ -70,8 +70,8 @@ const StructureInformationsCard = ({ structure, formInformationContact, setFormI
                 </span>
               </div>
             </div>
-            <div className=" fr-ml-auto">
-              <button className="fr-btn fr-btn--tertiary-no-outline fr-ml-auto" onClick={() => setFormInformationContact(true)}>
+            <div className="fr-ml-auto">
+              <button className="fr-btn fr-btn--tertiary-no-outline" onClick={() => setFormInformationContact(true)}>
                 <i className="ri-edit-line fr-mr-1w"></i>Modifier
               </button>
             </div>
