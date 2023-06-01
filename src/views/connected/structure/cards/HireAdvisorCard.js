@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
+import { Link } from 'react-router-dom';
 
 const HireAdvisorCard = ({ nbreConseillersActifs, structure }) => {
   const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
@@ -23,7 +24,9 @@ const HireAdvisorCard = ({ nbreConseillersActifs, structure }) => {
               </div>
             </div>
             <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
-              <button className="fr-btn" disabled>Recruter un conseiller</button>
+              <Link className="fr-btn" disabled={nbreConseillersActifs === nbPostesAttribuees} to="/structure/candidats/nouvelle">
+                Recruter un conseiller
+              </Link>
             </div>
           </div>
         </div>
