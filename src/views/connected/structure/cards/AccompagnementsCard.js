@@ -11,7 +11,7 @@ const StructureInformationsCard = ({ structure }) => (
               <span className="fr-text--md fr-text--bold">Cra total cumul&eacute;s</span>
               <br />
               <span className="fr-text--regular fr-text--md info__color">
-                {structure?.craCount}
+                {structure?.craCount === 0 ? '-' : structure?.craCount}
               </span>
             </div>
           </div>

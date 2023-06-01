@@ -75,7 +75,7 @@ export function useAdvisors() {
         const isRenouvellementInitie = miseEnRelation.statut === 'renouvellement_initié';
         const isFinaliseeWithoutConventionnement =
             miseEnRelation.statut === 'finalisee' && !miseEnRelation.miseEnRelationConventionnement;
-        return hasReconventionnement && isNotCDI && (isRenouvellementInitie || isFinaliseeWithoutConventionnement);
+        return hasReconventionnement && (isRenouvellementInitie || isFinaliseeWithoutConventionnement && isNotCDI);
       })
       .map(createConseiller);
 

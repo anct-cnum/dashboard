@@ -163,7 +163,7 @@ function DemandeReconventionnement() {
             className="fr-input"
             type="number"
             min="0"
-            max={structure?.coselec[0]?.nombreConseillersCoselec}
+            max={structure?.posteValiderCoselec}
             id="text-input-groups1"
             value={nombreDePostes}
             onChange={e => setNombreDePostes(Number(e.target.value))}

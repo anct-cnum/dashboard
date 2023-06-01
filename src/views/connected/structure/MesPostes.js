@@ -105,7 +105,6 @@ function MesPostes() {
     dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
   };
 
-
   return (
     <>
       {bannieresRenouvellementValide?.length > 0 &&

@@ -17,6 +17,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
       createContract(typeDeContrat, dateDebut, dateFin, salaire);
     }
     setDateDebut(null);
+    setDateFin(null);
     setTypeDeContrat(null);
     setSalaire('');
     setOpenModalContrat(false);
@@ -24,6 +25,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
 
   const handleCancel = () => {
     setDateDebut(null);
+    setDateFin(null);
     setTypeDeContrat(null);
     setOpenModalContrat(false);
   };
@@ -49,6 +51,9 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
         return false;
       }
       return true;
+    }
+    if (typeDeContrat === 'CDI') {
+      return !dateDebut || !typeDeContrat || !salaire;
     }
     return !dateFin || !dateDebut || !typeDeContrat || !salaire;
   };
@@ -90,7 +95,10 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           type="radio"
                           id="radio-1"
                           name="motifRupture"
-                          onChange={motif => setTypeDeContrat(motif.target.value)}
+                          onChange={motif => {
+                            setTypeDeContrat(motif.target.value);
+                            setDateFin(null);
+                          }}
                           value="CDI"
                           checked={typeDeContrat?.includes('CDI')}
                         />
@@ -173,6 +181,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     dateFormat="dd/MM/yyyy"
                     placeholderText="../../...."
                     locale="fr"
+                    disabled={typeDeContrat === 'CDI'}
                     onChangeRaw={e => e.preventDefault()}
                     minDate={dateDebut !== null ? dateDebut : new Date()}
                     selected={dateFin}

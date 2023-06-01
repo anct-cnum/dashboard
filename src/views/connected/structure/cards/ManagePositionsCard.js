@@ -44,11 +44,11 @@ const ManagePositionsCard = ({ structure }) => {
             }</p>
             <div className="fr-card__desc">
               <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-                {structure?.coselec[0]?.nombreConseillersCoselec} - {pluralize(
+                {structure?.posteValiderCoselec} - {pluralize(
                   'poste de conseiller',
                   'poste de conseiller',
                   'postes de conseiller',
-                  structure?.coselec[0]?.nombreConseillersCoselec
+                  structure?.posteValiderCoselec
                 )}
                 {' '}
                 <span className="fr-text--regular fr-text--md">
@@ -56,7 +56,7 @@ const ManagePositionsCard = ({ structure }) => {
                     'validé pour ce conventionnement',
                     'validé pour ce conventionnement',
                     'validés pour ce conventionnement',
-                    structure?.coselec[0]?.nombreConseillersCoselec
+                    structure?.posteValiderCoselec
                   )}
                 </span>
               </p>

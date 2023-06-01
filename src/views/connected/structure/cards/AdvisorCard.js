@@ -10,6 +10,8 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
         return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
       case 'nouvelle_rupture':
         return <p className="fr-badge fr-badge--info">Rupture en cours</p>;
+      case 'renouvellement_initié':
+        return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
       default:
         return;
     }
@@ -43,7 +45,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                 >
                   {conseiller?.typeDeContrat ?
                     <>
-                      {conseiller?.typeDeContrat?.length > 15 ?
+                      {formatTypeDeContrat(conseiller?.typeDeContrat)?.length > 15 ?
                         `${formatTypeDeContrat(conseiller?.typeDeContrat)?.substring(0, 15)}...` :
                         formatTypeDeContrat(conseiller?.typeDeContrat)
                       }
