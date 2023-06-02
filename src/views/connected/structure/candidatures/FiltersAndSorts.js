@@ -50,6 +50,16 @@ function filtersAndSorts() {
       }
       dispatch(filtresCandidaturesActions.updateCV(cv));
     }
+
+    if (name === 'selectCCP1') {
+      // filtre "TOUS"
+      let ccp1 = null;
+      // filtre "avec CCP1" ou "sans CCP1"
+      if (value !== '') {
+        ccp1 = value === 'true';
+      }
+      dispatch(filtresCandidaturesActions.updateCCP1(ccp1));
+    }
     dispatch(paginationActions.setPage(1));
   };
 
@@ -127,6 +137,16 @@ function filtersAndSorts() {
                 </div>
               </div>
             </fieldset>
+          </div>
+          <div className="tri-en-ligne">
+            <div className="fr-mr-2w selectOption">
+              <label className="fr-label fr-mr-1w labelCcp1" htmlFor="selectCCP1">Formation CCP1</label>
+              <select className="fr-select" id="selectCCP1" name="selectCCP1" onChange={handleChange} value={filtersAndSorts?.ccp1}>
+                <option value="">Tous</option>
+                <option value="true">Oui</option>
+                <option value="false">Non</option>
+              </select>
+            </div>
           </div>
           <div className="tri-en-ligne">
             <div className="fr-mr-2w selectOption">
