@@ -102,6 +102,7 @@ export default function conseiller(state = initialState, action) {
       return {
         loading: true,
         errorPreselection: false,
+        successPreselection: false
       };
     case 'PRESELECTIONNER_CONSEILLER_SUCCESS':
       return {
