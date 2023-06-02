@@ -90,7 +90,12 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                     <div>
                       <strong className="fr-text--md">Fin de contrat</strong><br/>
                       {(!misesEnRelationFinalisee[0]?.dateFinDeContrat && !misesEnRelationNouvelleRupture?.dateFinDeContrat) &&
-                        <span className="fr-text--regular fr-text--md">En attente de pi&egrave;ces justificatives</span>
+                        <>
+                          {(misesEnRelationNouvelleRupture?.typeDeContrat === 'CDI' || misesEnRelationFinalisee[0]?.typeDeContrat === 'CDI') ?
+                            <span className="fr-text--regular fr-text--md">-</span> :
+                            <span className="fr-text--regular fr-text--md">En attente de pi&egrave;ces justificatives</span>
+                          }
+                        </>
                       }
                       {misesEnRelationFinalisee[0]?.dateFinDeContrat &&
                         <span className="fr-text--regular fr-text--md">
