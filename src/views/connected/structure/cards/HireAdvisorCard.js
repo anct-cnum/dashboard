@@ -24,8 +24,10 @@ const HireAdvisorCard = ({ nbreConseillersActifs, structure }) => {
               </div>
             </div>
             <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
-              <Link className="fr-btn" disabled={nbreConseillersActifs === nbPostesAttribuees} to="/structure/candidats/nouvelle">
-                Recruter un conseiller
+              <Link to="/structure/candidats/nouvelle">
+                <button disabled={nbreConseillersActifs === nbPostesAttribuees} className="fr-btn">
+                  Recruter un conseiller
+                </button>
               </Link>
             </div>
           </div>
