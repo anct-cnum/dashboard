@@ -10,7 +10,7 @@ const ManagePositionsCard = ({ structure }) => {
   const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
   const dossier = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement :
     structure?.conventionnement?.dossierConventionnement;
-  const urlDossier = isReconventionnement ? structure?.urlstructure?.DossierReconventionnement : structure?.urlDossierConventionnement;
+  const urlDossier = isReconventionnement ? structure?.urlDossierReconventionnement : structure?.urlDossierConventionnement;
   const phase = isReconventionnement ? 'Conventionnement phase 2' : 'Conventionnement phase 1';
 
   return (
@@ -36,10 +36,10 @@ const ManagePositionsCard = ({ structure }) => {
             <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
               dossier?.dateDeValidation ?
                 <span>
-              le&nbsp;{dayjs(dossier?.dateDeValidation).format('DD/MM/YYYY')}
+                  le&nbsp;{dayjs(dossier?.dateDeValidation).format('DD/MM/YYYY')}
                 </span> :
                 <span>
-              date inconnue
+                  date inconnue
                 </span>
             }</p>
             <div className="fr-card__desc">
@@ -61,18 +61,18 @@ const ManagePositionsCard = ({ structure }) => {
                 </span>
               </p>
               {structure?.lastDemandeCoselecValidee &&
-             <>
-               <div className="fr-col-12 fr-mt-1w">
-                 <hr style={{ borderWidth: '0.5px' }} />
-               </div>
-               <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - {structure.lastDemandeCoselecValidee.nombreDePostes} postes de conseiller vacants{' '}
-                 <span className="fr-text--regular fr-text--md">rendu le {dayjs(structure?.lastDemandeCoselecValidee?.date).format('DD/MM/YYYY')}</span>
-               </p>
-               <div className="fr-col-12 fr-my-1w">
-                 <hr style={{ borderWidth: '0.5px' }} />
-               </div>
-             </>
+                <>
+                  <div className="fr-col-12 fr-mt-1w">
+                    <hr style={{ borderWidth: '0.5px' }} />
+                  </div>
+                  <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
+                    Avenant - {structure.lastDemandeCoselecValidee.nombreDePostes} postes de conseiller vacants{' '}
+                    <span className="fr-text--regular fr-text--md">rendu le {dayjs(structure?.lastDemandeCoselecValidee?.date).format('DD/MM/YYYY')}</span>
+                  </p>
+                  <div className="fr-col-12 fr-my-1w">
+                    <hr style={{ borderWidth: '0.5px' }} />
+                  </div>
+                </>
               }
               <div>
                 <ul className="fr-btns-group fr-btns-group--inline-md">
