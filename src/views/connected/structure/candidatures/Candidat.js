@@ -78,29 +78,33 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
           ID - {miseEnRelation.conseillerObj.idPG ?? ''}
         </span>
       </td>
-      { search && <td>{miseEnRelation.conseillerObj.email}</td>}
       <td>{dayjs(miseEnRelation.conseillerObj.createdAt).format('DD/MM/YYYY')}</td>
       <td>{miseEnRelation.conseillerObj.codePostal}</td>
       <td style={{ display: 'flex', justifyContent: 'center' }}>
         { (miseEnRelation.conseillerObj?.statut === 'RECRUTE' || miseEnRelation.conseillerObj?.statut === 'RUPTURE') &&
         <>
-          <div data-tooltip-content="A &eacute;j&agrave; une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique. Cliquez sur D&eacute;tails">
+          <div
+            data-tip="A &eacute;j&agrave; une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique. Cliquez sur D&eacute;tails"
+            data-for={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`}
+          >
             <img src={pinCNFS} alt="logo CNFS" style={{ height: '36px' }}/>
           </div>
-          <ReactTooltip html={true} className="infobulle"/>
+          <ReactTooltip type="light" html={true} className="infobulle" id={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`}/>
         </>
         }
       </td>
-      { !search && <td>
+      <td>
         { miseEnRelation.conseillerObj?.pix?.partage &&
-        <>
-          <div data-tooltip-content="A partag&eacute; ses r&eacute;sultats Pix">
-            <img src={logoPix} alt="logo Pix" style={{ height: '36px' }}/>
-          </div>
-          <ReactTooltip html={true} className="infobulle"/>
-        </>
+          <>
+            <div
+              data-tip="A partag&eacute; ses r&eacute;sultats Pix"
+              data-for={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`}>
+              <img src={logoPix} alt="logo Pix" style={{ height: '36px' }}/>
+            </div>
+            <ReactTooltip type="light" html={true} id={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`} className="infobulle"/>
+          </>
         }
-      </td> }
+      </td>
       <td>
         {miseEnRelation.conseillerObj?.cv?.file && miseEnRelation.statut !== 'finalisee_non_disponible' &&
           <button className="downloadCVBtn" onClick={downloadCV}>
