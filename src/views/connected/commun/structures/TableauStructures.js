@@ -13,8 +13,8 @@ export default function TableauStructures() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const dateDebut = useSelector(state => state.filtresStructures?.dateDebut);
-  const dateFin = useSelector(state => state.filtresStructures?.dateFin);
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresStructures?.ordre);
   const ordreNom = useSelector(state => state.filtresStructures?.ordreNom);
   const loading = useSelector(state => state.structure?.loading);

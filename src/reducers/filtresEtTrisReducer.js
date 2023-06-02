@@ -1,6 +1,4 @@
 const initialState = {
-  dateDebut: new Date(1605571200000),
-  dateFin: new Date(),
   ordre: true,
   ordreNom: undefined,
   territoire: 'codeDepartement',
@@ -8,16 +6,6 @@ const initialState = {
 
 export default function filtresEtTris(state = initialState, action) {
   switch (action.type) {
-    case 'CHANGE_DATE_DEBUT':
-      return {
-        ...state,
-        dateDebut: action.dateDebut,
-      };
-    case 'CHANGE_DATE_FIN':
-      return {
-        ...state,
-        dateFin: action.dateFin,
-      };
     case 'CHANGE_ORDRE':
       return {
         ...state,

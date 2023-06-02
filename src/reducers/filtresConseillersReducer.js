@@ -1,6 +1,4 @@
 const initialState = {
-  dateDebut: new Date(1605571200000),
-  dateFin: new Date(),
   profil: 'tous',
   nomStructure: undefined,
   nomConseiller: undefined,
@@ -13,11 +11,6 @@ const initialState = {
   
 export default function filtresConseillers(state = initialState, action) {
   switch (action.type) {
-    case 'CHANGE_DATE_DEBUT':
-      return {
-        ...state,
-        dateDebut: action.dateDebut,
-      };
     case 'CHANGE_NOM_CONSEILLER':
       return {
         ...state,
@@ -29,11 +22,6 @@ export default function filtresConseillers(state = initialState, action) {
         ...state,
         nomStructure: action.nomStructure,
         nomConseiller: undefined
-      };
-    case 'CHANGE_DATE_FIN':
-      return {
-        ...state,
-        dateFin: action.dateFin,
       };
     case 'CHANGE_ORDRE':
       return {

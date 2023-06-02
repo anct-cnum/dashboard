@@ -111,7 +111,7 @@ function DemandeReconventionnement() {
   useEffect(() => {
     setCheckedItems(
       misesEnRelationARenouveller
-      ?.filter(conseiller => conseiller?.reconventionnement)
+      ?.filter(conseiller => conseiller?.reconventionnement || conseiller?.typeDeContrat === 'cdi')
     );
   }, [misesEnRelationARenouveller]);
 

@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomDatePicker from '../commun/CustomDatePicker';
+import CustomDatePicker from './CustomDatePicker';
 
 function BlockDatePickers({ dateDebut, dateFin }) {
 
   return (
     <>
-      <span>P&eacute;riode du &nbsp;</span><br className="periode-xs"/>
+      <span>P&eacute;riode du &nbsp;</span><br className="periode-xs" />
       <span id="span-datePickerDebut" >
-        <CustomDatePicker initDate={dateDebut} dateFin={dateFin} idDate="datePickerDebut" nomDate="datePickerDebut"/>
+        <CustomDatePicker initDate={dateDebut} dateFin={dateFin} idDate="datePickerDebut" nomDate="datePickerDebut" />
       </span>
       <span>&nbsp;au&nbsp;</span>
       <span id="span-datePickerFin">
-        <CustomDatePicker initDate={dateFin} dateDebut={dateDebut} idDate="datePickerFin" nomDate="datePickerFin"/>
+        <CustomDatePicker initDate={dateFin} dateDebut={dateDebut} idDate="datePickerFin" nomDate="datePickerFin" />
       </span>
     </>
   );

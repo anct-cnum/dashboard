@@ -126,9 +126,11 @@ function CandidatDetails() {
         </div>
       </div>
       <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
+        {conseiller?.miseEnRelation?.statut && conseiller?.miseEnRelation?.statut === 'nouvelle' &&
         <p className="fr-badge fr-badge--new" style={{ height: '20%' }}>
           {conseiller?.miseEnRelation?.statut ? formatStatutCandidat(conseiller?.miseEnRelation?.statut) : ''}
         </p>
+        }
         <ButtonsAction
           statut={conseiller?.miseEnRelation?.statut}
           miseEnRelationId = {conseiller?.miseEnRelation?._id}

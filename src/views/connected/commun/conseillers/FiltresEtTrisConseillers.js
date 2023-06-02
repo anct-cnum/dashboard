@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { exportsActions, filtresConseillersActions, paginationActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
-import BlockDatePickers from '../statistiques/Components/commun/BlockDatePickers';
+import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
 import codeRegions from '../../../../datas/code_region.json';
 import departementsRegionRaw from '../../../../datas/departements-region.json';
 import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
@@ -14,7 +14,7 @@ function FiltresEtTrisConseillers() {
   const departementsRegionArray = Array.from(departementsRegionRaw);
   const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
   const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
-  const dateDebut = useSelector(state => state.filtresConseillers?.dateDebut);
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const ordreNom = useSelector(state => state.filtresConseillers?.ordreNom);
   const filtreCoordinateur = useSelector(state => state.filtresConseillers?.coordinateur);
   const filtreRupture = useSelector(state => state.filtresConseillers?.rupture);
@@ -22,7 +22,7 @@ function FiltresEtTrisConseillers() {
   const filtreParNomStructure = useSelector(state => state.filtresConseillers?.nomStructure);
   const filtreRegion = useSelector(state => state.filtresConseillers?.region);
   const filterDepartement = useSelector(state => state.filtresConseillers?.departement);
-  const dateFin = useSelector(state => state.filtresConseillers?.dateFin);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresConseillers?.ordre);
 
   const exportConseillerFileBlob = useSelector(state => state.exports);

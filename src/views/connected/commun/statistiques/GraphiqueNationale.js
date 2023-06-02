@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { alerteEtSpinnerActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
-import BlockDatePickers from './Components/commun/BlockDatePickers';
+import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
 import LeftPage from './Components/graphiques/LeftPage';
 import RightPage from './Components/graphiques/RightPage';
 import BottomPage from './Components/graphiques/BottomPage';
@@ -14,8 +14,8 @@ import { statistiquesService } from '../../../../services/statistiquesService';
 export default function GraphiqueNationale() {
   const dispatch = useDispatch();
 
-  const dateDebut = useSelector(state => state.statistiques?.dateDebut);
-  const dateFin = useSelector(state => state.statistiques?.dateFin);
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const loadingExport = useSelector(state => state.exports?.loading);
   
   const { data, isLoading, isError } = useQuery(['statsNationales', dateDebut, dateFin], async () => {

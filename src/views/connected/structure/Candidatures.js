@@ -76,7 +76,7 @@ function Candidatures() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les candidats n\'ont pas pu être chargées !',
+        message: 'Les candidats n\'ont pas pu être chargés !',
         status: null, description: null
       }));
     }
@@ -144,20 +144,19 @@ function Candidatures() {
           <div className="fr-table">
             <table>
               <thead>
-                <tr>
-                  <th style={{ width: '5rem' }}>Id</th>
-                  <th style={{ width: '6rem' }}>Prénom</th>
-                  <th style={{ width: '6rem' }}>Nom</th>
+                <tr style={{ whiteSpace: 'nowrap' }}>
+                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '15rem' }}>Candidat</th>
                   {filtersAndSorts.search !== '' && <th style={{ width: '15rem' }}>Email</th>}
-                  <th style={{ width: '15rem' }}>Statut</th>
                   <th>
                     <button id="createdAt" className="filtre-btn" onClick={ordreColonne}>
-                      <span>Date de candidature</span>
+                      <span>Date de disponibilit&eacute;</span>
                     </button>
                   </th>
-                  <th>Code postal</th>
-                  {filtersAndSorts.search === '' && <th style={{ width: '8rem' }}>Résultat Pix</th> }
-                  <th>Curriculum Vit&aelig;</th>
+                  <th>CP</th>
+                  <th>Formation CCP1</th>
+                  {filtersAndSorts.search === '' && <th style={{ width: '6rem' }}>R&eacute;sultats Pix</th> }
+                  <th>CV</th>
+                  <th style={{ width: '18rem' }}>Statut</th>
                   <th></th>
                 </tr>
               </thead>

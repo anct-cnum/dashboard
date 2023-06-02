@@ -1,10 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, formatTypeDeContrat } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 
 const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor, checkedItems }) => {
-
   return (
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
       <div className="fr-card__body fr-p-0">
@@ -16,9 +15,11 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   type="checkbox"
                   id="checkbox"
                   name="checkbox"
-                  checked={checkedItems
-                  ?.map(item => item.miseEnRelationId)
-                  ?.includes(miseEnRelation?.miseEnRelationId)}
+                  checked={
+                    checkedItems?.map(item => item?.miseEnRelationId)?.includes(miseEnRelation?.miseEnRelationId) ||
+                    (miseEnRelation?.typeDeContrat === 'cdi')
+                  }
+                  disabled={miseEnRelation?.typeDeContrat === 'cdi'}
                   value={JSON.stringify(miseEnRelation)}
                   onChange={handleSelectAdvisor}
                 />
@@ -41,7 +42,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   Type de contrat
                 </strong>
                 <br />
-                <span className="fr-text--regular fr-text--md">{miseEnRelation?.typeDeContrat ?? '-'}</span>
+                <span className="fr-text--regular fr-text--md">{formatTypeDeContrat(miseEnRelation)}</span>
               </div>
             </div>
             <div className="fr-col-2 card__text">

@@ -131,6 +131,26 @@ export default function exports(state = initialState, action) {
         error: action.error,
         loading: false,
       };
+    case 'EXPORT_HISTORIQUE_CONTRAT_REQUEST':
+      return {
+        ...state,
+        blob: null,
+        loading: true,
+        error: false,
+      };
+    case 'EXPORT_HISTORIQUE_CONTRAT_SUCCESS':
+      return {
+        ...state,
+        blob: action.exportHistoriqueContratFileBlob,
+        nameFile: action.nameFile,
+        loading: false,
+      };
+    case 'EXPORT_HISTORIQUE_CONTRAT_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
     case 'EXPORT_TERRITOIRE_RESET': {
       const {
         blob: _file,
