@@ -157,6 +157,7 @@ function MesPostes() {
             <RenewAdvisorsSection
               conseillersARenouveler={conseillersARenouveler}
               structure={structure}
+              roleActivated={roleActivated}
               setMiseEnrelationId={setMiseEnrelationId}
               setOpenModalContrat={setOpenModalContrat}
               handleOpenModalContrat={handleOpenModalContrat}
