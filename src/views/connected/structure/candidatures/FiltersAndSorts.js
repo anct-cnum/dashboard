@@ -102,7 +102,7 @@ function filtersAndSorts() {
               Rechercher
             </button>
           </div>
-          <div className="tri-en-ligne fr-mr-4w" style={{ float: 'left' }}>
+          <div className="tri-en-ligne" style={{ float: 'left' }}>
             <label className="fr-label labelCcp1" htmlFor="selectCCP1">Formation CCP1</label>
             <select className="fr-select" id="selectCCP1" name="selectCCP1" onChange={handleChange} value={filtersAndSorts?.ccp1}>
               <option value="">Tous</option>
@@ -110,7 +110,7 @@ function filtersAndSorts() {
               <option value="false">Non</option>
             </select>
           </div>
-          <div className="fr-form-group fr-mr-3w fr-mb-n2w" style={{ float: 'left' }}>
+          <div className="fr-form-group fr-mb-n2w block-pix" style={{ float: 'left' }}>
             <fieldset className="fr-fieldset fr-fieldset--inline fr-co filtresCandidature">
               <legend className="fr-fieldset__legend--regular fr-fieldset__legend fr-text--regular" id="checkboxes-inline-legend">
                 Niveau(x) Pix
@@ -148,17 +148,17 @@ function filtersAndSorts() {
               </div>
             </fieldset>
           </div>
-          <div className="tri-en-ligne fr-mr-4w">
-            <label className="fr-label fr-mr-1w labelDiplome" htmlFor="selectDiplome">Diplôme</label>
-            <select className="fr-select" id="selectDiplome" name="selectDiplome" onChange={handleChange} value={filtersAndSorts?.diplome}>
+          <div className="tri-en-ligne">
+            <label className="fr-label fr-mr-1w labelCV" htmlFor="selectCV">CV</label>
+            <select className="fr-select" id="selectCV" name="selectCV" onChange={handleChange} value={filtersAndSorts?.cv}>
               <option value="">Tous</option>
               <option value="true">Oui</option>
               <option value="false">Non</option>
             </select>
           </div>
-          <div className="tri-en-ligne fr-mr-4w">
-            <label className="fr-label fr-mr-1w labelCV" htmlFor="selectCV">CV</label>
-            <select className="fr-select" id="selectCV" name="selectCV" onChange={handleChange} value={filtersAndSorts?.cv}>
+          <div className="tri-en-ligne block-diplome">
+            <label className="fr-label fr-mr-1w labelDiplome" htmlFor="selectDiplome">Diplôme</label>
+            <select className="fr-select" id="selectDiplome" name="selectDiplome" onChange={handleChange} value={filtersAndSorts?.diplome}>
               <option value="">Tous</option>
               <option value="true">Oui</option>
               <option value="false">Non</option>
