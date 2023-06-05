@@ -8,6 +8,8 @@ import { useLocation } from 'react-router-dom';
 import Reconventionnement from './reconventionnement/Reconventionnement';
 import Conventionnement from './conventionnement/Conventionnement';
 import { StatutConventionnement } from '../../../utils/enumUtils';
+import AvenantAjoutPoste from './avenantAjoutPoste/AvenantAjoutPoste';
+import AvenantRenduPoste from './avenantRenduPoste/AvenantRenduPoste';
 
 export default function TableauConvention() {
 
@@ -31,11 +33,7 @@ export default function TableauConvention() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      if (typeConvention === 'avenantAjoutPoste' || typeConvention === 'avenantRenduPoste') {
-        dispatch(conventionActions.reset());
-      } else {
-        dispatch(conventionActions.getAll(currentPage, typeConvention));
-      }
+      dispatch(conventionActions.getAll(currentPage, typeConvention));
     }
   }, [currentPage, typeConvention]);
 
@@ -59,6 +57,12 @@ export default function TableauConvention() {
     }
   }, [error, page]);
 
+  const checkIfAvenantAjoutPoste = convention =>
+    convention?.demandesCoselec?.filter(demande => demande.statut === 'en_cours' && demande.type === 'ajout').length > 0;
+
+  const checkIfAvenantRenduPoste = convention =>
+    convention?.demandesCoselec?.filter(demande => demande.statut === 'en_cours' && demande.type === 'rendu').length > 0;
+
   return (
     <div className="conventions">
       <Spinner loading={loading} />
@@ -69,7 +73,6 @@ export default function TableauConvention() {
               <h1 style={{ color: '#000091' }} className="fr-h1">Demandes de conventions</h1>
               <span>Retrouvez ici toutes les demandes de conventionnement, reconventionnement et avenants &agrave; valider.</span>
             </div>
-
             <div className="fr-mt-4w">
               <ul className="tabs fr-tags-group">
                 <button onClick={() => {
@@ -120,14 +123,28 @@ export default function TableauConvention() {
                       </thead>
                       <tbody>
                         {!error && !loading && conventions?.items?.data?.map((convention, idx) =>
-                          <tr key={idx}>
-                            {convention?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS &&
-                              <Reconventionnement reconventionnement={convention} />
+                          <>
+                            {((typeConvention === 'toutes' || 'avenantAjoutPoste') && checkIfAvenantAjoutPoste(convention)) &&
+                              <tr key={`avenantAjoutPoste-${idx}`}>
+                                <AvenantAjoutPoste avenant={convention} />
+                              </tr>
                             }
-                            {convention?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_EN_COURS &&
-                              <Conventionnement conventionnement={convention} />
+                            {((typeConvention === 'toutes' || 'avenantRenduPoste') && checkIfAvenantRenduPoste(convention)) &&
+                              <tr key={`avenantRenduPoste-${idx}`}>
+                                <AvenantRenduPoste avenant={convention} />
+                              </tr>
                             }
-                          </tr>
+                            {(typeConvention === 'toutes' || typeConvention.includes('tionnement')) &&
+                              <tr key={`conventionnement-${idx}`}>
+                                {convention?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS &&
+                                  <Reconventionnement reconventionnement={convention} />
+                                }
+                                {convention?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_EN_COURS &&
+                                  <Conventionnement conventionnement={convention} />
+                                }
+                              </tr>
+                            }
+                          </>
                         )
                         }
                         {(!conventions?.items || conventions?.items?.data?.length === 0) &&

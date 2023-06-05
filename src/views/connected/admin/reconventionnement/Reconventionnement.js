@@ -28,7 +28,7 @@ function Reconventionnement({ reconventionnement }) {
         <button
           className="fr-btn"
           title="D&eacute;tail"
-          onClick={() => window.open(`/${roleActivated}/demandes/convention/${reconventionnement?._id}`)}>
+          onClick={() => window.open(`/${roleActivated}/demandes/convention/${reconventionnement?._id}?type=reconventionnement`)}>
             Voir la demande
         </button>
       </td>

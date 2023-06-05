@@ -7,10 +7,14 @@ import Spinner from '../../../components/Spinner';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import ReconventionnementDetails from './reconventionnement/ReconventionnementDetails';
 import ConventionnementDetails from './conventionnement/ConventionnementDetails';
+import AvenantAjoutPosteDetails from './avenantAjoutPoste/AvenantAjoutPosteDetails';
+import AvenantRenduPosteDetails from './avenantRenduPoste/AvenantRenduPosteDetails';
 
 function ConventionDetails() {
   const dispatch = useDispatch();
   const { idStructure } = useParams();
+  const queryParams = new URLSearchParams(window.location.search);
+  const typeConvention = queryParams.get('type');
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const convention = useSelector(state => state.convention?.convention);
   const loading = useSelector(state => state.convention?.loading);
@@ -110,11 +114,17 @@ function ConventionDetails() {
             <hr style={{ borderWidth: '0.5px' }} />
           </div>
         </div>
-        {convention?.conventionnement?.statut?.match(/\bRECONVENTIONNEMENT\B/) &&
+        {typeConvention === 'reconventionnement' &&
           <ReconventionnementDetails reconventionnement={convention} />
         }
-        {convention?.conventionnement?.statut?.match(/\bCONVENTIONNEMENT\B/) &&
+        {typeConvention === 'conventionnement' &&
           <ConventionnementDetails conventionnement={convention} />
+        }
+        {typeConvention === 'avenant-ajout-poste' &&
+          <AvenantAjoutPosteDetails avenant={convention} />
+        }
+        {typeConvention === 'avenant-rendu-poste' &&
+          <AvenantRenduPosteDetails avenant={convention} />
         }
       </div>
     </div>
