@@ -126,10 +126,10 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
             pathname: `/structure/candidat/${miseEnRelation._id}`
           }}
           state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
-            Détails
+            D&eacute;tails
           </Link> :
           <button className="fr-btn fr-icon-eye-line fr-btn--icon-left" style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
-            Détails
+            D&eacute;tails
           </button>
         }
       </td>

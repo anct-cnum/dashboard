@@ -100,6 +100,7 @@ export default function conseiller(state = initialState, action) {
       };
     case 'PRESELECTIONNER_CONSEILLER_REQUEST':
       return {
+        ...state,
         loading: true,
         errorPreselection: false,
         successPreselection: false
@@ -108,11 +109,14 @@ export default function conseiller(state = initialState, action) {
       return {
         ...state,
         message: action.message,
+        loading: false,
         successPreselection: true,
       };
     case 'PRESELECTIONNER_CONSEILLER_FAILURE':
       return {
-        errorPreselection: action.error
+        ...state,
+        errorPreselection: action.error,
+        loading: false
       };
     case 'GET_CURRICULUM_VITAE_REQUEST':
       return {
