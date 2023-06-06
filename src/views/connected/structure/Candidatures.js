@@ -146,7 +146,7 @@ function Candidatures() {
                   <th>Formation CCP1</th>
                   <th style={{ width: '6rem' }}>R&eacute;sultats Pix</th>
                   <th>CV</th>
-                  <th style={{ width: '20rem' }}>Statut</th>
+                  <th style={{ width: '21rem' }}>Statut</th>
                   <th></th>
                 </tr>
               </thead>
