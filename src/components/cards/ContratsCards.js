@@ -228,8 +228,8 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
 
 ContratsCards.propTypes = {
   misesEnRelationNouvelleRupture: PropTypes.object,
-  misesEnRelationFinaliseeRupture: PropTypes.object,
-  misesEnRelationFinalisee: PropTypes.object,
+  misesEnRelationFinaliseeRupture: PropTypes.array,
+  misesEnRelationFinalisee: PropTypes.array,
   conseiller: PropTypes.object,
 };
 

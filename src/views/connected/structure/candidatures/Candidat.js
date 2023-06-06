@@ -78,33 +78,41 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
           ID - {miseEnRelation.conseillerObj.idPG ?? ''}
         </span>
       </td>
-      { search && <td>{miseEnRelation.conseillerObj.email}</td>}
       <td>{dayjs(miseEnRelation.conseillerObj.createdAt).format('DD/MM/YYYY')}</td>
       <td>{miseEnRelation.conseillerObj.codePostal}</td>
       <td style={{ display: 'flex', justifyContent: 'center' }}>
-        { (miseEnRelation.conseillerObj?.statut === 'RECRUTE' || miseEnRelation.conseillerObj?.statut === 'RUPTURE') &&
-        <>
-          <div data-tooltip-content="A &eacute;j&agrave; une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique. Cliquez sur D&eacute;tails">
-            <img src={pinCNFS} alt="logo CNFS" style={{ height: '36px' }}/>
-          </div>
-          <ReactTooltip html={true} className="infobulle"/>
-        </>
+        {(miseEnRelation.conseillerObj?.statut === 'RECRUTE' || miseEnRelation.conseillerObj?.statut === 'RUPTURE') &&
+          <>
+            <div
+              data-tip={`
+              <span>Cette personne a d&eacute;j&agrave; une exp&eacute;rience</span>
+              <br />
+              <span>de conseiller-&egrave;re num&eacute;rique. Cliquez sur D&eacute;tails</span>
+              `}
+              data-for={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`}
+            >
+              <img src={pinCNFS} alt="logo CNFS" style={{ height: '36px' }} />
+            </div>
+            <ReactTooltip type="light" html={true} className="infobulle" id={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`} />
+          </>
         }
       </td>
-      { !search && <td>
-        { miseEnRelation.conseillerObj?.pix?.partage &&
-        <>
-          <div data-tooltip-content="A partag&eacute; ses r&eacute;sultats Pix">
-            <img src={logoPix} alt="logo Pix" style={{ height: '36px' }}/>
-          </div>
-          <ReactTooltip html={true} className="infobulle"/>
-        </>
+      <td>
+        {miseEnRelation.conseillerObj?.pix?.partage &&
+          <>
+            <div
+              data-tip="A partag&eacute; ses r&eacute;sultats Pix"
+              data-for={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`}>
+              <img src={logoPix} alt="logo Pix" style={{ height: '36px' }} />
+            </div>
+            <ReactTooltip type="light" html={true} id={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`} className="infobulle" />
+          </>
         }
-      </td> }
+      </td>
       <td>
         {miseEnRelation.conseillerObj?.cv?.file && miseEnRelation.statut !== 'finalisee_non_disponible' &&
           <button className="downloadCVBtn" onClick={downloadCV}>
-            <img src={iconeTelechargement} alt="Télécharger le CV" style={{ height: '26px' }}/>
+            <img src={iconeTelechargement} alt="Télécharger le CV" style={{ height: '26px' }} />
           </button>
         }
         {!miseEnRelation.conseillerObj?.cv?.file &&
@@ -113,15 +121,15 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
       </td>
       <td>{displayBadge(miseEnRelation.statut)}</td>
       <td>
-        { miseEnRelation.statut !== 'finalisee_non_disponible' ?
+        {miseEnRelation.statut !== 'finalisee_non_disponible' ?
           <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
             pathname: `/structure/candidat/${miseEnRelation._id}`
           }}
           state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
-              Détails
+            D&eacute;tails
           </Link> :
           <button className="fr-btn fr-icon-eye-line fr-btn--icon-left" style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
-              Détails
+            D&eacute;tails
           </button>
         }
       </td>

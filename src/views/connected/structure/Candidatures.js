@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Candidat from './candidatures/Candidat';
 import CandidatNonMisEnRelation from './candidatures/CandidatNonMisEnRelation';
-import { conseillerActions, statsActions, alerteEtSpinnerActions, paginationActions, filtresCandidaturesActions } from '../../../actions';
+import { conseillerActions, statsActions, alerteEtSpinnerActions, paginationActions } from '../../../actions';
 import Spinner from '../../../components/Spinner';
 import FiltersAndSorts from './candidatures/FiltersAndSorts';
 import {
@@ -82,8 +82,6 @@ function Candidatures() {
     }
   }, [error, page]);
 
-  const checkConseillerObjExist = conseillers => conseillers.every(conseiller => 'conseillerObj' in conseiller);
-
   useEffect(() => {
     if (conseillers.downloadError && conseillers.downloadError !== false) {
       scrollTopWindow();
@@ -94,11 +92,6 @@ function Candidatures() {
       }));
     }
   }, [conseillers.downloadError]);
-
-  const ordreColonne = e => {
-    dispatch(paginationActions.setPage(1));
-    dispatch(filtresCandidaturesActions.changeOrdreColonne(e.currentTarget?.id));
-  };
 
   return (
     <div className="conseillers">
@@ -147,19 +140,14 @@ function Candidatures() {
             <table>
               <thead>
                 <tr style={{ whiteSpace: 'nowrap' }}>
-                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '15rem' }}>Candidat</th>
-                  {filtersAndSorts.search !== '' && <th style={{ width: '15rem' }}>Email</th>}
-                  <th>
-                    <button id="createdAt" className="filtre-btn" onClick={ordreColonne}>
-                      <span>Date de disponibilit&eacute;</span>
-                    </button>
-                  </th>
+                  <th style={{ width: '15rem' }}>Candidat</th>
+                  <th>Date de disponibilit&eacute;</th>
                   <th>CP</th>
                   <th>Formation CCP1</th>
-                  {filtersAndSorts.search === '' && <th style={{ width: '6rem' }}>R&eacute;sultats Pix</th> }
+                  <th style={{ width: '6rem' }}>R&eacute;sultats Pix</th>
                   <th>CV</th>
-                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '18rem' }}>Statut</th>
-                  <th style={{ width: filtersAndSorts.search !== '' && !checkConseillerObjExist(conseillers.items.data) ? '14.2rem' : '' }}></th>
+                  <th style={{ width: '20rem' }}>Statut</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -167,7 +155,7 @@ function Candidatures() {
                   return (
                     conseiller.conseillerObj ?
                       <Candidat key={idx} miseEnRelation={conseiller} currentPage={page} currentFilter={filter} search={filtersAndSorts.search !== ''} /> :
-                      <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={filtersAndSorts.search !== ''} />
+                      <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={filtersAndSorts.search !== ''} currentFilter={filter} />
                   );
                 })
                 }

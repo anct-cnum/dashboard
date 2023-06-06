@@ -100,17 +100,23 @@ export default function conseiller(state = initialState, action) {
       };
     case 'PRESELECTIONNER_CONSEILLER_REQUEST':
       return {
+        ...state,
         loading: true,
-        error: false,
+        errorPreselection: false,
+        successPreselection: false
       };
     case 'PRESELECTIONNER_CONSEILLER_SUCCESS':
       return {
         ...state,
-        message: action.message
+        message: action.message,
+        loading: false,
+        successPreselection: true,
       };
     case 'PRESELECTIONNER_CONSEILLER_FAILURE':
       return {
-        error: action.error
+        ...state,
+        errorPreselection: action.error,
+        loading: false
       };
     case 'GET_CURRICULUM_VITAE_REQUEST':
       return {
