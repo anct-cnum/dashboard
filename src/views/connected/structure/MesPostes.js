@@ -53,7 +53,7 @@ function MesPostes() {
     const withBannerOnTopStatuses = [
       StatutConventionnement.CONVENTIONNEMENT_VALIDÉ,
       StatutConventionnement.RECONVENTIONNEMENT_EN_COURS,
-      StatutConventionnement.ENREGISTRÉ,
+      StatutConventionnement.RECONVENTIONNEMENT_INITIÉ,
     ];
     if (withBannerOnTopStatuses.includes(structure?.conventionnement?.statut)) {
       return 'withBannerOnTop';

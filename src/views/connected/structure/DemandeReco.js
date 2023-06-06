@@ -192,7 +192,7 @@ function DemandeReconventionnement() {
           demand&eacute;s avant de pouvoir envoyer votre demande.
         </p>
         <CompleteApplicationCard structure={structure} />
-        {structure?.conventionnement?.statut === StatutConventionnement.ENREGISTRÉ && (
+        {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ && (
           <>
             <div className="fr-col-12 fr-mt-6w fr-mb-2w">
               <hr style={{ borderWidth: '0.5px' }} />

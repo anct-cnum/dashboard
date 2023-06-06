@@ -8,7 +8,7 @@ import { StatutConventionnement } from '../../../../utils/enumUtils';
 const ReconventionnementInfosCard = ({ structure }) => {
 
   const displayBadge = () => {
-    if (structure?.conventionnement?.statut === StatutConventionnement.ENREGISTRÉ) {
+    if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ) {
       return <p className="fr-badge fr-badge--warning fr-ml-auto">RECONVENTIONNEMENT ENREGISTR&Eacute;</p>;
     }
     if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS) {

@@ -10,8 +10,8 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
       <div className="fr-card__body fr-p-0">
         <div>
           <div className="fr-grid-row responsive__wide-card" style={{ alignItems: 'center' }}>
-            <div style={{ marginRight: '20px' }}>
-              <div className="fr-radio-group fr-radio-group--md">
+            <div style={{ marginBottom: '1.5rem', flex: '0 0 4.5%' }} className="fr-fieldset__content fr-col-1">
+              <div className="fr-checkbox-group fr-checkbox-group--md">
                 <input
                   type="checkbox"
                   id="checkbox"
@@ -24,9 +24,10 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   value={JSON.stringify(miseEnRelation)}
                   onChange={handleSelectAdvisor}
                 />
+                <label className="fr-label" htmlFor="checkbox" />
               </div>
             </div>
-            <div className="fr-col-3 card__text">
+            <div style={{ flex: '0 0 22%' }} className="fr-col-3 card__text">
               <div>
                 <strong className="fr-text--md fr-text--bold">
                   {miseEnRelation?.conseiller ? formatNomConseiller(miseEnRelation?.conseiller) : ''}
@@ -90,7 +91,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                 <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>
               }
             </div>
-            <div className="btn-actions-conseiller">
+            <div className="btn-actions-conseiller fr-ml-auto">
               <button
                 className="fr-btn fr-icon-eye-line fr-mr-2w card__button"
                 title="D&eacute;tail"
