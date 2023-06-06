@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { formatNomConseiller, formatTypeDeContrat } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
+import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
 const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor, checkedItems }) => {
   return (
@@ -84,7 +85,10 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
               </div>
             </div>
             <div className="badge-statut-renouvellement card__text">
-              <p className="fr-badge fr-badge--success">En activit&eacute;</p>
+              {calcNbJoursAvantDateFinContrat(miseEnRelation?.dateFinDeContrat) > 0 ?
+                <p className="fr-badge fr-badge--success">En activit&eacute;</p> :
+                <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>
+              }
             </div>
             <div className="btn-actions-conseiller">
               <button

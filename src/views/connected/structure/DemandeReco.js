@@ -153,17 +153,12 @@ function DemandeReconventionnement() {
         <div className="fr-input-group">
           <h5>Nombre de postes</h5>
           <label className="fr-label" htmlFor="text-input-groups1">
-            <span>Veuillez inscrire le nombre de postes de Conseillers num&eacute;riques attribu&eacute;s &agrave; votre structure</span>
-            <span className="fr-hint-text">
-              Merci d&rsquo;indiquer le nombre total de postes qui ont &eacute;t&eacute; attribu&eacute;s &agrave; votre structure,
-              y compris ceux qui ne sont pas pourvus &agrave; ce jour.
-            </span>
+            <span>Renseignez le nombre de poste total que vous souhaitez&nbsp;:</span>
           </label>
           <input
             className="fr-input"
             type="number"
             min="0"
-            max={structure?.posteValiderCoselec}
             id="text-input-groups1"
             value={nombreDePostes}
             onChange={e => setNombreDePostes(Number(e.target.value))}
