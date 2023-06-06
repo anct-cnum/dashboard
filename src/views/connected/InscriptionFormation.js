@@ -26,7 +26,7 @@ function InscriptionFormation() {
           </p>
           <p>
             Enfin, pour les demandes de financement des seconds parcours de formation, vous trouverez plus d&rsquo;informations sur&nbsp;
-            <a href="https://aide.conseiller-numerique.gouv.fr/fr/article/qui-assure-la-prise-en-charge-du-financement-dun-second-parcours-de-formation-42n98h/"
+            <a href={urlAide + '/article/qui-assure-la-prise-en-charge-du-financement-dun-second-parcours-de-formation-42n98h/' }
               target="blank" rel="noreferrer noopener" title="Qui assure la prise en charge du financement d&rsquo;un second parcours de formation ?">
                l&rsquo;article de la FAQ d&eacute;di&eacute;
             </a>.
