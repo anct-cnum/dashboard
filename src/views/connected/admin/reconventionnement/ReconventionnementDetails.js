@@ -33,9 +33,9 @@ function ReconventionnementDetails({ reconventionnement }) {
             <h3 className="fr-card__title fr-h3">
               Conventionnement phase 2
             </h3>
-            {dossierReconventionnement?.dateDeCreation &&
+            {dossierReconventionnement?.dateDerniereModification &&
               <p className="fr-card__desc fr-text--lg fr-text--regular">
-                Demande initi&eacute;e le {dossierReconventionnement ? dayjs(dossierReconventionnement.dateDeCreation).format('DD/MM/YYYY') : ''}
+                Demande initi&eacute;e le {dossierReconventionnement ? dayjs(dossierReconventionnement.dateDerniereModification).format('DD/MM/YYYY') : ''}
               </p>
             }
             <p className="fr-card__desc fr-text--lg fr-text--bold" style={{ color: '#000091' }}>
@@ -106,10 +106,15 @@ function ReconventionnementDetails({ reconventionnement }) {
                             <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">Fin de contrat</strong><br />
-                                {conseiller?.dateFinDeContrat ?
+                                {conseiller?.typeDeContrat === 'CDI' &&
+                                  <span className="fr-text--regular fr-text--md">-</span>
+                                }
+                                {(conseiller?.dateFinDeContrat && conseiller?.typeDeContrat !== 'CDI') &&
                                   <span className="fr-text--regular fr-text--md">
                                     {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
-                                  </span> :
+                                  </span>
+                                }
+                                {(!conseiller?.dateFinDeContrat && conseiller?.typeDeContrat !== 'CDI') &&
                                   <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
                                     En attente de pi&egrave;ces...
                                   </span>
@@ -240,12 +245,15 @@ function ReconventionnementDetails({ reconventionnement }) {
                       <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top fin-contrat">
                         <div>
                           <strong className="fr-text--md">Fin de contrat</strong><br />
-                          {(!conseiller?.dateFinDeContrat && !conseiller?.dateRupture) &&
+                          {conseiller?.typeDeContrat === 'CDI' &&
+                            <span className="fr-text--regular fr-text--md">-</span>
+                          }
+                          {(conseiller?.typeDeContrat !== 'CDI' && !conseiller?.dateFinDeContrat) &&
                             <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
-                              En attente de pi&egrave;...
+                              En attente de pi&egrave;ces...
                             </span>
                           }
-                          {conseiller?.dateFinDeContrat &&
+                          {(conseiller?.dateFinDeContrat && conseiller?.typeDeContrat !== 'CDI') &&
                             <span className="fr-text--regular fr-text--md">
                               {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
                             </span>

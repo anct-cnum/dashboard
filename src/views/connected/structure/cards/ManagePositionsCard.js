@@ -34,9 +34,9 @@ const ManagePositionsCard = ({ structure }) => {
               </p>
             </div>
             <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
-              dossier?.dateDeValidation ?
+              dossier?.dateDerniereModification ?
                 <span>
-                  le&nbsp;{dayjs(dossier?.dateDeValidation).format('DD/MM/YYYY')}
+                  le&nbsp;{dayjs(dossier?.dateDerniereModification).format('DD/MM/YYYY')}
                 </span> :
                 <span>
                   date inconnue

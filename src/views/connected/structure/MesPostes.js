@@ -152,6 +152,7 @@ function MesPostes() {
           <>
             <HireAdvisorCard
               nbreConseillersActifs={conseillersActifs.length}
+              nbreConseillersRenouveler={conseillersARenouveler.length}
               structure={structure}
             />
             <RenewAdvisorsSection
