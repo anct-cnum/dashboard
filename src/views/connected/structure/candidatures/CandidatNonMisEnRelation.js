@@ -75,18 +75,18 @@ function CandidatNonMisEnRelation({ conseiller, currentFilter }) {
         <p className="fr-badge fr-badge--new">nouvelle candidature</p>
       </td>
       <td className="td-preselection">
-        {conseiller?.miseEnRelation?.statut === 'finalisee' ?
+        {(conseiller?.statut === 'RECRUTE' || conseiller?.statut === 'RUPTURE') ?
           <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-1w" to={{
             pathname: `/structure/preselection/conseiller/${conseiller._id}`
           }}
           state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
-            Détails
+            D&eacute;tails
           </Link> :
           <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-1w" to={{
             pathname: `/structure/preselection/candidat/${conseiller._id}`
           }}
           state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
-            Détails
+            D&eacute;tails
           </Link>
         }
       </td>
@@ -96,7 +96,6 @@ function CandidatNonMisEnRelation({ conseiller, currentFilter }) {
 
 CandidatNonMisEnRelation.propTypes = {
   conseiller: PropTypes.object,
-  search: PropTypes.bool,
   currentFilter: PropTypes.string,
 };
 
