@@ -43,6 +43,7 @@ function MesPostes() {
     conseillersActifs,
     conseillersARenouveler,
     conseillersActifsNonRenouveles,
+    conseillersEnCoursDeRecrutement,
     bannieresRenouvellementValide,
     setBannieresRenouvellementValide,
   } = useAdvisors();
@@ -153,6 +154,7 @@ function MesPostes() {
             <HireAdvisorCard
               nbreConseillersActifs={conseillersActifs.length}
               nbreConseillersRenouveler={conseillersARenouveler.length}
+              nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
               structure={structure}
             />
             <RenewAdvisorsSection

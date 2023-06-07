@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { miseEnRelationAction } from '../../../../actions';
+import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 
 export function useAdvisors() {
   const misesEnRelation = useSelector(state => state?.misesEnRelation?.misesEnRelation);
@@ -8,6 +9,7 @@ export function useAdvisors() {
   const [conseillersActifs, setConseillersActifs] = useState([]);
   const [conseillersARenouveler, setConseillersARenouveler] = useState([]);
   const [conseillersActifsNonRenouveles, setConseillersActifsNonRenouveles] = useState([]);
+  const [conseillersEnCoursDeRecrutement, setConseillersEnCoursDeRecrutement] = useState([]);
   const [bannieresRenouvellementValide, setBannieresRenouvellementValide] = useState([]);
   const dispatch = useDispatch();
 
@@ -65,13 +67,15 @@ export function useAdvisors() {
       .filter(({ statut }) => statut === 'nouvelle_rupture')
       .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'nouvelle_rupture' }));
 
+      const conseillersEnCoursDeRecrutement = misesEnRelation.filter(({ statut }) => statut === 'recrutee');
+
       const conseillersARenouveler = misesEnRelation
       .filter(miseEnRelation => {
         if (!miseEnRelation) {
           return false;
         }
         const hasReconventionnement = miseEnRelation.reconventionnement;
-        const isNotCDI = miseEnRelation.typeDeContrat !== 'CDI';
+        const isNotCDI = !validTypeDeContratWithoutEndDate(miseEnRelation.typeDeContrat);
         const isRenouvellementInitie = miseEnRelation.statut === 'renouvellement_initiee';
         const isFinaliseeWithoutConventionnement =
             miseEnRelation.statut === 'finalisee' && !miseEnRelation.miseEnRelationConventionnement;
@@ -90,6 +94,7 @@ export function useAdvisors() {
       setConseillersActifsNonRenouveles(conseillersActifsNonRenouveles);
       setConseillersARenouveler(conseillersARenouveler);
       setConseillersActifs([...recrutees, ...nouvellesRuptures]);
+      setConseillersEnCoursDeRecrutement(conseillersEnCoursDeRecrutement);
       setBannieresRenouvellementValide(bannieresRenouvellementValide);
     }
   }, [misesEnRelation]);
@@ -98,6 +103,7 @@ export function useAdvisors() {
     conseillersActifs,
     conseillersARenouveler,
     conseillersActifsNonRenouveles,
+    conseillersEnCoursDeRecrutement,
     bannieresRenouvellementValide,
     setBannieresRenouvellementValide,
   };

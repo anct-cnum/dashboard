@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
+import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 
 registerLocale('fr', fr);
 function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, editMode, createContract }) {
@@ -40,7 +41,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   }, [editMode, conseiller]);
 
   const checkContratValid = () => {
-    if (typeDeContrat === 'CDI') {
+    if (validTypeDeContratWithoutEndDate(typeDeContrat)) {
       if (!dateDebut || !typeDeContrat || !salaire) {
         return true;
       }
@@ -54,7 +55,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
       if (new Date(conseiller?.dateDebutDeContrat)?.getTime() !== dateDebut?.getTime()) {
         return false;
       }
-      if (typeDeContrat !== 'CDI' && new Date(conseiller?.dateFinDeContrat)?.getTime() !== dateFin?.getTime()) {
+      if (!validTypeDeContratWithoutEndDate(typeDeContrat) && new Date(conseiller?.dateFinDeContrat)?.getTime() !== dateFin?.getTime()) {
         return false;
       }
       return true;

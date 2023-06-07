@@ -3,8 +3,8 @@ import propTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import { Link } from 'react-router-dom';
 
-const HireAdvisorCard = ({ nbreConseillersActifs, nbreConseillersRenouveler, structure }) => {
-  const nbConseillerActifTotal = nbreConseillersActifs + nbreConseillersRenouveler;
+const HireAdvisorCard = ({ nbreConseillersActifs, nbreConseillersRenouveler, nbreConseillersEnCoursDeRecrutement, structure }) => {
+  const nbConseillerActifTotal = nbreConseillersActifs + nbreConseillersRenouveler + nbreConseillersEnCoursDeRecrutement;
   return (
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
       <div className="fr-card__body fr-p-0">
@@ -36,6 +36,7 @@ const HireAdvisorCard = ({ nbreConseillersActifs, nbreConseillersRenouveler, str
 HireAdvisorCard.propTypes = {
   nbreConseillersActifs: propTypes.number,
   nbreConseillersRenouveler: propTypes.number,
+  nbreConseillersEnCoursDeRecrutement: propTypes.number,
   structure: propTypes.object,
 };
 

@@ -14,7 +14,7 @@ import {
 } from '../../../actions';
 import PopinRecapReconvention from './popins/popinRecapReconvention';
 import Spinner from '../../../components/Spinner';
-import { pluralize } from '../../../utils/formatagesUtils';
+import { pluralize, validTypeDeContratWithoutEndDate } from '../../../utils/formatagesUtils';
 import { StatutConventionnement } from '../../../utils/enumUtils';
 
 function DemandeReconventionnement() {
@@ -111,7 +111,7 @@ function DemandeReconventionnement() {
   useEffect(() => {
     setCheckedItems(
       misesEnRelationARenouveller
-      ?.filter(conseiller => conseiller?.reconventionnement || conseiller?.typeDeContrat === 'CDI')
+      ?.filter(conseiller => conseiller?.reconventionnement || validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat))
     );
   }, [misesEnRelationARenouveller]);
 

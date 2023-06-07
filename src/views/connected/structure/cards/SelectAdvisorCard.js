@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { formatNomConseiller, formatTypeDeContrat } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
@@ -18,9 +18,9 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   name="checkbox"
                   checked={
                     checkedItems?.map(item => item?.miseEnRelationId)?.includes(miseEnRelation?.miseEnRelationId) ||
-                    (miseEnRelation?.typeDeContrat === 'CDI')
+                    (validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat))
                   }
-                  disabled={miseEnRelation?.typeDeContrat === 'CDI'}
+                  disabled={validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat)}
                   value={JSON.stringify(miseEnRelation)}
                   onChange={handleSelectAdvisor}
                 />

@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { calculateMonthsDifference } from '../../../../utils/calculateUtils';
 import AdvisorCard from './AdvisorCard';
-import { formatTypeDeContrat } from '../../../../utils/formatagesUtils';
+import { formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 
 const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContrat, structure }) => {
   const { dateDebutDeContrat, dateFinDeContrat, typeDeContrat } = conseiller;
@@ -27,7 +27,8 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
               <p className="fr-text--sm">
                 {typeDeContrat ?
                   <>
-                  Demande d&rsquo;un contrat {formatTypeDeContrat(typeDeContrat)}&nbsp;{typeDeContrat === 'CDI' ? '' : `de ${months} mois `}
+                  Demande d&rsquo;un contrat&nbsp;{formatTypeDeContrat(typeDeContrat)}
+                  &nbsp;{validTypeDeContratWithoutEndDate(typeDeContrat) ? '' : `de ${months} mois `}
                   avec une date de début le {dayjs(dateDebutDeContrat).format('DD/MM/YYYY')}
                   </> : ''
                 }

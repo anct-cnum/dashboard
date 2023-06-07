@@ -1,6 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { badgeStatutDossierDS, formatNomConseiller, formatTypeDeContrat, pluralize } from '../../../../utils/formatagesUtils';
+import { badgeStatutDossierDS, formatNomConseiller, formatTypeDeContrat, pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -106,15 +106,15 @@ function ReconventionnementDetails({ reconventionnement }) {
                             <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">Fin de contrat</strong><br />
-                                {conseiller?.typeDeContrat === 'CDI' &&
+                                {validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) &&
                                   <span className="fr-text--regular fr-text--md">-</span>
                                 }
-                                {(conseiller?.dateFinDeContrat && conseiller?.typeDeContrat !== 'CDI') &&
+                                {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
                                   <span className="fr-text--regular fr-text--md">
                                     {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
                                   </span>
                                 }
-                                {(!conseiller?.dateFinDeContrat && conseiller?.typeDeContrat !== 'CDI') &&
+                                {(!conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
                                   <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
                                     En attente de pi&egrave;ces...
                                   </span>
@@ -245,15 +245,15 @@ function ReconventionnementDetails({ reconventionnement }) {
                       <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top fin-contrat">
                         <div>
                           <strong className="fr-text--md">Fin de contrat</strong><br />
-                          {conseiller?.typeDeContrat === 'CDI' &&
+                          {validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) &&
                             <span className="fr-text--regular fr-text--md">-</span>
                           }
-                          {(conseiller?.typeDeContrat !== 'CDI' && !conseiller?.dateFinDeContrat) &&
+                          {(!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && !conseiller?.dateFinDeContrat) &&
                             <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
                               En attente de pi&egrave;ces...
                             </span>
                           }
-                          {(conseiller?.dateFinDeContrat && conseiller?.typeDeContrat !== 'CDI') &&
+                          {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
                             <span className="fr-text--regular fr-text--md">
                               {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
                             </span>
