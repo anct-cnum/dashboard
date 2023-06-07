@@ -6,3 +6,8 @@ export const StatutConventionnement = {
   ENREGISTRÉ: 'ENREGISTRÉ',
   NON_INTERESSÉ: 'NON_INTERESSÉ',
 };
+
+export const StatutCoselec = {
+  POSITIF: 'POSITIF',
+  NÉGATIF: 'NÉGATIF',
+};

@@ -5,7 +5,9 @@ import { API } from './api';
 export const conventionService = {
   getAll,
   getAllHistorique,
-  get
+  get,
+  updateAvenantAjoutPoste,
+  validationAvenantRenduPoste,
 };
 
 function getAll(page, typeConvention) {
@@ -25,6 +27,18 @@ function getAllHistorique(page, typeConvention, dateDebut, dateFin) {
 
 function get(id) {
   return API.get(`${apiUrlRoot}/convention/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function updateAvenantAjoutPoste(id, statut, nbDePosteAccorder, nbDePosteCoselec) {
+  return API.patch(`${apiUrlRoot}/avenant/ajout-poste/${id}?role=${roleActivated()}`, { statut, nbDePosteAccorder, nbDePosteCoselec })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function validationAvenantRenduPoste(id, nbDePosteAccorder, nbDePosteCoselec) {
+  return API.patch(`${apiUrlRoot}/avenant/rendu-poste/${id}?role=${roleActivated()}`, { nbDePosteAccorder, nbDePosteCoselec })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

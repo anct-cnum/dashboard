@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import { badgeStatutDossierDS, pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
+import ModalValidationAvenantAjoutPoste from '../modals/ModalValidationAvenantAjoutPoste';
+import { useDispatch } from 'react-redux';
+import { conventionActions } from '../../../../actions';
+import { StatutCoselec } from '../../../../utils/enumUtils';
 
 function AvenantAjoutPosteDetails({ avenant }) {
+  const dispatch = useDispatch();
+
+  const [openModal, setOpenModal] = useState(false);
   const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.statut === 'en_cours' && demande.type === 'ajout');
+
+  const refusAvenantAjoutPoste = () => {
+    dispatch(conventionActions.updateAvenantAjoutPoste(avenant._id, StatutCoselec.NÉGATIF));
+  };
+
   return (
     <div className="fr-card fr-card--no-border" style={{ backgroundColor: '#E8EDFF' }}>
+      {openModal &&
+        <ModalValidationAvenantAjoutPoste
+          idStructure={avenant._id}
+          demandesCoselec={demandesCoselec}
+          nombreConseillersCoselec={avenant.nombreConseillersCoselec}
+          setOpenModal={setOpenModal}
+        />
+      }
       <div className="fr-card__body">
         <div className="fr-card__content">
           <h3 className="fr-card__title fr-h3">
@@ -43,9 +63,17 @@ function AvenantAjoutPosteDetails({ avenant }) {
             )}
             pour ce conventionnement
           </p>
+          <p className="fr-card__desc fr-text--lg">
+            Motif: {demandesCoselec?.motif ?? 'Non renseigné'}
+          </p>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-            {demandesCoselec?.statut === 'validée' ?
-              <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
+            {demandesCoselec?.statut === 'refusee' &&
+              <p className="fr-badge fr-badge--error">Demande refus&eacute;e</p>
+            }
+            {demandesCoselec?.statut === 'validee' &&
+              <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p>
+            }
+            {demandesCoselec?.statut === 'en_cours' &&
               <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
             }
           </div>
@@ -53,11 +81,18 @@ function AvenantAjoutPosteDetails({ avenant }) {
         <div className="fr-card__footer">
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
             {demandesCoselec?.statut === 'en_cours' &&
-              <li>
-                <button className="fr-btn" disabled>
-                  Valider la demande
-                </button>
-              </li>
+              <>
+                <li>
+                  <button className="fr-btn fr-btn--secondary" onClick={refusAvenantAjoutPoste}>
+                    Refuser la demande
+                  </button>
+                </li>
+                <li>
+                  <button className="fr-btn" onClick={() => setOpenModal(true)}>
+                    Valider la demande
+                  </button>
+                </li>
+              </>
             }
             <li className="fr-ml-auto">
               <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>

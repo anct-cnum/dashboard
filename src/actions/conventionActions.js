@@ -4,6 +4,7 @@ export const conventionActions = {
   getAll,
   getAllHistorique,
   get,
+  updateAvenantAjoutPoste,
   reset
 };
 
@@ -76,6 +77,30 @@ function get(id) {
   }
   function failure(error) {
     return { type: 'GET_CONVENTION_FAILURE', error };
+  }
+}
+
+function updateAvenantAjoutPoste(id, statut, nbDePosteAccorder = 0, nbDePosteCoselec = 0) {
+  return dispatch => {
+    dispatch(request());
+
+    conventionService.updateAvenantAjoutPoste(id, statut, nbDePosteAccorder, nbDePosteCoselec)
+    .then(
+      response => dispatch(success(response)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_AVENANT_AJOUT_POSTE_REQUEST' };
+  }
+  function success(response) {
+    return { type: 'UPDATE_AVENANT_AJOUT_POSTE_SUCCESS', response };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVENANT_AJOUT_POSTE_FAILURE', error };
   }
 }
 

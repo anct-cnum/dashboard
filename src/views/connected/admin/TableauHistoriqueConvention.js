@@ -9,6 +9,8 @@ import BlockDatePickers from '../../../components/datePicker/BlockDatePickers';
 import { StatutConventionnement } from '../../../utils/enumUtils';
 import HistoriqueReconventionnement from './reconventionnement/HistoriqueReconventionnement';
 import HistoriqueConventionnement from './conventionnement/HistoriqueConventionnement';
+import HistoriqueAvenantAjoutPoste from './avenantAjoutPoste/HistoriqueAvenantAjoutPoste';
+import HistoriqueAvenantRenduPoste from './avenantRenduPoste/HistoriqueAvenantRenduPoste';
 
 export default function TableauHistoriqueConvention() {
 
@@ -39,11 +41,7 @@ export default function TableauHistoriqueConvention() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      if (typeConvention === 'avenantAjoutPoste' || typeConvention === 'avenantRenduPoste') {
-        dispatch(conventionActions.reset());
-      } else {
-        dispatch(conventionActions.getAllHistorique(currentPage, typeConvention, dateDebut, dateFin));
-      }
+      dispatch(conventionActions.getAllHistorique(currentPage, typeConvention, dateDebut, dateFin));
     }
   }, [currentPage, typeConvention, dateDebut, dateFin]);
 
@@ -79,6 +77,12 @@ export default function TableauHistoriqueConvention() {
   const exportHistoriqueConvention = () => {
     dispatch(exportsActions.exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin));
   };
+
+  const checkIfAvenantAjoutPoste = convention =>
+    convention?.demandesCoselec?.filter(demande => demande.statut !== 'en_cours' && demande.type === 'ajout').length > 0;
+
+  const checkIfAvenantRenduPoste = convention =>
+    convention?.demandesCoselec?.filter(demande => demande.statut !== 'en_cours' && demande.type === 'rendu').length > 0;
 
   return (
     <div>
@@ -152,14 +156,36 @@ export default function TableauHistoriqueConvention() {
                       </thead>
                       <tbody>
                         {!error && !loading && conventions?.items?.data?.map((convention, idx) =>
-                          <tr key={idx}>
-                            {convention?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
-                              <HistoriqueReconventionnement reconventionnement={convention} />
+                          <>
+                            {((typeConvention === 'toutes' || 'avenantAjoutPoste') && checkIfAvenantAjoutPoste(convention)) &&
+                              <>
+                                {convention?.demandesCoselec?.filter(demande => demande.statut !== 'en_cours' && demande.type === 'ajout').map((demande, idx) =>
+                                  <tr key={`avenantAjoutPoste-${idx}`}>
+                                    <HistoriqueAvenantAjoutPoste avenant={demande} structure={convention} />
+                                  </tr>
+                                )}
+                              </>
                             }
-                            {convention?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_VALIDÉ &&
-                              <HistoriqueConventionnement conventionnement={convention} />
+                            {((typeConvention === 'toutes' || 'avenantRenduPoste') && checkIfAvenantRenduPoste(convention)) &&
+                              <>
+                                {convention?.demandesCoselec?.filter(demande => demande.statut !== 'en_cours' && demande.type === 'rendu').map((demande, idx) =>
+                                  <tr key={`avenantRenduPoste-${idx}`}>
+                                    <HistoriqueAvenantRenduPoste avenant={demande} structure={convention} />
+                                  </tr>
+                                )}
+                              </>
                             }
-                          </tr>
+                            {(typeConvention === 'toutes' || typeConvention.includes('tionnement')) &&
+                              <tr key={`conventionnement-${idx}`}>
+                                {convention?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
+                                  <HistoriqueReconventionnement reconventionnement={convention} />
+                                }
+                                {convention?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_VALIDÉ &&
+                                  <HistoriqueConventionnement conventionnement={convention} />
+                                }
+                              </tr>
+                            }
+                          </>
                         )
                         }
                         {(!conventions?.items || conventions?.items?.data?.length === 0) &&

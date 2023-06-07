@@ -37,6 +37,9 @@ function AvenantRenduPosteDetails({ avenant }) {
             )}
             pour ce conventionnement
           </p>
+          <p className="fr-card__desc fr-text--lg">
+            Motif: {demandesCoselec?.motif ?? 'Non renseigné'}
+          </p>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
             {demandesCoselec?.statut === 'validée' ?
               <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
