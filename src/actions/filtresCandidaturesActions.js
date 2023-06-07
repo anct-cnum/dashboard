@@ -3,6 +3,7 @@ export const filtresCandidaturesActions = {
   updatePix,
   updateDiplome,
   updateCV,
+  updateCCP1,
   changeNomCandidat,
   changeFiltreDepartement,
   changeFiltreRegion,
@@ -53,6 +54,10 @@ function updateCV(cv) {
   function success(cv) {
     return { type: 'UPDATE_CV', cv };
   }
+}
+
+function updateCCP1(ccp1) {
+  return { type: 'UPDATE_CCP1', ccp1 };
 }
 
 function changeNomCandidat(nomCandidat) {

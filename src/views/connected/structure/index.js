@@ -10,6 +10,8 @@ import ConseillerDetails from './ConseillerDetails';
 import Page404 from '../Page404';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 import MaStructure from './MaStructure';
+import PreselectionCandidatDetails from './candidatures/PreselectionCandidatDetails';
+import PreselectionConseillerDetails from './candidatures/PreselectionConseillerDetails';
 
 export default function Structure() {
 
@@ -35,6 +37,8 @@ export default function Structure() {
         <Route path="/structure/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/structure/candidats/:filter" element={<Candidatures />} /> {/* Routes spécifiques avec /structure */}
         <Route path="/structure/candidat/:id" element={<CandidatDetails />} />
+        <Route path="/structure/preselection/candidat/:id" element={<PreselectionCandidatDetails />} />
+        <Route path="/structure/preselection/conseiller/:idConseiller" element={<PreselectionConseillerDetails />} />
         <Route path="/structure/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />
       </Routes>

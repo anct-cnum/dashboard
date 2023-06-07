@@ -50,6 +50,16 @@ function filtersAndSorts() {
       }
       dispatch(filtresCandidaturesActions.updateCV(cv));
     }
+
+    if (name === 'selectCCP1') {
+      // filtre "TOUS"
+      let ccp1 = null;
+      // filtre "avec CCP1" ou "sans CCP1"
+      if (value !== '') {
+        ccp1 = value === 'true';
+      }
+      dispatch(filtresCandidaturesActions.updateCCP1(ccp1));
+    }
     dispatch(paginationActions.setPage(1));
   };
 
@@ -77,7 +87,7 @@ function filtersAndSorts() {
   return (
     <div>
       <div className="fr-grid-row">
-        <div className="fr-col-12" >
+        <div className="fr-col-12">
           <div className="fr-search-bar fr-mb-4w fr-mt-1w" role="search">
             <label className="fr-label" htmlFor="fr-search-input">Recherche</label>
             <input
@@ -92,10 +102,20 @@ function filtersAndSorts() {
               Rechercher
             </button>
           </div>
-          <div className="fr-form-group" style={{ float: 'left' }}>
+          <div className="tri-en-ligne" style={{ float: 'left' }}>
+            <label className="fr-label labelCcp1" htmlFor="selectCCP1">Formation CCP1</label>
+            <select className="fr-select" id="selectCCP1" name="selectCCP1" onChange={handleChange} value={filtersAndSorts?.ccp1}>
+              <option value="">Tous</option>
+              <option value="true">Oui</option>
+              <option value="false">Non</option>
+            </select>
+          </div>
+          <div className="fr-form-group fr-mb-n2w block-pix" style={{ float: 'left' }}>
             <fieldset className="fr-fieldset fr-fieldset--inline fr-co filtresCandidature">
-              <div className="fr-mr-2w fr-mt-2w boxPix">
-                <label className="labelPix">Niveau(x) Pix</label>
+              <legend className="fr-fieldset__legend--regular fr-fieldset__legend fr-text--regular" id="checkboxes-inline-legend">
+                Niveau(x) Pix
+              </legend>
+              <div className="fr-mr-2w boxPix">
                 <div className="fr-fieldset__content">
                   <div className="fr-checkbox-group fr-checkbox-group--md">
                     <input type="checkbox" checked={filtersAndSorts.pix.includes(1)} id="pixLevel1" name="pixLevel1" value="1" onChange={handleChange} />
@@ -129,28 +149,24 @@ function filtersAndSorts() {
             </fieldset>
           </div>
           <div className="tri-en-ligne">
-            <div className="fr-mr-2w selectOption">
-              <label className="fr-label fr-mr-1w labelDiplome" htmlFor="selectDiplome">Diplôme</label>
-              <select className="fr-select" id="selectDiplome" name="selectDiplome" onChange={handleChange} value={filtersAndSorts?.diplome}>
-                <option value="">Tous</option>
-                <option value="true">Oui</option>
-                <option value="false">Non</option>
-              </select>
-            </div>
+            <label className="fr-label fr-mr-1w labelCV" htmlFor="selectCV">CV</label>
+            <select className="fr-select" id="selectCV" name="selectCV" onChange={handleChange} value={filtersAndSorts?.cv}>
+              <option value="">Tous</option>
+              <option value="true">Oui</option>
+              <option value="false">Non</option>
+            </select>
           </div>
-          <div className="tri-en-ligne">
-            <div className="fr-mr-1w selectOption">
-              <label className="fr-label fr-mr-1w labelCV" htmlFor="selectCV">CV</label>
-              <select className="fr-select" id="selectCV" name="selectCV" onChange={handleChange} value={filtersAndSorts?.cv}>
-                <option value="">Tous</option>
-                <option value="true">Oui</option>
-                <option value="false">Non</option>
-              </select>
-            </div>
+          <div className="tri-en-ligne block-diplome">
+            <label className="fr-label fr-mr-1w labelDiplome" htmlFor="selectDiplome">Diplôme</label>
+            <select className="fr-select" id="selectDiplome" name="selectDiplome" onChange={handleChange} value={filtersAndSorts?.diplome}>
+              <option value="">Tous</option>
+              <option value="true">Oui</option>
+              <option value="false">Non</option>
+            </select>
           </div>
-          <div className="tri-en-ligne">
+          <div className="tri-en-ligne fr-mb-n1w">
             {/* Tri */}
-            <div className="fr-toggle fr-toggle--label-left">
+            <div className="fr-toggle fr-toggle--label-left ">
               <input type="checkbox"
                 className="fr-toggle__input"
                 id="orderByDateStart"

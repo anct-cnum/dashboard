@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions } from '../../../../actions';
+import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
+import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
 import ReactTooltip from 'react-tooltip';
 
@@ -15,35 +17,44 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
 
   const statutLabel = [{
     key: 'nouvelle',
-    label: 'Nouvelle candidature'
+    label: 'Nouvelle candidature',
+    badge: 'new'
   }, {
     key: 'nonInteressee',
-    label: 'Candidature non retenue'
+    label: 'Candidature non retenue',
+    badge: 'error'
   }, {
     key: 'interessee',
-    label: 'Candidature pré sélectionnée'
+    label: 'Candidat pré-sélectionné',
+    badge: 'info'
   }, {
     key: 'recrutee',
-    label: 'Candidature validée'
+    label: 'Candidature validée',
+    badge: 'success'
   }, {
     key: 'finalisee',
-    label: 'Candidat recruté'
+    label: 'Candidat recruté',
+    badge: 'success'
   },
   {
     key: 'nouvelle_rupture',
-    label: 'Rupture notifiée'
+    label: 'Rupture notifiée',
+    badge: 'info'
   },
   {
     key: 'finalisee_non_disponible',
-    label: 'Candidat déjà recruté'
+    label: 'Candidat déjà recruté',
+    badge: 'warning'
   },
   {
     key: 'finalisee_rupture',
-    label: 'Candidat en rupture'
+    label: 'Candidat en rupture',
+    badge: 'info'
   },
   {
     key: 'non_disponible',
-    label: 'Candidature annulée'
+    label: 'Candidature annulée',
+    badge: 'error'
   }
   ];
 
@@ -51,45 +62,74 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
     dispatch(conseillerActions.getCurriculumVitae(miseEnRelation.conseillerObj?._id, miseEnRelation.conseillerObj));
   };
 
+  const displayBadge = statut => {
+    const s = statutLabel.find(item => item.key === statut);
+    return <div className={`fr-badge fr-badge--${s?.badge}`}>{s?.label}</div>;
+  };
+
   return (
     <tr className="conseiller">
-      <td>{miseEnRelation.conseillerObj.idPG}</td>
-      <td>{miseEnRelation.conseillerObj.prenom}</td>
-      <td>{miseEnRelation.conseillerObj.nom}</td>
-      { search && <td>{miseEnRelation.conseillerObj.email}</td>}
-      <td>{statutLabel.find(item => item.key === miseEnRelation.statut).label}</td>
+      <td>
+        <strong className="fr-text--md fr-text--bold">
+          {miseEnRelation.conseillerObj ? formatNomConseiller(miseEnRelation.conseillerObj) : ''}
+        </strong>
+        <br />
+        <span className="fr-text--regular fr-text--md">
+          ID - {miseEnRelation.conseillerObj.idPG ?? ''}
+        </span>
+      </td>
       <td>{dayjs(miseEnRelation.conseillerObj.createdAt).format('DD/MM/YYYY')}</td>
       <td>{miseEnRelation.conseillerObj.codePostal}</td>
-      { !search && <td>
-        { miseEnRelation.conseillerObj?.pix?.partage &&
-        <>
-          <div data-tooltip-content="A partag&eacute; ses r&eacute;sultats Pix">
-            <img src={logoPix} alt="logo Pix" style={{ height: '36px' }}/>
-          </div>
-          <ReactTooltip html={true} className="infobulle"/>
-        </>
+      <td style={{ display: 'flex', justifyContent: 'center' }}>
+        {(miseEnRelation.conseillerObj?.statut === 'RECRUTE' || miseEnRelation.conseillerObj?.statut === 'RUPTURE') &&
+          <>
+            <div
+              data-tip={`
+              <span>Cette personne a d&eacute;j&agrave; une exp&eacute;rience</span>
+              <br />
+              <span>de conseiller-&egrave;re num&eacute;rique. Cliquez sur D&eacute;tails</span>
+              `}
+              data-for={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`}
+            >
+              <img src={pinCNFS} alt="logo CNFS" style={{ height: '36px' }} />
+            </div>
+            <ReactTooltip type="light" html={true} className="infobulle" id={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`} />
+          </>
         }
-      </td> }
+      </td>
+      <td>
+        {miseEnRelation.conseillerObj?.pix?.partage &&
+          <>
+            <div
+              data-tip="A partag&eacute; ses r&eacute;sultats Pix"
+              data-for={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`}>
+              <img src={logoPix} alt="logo Pix" style={{ height: '36px' }} />
+            </div>
+            <ReactTooltip type="light" html={true} id={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`} className="infobulle" />
+          </>
+        }
+      </td>
       <td>
         {miseEnRelation.conseillerObj?.cv?.file && miseEnRelation.statut !== 'finalisee_non_disponible' &&
           <button className="downloadCVBtn" onClick={downloadCV}>
-            <img src={iconeTelechargement} alt="Télécharger le CV" style={{ height: '26px' }}/>
+            <img src={iconeTelechargement} alt="Télécharger le CV" style={{ height: '26px' }} />
           </button>
         }
         {!miseEnRelation.conseillerObj?.cv?.file &&
           <></>
         }
       </td>
+      <td>{displayBadge(miseEnRelation.statut)}</td>
       <td>
-        { miseEnRelation.statut !== 'finalisee_non_disponible' ?
+        {miseEnRelation.statut !== 'finalisee_non_disponible' ?
           <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
             pathname: `/structure/candidat/${miseEnRelation._id}`
           }}
           state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
-              Détails
+            D&eacute;tails
           </Link> :
           <button className="fr-btn fr-icon-eye-line fr-btn--icon-left" style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
-              Détails
+            D&eacute;tails
           </button>
         }
       </td>
