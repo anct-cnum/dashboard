@@ -123,6 +123,9 @@ function getAllCandidats(structureId, search, page, nomOrdre, ordre, persoFilter
     if (haveCV(persoFilters)) {
       uri += `&cv=${persoFilters?.cv}`;
     }
+    if (haveCCP1(persoFilters)) {
+      uri += `&ccp1=${persoFilters?.ccp1}`;
+    }
   }
 
   return API.get(uri)
@@ -149,6 +152,9 @@ function getAllMisesEnRelation(structureId, search, page, filter, nomOrdre, ordr
     }
     if (haveCV(persoFilters)) {
       uri += `&cv=${persoFilters?.cv}`;
+    }
+    if (haveCCP1(persoFilters)) {
+      uri += `&ccp1=${persoFilters?.ccp1}`;
     }
   }
 
@@ -220,4 +226,7 @@ function haveDiplome(persoFilters) {
 }
 function havePix(persoFilters) {
   return persoFilters?.pix !== undefined && persoFilters?.pix.length > 0;
+}
+function haveCCP1(persoFilters) {
+  return persoFilters?.ccp1 !== undefined && persoFilters?.ccp1 !== null;
 }
