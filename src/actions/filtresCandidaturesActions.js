@@ -3,9 +3,9 @@ export const filtresCandidaturesActions = {
   updatePix,
   updateDiplome,
   updateCV,
+  updateCCP1,
   changeNomCandidat,
   changeFiltreDepartement,
-  changeFiltreComs,
   changeFiltreRegion,
   changeOrdreColonne,
   updateSearch,
@@ -56,16 +56,16 @@ function updateCV(cv) {
   }
 }
 
+function updateCCP1(ccp1) {
+  return { type: 'UPDATE_CCP1', ccp1 };
+}
+
 function changeNomCandidat(nomCandidat) {
   return { type: 'CHANGE_NOM_CANDIDAT', nomCandidat };
 }
   
 function changeFiltreDepartement(departement) {
   return { type: 'CHANGE_DEPARTEMENT', departement };
-}
-
-function changeFiltreComs(coms) {
-  return { type: 'CHANGE_COMS', coms };
 }
   
 function changeFiltreRegion(region) {

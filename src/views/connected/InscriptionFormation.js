@@ -11,11 +11,25 @@ function InscriptionFormation() {
       <div className="fr-container fr-container--fluid">
         <h3>Pr&eacute;sentation de l&rsquo;offre de formation des Conseillers num&eacute;riques France services</h3>
         <div className="fr-grid-row">
+          <p>Merci de lire ce message si vous d&eacute;sirez inscrire votre Conseiller num&eacute;rique en formation&nbsp;:</p>
+          <p>Le march&eacute; public initial portant sur la formation des Conseillers num&eacute;riques est arriv&eacute; &agrave; son terme en
+            d&eacute;but d&rsquo;ann&eacute;e 2023. Un nouveau march&eacute; public de formation sera prochainement mis en place et permettra
+            de relancer des sessions de formation d&egrave;s la rentr&eacute;e 2023.
+          </p>
+          <p>Nous vous communiquerons d&egrave;s que possible les contacts des organismes de formation retenus dans le cadre de ce nouveau march&eacute; ainsi
+            que les nouvelles modalit&eacute;s d&rsquo;inscription et d&rsquo;organisation de la formation.
+          </p>
+          <p>Nous vous rappelons que la formation initiale reste obligatoire pour tous les conseillers num&eacute;riques qui ne l&rsquo;auraient pas suivi.
+             Cependant, une certaine souplesse est accord&eacute;e aux structures souhaitant recruter de nouveaux conseillers num&eacute;riques d&rsquo;ici
+             la reprise des sessions de formation. Ces derniers auront la possibilit&eacute; de d&eacute;buter leurs missions sur le terrain dans
+             l&rsquo;attente du retour des formations.
+          </p>
           <p>
-            <a href="https://cdn.conseiller-numerique.gouv.fr/Presentation_offre_de_formation.pdf"
-              className="fr-link" target="blank" rel="noreferrer noopener" title="Offre de formation">
-              T&eacute;l&eacute;charger la pr&eacute;sentation de l&rsquo;offre de formation (slides au format PDF)
-            </a>
+            Enfin, pour les demandes de financement des seconds parcours de formation, vous trouverez plus d&rsquo;informations sur&nbsp;
+            <a href={urlAide + '/article/qui-assure-la-prise-en-charge-du-financement-dun-second-parcours-de-formation-42n98h/' }
+              target="blank" rel="noreferrer noopener" title="Qui assure la prise en charge du financement d&rsquo;un second parcours de formation ?">
+               l&rsquo;article de la FAQ d&eacute;di&eacute;
+            </a>.
           </p>
         </div>
 

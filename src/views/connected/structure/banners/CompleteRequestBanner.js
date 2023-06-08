@@ -22,8 +22,10 @@ const CompleteRequestBanner = ({ structure }) => {
               Finalisez votre demande pour lancer le reconventionnement de votre structure
             </p>
             <p className="fr-text--xs">
-            Derni&egrave;re modification le {
-                structure?.conventionnement.derniereModification ? days(structure?.conventionnement.derniereModification).format('DD/MM/YYYY') : '-'
+              Derni&egrave;re modification
+              {structure?.conventionnement?.dossierReconventionnement?.dateDerniereModification ?
+                ` le ${days(structure.conventionnement.dossierReconventionnement.dateDerniereModification).format('DD/MM/YYYY')}` :
+                ' non renseignée'
               }
             </p>
           </div>

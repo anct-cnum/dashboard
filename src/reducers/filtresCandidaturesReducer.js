@@ -5,9 +5,9 @@ const initialState = {
   pix: [],
   diplome: undefined,
   cv: undefined,
+  ccp1: undefined,
   nomCandidat: undefined,
   region: 'tous',
-  coms: 'tous',
   search: '',
 };
 
@@ -40,15 +40,15 @@ export default function filtresCandidatures(state = initialState, action) {
         ...state,
         cv: action.cv,
       };
+    case 'UPDATE_CCP1':
+      return {
+        ...state,
+        ccp1: action.ccp1,
+      };
     case 'CHANGE_DEPARTEMENT':
       return {
         ...state,
         departement: action.departement
-      };
-    case 'CHANGE_COMS':
-      return {
-        ...state,
-        coms: action.coms
       };
     case 'CHANGE_REGION':
       return {

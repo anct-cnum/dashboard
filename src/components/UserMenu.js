@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const UserMenu = ({
@@ -11,7 +12,7 @@ const UserMenu = ({
   structure,
 }) => {
   const truncate = input => input?.length > 27 ? `${input?.substring(0, 27)}...` : input;
-  
+
   const formatRoleMenu = role => {
     if (role === 'grandReseau') {
       return `Grand réseau - ${user.reseau}`;
@@ -51,29 +52,21 @@ const UserMenu = ({
                   </p>
                 </li>
                 <li>
-                  <button
+                  <Link
+                    to={`${roleActivated}/informations`}
                     className="fr-nav__link"
-                    href="#"
-                    target="_self"
-                    style={{ display: 'flex', alignItems: 'center' }}
-                    onClick={() => window.open(`/${roleActivated}/informations`)}
-                  >
-                    <i className="ri-settings-3-line ri-xl fr-mr-1w" style={{ color: '#000091' }}></i>{' '}
-                    G&eacute;rer mon profil
-                  </button>
+                    {...(location.pathname.startsWith(`/${roleActivated}/informations`) ? { 'aria-current': 'page' } : {})}>
+                    <i className="ri-settings-3-line ri-xl fr-mr-1w" style={{ color: '#000091' }}></i>{' '}G&eacute;rer mon profil
+                  </Link>
                 </li>
                 {roleActivated === 'structure' && (
                   <li>
-                    <button
+                    <Link
+                      to={`${roleActivated}/ma-structure`}
                       className="fr-nav__link"
-                      href="#"
-                      target="_self"
-                      style={{ display: 'flex', alignItems: 'center' }}
-                      onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}
-                    >
-                      <i className="ri-home-4-line ri-xl fr-mr-1w" style={{ color: '#000091' }}></i>{' '}
-                      G&eacute;rer ma structure
-                    </button>
+                      {...(location.pathname.startsWith(`/${roleActivated}/ma-structure`) ? { 'aria-current': 'page' } : {})}>
+                      <i className="ri-home-4-line ri-xl fr-mr-1w" style={{ color: '#000091' }}></i>{' '}G&eacute;rer ma structure
+                    </Link>
                   </li>
                 )}
                 <li>

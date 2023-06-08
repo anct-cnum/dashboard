@@ -57,10 +57,9 @@ export default function InvitationGrandReseau() {
 
   return (
     <div>
-      <h2>Administrateurs</h2>
       {form === false ?
         <div>
-          {(!users && users?.length === 0) && <p>Aucun administrateur associ&eacute;</p>}
+          {(!users || users?.length === 0) && <p>Aucun administrateur associ&eacute;</p>}
           <div className="fr-grid-row fr-mb-3w fr-table">
             <table>
               <thead>

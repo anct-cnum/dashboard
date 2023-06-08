@@ -5,13 +5,14 @@ import { pluralize } from '../../../../utils/formatagesUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import PopinGestionPostes from '../popins/popinGestionPostes';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 const ManagePositionsCard = ({ structure }) => {
 
-  const isReconventionnement = structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ';
-  const dossier = isReconventionnement ? structure?.conventionnement?.structure?.dossierReconventionnement :
+  const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+  const dossier = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement :
     structure?.conventionnement?.dossierConventionnement;
-  const urlDossier = isReconventionnement ? structure?.urlstructure?.DossierReconventionnement : structure?.urlDossierConventionnement;
+  const urlDossier = isReconventionnement ? structure?.urlDossierReconventionnement : structure?.urlDossierConventionnement;
   const phase = isReconventionnement ? 'Conventionnement phase 2' : 'Conventionnement phase 1';
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
 
@@ -56,21 +57,21 @@ const ManagePositionsCard = ({ structure }) => {
               </p>
             </div>
             <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
-              dossier?.dateDeValidation ?
+              dossier?.dateDerniereModification ?
                 <span>
-              le&nbsp;{dayjs(dossier?.dateDeValidation).format('DD/MM/YYYY')}
+                  le&nbsp;{dayjs(dossier?.dateDerniereModification).format('DD/MM/YYYY')}
                 </span> :
                 <span>
-              date inconnue
+                  date inconnue
                 </span>
             }</p>
             <div className="fr-card__desc">
               <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-                {structure?.coselec[0]?.nombreConseillersCoselec} - {pluralize(
+                {structure?.posteValiderCoselec} - {pluralize(
                   'poste de conseiller',
                   'poste de conseiller',
                   'postes de conseiller',
-                  structure?.coselec[0]?.nombreConseillersCoselec
+                  structure?.posteValiderCoselec
                 )}
                 {' '}
                 <span className="fr-text--regular fr-text--md">
@@ -78,7 +79,7 @@ const ManagePositionsCard = ({ structure }) => {
                     'validé pour ce conventionnement',
                     'validé pour ce conventionnement',
                     'validés pour ce conventionnement',
-                    structure?.coselec[0]?.nombreConseillersCoselec
+                    structure?.posteValiderCoselec
                   )}
                 </span>
               </p>
@@ -120,11 +121,15 @@ const ManagePositionsCard = ({ structure }) => {
                     </button>
                   </li>
                   <li className="fr-ml-auto">
-                    <button className="fr-btn" onClick={
-                      () => window.open(urlDossier)
-                    }>
-                      <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche Simplifi&eacute;e
-                    </button>
+                    <a
+                      href={urlDossier}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="fr-btn"
+                    >
+                      <i className="ri-folder-2-line fr-mr-1w"></i>
+                      Voir le dossier D&eacute;marche Simplifi&eacute;e
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -138,10 +143,7 @@ const ManagePositionsCard = ({ structure }) => {
 
 
 ManagePositionsCard.propTypes = {
-  positions: PropTypes.array,
-  onPositionClick: PropTypes.func,
   structure: PropTypes.object,
-  setDernierAvenantValide: PropTypes.func
 };
 
 export default ManagePositionsCard;

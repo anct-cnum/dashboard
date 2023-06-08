@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
+import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 
 registerLocale('fr', fr);
-function popinEditionContrat({ setOpenModalContrat, createContract, updateContract, conseiller, editMode }) {
+function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, editMode, createContract }) {
   const [dateDebut, setDateDebut] = useState(null);
   const [dateFin, setDateFin] = useState(null);
   const [typeDeContrat, setTypeDeContrat] = useState(null);
@@ -17,6 +18,7 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
       createContract(typeDeContrat, dateDebut, dateFin, salaire);
     }
     setDateDebut(null);
+    setDateFin(null);
     setTypeDeContrat(null);
     setSalaire('');
     setOpenModalContrat(false);
@@ -24,6 +26,7 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
 
   const handleCancel = () => {
     setDateDebut(null);
+    setDateFin(null);
     setTypeDeContrat(null);
     setOpenModalContrat(false);
   };
@@ -33,9 +36,38 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
       setTypeDeContrat(conseiller?.typeDeContrat);
       setDateDebut(conseiller?.dateDebutDeContrat ? new Date(conseiller?.dateDebutDeContrat) : null);
       setDateFin(conseiller?.dateFinDeContrat ? new Date(conseiller?.dateFinDeContrat) : null);
-      setSalaire(conseiller?.salaire || '');
+      setSalaire(String(conseiller?.salaire) || '');
     }
   }, [editMode, conseiller]);
+
+  const checkContratValid = () => {
+    if (validTypeDeContratWithoutEndDate(typeDeContrat)) {
+      if (!dateDebut || !typeDeContrat || !salaire) {
+        return true;
+      }
+    } else if (!dateFin || !dateDebut || !typeDeContrat || !salaire) {
+      return true;
+    }
+    if (editMode) {
+      if (String(conseiller?.salaire) !== salaire || !conseiller?.typeDeContrat?.includes(typeDeContrat)) {
+        return false;
+      }
+      if (new Date(conseiller?.dateDebutDeContrat)?.getTime() !== dateDebut?.getTime()) {
+        return false;
+      }
+      if (!validTypeDeContratWithoutEndDate(typeDeContrat) && new Date(conseiller?.dateFinDeContrat)?.getTime() !== dateFin?.getTime()) {
+        return false;
+      }
+      return true;
+    }
+  };
+
+  const handleChangeSalaire = e => {
+    const regexFloatNumber = /^(\d+(?:[\\.\\,]\d*)?)$/;
+    if (e.target.value === '' || regexFloatNumber.test(e.target.value)) {
+      setSalaire(e.target.value);
+    }
+  };
 
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog">
@@ -69,51 +101,56 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
                 <div className="fr-form-group">
                   <fieldset className="fr-fieldset">
                     <div className="fr-fieldset__content">
-                      <div className="fr-radio-group fr-radio-group--sm">
+                      <div className="fr-radio-group">
                         <input
                           type="radio"
                           id="radio-1"
                           name="motifRupture"
-                          onChange={motif => setTypeDeContrat(motif.target.value)}
-                          value="cdi"
-                          checked={typeDeContrat === 'cdi'}
+                          onChange={motif => {
+                            setTypeDeContrat(motif.target.value);
+                            setDateFin(null);
+                          }}
+                          value="CDI"
+                          checked={typeDeContrat?.includes('CDI')}
                         />
                         <label className="fr-label" htmlFor="radio-1">
                           CDI
                         </label>
                       </div>
-                      <div className="fr-radio-group fr-radio-group--sm">
+                      <div className="fr-radio-group">
                         <input
                           type="radio"
                           id="radio-2"
                           name="motifRupture"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
-                          value="cdd"
-                          checked={typeDeContrat === 'cdd'}
+                          value="CDD"
+                          checked={typeDeContrat?.includes('CDD')}
                         />
                         <label className="fr-label" htmlFor="radio-2">
                           CDD
                         </label>
                       </div>
-                      <div className="fr-radio-group fr-radio-group--sm">
+                      <div className="fr-radio-group">
                         <input
                           type="radio"
                           id="radio-3"
                           name="motifRupture"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="contrat_de_projet_prive"
+                          checked={typeDeContrat === 'contrat_de_projet_prive'}
                         />
                         <label className="fr-label" htmlFor="radio-3">
                           Contrat de projet priv&eacute;
                         </label>
                       </div>
-                      <div className="fr-radio-group fr-radio-group--sm">
+                      <div className="fr-radio-group">
                         <input
                           type="radio"
                           id="radio-4"
                           name="motifRupture"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="contrat_de_projet_public"
+                          checked={typeDeContrat === 'contrat_de_projet_public'}
                         />
                         <label className="fr-label" htmlFor="radio-4">
                           Contrat de projet public
@@ -129,14 +166,15 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
                 </div>
                 <div className="fr-col-xl-12 btn-fr-col-xl-3">
                   <DatePicker
-                    id="datePicker"
-                    name="datePicker"
+                    id="datePickerDebutContrat"
+                    name="datePickerDebutContrat"
                     className="fr-input fr-my-2w fr-mr-6w fr-col-12"
                     dateFormat="dd/MM/yyyy"
                     placeholderText="../../...."
                     locale="fr"
                     onChangeRaw={e => e.preventDefault()}
-                    minDate={new Date()}
+                    minDate={editMode ? null : new Date()}
+                    maxDate={dateFin}
                     selected={dateDebut}
                     onChange={date => setDateDebut(date)}
                   />
@@ -148,26 +186,28 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
                 </div>
                 <div className="fr-col-xl-12 btn-fr-col-xl-3">
                   <DatePicker
-                    id="datePicker"
-                    name="datePicker"
+                    id="datePickerFinContrat"
+                    name="datePickerFinContrat"
                     className="fr-input fr-my-2w fr-mr-6w fr-col-12"
                     dateFormat="dd/MM/yyyy"
                     placeholderText="../../...."
                     locale="fr"
+                    disabled={typeDeContrat === 'CDI'}
                     onChangeRaw={e => e.preventDefault()}
-                    minDate={new Date()}
+                    minDate={dateDebut !== null ? dateDebut : new Date()}
                     selected={dateFin}
                     onChange={date => setDateFin(date)}
                   />
                 </div>
                 <div className="fr-input-group fr-col-6 fr-mt-2w">
-                  <label className="fr-label">Salaire brut mensuel</label>
+                  <label className="fr-label">Salaire brut mensuel
+                    <span className="fr-hint-text">Renseignez ici une estimation du salaire</span>
+                  </label>
                   <input
                     className="fr-input"
                     type="text"
                     name="salaire"
-                    maxLength="20"
-                    onChange={e => setSalaire(e.target.value)}
+                    onChange={handleChangeSalaire}
                     value={salaire}
                   />
                 </div>
@@ -182,7 +222,7 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
                   <li>
                     <button
                       onClick={handleSubmit}
-                      disabled={!dateFin || !dateDebut || !typeDeContrat || !salaire}
+                      disabled={checkContratValid()}
                       className="fr-btn fr-btn--icon-left"
                       title="Notifier la rupture de contrat"
                     >
@@ -201,9 +241,10 @@ function popinEditionContrat({ setOpenModalContrat, createContract, updateContra
 
 popinEditionContrat.propTypes = {
   updateContrat: PropTypes.func,
-  updateDateRecrutement: PropTypes.func,
-  setDateValidee: PropTypes.func,
+  conseiller: PropTypes.object,
   setOpenModalContrat: PropTypes.func,
+  editMode: PropTypes.bool,
+  createContract: PropTypes.func,
 };
 
 export default popinEditionContrat;

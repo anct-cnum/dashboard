@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { gestionnaireActions } from '../../../../src/actions';
+import { userActions } from '../../../../src/actions';
 
-function FormSuppressionGestionnaire({ setConfirmSuppressionGestionnaire, idGestionnaire }) {
+function FormSuppressionGestionnaire({ setConfirmSuppressionGestionnaire, idGestionnaire, roles }) {
   const dispatch = useDispatch();
 
   const annulerSuppressionGestionnaire = () => {
@@ -11,7 +11,11 @@ function FormSuppressionGestionnaire({ setConfirmSuppressionGestionnaire, idGest
   };
 
   const suppressionGestionnaire = () => {
-    dispatch(gestionnaireActions.suppressionGestionnaire(idGestionnaire));
+    if (roles.length > 1) {
+      dispatch(userActions.validationSuppressionCompteStructure(idGestionnaire, 'structure'));
+    } else {
+      dispatch(userActions.validationSuppressionCompteStructure(idGestionnaire));
+    }
     setConfirmSuppressionGestionnaire(false);
   };
 
@@ -25,12 +29,24 @@ function FormSuppressionGestionnaire({ setConfirmSuppressionGestionnaire, idGest
                 <button className="fr-btn--close fr-btn" aria-controls="fr-modal-2" onClick={annulerSuppressionGestionnaire}>Fermer</button>
               </div>
               <div className="fr-modal__content">
-                <h1 id="fr-modal-2-title" className="fr-modal__title">
-                  <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                  Supprimer le gestionnaire d&eacute;finitivement
-                </h1>
-                <p>&Ecirc;tes-vous certain(e) de vouloir supprimer ce gestionnaire ?</p>
-                <p><strong>Cette action supprimera d&eacute;finitivement toutes ses donn&eacute;es.</strong></p>
+                {roles.length > 1 ?
+                  <>
+                    <h1 id="fr-modal-2-title" className="fr-modal__title">
+                      <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
+                      Supprimer le r&ocirc;le structure de ce gestionnaire d&eacute;finitivement
+                    </h1>
+                    <p>&Ecirc;tes-vous certain(e) de vouloir supprimer le r&ocirc;le structure de ce gestionnaire ?</p>
+                    <p><strong>Cette action r&eacute;voquera les acc&egrave;s li&eacute; &agrave; ce r&ocirc;le sur le tableau de bord.</strong></p>
+                  </> :
+                  <>
+                    <h1 id="fr-modal-2-title" className="fr-modal__title">
+                      <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
+                      Supprimer le gestionnaire d&eacute;finitivement
+                    </h1>
+                    <p>&Ecirc;tes-vous certain(e) de vouloir supprimer ce gestionnaire ?</p>
+                    <p><strong>Cette action supprimera d&eacute;finitivement toutes ses donn&eacute;es.</strong></p>
+                  </>
+                }
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg">
@@ -57,8 +73,7 @@ function FormSuppressionGestionnaire({ setConfirmSuppressionGestionnaire, idGest
 FormSuppressionGestionnaire.propTypes = {
   setConfirmSuppressionGestionnaire: PropTypes.func,
   idGestionnaire: PropTypes.string,
-  setCollaborateurs: PropTypes.func,
-  collaborateurs: PropTypes.array,
+  roles: PropTypes.array,
 };
 
 export default FormSuppressionGestionnaire;

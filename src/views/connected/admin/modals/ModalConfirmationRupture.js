@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { conseillerActions } from '../../../../actions';
 import { useDispatch } from 'react-redux';
 
-function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat }) {
+function ModalConfirmationRupture({ setOpenModalValidationRupture, idConseiller, dateFinDeContrat }) {
   const dispatch = useDispatch();
 
   const validationRupture = () => {
     dispatch(conseillerActions.validationRupture(idConseiller, dateFinDeContrat));
-    setOpenModal(false);
+    setOpenModalValidationRupture(false);
   };
 
   return (
@@ -18,7 +18,7 @@ function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat
           <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
             <div className="fr-modal__body">
               <div className="fr-modal__header">
-                <button className="fr-btn--close fr-btn" aria-controls="fr-modal-2" onClick={() => setOpenModal(false)}>Fermer</button>
+                <button className="fr-btn--close fr-btn" aria-controls="fr-modal-2" onClick={() => setOpenModalValidationRupture(false)}>Fermer</button>
               </div>
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
@@ -26,21 +26,21 @@ function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat
                   &Ecirc;tes-vous s&ucirc;r de vouloir valider la rupture de ce conseiller ?
                 </h1>
                 <p>
-                    Cette action entra&icirc;nera la rupture du conseiller avec sa structure. Ce qui aura pour
-                    cons&eacute;quence de supprimer son adresse mail professionelle, son compte mattermost
-                    ainsi que l&lsquo;acc&egrave;s &agrave; l&lsquo;espace coop.
+                  Cette action entra&icirc;nera la rupture du conseiller avec sa structure. Ce qui aura pour
+                  cons&eacute;quence de supprimer son adresse mail professionelle, son compte mattermost
+                  ainsi que l&lsquo;acc&egrave;s &agrave; l&lsquo;espace coop.
                 </p>
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                   <li>
-                    <button onClick={() => setOpenModal(false)} className="fr-btn fr-btn--secondary">
-                        Annuler
+                    <button onClick={() => setOpenModalValidationRupture(false)} className="fr-btn fr-btn--secondary">
+                      Annuler
                     </button>
                   </li>
                   <li>
                     <button onClick={validationRupture} className="fr-btn">
-                        Valider
+                      Confirmer
                     </button>
                   </li>
                 </ul>
@@ -54,9 +54,9 @@ function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat
 }
 
 ModalConfirmationRupture.propTypes = {
-  setOpenModal: PropTypes.func,
+  setOpenModalValidationRupture: PropTypes.func,
   idConseiller: PropTypes.string,
-  dateFinDeContrat: PropTypes.string
+  dateFinDeContrat: PropTypes.instanceOf(Date)
 };
 
 export default ModalConfirmationRupture;

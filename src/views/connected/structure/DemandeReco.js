@@ -14,7 +14,8 @@ import {
 } from '../../../actions';
 import PopinRecapReconvention from './popins/popinRecapReconvention';
 import Spinner from '../../../components/Spinner';
-import { pluralize } from '../../../utils/formatagesUtils';
+import { pluralize, validTypeDeContratWithoutEndDate } from '../../../utils/formatagesUtils';
+import { StatutConventionnement } from '../../../utils/enumUtils';
 
 function DemandeReconventionnement() {
   const dispatch = useDispatch();
@@ -38,7 +39,6 @@ function DemandeReconventionnement() {
     structure?.conventionnement?.nombreDePostes ?? 0
   );
 
-
   const errorMessages = {
     errorStructure: 'La structure n\'a pas pu être chargée !',
     errorMisesEnRelation: 'Les mises en relation n\'ont pas pu être chargées !',
@@ -52,7 +52,7 @@ function DemandeReconventionnement() {
   useEffect(() => {
     const errors = [errorStructure, errorMisesEnRelation, errorReconventionnement];
     const detectedErrors = errors.filter(error => error !== false);
-  
+
     if (detectedErrors.length > 0) {
       scrollTopWindow();
       dispatch(
@@ -111,7 +111,7 @@ function DemandeReconventionnement() {
   useEffect(() => {
     setCheckedItems(
       misesEnRelationARenouveller
-      ?.filter(conseiller => conseiller?.reconventionnement)
+      ?.filter(conseiller => conseiller?.reconventionnement || validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat))
     );
   }, [misesEnRelationARenouveller]);
 
@@ -151,8 +151,8 @@ function DemandeReconventionnement() {
         </p>
         <InformationCard />
         <div className="fr-input-group">
+          <h5>Nombre de postes</h5>
           <label className="fr-label" htmlFor="text-input-groups1">
-            <h5>Nombre de postes</h5>
             <span>Renseignez le nombre de poste total que vous souhaitez&nbsp;:</span>
           </label>
           <input
@@ -170,7 +170,7 @@ function DemandeReconventionnement() {
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <div className="container fr-mb-6w">
-          <h5 className="fr-text--bold">Renouvellement de postes</h5>
+          <h5>Renouvellement de postes</h5>
           <p>S&eacute;lectionez les conseillers que vous souhaitez renouveller.</p>
           {misesEnRelationARenouveller &&
             misesEnRelationARenouveller.map((miseEnRelation, idx) => (
@@ -192,7 +192,7 @@ function DemandeReconventionnement() {
           demand&eacute;s avant de pouvoir envoyer votre demande.
         </p>
         <CompleteApplicationCard structure={structure} />
-        {structure?.conventionnement?.statut === 'ENREGISTRÉ' && (
+        {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ && (
           <>
             <div className="fr-col-12 fr-mt-6w fr-mb-2w">
               <hr style={{ borderWidth: '0.5px' }} />

@@ -59,18 +59,20 @@ export default function structure(state = initialState, action) {
         loading: false,
         error: action.error
       };
-    case 'PATCH_STRUCTURE_REQUEST':
+    case 'PATCH_STRUCTURE_CONTACT_REQUEST':
       return {
         error: false,
+        contactUpdated: false,
         flashMessage: false
       };
-    case 'PATCH_STRUCTURE_SUCCESS':
+    case 'PATCH_STRUCTURE_CONTACT_SUCCESS':
       return {
         ...state,
+        contactUpdated: true,
         structure: action.structure,
         flashMessage: true
       };
-    case 'PATCH_STRUCTURE_FAILURE':
+    case 'PATCH_STRUCTURE_CONTACT_FAILURE':
       return {
         ...state,
         error: action.error,
@@ -124,13 +126,15 @@ export default function structure(state = initialState, action) {
       return {
         ...state,
         loading: true,
+        emailUpdated: false,
         error: false,
       };
     case 'UPDATE_STRUCTURE_EMAIL_SUCCESS':
       return {
         ...state,
         loading: false,
-        structure: { ...state.structure.contact, email: action.emailUpdated },
+        structure: { ...state.structure, contact: { ...state.structure.contact, email: action.emailUpdated } },
+        emailUpdated: true,
       };
     case 'UPDATE_STRUCTURE_EMAIL_FAILURE':
       return {

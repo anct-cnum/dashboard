@@ -2,10 +2,10 @@ import React from 'react';
 import propTypes from 'prop-types';
 import EditContractCard from '../cards/EditContractCard';
 import CompleteContractCard from '../cards/CompleteContractCard';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 const renderCard = (conseiller, idx, roleActivated, setMiseEnrelationId, setOpenModalContrat, handleOpenModalContrat, structure) => {
-
-  if (conseiller?.reconventionnement && conseiller?.statut !== 'renouvellement_initié') {
+  if (conseiller?.reconventionnement && conseiller?.statut !== 'renouvellement_initiee') {
     return (
       <EditContractCard
         conseiller={conseiller}
@@ -16,7 +16,7 @@ const renderCard = (conseiller, idx, roleActivated, setMiseEnrelationId, setOpen
         key={idx}
       />
     );
-  } else if (conseiller?.statut === 'renouvellement_initié') {
+  } else if (conseiller?.statut === 'renouvellement_initiee') {
     return (
       <CompleteContractCard
         conseiller={conseiller}
@@ -40,7 +40,7 @@ const RenewAdvisorsSection = ({
   handleOpenModalContrat,
 }) => {
   return (
-    structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' && (
+    structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ && (
       <div className="container fr-mt-4w">
         <p className="fr-text--bold">Contrats &agrave; renouveller ({conseillersARenouveler?.length})</p>
         {conseillersARenouveler?.map((conseiller, idx) =>

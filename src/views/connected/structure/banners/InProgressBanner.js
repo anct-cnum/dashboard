@@ -15,8 +15,10 @@ const InProgressBanner = ({ structure, roleActivated }) => {
         <div className="fr-notice__body responsive__banner" style={{ paddingLeft: '20px' }}>
           <div>
             <p className="fr-notice__title title__color">
-              Vous avez d&eacute;pos&eacute; une demande de reconventionnement le {
-                structure?.conventionnement.derniereModification ? days(structure?.conventionnement?.derniereModification).format('DD/MM/YYYY') : '-'
+              Vous avez d&eacute;pos&eacute; une demande de reconventionnement
+              {structure?.conventionnement?.dossierReconventionnement?.dateDerniereModification ?
+                ` le ${days(structure.conventionnement.dossierReconventionnement.dateDerniereModification).format('DD/MM/YYYY')}` :
+                ' non renseignée'
               }
             </p>
             <p className="fr-text--md">
@@ -28,7 +30,7 @@ const InProgressBanner = ({ structure, roleActivated }) => {
               className="fr-btn fr-btn--secondary"
               data-fr-opened="false"
               aria-controls="fr-modal-2"
-              onClick={() => navigate(`/${roleActivated}/structure/${structure?._id}`)}
+              onClick={() => navigate(`/${roleActivated}/ma-structure/`)}
             >
               Voir ma demande
             </button>

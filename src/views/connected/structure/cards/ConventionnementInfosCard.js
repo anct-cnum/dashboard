@@ -37,11 +37,11 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
           </p>
           <div className="fr-card__desc">
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              {structure?.coselec[0]?.nombreConseillersCoselec} - {pluralize(
+              {structure?.posteValiderCoselec} - {pluralize(
                 'poste de conseiller',
                 'poste de conseiller',
                 'postes de conseiller',
-                structure?.coselec[0]?.nombreConseillersCoselec
+                structure?.posteValiderCoselec
               )}
               {' '}
               <span className="fr-text--regular fr-text--md">
@@ -49,7 +49,7 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
                   'validé pour ce conventionnement',
                   'validé pour ce conventionnement',
                   'validés pour ce conventionnement',
-                  structure?.coselec[0]?.nombreConseillersCoselec
+                  structure?.posteValiderCoselec
                 )}
               </span>
             </p>
@@ -57,7 +57,7 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
               <hr style={{ borderWidth: '0.5px' }} />
             </div>
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - - postes de conseiller vacants{' '}
+              Avenant - postes de conseiller vacants{' '}
               <span className="fr-text--regular fr-text--md">rendu le -</span>
             </p>
             <div className="fr-col-12 fr-my-1w">
@@ -87,13 +87,10 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
                 )}
               </div>
               <div className="fr-ml-auto fr-my-auto">
-                <button className="fr-btn" onClick={
-                  () => window.open(
-                    structure?.urlDossierConventionnement)
-                }>
-                  <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche
-                    Simplifi&eacute;e
-                </button>
+                <a className="fr-btn" href={structure?.urlDossierConventionnement} target="_blank" rel="noopener noreferrer">
+                  <i className="ri-folder-2-line fr-mr-1w"></i>
+                  Voir le dossier D&eacute;marche Simplifi&eacute;e
+                </a>
               </div>
             </div>
           </div>
@@ -104,7 +101,6 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
 };
 
 ConventionnementInfosCard.propTypes = {
-  onPositionClick: PropTypes.func,
   structure: PropTypes.object,
   roleActivated: PropTypes.string
 };

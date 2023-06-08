@@ -100,17 +100,23 @@ export default function conseiller(state = initialState, action) {
       };
     case 'PRESELECTIONNER_CONSEILLER_REQUEST':
       return {
+        ...state,
         loading: true,
-        error: false,
+        errorPreselection: false,
+        successPreselection: false
       };
     case 'PRESELECTIONNER_CONSEILLER_SUCCESS':
       return {
         ...state,
-        message: action.message
+        message: action.message,
+        loading: false,
+        successPreselection: true,
       };
     case 'PRESELECTIONNER_CONSEILLER_FAILURE':
       return {
-        error: action.error
+        ...state,
+        errorPreselection: action.error,
+        loading: false
       };
     case 'GET_CURRICULUM_VITAE_REQUEST':
       return {
@@ -243,6 +249,7 @@ export default function conseiller(state = initialState, action) {
           telephonePro: '',
           statut: 'RUPTURE',
           mattermost: '',
+          contrat: action.miseEnRelationUpdated,
           misesEnRelation: state.conseiller.misesEnRelation.map(
             miseEnRelation => (miseEnRelation._id === action.miseEnRelationUpdated._id) ? action.miseEnRelationUpdated : miseEnRelation
           ),
@@ -307,6 +314,15 @@ export default function conseiller(state = initialState, action) {
         ...state,
         loading: false,
         errorCandidat: action.error
+      };
+    case 'UPDATE_MISE_EN_RELATION_CONTRAT':
+      return {
+        ...state,
+        conseiller: { ...state.conseiller,
+          contrat: action.miseEnRelationUpdated,
+          misesEnRelation: state.conseiller.misesEnRelation.map(
+            miseEnRelation => (miseEnRelation.statut === action.miseEnRelationUpdated.statut) ? action.miseEnRelationUpdated : miseEnRelation
+          ) },
       };
     default:
       return state;

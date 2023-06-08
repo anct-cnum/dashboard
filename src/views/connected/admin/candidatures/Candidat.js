@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { conseillerActions } from '../../../../actions';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
 import ReactTooltip from 'react-tooltip';
+import { Link } from 'react-router-dom';
 
 function Candidat({ candidat }) {
   const dispatch = useDispatch();
@@ -42,10 +42,12 @@ function Candidat({ candidat }) {
         </td>
         <td>
           <Link
-            className="fr-btn fr-icon-eye-line"
-            title="Détails"
             to={`/${roleActivated}/candidat/${candidat?._id}`}
-            state={{ 'origin': `/${roleActivated}/liste-candidatures` }}>D&eacute;tails</Link>
+            state={{ 'origin': `/${roleActivated}/liste-candidatures` }}
+            className="fr-btn fr-icon-eye-line"
+            title="D&eacute;tail">
+            D&eacute;tail
+          </Link>
         </td>
       </tr>
     </>

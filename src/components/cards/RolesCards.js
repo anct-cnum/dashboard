@@ -1,6 +1,5 @@
 import React from 'react';
 import propType from 'prop-types';
-import { Link } from 'react-router-dom';
 
 const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
 
@@ -17,10 +16,11 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
               </div>
             </div>
             <div className="fr-col-4 fr fr-grid-row--end" style={{ textAlign: 'right' }}>
-              <Link to={`/${roleActivated}/structure/${structure?._id}`} className="fr-btn fr-btn--tertiary-no-outline">
+              <button className="fr-btn fr-btn--tertiary-no-outline"
+                onClick={() => window.open(`/${roleActivated}/ma-structure/`)}
+              >
                 <i className="ri-home-4-line fr-mr-1w"></i>G&eacute;rer ma structure
-              </Link>
-              
+              </button>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
         return;
     }
   };
-  
+
   return (
     <>
       <div className="fr-card fr-col-8 fr-mt-2w fr-p-3w">

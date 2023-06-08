@@ -1,9 +1,11 @@
 const initialState = {
   dateDebut: new Date(1605571200000),
   dateFin: new Date(),
+  dateDebutStatistique: new Date(1605571200000),
+  dateFinStatistique: new Date(),
 };
-    
-export default function filtresHistoriqueConvention(state = initialState, action) {
+  
+export default function datePicker(state = initialState, action) {
   switch (action.type) {
     case 'CHANGE_DATE_DEBUT':
       return {
@@ -15,11 +17,9 @@ export default function filtresHistoriqueConvention(state = initialState, action
         ...state,
         dateFin: action.dateFin,
       };
-    case 'RESET_FILTER_AND_SORTS':
+    case 'RESET_DATE_PICKER':
       return initialState;
     default:
       return state;
   }
 }
-    
-  
