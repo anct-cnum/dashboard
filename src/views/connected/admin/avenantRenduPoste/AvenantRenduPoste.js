@@ -19,7 +19,7 @@ function AvenantRenduPoste({ avenant }) {
         }
       </td>
       <td>-</td>
-      <td>{demandesCoselec?.nombreDePostes ?? '-'}</td>
+      <td>{demandesCoselec?.nombreDePostesSouhaites ?? '-'}</td>
       <td style={{ width: '13rem' }}>Avenant · poste rendu</td>
       <td>
         <button

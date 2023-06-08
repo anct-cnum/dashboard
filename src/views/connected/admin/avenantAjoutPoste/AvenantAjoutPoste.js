@@ -19,7 +19,7 @@ function AvenantAjoutPoste({ avenant }) {
         }
       </td>
       <td>-</td>
-      <td>{demandesCoselec?.nombreDePostes ?? '-'}</td>
+      <td>{demandesCoselec?.nombreDePostesSouhaites ?? '-'}</td>
       <td style={{ width: '13rem' }}>Avenant · ajout de poste</td>
       <td>
         <button

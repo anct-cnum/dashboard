@@ -51,11 +51,11 @@ function AvenantAjoutPosteDetails({ avenant, indexDemandesCoselec }) {
                   )}
                 </> :
                 <>
-                  Demande de {demandesCoselec?.nombreDePostes}{pluralize(
+                  Demande de {demandesCoselec?.nombreDePostesSouhaites}{pluralize(
                     ' poste de conseiller subventionné supplémentaire ',
                     ' poste de conseiller subventionné supplémentaire ',
                     ' postes de conseillers subventionnés supplémentaires ',
-                    demandesCoselec?.nombreDePostes
+                    demandesCoselec?.nombreDePostesSouhaites
                   )}
                 </>
               }

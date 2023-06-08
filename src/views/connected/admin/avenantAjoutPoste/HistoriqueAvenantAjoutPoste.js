@@ -16,7 +16,7 @@ function HistoriqueAvenantAjoutPoste({ avenant, indexDemandesCoselec, structure 
           <span>Non renseign&eacute;e</span>
         }
       </td>
-      <td>{avenant?.nombreDePostes ?? '-'}</td>
+      <td>{avenant?.nombreDePostesSouhaites ?? '-'}</td>
       <td style={{ width: '13rem' }}>Avenant · ajout de poste</td>
       <td>
         <button

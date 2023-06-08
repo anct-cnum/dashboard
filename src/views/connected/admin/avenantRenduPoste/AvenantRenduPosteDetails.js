@@ -11,7 +11,7 @@ function AvenantRenduPosteDetails({ avenant, indexDemandesCoselec }) {
   const demandesCoselec = avenant?.demandesCoselec[indexDemandesCoselec];
 
   const validationAvenantRenduPoste = () => {
-    dispatch(conventionActions.validationAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostes, avenant.nombreConseillersCoselec));
+    dispatch(conventionActions.validationAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostesSouhaites, avenant.nombreConseillersCoselec));
   };
 
   return (

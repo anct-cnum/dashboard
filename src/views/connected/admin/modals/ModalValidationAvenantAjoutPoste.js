@@ -6,7 +6,7 @@ import { StatutCoselec } from '../../../../utils/enumUtils';
 
 function ModalValidationAvenantAjoutPoste({ idStructure, demandesCoselec, nombreConseillersCoselec, setOpenModal }) {
   const dispatch = useDispatch();
-  const [nombreDePostes, setNombreDePostes] = useState(demandesCoselec.nombreDePostes);
+  const [nombreDePostes, setNombreDePostes] = useState(demandesCoselec.nombreDePostesSouhaites);
 
   const validationAvenantAjoutPoste = () => {
     dispatch(conventionActions.updateAvenantAjoutPoste(idStructure, StatutCoselec.POSITIF, nombreDePostes, nombreConseillersCoselec));
@@ -31,7 +31,7 @@ function ModalValidationAvenantAjoutPoste({ idStructure, demandesCoselec, nombre
                 <input
                   className="fr-input"
                   type="number"
-                  max={demandesCoselec.nombreDePostes}
+                  max={demandesCoselec.nombreDePostesSouhaites}
                   onChange={e => setNombreDePostes(e.target.value)}
                   value={nombreDePostes}
                   id="text-input-text" name="text-input-text"
