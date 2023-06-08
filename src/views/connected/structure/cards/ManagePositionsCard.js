@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
+import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
+import PopinGestionPostes from '../popins/popinGestionPostes';
 
 const ManagePositionsCard = ({ structure }) => {
 
@@ -11,9 +13,30 @@ const ManagePositionsCard = ({ structure }) => {
     structure?.conventionnement?.dossierConventionnement;
   const urlDossier = isReconventionnement ? structure?.urlstructure?.DossierReconventionnement : structure?.urlDossierConventionnement;
   const phase = isReconventionnement ? 'Conventionnement phase 2' : 'Conventionnement phase 1';
+  const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
+
+  const displayText = structure => {
+    if (structure?.lastDemandeCoselec?.type === 'ajout') {
+      if (structure?.lastDemandeCoselec?.statut === 'initiée') {
+        return 'demandés';
+      } else {
+        return 'obtenu';
+      }
+    } else {
+      return 'vacants rendu';
+    }
+  };
+  
 
   return (
     <>
+      {
+        step > 0 && <PopinGestionPostes
+          step={step}
+          setStep={setStep}
+          actionType={actionType}
+        />
+      }
       <div className="fr-card fr-card--no-border fr-mb-4w" style={{ backgroundColor: '#E8EDFF' }}>
         <div className="fr-card__body">
           <div className="fr-card__content">
@@ -59,14 +82,17 @@ const ManagePositionsCard = ({ structure }) => {
                   )}
                 </span>
               </p>
-              {structure?.lastDemandeCoselecValidee &&
+              {structure?.lastDemandeCoselec &&
              <>
                <div className="fr-col-12 fr-mt-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
                </div>
                <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - {structure.lastDemandeCoselecValidee.nombreDePostes} postes de conseiller vacants{' '}
-                 <span className="fr-text--regular fr-text--md">rendu le {dayjs(structure?.lastDemandeCoselecValidee?.date).format('DD/MM/YYYY')}</span>
+              Avenant - {structure.lastDemandeCoselec.nombreDePostes} postes de conseiller {' '}
+                 <span className="fr-text--regular fr-text--md">
+                   {displayText(structure)} {' '}{' '}
+                   le {dayjs(structure?.lastDemandeCoselec?.date).format('DD/MM/YYYY')}
+                 </span>
                </p>
                <div className="fr-col-12 fr-my-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
@@ -76,17 +102,28 @@ const ManagePositionsCard = ({ structure }) => {
               <div>
                 <ul className="fr-btns-group fr-btns-group--inline-md">
                   <li>
-                    <button className="fr-btn fr-btn--secondary" disabled>Ajouter un poste</button>
+                    <button className="fr-btn fr-btn--secondary"
+                      disabled={structure?.demandesCoselec && structure?.lastDemandeCoselec?.statut !== 'validée'}
+                      onClick={() => {
+                        handlePopin('add', 1);
+                      }}>
+                    Ajouter un poste
+                    </button>
                   </li>
                   <li>
-                    <button className="fr-btn fr-btn--secondary" disabled>Rendre un poste</button>
+                    <button className="fr-btn fr-btn--secondary"
+                      disabled={structure?.demandesCoselec && structure?.lastDemandeCoselec?.statut !== 'validée'}
+                      onClick={() => {
+                        handlePopin('remove', 1);
+                      }}>
+                    Rendre un poste
+                    </button>
                   </li>
                   <li className="fr-ml-auto">
                     <button className="fr-btn" onClick={
                       () => window.open(urlDossier)
                     }>
-                      <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche
-                    Simplifi&eacute;e
+                      <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche Simplifi&eacute;e
                     </button>
                   </li>
                 </ul>

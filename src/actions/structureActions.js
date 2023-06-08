@@ -9,7 +9,8 @@ export const structureActions = {
   updateStructureSiret,
   verifyStructureSiret,
   cancelStructureSiret,
-  hiddenMessageError
+  hiddenMessageError,
+  demandeCoselec,
 };
 
 // eslint-disable-next-line max-len
@@ -197,4 +198,28 @@ function cancelStructureSiret() {
 
 function hiddenMessageError() {
   return { type: 'ERROR_MESSAGE_HIDDEN' };
+}
+
+function demandeCoselec(type, structureId, nombreDePostes, motif, autreMotif) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.demandeCoselec(type, structureId, nombreDePostes, motif, autreMotif)
+    .then(
+      structure => dispatch(success(structure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'DEMANDE_COSELEC_REQUEST' };
+  }
+  function success(structure) {
+    return { type: 'DEMANDE_COSELEC_SUCCESS', structure };
+  }
+  function failure(error) {
+    return { type: 'DEMANDE_COSELEC_FAILURE', error };
+  }
 }

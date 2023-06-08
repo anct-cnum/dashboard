@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PopinAnnulationReConvention from './popins/popinAnnulationReConvention';
 import PopinEditionContrat from './popins/popinEditionContrat';
-import { ValidatedRenouvellementBanner } from './banners';
+import { ValidatedRenouvellementBanner, ValidatedAvenantBanner } from './banners';
 import { ManagePositionsCard, HireAdvisorCard } from './cards';
 import Spinner from '../../../components/Spinner';
 import {
@@ -21,6 +21,7 @@ import {
 import { useAdvisors } from './hooks/useAdvisors';
 import { useErrors } from './hooks/useErrors';
 import { useStructure } from './hooks/useStructure';
+import InProgressAvenantBanner from './banners/InProgressAvenantBanner';
 
 function MesPostes() {
   const [openModalContrat, setOpenModalContrat] = useState(false);
@@ -63,6 +64,9 @@ function MesPostes() {
     if (showValidateBanner && structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ') {
       return 'withBannerOnTop';
     }
+    if (structure?.lastDemandeCoselec?.banniereValidationAvenant || structure?.lastDemandeCoselec?.statut === 'initiée') {
+      return 'withBannerOnTop';
+    }
     if (structure?.conventionnement?.statut === 'NON_INTERESSÉ') {
       return 'withoutBannerOnTop';
     }
@@ -103,12 +107,12 @@ function MesPostes() {
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, id) => {
     dispatch(renouvellementActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
   };
-
+  
 
   return (
     <>
       {bannieresRenouvellementValide?.length > 0 &&
-        bannieresRenouvellementValide.map(conseiller => {
+        bannieresRenouvellementValide?.map(conseiller => {
           return (
             <ValidatedRenouvellementBanner
               key={conseiller._id}
@@ -118,6 +122,17 @@ function MesPostes() {
             />
           );
         })}
+      {structure?.lastDemandeCoselec?.banniereValidationAvenant && (
+        <ValidatedAvenantBanner
+          structure={structure}
+        />
+      )}
+      {structure?.lastDemandeCoselec?.statut === 'initiée' && (
+        <InProgressAvenantBanner
+          structure={structure}
+          roleActivated={roleActivated}
+        />
+      )}
       <ReconventionnementBanner
         structure={structure}
         roleActivated={roleActivated}
@@ -147,7 +162,7 @@ function MesPostes() {
         >
           G&eacute;rer mes postes
         </h2>
-        <ManagePositionsCard structure={structure} />
+        <ManagePositionsCard structure={structure}/>
         {misesEnRelation?.length > 0 && (
           <>
             <HireAdvisorCard

@@ -149,6 +149,42 @@ export default function structure(state = initialState, action) {
         error: false,
         flashMessage: false
       };
+    case 'DEMANDE_COSELEC_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+    case 'DEMANDE_COSELEC_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        structure: action.structure,
+      };
+    case 'DEMANDE_COSELEC_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    case 'CLOSE_AVENANT_BANNER_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+    case 'CLOSE_AVENANT_BANNER_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        structure: action.structure,
+      };
+    case 'CLOSE_AVENANT_BANNER_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
     default:
       return state;
   }

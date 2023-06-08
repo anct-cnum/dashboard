@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
+import PopinGestionPostes from '../popins/popinGestionPostes';
+import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 
 
 const ReconventionnementInfosCard = ({ structure }) => {
+  const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
 
   const displayBadge = () => {
     if (structure?.conventionnement?.statut === 'ENREGISTRE') {
@@ -18,9 +21,15 @@ const ReconventionnementInfosCard = ({ structure }) => {
     }
     return null;
   };
-
   return (
     <>
+      {
+        step > 0 && <PopinGestionPostes
+          step={step}
+          setStep={setStep}
+          actionType={actionType}
+        />
+      }
       <div className="fr-card fr-mb-4w">
         <div className="fr-card__body">
           <div className="fr-card__content">
@@ -71,14 +80,14 @@ const ReconventionnementInfosCard = ({ structure }) => {
                     }</span>
                 )}
               </p>
-              {structure?.lastDemandeCoselecValidee &&
+              {structure?.lastDemandeCoselec &&
              <>
                <div className="fr-col-12 fr-mt-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
                </div>
                <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - {structure.lastDemandeCoselecValidee.nombreDePostes} postes de conseiller vacants{' '}
-                 <span className="fr-text--regular fr-text--md">rendu le {dayjs(structure?.lastDemandeCoselecValidee?.date).format('DD/MM/YYYY')}</span>
+              Avenant - {structure.lastDemandeCoselec.nombreDePostes} postes de conseiller vacants{' '}
+                 <span className="fr-text--regular fr-text--md">rendu le {dayjs(structure?.lastDemandeCoselec?.date).format('DD/MM/YYYY')}</span>
                </p>
                <div className="fr-col-12 fr-my-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
@@ -89,13 +98,19 @@ const ReconventionnementInfosCard = ({ structure }) => {
                 <ul className="fr-btns-group fr-btns-group--inline-md">
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled>
+                      disabled={structure?.demandesCoselec[structure?.demandesCoselec.length - 1]?.statut !== 'validée'}
+                      onClick={() => {
+                        handlePopin('add', 1);
+                      }}>
                     Ajouter un poste
                     </button>
                   </li>
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled>
+                      disabled={structure?.demandesCoselec[structure?.demandesCoselec.length - 1]?.statut !== 'validée'}
+                      onClick={() => {
+                        handlePopin('remove', 1);
+                      }}>
                     Rendre un poste
                     </button>
                   </li>

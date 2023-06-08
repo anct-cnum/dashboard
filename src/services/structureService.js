@@ -10,7 +10,9 @@ export const structureService = {
   patch,
   updateStructureEmail,
   updateStructureSiret,
-  verifyStructureSiret
+  verifyStructureSiret,
+  demandeCoselec,
+  closeBanner,
 };
 
 function get(id) {
@@ -64,6 +66,19 @@ function verifyStructureSiret(siret) {
 
 function updateStructureSiret(siret, structureId) {
   return API.patch(`${apiUrlRoot}/structure/siret/${structureId}?role=${roleActivated()}`, { siret })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function demandeCoselec(type, structureId, nombreDePostes, motif, autreMotif = '') {
+  // eslint-disable-next-line max-len
+  return API.patch(`${apiUrlRoot}/demande-coselec?role=${roleActivated()}&structureId=${structureId}`, { type, nombreDePostes, motif, autreMotif })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function closeBanner(type, id) {
+  return API.patch(`${apiUrlRoot}/reconventionnement/banniere/${id}?type=${type}&role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

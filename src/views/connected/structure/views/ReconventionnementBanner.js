@@ -8,7 +8,7 @@ import propTypes from 'prop-types';
 const ReconventionnementBanner = ({ structure, roleActivated, conseillersActifs, showValidateBanner, setShowValidateBanner, openModal, setOpenModal }) => {
   switch (structure?.conventionnement?.statut) {
     case 'ENREGISTRÉ':
-      return <CompleteRequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
+      return <CompleteRequestBanner openModal={openModal} setOpenModal={setOpenModal} structure={structure}/>;
     case 'RECONVENTIONNEMENT_EN_COURS':
       return <InProgressBanner structure={structure} roleActivated={roleActivated} />;
     case 'RECONVENTIONNEMENT_VALIDÉ':
@@ -22,6 +22,9 @@ const ReconventionnementBanner = ({ structure, roleActivated, conseillersActifs,
         )
       );
     case 'CONVENTIONNEMENT_VALIDÉ':
+      if (structure?.conventionnement?.dossierReconventionnement) {
+        return <CompleteRequestBanner openModal={openModal} setOpenModal={setOpenModal} structure={structure}/>;
+      }
       return <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
     default:
       return null;

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
+import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 import { reconventionnementActions } from '../../../../actions';
 
 function ReconventionnementDetails({ reconventionnement }) {
@@ -12,14 +13,7 @@ function ReconventionnementDetails({ reconventionnement }) {
   const dossierReconventionnement = reconventionnement?.conventionnement?.dossierReconventionnement;
   const dossierConventionnement = reconventionnement?.conventionnement?.dossierConventionnement;
   const dispatch = useDispatch();
-
-  const calcNbJoursAvantDateFinContrat = dateFinContrat => {
-    const dateFin = dayjs(dateFinContrat);
-    const dateAujourdhui = dayjs();
-    const nbJours = dateFin.diff(dateAujourdhui, 'day');
-
-    return Math.max(nbJours, 0);
-  };
+ 
 
   const validation = () => {
     dispatch(reconventionnementActions.validation(reconventionnement._id));

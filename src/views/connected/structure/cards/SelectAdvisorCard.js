@@ -4,6 +4,9 @@ import { formatNomConseiller, formatTypeDeContrat } from '../../../../utils/form
 import dayjs from 'dayjs';
 
 const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor, checkedItems }) => {
+  const currentDate = dayjs();
+  const dateFinDeContrat = dayjs(miseEnRelation?.dateFinDeContrat);
+  const isContractActive = dateFinDeContrat.isAfter(currentDate);
   return (
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
       <div className="fr-card__body fr-p-0">
@@ -21,7 +24,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                 />
               </div>
             </div>
-            <div className="fr-col-3 card__text">
+            <div className="fr-col-2 card__text">
               <div>
                 <strong className="fr-text--md fr-text--bold">
                   {miseEnRelation?.conseiller ? formatNomConseiller(miseEnRelation?.conseiller) : ''}
@@ -68,7 +71,11 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
               </div>
             </div>
             <div className="badge-statut-renouvellement card__text">
-              <p className="fr-badge fr-badge--success">En activit&eacute;</p>
+              {/* <p className="fr-badge fr-badge--success">En activit&eacute;</p> */}
+              <p className={`fr-badge ${isContractActive ? 'fr-badge--success' : 'fr-badge--warning'}`}>
+                {isContractActive ? 'En activité' : 'Contrat terminé'}
+              </p>
+
             </div>
             <div className="btn-actions-conseiller">
               <button
