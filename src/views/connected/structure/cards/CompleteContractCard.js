@@ -1,8 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import { calculateMonthsDifference } from '../../../../utils/calculateUtils';
+import AdvisorCard from './AdvisorCard';
+import { formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 
 const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContrat, structure }) => {
   const { dateDebutDeContrat, dateFinDeContrat, typeDeContrat } = conseiller;
@@ -15,100 +16,39 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
 
   return (
     <>
-      <div className="fr-col-12 fr-mt-2w fr-p-3w card-banner-top">
-        <div className="fr-card__body fr-p-0">
-          <div>
-            <div className="fr-grid-row responsive__wide-card" style={{ alignItems: 'center' }}>
-              <div className="fr-col-2 card__text">
-                <div>
-                  <span className="fr-text--md fr-text--bold">{conseiller ? formatNomConseiller(conseiller) : ''}</span>
-                  <br />
-                  <span className="fr-text--regular fr-text--md info__color">ID - {conseiller?.idPG}</span>
-                </div>
-              </div>
-              <div className="fr-col-2 card__text">
-                <div>
-                  <span className="fr-text--md" style={{ fontWeight: '500' }}>
-                    Type de contrat
-                  </span>
-                  <br />
-                  <span className="fr-text--regular fr-text--md info__color">{conseiller?.originalMiseEnRelation?.typeDeContrat ?? '-'}</span>
-                </div>
-              </div>
-              <div className="fr-col-2 card__text">
-                <div>
-                  <span className="fr-text--md" style={{ fontWeight: '500' }}>
-                    D&eacute;but de contrat
-                  </span>
-                  <br />
-                  <span className="info__color">{
-                    conseiller?.originalMiseEnRelation?.dateDebutDeContrat ?
-                      dayjs(conseiller?.originalMiseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY') : '-'
-                  }</span>
-                </div>
-              </div>
-              <div className="fr-col-2 card__text">
-                <div>
-                  <span className="fr-text--md" style={{ fontWeight: '500' }}>
-                    Fin de contrat
-                  </span>
-                  <br />
-                  <span className="info__color">
-                    {
-                      conseiller?.originalMiseEnRelation?.dateFinDeContrat ?
-                        dayjs(conseiller?.originalMiseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY') : '-'
-                    }
-                  </span>
-                </div>
-              </div>
-              <div className="fr-col-2 card__text">
-                <p className="fr-badge fr-badge--success">En activit&eacute;</p>
-              </div>
-              <div className="fr-col-2">
-                <button
-                  className="fr-btn fr-icon-eye-line fr-mx-3w card__button"
-                  title="D&eacute;tail"
-                  onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}
-                />
-                <button
-                  className="fr-btn fr-icon-line-chart-line card__button"
-                  title="Statistiques"
-                  onClick={() => window.open(`/statistiques-conseiller/${conseiller?._id}`)}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AdvisorCard conseiller={conseiller} roleActivated={roleActivated} />
       {/* banniere */}
       <div className="fr-notice fr-py-2w banner warning background">
-        <div className="fr-container warning responsive__banner">
+        <div className="fr-container warning fr-grid-row fr-grid-row--middle">
           <span className="fr-icon-warning-fill icon__color" aria-hidden="true"></span>
-          <div className="responsive__banner" style={{ paddingLeft: '20px' }}>
+          <div className="responsive__banner fr-ml-2w">
             <div className="banner__text">
               <p className="fr-notice__title title__color">Envoyer les pi&egrave;ces justificatives pour finaliser la demande de renouvellement</p>
               <p className="fr-text--sm">
-                {`Demande d'un ${typeDeContrat?.toUpperCase().split('_').join(' ')} de ${months} mois avec une date de début le ${dayjs(dateDebutDeContrat)
-                .format(
-                  'DD/MM/YYYY'
-                )}.`}
+                {typeDeContrat ?
+                  <>
+                  Demande d&rsquo;un contrat&nbsp;{formatTypeDeContrat(typeDeContrat)}
+                  &nbsp;{validTypeDeContratWithoutEndDate(typeDeContrat) ? '' : `de ${months} mois `}
+                  avec une date de début le {dayjs(dateDebutDeContrat).format('DD/MM/YYYY')}
+                  </> : ''
+                }
               </p>
             </div>
-            <ul className="fr-btns-group fr-btns-group--inline-sm small__banner__button">
-              <li>
-                <button className="fr-btn" style={{ margin: 'auto' }} onClick={() => window.open(`${structure?.urlDossierReconventionnement}/messagerie`)}>
-                  Compl&eacute;ter le dossier
-                </button>
-              </li>
-              <li>
-                <button
-                  className="fr-btn  fr-icon-edit-line"
-                  title="Label bouton"
-                  style={{ margin: 'auto', marginLeft: '25px' }}
-                  onClick={() => handleEditContract(conseiller)}
-                ></button>
-              </li>
-            </ul>
+          </div>
+          <div className="fr-ml-auto fr-grid-row">
+            <a
+              href={structure?.urlDossierReconventionnementMessagerie}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="fr-btn"
+            >
+              Compl&eacute;ter le dossier
+            </a>
+            <button
+              className="fr-btn fr-btn--secondary fr-icon-edit-line fr-ml-2w"
+              title="&Eacute;diter le contrat"
+              onClick={() => handleEditContract(conseiller)}
+            ></button>
           </div>
         </div>
       </div>
@@ -119,7 +59,6 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
 CompleteContractCard.propTypes = {
   conseiller: propTypes.object,
   roleActivated: propTypes.string,
-  setOpenModalContrat: propTypes.func,
   handleOpenModalContrat: propTypes.func,
   structure: propTypes.object,
 };

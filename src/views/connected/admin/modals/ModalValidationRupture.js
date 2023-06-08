@@ -8,22 +8,12 @@ import { conseillerActions } from '../../../../actions';
 //Print datePicker calendar in FR
 registerLocale('fr', fr);
 function ModalValidationRupture({ setOpenModal, idConseiller, datePrisePoste, dateFinDeContrat, setDateFinDeContrat }) {
-  const [confirmationRupture, setConfirmationRupture] = useState(false);
-  const [dossierComplet, setDossierComplet] = useState(null);
+  const [dossierIncomplet, setDossierIncomplet] = useState(null);
   const dispatch = useDispatch();
 
-  const validationRupture = () => {
-    dispatch(conseillerActions.validationRupture(idConseiller, dateFinDeContrat));
-    setOpenModal(false);
-  };
-
   const gestionRupture = () => {
-    if (dossierComplet === true) {
-      setConfirmationRupture(true);
-    } else {
-      dispatch(conseillerActions.dossierIncompletRupture(idConseiller, dateFinDeContrat));
-      setOpenModal(false);
-    }
+    dispatch(conseillerActions.dossierIncompletRupture(idConseiller, dateFinDeContrat, dossierIncomplet));
+    setOpenModal(false);
   };
 
   return (
@@ -34,129 +24,94 @@ function ModalValidationRupture({ setOpenModal, idConseiller, datePrisePoste, da
             <div className="fr-modal__body">
               <div className="fr-modal__header">
                 <button className="fr-btn--close fr-btn" aria-controls="fr-modal-2" onClick={() => {
-                  setDossierComplet(null);
+                  setDossierIncomplet(null);
                   setOpenModal(false);
                 }}>Fermer</button>
               </div>
-              {confirmationRupture === false ?
-                <>
-                  <div className="fr-modal__content">
-                    <h1 id="fr-modal-2-title" className="fr-modal__title">
-                      <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                      D&eacute;claration d&rsquo;une rupture
-                    </h1>
-                    <p>Veuillez renseigner la date de recrutement que vous souhaitez proposer &agrave; ce candidat</p>
-                    <div className="fr-col-12">
-                      <label
-                        className="fr-label"
-                        style={{ fontSize: 'unset' }}
-                      >
-                        <strong className="important">1. Indiquer la date de fin de contrat (obligatoire)&nbsp;:</strong>
-                      </label>
+              <div className="fr-modal__content">
+                <h1 id="fr-modal-2-title" className="fr-modal__title">
+                  <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
+                  D&eacute;claration d&rsquo;une rupture
+                </h1>
+                <p>Veuillez renseigner la date de recrutement que vous souhaitez proposer &agrave; ce candidat</p>
+                <div className="fr-col-12">
+                  <label
+                    className="fr-label"
+                    style={{ fontSize: 'unset' }}
+                  >
+                    <strong className="important">1. Indiquer la date de fin de contrat (obligatoire)&nbsp;:</strong>
+                  </label>
+                </div>
+                <div className="fr-col-xl-12 btn-fr-col-xl-3">
+                  <DatePicker
+                    id="datePicker"
+                    name="datePicker"
+                    className="fr-input fr-my-2w fr-mr-6w fr-col-6"
+                    dateFormat="dd/MM/yyyy"
+                    placeholderText="../../...."
+                    locale="fr"
+                    selected={dateFinDeContrat}
+                    onChange={date => setDateFinDeContrat(date)}
+                    value={dateFinDeContrat}
+                    peekNextMonth
+                    onChangeRaw={e => e.preventDefault()}
+                    minDate={new Date(datePrisePoste)}
+                    maxDate={new Date()}
+                  />
+                </div>
+                <div className="fr-col-12 fr-mt-1w">
+                  <label
+                    className="fr-label"
+                    style={{ fontSize: 'unset' }}
+                    htmlFor="datePicker">
+                    <p><strong>2. Indiquer le motif de fin de contrat (obligatoire)&nbsp;:</strong></p>
+                  </label>
+                </div>
+                <div className="fr-form-group">
+                  <fieldset className="fr-fieldset">
+                    <legend className="fr-fieldset__legend fr-text--regular" id="radio-legend">
+                      Renseignez l&lsquo;&eacute;tat de traitement de la demande&nbsp;:
+                    </legend>
+                    <div className="fr-fieldset__content">
+                      <div className="fr-radio-group">
+                        <input type="radio" name="radio" id="rgpd" onClick={() => {
+                          setDossierIncomplet(false);
+                        }} />
+                        <label className="fr-label" htmlFor="rgpd">Dossier complet</label>
+                      </div>
+                      <div className="fr-radio-group">
+                        <input type="radio" name="radio" id="non_interesse_dispositif" onClick={() => {
+                          setDossierIncomplet(true);
+                        }} />
+                        <label className="fr-label" htmlFor="non_interesse_dispositif">
+                          Demande de pi&eacute;ces justificatives
+                        </label>
+                      </div>
                     </div>
-                    <div className="fr-col-xl-12 btn-fr-col-xl-3">
-                      <DatePicker
-                        id="datePicker"
-                        name="datePicker"
-                        className="fr-input fr-my-2w fr-mr-6w fr-col-6"
-                        dateFormat="dd/MM/yyyy"
-                        placeholderText="../../...."
-                        locale="fr"
-                        selected={dateFinDeContrat}
-                        onChange={date => setDateFinDeContrat(date)}
-                        value={dateFinDeContrat}
-                        peekNextMonth
-                        onChangeRaw={e => e.preventDefault()}
-                        minDate={new Date(datePrisePoste)}
-                        maxDate={new Date()}
-                      />
-                    </div>
-                    <div className="fr-col-12 fr-mt-1w">
-                      <label
-                        className="fr-label"
-                        style={{ fontSize: 'unset' }}
-                        htmlFor="datePicker">
-                        <p><strong>2. Indiquer le motif de fin de contrat (obligatoire)&nbsp;:</strong></p>
-                      </label>
-                    </div>
-                    <div className="fr-form-group">
-                      <fieldset className="fr-fieldset">
-                        <legend className="fr-fieldset__legend fr-text--regular" id="radio-legend">
-                            Renseignez l&lsquo;&eacute;tat de traitement de la demande&nbsp;:
-                        </legend>
-                        <div className="fr-fieldset__content">
-                          <div className="fr-radio-group">
-                            <input type="radio" name="radio" id="rgpd" onClick={() => {
-                              setDossierComplet(true);
-                            }} />
-                            <label className="fr-label" htmlFor="rgpd">Dossier complet</label>
-                          </div>
-                          <div className="fr-radio-group">
-                            <input type="radio" name="radio" id="non_interesse_dispositif" onClick={() => {
-                              setDossierComplet(false);
-                            }} />
-                            <label className="fr-label" htmlFor="non_interesse_dispositif">
-                                Demande de pi&eacute;ces justificatives
-                            </label>
-                          </div>
-                        </div>
-                      </fieldset>
-                    </div>
-                  </div>
-                  <div className="fr-modal__footer">
-                    <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
-                      <li >
-                        <button onClick={() => {
-                          setOpenModal(false);
-                          setDossierComplet(null);
-                        }} className="fr-btn" title="Notifier la rupture de contrat">
-                            Annuler
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          onClick={gestionRupture}
-                          disabled={!dateFinDeContrat || dossierComplet === null}
-                          className="fr-btn fr-btn--icon-left" title="Notifier la rupture de contrat"
-                        >
-                        Valider
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </> :
-                <>
-                  <div className="fr-modal__content">
-                    <h1 id="fr-modal-2-title" className="fr-modal__title">
-                      <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                      &Ecirc;tes-vous s&ucirc;r de vouloir valider la rupture de ce conseiller ?
-                    </h1>
-                    <p>
-                    Cette action entra&icirc;nera la rupture du conseiller avec sa structure. Ce qui aura pour
-                    cons&eacute;quence de supprimer son adresse mail professionelle, son compte mattermost
-                    ainsi que l&lsquo;acc&egrave;s &agrave; l&lsquo;espace coop.
-                    </p>
-                  </div>
-                  <div className="fr-modal__footer">
-                    <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
-                      <li >
-                        <button onClick={() => {
-                          setOpenModal(false);
-                          setConfirmationRupture(false);
-                          setDossierComplet(null);
-                        }} className="fr-btn" title="Notifier la rupture de contrat">
-                            Annuler
-                        </button>
-                      </li>
-                      <li>
-                        <button onClick={validationRupture} className="fr-btn fr-btn--icon-left" title="Notifier la rupture de contrat">
-                            Confirmer
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </>
-              }
+                  </fieldset>
+                </div>
+              </div>
+              <div className="fr-modal__footer">
+                <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
+                  <li >
+                    <button onClick={() => {
+                      setOpenModal(false);
+                      setDossierIncomplet(null);
+                    }} className="fr-btn" title="Notifier la rupture de contrat">
+                      Annuler
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={gestionRupture}
+                      disabled={!dateFinDeContrat || dossierIncomplet === null}
+                      className="fr-btn fr-btn--icon-left" title="Notifier la rupture de contrat"
+                    >
+                      Valider
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -167,7 +122,7 @@ function ModalValidationRupture({ setOpenModal, idConseiller, datePrisePoste, da
 
 ModalValidationRupture.propTypes = {
   datePrisePoste: PropTypes.string,
-  dateFinDeContrat: PropTypes.string,
+  dateFinDeContrat: PropTypes.instanceOf(Date),
   idConseiller: PropTypes.string,
   setOpenModal: PropTypes.func,
   setDateFinDeContrat: PropTypes.func,

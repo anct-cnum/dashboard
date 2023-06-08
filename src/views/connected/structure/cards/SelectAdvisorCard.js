@@ -1,7 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { formatNomConseiller, formatTypeDeContrat } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
+import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
 const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor, checkedItems }) => {
   return (
@@ -9,23 +10,24 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
       <div className="fr-card__body fr-p-0">
         <div>
           <div className="fr-grid-row responsive__wide-card" style={{ alignItems: 'center' }}>
-            <div style={{ marginRight: '20px' }}>
-              <div className="fr-radio-group fr-radio-group--md">
+            <div style={{ marginBottom: '1.5rem', flex: '0 0 4.5%' }} className="fr-fieldset__content fr-col-1">
+              <div className="fr-checkbox-group fr-checkbox-group--md">
                 <input
                   type="checkbox"
                   id="checkbox"
                   name="checkbox"
                   checked={
                     checkedItems?.map(item => item?.miseEnRelationId)?.includes(miseEnRelation?.miseEnRelationId) ||
-                    (miseEnRelation?.typeDeContrat === 'cdi')
+                    (validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat))
                   }
-                  disabled={miseEnRelation?.typeDeContrat === 'cdi'}
+                  disabled={validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat)}
                   value={JSON.stringify(miseEnRelation)}
                   onChange={handleSelectAdvisor}
                 />
+                <label className="fr-label" htmlFor="checkbox" />
               </div>
             </div>
-            <div className="fr-col-3 card__text">
+            <div style={{ flex: '0 0 22%' }} className="fr-col-3 card__text">
               <div>
                 <strong className="fr-text--md fr-text--bold">
                   {miseEnRelation?.conseiller ? formatNomConseiller(miseEnRelation?.conseiller) : ''}
@@ -42,13 +44,25 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   Type de contrat
                 </strong>
                 <br />
-                <span className="fr-text--regular fr-text--md">{formatTypeDeContrat(miseEnRelation)}</span>
+                <span
+                  className="fr-text--regular fr-text--md"
+                  title={miseEnRelation?.typeDeContrat ? formatTypeDeContrat(miseEnRelation?.typeDeContrat) : ''}
+                >
+                  {miseEnRelation?.typeDeContrat ?
+                    <>
+                      {miseEnRelation?.typeDeContrat?.length > 15 ?
+                        `${formatTypeDeContrat(miseEnRelation?.typeDeContrat)?.substring(0, 15)}...` :
+                        formatTypeDeContrat(miseEnRelation?.typeDeContrat)
+                      }
+                    </> : '-'
+                  }
+                </span>
               </div>
             </div>
             <div className="fr-col-2 card__text">
               <div>
                 <strong className="fr-text--md">
-                  Début de contrat
+                  D&eacute;but de contrat
                 </strong>
                 <br />
                 {miseEnRelation?.dateDebutDeContrat ?
@@ -72,9 +86,12 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
               </div>
             </div>
             <div className="badge-statut-renouvellement card__text">
-              <p className="fr-badge fr-badge--success">En activit&eacute;</p>
+              {calcNbJoursAvantDateFinContrat(miseEnRelation?.dateFinDeContrat) > 0 ?
+                <p className="fr-badge fr-badge--success">En activit&eacute;</p> :
+                <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>
+              }
             </div>
-            <div className="btn-actions-conseiller">
+            <div className="btn-actions-conseiller fr-ml-auto">
               <button
                 className="fr-btn fr-icon-eye-line fr-mr-2w card__button"
                 title="D&eacute;tail"
@@ -94,10 +111,6 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
 };
 
 SelectAdvisorCard.propTypes = {
-  nom: propTypes.string,
-  prenom: propTypes.string,
-  statut: propTypes.string,
-  id: propTypes.string,
   roleActivated: propTypes.string,
   miseEnRelation: propTypes.object,
   handleSelectAdvisor: propTypes.func,

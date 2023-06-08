@@ -6,7 +6,7 @@ import { formatNomConseiller } from '../../../utils/formatagesUtils';
 import Spinner from '../../../components/Spinner';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import PopinCreationNouvelleRupture from './popins/popinCreationNouvelleRupture';
-import InformationConseiller from './commun/InformationConseiller';
+import InformationConseiller from '../../../components/InformationConseiller';
 
 function ConseillerDetails() {
 
@@ -67,35 +67,35 @@ function ConseillerDetails() {
       {conseiller &&
         <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
           {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
-        <>
-          <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
-          {misesEnRelationFinalisee?.statut === 'finalisee' &&
-          <button className="fr-btn fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0" onClick={() => setOpenModal(true)}>
-            Initier une rupture de contrat
-          </button>
-          }
-          {openModal &&
-            <PopinCreationNouvelleRupture setOpenModal={setOpenModal} updateStatut={updateStatut} />
-          }
-        </>
+            <>
+              <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
+              {misesEnRelationFinalisee?.statut === 'finalisee' &&
+                <button className="fr-btn fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0" onClick={() => setOpenModal(true)}>
+                  Initier une rupture de contrat
+                </button>
+              }
+              {openModal &&
+                <PopinCreationNouvelleRupture setOpenModal={setOpenModal} updateStatut={updateStatut} />
+              }
+            </>
           }
           {conseiller?.statut === 'RUPTURE' &&
-          <p className="fr-badge fr-badge--error fr-badge--no-icon" style={{ height: '20%' }}>Contrat termin&eacute;</p>
+            <p className="fr-badge fr-badge--error fr-badge--no-icon" style={{ height: '20%' }}>Contrat termin&eacute;</p>
           }
           {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
-          <>
-            {misesEnRelationFinalisee?.dossierIncompletRupture ?
-              <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
-              <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
-            }
-            <button onClick={() => {
-              updateStatut('finalisee');
-            }}
-            className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0"
-            title="Annuler la rupture de contrat">
-            Annuler la rupture de contrat
-            </button>
-          </>
+            <>
+              {misesEnRelationFinalisee?.dossierIncompletRupture ?
+                <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
+                <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
+              }
+              <button onClick={() => {
+                updateStatut('finalisee');
+              }}
+              className="fr-btn fr-icon-error-line fr-btn--icon-left fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0"
+              title="Annuler la rupture de contrat">
+                Annuler la rupture de contrat
+              </button>
+            </>
           }
         </div>
       }
@@ -103,6 +103,7 @@ function ConseillerDetails() {
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        misesEnRelationNouvelleRupture={misesEnRelationFinalisee?.statut === 'nouvelle_rupture' ? misesEnRelationFinalisee : null}
         roleActivated={roleActivated}
       />
     </div>

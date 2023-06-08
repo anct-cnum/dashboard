@@ -12,7 +12,7 @@ const UserMenu = ({
   structure,
 }) => {
   const truncate = input => input?.length > 27 ? `${input?.substring(0, 27)}...` : input;
-  
+
   const formatRoleMenu = role => {
     if (role === 'grandReseau') {
       return `Grand réseau - ${user.reseau}`;
@@ -62,9 +62,9 @@ const UserMenu = ({
                 {roleActivated === 'structure' && (
                   <li>
                     <Link
-                      to={`${roleActivated}/structure/${structure?._id}`}
+                      to={`${roleActivated}/ma-structure`}
                       className="fr-nav__link"
-                      {...(location.pathname.startsWith(`/${roleActivated}/structure/${structure?._id}`) ? { 'aria-current': 'page' } : {})}>
+                      {...(location.pathname.startsWith(`/${roleActivated}/ma-structure`) ? { 'aria-current': 'page' } : {})}>
                       <i className="ri-home-4-line ri-xl fr-mr-1w" style={{ color: '#000091' }}></i>{' '}G&eacute;rer ma structure
                     </Link>
                   </li>

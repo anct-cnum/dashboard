@@ -2,18 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 
 const ReconventionnementInfosCard = ({ structure }) => {
 
   const displayBadge = () => {
-    if (structure?.conventionnement?.statut === 'ENREGISTRE') {
-      return <p className="fr-badge fr-badge--warning fr-ml-auto">RECONVENTIONNEMENT ENREGISTRE</p>;
+    if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ) {
+      return <p className="fr-badge fr-badge--warning fr-ml-auto">RECONVENTIONNEMENT ENREGISTR&Eacute;</p>;
     }
-    if (structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_EN_COURS') {
+    if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS) {
       return <p className="fr-badge fr-badge--info fr-ml-auto">RECONVENTIONNEMENT EN COURS</p>;
     }
-    if (structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ') {
+    if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) {
       return <p className="fr-badge fr-badge--success fr-ml-auto">RECONVENTIONNEMENT VALID&Eacute;</p>;
     }
     return null;
@@ -100,11 +101,15 @@ const ReconventionnementInfosCard = ({ structure }) => {
                     </button>
                   </li>
                   <li className="fr-ml-auto">
-                    <button className="fr-btn" onClick={
-                      () => window.open(structure?.urlDossierReconventionnement)
-                    }>
-                      <i className="ri-folder-2-line fr-mr-1w"></i>Voir le dossier D&eacute;marche Simplifi&eacute;e
-                    </button>
+                    <a
+                      href={structure?.urlDossierReconventionnement}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="fr-btn"
+                    >
+                      <i className="ri-folder-2-line fr-mr-1w"></i>
+                      Voir le dossier D&eacute;marche Simplifi&eacute;e
+                    </a>
                   </li>
                 </ul>
               </div>

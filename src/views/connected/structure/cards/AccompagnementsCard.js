@@ -6,19 +6,19 @@ const StructureInformationsCard = ({ structure }) => (
     <div className="fr-card__body fr-p-0">
       <div>
         <div className="fr-grid-row responsive__card" style={{ alignItems: 'center' }}>
-          <div className="fr-col-6">
+          <div className="fr-col-md-6 fr-col-12">
             <div>
               <span className="fr-text--md fr-text--bold">Cra total cumul&eacute;s</span>
               <br />
               <span className="fr-text--regular fr-text--md info__color">
-                {structure?.craCount}
+                {structure?.craCount === 0 ? '-' : structure?.craCount}
               </span>
             </div>
           </div>
-          <div className="fr-col-6">
+          <div className="fr-col-md-6 fr-col-12">
             <div>
               <span className="fr-text--md fr-text--bold" style={{ fontWeight: '500' }}>
-                  Personnes accompagn&eacute;es
+                Personnes accompagn&eacute;es
               </span>
               <br />
               <span className="fr-text--regular fr-text--md info__color">

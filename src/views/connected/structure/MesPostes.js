@@ -8,8 +8,8 @@ import Spinner from '../../../components/Spinner';
 import {
   structureActions,
   reconventionnementActions,
-  renouvellementActions,
-  miseEnRelationAction
+  miseEnRelationAction,
+  contratActions
 } from '../../../actions';
 import {
   InactiveAdvisorsSection,
@@ -21,6 +21,7 @@ import {
 import { useAdvisors } from './hooks/useAdvisors';
 import { useErrors } from './hooks/useErrors';
 import { useStructure } from './hooks/useStructure';
+import { StatutConventionnement } from '../../../utils/enumUtils';
 
 function MesPostes() {
   const [openModalContrat, setOpenModalContrat] = useState(false);
@@ -31,7 +32,7 @@ function MesPostes() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const loadingStructure = useSelector(state => state.structure?.loading);
   const loadingMisesEnRelation = useSelector(state => state.misesEnRelations?.loading);
-  const loadingRenouvellement = useSelector(state => state.renouvellement?.loading);
+  const loadingRenouvellement = useSelector(state => state.contrat?.loading);
   const [miseEnrelationId, setMiseEnrelationId] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [selectedConseiller, setSelectedConseiller] = useState(null);
@@ -42,6 +43,7 @@ function MesPostes() {
     conseillersActifs,
     conseillersARenouveler,
     conseillersActifsNonRenouveles,
+    conseillersEnCoursDeRecrutement,
     bannieresRenouvellementValide,
     setBannieresRenouvellementValide,
   } = useAdvisors();
@@ -50,9 +52,9 @@ function MesPostes() {
 
   function getClassName() {
     const withBannerOnTopStatuses = [
-      'CONVENTIONNEMENT_VALIDÉ',
-      'RECONVENTIONNEMENT_EN_COURS',
-      'ENREGISTRÉ',
+      StatutConventionnement.CONVENTIONNEMENT_VALIDÉ,
+      StatutConventionnement.RECONVENTIONNEMENT_EN_COURS,
+      StatutConventionnement.RECONVENTIONNEMENT_INITIÉ,
     ];
     if (withBannerOnTopStatuses.includes(structure?.conventionnement?.statut)) {
       return 'withBannerOnTop';
@@ -60,10 +62,10 @@ function MesPostes() {
     if (bannieresRenouvellementValide?.length > 0) {
       return 'withBannerOnTop';
     }
-    if (showValidateBanner && structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ') {
+    if (showValidateBanner && structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) {
       return 'withBannerOnTop';
     }
-    if (structure?.conventionnement?.statut === 'NON_INTERESSÉ') {
+    if (structure?.conventionnement?.statut === StatutConventionnement.NON_INTERESSÉ) {
       return 'withoutBannerOnTop';
     }
   }
@@ -73,18 +75,18 @@ function MesPostes() {
       dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
     }
   }, [structure?._id, loadingRenouvellement]);
-  
+
   useEffect(() => {
     const bannerClosed = localStorage.getItem('bannerClosed');
     if (bannerClosed === 'true') {
       setShowValidateBanner(false);
     }
   }, []);
-  
+
   useEffect(() => {
     handleErrors();
   }, [errorMisesEnRelation, errorStructure]);
-  
+
   const handleOpenModalContrat = (editMode = false, conseiller = null) => {
     setEditMode(editMode);
     setSelectedConseiller(conseiller);
@@ -97,13 +99,12 @@ function MesPostes() {
   };
 
   const createContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
-    dispatch(renouvellementActions.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
+    dispatch(contratActions.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
   };
 
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, id) => {
-    dispatch(renouvellementActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
+    dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
   };
-
 
   return (
     <>
@@ -130,10 +131,10 @@ function MesPostes() {
       {openModalContrat && (
         <PopinEditionContrat
           setOpenModalContrat={setOpenModalContrat}
-          createContract={createContract}
-          editMode={editMode}
-          conseiller={selectedConseiller}
           updateContract={updateContract}
+          conseiller={selectedConseiller}
+          editMode={editMode}
+          createContract={createContract}
         />
       )}
       {openModal && (
@@ -152,6 +153,8 @@ function MesPostes() {
           <>
             <HireAdvisorCard
               nbreConseillersActifs={conseillersActifs.length}
+              nbreConseillersRenouveler={conseillersARenouveler.length}
+              nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
               structure={structure}
             />
             <RenewAdvisorsSection

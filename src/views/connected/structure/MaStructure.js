@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { structureActions, alerteEtSpinnerActions, invitationsActions, userActions } from '../../../actions';
@@ -15,20 +14,21 @@ import {
   CollaborateurCard
 } from './cards';
 import PopinFormulaireInvitation from './popins/popinFormulaireInvitation';
+import { StatutConventionnement } from '../../../utils/enumUtils';
 
-function StructureDetails() {
+function MaStructure() {
   const dispatch = useDispatch();
-  const { idStructure } = useParams();
+  const userAuth = useSelector(state => state.authentication?.user);
   const structure = useSelector(state => state.structure?.structure);
   const [formInformationContact, setFormInformationContact] = useState(false);
   const [displaySiretForm, setDisplaySiretForm] = useState(false);
   const loadingStructure = useSelector(state => state.structure?.loading);
   const loadingInvitation = useSelector(state => state.invitations?.loading);
-  const loadingSuppression = useSelector(state => state.invitations?.loading);
+  const loadingSuppression = useSelector(state => state.user?.loading);
   const successInvitation = useSelector(state => state.invitations?.success);
-  const successSuppression = useSelector(state => state.gestionnaire?.deleteMessageSuccess);
+  const deleteMessageSuccess = useSelector(state => state.user?.deleteMessageSuccess);
   const errorInvitation = useSelector(state => state.invitations?.error);
-  const errorSuppression = useSelector(state => state.gestionnaire?.errorGestionnaire);
+  const errorSuppression = useSelector(state => state.user?.error);
   const [email, setEmail] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -36,20 +36,15 @@ function StructureDetails() {
   const errorStructure = useSelector(state => state.structure?.error);
   const errorUsers = useSelector(state => state.user?.error);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const [initStructure, setInitStructure] = useState(false);
 
   useEffect(() => {
-    if (structure === undefined) {
-      dispatch(structureActions.getDetails(idStructure));
+    if (!errorStructure && !initStructure) {
+      setInitStructure(true);
+      dispatch(structureActions.getDetails(userAuth?.entity?.$id));
+      dispatch(userActions.getUsers());
     }
   }, [structure]);
-
-  useEffect(() => {
-    dispatch(structureActions.getDetails(idStructure));
-  }, [idStructure, formInformationContact]);
-
-  useEffect(() => {
-    dispatch(userActions.getUsers());
-  }, [successSuppression]);
 
   useEffect(() => {
     if (successInvitation) {
@@ -68,7 +63,7 @@ function StructureDetails() {
   useEffect(() => {
     const errors = [errorInvitation, errorSuppression, errorStructure, errorUsers];
     const errorMessage = errors.filter(error => error);
-  
+
     if (errorMessage.length > 0) {
       scrollTopWindow();
       dispatch(
@@ -87,7 +82,7 @@ function StructureDetails() {
       setActiveMessage(true);
       return;
     }
-    dispatch(invitationsActions.inviteStructureInDetails({ email, structureId: idStructure }));
+    dispatch(invitationsActions.inviteStructureInDetails({ email, structureId: userAuth?.entity?.$id }));
     setActiveMessage(false);
     setEmail('');
     scrollTopWindow();
@@ -108,9 +103,16 @@ function StructureDetails() {
           activeMessage={activeMessage}
         />
       )}
-      <div className="fr-container">
+      <div className="fr-container maStructure">
+        {deleteMessageSuccess &&
+        <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }}>
+          <p className="fr-alert__title">
+            {deleteMessageSuccess}
+          </p>
+        </div>
+        }
         <Spinner loading={loadingStructure || loadingInvitation || loadingSuppression} />
-        <h2 className="fr-mb-1w" style={{ color: '#000091' }}>
+        <h2 className="fr-mb-1w titre">
           {structure?.nom}
         </h2>
         <h6>{`ID - ${structure?.idPG}`}</h6>
@@ -119,8 +121,8 @@ function StructureDetails() {
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <h2>Activit&eacute;</h2>
-        {structure?.conventionnement?.statut && (structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' ||
-        structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_EN_COURS') &&
+        {structure?.conventionnement?.statut && (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ ||
+        structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS) &&
         (
           <ReconventionnementInfosCard structure={structure} />
         )}
@@ -131,12 +133,11 @@ function StructureDetails() {
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <h2>Informations structure</h2>
-        <div className="fr-grid-row">
-          <div className="fr-col-6 fr-mt-4w">
-            <h4 className="titre" style={{ color: '#000091' }}>
+        <div className="fr-grid-row color-text color-title-subpart">
+          <div className="fr-col-md-6 fr-col-12 fr-mt-4w">
+            <h4 className="titre">
               Informations g&eacute;n&eacute;rales
             </h4>
-
             <div className="fr-mb-3w">
               <strong>Siret</strong>
               <br />
@@ -173,8 +174,8 @@ function StructureDetails() {
               <span>{structure?.qpvStatut ?? '-'}</span>
             </div>
           </div>
-          <div className="fr-col-6 fr-mt-4w">
-            <h4 className="titre" style={{ color: '#000091' }}>
+          <div className="fr-col-md-6 fr-col-12 fr-mt-4w">
+            <h4 className="titre">
               Adresse
             </h4>
             <div className="fr-mb-3w">
@@ -197,6 +198,7 @@ function StructureDetails() {
           <button
             className="fr-btn fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-ml-auto"
             onClick={() => setOpenModal(true)}
+            title="Ajouter un collaborateur"
             disabled
           >
             Ajouter un collaborateur
@@ -214,4 +216,4 @@ function StructureDetails() {
   );
 }
 
-export default StructureDetails;
+export default MaStructure;

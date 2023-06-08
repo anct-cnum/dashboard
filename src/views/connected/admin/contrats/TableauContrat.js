@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions } from '../../../../actions';
+import { alerteEtSpinnerActions, paginationActions, contratActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import Contrat from './Contrat';
-import { contratActions } from '../../../../actions/contratActions';
 
 export default function TableauContrat() {
 
@@ -78,10 +77,7 @@ export default function TableauContrat() {
                 }} className="fr-tag" aria-pressed={statutContrat === 'recrutee'}>
                   Recrutements ({contrats?.items?.totalParContrat?.recrutement})
                 </button>
-                <button onClick={() => {
-                  dispatch(paginationActions.setPage(1));
-                  setStatutContrat('renouvellement');
-                }} className="fr-tag" aria-pressed={statutContrat === 'renouvellement'}>
+                <button onClick={() => setStatutContrat('renouvellement_initiee')} className="fr-tag" aria-pressed={statutContrat === 'renouvellement_initiee'}>
                   Renouvellements de contrat ({contrats?.items?.totalParContrat?.renouvellementDeContrat})
                 </button>
                 <button onClick={() => {

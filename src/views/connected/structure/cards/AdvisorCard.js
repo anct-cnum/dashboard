@@ -10,6 +10,8 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
         return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
       case 'nouvelle_rupture':
         return <p className="fr-badge fr-badge--info">Rupture en cours</p>;
+      case 'renouvellement_initiee':
+        return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
       default:
         return;
     }
@@ -37,7 +39,19 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                   Type de contrat
                 </strong>
                 <br />
-                <span className="fr-text--regular fr-text--md">{formatTypeDeContrat(conseiller)}</span>
+                <span
+                  className="fr-text--regular fr-text--md"
+                  title={conseiller?.typeDeContrat ? formatTypeDeContrat(conseiller?.typeDeContrat) : ''}
+                >
+                  {conseiller?.typeDeContrat ?
+                    <>
+                      {formatTypeDeContrat(conseiller?.typeDeContrat)?.length > 15 ?
+                        `${formatTypeDeContrat(conseiller?.typeDeContrat)?.substring(0, 15)}...` :
+                        formatTypeDeContrat(conseiller?.typeDeContrat)
+                      }
+                    </> : '-'
+                  }
+                </span>
               </div>
             </div>
             <div className="fr-col-2 card__text">

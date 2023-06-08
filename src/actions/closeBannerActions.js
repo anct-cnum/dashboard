@@ -1,4 +1,4 @@
-import { renouvellementService } from '../services/renouvellementService';
+import { contratService } from '../services/contratService';
 
 export const closeBannerActions = {
   closeBanner
@@ -8,7 +8,7 @@ function closeBanner(type, id) {
   return dispatch => {
     dispatch(request());
 
-    renouvellementService.closeBanner(type, id)
+    contratService.closeBanner(type, id)
     .then(
       message => dispatch(success(message)),
       error => {

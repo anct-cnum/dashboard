@@ -14,6 +14,8 @@ import TableauConvention from './TableauConvention';
 import ConventionDetails from './ConventionDetails';
 import TableauHistoriqueConvention from './TableauHistoriqueConvention';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
+import ConseillerDetailsContrat from './contrats/ConseillerDetailsContrat';
+import CandidatDetailsRecrutement from './contrats/CandidatDetailsRecrutement';
 
 export default function Admin() {
 
@@ -22,7 +24,7 @@ export default function Admin() {
   return (
     <>
       <PreFetch />
-      { location.pathname === '/accueil' &&
+      {location.pathname === '/accueil' &&
         <div className="fr-grid-row fr-grid-row--center fr-my-15w">
           <div className="fr-col--offset-1 fr-col-10">
             <h3>Bienvenue sur votre tableau de pilotage</h3>
@@ -32,6 +34,8 @@ export default function Admin() {
       <Routes>
         <Route path="/admin/informations" element={<MesInformations />} />
         <Route path="/admin/demandes/contrats" element={<TableauContrat />} />
+        <Route path="/admin/demandes/contrat/conseiller/:idConseiller/:idMiseEnRelation" element={<ConseillerDetailsContrat />} />
+        <Route path="/admin/demandes/contrat/candidat/:idCandidat/:idMiseEnRelation" element={<CandidatDetailsRecrutement />} />
         <Route path="/admin/historique/demandes/contrats" element={<TableauHistoriqueContrat />} />
         <Route path="/admin/demandes/conventions" element={<TableauConvention />} />
         <Route path="/admin/historique/demandes/conventions" element={<TableauHistoriqueConvention />} />

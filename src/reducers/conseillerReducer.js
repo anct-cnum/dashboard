@@ -249,6 +249,7 @@ export default function conseiller(state = initialState, action) {
           telephonePro: '',
           statut: 'RUPTURE',
           mattermost: '',
+          contrat: action.miseEnRelationUpdated,
           misesEnRelation: state.conseiller.misesEnRelation.map(
             miseEnRelation => (miseEnRelation._id === action.miseEnRelationUpdated._id) ? action.miseEnRelationUpdated : miseEnRelation
           ),
@@ -313,6 +314,15 @@ export default function conseiller(state = initialState, action) {
         ...state,
         loading: false,
         errorCandidat: action.error
+      };
+    case 'UPDATE_MISE_EN_RELATION_CONTRAT':
+      return {
+        ...state,
+        conseiller: { ...state.conseiller,
+          contrat: action.miseEnRelationUpdated,
+          misesEnRelation: state.conseiller.misesEnRelation.map(
+            miseEnRelation => (miseEnRelation.statut === action.miseEnRelationUpdated.statut) ? action.miseEnRelationUpdated : miseEnRelation
+          ) },
       };
     default:
       return state;

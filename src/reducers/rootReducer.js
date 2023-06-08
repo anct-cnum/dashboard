@@ -19,7 +19,6 @@ import filtresStructuresReducer from './filtresStructuresReducer';
 import filtresGestionnairesReducer from './filtresGestionnairesReducer';
 import miseEnRelationReducer from './miseEnRelationReducer';
 import conventionReducer from './conventionReducer';
-import renouvellementReducer from './renouvellementReducer';
 import contratReducer from './contratReducer';
 import datePickerReducer from './datePickerReducer';
 
@@ -45,7 +44,6 @@ const rootReducer = combineReducers({
   invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,
   filtresGestionnaires: filtresGestionnairesReducer,
-  renouvellement: renouvellementReducer,
   datePicker: datePickerReducer
 });
 
