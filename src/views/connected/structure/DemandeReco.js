@@ -14,7 +14,7 @@ import {
 } from '../../../actions';
 import PopinRecapReconvention from './popins/popinRecapReconvention';
 import Spinner from '../../../components/Spinner';
-import { pluralize } from '../../../utils/formatagesUtils';
+import { pluralize, validTypeDeContratWithoutEndDate } from '../../../utils/formatagesUtils';
 import { StatutConventionnement } from '../../../utils/enumUtils';
 
 function DemandeReconventionnement() {
@@ -111,7 +111,7 @@ function DemandeReconventionnement() {
   useEffect(() => {
     setCheckedItems(
       misesEnRelationARenouveller
-      ?.filter(conseiller => conseiller?.reconventionnement || conseiller?.typeDeContrat === 'CDI')
+      ?.filter(conseiller => conseiller?.reconventionnement || validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat))
     );
   }, [misesEnRelationARenouveller]);
 
@@ -153,17 +153,12 @@ function DemandeReconventionnement() {
         <div className="fr-input-group">
           <h5>Nombre de postes</h5>
           <label className="fr-label" htmlFor="text-input-groups1">
-            <span>Veuillez inscrire le nombre de postes de Conseillers num&eacute;riques attribu&eacute;s &agrave; votre structure</span>
-            <span className="fr-hint-text">
-              Merci d&rsquo;indiquer le nombre total de postes qui ont &eacute;t&eacute; attribu&eacute;s &agrave; votre structure,
-              y compris ceux qui ne sont pas pourvus &agrave; ce jour.
-            </span>
+            <span>Renseignez le nombre de poste total que vous souhaitez&nbsp;:</span>
           </label>
           <input
             className="fr-input"
             type="number"
             min="0"
-            max={structure?.posteValiderCoselec}
             id="text-input-groups1"
             value={nombreDePostes}
             onChange={e => setNombreDePostes(Number(e.target.value))}
@@ -197,7 +192,7 @@ function DemandeReconventionnement() {
           demand&eacute;s avant de pouvoir envoyer votre demande.
         </p>
         <CompleteApplicationCard structure={structure} />
-        {structure?.conventionnement?.statut === StatutConventionnement.ENREGISTRÉ && (
+        {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ && (
           <>
             <div className="fr-col-12 fr-mt-6w fr-mb-2w">
               <hr style={{ borderWidth: '0.5px' }} />

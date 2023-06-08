@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
+import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 
 registerLocale('fr', fr);
 function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, editMode, createContract }) {
@@ -35,27 +36,37 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
       setTypeDeContrat(conseiller?.typeDeContrat);
       setDateDebut(conseiller?.dateDebutDeContrat ? new Date(conseiller?.dateDebutDeContrat) : null);
       setDateFin(conseiller?.dateFinDeContrat ? new Date(conseiller?.dateFinDeContrat) : null);
-      setSalaire(conseiller?.salaire || '');
+      setSalaire(String(conseiller?.salaire) || '');
     }
   }, [editMode, conseiller]);
 
   const checkContratValid = () => {
+    if (validTypeDeContratWithoutEndDate(typeDeContrat)) {
+      if (!dateDebut || !typeDeContrat || !salaire) {
+        return true;
+      }
+    } else if (!dateFin || !dateDebut || !typeDeContrat || !salaire) {
+      return true;
+    }
     if (editMode) {
-      if (conseiller?.salaire !== Number(salaire) || !conseiller?.typeDeContrat?.includes(typeDeContrat)) {
+      if (String(conseiller?.salaire) !== salaire || !conseiller?.typeDeContrat?.includes(typeDeContrat)) {
         return false;
       }
       if (new Date(conseiller?.dateDebutDeContrat)?.getTime() !== dateDebut?.getTime()) {
         return false;
       }
-      if (new Date(conseiller?.dateFinDeContrat)?.getTime() !== dateFin?.getTime()) {
+      if (!validTypeDeContratWithoutEndDate(typeDeContrat) && new Date(conseiller?.dateFinDeContrat)?.getTime() !== dateFin?.getTime()) {
         return false;
       }
       return true;
     }
-    if (typeDeContrat === 'CDI') {
-      return !dateDebut || !typeDeContrat || !salaire;
+  };
+
+  const handleChangeSalaire = e => {
+    const regexFloatNumber = /^(\d+(?:[\\.\\,]\d*)?)$/;
+    if (e.target.value === '' || regexFloatNumber.test(e.target.value)) {
+      setSalaire(e.target.value);
     }
-    return !dateFin || !dateDebut || !typeDeContrat || !salaire;
   };
 
   return (
@@ -194,10 +205,9 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                   </label>
                   <input
                     className="fr-input"
-                    type="number"
+                    type="text"
                     name="salaire"
-                    maxLength="20"
-                    onChange={e => setSalaire(e.target.value)}
+                    onChange={handleChangeSalaire}
                     value={salaire}
                   />
                 </div>

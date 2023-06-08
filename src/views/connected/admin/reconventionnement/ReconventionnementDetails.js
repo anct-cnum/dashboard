@@ -1,6 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { badgeStatutDossierDS, formatNomConseiller, formatTypeDeContrat, pluralize } from '../../../../utils/formatagesUtils';
+import { badgeStatutDossierDS, formatNomConseiller, formatTypeDeContrat, pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -33,9 +33,9 @@ function ReconventionnementDetails({ reconventionnement }) {
             <h3 className="fr-card__title fr-h3">
               Conventionnement phase 2
             </h3>
-            {dossierReconventionnement?.dateDeCreation &&
+            {dossierReconventionnement?.dateDerniereModification &&
               <p className="fr-card__desc fr-text--lg fr-text--regular">
-                Demande initi&eacute;e le {dossierReconventionnement ? dayjs(dossierReconventionnement.dateDeCreation).format('DD/MM/YYYY') : ''}
+                Demande initi&eacute;e le {dossierReconventionnement ? dayjs(dossierReconventionnement.dateDerniereModification).format('DD/MM/YYYY') : ''}
               </p>
             }
             <p className="fr-card__desc fr-text--lg fr-text--bold" style={{ color: '#000091' }}>
@@ -106,10 +106,15 @@ function ReconventionnementDetails({ reconventionnement }) {
                             <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">Fin de contrat</strong><br />
-                                {conseiller?.dateFinDeContrat ?
+                                {validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) &&
+                                  <span className="fr-text--regular fr-text--md">-</span>
+                                }
+                                {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
                                   <span className="fr-text--regular fr-text--md">
                                     {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
-                                  </span> :
+                                  </span>
+                                }
+                                {(!conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
                                   <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
                                     En attente de pi&egrave;ces...
                                   </span>
@@ -240,12 +245,15 @@ function ReconventionnementDetails({ reconventionnement }) {
                       <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top fin-contrat">
                         <div>
                           <strong className="fr-text--md">Fin de contrat</strong><br />
-                          {(!conseiller?.dateFinDeContrat && !conseiller?.dateRupture) &&
+                          {validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) &&
+                            <span className="fr-text--regular fr-text--md">-</span>
+                          }
+                          {(!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && !conseiller?.dateFinDeContrat) &&
                             <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
-                              En attente de pi&egrave;...
+                              En attente de pi&egrave;ces...
                             </span>
                           }
-                          {conseiller?.dateFinDeContrat &&
+                          {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
                             <span className="fr-text--regular fr-text--md">
                               {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
                             </span>

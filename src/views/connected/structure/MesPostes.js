@@ -43,6 +43,7 @@ function MesPostes() {
     conseillersActifs,
     conseillersARenouveler,
     conseillersActifsNonRenouveles,
+    conseillersEnCoursDeRecrutement,
     bannieresRenouvellementValide,
     setBannieresRenouvellementValide,
   } = useAdvisors();
@@ -53,7 +54,7 @@ function MesPostes() {
     const withBannerOnTopStatuses = [
       StatutConventionnement.CONVENTIONNEMENT_VALIDÉ,
       StatutConventionnement.RECONVENTIONNEMENT_EN_COURS,
-      StatutConventionnement.ENREGISTRÉ,
+      StatutConventionnement.RECONVENTIONNEMENT_INITIÉ,
     ];
     if (withBannerOnTopStatuses.includes(structure?.conventionnement?.statut)) {
       return 'withBannerOnTop';
@@ -152,6 +153,8 @@ function MesPostes() {
           <>
             <HireAdvisorCard
               nbreConseillersActifs={conseillersActifs.length}
+              nbreConseillersRenouveler={conseillersARenouveler.length}
+              nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
               structure={structure}
             />
             <RenewAdvisorsSection
