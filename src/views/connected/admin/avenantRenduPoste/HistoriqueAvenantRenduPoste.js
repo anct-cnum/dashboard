@@ -22,7 +22,7 @@ function HistoriqueAvenantRenduPoste({ avenant, indexDemandesCoselec, structure 
         <button
           className="fr-btn fr-btn fr-icon-eye-line fr-ml-auto"
           title="D&eacute;tail"
-          onClick={() => window.open(`/${roleActivated}/demandes/convention/${structure?._id}?type=avenant-ajout-poste&index=${indexDemandesCoselec}`)}>
+          onClick={() => window.open(`/${roleActivated}/demandes/convention/${structure?._id}?type=avenant-rendu-poste&index=${indexDemandesCoselec}`)}>
         </button>
       </td>
     </>

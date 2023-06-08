@@ -78,12 +78,9 @@ export default function TableauHistoriqueConvention() {
     dispatch(exportsActions.exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin));
   };
 
-  const checkIfAvenantAjoutPoste = convention =>
-    convention?.demandesCoselec?.filter(demande => demande.statut !== 'en_cours' && demande.type === 'ajout').length > 0;
+  const checkIfAvenantRenduPoste = demande => demande?.statut !== 'en_cours' && demande?.type === 'rendu';
 
-  const checkIfAvenantRenduPoste = convention =>
-    convention?.demandesCoselec?.filter(demande => demande.statut !== 'en_cours' && demande.type === 'rendu').length > 0;
-
+  const checkIfAvenantPostePoste = demande => demande?.statut !== 'en_cours' && demande?.type === 'ajout';
   return (
     <div>
       <Spinner loading={loading || loadingExport} />
@@ -157,21 +154,29 @@ export default function TableauHistoriqueConvention() {
                       <tbody>
                         {!error && !loading && conventions?.items?.data?.map((convention, idx) =>
                           <>
-                            {((typeConvention === 'toutes' || 'avenantAjoutPoste') && checkIfAvenantAjoutPoste(convention)) &&
+                            {typeConvention.includes('tionnement') === false &&
                               <>
-                                {convention?.demandesCoselec?.filter(demande => demande.statut !== 'en_cours' && demande.type === 'ajout').map((demande, idx) =>
-                                  <tr key={`avenantAjoutPoste-${idx}`}>
-                                    <HistoriqueAvenantAjoutPoste avenant={demande} indexDemandesCoselec={idx} structure={convention} />
-                                  </tr>
-                                )}
-                              </>
-                            }
-                            {((typeConvention === 'toutes' || 'avenantRenduPoste') && checkIfAvenantRenduPoste(convention)) &&
-                              <>
-                                {convention?.demandesCoselec?.filter(demande => demande.statut !== 'en_cours' && demande.type === 'rendu').map((demande, idx) =>
-                                  <tr key={`avenantRenduPoste-${idx}`}>
-                                    <HistoriqueAvenantRenduPoste avenant={demande} indexDemandesCoselec={idx} structure={convention} />
-                                  </tr>
+                                {convention?.demandesCoselec?.map((demande, idx) =>
+                                  <>
+                                    {((typeConvention === 'toutes' || typeConvention === 'avenantAjoutPoste') && checkIfAvenantPostePoste(demande)) &&
+                                      <tr key={`avenantAjoutPoste-${idx}`}>
+                                        <HistoriqueAvenantAjoutPoste
+                                          avenant={demande}
+                                          indexDemandesCoselec={idx}
+                                          structure={convention}
+                                        />
+                                      </tr>
+                                    }
+                                    {((typeConvention === 'toutes' || typeConvention === 'avenantRenduPoste') && checkIfAvenantRenduPoste(demande)) &&
+                                      <tr key={`avenantRenduPoste-${idx}`}>
+                                        <HistoriqueAvenantRenduPoste
+                                          avenant={demande}
+                                          indexDemandesCoselec={idx}
+                                          structure={convention}
+                                        />
+                                      </tr>
+                                    }
+                                  </>
                                 )}
                               </>
                             }

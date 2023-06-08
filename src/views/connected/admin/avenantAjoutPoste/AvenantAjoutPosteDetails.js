@@ -41,12 +41,24 @@ function AvenantAjoutPosteDetails({ avenant, indexDemandesCoselec }) {
           </p>
           <p className="fr-card__desc fr-text--lg" style={{ color: '#000091', width: '54%' }}>
             <strong className="fr-text--bold">
-              Demande de {demandesCoselec?.nombreDePostes}{pluralize(
-                ' poste de conseiller subventionné supplémentaire ',
-                ' poste de conseiller subventionné supplémentaire ',
-                ' postes de conseillers subventionnés supplémentaires ',
-                demandesCoselec?.nombreDePostes
-              )}
+              {demandesCoselec?.nombreDePostesAccorder ?
+                <>
+                  Demande de {demandesCoselec?.nombreDePostesAccorder}{pluralize(
+                    ' poste de conseiller subventionné supplémentaire ',
+                    ' poste de conseiller subventionné supplémentaire ',
+                    ' postes de conseillers subventionnés supplémentaires ',
+                    demandesCoselec?.nombreDePostesAccorder
+                  )}
+                </> :
+                <>
+                  Demande de {demandesCoselec?.nombreDePostes}{pluralize(
+                    ' poste de conseiller subventionné supplémentaire ',
+                    ' poste de conseiller subventionné supplémentaire ',
+                    ' postes de conseillers subventionnés supplémentaires ',
+                    demandesCoselec?.nombreDePostes
+                  )}
+                </>
+              }
             </strong>
             en plus{pluralize(
               ' d\'un ',
