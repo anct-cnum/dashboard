@@ -6,7 +6,6 @@ export const conventionActions = {
   get,
   updateAvenantAjoutPoste,
   validationAvenantRenduPoste,
-  reset
 };
 
 function getAll(page, typeConvention) {
@@ -127,8 +126,4 @@ function validationAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec) {
   function failure(error) {
     return { type: 'UPDATE_AVENANT_RENDU_POSTE_FAILURE', error };
   }
-}
-
-function reset() {
-  return { type: 'RESET_CONVENTION' };
 }
