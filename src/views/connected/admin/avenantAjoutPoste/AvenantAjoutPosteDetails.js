@@ -7,11 +7,11 @@ import { useDispatch } from 'react-redux';
 import { conventionActions } from '../../../../actions';
 import { StatutCoselec } from '../../../../utils/enumUtils';
 
-function AvenantAjoutPosteDetails({ avenant }) {
+function AvenantAjoutPosteDetails({ avenant, indexDemandesCoselec }) {
   const dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
-  const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.statut === 'en_cours' && demande.type === 'ajout');
+  const demandesCoselec = avenant?.demandesCoselec[indexDemandesCoselec];
 
   const refusAvenantAjoutPoste = () => {
     dispatch(conventionActions.updateAvenantAjoutPoste(avenant._id, StatutCoselec.NÉGATIF));
@@ -111,6 +111,7 @@ function AvenantAjoutPosteDetails({ avenant }) {
 
 AvenantAjoutPosteDetails.propTypes = {
   avenant: PropTypes.object,
+  indexDemandesCoselec: PropTypes.number,
 };
 
 export default AvenantAjoutPosteDetails;

@@ -15,6 +15,7 @@ function ConventionDetails() {
   const { idStructure } = useParams();
   const queryParams = new URLSearchParams(window.location.search);
   const typeConvention = queryParams.get('type');
+  const indexDemandesCoselec = queryParams.get('index');
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const convention = useSelector(state => state.convention?.convention);
   const loading = useSelector(state => state.convention?.loading);
@@ -35,6 +36,28 @@ function ConventionDetails() {
       }));
     }
   }, [errorConvention]);
+
+  const checkIfAvenantCorrect = convention => {
+    if ((typeConvention === 'avenant-ajout-poste' || typeConvention === 'avenant-rendu-poste') && indexDemandesCoselec === null) {
+      return false;
+    }
+    if (indexDemandesCoselec !== null && (isNaN(indexDemandesCoselec) || indexDemandesCoselec > convention?.demandesCoselec?.length)) {
+      return false;
+    }
+    return true;
+  };
+
+  useEffect(() => {
+    if (convention !== undefined) {
+      if (!checkIfAvenantCorrect(convention)) {
+        dispatch(alerteEtSpinnerActions.getMessageAlerte({
+          type: 'error',
+          message: 'L\'avenant n\'a pas pu être chargé !',
+          status: null, description: null
+        }));
+      }
+    }
+  }, [convention]);
 
   return (
     <div className="conventionDetails">
@@ -120,11 +143,11 @@ function ConventionDetails() {
         {typeConvention === 'conventionnement' &&
           <ConventionnementDetails conventionnement={convention} />
         }
-        {typeConvention === 'avenant-ajout-poste' &&
-          <AvenantAjoutPosteDetails avenant={convention} />
+        {typeConvention === 'avenant-ajout-poste' && checkIfAvenantCorrect(convention) &&
+          <AvenantAjoutPosteDetails avenant={convention} indexDemandesCoselec={indexDemandesCoselec} />
         }
-        {typeConvention === 'avenant-rendu-poste' &&
-          <AvenantRenduPosteDetails avenant={convention} />
+        {typeConvention === 'avenant-rendu-poste' && checkIfAvenantCorrect(convention) &&
+          <AvenantRenduPosteDetails avenant={convention} indexDemandesCoselec={indexDemandesCoselec} />
         }
       </div>
     </div>

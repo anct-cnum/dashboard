@@ -37,8 +37,8 @@ function updateAvenantAjoutPoste(id, statut, nbDePosteAccorder, nbDePosteCoselec
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function validationAvenantRenduPoste(id, nbDePosteAccorder, nbDePosteCoselec) {
-  return API.patch(`${apiUrlRoot}/avenant/rendu-poste/${id}?role=${roleActivated()}`, { nbDePosteAccorder, nbDePosteCoselec })
+function validationAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec) {
+  return API.patch(`${apiUrlRoot}/avenant/rendu-poste/${id}?role=${roleActivated()}`, { nbDePosteRendu, nbDePosteCoselec })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

@@ -100,6 +100,35 @@ export default function convention(state = initialState, action) {
         error: action.error,
         loading: false
       };
+    case 'UPDATE_AVENANT_RENDU_POSTE_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'UPDATE_AVENANT_RENDU_POSTE_SUCCESS':
+      return {
+        ...state,
+        convention: {
+          ...state.convention, demandesCoselec:
+            state.convention.demandesCoselec.map(
+              demandeCoselec => {
+                if (demandeCoselec.statut === 'en_cours' && demandeCoselec.type === 'rendu') {
+                  demandeCoselec.statut = action.response.statutAvenantAjoutPosteUpdated;
+                  return demandeCoselec;
+                }
+                return demandeCoselec;
+              }
+            ),
+        },
+        loading: false
+      };
+    case 'UPDATE_AVENANT_RENDU_POSTE_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+        loading: false
+      };
     case 'RESET_CONVENTION':
       return {
         ...state,

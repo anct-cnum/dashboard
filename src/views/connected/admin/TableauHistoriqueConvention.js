@@ -161,7 +161,7 @@ export default function TableauHistoriqueConvention() {
                               <>
                                 {convention?.demandesCoselec?.filter(demande => demande.statut !== 'en_cours' && demande.type === 'ajout').map((demande, idx) =>
                                   <tr key={`avenantAjoutPoste-${idx}`}>
-                                    <HistoriqueAvenantAjoutPoste avenant={demande} structure={convention} />
+                                    <HistoriqueAvenantAjoutPoste avenant={demande} indexDemandesCoselec={idx} structure={convention} />
                                   </tr>
                                 )}
                               </>
@@ -170,7 +170,7 @@ export default function TableauHistoriqueConvention() {
                               <>
                                 {convention?.demandesCoselec?.filter(demande => demande.statut !== 'en_cours' && demande.type === 'rendu').map((demande, idx) =>
                                   <tr key={`avenantRenduPoste-${idx}`}>
-                                    <HistoriqueAvenantRenduPoste avenant={demande} structure={convention} />
+                                    <HistoriqueAvenantRenduPoste avenant={demande} indexDemandesCoselec={idx} structure={convention} />
                                   </tr>
                                 )}
                               </>

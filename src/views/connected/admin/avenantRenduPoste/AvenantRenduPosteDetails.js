@@ -2,9 +2,18 @@ import React from 'react';
 import dayjs from 'dayjs';
 import { badgeStatutDossierDS, pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { conventionActions } from '../../../../actions';
 
-function AvenantRenduPosteDetails({ avenant }) {
-  const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.statut === 'en_cours' && demande.type === 'rendu');
+function AvenantRenduPosteDetails({ avenant, indexDemandesCoselec }) {
+  const dispatch = useDispatch();
+
+  const demandesCoselec = avenant?.demandesCoselec[indexDemandesCoselec];
+
+  const validationAvenantRenduPoste = () => {
+    dispatch(conventionActions.validationAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostes, avenant.nombreConseillersCoselec));
+  };
+
   return (
     <div className="fr-card fr-card--no-border" style={{ backgroundColor: '#E8EDFF' }}>
       <div className="fr-card__body">
@@ -41,7 +50,7 @@ function AvenantRenduPosteDetails({ avenant }) {
             Motif: {demandesCoselec?.motif ?? 'Non renseigné'}
           </p>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-            {demandesCoselec?.statut === 'validée' ?
+            {demandesCoselec?.statut === 'validee' ?
               <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
               <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
             }
@@ -51,7 +60,7 @@ function AvenantRenduPosteDetails({ avenant }) {
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
             {demandesCoselec?.statut === 'en_cours' &&
               <li>
-                <button className="fr-btn" disabled>
+                <button className="fr-btn" onClick={validationAvenantRenduPoste}>
                   Valider la demande
                 </button>
               </li>
@@ -73,6 +82,7 @@ function AvenantRenduPosteDetails({ avenant }) {
 
 AvenantRenduPosteDetails.propTypes = {
   avenant: PropTypes.object,
+  indexDemandesCoselec: PropTypes.number,
 };
 
 export default AvenantRenduPosteDetails;
