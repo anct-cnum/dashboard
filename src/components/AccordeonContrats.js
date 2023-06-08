@@ -102,14 +102,24 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                           </>
                         }
                         {misesEnRelationFinalisee[0]?.dateFinDeContrat &&
-                          <span className="fr-text--regular fr-text--md">
-                            {dayjs(misesEnRelationFinalisee[0].dateFinDeContrat).format('DD/MM/YYYY')}
-                          </span>
+                          <>
+                            {(
+                              validTypeDeContratWithoutEndDate(misesEnRelationFinalisee[0]?.typeDeContrat)) ?
+                              <span className="fr-text--regular fr-text--md">-</span> :
+                              <span className="fr-text--regular fr-text--md">{dayjs(misesEnRelationFinalisee[0].dateFinDeContrat).format('DD/MM/YYYY')}</span>
+                            }
+                          </>
                         }
                         {misesEnRelationNouvelleRupture?.dateFinDeContrat &&
-                          <span className="fr-text--regular fr-text--md">
-                            {dayjs(misesEnRelationNouvelleRupture.dateFinDeContrat).format('DD/MM/YYYY')}
-                          </span>
+                          <>
+                            {(
+                              validTypeDeContratWithoutEndDate(misesEnRelationNouvelleRupture.dateFinDeContrat)) ?
+                              <span className="fr-text--regular fr-text--md">-</span> :
+                              <span className="fr-text--regular fr-text--md">
+                                {dayjs(misesEnRelationNouvelleRupture.dateFinDeContrat).format('DD/MM/YYYY')}
+                              </span>
+                            }
+                          </>
                         }
                       </div>
                     </div>
