@@ -5,7 +5,7 @@ import { conseillerActions, alerteEtSpinnerActions } from '../../../../actions';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import InformationConseiller from '../commun/InformationConseiller';
+import InformationConseiller from '../../../../components/InformationConseiller';
 
 function PreselectionConseillerDetails() {
 
