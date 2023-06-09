@@ -202,7 +202,7 @@ function ReconventionnementDetails({ reconventionnement }) {
               <div className="fr-col-12">
                 <h6 className="fr-card__desc fr-h6">Profils recrut&eacute;s</h6>
               </div>
-              {reconventionnement?.conseillers?.map((conseiller, index) =>
+              {reconventionnement?.conseillersRecruter?.map((conseiller, index) =>
                 <div key={index} className="fr-card fr-col-12 fr-mt-3w fr-p-3w">
                   <div className="fr-card__body fr-p-0">
                     <div className="fr-grid-row" style={{ alignItems: 'center' }}>
