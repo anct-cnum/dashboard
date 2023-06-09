@@ -5,9 +5,9 @@ import PopinGestionPostesMotif from './popinGestionPostesMotif';
 import PopinGestionPostesNombre from './popinGestionPostesNombre';
 
 const popinGestionPostes = ({ step, actionType, setStep, setDernierAvenantValide }) => {
-  const [nombreDePostes, setNombreDePostes] = useState(null);
-  const [motif, setMotif] = useState(null);
-  const [autreMotif, setAutreMotif] = useState(null);
+  const [nombreDePostes, setNombreDePostes] = useState(1);
+  const [motif, setMotif] = useState('');
+  const [autreMotif, setAutreMotif] = useState('');
 
   switch (step) {
     case 1:
@@ -21,7 +21,7 @@ const popinGestionPostes = ({ step, actionType, setStep, setDernierAvenantValide
       />;
     case 3:
       return <PopinGestionPostesRecap setStep={setStep} actionType={actionType}
-        motif={motif} setMotif={setMotif}
+        motif={motif} autreMotif={autreMotif} setMotif={setMotif}
         nombreDePostes={nombreDePostes}
         setAutreMotif={setAutreMotif} setNombreDePostes={setNombreDePostes}
         setDernierAvenantValide={setDernierAvenantValide}

@@ -78,7 +78,7 @@ function popinGestionPostesRecap({
                   </span>
                 </p>
                 <strong>Motif</strong>
-                <p style={{ marginBottom: '50px' }}>{motif}</p>
+                <p style={{ marginBottom: '50px' }}>{motif || autreMotif}</p>
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">

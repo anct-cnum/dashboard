@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import days from 'dayjs';
 
 const CompleteRequestBanner = ({ structure }) => {
-  console.log('structure', structure);
+  
   const navigate = useNavigate();
   return (
     <div

@@ -58,8 +58,8 @@ export function useAdvisors() {
         if (miseEnRelation?.reconventionnement) {
           return createConseiller(miseEnRelation);
         } else {
-          const { conseillerObj, typeDeContrat, dateDebut, dateFin } = miseEnRelation;
-          return { ...conseillerObj, typeDeContrat, dateDebut, dateFin, statut: 'finalisee' };
+          const { conseillerObj, typeDeContrat, dateDebutDeContrat, dateFinDeContrat } = miseEnRelation;
+          return { ...conseillerObj, typeDeContrat, dateDebutDeContrat, dateFinDeContrat, statut: 'finalisee' };
         }
       });
 

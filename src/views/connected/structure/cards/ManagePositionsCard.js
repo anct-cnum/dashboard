@@ -18,10 +18,12 @@ const ManagePositionsCard = ({ structure }) => {
 
   const displayText = structure => {
     if (structure?.lastDemandeCoselec?.type === 'ajout') {
-      if (structure?.lastDemandeCoselec?.statut === 'initiée') {
+      if (structure?.lastDemandeCoselec?.statut === 'initiee') {
         return 'demandés';
-      } else {
+      } else if (structure?.lastDemandeCoselec?.statut === 'validee') {
         return 'obtenu';
+      } else if (structure?.lastDemandeCoselec?.statut === 'refusee') {
+        return 'refusé';
       }
     } else {
       return 'vacants rendu';
@@ -89,7 +91,11 @@ const ManagePositionsCard = ({ structure }) => {
                  <hr style={{ borderWidth: '0.5px' }} />
                </div>
                <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - {structure.lastDemandeCoselec.nombreDePostes} postes de conseiller {' '}
+              Avenant - {
+                   structure?.lastDemandeCoselec?.statut === 'validee' ?
+                     structure?.lastDemandeCoselec?.nombreDePostesAccordes :
+                     structure?.lastDemandeCoselec?.nombreDePostesSouhaites
+                 } postes de conseiller {' '}
                  <span className="fr-text--regular fr-text--md">
                    {displayText(structure)} {' '}{' '}
                    le {dayjs(structure?.lastDemandeCoselec?.date).format('DD/MM/YYYY')}
@@ -104,7 +110,7 @@ const ManagePositionsCard = ({ structure }) => {
                 <ul className="fr-btns-group fr-btns-group--inline-md">
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={structure?.demandesCoselec && structure?.lastDemandeCoselec?.statut !== 'validée'}
+                      disabled={structure?.demandesCoselec.length > 0 && structure?.lastDemandeCoselec?.statut !== 'validee'}
                       onClick={() => {
                         handlePopin('add', 1);
                       }}>
@@ -113,7 +119,7 @@ const ManagePositionsCard = ({ structure }) => {
                   </li>
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={structure?.demandesCoselec && structure?.lastDemandeCoselec?.statut !== 'validée'}
+                      disabled={structure?.demandesCoselec.length > 0 && structure?.lastDemandeCoselec?.statut !== 'validee'}
                       onClick={() => {
                         handlePopin('remove', 1);
                       }}>

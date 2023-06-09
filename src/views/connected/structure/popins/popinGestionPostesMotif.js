@@ -28,8 +28,14 @@ function popinGestionPostesMotif({ setStep, setMotif, motif, actionType, autreMo
 
   const handleMotifChange = e => {
     setMotif(e.target.value);
+    setAutreMotif('');
   };
 
+  const handleAutreMotifChange = e => {
+    setAutreMotif(e.target.value);
+    setMotif('');
+  };
+  
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog">
       <div className="fr-container fr-container--fluid fr-container-md">
@@ -78,8 +84,9 @@ function popinGestionPostesMotif({ setStep, setMotif, motif, actionType, autreMo
                     className="fr-input"
                     type="text"
                     name="autreMotif"
-                    onChange={e => setAutreMotif(e.target.value)}
+                    onChange={handleAutreMotifChange}
                     value={autreMotif}
+                    maxLength={200}
                   >
                   </textarea>
                 </div>}
@@ -118,6 +125,13 @@ popinGestionPostesMotif.propTypes = {
   updateDateRecrutement: PropTypes.func,
   setDateValidee: PropTypes.func,
   setOpenModalContrat: PropTypes.func,
+  setStep: PropTypes.func,
+  setMotif: PropTypes.func,
+  motif: PropTypes.string,
+  actionType: PropTypes.string,
+  autreMotif: PropTypes.string,
+  setAutreMotif: PropTypes.func,
+  setNombreDePostes: PropTypes.func,
 };
 
 export default popinGestionPostesMotif;

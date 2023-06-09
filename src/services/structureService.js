@@ -69,9 +69,9 @@ function updateStructureSiret(siret, structureId) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function demandeCoselec(type, structureId, nombreDePostes, motif, autreMotif = '') {
+function demandeCoselec(type, id, nombreDePostes, motif, autreMotif = '') {
   // eslint-disable-next-line max-len
-  return API.patch(`${apiUrlRoot}/demande-coselec?role=${roleActivated()}&structureId=${structureId}`, { type, nombreDePostes, motif, autreMotif })
+  return API.patch(`${apiUrlRoot}/demande-coselec/${id}?role=${roleActivated()}`, { type, nombreDePostes, motif, autreMotif })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
