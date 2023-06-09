@@ -11,8 +11,8 @@ function HistoriqueAvenantRenduPoste({ avenant, indexDemandesCoselec, structure 
       <td>{structure?.idPG}</td>
       <td>{structure?.nom}</td>
       <td>
-        {avenant?.date ?
-          <span>{dayjs(avenant?.date).format('DD/MM/YYYY')}</span> :
+        {avenant?.emetteurAvenant?.date ?
+          <span>{dayjs(avenant.emetteurAvenant.date).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>

@@ -23,8 +23,8 @@ function AvenantRenduPosteDetails({ avenant, indexDemandesCoselec }) {
           </h3>
           <p className="fr-card__desc fr-text--lg fr-text--regular">
             Demande initi&eacute;e&nbsp;
-            {demandesCoselec?.date ?
-              <span>le&nbsp;{dayjs(demandesCoselec?.date).format('DD/MM/YYYY')}</span> :
+            {demandesCoselec?.emetteurAvenant?.date ?
+              <span>le&nbsp;{dayjs(demandesCoselec.emetteurAvenant.date).format('DD/MM/YYYY')}</span> :
               <span>&agrave; une date inconnue</span>
             }
           </p>

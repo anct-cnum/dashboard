@@ -13,8 +13,8 @@ function AvenantRenduPoste({ avenant }) {
       <td>{avenant?.idPG}</td>
       <td>{avenant?.nom}</td>
       <td>
-        {demandesCoselec?.date ?
-          <span>{dayjs(demandesCoselec?.date).format('DD/MM/YYYY')}</span> :
+        {demandesCoselec?.emetteurAvenant?.date ?
+          <span>{dayjs(demandesCoselec.emetteurAvenant.date).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>
