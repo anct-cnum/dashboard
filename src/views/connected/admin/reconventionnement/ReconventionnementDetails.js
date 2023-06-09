@@ -189,12 +189,17 @@ function ReconventionnementDetails({ reconventionnement }) {
                 <span>Non renseign&eacute;e</span>
               }
             </p>
-            <p className="fr-card__desc fr-text--xl"><strong className="fr-text--bold">{reconventionnement?.nombreConseillersCoselec} {pluralize(
-              'poste de conseiller validé',
-              'poste de conseiller validé',
-              'postes de conseiller validés',
-              reconventionnement?.nombreConseillersCoselec
-            )}</strong> pour ce conventionnement</p>
+            <p className="fr-card__desc fr-text--xl">
+              <strong className="fr-text--bold">
+                {reconventionnement?.nombreConseillersCoselecConventionnement}&nbsp;
+                {pluralize(
+                  'poste de conseiller validé',
+                  'poste de conseiller validé',
+                  'postes de conseiller validés',
+                  reconventionnement?.nombreConseillersCoselecConventionnement
+                )}
+              </strong> pour ce conventionnement
+            </p>
             <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">
               <div className="fr-col-12">
                 <hr style={{ borderWidth: '0.5px' }} />
