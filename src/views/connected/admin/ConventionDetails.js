@@ -38,13 +38,10 @@ function ConventionDetails() {
   }, [errorConvention]);
 
   const checkIfAvenantCorrect = convention => {
-    if ((typeConvention === 'avenant-ajout-poste' || typeConvention === 'avenant-rendu-poste') && indexDemandesCoselec === null) {
-      return false;
+    if ((typeConvention === 'avenant-ajout-poste' || typeConvention === 'avenant-rendu-poste') && indexDemandesCoselec <= convention?.demandesCoselec?.length) {
+      return true;
     }
-    if (indexDemandesCoselec !== null && (isNaN(indexDemandesCoselec) || indexDemandesCoselec > convention?.demandesCoselec?.length)) {
-      return false;
-    }
-    return true;
+    return false;
   };
 
   useEffect(() => {
