@@ -29,17 +29,13 @@ function CandidatNonMisEnRelation({ conseiller, currentFilter }) {
           ID - {conseiller.idPG ?? ''}
         </span>
       </td>
-      <td>{dayjs(conseiller.createdAt).format('DD/MM/YYYY')}</td>
+      <td>{conseiller.dateDisponibilite ? dayjs(conseiller.dateDisponibilite).format('DD/MM/YYYY') : 'Non renseignée'}</td>
       <td>{conseiller.codePostal}</td>
       <td style={{ display: 'flex', justifyContent: 'center' }}>
         {(conseiller?.statut === 'RECRUTE' || conseiller?.statut === 'RUPTURE') &&
           <>
             <div
-              data-tip={`
-              <span>Cette personne a d&eacute;j&agrave; une exp&eacute;rience</span>
-              <br />
-              <span>de conseiller-&egrave;re num&eacute;rique. Cliquez sur D&eacute;tails</span>
-              `}
+              data-tip="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
               data-for={`tooltip-cnfs-candidat-non-mise-en-relation${conseiller?.idPG}`}
             >
               <img src={pinCNFS} alt="logo CNFS" style={{ height: '36px' }} />
