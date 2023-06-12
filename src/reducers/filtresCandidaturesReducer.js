@@ -1,7 +1,7 @@
 const initialState = {
   departement: 'tous',
-  ordreNom: 'createdAt',
-  ordre: false,
+  ordreNom: 'dateDisponibilite',
+  ordre: true,
   pix: [],
   diplome: undefined,
   cv: undefined,
@@ -16,8 +16,7 @@ export default function filtresCandidatures(state = initialState, action) {
     case 'TOGGLE_ORDRE':
       return {
         ...state,
-        ordreNom: action.ordreNom,
-        ordre: false
+        ordre: !state.ordre
       };
     case 'CHANGE_ORDRE_COLONNE':
       return {
