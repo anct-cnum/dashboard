@@ -74,7 +74,7 @@ function PreselectionConseillerDetails() {
           {conseiller ? formatNomConseiller(conseiller) : ''}
           <img
             data-tip="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
-            className="fr-ml-2w"
+            className={`fr-ml-2w ${conseiller ? '' : 'fr-hidden'}`}
             src={pinCNFS}
             alt="logo CNFS"
             style={{ height: '50px', position: 'absolute' }}
