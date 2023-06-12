@@ -5,7 +5,7 @@ export const conventionActions = {
   getAllHistorique,
   get,
   updateAvenantAjoutPoste,
-  validationAvenantRenduPoste,
+  updateAvenantRenduPoste,
 };
 
 function getAll(page, typeConvention) {
@@ -104,11 +104,11 @@ function updateAvenantAjoutPoste(id, statut, nbDePosteAccorder = 0, nbDePosteCos
   }
 }
 
-function validationAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec) {
+function updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec) {
   return dispatch => {
     dispatch(request());
 
-    conventionService.validationAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec)
+    conventionService.updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec)
     .then(
       response => dispatch(success(response)),
       error => {

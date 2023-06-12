@@ -10,8 +10,8 @@ function AvenantRenduPosteDetails({ avenant, indexDemandesCoselec }) {
 
   const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.id === indexDemandesCoselec);
 
-  const validationAvenantRenduPoste = () => {
-    dispatch(conventionActions.validationAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostesSouhaites, avenant.nombreConseillersCoselec));
+  const updateAvenantRenduPoste = () => {
+    dispatch(conventionActions.updateAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostesSouhaites, avenant.nombreConseillersCoselec));
   };
 
   return (
@@ -60,7 +60,7 @@ function AvenantRenduPosteDetails({ avenant, indexDemandesCoselec }) {
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
             {demandesCoselec?.statut === 'en_cours' &&
               <li>
-                <button className="fr-btn" onClick={validationAvenantRenduPoste}>
+                <button className="fr-btn" onClick={updateAvenantRenduPoste}>
                   Valider la demande
                 </button>
               </li>
