@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 
-function HistoriqueAvenantAjoutPoste({ avenant, indexDemandesCoselec, structure }) {
+function HistoriqueAvenantAjoutPoste({ avenant, structure }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   return (
@@ -22,7 +22,7 @@ function HistoriqueAvenantAjoutPoste({ avenant, indexDemandesCoselec, structure 
         <button
           className="fr-btn fr-btn fr-icon-eye-line fr-ml-auto"
           title="D&eacute;tail"
-          onClick={() => window.open(`/${roleActivated}/demandes/convention/${structure?._id}?type=avenant-ajout-poste&index=${indexDemandesCoselec}`)}>
+          onClick={() => window.open(`/${roleActivated}/demandes/convention/${structure?._id}?type=avenant-ajout-poste&index=${avenant.id}`)}>
         </button>
       </td>
     </>
@@ -31,7 +31,6 @@ function HistoriqueAvenantAjoutPoste({ avenant, indexDemandesCoselec, structure 
 
 HistoriqueAvenantAjoutPoste.propTypes = {
   avenant: PropTypes.object,
-  indexDemandesCoselec: PropTypes.number,
   structure: PropTypes.object,
 };
 

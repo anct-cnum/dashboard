@@ -8,7 +8,7 @@ import { conventionActions } from '../../../../actions';
 function AvenantRenduPosteDetails({ avenant, indexDemandesCoselec }) {
   const dispatch = useDispatch();
 
-  const demandesCoselec = avenant?.demandesCoselec[indexDemandesCoselec];
+  const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.id === indexDemandesCoselec);
 
   const validationAvenantRenduPoste = () => {
     dispatch(conventionActions.validationAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostesSouhaites, avenant.nombreConseillersCoselec));
@@ -82,7 +82,7 @@ function AvenantRenduPosteDetails({ avenant, indexDemandesCoselec }) {
 
 AvenantRenduPosteDetails.propTypes = {
   avenant: PropTypes.object,
-  indexDemandesCoselec: PropTypes.number,
+  indexDemandesCoselec: PropTypes.string,
 };
 
 export default AvenantRenduPosteDetails;

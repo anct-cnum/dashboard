@@ -38,10 +38,10 @@ function ConventionDetails() {
   }, [errorConvention]);
 
   const checkIfAvenantCorrect = convention => {
-    if ((typeConvention === 'avenant-ajout-poste' || typeConvention === 'avenant-rendu-poste') && indexDemandesCoselec <= convention?.demandesCoselec?.length) {
-      return true;
+    if (typeConvention === 'avenant-ajout-poste' || typeConvention === 'avenant-rendu-poste') {
+      return convention?.demandesCoselec?.some(demande => demande.id === indexDemandesCoselec);
     }
-    return false;
+    return true;
   };
 
   useEffect(() => {

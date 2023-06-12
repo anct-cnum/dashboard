@@ -5,8 +5,7 @@ import dayjs from 'dayjs';
 
 function AvenantAjoutPoste({ avenant }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const indexDemandesCoselec = avenant?.demandesCoselec.findIndex(demande => demande.type === 'ajout' && demande.statut === 'en_cours');
-  const demandesCoselec = avenant?.demandesCoselec[indexDemandesCoselec];
+  const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.type === 'ajout' && demande.statut === 'en_cours');
 
   return (
     <>
@@ -25,7 +24,7 @@ function AvenantAjoutPoste({ avenant }) {
         <button
           className="fr-btn"
           title="D&eacute;tail"
-          onClick={() => window.open(`/${roleActivated}/demandes/convention/${avenant?._id}?type=avenant-ajout-poste&index=${indexDemandesCoselec}`)}>
+          onClick={() => window.open(`/${roleActivated}/demandes/convention/${avenant?._id}?type=avenant-ajout-poste&index=${demandesCoselec.id}`)}>
           Voir la demande
         </button>
       </td>

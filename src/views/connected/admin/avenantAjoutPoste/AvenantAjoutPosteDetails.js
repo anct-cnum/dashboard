@@ -11,7 +11,7 @@ function AvenantAjoutPosteDetails({ avenant, indexDemandesCoselec }) {
   const dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
-  const demandesCoselec = avenant?.demandesCoselec[indexDemandesCoselec];
+  const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.id === indexDemandesCoselec);
 
   const refusAvenantAjoutPoste = () => {
     dispatch(conventionActions.updateAvenantAjoutPoste(avenant._id, StatutCoselec.NÉGATIF));
@@ -123,7 +123,7 @@ function AvenantAjoutPosteDetails({ avenant, indexDemandesCoselec }) {
 
 AvenantAjoutPosteDetails.propTypes = {
   avenant: PropTypes.object,
-  indexDemandesCoselec: PropTypes.number,
+  indexDemandesCoselec: PropTypes.string,
 };
 
 export default AvenantAjoutPosteDetails;

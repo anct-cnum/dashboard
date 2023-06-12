@@ -162,7 +162,6 @@ export default function TableauHistoriqueConvention() {
                                       <tr key={`avenantAjoutPoste-${idx}`}>
                                         <HistoriqueAvenantAjoutPoste
                                           avenant={demande}
-                                          indexDemandesCoselec={idx}
                                           structure={convention}
                                         />
                                       </tr>
@@ -171,7 +170,6 @@ export default function TableauHistoriqueConvention() {
                                       <tr key={`avenantRenduPoste-${idx}`}>
                                         <HistoriqueAvenantRenduPoste
                                           avenant={demande}
-                                          indexDemandesCoselec={idx}
                                           structure={convention}
                                         />
                                       </tr>
