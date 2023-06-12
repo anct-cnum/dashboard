@@ -15,7 +15,7 @@ function ConventionDetails() {
   const { idStructure } = useParams();
   const queryParams = new URLSearchParams(window.location.search);
   const typeConvention = queryParams.get('type');
-  const indexDemandesCoselec = queryParams.get('index');
+  const idDemandeCoselec = queryParams.get('demande');
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const convention = useSelector(state => state.convention?.convention);
   const loading = useSelector(state => state.convention?.loading);
@@ -39,7 +39,7 @@ function ConventionDetails() {
 
   const checkIfAvenantCorrect = convention => {
     if (typeConvention === 'avenant-ajout-poste' || typeConvention === 'avenant-rendu-poste') {
-      return convention?.demandesCoselec?.some(demande => demande.id === indexDemandesCoselec);
+      return convention?.demandesCoselec?.some(demande => demande.id === idDemandeCoselec);
     }
     return true;
   };
@@ -141,10 +141,10 @@ function ConventionDetails() {
           <ConventionnementDetails conventionnement={convention} />
         }
         {typeConvention === 'avenant-ajout-poste' && checkIfAvenantCorrect(convention) &&
-          <AvenantAjoutPosteDetails avenant={convention} indexDemandesCoselec={indexDemandesCoselec} />
+          <AvenantAjoutPosteDetails avenant={convention} idDemandeCoselec={idDemandeCoselec} />
         }
         {typeConvention === 'avenant-rendu-poste' && checkIfAvenantCorrect(convention) &&
-          <AvenantRenduPosteDetails avenant={convention} indexDemandesCoselec={indexDemandesCoselec} />
+          <AvenantRenduPosteDetails avenant={convention} idDemandeCoselec={idDemandeCoselec} />
         }
       </div>
     </div>

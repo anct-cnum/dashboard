@@ -24,7 +24,7 @@ function AvenantAjoutPoste({ avenant }) {
         <button
           className="fr-btn"
           title="D&eacute;tail"
-          onClick={() => window.open(`/${roleActivated}/demandes/convention/${avenant?._id}?type=avenant-ajout-poste&index=${demandesCoselec.id}`)}>
+          onClick={() => window.open(`/${roleActivated}/demandes/convention/${avenant?._id}?type=avenant-ajout-poste&demande=${demandesCoselec?.id}`)}>
           Voir la demande
         </button>
       </td>

@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { conventionActions } from '../../../../actions';
 
-function AvenantRenduPosteDetails({ avenant, indexDemandesCoselec }) {
+function AvenantRenduPosteDetails({ avenant, idDemandeCoselec }) {
   const dispatch = useDispatch();
 
-  const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.id === indexDemandesCoselec);
+  const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.id === idDemandeCoselec);
 
   const updateAvenantRenduPoste = () => {
     dispatch(conventionActions.updateAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostesSouhaites, avenant.nombreConseillersCoselec));
@@ -82,7 +82,7 @@ function AvenantRenduPosteDetails({ avenant, indexDemandesCoselec }) {
 
 AvenantRenduPosteDetails.propTypes = {
   avenant: PropTypes.object,
-  indexDemandesCoselec: PropTypes.string,
+  idDemandeCoselec: PropTypes.string,
 };
 
 export default AvenantRenduPosteDetails;

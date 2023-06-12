@@ -22,7 +22,7 @@ function HistoriqueAvenantRenduPoste({ avenant, structure }) {
         <button
           className="fr-btn fr-btn fr-icon-eye-line fr-ml-auto"
           title="D&eacute;tail"
-          onClick={() => window.open(`/${roleActivated}/demandes/convention/${structure?._id}?type=avenant-rendu-poste&index=${avenant.id}`)}>
+          onClick={() => window.open(`/${roleActivated}/demandes/convention/${structure?._id}?type=avenant-rendu-poste&demande=${avenant?.id}`)}>
         </button>
       </td>
     </>
