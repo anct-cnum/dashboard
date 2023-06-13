@@ -68,7 +68,10 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                 {miseEnRelation?.dateDebutDeContrat ?
                   <span className="fr-text--regular fr-text--md">
                     {dayjs(miseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY')}
-                  </span> : <span>-</span>
+                  </span> :
+                  <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                    En attente de pi&egrave;...
+                  </span>
                 }
               </div>
             </div>
@@ -78,10 +81,18 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   Fin de contrat
                 </strong>
                 <br />
-                {miseEnRelation?.dateFinDeContrat ?
+                {validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat) &&
+                  <span className="fr-text--regular fr-text--md">-</span>
+                }
+                {(!validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat) && !miseEnRelation?.dateFinDeContrat) &&
+                  <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                    En attente de pi&egrave;ces...
+                  </span>
+                }
+                {(miseEnRelation?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat)) &&
                   <span className="fr-text--regular fr-text--md">
                     {dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}
-                  </span> : <span>-</span>
+                  </span>
                 }
               </div>
             </div>

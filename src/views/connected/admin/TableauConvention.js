@@ -61,7 +61,7 @@ export default function TableauConvention() {
     convention?.demandesCoselec?.filter(demande => demande.statut === 'en_cours' && demande.type === 'ajout').length > 0;
 
   const checkIfAvenantRenduPoste = convention =>
-    convention?.demandesCoselec?.filter(demande => demande.statut === 'en_cours' && demande.type === 'rendu').length > 0;
+    convention?.demandesCoselec?.filter(demande => demande.statut === 'en_cours' && demande.type === 'retrait').length > 0;
 
   return (
     <div className="conventions">

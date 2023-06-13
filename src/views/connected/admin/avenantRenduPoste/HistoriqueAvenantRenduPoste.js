@@ -16,7 +16,7 @@ function HistoriqueAvenantRenduPoste({ avenant, structure }) {
           <span>Non renseign&eacute;e</span>
         }
       </td>
-      <td>{avenant?.nombreDePostesSouhaites ?? '-'}</td>
+      <td>{avenant?.nombreDePostesRendus ?? '-'}</td>
       <td style={{ width: '13rem' }}>Avenant · poste rendu</td>
       <td>
         <button

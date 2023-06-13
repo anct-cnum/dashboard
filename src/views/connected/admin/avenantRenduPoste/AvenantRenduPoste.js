@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 function AvenantRenduPoste({ avenant }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.type === 'rendu' && demande.statut === 'en_cours');
+  const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.type === 'retrait' && demande.statut === 'en_cours');
 
   return (
     <>
@@ -18,7 +18,7 @@ function AvenantRenduPoste({ avenant }) {
         }
       </td>
       <td>-</td>
-      <td>{demandesCoselec?.nombreDePostesSouhaites ?? '-'}</td>
+      <td>{demandesCoselec?.nombreDePostesRendus ?? '-'}</td>
       <td style={{ width: '13rem' }}>Avenant · poste rendu</td>
       <td>
         <button

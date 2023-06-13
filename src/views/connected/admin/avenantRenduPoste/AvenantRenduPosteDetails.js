@@ -11,7 +11,7 @@ function AvenantRenduPosteDetails({ avenant, idDemandeCoselec }) {
   const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.id === idDemandeCoselec);
 
   const updateAvenantRenduPoste = () => {
-    dispatch(conventionActions.updateAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostesSouhaites, avenant.nombreConseillersCoselec));
+    dispatch(conventionActions.updateAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostesRendus, avenant.nombreConseillersCoselec));
   };
 
   return (
@@ -30,11 +30,11 @@ function AvenantRenduPosteDetails({ avenant, idDemandeCoselec }) {
           </p>
           <p className="fr-card__desc fr-text--lg" style={{ color: '#000091', width: '54%' }}>
             <strong className="fr-text--bold" style={{ color: '#000091', width: '24%' }}>
-              {demandesCoselec?.nombreDePostes}{pluralize(
+              {demandesCoselec?.nombreDePostesRendus}{pluralize(
                 ' poste de conseiller vacant rendu ',
                 ' poste de conseiller vacant rendu ',
                 ' postes de conseillers vacants rendus ',
-                demandesCoselec?.nombreDePostes
+                demandesCoselec?.nombreDePostesRendus
               )}
             </strong><br />
             s&ucirc;r {avenant?.nombreConseillersCoselec}

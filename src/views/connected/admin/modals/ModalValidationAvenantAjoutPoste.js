@@ -31,6 +31,7 @@ function ModalValidationAvenantAjoutPoste({ idStructure, demandesCoselec, nombre
                 <input
                   className="fr-input"
                   type="number"
+                  min="1"
                   max={demandesCoselec.nombreDePostesSouhaites}
                   onChange={e => setNombreDePostes(e.target.value)}
                   value={nombreDePostes}
