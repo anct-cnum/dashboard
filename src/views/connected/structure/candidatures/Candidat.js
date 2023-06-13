@@ -78,7 +78,7 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
           ID - {miseEnRelation.conseillerObj.idPG ?? ''}
         </span>
       </td>
-      <td>{miseEnRelation.conseillerObj.dateDisponibilite ? dayjs(miseEnRelation.conseillerObj.dateDisponibilite).format('DD/MM/YYYY') : 'Non renseignée'}</td>
+      <td>{miseEnRelation.conseillerObj?.dateDisponibilite ? dayjs(miseEnRelation.conseillerObj.dateDisponibilite).format('DD/MM/YYYY') : 'Non renseignée'}</td>
       <td>{miseEnRelation.conseillerObj.codePostal}</td>
       <td style={{ display: 'flex', justifyContent: 'center' }}>
         {(miseEnRelation.conseillerObj?.statut === 'RECRUTE' || miseEnRelation.conseillerObj?.statut === 'RUPTURE') &&

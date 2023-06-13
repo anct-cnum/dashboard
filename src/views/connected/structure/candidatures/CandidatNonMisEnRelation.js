@@ -29,7 +29,7 @@ function CandidatNonMisEnRelation({ conseiller, currentFilter }) {
           ID - {conseiller.idPG ?? ''}
         </span>
       </td>
-      <td>{conseiller.dateDisponibilite ? dayjs(conseiller.dateDisponibilite).format('DD/MM/YYYY') : 'Non renseignée'}</td>
+      <td>{conseiller?.dateDisponibilite ? dayjs(conseiller.dateDisponibilite).format('DD/MM/YYYY') : 'Non renseignée'}</td>
       <td>{conseiller.codePostal}</td>
       <td style={{ display: 'flex', justifyContent: 'center' }}>
         {(conseiller?.statut === 'RECRUTE' || conseiller?.statut === 'RUPTURE') &&
