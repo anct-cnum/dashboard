@@ -51,7 +51,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
               </div>
             </div>
           }
-          {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
+          {(misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture) &&
             <div className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}>
               <div className="fr-card__body" style={{ padding: '0 0' }}>
                 <div>
@@ -131,7 +131,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
           {misesEnRelationFinaliseeRupture?.map((miseEnRelation, idx) =>
             <>
               <div
-                className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}
+                className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}
                 key={idx}
                 style={{ paddingLeft: '1rem' }}
               >

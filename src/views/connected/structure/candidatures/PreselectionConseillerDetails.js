@@ -6,6 +6,8 @@ import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import InformationConseiller from '../../../../components/InformationConseiller';
+import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
+import ReactTooltip from 'react-tooltip';
 
 function PreselectionConseillerDetails() {
 
@@ -68,7 +70,17 @@ function PreselectionConseillerDetails() {
       </div>
       }
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+        <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
+          {conseiller ? formatNomConseiller(conseiller) : ''}
+          <img
+            data-tip="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
+            className={`fr-ml-2w ${conseiller ? '' : 'fr-hidden'}`}
+            src={pinCNFS}
+            alt="logo CNFS"
+            style={{ height: '50px', position: 'absolute' }}
+          />
+        </h1>
+        <ReactTooltip type="light" html={true} className="infobulle" />
       </div>
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
