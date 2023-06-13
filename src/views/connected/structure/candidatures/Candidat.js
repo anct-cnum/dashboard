@@ -78,17 +78,13 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
           ID - {miseEnRelation.conseillerObj.idPG ?? ''}
         </span>
       </td>
-      <td>{dayjs(miseEnRelation.conseillerObj.createdAt).format('DD/MM/YYYY')}</td>
+      <td>{miseEnRelation.conseillerObj?.dateDisponibilite ? dayjs(miseEnRelation.conseillerObj.dateDisponibilite).format('DD/MM/YYYY') : 'Non renseignée'}</td>
       <td>{miseEnRelation.conseillerObj.codePostal}</td>
       <td style={{ display: 'flex', justifyContent: 'center' }}>
         {(miseEnRelation.conseillerObj?.statut === 'RECRUTE' || miseEnRelation.conseillerObj?.statut === 'RUPTURE') &&
           <>
             <div
-              data-tip={`
-              <span>Cette personne a d&eacute;j&agrave; une exp&eacute;rience</span>
-              <br />
-              <span>de conseiller-&egrave;re num&eacute;rique. Cliquez sur D&eacute;tails</span>
-              `}
+              data-tip="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
               data-for={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`}
             >
               <img src={pinCNFS} alt="logo CNFS" style={{ height: '36px' }} />

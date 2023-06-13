@@ -12,14 +12,8 @@ export const filtresCandidaturesActions = {
   resetFiltre,
 };
 
-function toggleOrdre(ordreNom) {
-  return dispatch => {
-    dispatch(success(ordreNom));
-  };
-
-  function success(ordreNom) {
-    return { type: 'TOGGLE_ORDRE', ordreNom };
-  }
+function toggleOrdre() {
+  return { type: 'TOGGLE_ORDRE' };
 }
 
 function changeOrdreColonne(ordreNom) {
@@ -63,11 +57,11 @@ function updateCCP1(ccp1) {
 function changeNomCandidat(nomCandidat) {
   return { type: 'CHANGE_NOM_CANDIDAT', nomCandidat };
 }
-  
+
 function changeFiltreDepartement(departement) {
   return { type: 'CHANGE_DEPARTEMENT', departement };
 }
-  
+
 function changeFiltreRegion(region) {
   return { type: 'CHANGE_REGION', region };
 }
