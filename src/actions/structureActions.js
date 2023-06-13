@@ -10,7 +10,7 @@ export const structureActions = {
   verifyStructureSiret,
   cancelStructureSiret,
   hiddenMessageError,
-  demandeCoselec,
+  createAvenant,
 };
 
 // eslint-disable-next-line max-len
@@ -200,11 +200,11 @@ function hiddenMessageError() {
   return { type: 'ERROR_MESSAGE_HIDDEN' };
 }
 
-function demandeCoselec(type, structureId, nombreDePostes, motif, autreMotif) {
+function createAvenant(type, structureId, nombreDePostes, motif, autreMotif) {
   return dispatch => {
     dispatch(request());
 
-    structureService.demandeCoselec(type, structureId, nombreDePostes, motif, autreMotif)
+    structureService.createAvenant(type, structureId, nombreDePostes, motif, autreMotif)
     .then(
       structure => dispatch(success(structure)),
       error => {
@@ -214,12 +214,12 @@ function demandeCoselec(type, structureId, nombreDePostes, motif, autreMotif) {
   };
 
   function request() {
-    return { type: 'DEMANDE_COSELEC_REQUEST' };
+    return { type: 'CREATE_AVENANT_REQUEST' };
   }
   function success(structure) {
-    return { type: 'DEMANDE_COSELEC_SUCCESS', structure };
+    return { type: 'CREATE_AVENANT_SUCCESS', structure };
   }
   function failure(error) {
-    return { type: 'DEMANDE_COSELEC_FAILURE', error };
+    return { type: 'CREATE_AVENANT_FAILURE', error };
   }
 }

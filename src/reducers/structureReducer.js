@@ -153,19 +153,19 @@ export default function structure(state = initialState, action) {
         error: false,
         flashMessage: false
       };
-    case 'DEMANDE_COSELEC_REQUEST':
+    case 'CREATE_AVENANT_REQUEST':
       return {
         ...state,
         loading: true,
         error: false,
       };
-    case 'DEMANDE_COSELEC_SUCCESS':
+    case 'CREATE_AVENANT_SUCCESS':
       return {
         ...state,
         loading: false,
         structure: action.structure,
       };
-    case 'DEMANDE_COSELEC_FAILURE':
+    case 'CREATE_AVENANT_FAILURE':
       return {
         ...state,
         loading: false,

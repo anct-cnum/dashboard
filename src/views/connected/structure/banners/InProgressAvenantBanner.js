@@ -13,7 +13,7 @@ const InProgressAvenantBanner = ({ structure }) => (
       <div className="fr-notice__body responsive__banner" style={{ paddingLeft: '20px' }}>
         <div>
           <p className="fr-notice__title title__color">
-             Vous avez demandé{' '}
+             Vous avez demand&eacute;{' '}
             {structure?.lastDemandeCoselec?.nombreDePostesSouhaites}{' '}
             {pluralize(
               'nouveau poste subventionné',
@@ -23,7 +23,7 @@ const InProgressAvenantBanner = ({ structure }) => (
             )} le {dayjs(structure?.lastDemandeCoselec?.date).format('DD/MM/YYYY')}.
           </p>
           <p className="fr-text--md">
-            Votre demande est en cours de traitement, vous aurez une réponse très prochainement.
+          Votre demande est en cours de traitement, vous aurez une r&eacute;ponse tr&egrave;s prochainement.
           </p>
         </div>
       </div>
@@ -33,7 +33,6 @@ const InProgressAvenantBanner = ({ structure }) => (
 
 InProgressAvenantBanner.propTypes = {
   structure: PropTypes.object,
-  roleActivated: PropTypes.string,
 };
 
 export default InProgressAvenantBanner;

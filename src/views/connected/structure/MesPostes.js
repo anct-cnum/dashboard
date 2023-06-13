@@ -52,25 +52,26 @@ function MesPostes() {
   const { structure, openModal, setOpenModal } = useStructure();
 
   function getClassName() {
-    const withBannerOnTopStatuses = [
-      StatutConventionnement.CONVENTIONNEMENT_VALIDÉ,
-      StatutConventionnement.RECONVENTIONNEMENT_EN_COURS,
-      StatutConventionnement.RECONVENTIONNEMENT_INITIÉ,
-    ];
-    if (withBannerOnTopStatuses.includes(structure?.conventionnement?.statut)) {
-      return 'withBannerOnTop';
+
+    switch (structure?.conventionnement?.statut) {
+      case StatutConventionnement.CONVENTIONNEMENT_VALIDÉ:
+      case StatutConventionnement.RECONVENTIONNEMENT_EN_COURS:
+      case StatutConventionnement.RECONVENTIONNEMENT_INITIÉ:
+        return 'withBannerOnTop';
+  
+      case StatutConventionnement.NON_INTERESSÉ:
+        return 'withoutBannerOnTop';
+      default:
+        break;
     }
-    if (bannieresRenouvellementValide?.length > 0) {
+  
+    if (
+      bannieresRenouvellementValide?.length > 0 ||
+      (showValidateBanner && structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) ||
+      structure?.lastDemandeCoselec?.banniereValidationAvenant ||
+      structure?.lastDemandeCoselec?.statut === 'en_cours'
+    ) {
       return 'withBannerOnTop';
-    }
-    if (showValidateBanner && structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) {
-      return 'withBannerOnTop';
-    }
-    if (structure?.lastDemandeCoselec?.banniereValidationAvenant || structure?.lastDemandeCoselec?.statut === 'initiée') {
-      return 'withBannerOnTop';
-    }
-    if (structure?.conventionnement?.statut === StatutConventionnement.NON_INTERESSÉ) {
-      return 'withoutBannerOnTop';
     }
   }
 
@@ -128,7 +129,7 @@ function MesPostes() {
           structure={structure}
         />
       )}
-      {structure?.lastDemandeCoselec?.statut === 'initiée' && (
+      {structure?.lastDemandeCoselec?.statut === 'en_cours' && (
         <InProgressAvenantBanner
           structure={structure}
           roleActivated={roleActivated}
@@ -163,7 +164,7 @@ function MesPostes() {
         >
           G&eacute;rer mes postes
         </h2>
-        <ManagePositionsCard structure={structure}/>
+        <ManagePositionsCard structure={structure} cardStyle={{ backgroundColor: '#E8EDFF' }} hasBorder={false}/>
         {misesEnRelation?.length > 0 && (
           <>
             <HireAdvisorCard

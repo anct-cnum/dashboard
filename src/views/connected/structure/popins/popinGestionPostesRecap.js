@@ -12,21 +12,21 @@ function popinGestionPostesRecap({
 }) {
   
   const dispatch = useDispatch();
-  const structureId = useSelector(state => state.structure?.structure._id);
+  const structureId = useSelector(state => state.structure?.structure?._id);
   const navigate = useNavigate();
 
   const handleCancel = () => {
     setStep(0);
     setMotif(null);
     setAutreMotif(null);
-    setNombreDePostes(null);
+    setNombreDePostes(1);
   };
 
   const handleSubmit = () => {
     if (actionType === 'add') {
-      dispatch(structureActions.demandeCoselec('ajout', structureId, nombreDePostes, motif, autreMotif));
+      dispatch(structureActions.createAvenant('ajout', structureId, nombreDePostes, motif, autreMotif));
     } else {
-      dispatch(structureActions.demandeCoselec('retrait', structureId, nombreDePostes, motif, autreMotif));
+      dispatch(structureActions.createAvenant('retrait', structureId, nombreDePostes, motif, autreMotif));
     }
     if (!window.location.pathname.includes('/structure/postes')) {
       navigate('/structure/postes');
@@ -61,8 +61,12 @@ function popinGestionPostesRecap({
                 </h1>
                 <p>
                   {
-                    actionType === 'add' ? 'Veuillez confirmez ces informations avant d\'envoyer votre demande en validation.' :
-                      'Veuillez confirmez votre demande. Le ou les postes rendus ne pourront plus être pourvues après avoir valider votre demande.'
+                    actionType === 'add' ? <>
+                    Veuillez confirmez ces informations avant d&apos;envoyer votre demande en validation.
+                    </> :
+                      <>
+                      Veuillez confirmez votre demande. Le ou les postes rendus ne pourront plus &ecirc;tre pourvues apr&egrave;s avoir valider votre demande.
+                      </>
                   }
                 </p>
                 <p>
@@ -110,13 +114,14 @@ function popinGestionPostesRecap({
 }
 
 popinGestionPostesRecap.propTypes = {
-  updateStatut: PropTypes.func,
-  updateDateRecrutement: PropTypes.func,
-  setDateValidee: PropTypes.func,
-  setOpenModal: PropTypes.func,
-  checkedItems: PropTypes.array,
-  handleSend: PropTypes.func,
-  nombreDePostes: PropTypes.number,
+  setStep: PropTypes.func.isRequired,
+  autreMotif: PropTypes.string,
+  nombreDePostes: PropTypes.number.isRequired,
+  actionType: PropTypes.string.isRequired,
+  motif: PropTypes.string,
+  setAutreMotif: PropTypes.func.isRequired,
+  setNombreDePostes: PropTypes.func.isRequired,
+  setMotif: PropTypes.func.isRequired,
 };
 
 export default popinGestionPostesRecap;

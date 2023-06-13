@@ -6,7 +6,6 @@ import ConventionnementInfosCard from './ConventionnementInfosCard';
 import HireAdvisorCard from './HireAdvisorCard';
 import InformationCard from './InformationCard';
 import ManagePositionsCard from './ManagePositionsCard';
-import ReconventionnementInfosCard from './ReconventionnementInfosCard';
 import SelectAdvisorCard from './SelectAdvisorCard';
 import StructureInformationsCard from './structureInformationsCard';
 import EditContractCard from './EditContractCard';
@@ -21,7 +20,6 @@ export {
   HireAdvisorCard,
   InformationCard,
   ManagePositionsCard,
-  ReconventionnementInfosCard,
   SelectAdvisorCard,
   StructureInformationsCard,
   EditContractCard,

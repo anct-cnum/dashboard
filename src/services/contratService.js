@@ -46,7 +46,7 @@ function updateContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, sal
 }
 
 function closeBanner(type, id) {
-  return API.patch(`${apiUrlRoot}/reconventionnement/banniere/${id}?type=${type}&role=${roleActivated()}`)
+  return API.patch(`${apiUrlRoot}/banniere/${id}?type=${type}&role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

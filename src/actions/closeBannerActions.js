@@ -10,7 +10,7 @@ function closeBanner(type, id) {
 
     contratService.closeBanner(type, id)
     .then(
-      message => dispatch(success(message)),
+      structure => dispatch(success(structure)),
       error => {
         dispatch(failure(error));
       }
@@ -18,12 +18,12 @@ function closeBanner(type, id) {
   };
 
   function request() {
-    return { type: 'CLOSE_BANNER_REQUEST' };
+    return { type: 'CLOSE_AVENANT_BANNER_REQUEST' };
   }
-  function success(message) {
-    return { type: 'CLOSE_BANNER_SUCCESS', message };
+  function success(structure) {
+    return { type: 'CLOSE_AVENANT_BANNER_SUCCESS', structure };
   }
   function failure(error) {
-    return { type: 'CLOSE_BANNER_FAILURE', error };
+    return { type: 'CLOSE_AVENANT_BANNER_FAILURE', error };
   }
 }

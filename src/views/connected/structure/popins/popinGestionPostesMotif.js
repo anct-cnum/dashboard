@@ -56,7 +56,7 @@ function popinGestionPostesMotif({ setStep, setMotif, motif, actionType, autreMo
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Pourquoi souhaitez-vous {actionType === 'add' ? 'ajouter' : 'rendre'} un ou des postes ?
                 </h1>
-                <p>Veuillez indiquer les raisons de votre choix de rendre ce ou ces postes de Conseillers numériques France Services :</p>
+                <p>Veuillez indiquer les raisons de votre choix de rendre ce ou ces postes de Conseillers num&eacute;riques France Services :</p>
                 <div className="fr-form-group">
                   <fieldset className="fr-fieldset">
                     <div className="fr-fieldset__content">
@@ -94,7 +94,7 @@ function popinGestionPostesMotif({ setStep, setMotif, motif, actionType, autreMo
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                   <li>
-                    <button onClick={handleCancel} className="fr-btn" title="Notifier la rupture de contrat">
+                    <button onClick={handleCancel} className="fr-btn" title="Confirmer la demande d'ajout de poste(s)">
                       Annuler
                     </button>
                   </li>
@@ -105,9 +105,9 @@ function popinGestionPostesMotif({ setStep, setMotif, motif, actionType, autreMo
                       }}
                       disabled={!motif && !autreMotif}
                       className="fr-btn fr-btn--icon-left"
-                      title="Notifier la rupture de contrat"
+                      title="Annuler la demande d'ajout de poste(s)"
                     >
-                     continuer
+                     Continuer
                     </button>
                   </li>
                 </ul>
@@ -121,10 +121,6 @@ function popinGestionPostesMotif({ setStep, setMotif, motif, actionType, autreMo
 }
 
 popinGestionPostesMotif.propTypes = {
-  updateContrat: PropTypes.func,
-  updateDateRecrutement: PropTypes.func,
-  setDateValidee: PropTypes.func,
-  setOpenModalContrat: PropTypes.func,
   setStep: PropTypes.func,
   setMotif: PropTypes.func,
   motif: PropTypes.string,

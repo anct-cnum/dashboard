@@ -33,13 +33,7 @@ const popinGestionPostes = ({ step, actionType, setStep, setDernierAvenantValide
 
 popinGestionPostes.propTypes = {
   actionType: PropTypes.string,
-  setActionType: PropTypes.func,
-  nombreDePostes: PropTypes.number,
-  setNombreDePostes: PropTypes.func,
-  autreMotif: PropTypes.string,
-  setAutreMotif: PropTypes.func,
-  motif: PropTypes.string,
-  setMotif: PropTypes.func,
+  setDernierAvenantValide: PropTypes.number,
   step: PropTypes.number,
   setStep: PropTypes.func,
 };

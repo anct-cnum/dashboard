@@ -7,7 +7,7 @@ import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import PopinGestionPostes from '../popins/popinGestionPostes';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
 
-const ManagePositionsCard = ({ structure }) => {
+const ManagePositionsCard = ({ structure, cardStyle, hasBorder }) => {
 
   const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
   const dossier = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement :
@@ -16,20 +16,58 @@ const ManagePositionsCard = ({ structure }) => {
   const phase = isReconventionnement ? 'Conventionnement phase 2' : 'Conventionnement phase 1';
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
 
-  const displayText = structure => {
+  const displayStatutRequestText = structure => {
     if (structure?.lastDemandeCoselec?.type === 'ajout') {
-      if (structure?.lastDemandeCoselec?.statut === 'initiee') {
-        return 'demandés';
+      if (structure?.lastDemandeCoselec?.statut === 'en_cours') {
+        return pluralize(
+          'demandé',
+          'demandé',
+          'demandés',
+          structure?.lastDemandeCoselec?.nombreDePostesSouhaites
+        );
       } else if (structure?.lastDemandeCoselec?.statut === 'validee') {
-        return 'obtenu';
+        return pluralize(
+          'obtenu',
+          'obtenu',
+          'obtenus',
+          structure?.lastDemandeCoselec?.nombreDePostesAccorder
+        );
       } else if (structure?.lastDemandeCoselec?.statut === 'refusee') {
-        return 'refusé';
+        return pluralize(
+          'refusé',
+          'refusé',
+          'refusés',
+          structure?.lastDemandeCoselec?.nombreDePostesSouhaites
+        );
       }
     } else {
-      return 'vacants rendu';
+      return pluralize(
+        'vacant rendu',
+        'vacant rendu',
+        'vacants rendus',
+        structure?.lastDemandeCoselec?.nombreDePostesRendus
+      );
     }
   };
-  
+
+  function getNombreDePostes(structure) {
+    const lastDemandeCoselec = structure?.lastDemandeCoselec;
+    if (!lastDemandeCoselec) {
+      return '-';
+    }
+    const { type, statut, nombreDePostesRendus, nombreDePostesAccorder, nombreDePostesSouhaites } = lastDemandeCoselec;
+    if (type === 'retrait') {
+      return nombreDePostesRendus;
+    } else if (statut === 'validee') {
+      return nombreDePostesAccorder;
+    } else if (statut === 'en_cours') {
+      return nombreDePostesSouhaites;
+    }
+  }
+
+  const className = hasBorder ?
+    'fr-card fr-mb-4w' :
+    'fr-card fr-card--no-border fr-mb-4w';
 
   return (
     <>
@@ -40,7 +78,7 @@ const ManagePositionsCard = ({ structure }) => {
           actionType={actionType}
         />
       }
-      <div className="fr-card fr-card--no-border fr-mb-4w" style={{ backgroundColor: '#E8EDFF' }}>
+      <div className={className} style={cardStyle}>
         <div className="fr-card__body">
           <div className="fr-card__content">
             <div className="fr-grid-row fr-grid-row--middle">
@@ -69,7 +107,7 @@ const ManagePositionsCard = ({ structure }) => {
             }</p>
             <div className="fr-card__desc">
               <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-                {structure?.posteValiderCoselec} - {pluralize(
+                {structure?.posteValiderCoselec}{' '}{pluralize(
                   'poste de conseiller',
                   'poste de conseiller',
                   'postes de conseiller',
@@ -92,13 +130,16 @@ const ManagePositionsCard = ({ structure }) => {
                </div>
                <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
               Avenant - {
-                   structure?.lastDemandeCoselec?.statut === 'validee' ?
-                     structure?.lastDemandeCoselec?.nombreDePostesAccordes :
-                     structure?.lastDemandeCoselec?.nombreDePostesSouhaites
-                 } postes de conseiller {' '}
+                   getNombreDePostes(structure)
+                 } {pluralize(
+                   'poste de conseiller',
+                   'poste de conseiller',
+                   'postes de conseiller',
+                   getNombreDePostes(structure)
+                 )} {' '}
                  <span className="fr-text--regular fr-text--md">
-                   {displayText(structure)} {' '}{' '}
-                   le {dayjs(structure?.lastDemandeCoselec?.date).format('DD/MM/YYYY')}
+                   {displayStatutRequestText(structure)} {' '}{' '}
+                   le {dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date).format('DD/MM/YYYY')}
                  </span>
                </p>
                <div className="fr-col-12 fr-my-1w">
@@ -110,7 +151,7 @@ const ManagePositionsCard = ({ structure }) => {
                 <ul className="fr-btns-group fr-btns-group--inline-md">
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={structure?.demandesCoselec.length > 0 && structure?.lastDemandeCoselec?.statut !== 'validee'}
+                      disabled={structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut !== 'validee'}
                       onClick={() => {
                         handlePopin('add', 1);
                       }}>
@@ -119,7 +160,7 @@ const ManagePositionsCard = ({ structure }) => {
                   </li>
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={structure?.demandesCoselec.length > 0 && structure?.lastDemandeCoselec?.statut !== 'validee'}
+                      disabled={structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut !== 'validee'}
                       onClick={() => {
                         handlePopin('remove', 1);
                       }}>
@@ -150,6 +191,8 @@ const ManagePositionsCard = ({ structure }) => {
 
 ManagePositionsCard.propTypes = {
   structure: PropTypes.object,
+  cardStyle: PropTypes.object,
+  hasBorder: PropTypes.bool,
 };
 
 export default ManagePositionsCard;

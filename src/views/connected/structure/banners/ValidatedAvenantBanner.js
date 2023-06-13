@@ -11,14 +11,14 @@ const ValidatedAvenantBanner = ({ structure }) => {
     dispatch(closeBannerActions.closeBanner('avenant', structure?._id));
   }
 
-  const getTypeText = () => {
+  const getTypeDemandeText = () => {
     return structure?.lastDemandeCoselec?.type === 'ajout' ? 'obtenu' : 'rendu';
   };
 
-  const getPosteText = () => {
+  const getPosteDemandeText = () => {
     return structure?.lastDemandeCoselec?.type === 'ajout' ?
-      pluralize('poste', 'poste', 'postes', structure?.lastDemandeCoselec?.nombreDePostes) :
-      pluralize('poste vacant', 'poste vacant', 'postes vacants', structure?.lastDemandeCoselec?.nombreDePostes);
+      pluralize('poste', 'poste', 'postes', structure?.lastDemandeCoselec?.nombreDePostesSouhaites) :
+      pluralize('poste vacant', 'poste vacant', 'postes vacants', structure?.lastDemandeCoselec?.nombreDePostesRendus);
   };
 
   const getInfoText = () => {
@@ -27,7 +27,7 @@ const ValidatedAvenantBanner = ({ structure }) => {
         'Le poste obtenu permettra de recruter un autre conseiller pour votre structure.',
         'Le poste obtenu permettra de recruter un autre conseiller pour votre structure.',
         'Les postes obtenus permettront de recruter d\'autres conseillers pour votre structure.',
-        structure?.lastDemandeCoselec?.nombreDePostes
+        structure?.lastDemandeCoselec?.nombreDePostesSouhaites
       ) :
       pluralize(
         `Il vous reste 2 poste subventionné dès à présent. 
@@ -36,7 +36,7 @@ const ValidatedAvenantBanner = ({ structure }) => {
         Le poste rendu permettra de subventionné un autre poste de conseiller pour une autre structure en demande.`,
         `Il vous reste 2 postes subventionnés dès à présent. 
         Les postes rendus permettront de subventionnés d'autres postes de conseillers pour une autre structure en demande.`,
-        structure?.lastDemandeCoselec?.nombreDePostes
+        structure?.lastDemandeCoselec?.nombreDePostesRendus
       );
   };
 
@@ -50,7 +50,10 @@ const ValidatedAvenantBanner = ({ structure }) => {
         <div className="fr-notice__body responsive__banner" style={{ paddingLeft: '20px' }}>
           <div>
             <p className="fr-notice__title title__color">
-              Vous avez {getTypeText()} {structure?.lastDemandeCoselec?.nombreDePostes} {getPosteText()} pour votre
+              Vous avez {getTypeDemandeText()}{' '}
+              {structure?.lastDemandeCoselec?.type === 'ajout' ? structure?.lastDemandeCoselec?.nombreDePostesSouhaites :
+                structure?.lastDemandeCoselec?.nombreDePostesRendus}{' '}
+              {getPosteDemandeText()} pour votre
               conventionnement en cours.
             </p>
             <p className="fr-text--md">{getInfoText()}</p>
@@ -65,8 +68,6 @@ const ValidatedAvenantBanner = ({ structure }) => {
 };
 
 ValidatedAvenantBanner.propTypes = {
-  demande: PropTypes.object,
-  setDernierAvenantValide: PropTypes.func,
   structure: PropTypes.object,
 };
 

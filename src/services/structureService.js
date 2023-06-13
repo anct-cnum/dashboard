@@ -11,7 +11,7 @@ export const structureService = {
   updateStructureEmail,
   updateStructureSiret,
   verifyStructureSiret,
-  demandeCoselec,
+  createAvenant,
   closeBanner,
 };
 
@@ -69,15 +69,15 @@ function updateStructureSiret(siret, structureId) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function demandeCoselec(type, id, nombreDePostes, motif, autreMotif = '') {
+function createAvenant(type, id, nombreDePostes, motif, autreMotif = '') {
   // eslint-disable-next-line max-len
-  return API.patch(`${apiUrlRoot}/demande-coselec/${id}?role=${roleActivated()}`, { type, nombreDePostes, motif, autreMotif })
+  return API.patch(`${apiUrlRoot}/avenant/creation/${id}?role=${roleActivated()}`, { type, nombreDePostes, motif: motif || autreMotif })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
 function closeBanner(type, id) {
-  return API.patch(`${apiUrlRoot}/reconventionnement/banniere/${id}?type=${type}&role=${roleActivated()}`)
+  return API.patch(`${apiUrlRoot}/banniere/${id}?type=${type}&role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

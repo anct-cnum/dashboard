@@ -5,8 +5,7 @@ function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
 
   const handleCancel = () => {
     setStep(0);
-    setNombreDePostes(null);
-    setNombreDePostes(null);
+    setNombreDePostes(1);
   };
 
   return (
@@ -31,8 +30,9 @@ function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
                 </h1>
                 <p>
                   {
-                    actionType === 'add' ? ' Veuillez indiquer le nombre de postes supplémentaires que vous souhaitez pour votre conventionnement en cours' :
-                      'Veuillez indiquer le nombre de postes que vous souhaitez rendre dans vos postes vacants'
+                    actionType === 'add' ?
+                      <>Veuillez indiquer le nombre de postes suppl&eacute;mentaires que vous souhaitez pour votre conventionnement en cours</> :
+                      <>Veuillez indiquer le nombre de postes que vous souhaitez rendre dans vos postes vacants</>
                   }
                 </p>
                 <div className="fr-input-group fr-col-12 fr-mt-2w">
@@ -50,7 +50,7 @@ function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                   <li>
-                    <button onClick={handleCancel} className="fr-btn" title="Notifier la rupture de contrat">
+                    <button onClick={handleCancel} className="fr-btn" title="Annuler la demande d'ajout de poste(s)">
                       Annuler
                     </button>
                   </li>
@@ -61,9 +61,9 @@ function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
                       }}
                       disabled={!nombreDePostes}
                       className="fr-btn fr-btn--icon-left"
-                      title="Notifier la rupture de contrat"
+                      title="Confirmer la demande d'ajout de poste(s)"
                     >
-                     continuer
+                     Continuer
                     </button>
                   </li>
                 </ul>
@@ -77,14 +77,10 @@ function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
 }
 
 popinGestionPostesNombre.propTypes = {
-  updateContrat: PropTypes.func,
-  updateDateRecrutement: PropTypes.func,
-  setDateValidee: PropTypes.func,
-  setOpenModal: PropTypes.func,
-  setOpenFirstModal: PropTypes.func,
-  setOpenSecondModal: PropTypes.func,
   setNombreDePostes: PropTypes.func,
   setStep: PropTypes.func,
+  nombreDePostes: PropTypes.number,
+  actionType: PropTypes.string,
 };
 
 export default popinGestionPostesNombre;
