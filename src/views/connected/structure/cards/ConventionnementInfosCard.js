@@ -3,22 +3,10 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { pluralize, formatNomConseiller } from '../../../../utils/formatagesUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
+import { getNombreDePostes } from '../utils/functionUtils';
 
 const ConventionnementInfosCard = ({ structure, roleActivated }) => {
-  function getNombreDePostes(structure) {
-    const lastDemandeCoselec = structure?.lastDemandeCoselec;
-    if (!lastDemandeCoselec) {
-      return '-';
-    }
-    const { type, statut, nombreDePostesRendus, nombreDePostesAccordes, nombreDePostesSouhaites } = lastDemandeCoselec;
-    if (type === 'retrait') {
-      return nombreDePostesRendus;
-    } else if (statut === 'validee') {
-      return nombreDePostesAccordes;
-    } else if (statut === 'en_cours' || statut === 'refusee') {
-      return nombreDePostesSouhaites;
-    }
-  }
+
   return (
     <div className="fr-card fr-mb-4w">
       <div className="fr-card__body">
@@ -81,7 +69,10 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
                    'postes de conseiller',
                    getNombreDePostes(structure)
                  )} {' '}
-                 <span className="fr-text--regular fr-text--md">rendu le {dayjs(structure?.lastDemandeCoselec?.date).format('DD/MM/YYYY')}</span>
+                 <span className="fr-text--regular fr-text--md">
+                  rendu le {structure?.lastDemandeCoselec?.emetteurAvenant?.date ? dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date)
+                   .format('DD/MM/YYYY') : 'Non renseignée'}
+                 </span>
                </p>
                <div className="fr-col-12 fr-my-1w">
                  <hr style={{ borderWidth: '0.5px' }} />

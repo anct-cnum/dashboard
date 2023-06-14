@@ -6,6 +6,7 @@ import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils
 import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import PopinGestionPostes from '../popins/popinGestionPostes';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
+import { displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
 
 const ManagePositionsCard = ({ structure, cardStyle, hasBorder }) => {
 
@@ -16,57 +17,8 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder }) => {
   const phase = isReconventionnement ? 'Conventionnement phase 2' : 'Conventionnement phase 1';
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
 
-  const displayStatutRequestText = structure => {
-    if (structure?.lastDemandeCoselec?.type === 'ajout') {
-      if (structure?.lastDemandeCoselec?.statut === 'en_cours') {
-        return pluralize(
-          'demandé',
-          'demandé',
-          'demandés',
-          structure?.lastDemandeCoselec?.nombreDePostesSouhaites
-        );
-      } else if (structure?.lastDemandeCoselec?.statut === 'validee') {
-        return pluralize(
-          'obtenu',
-          'obtenu',
-          'obtenus',
-          structure?.lastDemandeCoselec?.nombreDePostesAccordes
-        );
-      } else if (structure?.lastDemandeCoselec?.statut === 'refusee') {
-        return pluralize(
-          'refusé',
-          'refusé',
-          'refusés',
-          structure?.lastDemandeCoselec?.nombreDePostesSouhaites
-        );
-      }
-    } else {
-      return pluralize(
-        'vacant rendu',
-        'vacant rendu',
-        'vacants rendus',
-        structure?.lastDemandeCoselec?.nombreDePostesRendus
-      );
-    }
-  };
-
   function isButtonDisabled(structure) {
     return structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut === 'en_cours';
-  }
-
-  function getNombreDePostes(structure) {
-    const lastDemandeCoselec = structure?.lastDemandeCoselec;
-    if (!lastDemandeCoselec) {
-      return '-';
-    }
-    const { type, statut, nombreDePostesRendus, nombreDePostesAccordes, nombreDePostesSouhaites } = lastDemandeCoselec;
-    if (type === 'retrait') {
-      return nombreDePostesRendus;
-    } else if (statut === 'validee') {
-      return nombreDePostesAccordes;
-    } else if (statut === 'en_cours' || statut === 'refusee') {
-      return nombreDePostesSouhaites;
-    }
   }
 
   const className = hasBorder ?

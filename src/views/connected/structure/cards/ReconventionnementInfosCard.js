@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import PopinGestionPostes from '../popins/popinGestionPostes';
 import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
+import { displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
 
 const ReconventionnementInfosCard = ({ structure }) => {
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
@@ -21,55 +22,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
     }
     return null;
   };
-
-  const displayStatutRequestText = structure => {
-    if (structure?.lastDemandeCoselec?.type === 'ajout') {
-      if (structure?.lastDemandeCoselec?.statut === 'en_cours') {
-        return pluralize(
-          'demandé',
-          'demandé',
-          'demandés',
-          structure?.lastDemandeCoselec?.nombreDePostesSouhaites
-        );
-      } else if (structure?.lastDemandeCoselec?.statut === 'validee') {
-        return pluralize(
-          'obtenu',
-          'obtenu',
-          'obtenus',
-          structure?.lastDemandeCoselec?.nombreDePostesAccordes
-        );
-      } else if (structure?.lastDemandeCoselec?.statut === 'refusee') {
-        return pluralize(
-          'refusé',
-          'refusé',
-          'refusés',
-          structure?.lastDemandeCoselec?.nombreDePostesSouhaites
-        );
-      }
-    } else {
-      return pluralize(
-        'vacant rendu',
-        'vacant rendu',
-        'vacants rendus',
-        structure?.lastDemandeCoselec?.nombreDePostesRendus
-      );
-    }
-  };
-
-  function getNombreDePostes(structure) {
-    const lastDemandeCoselec = structure?.lastDemandeCoselec;
-    if (!lastDemandeCoselec) {
-      return '-';
-    }
-    const { type, statut, nombreDePostesRendus, nombreDePostesAccordes, nombreDePostesSouhaites } = lastDemandeCoselec;
-    if (type === 'retrait') {
-      return nombreDePostesRendus;
-    } else if (statut === 'validee') {
-      return nombreDePostesAccordes;
-    } else if (statut === 'en_cours' || statut === 'refusee') {
-      return nombreDePostesSouhaites;
-    }
-  }
+ 
 
   function isButtonDisabled(structure) {
     return (structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut === 'en_cours') ||
@@ -151,7 +104,8 @@ const ReconventionnementInfosCard = ({ structure }) => {
                  )} {' '}
                  <span className="fr-text--regular fr-text--md">
                    {displayStatutRequestText(structure)} {' '}{' '}
-                   le {dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date).format('DD/MM/YYYY')}
+                   le {structure?.lastDemandeCoselec?.emetteurAvenant?.date ?
+                     dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date).format('DD/MM/YYYY') : 'Non renseignée'}
                  </span>
                </p>
                <div className="fr-col-12 fr-my-1w">

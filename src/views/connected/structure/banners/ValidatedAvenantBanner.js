@@ -1,14 +1,14 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { closeBannerActions } from '../../../../actions';
+import { structureActions } from '../../../../actions';
 import { pluralize } from '../../../../utils/formatagesUtils';
 
 const ValidatedAvenantBanner = ({ structure }) => {
   const dispatch = useDispatch();
 
   function closeBanner() {
-    dispatch(closeBannerActions.closeBanner('avenant', structure?._id));
+    dispatch(structureActions.closeBanner('avenant', structure?._id));
   }
 
   const getTypeDemandeText = () => {

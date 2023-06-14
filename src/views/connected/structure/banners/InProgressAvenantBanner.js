@@ -30,7 +30,12 @@ const InProgressAvenantBanner = ({ structure }) => {
             <p className="fr-notice__title title__color">
              Vous avez demand&eacute;{' '}
               {pluralizedText}{' '}
-            le {dayjs(structure?.lastDemandeCoselec?.date).format('DD/MM/YYYY')}.
+            le
+              {
+                structure?.lastDemandeCoselec?.emetteurAvenant?.date ?
+                  dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date).format('DD/MM/YYYY') :
+                  'Non renseignée'
+              }
             </p>
             <p className="fr-text--md">
           Votre demande est en cours de traitement, vous aurez une r&eacute;ponse tr&egrave;s prochainement.
