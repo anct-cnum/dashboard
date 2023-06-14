@@ -21,6 +21,7 @@ export const conseillerActions = {
   resendInvitCandidat,
   suppressionCandidat,
   getCandidatStructure,
+  getCandidatConseillerStructure,
 };
 
 function get(id) {
@@ -71,11 +72,11 @@ function getConseillerContrat(id, idMiseEnRelation) {
   }
 }
 
-function getCandidat(id, idMiseEnRelation) {
+function getCandidat(id) {
   return dispatch => {
     dispatch(request());
 
-    conseillerService.getCandidat(id, idMiseEnRelation)
+    conseillerService.getCandidat(id)
     .then(
       candidat => dispatch(success(candidat)),
       error => {
@@ -124,6 +125,31 @@ function getCandidatStructure(id) {
     dispatch(request());
 
     conseillerService.getCandidatStructure(id)
+    .then(
+      candidat => dispatch(success(candidat)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CANDIDAT_STRUCTURE_REQUEST' };
+  }
+  function success(candidat) {
+    return { type: 'GET_CANDIDAT_STRUCTURE_SUCCESS', candidat };
+  }
+  function failure(error) {
+    return { type: 'GET_CANDIDAT_STRUCTURE_FAILURE', error };
+  }
+}
+
+function getCandidatConseillerStructure(id) {
+  console.log('getCandidatConseillerStructure', id);
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.getCandidatConseillerStructure(id)
     .then(
       candidat => dispatch(success(candidat)),
       error => {

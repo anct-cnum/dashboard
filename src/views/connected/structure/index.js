@@ -12,6 +12,7 @@ import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 import MaStructure from './MaStructure';
 import PreselectionCandidatDetails from './candidatures/PreselectionCandidatDetails';
 import PreselectionConseillerDetails from './candidatures/PreselectionConseillerDetails';
+import CandidatureConseillerDetails from './candidatures/CandidatureConseillerDetails';
 
 export default function Structure() {
 
@@ -36,7 +37,8 @@ export default function Structure() {
         <Route path="/structure/demande-de-reconventionnement" element={<DemandeReco />} />
         <Route path="/structure/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/structure/candidats/:filter" element={<Candidatures />} /> {/* Routes spécifiques avec /structure */}
-        <Route path="/structure/candidat/:id" element={<CandidatDetails />} />
+        <Route path="/structure/candidature/candidat/:id" element={<CandidatDetails />} />
+        <Route path="/structure/candidature/conseiller/:id" element={<CandidatureConseillerDetails />} />
         <Route path="/structure/preselection/candidat/:id" element={<PreselectionCandidatDetails />} />
         <Route path="/structure/preselection/conseiller/:idConseiller" element={<PreselectionConseillerDetails />} />
         <Route path="/structure/exports" element={<Exports />} />

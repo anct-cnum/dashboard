@@ -20,7 +20,7 @@ function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
   };
 
   return (
-    <div className={`${statut === 'interessee' ? 'btn-actions-interessee' : 'btn-actions'} fr-mt-3w fr-mt-md-0w`}>
+    <div className={`${statut === 'interessee' ? 'btn-actions-interessee' : 'btn-actions'} fr-mt-3w fr-mt-md-0w fr-ml-auto`}>
       {statut === 'nouvelle' &&
       <>
         <button onClick={() => updateStatut('nonInteressee')}

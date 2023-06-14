@@ -1,47 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, conseillerActions } from '../../../../actions';
-import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
-import ButtonsAction from './ButtonsAction';
+import { conseillerActions, alerteEtSpinnerActions } from '../../../../actions';
+import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
+import Spinner from '../../../../components/Spinner';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import InformationConseiller from '../commun/InformationConseiller';
+import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
+import ReactTooltip from 'react-tooltip';
 import PopinInteressee from '../popins/popinInteressee';
 import PopinRecrutee from '../popins/popinRecrutee';
 import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
-import Spinner from '../../../../components/Spinner';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
+import dayjs from 'dayjs';
+import ButtonsAction from './ButtonsAction';
 import Statut from '../../../../datas/statut-candidat.json';
-import InformationCandidat from '../commun/InformationCandidat';
-import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
-import ReactTooltip from 'react-tooltip';
 
-function CandidatDetails() {
+function CandidatureConseillerDetails() {
 
-  const location = useLocation();
   const dispatch = useDispatch();
   const { id } = useParams();
-
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const errorConseiller = useSelector(state => state.conseiller?.error);
-  const errorUpdateStatus = useSelector(state => state.conseiller?.errorUpdateStatus);
-  const errorUpdateDate = useSelector(state => state.conseiller?.errorUpdateDate);
-  const downloadError = useSelector(state => state.conseiller?.downloadError);
-  const downloading = useSelector(state => state.conseiller?.downloading);
+  const loading = useSelector(state => state.conseiller?.loading);
   let dateRecrutementUpdated = useSelector(state => state.conseiller?.dateRecrutementUpdated);
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  const loading = useSelector(state => state?.conseiller?.loading);
   const [displayModal, setDisplayModal] = useState(true);
+  const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
+  const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
 
   useEffect(() => {
     if (!errorConseiller) {
       if (conseiller?._id !== id) {
-        dispatch(conseillerActions.getCandidatStructure(id));
+        dispatch(conseillerActions.getCandidatConseillerStructure(id));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Le candidat n\'a pas pu être chargé !',
+        message: 'Le conseiller n\'a pas pu être chargé !',
         status: null, description: null
       }));
     }
@@ -53,40 +49,24 @@ function CandidatDetails() {
   };
 
   useEffect(() => {
-    if ((errorUpdateStatus !== undefined && errorUpdateStatus !== false) ||
-      (downloadError !== undefined && downloadError !== false)) {
-      scrollTopWindow();
-
+    if (conseiller !== undefined) {
+      setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
+      setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
     }
-  }, [errorUpdateStatus, downloadError]);
+  }, [conseiller]);
 
   const formatStatutCandidat = statut => {
     return Statut.find(item => item.filter === statut)?.name_singular;
   };
 
   return (
-    <div className="fr-container candidatDetails">
-      <Spinner loading={loading || downloading} />
+    <div className="fr-container conseillerDetails">
+      <Spinner loading={loading} />
       <Link
         to={location?.state?.origin ?? '/structure/candidats/nouvelle'} state={{ currentPage }}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </Link>
-      {(downloadError !== undefined && downloadError !== false) &&
-        <div className="fr-alert fr-alert--error fr-mt-3w">
-          <p>Le CV n&rsquo;a pas pu &ecirc;tre r&eacute;cup&eacute;r&eacute; !</p>
-        </div>
-      }
-      {(errorUpdateStatus !== undefined && errorUpdateStatus !== false) &&
-        <div className="fr-alert fr-alert--info fr-mt-3w">
-          <p>{errorUpdateStatus}</p>
-        </div>
-      }
-      {(errorUpdateDate !== undefined && errorUpdateDate !== false) &&
-        <div className="fr-alert fr-alert--info fr-mt-3w">
-          <p>{errorUpdateDate}</p>
-        </div>
-      }
       {dateRecrutementUpdated === true && conseiller?.miseEnRelation?.dateRecrutement !== null &&
         <p className="fr-alert fr-alert--success fr-mt-3w">
           La date de recrutement au {dayjs(conseiller?.miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')} a bien &eacute;t&eacute; enregistr&eacute;e
@@ -107,17 +87,22 @@ function CandidatDetails() {
             </span>
           </div>
         }
-        <h1 className="fr-h1" style={{ color: '#000091', marginBottom: '0.8rem' }}>
+        <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
           {conseiller ? formatNomConseiller(conseiller) : ''}
           <img
             data-tip="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
-            className={`fr-ml-2w ${conseiller?.statutCandidat === 'RECRUTE' || conseiller?.statutCandidat === 'RUPTURE' ? '' : 'fr-hidden'}`}
+            className={`fr-ml-2w ${conseiller ? '' : 'fr-hidden'}`}
             src={pinCNFS}
             alt="logo CNFS"
             style={{ height: '50px', position: 'absolute' }}
           />
         </h1>
         <ReactTooltip type="light" html={true} className="infobulle" />
+      </div>
+      <div className="fr-col-12">
+        <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+          <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
+        </div>
       </div>
       {displayModal &&
         <>
@@ -132,13 +117,33 @@ function CandidatDetails() {
           }
         </>
       }
-      <div className="fr-col-12">
-        <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5" style={{ marginBottom: '0.5rem' }}>ID - {conseiller?.idPG ?? ''}</h5>
+      {conseiller &&
+        <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
+          {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
+            <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
+          }
+          {conseiller?.statutCandidat === 'RUPTURE' &&
+            <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
+          }
+          {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
+            <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
+          }
+          {conseiller?.miseEnRelation?.statut &&
+          <p className="fr-badge fr-badge--new fr-ml-2w" style={{ height: '20%' }}>
+            {conseiller?.miseEnRelation?.statut ? formatStatutCandidat(conseiller?.miseEnRelation?.statut) : ''}
+          </p>
+          }
+          <ButtonsAction
+            statut={conseiller?.miseEnRelation?.statut}
+            miseEnRelationId={conseiller?.miseEnRelation?._id}
+            updateStatut={updateStatut}
+            dateRupture={conseiller?.miseEnRelation?.dateRupture}
+            motifRupture={conseiller?.miseEnRelation?.motifRupture}
+          />
         </div>
-      </div>
-      <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
-        {conseiller?.miseEnRelation?.statut &&
+      }
+      {/* <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
+        {conseiller?.miseEnRelation?.statut && conseiller?.miseEnRelation?.statut === 'nouvelle' &&
           <p className="fr-badge fr-badge--new" style={{ height: '20%' }}>
             {conseiller?.miseEnRelation?.statut ? formatStatutCandidat(conseiller?.miseEnRelation?.statut) : ''}
           </p>
@@ -149,14 +154,15 @@ function CandidatDetails() {
           updateStatut={updateStatut}
           dateRupture={conseiller?.miseEnRelation?.dateRupture}
           motifRupture={conseiller?.miseEnRelation?.motifRupture} />
-      </div>
-      <InformationCandidat conseiller={conseiller} />
+      </div> */}
+      <InformationConseiller
+        conseiller={conseiller}
+        misesEnRelationFinalisee={misesEnRelationFinalisee}
+        misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        roleActivated={roleActivated}
+      />
     </div>
   );
 }
 
-CandidatDetails.propTypes = {
-  location: PropTypes.object
-};
-
-export default CandidatDetails;
+export default CandidatureConseillerDetails;

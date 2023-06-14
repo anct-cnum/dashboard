@@ -118,12 +118,22 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
       <td>{displayBadge(miseEnRelation.statut)}</td>
       <td>
         {miseEnRelation.statut !== 'finalisee_non_disponible' ?
-          <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
-            pathname: `/structure/candidat/${miseEnRelation._id}`
-          }}
-          state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
-            D&eacute;tails
-          </Link> :
+          <>
+            {(miseEnRelation.conseillerObj?.statut === 'RECRUTE' || miseEnRelation.conseillerObj?.statut === 'RUPTURE') ?
+              <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
+                pathname: `/structure/candidature/conseiller/${miseEnRelation._id}`
+              }}
+              state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
+                D&eacute;tails
+              </Link> :
+              <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
+                pathname: `/structure/candidature/candidat/${miseEnRelation._id}`
+              }}
+              state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
+                D&eacute;tails
+              </Link>
+            }
+          </> :
           <button className="fr-btn fr-icon-eye-line fr-btn--icon-left" style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
             D&eacute;tails
           </button>
