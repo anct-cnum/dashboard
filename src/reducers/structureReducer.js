@@ -153,6 +153,42 @@ export default function structure(state = initialState, action) {
         error: false,
         flashMessage: false
       };
+    case 'CREATE_AVENANT_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+    case 'CREATE_AVENANT_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        structure: action.structure,
+      };
+    case 'CREATE_AVENANT_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    case 'CLOSE_BANNER_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+    case 'CLOSE_BANNER_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        structure: action.structure,
+      };
+    case 'CLOSE_BANNER_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
     default:
       return state;
   }

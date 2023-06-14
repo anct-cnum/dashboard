@@ -124,7 +124,7 @@ function MaStructure() {
         {structure?.conventionnement?.statut && (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ ||
         structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS) &&
         (
-          <ReconventionnementInfosCard structure={structure} />
+          <ReconventionnementInfosCard structure={structure}/>
         )}
         <ConventionnementInfosCard structure={structure} roleActivated={roleActivated}/>
         <h2>Accompagnements</h2>

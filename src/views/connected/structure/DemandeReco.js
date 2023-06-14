@@ -126,7 +126,7 @@ function DemandeReconventionnement() {
     dispatch(reconventionnementActions.update(structure?._id, 'envoyer', checkedItems, nombreDePostes));
     navigate('/structure/postes');
   };
-
+  
   return (
     <>
       {openModal && (
