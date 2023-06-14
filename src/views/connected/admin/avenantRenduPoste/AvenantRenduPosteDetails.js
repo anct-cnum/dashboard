@@ -9,6 +9,9 @@ function AvenantRenduPosteDetails({ avenant, idDemandeCoselec }) {
   const dispatch = useDispatch();
 
   const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.id === idDemandeCoselec);
+  const statutDossierDS = avenant?.conventionnement?.statut.match(/\bRECONVENTIONNEMENT\B/) ?
+    avenant?.conventionnement?.dossierReconventionnement?.statut :
+    avenant?.conventionnement?.dossierConventionnement?.statut;
 
   const updateAvenantRenduPoste = () => {
     dispatch(conventionActions.updateAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostesRendus, avenant.nombreConseillersCoselec));
@@ -67,7 +70,7 @@ function AvenantRenduPosteDetails({ avenant, idDemandeCoselec }) {
             }
             <li className="fr-ml-auto">
               <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                {badgeStatutDossierDS(avenant?.conventionnement?.dossierReconventionnement?.statut)}
+                {badgeStatutDossierDS(statutDossierDS)}
                 <a className="fr-btn fr-btn--secondary" href={avenant?.url} target="_blank" rel="noopener noreferrer">
                   Voir le dossier D&eacute;marche Simplifi&eacute;e
                 </a>
