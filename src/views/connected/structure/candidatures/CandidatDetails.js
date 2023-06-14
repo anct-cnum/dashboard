@@ -13,6 +13,8 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
 import Statut from '../../../../datas/statut-candidat.json';
 import InformationCandidat from '../commun/InformationCandidat';
+import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
+import ReactTooltip from 'react-tooltip';
 
 function CandidatDetails() {
 
@@ -71,19 +73,19 @@ function CandidatDetails() {
         Retour &agrave; la liste
       </Link>
       {(downloadError !== undefined && downloadError !== false) &&
-      <div className="fr-alert fr-alert--error fr-mt-3w">
-        <p>Le CV n&rsquo;a pas pu &ecirc;tre r&eacute;cup&eacute;r&eacute; !</p>
-      </div>
+        <div className="fr-alert fr-alert--error fr-mt-3w">
+          <p>Le CV n&rsquo;a pas pu &ecirc;tre r&eacute;cup&eacute;r&eacute; !</p>
+        </div>
       }
-      { (errorUpdateStatus !== undefined && errorUpdateStatus !== false) &&
-      <div className="fr-alert fr-alert--info fr-mt-3w">
-        <p>{errorUpdateStatus}</p>
-      </div>
+      {(errorUpdateStatus !== undefined && errorUpdateStatus !== false) &&
+        <div className="fr-alert fr-alert--info fr-mt-3w">
+          <p>{errorUpdateStatus}</p>
+        </div>
       }
-      { (errorUpdateDate !== undefined && errorUpdateDate !== false) &&
-      <div className="fr-alert fr-alert--info fr-mt-3w">
-        <p>{errorUpdateDate}</p>
-      </div>
+      {(errorUpdateDate !== undefined && errorUpdateDate !== false) &&
+        <div className="fr-alert fr-alert--info fr-mt-3w">
+          <p>{errorUpdateDate}</p>
+        </div>
       }
       {dateRecrutementUpdated === true && conseiller?.miseEnRelation?.dateRecrutement !== null &&
         <p className="fr-alert fr-alert--success fr-mt-3w">
@@ -92,20 +94,30 @@ function CandidatDetails() {
       }
       <div className="fr-col-12 fr-pt-6w">
         {conseiller?.coselec?.nombreConseillersCoselec &&
-      <div className="fr-mb-3w">
-        <span className="fr-text--lg fr-text--bold">
-          {conseiller.coselec.nombreConseillersCoselec}&nbsp;
-          {pluralize(
-            'conseiller validé',
-            'conseiller validé',
-            'conseillers validés',
-            conseiller.coselec.nombreConseillersCoselec
-          )}
-          &nbsp;par l&rsquo;Agence nationale de la coh&eacute;sion des territoires
-        </span>
-      </div>
+          <div className="fr-mb-3w">
+            <span className="fr-text--lg fr-text--bold">
+              {conseiller.coselec.nombreConseillersCoselec}&nbsp;
+              {pluralize(
+                'conseiller validé',
+                'conseiller validé',
+                'conseillers validés',
+                conseiller.coselec.nombreConseillersCoselec
+              )}
+              &nbsp;par l&rsquo;Agence nationale de la coh&eacute;sion des territoires
+            </span>
+          </div>
         }
-        <h1 className="fr-h1" style={{ color: '#000091', marginBottom: '0.8rem' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+        <h1 className="fr-h1" style={{ color: '#000091', marginBottom: '0.8rem' }}>
+          {conseiller ? formatNomConseiller(conseiller) : ''}
+          <img
+            data-tip="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
+            className={`fr-ml-2w ${conseiller?.statutCandidat === 'RECRUTE' || conseiller?.statutCandidat === 'RUPTURE' ? '' : 'fr-hidden'}`}
+            src={pinCNFS}
+            alt="logo CNFS"
+            style={{ height: '50px', position: 'absolute' }}
+          />
+        </h1>
+        <ReactTooltip type="light" html={true} className="infobulle" />
       </div>
       {displayModal &&
         <>
@@ -127,13 +139,13 @@ function CandidatDetails() {
       </div>
       <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
         {conseiller?.miseEnRelation?.statut && conseiller?.miseEnRelation?.statut === 'nouvelle' &&
-        <p className="fr-badge fr-badge--new" style={{ height: '20%' }}>
-          {conseiller?.miseEnRelation?.statut ? formatStatutCandidat(conseiller?.miseEnRelation?.statut) : ''}
-        </p>
+          <p className="fr-badge fr-badge--new" style={{ height: '20%' }}>
+            {conseiller?.miseEnRelation?.statut ? formatStatutCandidat(conseiller?.miseEnRelation?.statut) : ''}
+          </p>
         }
         <ButtonsAction
           statut={conseiller?.miseEnRelation?.statut}
-          miseEnRelationId = {conseiller?.miseEnRelation?._id}
+          miseEnRelationId={conseiller?.miseEnRelation?._id}
           updateStatut={updateStatut}
           dateRupture={conseiller?.miseEnRelation?.dateRupture}
           motifRupture={conseiller?.miseEnRelation?.motifRupture} />
