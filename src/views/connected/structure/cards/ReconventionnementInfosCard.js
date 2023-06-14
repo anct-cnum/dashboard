@@ -61,7 +61,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                     ' poste de conseiller',
                     ' poste de conseiller',
                     ' postes de conseiller',
-                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
+                    structure?.posteValiderCoselec,
                     true
                   )
                 }
@@ -73,7 +73,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                         'validé pour ce conventionnement',
                         'validé pour ce conventionnement',
                         'validés pour ce conventionnement',
-                        structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
+                        structure?.posteValiderCoselec,
                       )
                     }
                   </span>

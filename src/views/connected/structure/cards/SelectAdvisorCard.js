@@ -14,8 +14,8 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
               <div className="fr-checkbox-group fr-checkbox-group--md">
                 <input
                   type="checkbox"
-                  id={miseEnRelation?.miseEnRelationId}
-                  name={miseEnRelation?.miseEnRelationId}
+                  id={`checkbox-${miseEnRelation?.miseEnRelationId}`}
+                  name={`checkbox-${miseEnRelation?.miseEnRelationId}`}
                   checked={
                     checkedItems?.map(item => item?.miseEnRelationId)?.includes(miseEnRelation?.miseEnRelationId) ||
                     (validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat))
@@ -24,7 +24,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   value={JSON.stringify(miseEnRelation)}
                   onChange={handleSelectAdvisor}
                 />
-                <label className="fr-label" htmlFor={miseEnRelation?.miseEnRelationId} />
+                <label className="fr-label" htmlFor={`checkbox-${miseEnRelation?.miseEnRelationId}`} />
               </div>
             </div>
             <div style={{ flex: '0 0 22%' }} className="fr-col-3 card__text">
@@ -68,7 +68,10 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                 {miseEnRelation?.dateDebutDeContrat ?
                   <span className="fr-text--regular fr-text--md">
                     {dayjs(miseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY')}
-                  </span> : <span>-</span>
+                  </span> :
+                  <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                    En attente de pi&egrave;...
+                  </span>
                 }
               </div>
             </div>
@@ -78,10 +81,18 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   Fin de contrat
                 </strong>
                 <br />
-                {miseEnRelation?.dateFinDeContrat ?
+                {validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat) &&
+                  <span className="fr-text--regular fr-text--md">-</span>
+                }
+                {(!validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat) && !miseEnRelation?.dateFinDeContrat) &&
+                  <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                    En attente de pi&egrave;ces...
+                  </span>
+                }
+                {(miseEnRelation?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat)) &&
                   <span className="fr-text--regular fr-text--md">
                     {dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}
-                  </span> : <span>-</span>
+                  </span>
                 }
               </div>
             </div>

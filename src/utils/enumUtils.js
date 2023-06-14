@@ -6,3 +6,8 @@ export const StatutConventionnement = {
   RECONVENTIONNEMENT_VALIDÉ: 'RECONVENTIONNEMENT_VALIDÉ',
   NON_INTERESSÉ: 'NON_INTERESSÉ',
 };
+
+export const StatutCoselec = {
+  POSITIF: 'POSITIF',
+  NÉGATIF: 'NÉGATIF',
+};

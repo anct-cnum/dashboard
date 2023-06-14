@@ -12,8 +12,7 @@ function filtersAndSorts() {
     const { name, value } = e.target;
 
     if (name === 'orderByDateStart') {
-      let order = e.target.checked ? 'dateDisponibilite' : 'createdAt';
-      dispatch(filtresCandidaturesActions.toggleOrdre(order));
+      dispatch(filtresCandidaturesActions.toggleOrdre());
     }
 
     if (name === 'pixLevel1' || name === 'pixLevel2' || name === 'pixLevel3') {
@@ -157,28 +156,25 @@ function filtersAndSorts() {
             </select>
           </div>
           <div className="tri-en-ligne block-diplome">
-            <label className="fr-label fr-mr-1w labelDiplome" htmlFor="selectDiplome">Diplôme</label>
+            <label className="fr-label fr-mr-1w labelDiplome" htmlFor="selectDiplome">Dipl&ocirc;me</label>
             <select className="fr-select" id="selectDiplome" name="selectDiplome" onChange={handleChange} value={filtersAndSorts?.diplome}>
               <option value="">Tous</option>
               <option value="true">Oui</option>
               <option value="false">Non</option>
             </select>
           </div>
-          <div className="tri-en-ligne fr-mb-n1w">
+          <div className="tri-en-ligne fr-mb-1w">
             {/* Tri */}
-            <div className="fr-toggle fr-toggle--label-left ">
+            <div className="fr-toggle fr-toggle--label-left">
               <input type="checkbox"
                 className="fr-toggle__input"
                 id="orderByDateStart"
                 name="orderByDateStart"
-                checked={filtersAndSorts?.ordreNom === 'dateDisponibilite'}
-                onChange={handleChange}/>
-
-              <label className="fr-toggle__label"
-                htmlFor="orderByDateStart"
-                data-fr-checked-label="Activé"
-                data-fr-unchecked-label="Désactivé">
-                  Trier par date possible de démarrage
+                checked={filtersAndSorts?.ordre === false}
+                onChange={handleChange}
+              />
+              <label className="fr-toggle__label" htmlFor="orderByDateStart">
+                Trier par date de disponibilit&eacute;
               </label>
             </div>
           </div>
