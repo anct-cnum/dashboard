@@ -67,7 +67,7 @@ function AvenantRenduPosteDetails({ avenant, idDemandeCoselec }) {
             }
             <li className="fr-ml-auto">
               <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                {badgeStatutDossierDS(avenant?.dossierReconventionnement?.statut)}
+                {badgeStatutDossierDS(avenant?.conventionnement?.dossierReconventionnement?.statut)}
                 <a className="fr-btn fr-btn--secondary" href={avenant?.url} target="_blank" rel="noopener noreferrer">
                   Voir le dossier D&eacute;marche Simplifi&eacute;e
                 </a>

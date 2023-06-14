@@ -113,7 +113,7 @@ export default function convention(state = initialState, action) {
           ...state.convention, demandesCoselec:
             state.convention.demandesCoselec.map(
               demandeCoselec => {
-                if (demandeCoselec.statut === 'en_cours' && demandeCoselec.type === 'rendu') {
+                if (demandeCoselec.statut === 'en_cours' && demandeCoselec.type === 'retrait') {
                   demandeCoselec.statut = action.response.statutAvenantAjoutPosteUpdated;
                   return demandeCoselec;
                 }

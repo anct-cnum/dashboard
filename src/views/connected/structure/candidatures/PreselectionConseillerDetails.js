@@ -23,6 +23,7 @@ function PreselectionConseillerDetails() {
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -40,6 +41,7 @@ function PreselectionConseillerDetails() {
 
   useEffect(() => {
     if (conseiller !== undefined) {
+      setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
       setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
       setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
     }
@@ -114,6 +116,7 @@ function PreselectionConseillerDetails() {
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
         roleActivated={roleActivated}
       />
     </div>
