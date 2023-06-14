@@ -35,9 +35,7 @@ function DemandeReconventionnement() {
   const [misesEnRelationARenouveller, setMisesEnRelationARenouveller] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
-  const [nombreDePostes, setNombreDePostes] = useState(
-    structure?.conventionnement?.nombreDePostes ?? 0
-  );
+  const [nombreDePostes, setNombreDePostes] = useState(0);
 
   const errorMessages = {
     errorStructure: 'La structure n\'a pas pu être chargée !',

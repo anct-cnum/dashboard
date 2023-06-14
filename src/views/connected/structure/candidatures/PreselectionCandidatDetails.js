@@ -5,7 +5,7 @@ import { alerteEtSpinnerActions, conseillerActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
-import InformationCandidat from '../commun/InformationCandidat';
+import InformationCandidat from '../../../../components/InformationCandidat';
 
 function PreselectionCandidatDetails() {
 

@@ -37,11 +37,11 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
           </p>
           <div className="fr-card__desc">
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              {structure?.posteValiderCoselec} - {pluralize(
+              {structure?.posteValiderCoselecConventionnement} - {pluralize(
                 'poste de conseiller',
                 'poste de conseiller',
                 'postes de conseiller',
-                structure?.posteValiderCoselec
+                structure?.posteValiderCoselecConventionnement
               )}
               {' '}
               <span className="fr-text--regular fr-text--md">
@@ -49,7 +49,7 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
                   'validé pour ce conventionnement',
                   'validé pour ce conventionnement',
                   'validés pour ce conventionnement',
-                  structure?.posteValiderCoselec
+                  structure?.posteValiderCoselecConventionnement
                 )}
               </span>
             </p>

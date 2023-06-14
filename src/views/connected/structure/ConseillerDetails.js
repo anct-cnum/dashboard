@@ -19,6 +19,7 @@ function ConseillerDetails() {
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState({});
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [openModal, setOpenModal] = useState(false);
 
   const updateStatut = (statut, motifRupture, dateRuptureValidee) => {
@@ -42,9 +43,9 @@ function ConseillerDetails() {
 
   useEffect(() => {
     if (conseiller !== undefined) {
-      setMisesEnRelationFinalisee(conseiller.misesEnRelation.filter(m => m.structureObj._id === conseiller?.structureId)
-      .filter(miseEnRelation => miseEnRelation.statut === 'finalisee' || miseEnRelation.statut === 'nouvelle_rupture')[0]);
-      setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
+      setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
+      setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
+      setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
     }
   }, [conseiller]);
 
@@ -103,7 +104,7 @@ function ConseillerDetails() {
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
-        misesEnRelationNouvelleRupture={misesEnRelationFinalisee?.statut === 'nouvelle_rupture' ? misesEnRelationFinalisee : null}
+        misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
         roleActivated={roleActivated}
       />
     </div>
