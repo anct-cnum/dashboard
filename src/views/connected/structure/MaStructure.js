@@ -8,7 +8,7 @@ import { valideInputEmail } from '../../../utils/formatagesUtils';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import {
   StructureInformationsCard,
-  ManagePositionsCard,
+  ReconventionnementInfosCard,
   ConventionnementInfosCard,
   AccompagnementsCard,
   CollaborateurCard
@@ -124,7 +124,7 @@ function MaStructure() {
         {structure?.conventionnement?.statut && (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ ||
         structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS) &&
         (
-          <ManagePositionsCard structure={structure} hasBorder={true}/>
+          <ReconventionnementInfosCard structure={structure}/>
         )}
         <ConventionnementInfosCard structure={structure} roleActivated={roleActivated}/>
         <h2>Accompagnements</h2>

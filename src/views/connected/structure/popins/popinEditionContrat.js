@@ -35,7 +35,9 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
     if (editMode && conseiller) {
       setTypeDeContrat(conseiller?.typeDeContrat);
       setDateDebut(conseiller?.dateDebutDeContrat ? new Date(conseiller?.dateDebutDeContrat) : null);
-      setDateFin(conseiller?.dateFinDeContrat ? new Date(conseiller?.dateFinDeContrat) : null);
+      if (!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) {
+        setDateFin(conseiller?.dateFinDeContrat ? new Date(conseiller?.dateFinDeContrat) : null);
+      }
       setSalaire(String(conseiller?.salaire) || '');
     }
   }, [editMode, conseiller]);

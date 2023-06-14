@@ -14,8 +14,8 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
               <div className="fr-checkbox-group fr-checkbox-group--md">
                 <input
                   type="checkbox"
-                  id="checkbox"
-                  name="checkbox"
+                  id={miseEnRelation?.miseEnRelationId}
+                  name={miseEnRelation?.miseEnRelationId}
                   checked={
                     checkedItems?.map(item => item?.miseEnRelationId)?.includes(miseEnRelation?.miseEnRelationId) ||
                     (validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat))
@@ -24,7 +24,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                   value={JSON.stringify(miseEnRelation)}
                   onChange={handleSelectAdvisor}
                 />
-                <label className="fr-label" htmlFor="checkbox" />
+                <label className="fr-label" htmlFor={miseEnRelation?.miseEnRelationId} />
               </div>
             </div>
             <div style={{ flex: '0 0 22%' }} className="fr-col-3 card__text">

@@ -1,20 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
 import { pluralize } from '../../../../utils/formatagesUtils';
-import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
-import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
+import dayjs from 'dayjs';
 import PopinGestionPostes from '../popins/popinGestionPostes';
+import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
 
-const ManagePositionsCard = ({ structure, cardStyle, hasBorder }) => {
-
-  const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
-  const dossier = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement :
-    structure?.conventionnement?.dossierConventionnement;
-  const urlDossier = isReconventionnement ? structure?.urlDossierReconventionnement : structure?.urlDossierConventionnement;
-  const phase = isReconventionnement ? 'Conventionnement phase 2' : 'Conventionnement phase 1';
+const ReconventionnementInfosCard = ({ structure }) => {
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
+
+  const displayBadge = () => {
+    if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ) {
+      return <p className="fr-badge fr-badge--warning fr-ml-auto">RECONVENTIONNEMENT ENREGISTR&Eacute;</p>;
+    }
+    if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS) {
+      return <p className="fr-badge fr-badge--info fr-ml-auto">RECONVENTIONNEMENT EN COURS</p>;
+    }
+    if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) {
+      return <p className="fr-badge fr-badge--success fr-ml-auto">RECONVENTIONNEMENT VALID&Eacute;</p>;
+    }
+    return null;
+  };
 
   const displayStatutRequestText = structure => {
     if (structure?.lastDemandeCoselec?.type === 'ajout') {
@@ -50,10 +56,6 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder }) => {
     }
   };
 
-  function isButtonDisabled(structure) {
-    return structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut === 'en_cours';
-  }
-
   function getNombreDePostes(structure) {
     const lastDemandeCoselec = structure?.lastDemandeCoselec;
     if (!lastDemandeCoselec) {
@@ -69,9 +71,10 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder }) => {
     }
   }
 
-  const className = hasBorder ?
-    'fr-card fr-mb-4w' :
-    'fr-card fr-card--no-border fr-mb-4w';
+  function isButtonDisabled(structure) {
+    return (structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut === 'en_cours') ||
+      structure?.conventionnement?.statut !== StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+  }
 
   return (
     <>
@@ -82,50 +85,55 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder }) => {
           actionType={actionType}
         />
       }
-      <div className={className} style={cardStyle}>
+      <div className="fr-card fr-mb-4w">
         <div className="fr-card__body">
           <div className="fr-card__content">
             <div className="fr-grid-row fr-grid-row--middle">
-              <h4 className="fr-grid-row fr-grid-row--middle">{phase}</h4>
-              <p className="fr-badge fr-badge--warning fr-ml-auto">
-                {
-                  calcNbJoursAvantDateFinContrat(structure?.dossierReconventionnement?.dateFinProchainContrat) > 0 ?
-                    calcNbJoursAvantDateFinContrat(structure?.dossierReconventionnement?.dateFinProchainContrat) : ''
-                }
-                {pluralize(
-                  'La date de fin du premier contrat est dépassée',
-                  ' jour restant avant la fin du premier contrat',
-                  ' jours restants avant la fin du premier contrat',
-                  calcNbJoursAvantDateFinContrat(structure?.dossierReconventionnement?.dateFinProchainContrat)
-                )}
-              </p>
+              <h4 className="fr-grid-row fr-grid-row--middle">Conventionnement phase 2</h4>
+              {displayBadge()}
             </div>
             <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
-              dossier?.dateDerniereModification ?
+              structure?.conventionnement?.dossierReconventionnement?.dateDeCreation ?
                 <span>
-                  le&nbsp;{dayjs(dossier?.dateDerniereModification).format('DD/MM/YYYY')}
+              le&nbsp;{dayjs(structure?.conventionnement?.dossierReconventionnement?.dateDeCreation).format('DD/MM/YYYY')}
                 </span> :
                 <span>
-                  date inconnue
+              date inconnue
                 </span>
             }</p>
             <div className="fr-card__desc">
               <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-                {structure?.posteValiderCoselec}{' '}{pluralize(
-                  'poste de conseiller',
-                  'poste de conseiller',
-                  'postes de conseiller',
-                  structure?.posteValiderCoselec
-                )}
+                {
+                  pluralize(
+                    ' poste de conseiller',
+                    ' poste de conseiller',
+                    ' postes de conseiller',
+                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
+                    true
+                  )
+                }
                 {' '}
-                <span className="fr-text--regular fr-text--md">
-                  {pluralize(
-                    'validé pour ce conventionnement',
-                    'validé pour ce conventionnement',
-                    'validés pour ce conventionnement',
-                    structure?.posteValiderCoselec
-                  )}
-                </span>
+                {structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' ? (
+                  <span className="fr-text--regular fr-text--md">
+                    {
+                      pluralize(
+                        'validé pour ce conventionnement',
+                        'validé pour ce conventionnement',
+                        'validés pour ce conventionnement',
+                        structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
+                      )
+                    }
+                  </span>
+                ) : (
+                  <span className="fr-text--regular fr-text--md">
+                    {pluralize(
+                      'demandé pour ce conventionnement',
+                      'demandé pour ce conventionnement',
+                      'demandés pour ce conventionnement',
+                      structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
+                    )
+                    }</span>
+                )}
               </p>
               {structure?.lastDemandeCoselec &&
              <>
@@ -133,7 +141,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder }) => {
                  <hr style={{ borderWidth: '0.5px' }} />
                </div>
                <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - {
+               Avenant - {
                    getNombreDePostes(structure)
                  } {pluralize(
                    'poste de conseiller',
@@ -173,7 +181,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder }) => {
                   </li>
                   <li className="fr-ml-auto">
                     <a
-                      href={urlDossier}
+                      href={structure?.urlDossierReconventionnement}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="fr-btn"
@@ -192,11 +200,10 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder }) => {
   );
 };
 
-
-ManagePositionsCard.propTypes = {
+ReconventionnementInfosCard.propTypes = {
+  positions: PropTypes.array,
+  onPositionClick: PropTypes.func,
   structure: PropTypes.object,
-  cardStyle: PropTypes.object,
-  hasBorder: PropTypes.bool,
 };
 
-export default ManagePositionsCard;
+export default ReconventionnementInfosCard;

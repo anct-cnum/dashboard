@@ -117,6 +117,7 @@ function MesPostes() {
         bannieresRenouvellementValide?.map(conseiller => {
           return (
             <ValidatedRenouvellementBanner
+              structure={structure}
               key={conseiller._id}
               conseiller={conseiller}
               setBannieresRenouvellementValide={setBannieresRenouvellementValide}

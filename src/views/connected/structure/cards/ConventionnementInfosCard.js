@@ -5,6 +5,20 @@ import { pluralize, formatNomConseiller } from '../../../../utils/formatagesUtil
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
 const ConventionnementInfosCard = ({ structure, roleActivated }) => {
+  function getNombreDePostes(structure) {
+    const lastDemandeCoselec = structure?.lastDemandeCoselec;
+    if (!lastDemandeCoselec) {
+      return '-';
+    }
+    const { type, statut, nombreDePostesRendus, nombreDePostesAccordes, nombreDePostesSouhaites } = lastDemandeCoselec;
+    if (type === 'retrait') {
+      return nombreDePostesRendus;
+    } else if (statut === 'validee') {
+      return nombreDePostesAccordes;
+    } else if (statut === 'en_cours' || statut === 'refusee') {
+      return nombreDePostesSouhaites;
+    }
+  }
   return (
     <div className="fr-card fr-mb-4w">
       <div className="fr-card__body">
@@ -53,16 +67,27 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
                 )}
               </span>
             </p>
-            <div className="fr-col-12 fr-mt-1w">
-              <hr style={{ borderWidth: '0.5px' }} />
-            </div>
-            <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - postes de conseiller vacants{' '}
-              <span className="fr-text--regular fr-text--md">rendu le -</span>
-            </p>
-            <div className="fr-col-12 fr-my-1w">
-              <hr style={{ borderWidth: '0.5px' }} />
-            </div>
+            {structure?.lastDemandeCoselec &&
+             <>
+               <div className="fr-col-12 fr-mt-1w">
+                 <hr style={{ borderWidth: '0.5px' }} />
+               </div>
+               <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
+               Avenant - {
+                   getNombreDePostes(structure)
+                 } {pluralize(
+                   'poste de conseiller',
+                   'poste de conseiller',
+                   'postes de conseiller',
+                   getNombreDePostes(structure)
+                 )} {' '}
+                 <span className="fr-text--regular fr-text--md">rendu le {dayjs(structure?.lastDemandeCoselec?.date).format('DD/MM/YYYY')}</span>
+               </p>
+               <div className="fr-col-12 fr-my-1w">
+                 <hr style={{ borderWidth: '0.5px' }} />
+               </div>
+             </>
+            }
             <div className="fr-grid-row">
               <div>
                 <p className="fr-text--bold" style={{ marginBottom: 0 }}>{pluralize(

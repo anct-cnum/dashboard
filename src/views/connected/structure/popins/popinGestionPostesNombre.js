@@ -1,8 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { useAdvisors } from '../hooks/useAdvisors';
 
 function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionType, setStep }) {
 
+  const {
+    conseillersActifs,
+    conseillersARenouveler,
+    conseillersEnCoursDeRecrutement,
+  } = useAdvisors();
+
+  const nbConseillerActifTotal = conseillersActifs.length + conseillersARenouveler.length + conseillersEnCoursDeRecrutement.length;
+  
+  const structure = useSelector(state => state.structure?.structure);
+  const nombreDePostesLibres = structure?.posteValiderCoselec - nbConseillerActifTotal;
+  const isErreurNombreDePostes = nombreDePostesLibres < nombreDePostes;
+  const disable = () => actionType === 'add' ? !nombreDePostes : isErreurNombreDePostes;
+  
   const handleCancel = () => {
     setStep(0);
     setNombreDePostes(1);
@@ -35,16 +50,24 @@ function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
                       <>Veuillez indiquer le nombre de postes que vous souhaitez rendre dans vos postes vacants</>
                   }
                 </p>
-                <div className="fr-input-group fr-col-12 fr-mt-2w">
-                  <label className="fr-label">Nombre de postes</label>
+                <div className={`fr-input-group ${disable() ? 'fr-input-group--error' : ''} fr-col-12 fr-mt-2w`}>
+                  <label className="fr-label" htmlFor="text-input">Nombre de postes</label>
                   <input
-                    className="fr-input"
+                    id="text-input"
+                    className={`fr-input ${disable() ? 'fr-input--error' : ''} `}
                     type="number"
                     name="nombreDePostes"
                     min={1}
                     onChange={e => setNombreDePostes(Number(e.target.value))}
                     value={nombreDePostes}
                   />
+                  {
+                    disable() &&
+                   <p id="text-input-error-desc-error" className="fr-error-text">
+                     Le nombre de postes que vous souhaitez rendre doit &ecirc;tre inf&eacute;rieur ou
+                     &eacute;gal au nombre de postes inutilis&eacute;s par votre structure.
+                   </p>
+                  }
                 </div>
               </div>
               <div className="fr-modal__footer">
@@ -59,7 +82,7 @@ function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
                       onClick={() => {
                         setStep(2);
                       }}
-                      disabled={!nombreDePostes}
+                      disabled={disable()}
                       className="fr-btn fr-btn--icon-left"
                       title="Confirmer la demande d'ajout de poste(s)"
                     >

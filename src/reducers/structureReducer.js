@@ -171,19 +171,19 @@ export default function structure(state = initialState, action) {
         loading: false,
         error: action.error,
       };
-    case 'CLOSE_AVENANT_BANNER_REQUEST':
+    case 'CLOSE_BANNER_REQUEST':
       return {
         ...state,
         loading: true,
         error: false,
       };
-    case 'CLOSE_AVENANT_BANNER_SUCCESS':
+    case 'CLOSE_BANNER_SUCCESS':
       return {
         ...state,
         loading: false,
         structure: action.structure,
       };
-    case 'CLOSE_AVENANT_BANNER_FAILURE':
+    case 'CLOSE_BANNER_FAILURE':
       return {
         ...state,
         loading: false,

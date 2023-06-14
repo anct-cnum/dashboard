@@ -1,17 +1,20 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { closeBannerActions } from '../../../../actions';
+import { structureActions } from '../../../../actions';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
-const ValidatedRenouvellementBanner = ({ conseiller, setBannieresRenouvellementValide, bannieresRenouvellementValide }) => {
+const ValidatedRenouvellementBanner = ({ conseiller, setBannieresRenouvellementValide, bannieresRenouvellementValide, structure }) => {
+  const isInitie = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ ||
+  structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS;
   const dispatch = useDispatch();
   function closeBanner() {
     setBannieresRenouvellementValide(bannieresRenouvellementValide.filter(banniere => banniere._id !== conseiller._id));
-    dispatch(closeBannerActions.closeBanner('renouvellement', conseiller?.miseEnrelationId));
+    dispatch(structureActions.closeBanner('renouvellement', conseiller?.miseEnrelationId));
   }
   return (
-    <div className="fr-notice banner success background fr-py-4w" style={{ position: 'absolute', top: '173px', left: '0%', right: '0%' }}>
+    <div className="fr-notice banner success background fr-py-4w" style={{ position: 'absolute', top: isInitie ? '289px' : '173px', left: '0%', right: '0%' }}>
       <div className="fr-container success responsive__banner">
         <div className="fr-notice__body responsive__banner" style={{ paddingLeft: '5px' }}>
           <div>
@@ -36,6 +39,7 @@ ValidatedRenouvellementBanner.propTypes = {
   conseiller: PropTypes.object,
   setBannieresRenouvellementValide: PropTypes.func,
   bannieresRenouvellementValide: PropTypes.array,
+  structure: PropTypes.object,
 };
 
 export default ValidatedRenouvellementBanner;

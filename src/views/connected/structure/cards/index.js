@@ -10,6 +10,7 @@ import SelectAdvisorCard from './SelectAdvisorCard';
 import StructureInformationsCard from './structureInformationsCard';
 import EditContractCard from './EditContractCard';
 import CompleteContractCard from './CompleteContractCard';
+import ReconventionnementInfosCard from './ReconventionnementInfosCard';
 
 export {
   AccompagnementsCard,
@@ -23,5 +24,6 @@ export {
   SelectAdvisorCard,
   StructureInformationsCard,
   EditContractCard,
-  CompleteContractCard
+  CompleteContractCard,
+  ReconventionnementInfosCard
 };

@@ -1,14 +1,15 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import days from 'dayjs';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
-const InProgressBanner = ({ structure, roleActivated }) => {
-  const navigate = useNavigate();
+const InProgressBanner = ({ structure }) => {
+  const isInitie = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ ||
+  structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS;
   return (
     <div
       className="fr-notice fr-py-4w banner notice background"
-      style={{ position: 'absolute', top: '173px', left: '0%', right: '0%' }}
+      style={{ position: 'absolute', top: isInitie ? '289px' : '173px', left: '0%', right: '0%' }}
     >
       <div className="fr-container notice responsive__banner">
         <span className="fr-icon-time-fill icon__color" aria-hidden="true"></span>
@@ -24,16 +25,6 @@ const InProgressBanner = ({ structure, roleActivated }) => {
             <p className="fr-text--md">
               Votre demande est en cours de traitement, vous aurez une r&eacute;ponse tr&egrave;s prochainement.
             </p>
-          </div>
-          <div className="banner__button_progress">
-            <button
-              className="fr-btn fr-btn--secondary"
-              data-fr-opened="false"
-              aria-controls="fr-modal-2"
-              onClick={() => navigate(`/${roleActivated}/ma-structure/`)}
-            >
-              Voir ma demande
-            </button>
           </div>
         </div>
       </div>

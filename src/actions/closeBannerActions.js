@@ -18,12 +18,12 @@ function closeBanner(type, id) {
   };
 
   function request() {
-    return { type: 'CLOSE_AVENANT_BANNER_REQUEST' };
+    return { type: 'CLOSE_BANNER_REQUEST' };
   }
   function success(structure) {
-    return { type: 'CLOSE_AVENANT_BANNER_SUCCESS', structure };
+    return { type: 'CLOSE_BANNER_SUCCESS', structure };
   }
   function failure(error) {
-    return { type: 'CLOSE_AVENANT_BANNER_FAILURE', error };
+    return { type: 'CLOSE_BANNER_FAILURE', error };
   }
 }

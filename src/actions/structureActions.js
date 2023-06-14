@@ -1,4 +1,5 @@
 import { structureService } from '../services/structureService.js';
+import { contratService } from '../services/contratService.js';
 
 export const structureActions = {
   get,
@@ -11,6 +12,7 @@ export const structureActions = {
   cancelStructureSiret,
   hiddenMessageError,
   createAvenant,
+  closeBanner
 };
 
 // eslint-disable-next-line max-len
@@ -221,5 +223,29 @@ function createAvenant(type, structureId, nombreDePostes, motif, autreMotif) {
   }
   function failure(error) {
     return { type: 'CREATE_AVENANT_FAILURE', error };
+  }
+}
+
+function closeBanner(type, id) {
+  return dispatch => {
+    dispatch(request());
+
+    contratService.closeBanner(type, id)
+    .then(
+      structure => dispatch(success(structure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'CLOSE_BANNER_REQUEST' };
+  }
+  function success(structure) {
+    return { type: 'CLOSE_BANNER_SUCCESS', structure };
+  }
+  function failure(error) {
+    return { type: 'CLOSE_BANNER_FAILURE', error };
   }
 }
