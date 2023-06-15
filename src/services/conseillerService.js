@@ -23,7 +23,7 @@ export const conseillerService = {
   resendInvitCandidat,
   suppressionCandidat,
   getCandidatStructure,
-  getCandidatConseillerStructure,
+  getCandidatureConseillerStructure,
 };
 
 function get(id) {
@@ -56,8 +56,7 @@ function getCandidatStructure(id) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getCandidatConseillerStructure(id) {
-  console.log('getCandidatConseillerStructure', id);
+function getCandidatureConseillerStructure(id) {
   return API.get(`${apiUrlRoot}/misesEnRelation-conseiller/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));

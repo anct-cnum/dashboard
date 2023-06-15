@@ -32,7 +32,7 @@ function CandidatureConseillerDetails() {
   useEffect(() => {
     if (!errorConseiller) {
       if (conseiller?._id !== id) {
-        dispatch(conseillerActions.getCandidatConseillerStructure(id));
+        dispatch(conseillerActions.getCandidatureConseillerStructure(id));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({

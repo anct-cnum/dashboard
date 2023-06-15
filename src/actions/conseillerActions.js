@@ -21,7 +21,7 @@ export const conseillerActions = {
   resendInvitCandidat,
   suppressionCandidat,
   getCandidatStructure,
-  getCandidatConseillerStructure,
+  getCandidatureConseillerStructure,
 };
 
 function get(id) {
@@ -144,11 +144,11 @@ function getCandidatStructure(id) {
   }
 }
 
-function getCandidatConseillerStructure(id) {
+function getCandidatureConseillerStructure(id) {
   return dispatch => {
     dispatch(request());
 
-    conseillerService.getCandidatConseillerStructure(id)
+    conseillerService.getCandidatureConseillerStructure(id)
     .then(
       candidat => dispatch(success(candidat)),
       error => {
