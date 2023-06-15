@@ -10,10 +10,7 @@ import PopinRecrutee from '../popins/popinRecrutee';
 import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
-import Statut from '../../../../datas/statut-candidat.json';
-import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
-import ReactTooltip from 'react-tooltip';
+import { displayBadgeStatutCandidat, formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
 import InformationCandidat from '../../../../components/InformationCandidat';
 
 function CandidatDetails() {
@@ -60,10 +57,6 @@ function CandidatDetails() {
     }
   }, [errorUpdateStatus, downloadError]);
 
-  const formatStatutCandidat = statut => {
-    return Statut.find(item => item.filter === statut)?.name_singular;
-  };
-
   return (
     <div className="fr-container candidatDetails">
       <Spinner loading={loading || downloading} />
@@ -107,17 +100,9 @@ function CandidatDetails() {
             </span>
           </div>
         }
-        <h1 className="fr-h1" style={{ color: '#000091', marginBottom: '0.8rem' }}>
+        <h1 className="fr-h1" style={{ color: '#000091', marginBottom: '0.3rem' }}>
           {conseiller ? formatNomConseiller(conseiller) : ''}
-          <img
-            data-tip="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
-            className={`fr-ml-2w ${conseiller?.statutCandidat === 'RECRUTE' || conseiller?.statutCandidat === 'RUPTURE' ? '' : 'fr-hidden'}`}
-            src={pinCNFS}
-            alt="logo CNFS"
-            style={{ height: '50px', position: 'absolute' }}
-          />
         </h1>
-        <ReactTooltip type="light" html={true} className="infobulle" />
       </div>
       {displayModal &&
         <>
@@ -134,21 +119,19 @@ function CandidatDetails() {
       }
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5" style={{ marginBottom: '0.5rem' }}>ID - {conseiller?.idPG ?? ''}</h5>
+          <h5 className="fr-h5 fr-mb-1v fr-col-12">ID - {conseiller?.idPG ?? ''}</h5>
+          {conseiller?.miseEnRelation?.statut &&
+            <>
+              {displayBadgeStatutCandidat(conseiller?.miseEnRelation?.statut)}
+            </>
+          }
+          <ButtonsAction
+            statut={conseiller?.miseEnRelation?.statut}
+            miseEnRelationId={conseiller?.miseEnRelation?._id}
+            updateStatut={updateStatut}
+            dateRupture={conseiller?.miseEnRelation?.dateRupture}
+            motifRupture={conseiller?.miseEnRelation?.motifRupture} />
         </div>
-      </div>
-      <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
-        {conseiller?.miseEnRelation?.statut &&
-          <p className="fr-badge fr-badge--new" style={{ height: '20%' }}>
-            {conseiller?.miseEnRelation?.statut ? formatStatutCandidat(conseiller?.miseEnRelation?.statut) : ''}
-          </p>
-        }
-        <ButtonsAction
-          statut={conseiller?.miseEnRelation?.statut}
-          miseEnRelationId={conseiller?.miseEnRelation?._id}
-          updateStatut={updateStatut}
-          dateRupture={conseiller?.miseEnRelation?.dateRupture}
-          motifRupture={conseiller?.miseEnRelation?.motifRupture} />
       </div>
       <InformationCandidat conseiller={conseiller} />
     </div>

@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions, alerteEtSpinnerActions } from '../../../../actions';
-import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
+import { displayBadgeStatutCandidat, formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import InformationConseiller from '../commun/InformationConseiller';
 import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
 import ReactTooltip from 'react-tooltip';
 import PopinInteressee from '../popins/popinInteressee';
@@ -13,7 +12,7 @@ import PopinRecrutee from '../popins/popinRecrutee';
 import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
 import dayjs from 'dayjs';
 import ButtonsAction from './ButtonsAction';
-import Statut from '../../../../datas/statut-candidat.json';
+import InformationConseiller from '../../../../components/InformationConseiller';
 
 function CandidatureConseillerDetails() {
 
@@ -28,6 +27,7 @@ function CandidatureConseillerDetails() {
   const [displayModal, setDisplayModal] = useState(true);
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -50,14 +50,13 @@ function CandidatureConseillerDetails() {
 
   useEffect(() => {
     if (conseiller !== undefined) {
+      setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
       setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
       setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
     }
   }, [conseiller]);
 
-  const formatStatutCandidat = statut => {
-    return Statut.find(item => item.filter === statut)?.name_singular;
-  };
+  const checkConseillerWithoutBtnAction = statut => !!(statut === 'finalisee' || statut === 'finalisee_rupture');
 
   return (
     <div className="fr-container conseillerDetails">
@@ -101,7 +100,9 @@ function CandidatureConseillerDetails() {
       </div>
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
+          <h5 className={`fr-h5 ${checkConseillerWithoutBtnAction(conseiller?.miseEnRelation?.statut) ? 'fr-mb-3v' : 'fr-mb-1v'}`}>
+            ID - {conseiller?.idPG ?? ''}
+          </h5>
         </div>
       </div>
       {displayModal &&
@@ -118,20 +119,20 @@ function CandidatureConseillerDetails() {
         </>
       }
       {conseiller &&
-        <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
+        <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'center' }}>
           {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
             <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
           }
           {conseiller?.statutCandidat === 'RUPTURE' &&
-            <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
+            <p className="fr-badge fr-badge--error fr-mr-2w" style={{ height: '20%' }}>Contrat termin&eacute;</p>
           }
           {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
             <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
           }
           {conseiller?.miseEnRelation?.statut &&
-          <p className="fr-badge fr-badge--new fr-ml-2w" style={{ height: '20%' }}>
-            {conseiller?.miseEnRelation?.statut ? formatStatutCandidat(conseiller?.miseEnRelation?.statut) : ''}
-          </p>
+            <>
+              {displayBadgeStatutCandidat(conseiller?.miseEnRelation?.statut)}
+            </>
           }
           <ButtonsAction
             statut={conseiller?.miseEnRelation?.statut}
@@ -142,23 +143,11 @@ function CandidatureConseillerDetails() {
           />
         </div>
       }
-      {/* <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
-        {conseiller?.miseEnRelation?.statut && conseiller?.miseEnRelation?.statut === 'nouvelle' &&
-          <p className="fr-badge fr-badge--new" style={{ height: '20%' }}>
-            {conseiller?.miseEnRelation?.statut ? formatStatutCandidat(conseiller?.miseEnRelation?.statut) : ''}
-          </p>
-        }
-        <ButtonsAction
-          statut={conseiller?.miseEnRelation?.statut}
-          miseEnRelationId={conseiller?.miseEnRelation?._id}
-          updateStatut={updateStatut}
-          dateRupture={conseiller?.miseEnRelation?.dateRupture}
-          motifRupture={conseiller?.miseEnRelation?.motifRupture} />
-      </div> */}
       <InformationConseiller
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
         roleActivated={roleActivated}
       />
     </div>

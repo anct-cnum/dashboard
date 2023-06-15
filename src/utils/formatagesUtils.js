@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import React from 'react';
+import StatutCandidat from '../datas/statut-candidat.json';
 
 export function formatDate(date) {
   return dayjs(date).format('YYYY-MM-DD');
@@ -125,6 +126,11 @@ export const badgeStatutDossierDS = statut => {
     default:
       return <p className="fr-badge fr-badge--warning fr-mr-3w">Dossier non cr&eacute;&eacute;</p>;
   }
+};
+
+export const displayBadgeStatutCandidat = statut => {
+  const statutObject = StatutCandidat.find(item => item.filter === statut);
+  return <div className={`fr-badge fr-mt-2w fr-mt-md-0 fr-badge--${statutObject?.badge}`}>{statutObject?.name_singular}</div>;
 };
 
 export const formatTypeDeContrat = typeDeContrat => {

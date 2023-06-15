@@ -128,66 +128,64 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
               </div>
             </div>
           }
-          {misesEnRelationFinaliseeRupture?.map((miseEnRelation, idx) =>
-            <>
-              <div
-                className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}
-                key={idx}
-                style={{ paddingLeft: '1rem' }}
-              >
-                <div className="fr-card__body" style={{ padding: '0 0' }}>
-                  <div>
-                    <div className="fr-grid-row fr-grid-row--middle">
-                      <div className="fr-col-12 fr-mb-2w">
-                        <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
+          {misesEnRelationFinaliseeRupture?.map(miseEnRelation =>
+            <div
+              className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}
+              key={miseEnRelation?._id}
+              style={{ paddingLeft: '1rem' }}
+            >
+              <div className="fr-card__body" style={{ padding: '0 0' }}>
+                <div>
+                  <div className="fr-grid-row fr-grid-row--middle">
+                    <div className="fr-col-12 fr-mb-2w">
+                      <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
+                    </div>
+                    <div className="fr-col-12 fr-mb-2w">
+                      <strong className="fr-text--md fr-col-12 fr-mb-0">
+                        {miseEnRelation?.structureObj?.nom}
+                      </strong><br />
+                      <span className="fr-text--md">ID - {miseEnRelation?.structureObj?.idPG}</span>
+                    </div>
+                    <div className="fr-col-12 fr-mb-md-0 fr-mb-2w fr-col-md-4">
+                      <div>
+                        <strong className="fr-text--md">Type de contrat</strong><br />
+                        <span className="fr-text--regular fr-text--md">
+                          {miseEnRelation?.typeDeContrat ? formatTypeDeContrat(miseEnRelation?.typeDeContrat) : '-'}
+                        </span>
                       </div>
-                      <div className="fr-col-12 fr-mb-2w">
-                        <strong className="fr-text--md fr-col-12 fr-mb-0">
-                          {miseEnRelation?.structureObj?.nom}
-                        </strong><br />
-                        <span className="fr-text--md">ID - {miseEnRelation?.structureObj?.idPG}</span>
-                      </div>
-                      <div className="fr-col-12 fr-mb-md-0 fr-mb-2w fr-col-md-4">
-                        <div>
-                          <strong className="fr-text--md">Type de contrat</strong><br />
+                    </div>
+                    <div className="fr-col-12 fr-col-md-4 fr-mb-md-0 fr-mb-2w">
+                      <div>
+                        <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
+                        {miseEnRelation?.dateDebutDeContrat ?
                           <span className="fr-text--regular fr-text--md">
-                            {miseEnRelation?.typeDeContrat ? formatTypeDeContrat(miseEnRelation?.typeDeContrat) : '-'}
-                          </span>
-                        </div>
+                            {dayjs(miseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY')}
+                          </span> : <span>En attente de pi&egrave;ces justificatives</span>
+                        }
                       </div>
-                      <div className="fr-col-12 fr-col-md-4 fr-mb-md-0 fr-mb-2w">
-                        <div>
-                          <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
-                          {miseEnRelation?.dateDebutDeContrat ?
-                            <span className="fr-text--regular fr-text--md">
-                              {dayjs(miseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY')}
-                            </span> : <span>En attente de pi&egrave;ces justificatives</span>
-                          }
-                        </div>
+                    </div>
+                    <div className="fr-col-12 fr-col-md-4">
+                      <div>
+                        <strong className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</strong><br />
+                        {miseEnRelation?.dateRupture ?
+                          <span className="fr-text--regular fr-text--md">
+                            {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
+                          </span> : <span>-</span>
+                        }
                       </div>
-                      <div className="fr-col-12 fr-col-md-4">
-                        <div>
-                          <strong className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</strong><br />
-                          {miseEnRelation?.dateRupture ?
-                            <span className="fr-text--regular fr-text--md">
-                              {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
-                            </span> : <span>-</span>
-                          }
-                        </div>
-                      </div>
-                      <div className="fr-col-12 fr-mt-2w">
-                        <div>
-                          <strong className="fr-text--md" style={{ fontWeight: '500' }}>Motif</strong><br />
-                          <span className="fr-text--regular fr-text--md" title={miseEnRelation?.motifRupture}>
-                            {formatMotifRupture(miseEnRelation?.motifRupture)}
-                          </span>
-                        </div>
+                    </div>
+                    <div className="fr-col-12 fr-mt-2w">
+                      <div>
+                        <strong className="fr-text--md" style={{ fontWeight: '500' }}>Motif</strong><br />
+                        <span className="fr-text--regular fr-text--md" title={miseEnRelation?.motifRupture}>
+                          {formatMotifRupture(miseEnRelation?.motifRupture)}
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </>
+            </div>
           )}
           <div className="fr-card fr-col-12 fr-mt-3w fr-p-4w">
             <div className="fr-card__body" style={{ padding: '0 0' }}>

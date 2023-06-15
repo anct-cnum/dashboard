@@ -41,7 +41,7 @@ function PreselectionConseillerDetails() {
 
   useEffect(() => {
     if (conseiller !== undefined) {
-      setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
+      setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
       setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
       setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
     }
@@ -86,27 +86,23 @@ function PreselectionConseillerDetails() {
       </div>
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
+          <h5 className="fr-h5 fr-mb-1v">ID - {conseiller?.idPG ?? ''}</h5>
         </div>
       </div>
       {conseiller &&
-        <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
+        <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'center' }}>
           {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
             <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
           }
           {conseiller?.statut === 'RUPTURE' &&
-            <p className="fr-badge fr-badge--error fr-badge--no-icon" style={{ height: '20%' }}>Contrat termin&eacute;</p>
+            <p className="fr-badge fr-badge--error fr-mr-2w" style={{ height: '20%' }}>Contrat termin&eacute;</p>
           }
           {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
-          <>
-            {misesEnRelationFinalisee?.dossierIncompletRupture ?
-              <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
-              <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
-            }
-          </>
+            <p className="fr-badge fr-badge--warning fr-mt-2w fr-mr-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
           }
+          <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0">Nouvelle candidature</p>
           <button onClick={preSelectionnerCandidat}
-            className="fr-btn fr-ml-md-auto"
+            className="fr-btn btn-actions fr-mt-2w fr-mt-md-0"
             title="Pr&eacute;selectionner ce candidat">
             Pr&eacute;selectionner ce candidat
           </button>

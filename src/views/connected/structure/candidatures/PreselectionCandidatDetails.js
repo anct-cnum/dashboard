@@ -93,16 +93,17 @@ function PreselectionCandidatDetails() {
         </span>
       </div>
         }
-        <h1 className="fr-h1" style={{ color: '#000091', marginBottom: '0.8rem' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+        <h1 className="fr-h1" style={{ color: '#000091', marginBottom: '0.3rem' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
       </div>
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5" style={{ marginBottom: '0.5rem' }}>ID - {conseiller?.idPG ?? ''}</h5>
+          <h5 className="fr-h5 fr-mb-1v">ID - {conseiller?.idPG ?? ''}</h5>
         </div>
       </div>
-      <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
+      <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'center' }}>
+        <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0">Nouvelle candidature</p>
         <button onClick={preSelectionnerCandidat}
-          className="fr-btn fr-ml-md-auto"
+          className="fr-btn btn-actions fr-mt-2w fr-mt-md-0"
           title="Pr&eacute;selectionner ce candidat">
           Pr&eacute;selectionner ce candidat
         </button>
