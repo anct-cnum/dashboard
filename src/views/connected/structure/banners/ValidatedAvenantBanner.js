@@ -3,8 +3,11 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { structureActions } from '../../../../actions';
 import { pluralize } from '../../../../utils/formatagesUtils';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 const ValidatedAvenantBanner = ({ structure }) => {
+  const isInitie = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ ||
+  structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS;
   const dispatch = useDispatch();
 
   function closeBanner() {
@@ -43,7 +46,7 @@ const ValidatedAvenantBanner = ({ structure }) => {
   return (
     <div
       className="fr-notice fr-py-4w banner success background"
-      style={{ position: 'absolute', top: '173px', left: '0%', right: '0%' }}
+      style={{ position: 'absolute', top: isInitie ? '289px' : '173px', left: '0%', right: '0%' }}
     >
       <div className="fr-container success responsive__banner">
         <span className="fr-icon-checkbox-fill icon__color" aria-hidden="true"></span>

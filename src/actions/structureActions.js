@@ -1,5 +1,4 @@
 import { structureService } from '../services/structureService.js';
-import { contratService } from '../services/contratService.js';
 
 export const structureActions = {
   get,
@@ -230,7 +229,7 @@ function closeBanner(type, id) {
   return dispatch => {
     dispatch(request());
 
-    contratService.closeBanner(type, id)
+    structureService.closeBanner(type, id)
     .then(
       structure => dispatch(success(structure)),
       error => {
