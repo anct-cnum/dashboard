@@ -145,7 +145,6 @@ function getCandidatStructure(id) {
 }
 
 function getCandidatConseillerStructure(id) {
-  console.log('getCandidatConseillerStructure', id);
   return dispatch => {
     dispatch(request());
 
