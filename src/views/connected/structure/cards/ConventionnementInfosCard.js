@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { pluralize, formatNomConseiller } from '../../../../utils/formatagesUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
+import { getNombreDePostes } from '../utils/functionUtils';
 
 const ConventionnementInfosCard = ({ structure, roleActivated }) => {
+
   return (
     <div className="fr-card fr-mb-4w">
       <div className="fr-card__body">
@@ -37,11 +39,11 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
           </p>
           <div className="fr-card__desc">
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              {structure?.posteValiderCoselec} - {pluralize(
+              {structure?.posteValiderCoselecConventionnement} - {pluralize(
                 'poste de conseiller',
                 'poste de conseiller',
                 'postes de conseiller',
-                structure?.posteValiderCoselec
+                structure?.posteValiderCoselecConventionnement
               )}
               {' '}
               <span className="fr-text--regular fr-text--md">
@@ -49,20 +51,34 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
                   'validé pour ce conventionnement',
                   'validé pour ce conventionnement',
                   'validés pour ce conventionnement',
-                  structure?.posteValiderCoselec
+                  structure?.posteValiderCoselecConventionnement
                 )}
               </span>
             </p>
-            <div className="fr-col-12 fr-mt-1w">
-              <hr style={{ borderWidth: '0.5px' }} />
-            </div>
-            <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - postes de conseiller vacants{' '}
-              <span className="fr-text--regular fr-text--md">rendu le -</span>
-            </p>
-            <div className="fr-col-12 fr-my-1w">
-              <hr style={{ borderWidth: '0.5px' }} />
-            </div>
+            {structure?.lastDemandeCoselec &&
+             <>
+               <div className="fr-col-12 fr-mt-1w">
+                 <hr style={{ borderWidth: '0.5px' }} />
+               </div>
+               <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
+               Avenant - {
+                   getNombreDePostes(structure)
+                 } {pluralize(
+                   'poste de conseiller',
+                   'poste de conseiller',
+                   'postes de conseiller',
+                   getNombreDePostes(structure)
+                 )} {' '}
+                 <span className="fr-text--regular fr-text--md">
+                  rendu le {structure?.lastDemandeCoselec?.emetteurAvenant?.date ? dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date)
+                   .format('DD/MM/YYYY') : 'Non renseignée'}
+                 </span>
+               </p>
+               <div className="fr-col-12 fr-my-1w">
+                 <hr style={{ borderWidth: '0.5px' }} />
+               </div>
+             </>
+            }
             <div className="fr-grid-row">
               <div>
                 <p className="fr-text--bold" style={{ marginBottom: 0 }}>{pluralize(

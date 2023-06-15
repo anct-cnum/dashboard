@@ -23,7 +23,7 @@ function HistoriqueConventionnement({ conventionnement }) {
         <button
           className="fr-btn fr-icon-eye-line fr-ml-auto"
           title="D&eacute;tail"
-          onClick={() => window.open(`/${roleActivated}/demandes/convention/${conventionnement?._id}`)}>
+          onClick={() => window.open(`/${roleActivated}/demandes/convention/${conventionnement?._id}?type=conventionnement`)}>
               Voir la demande
         </button>
       </td>

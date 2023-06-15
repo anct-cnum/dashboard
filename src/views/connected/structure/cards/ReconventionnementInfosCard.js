@@ -2,10 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
+import PopinGestionPostes from '../popins/popinGestionPostes';
+import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
-
+import { displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
 
 const ReconventionnementInfosCard = ({ structure }) => {
+  const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
 
   const displayBadge = () => {
     if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ) {
@@ -19,9 +22,22 @@ const ReconventionnementInfosCard = ({ structure }) => {
     }
     return null;
   };
+ 
+
+  function isButtonDisabled(structure) {
+    return (structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut === 'en_cours') ||
+      structure?.conventionnement?.statut !== StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+  }
 
   return (
     <>
+      {
+        step > 0 && <PopinGestionPostes
+          step={step}
+          setStep={setStep}
+          actionType={actionType}
+        />
+      }
       <div className="fr-card fr-mb-4w">
         <div className="fr-card__body">
           <div className="fr-card__content">
@@ -45,7 +61,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                     ' poste de conseiller',
                     ' poste de conseiller',
                     ' postes de conseiller',
-                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
+                    structure?.posteValiderCoselec,
                     true
                   )
                 }
@@ -57,7 +73,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                         'validé pour ce conventionnement',
                         'validé pour ce conventionnement',
                         'validés pour ce conventionnement',
-                        structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
+                        structure?.posteValiderCoselec,
                       )
                     }
                   </span>
@@ -72,14 +88,25 @@ const ReconventionnementInfosCard = ({ structure }) => {
                     }</span>
                 )}
               </p>
-              {structure?.lastDemandeCoselecValidee &&
+              {structure?.lastDemandeCoselec &&
              <>
                <div className="fr-col-12 fr-mt-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
                </div>
                <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              Avenant - {structure.lastDemandeCoselecValidee.nombreDePostes} postes de conseiller vacants{' '}
-                 <span className="fr-text--regular fr-text--md">rendu le {dayjs(structure?.lastDemandeCoselecValidee?.date).format('DD/MM/YYYY')}</span>
+               Avenant - {
+                   getNombreDePostes(structure)
+                 } {pluralize(
+                   'poste de conseiller',
+                   'poste de conseiller',
+                   'postes de conseiller',
+                   getNombreDePostes(structure)
+                 )} {' '}
+                 <span className="fr-text--regular fr-text--md">
+                   {displayStatutRequestText(structure)} {' '}{' '}
+                   le {structure?.lastDemandeCoselec?.emetteurAvenant?.date ?
+                     dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date).format('DD/MM/YYYY') : 'Non renseignée'}
+                 </span>
                </p>
                <div className="fr-col-12 fr-my-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
@@ -90,13 +117,19 @@ const ReconventionnementInfosCard = ({ structure }) => {
                 <ul className="fr-btns-group fr-btns-group--inline-md">
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled>
+                      disabled={isButtonDisabled(structure)}
+                      onClick={() => {
+                        handlePopin('add', 1);
+                      }}>
                     Ajouter un poste
                     </button>
                   </li>
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled>
+                      disabled={isButtonDisabled(structure)}
+                      onClick={() => {
+                        handlePopin('remove', 1);
+                      }}>
                     Rendre un poste
                     </button>
                   </li>

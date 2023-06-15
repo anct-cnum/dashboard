@@ -12,9 +12,9 @@ import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
 import Statut from '../../../../datas/statut-candidat.json';
-import InformationCandidat from '../commun/InformationCandidat';
 import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
 import ReactTooltip from 'react-tooltip';
+import InformationCandidat from '../../../../components/InformationCandidat';
 
 function CandidatDetails() {
 

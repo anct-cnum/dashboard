@@ -22,7 +22,7 @@ function HistoriqueReconventionnement({ reconventionnement }) {
         <button
           className="fr-btn fr-icon-eye-line"
           title="D&eacute;tail"
-          onClick={() => window.open(`/${roleActivated}/demandes/convention/${reconventionnement?._id}`)}>
+          onClick={() => window.open(`/${roleActivated}/demandes/convention/${reconventionnement?._id}?type=reconventionnement`)}>
         </button>
       </td>
     </>

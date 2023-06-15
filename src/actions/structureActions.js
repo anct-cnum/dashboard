@@ -1,4 +1,5 @@
 import { structureService } from '../services/structureService.js';
+import { contratService } from '../services/contratService.js';
 
 export const structureActions = {
   get,
@@ -9,7 +10,9 @@ export const structureActions = {
   updateStructureSiret,
   verifyStructureSiret,
   cancelStructureSiret,
-  hiddenMessageError
+  hiddenMessageError,
+  createAvenant,
+  closeBanner
 };
 
 // eslint-disable-next-line max-len
@@ -197,4 +200,52 @@ function cancelStructureSiret() {
 
 function hiddenMessageError() {
   return { type: 'ERROR_MESSAGE_HIDDEN' };
+}
+
+function createAvenant(type, structureId, nombreDePostes, motif, autreMotif) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.createAvenant(type, structureId, nombreDePostes, motif, autreMotif)
+    .then(
+      structure => dispatch(success(structure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'CREATE_AVENANT_REQUEST' };
+  }
+  function success(structure) {
+    return { type: 'CREATE_AVENANT_SUCCESS', structure };
+  }
+  function failure(error) {
+    return { type: 'CREATE_AVENANT_FAILURE', error };
+  }
+}
+
+function closeBanner(type, id) {
+  return dispatch => {
+    dispatch(request());
+
+    contratService.closeBanner(type, id)
+    .then(
+      structure => dispatch(success(structure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'CLOSE_BANNER_REQUEST' };
+  }
+  function success(structure) {
+    return { type: 'CLOSE_BANNER_SUCCESS', structure };
+  }
+  function failure(error) {
+    return { type: 'CLOSE_BANNER_FAILURE', error };
+  }
 }

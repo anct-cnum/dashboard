@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
+import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 import { reconventionnementActions } from '../../../../actions';
 
 function ReconventionnementDetails({ reconventionnement }) {
@@ -12,14 +13,7 @@ function ReconventionnementDetails({ reconventionnement }) {
   const dossierReconventionnement = reconventionnement?.conventionnement?.dossierReconventionnement;
   const dossierConventionnement = reconventionnement?.conventionnement?.dossierConventionnement;
   const dispatch = useDispatch();
-
-  const calcNbJoursAvantDateFinContrat = dateFinContrat => {
-    const dateFin = dayjs(dateFinContrat);
-    const dateAujourdhui = dayjs();
-    const nbJours = dateFin.diff(dateAujourdhui, 'day');
-
-    return Math.max(nbJours, 0);
-  };
+ 
 
   const validation = () => {
     dispatch(reconventionnementActions.validation(reconventionnement._id));
@@ -189,12 +183,17 @@ function ReconventionnementDetails({ reconventionnement }) {
                 <span>Non renseign&eacute;e</span>
               }
             </p>
-            <p className="fr-card__desc fr-text--xl"><strong className="fr-text--bold">{reconventionnement?.nombreConseillersCoselec} {pluralize(
-              'poste de conseiller validé',
-              'poste de conseiller validé',
-              'postes de conseiller validés',
-              reconventionnement?.nombreConseillersCoselec
-            )}</strong> pour ce conventionnement</p>
+            <p className="fr-card__desc fr-text--xl">
+              <strong className="fr-text--bold">
+                {reconventionnement?.nombreConseillersCoselecConventionnement}&nbsp;
+                {pluralize(
+                  'poste de conseiller validé',
+                  'poste de conseiller validé',
+                  'postes de conseiller validés',
+                  reconventionnement?.nombreConseillersCoselecConventionnement
+                )}
+              </strong> pour ce conventionnement
+            </p>
             <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">
               <div className="fr-col-12">
                 <hr style={{ borderWidth: '0.5px' }} />
@@ -202,7 +201,7 @@ function ReconventionnementDetails({ reconventionnement }) {
               <div className="fr-col-12">
                 <h6 className="fr-card__desc fr-h6">Profils recrut&eacute;s</h6>
               </div>
-              {reconventionnement?.conseillers?.map((conseiller, index) =>
+              {reconventionnement?.conseillersRecruter?.map((conseiller, index) =>
                 <div key={index} className="fr-card fr-col-12 fr-mt-3w fr-p-3w">
                   <div className="fr-card__body fr-p-0">
                     <div className="fr-grid-row" style={{ alignItems: 'center' }}>

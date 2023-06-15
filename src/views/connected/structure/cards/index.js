@@ -6,11 +6,11 @@ import ConventionnementInfosCard from './ConventionnementInfosCard';
 import HireAdvisorCard from './HireAdvisorCard';
 import InformationCard from './InformationCard';
 import ManagePositionsCard from './ManagePositionsCard';
-import ReconventionnementInfosCard from './ReconventionnementInfosCard';
 import SelectAdvisorCard from './SelectAdvisorCard';
 import StructureInformationsCard from './structureInformationsCard';
 import EditContractCard from './EditContractCard';
 import CompleteContractCard from './CompleteContractCard';
+import ReconventionnementInfosCard from './ReconventionnementInfosCard';
 
 export {
   AccompagnementsCard,
@@ -21,9 +21,9 @@ export {
   HireAdvisorCard,
   InformationCard,
   ManagePositionsCard,
-  ReconventionnementInfosCard,
   SelectAdvisorCard,
   StructureInformationsCard,
   EditContractCard,
-  CompleteContractCard
+  CompleteContractCard,
+  ReconventionnementInfosCard
 };

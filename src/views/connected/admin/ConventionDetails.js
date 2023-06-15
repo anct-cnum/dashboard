@@ -7,10 +7,15 @@ import Spinner from '../../../components/Spinner';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import ReconventionnementDetails from './reconventionnement/ReconventionnementDetails';
 import ConventionnementDetails from './conventionnement/ConventionnementDetails';
+import AvenantAjoutPosteDetails from './avenantAjoutPoste/AvenantAjoutPosteDetails';
+import AvenantRenduPosteDetails from './avenantRenduPoste/AvenantRenduPosteDetails';
 
 function ConventionDetails() {
   const dispatch = useDispatch();
   const { idStructure } = useParams();
+  const queryParams = new URLSearchParams(window.location.search);
+  const typeConvention = queryParams.get('type');
+  const idDemandeCoselec = queryParams.get('demande');
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const convention = useSelector(state => state.convention?.convention);
   const loading = useSelector(state => state.convention?.loading);
@@ -31,6 +36,25 @@ function ConventionDetails() {
       }));
     }
   }, [errorConvention]);
+
+  const checkIfAvenantCorrect = convention => {
+    if (typeConvention === 'avenant-ajout-poste' || typeConvention === 'avenant-rendu-poste') {
+      return convention?.demandesCoselec?.some(demande => demande.id === idDemandeCoselec);
+    }
+    return true;
+  };
+
+  useEffect(() => {
+    if (convention !== undefined) {
+      if (!checkIfAvenantCorrect(convention)) {
+        dispatch(alerteEtSpinnerActions.getMessageAlerte({
+          type: 'error',
+          message: 'L\'avenant n\'a pas pu être chargé !',
+          status: null, description: null
+        }));
+      }
+    }
+  }, [convention]);
 
   return (
     <div className="conventionDetails">
@@ -110,11 +134,17 @@ function ConventionDetails() {
             <hr style={{ borderWidth: '0.5px' }} />
           </div>
         </div>
-        {convention?.conventionnement?.statut?.match(/\bRECONVENTIONNEMENT\B/) &&
+        {typeConvention === 'reconventionnement' &&
           <ReconventionnementDetails reconventionnement={convention} />
         }
-        {convention?.conventionnement?.statut?.match(/\bCONVENTIONNEMENT\B/) &&
+        {typeConvention === 'conventionnement' &&
           <ConventionnementDetails conventionnement={convention} />
+        }
+        {typeConvention === 'avenant-ajout-poste' && checkIfAvenantCorrect(convention) &&
+          <AvenantAjoutPosteDetails avenant={convention} idDemandeCoselec={idDemandeCoselec} />
+        }
+        {typeConvention === 'avenant-rendu-poste' && checkIfAvenantCorrect(convention) &&
+          <AvenantRenduPosteDetails avenant={convention} idDemandeCoselec={idDemandeCoselec} />
         }
       </div>
     </div>

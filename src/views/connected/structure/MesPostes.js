@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PopinAnnulationReConvention from './popins/popinAnnulationReConvention';
 import PopinEditionContrat from './popins/popinEditionContrat';
-import { ValidatedRenouvellementBanner } from './banners';
+import { ValidatedRenouvellementBanner, ValidatedAvenantBanner } from './banners';
 import { ManagePositionsCard, HireAdvisorCard } from './cards';
 import Spinner from '../../../components/Spinner';
 import {
@@ -21,6 +21,7 @@ import {
 import { useAdvisors } from './hooks/useAdvisors';
 import { useErrors } from './hooks/useErrors';
 import { useStructure } from './hooks/useStructure';
+import InProgressAvenantBanner from './banners/InProgressAvenantBanner';
 import { StatutConventionnement } from '../../../utils/enumUtils';
 
 function MesPostes() {
@@ -51,22 +52,26 @@ function MesPostes() {
   const { structure, openModal, setOpenModal } = useStructure();
 
   function getClassName() {
-    const withBannerOnTopStatuses = [
-      StatutConventionnement.CONVENTIONNEMENT_VALIDÉ,
-      StatutConventionnement.RECONVENTIONNEMENT_EN_COURS,
-      StatutConventionnement.RECONVENTIONNEMENT_INITIÉ,
-    ];
-    if (withBannerOnTopStatuses.includes(structure?.conventionnement?.statut)) {
-      return 'withBannerOnTop';
+
+    switch (structure?.conventionnement?.statut) {
+      case StatutConventionnement.CONVENTIONNEMENT_VALIDÉ:
+      case StatutConventionnement.RECONVENTIONNEMENT_EN_COURS:
+      case StatutConventionnement.RECONVENTIONNEMENT_INITIÉ:
+        return 'withBannerOnTop';
+  
+      case StatutConventionnement.NON_INTERESSÉ:
+        return 'withoutBannerOnTop';
+      default:
+        break;
     }
-    if (bannieresRenouvellementValide?.length > 0) {
+  
+    if (
+      bannieresRenouvellementValide?.length > 0 ||
+      (showValidateBanner && structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) ||
+      structure?.lastDemandeCoselec?.banniereValidationAvenant ||
+      structure?.lastDemandeCoselec?.statut === 'en_cours'
+    ) {
       return 'withBannerOnTop';
-    }
-    if (showValidateBanner && structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) {
-      return 'withBannerOnTop';
-    }
-    if (structure?.conventionnement?.statut === StatutConventionnement.NON_INTERESSÉ) {
-      return 'withoutBannerOnTop';
     }
   }
 
@@ -105,13 +110,14 @@ function MesPostes() {
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, id) => {
     dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
   };
-
+  
   return (
     <>
       {bannieresRenouvellementValide?.length > 0 &&
-        bannieresRenouvellementValide.map(conseiller => {
+        bannieresRenouvellementValide?.map(conseiller => {
           return (
             <ValidatedRenouvellementBanner
+              structure={structure}
               key={conseiller._id}
               conseiller={conseiller}
               setBannieresRenouvellementValide={setBannieresRenouvellementValide}
@@ -119,6 +125,17 @@ function MesPostes() {
             />
           );
         })}
+      {structure?.lastDemandeCoselec?.banniereValidationAvenant && (
+        <ValidatedAvenantBanner
+          structure={structure}
+        />
+      )}
+      {structure?.lastDemandeCoselec?.statut === 'en_cours' && (
+        <InProgressAvenantBanner
+          structure={structure}
+          roleActivated={roleActivated}
+        />
+      )}
       <ReconventionnementBanner
         structure={structure}
         roleActivated={roleActivated}
@@ -148,7 +165,7 @@ function MesPostes() {
         >
           G&eacute;rer mes postes
         </h2>
-        <ManagePositionsCard structure={structure} />
+        <ManagePositionsCard structure={structure} cardStyle={{ backgroundColor: '#E8EDFF' }} hasBorder={false}/>
         {misesEnRelation?.length > 0 && (
           <>
             <HireAdvisorCard
