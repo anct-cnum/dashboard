@@ -40,11 +40,11 @@
         }
         .motif-long {
             flex: 0 0 20%;
-            max-width: 20%;    
+            max-width: 20%;
         }
         .fin-contrat {
             flex: 0 0 12.66667%;
-            max-width: 13%;    
+            max-width: 13%;
         }
         .type-contrat {
             flex: 0 0 14.66667%;
@@ -79,5 +79,15 @@
         .btn-statistiques {
             text-align: right;
         }
+    }
+    @media (min-width: 1000px) {
+      .btn-actions-interessee {
+          margin-left: auto;
+      }
+    }
+    @media (min-width: 750px) {
+      .btn-actions {
+          margin-left: auto;
+      }
     }
 }

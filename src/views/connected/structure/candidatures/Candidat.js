@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions } from '../../../../actions';
-import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import { displayBadgeStatutCandidat, formatNomConseiller } from '../../../../utils/formatagesUtils';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
 import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
@@ -15,56 +15,8 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
   const dispatch = useDispatch();
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
-  const statutLabel = [{
-    key: 'nouvelle',
-    label: 'Nouvelle candidature',
-    badge: 'new'
-  }, {
-    key: 'nonInteressee',
-    label: 'Candidature non retenue',
-    badge: 'error'
-  }, {
-    key: 'interessee',
-    label: 'Candidat pré-sélectionné',
-    badge: 'info'
-  }, {
-    key: 'recrutee',
-    label: 'Candidature validée',
-    badge: 'success'
-  }, {
-    key: 'finalisee',
-    label: 'Candidat recruté',
-    badge: 'success'
-  },
-  {
-    key: 'nouvelle_rupture',
-    label: 'Rupture notifiée',
-    badge: 'info'
-  },
-  {
-    key: 'finalisee_non_disponible',
-    label: 'Candidat déjà recruté',
-    badge: 'warning'
-  },
-  {
-    key: 'finalisee_rupture',
-    label: 'Candidat en rupture',
-    badge: 'info'
-  },
-  {
-    key: 'non_disponible',
-    label: 'Candidature annulée',
-    badge: 'error'
-  }
-  ];
-
   const downloadCV = () => {
     dispatch(conseillerActions.getCurriculumVitae(miseEnRelation.conseillerObj?._id, miseEnRelation.conseillerObj));
-  };
-
-  const displayBadge = statut => {
-    const s = statutLabel.find(item => item.key === statut);
-    return <div className={`fr-badge fr-badge--${s?.badge}`}>{s?.label}</div>;
   };
 
   return (
@@ -115,15 +67,25 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
           <></>
         }
       </td>
-      <td>{displayBadge(miseEnRelation.statut)}</td>
+      <td>{displayBadgeStatutCandidat(miseEnRelation.statut)}</td>
       <td>
         {miseEnRelation.statut !== 'finalisee_non_disponible' ?
-          <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
-            pathname: `/structure/candidat/${miseEnRelation._id}`
-          }}
-          state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
-            D&eacute;tails
-          </Link> :
+          <>
+            {(miseEnRelation.conseillerObj?.statut === 'RECRUTE' || miseEnRelation.conseillerObj?.statut === 'RUPTURE') ?
+              <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
+                pathname: `/structure/candidature/conseiller/${miseEnRelation._id}`
+              }}
+              state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
+                D&eacute;tails
+              </Link> :
+              <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
+                pathname: `/structure/candidature/candidat/${miseEnRelation._id}`
+              }}
+              state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
+                D&eacute;tails
+              </Link>
+            }
+          </> :
           <button className="fr-btn fr-icon-eye-line fr-btn--icon-left" style={{ background: '#383838', opacity: '0.33', color: 'white' }} disabled>
             D&eacute;tails
           </button>

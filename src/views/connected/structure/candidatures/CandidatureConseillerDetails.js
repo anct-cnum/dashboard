@@ -2,33 +2,37 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions, alerteEtSpinnerActions } from '../../../../actions';
-import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import { displayBadgeStatutCandidat, formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import InformationConseiller from '../../../../components/InformationConseiller';
 import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
 import ReactTooltip from 'react-tooltip';
+import PopinInteressee from '../popins/popinInteressee';
+import PopinRecrutee from '../popins/popinRecrutee';
+import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
+import dayjs from 'dayjs';
+import ButtonsAction from './ButtonsAction';
+import InformationConseiller from '../../../../components/InformationConseiller';
 
-function PreselectionConseillerDetails() {
+function CandidatureConseillerDetails() {
 
   const dispatch = useDispatch();
-  const { idConseiller } = useParams();
+  const { id } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
-  const errorPreselection = useSelector(state => state.conseiller?.errorPreselection);
-  const successPreselection = useSelector(state => state.conseiller?.successPreselection);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
+  let dateRecrutementUpdated = useSelector(state => state.conseiller?.dateRecrutementUpdated);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-
+  const [displayModal, setDisplayModal] = useState(true);
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
 
   useEffect(() => {
     if (!errorConseiller) {
-      if (conseiller?._id !== idConseiller) {
-        dispatch(conseillerActions.get(idConseiller));
+      if (conseiller?._id !== id) {
+        dispatch(conseillerActions.getCandidatureConseillerStructure(id));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -39,6 +43,11 @@ function PreselectionConseillerDetails() {
     }
   }, [errorConseiller]);
 
+  const updateStatut = statut => {
+    dispatch(conseillerActions.updateStatus(conseiller.miseEnRelation?._id, statut));
+    scrollTopWindow();
+  };
+
   useEffect(() => {
     if (conseiller !== undefined) {
       setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
@@ -47,16 +56,7 @@ function PreselectionConseillerDetails() {
     }
   }, [conseiller]);
 
-  const preSelectionnerCandidat = () => {
-    dispatch(conseillerActions.preSelectionner(conseiller._id));
-    scrollTopWindow();
-  };
-
-  useEffect(() => {
-    if (successPreselection !== undefined && successPreselection !== false) {
-      window.location.href = '/structure/candidats/interessee';
-    }
-  }, [successPreselection]);
+  const checkConseillerWithoutBtnAction = statut => !!(statut === 'finalisee' || statut === 'finalisee_rupture');
 
   return (
     <div className="fr-container conseillerDetails">
@@ -66,12 +66,26 @@ function PreselectionConseillerDetails() {
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </Link>
-      {(errorPreselection !== undefined && errorPreselection !== false) &&
-      <div className="fr-alert fr-alert--info fr-mt-3w">
-        <p>{errorPreselection}</p>
-      </div>
+      {dateRecrutementUpdated === true && conseiller?.miseEnRelation?.dateRecrutement !== null &&
+        <p className="fr-alert fr-alert--success fr-mt-3w">
+          La date de recrutement au {dayjs(conseiller?.miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')} a bien &eacute;t&eacute; enregistr&eacute;e
+        </p>
       }
       <div className="fr-col-12 fr-pt-6w">
+        {conseiller?.coselec?.nombreConseillersCoselec &&
+          <div className="fr-mb-3w">
+            <span className="fr-text--lg fr-text--bold">
+              {conseiller.coselec.nombreConseillersCoselec}&nbsp;
+              {pluralize(
+                'conseiller validé',
+                'conseiller validé',
+                'conseillers validés',
+                conseiller.coselec.nombreConseillersCoselec
+              )}
+              &nbsp;par l&rsquo;Agence nationale de la coh&eacute;sion des territoires
+            </span>
+          </div>
+        }
         <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
           {conseiller ? formatNomConseiller(conseiller) : ''}
           <img
@@ -86,26 +100,47 @@ function PreselectionConseillerDetails() {
       </div>
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5 fr-mb-1v">ID - {conseiller?.idPG ?? ''}</h5>
+          <h5 className={`fr-h5 ${checkConseillerWithoutBtnAction(conseiller?.miseEnRelation?.statut) ? 'fr-mb-3v' : 'fr-mb-1v'}`}>
+            ID - {conseiller?.idPG ?? ''}
+          </h5>
         </div>
       </div>
+      {displayModal &&
+        <>
+          {conseiller?.miseEnRelation?.statut === 'interessee' &&
+            <PopinInteressee setDisplayModal={setDisplayModal} />
+          }
+          {conseiller?.miseEnRelation?.statut === 'recrutee' &&
+            <PopinRecrutee setDisplayModal={setDisplayModal} urlDossierConventionnement={conseiller?.urlDossierConventionnement} />
+          }
+          {conseiller?.miseEnRelation?.statut === 'nouvelle_rupture' &&
+            <PopinNouvelleRupture setDisplayModal={setDisplayModal} />
+          }
+        </>
+      }
       {conseiller &&
         <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'center' }}>
           {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
             <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
           }
-          {conseiller?.statut === 'RUPTURE' &&
+          {conseiller?.statutCandidat === 'RUPTURE' &&
             <p className="fr-badge fr-badge--error fr-mr-2w" style={{ height: '20%' }}>Contrat termin&eacute;</p>
           }
           {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
-            <p className="fr-badge fr-badge--warning fr-mt-2w fr-mr-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
+            <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
           }
-          <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0">Nouvelle candidature</p>
-          <button onClick={preSelectionnerCandidat}
-            className="fr-btn btn-actions fr-mt-2w fr-mt-md-0"
-            title="Pr&eacute;selectionner ce candidat">
-            Pr&eacute;selectionner ce candidat
-          </button>
+          {conseiller?.miseEnRelation?.statut &&
+            <>
+              {displayBadgeStatutCandidat(conseiller?.miseEnRelation?.statut)}
+            </>
+          }
+          <ButtonsAction
+            statut={conseiller?.miseEnRelation?.statut}
+            miseEnRelationId={conseiller?.miseEnRelation?._id}
+            updateStatut={updateStatut}
+            dateRupture={conseiller?.miseEnRelation?.dateRupture}
+            motifRupture={conseiller?.miseEnRelation?.motifRupture}
+          />
         </div>
       }
       <InformationConseiller
@@ -119,4 +154,4 @@ function PreselectionConseillerDetails() {
   );
 }
 
-export default PreselectionConseillerDetails;
+export default CandidatureConseillerDetails;

@@ -2,37 +2,44 @@
     {
       "name": "Nouvelles candidatures",
       "name_singular": "Nouvelle candidature",
-      "filter": "nouvelle"
+      "filter": "nouvelle",
+      "badge": "new"
     },
     {
       "name": "Candidatures pré sélectionnées",
-      "name_singular": "Candidature pré sélectionnée",
-      "filter": "interessee"
+      "name_singular": "Candidat présélectionné",
+      "filter": "interessee",
+      "badge": "info"
     },
     {
       "name": "Candidatures non retenues",
-      "name_singular": "Candidature non retenue",
-      "filter": "nonInteressee"
+      "name_singular": "Candidat non retenu",
+      "filter": "nonInteressee",
+      "badge": "error"
     },
     {
       "name": "Candidatures validées",
       "name_singular": "Candidature validée",
-      "filter": "recrutee"
+      "filter": "recrutee",
+      "badge": "success"
     },
     {
       "name": "Candidats recrutés",
       "name_singular": "Candidat recruté",
-      "filter": "finalisee"
+      "filter": "finalisee",
+      "badge": "success"
     },
     {
       "name": "Ruptures notifiées",
       "name_singular": "Rupture notifiée",
-      "filter": "nouvelle_rupture"
+      "filter": "nouvelle_rupture",
+      "badge": "info"
     },
     {
       "name": "Candidats en rupture",
       "name_singular": "Candidat en rupture",
-      "filter": "finalisee_rupture"
+      "filter": "finalisee_rupture",
+      "badge": "info"
     },
     {
       "name": "Afficher toutes les candidatures",
