@@ -11,7 +11,6 @@ import { Integrations } from '@sentry/tracing';
 import { AuthProvider } from 'react-oidc-context';
 import { WebStorageStateStore } from 'oidc-client-ts';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { history } from './helpers';
 import setup from './services/api';
 import signInCallBack from '../src/services/auth/signInCallBack';
 import { MatomoProvider, createInstance } from '@jonkoops/matomo-tracker-react';
@@ -61,7 +60,7 @@ root.render(
   <React.StrictMode>
     <AuthProvider {...oidcConfig}>
       <Provider store={store}>
-        <Router history={history}>
+        <Router>
           <MatomoProvider value={instance}>
             <QueryClientProvider client={queryClient}>
               <App />
