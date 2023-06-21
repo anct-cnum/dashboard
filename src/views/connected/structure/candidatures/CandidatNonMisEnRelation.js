@@ -41,7 +41,7 @@ function CandidatNonMisEnRelation({ conseiller, currentFilter }) {
             >
               <img src={pinCNFS} alt="logo CNFS" style={{ height: '36px' }} />
             </div>
-            <Tooltip type="light" id={`tooltip-cnfs-candidat-non-mise-en-relation${conseiller?.idPG}`} className="infobulle" />
+            <Tooltip variant="light" id={`tooltip-cnfs-candidat-non-mise-en-relation${conseiller?.idPG}`} className="infobulle" />
           </>
         }
       </td>
@@ -55,7 +55,7 @@ function CandidatNonMisEnRelation({ conseiller, currentFilter }) {
             >
               <img src={logoPix} alt="logo Pix" style={{ height: '36px' }} />
             </div>
-            <Tooltip type="light" id={`tooltip-pix-candidat-non-mise-en-relation${conseiller?.idPG}`} className="infobulle" />
+            <Tooltip variant="light" id={`tooltip-pix-candidat-non-mise-en-relation${conseiller?.idPG}`} className="infobulle" />
           </>
         }
       </td>
