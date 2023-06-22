@@ -15,8 +15,8 @@ function ReconventionnementDetails({ reconventionnement }) {
   const dispatch = useDispatch();
 
 
-  const validation = () => {
-    dispatch(reconventionnementActions.validation(reconventionnement._id));
+  const decisionReconventionnement = statut => {
+    dispatch(reconventionnementActions.decisionReconventionnement(reconventionnement._id, statut));
   };
 
   return (
@@ -140,8 +140,13 @@ function ReconventionnementDetails({ reconventionnement }) {
               }
             </div>
             <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ ?
-                <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
+              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_REFUSÉ &&
+                <p className="fr-badge fr-badge--error">Demande refus&eacute;e</p>
+              }
+              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
+                <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p>
+              }
+              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS &&
                 <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
               }
             </div>
@@ -149,15 +154,26 @@ function ReconventionnementDetails({ reconventionnement }) {
           <div className="fr-card__footer">
             <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
               {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS &&
-                <li>
-                  <button
-                    className="fr-btn"
-                    onClick={validation}
-                    disabled={dossierReconventionnement?.statut !== 'accepte'}
-                  >
-                    Valider la demande
-                  </button>
-                </li>
+                <>
+                  <li>
+                    <button
+                      className="fr-btn fr-btn--secondary"
+                      onClick={() => decisionReconventionnement(StatutConventionnement.RECONVENTIONNEMENT_REFUSÉ)}
+                      disabled={dossierReconventionnement?.statut !== 'accepte'}
+                    >
+                      Refuser la demande
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="fr-btn"
+                      onClick={() => decisionReconventionnement(StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ)}
+                      disabled={dossierReconventionnement?.statut !== 'accepte'}
+                    >
+                      Valider la demande
+                    </button>
+                  </li>
+                </>
               }
               <li className="fr-ml-auto">
                 <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>

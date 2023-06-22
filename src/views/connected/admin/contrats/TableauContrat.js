@@ -32,7 +32,7 @@ export default function TableauContrat() {
 
   useEffect(() => {
     if (initContrat === true) {
-      dispatch(contratActions.getAll(currentPage, statutContrat, filtreParNomConseiller, ordreNom, ordre ? 1 : -1));
+      dispatch(contratActions.getAll(currentPage, statutContrat, filtreParNomConseiller, ordreNom, ordre ? -1 : 1));
     }
   }, [currentPage, statutContrat, filtreParNomConseiller, ordre, ordreNom]);
 
@@ -45,7 +45,7 @@ export default function TableauContrat() {
     if (!error) {
       if (initContrat === false && page !== undefined) {
         dispatch(filtresConventionsActions.resetFiltre());
-        dispatch(contratActions.getAll(page, statutContrat, filtreParNomConseiller, ordreNom, ordre ? 1 : -1));
+        dispatch(contratActions.getAll(page, statutContrat, filtreParNomConseiller, ordreNom, ordre ? -1 : 1));
         setInitContrat(true);
       }
     } else {

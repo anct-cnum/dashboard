@@ -41,7 +41,7 @@ export default function TableauHistoriqueContrat() {
 
   useEffect(() => {
     if (initContrat === true) {
-      dispatch(contratActions.getAllHistorique(currentPage, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre ? 1 : -1));
+      dispatch(contratActions.getAllHistorique(currentPage, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre ? -1 : 1));
     }
   }, [currentPage, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordre, ordreNom]);
 
@@ -54,7 +54,7 @@ export default function TableauHistoriqueContrat() {
     if (!error) {
       if (initContrat === false && page !== undefined) {
         dispatch(filtresConventionsActions.resetFiltre());
-        dispatch(contratActions.getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre ? 1 : -1));
+        dispatch(contratActions.getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre ? -1 : 1));
         setInitContrat(true);
       }
     } else {

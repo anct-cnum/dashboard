@@ -43,7 +43,7 @@ export default function TableauHistoriqueConvention() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(conventionActions.getAllHistorique(currentPage, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+      dispatch(conventionActions.getAllHistorique(currentPage, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre ? -1 : 1));
     }
   }, [currentPage, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordre, ordreNom]);
 
@@ -56,7 +56,7 @@ export default function TableauHistoriqueConvention() {
     if (!error) {
       if (initConseiller === false && page !== undefined) {
         dispatch(filtresConventionsActions.resetFiltre());
-        dispatch(conventionActions.getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+        dispatch(conventionActions.getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre ? -1 : 1));
         setInitConseiller(true);
       }
     } else {

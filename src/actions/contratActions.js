@@ -9,7 +9,7 @@ export const contratActions = {
   updateContract,
 };
 
-function getAll(page, statutContrat, filtreParNomConseiller, ordreNom = 'dateDemande', ordre = 1) {
+function getAll(page, statutContrat, filtreParNomConseiller, ordreNom = 'dateDemande', ordre = -1) {
   return dispatch => {
     dispatch(request());
 
@@ -62,7 +62,7 @@ function validationRenouvellement(id) {
     return { type: 'UPDATE_MISE_EN_RELATION_CONTRAT', miseEnRelationUpdated };
   }
 }
-function getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom = 'dateDemande', ordre = 1) {
+function getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom = 'dateDemande', ordre = -1) {
   return dispatch => {
     dispatch(request());
 
