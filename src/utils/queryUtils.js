@@ -81,6 +81,13 @@ export function conventionQueryStringParameters(filtreParNomStructure, ordreNom,
   return { ordreColonne, filterByName };
 }
 
+export function contratQueryStringParameters(filtreParNomConseiller, ordreNom, ordre) {
+  const filterByName = filtreParNomConseiller ? `&searchByNomConseiller=${filtreParNomConseiller}` : '';
+  const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
+
+  return { ordreColonne, filterByName };
+}
+
 // eslint-disable-next-line max-len
 export function statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom, region, departement, structureIds) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';

@@ -6,7 +6,6 @@ import Pagination from '../../../components/Pagination';
 import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import BlockDatePickers from '../../../components/datePicker/BlockDatePickers';
-import { StatutConventionnement } from '../../../utils/enumUtils';
 import HistoriqueReconventionnement from './reconventionnement/HistoriqueReconventionnement';
 import HistoriqueConventionnement from './conventionnement/HistoriqueConventionnement';
 import HistoriqueAvenantAjoutPoste from './avenantAjoutPoste/HistoriqueAvenantAjoutPoste';
@@ -56,6 +55,7 @@ export default function TableauHistoriqueConvention() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
+        dispatch(filtresConventionsActions.resetFiltre());
         dispatch(conventionActions.getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }

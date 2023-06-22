@@ -48,6 +48,7 @@ export default function TableauConvention() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
+        dispatch(filtresConventionsActions.resetFiltre());
         dispatch(conventionActions.getAll(page, typeConvention, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
