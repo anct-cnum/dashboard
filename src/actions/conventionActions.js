@@ -32,11 +32,11 @@ function getAll(page, typeConvention, filtreParNomStructure, ordreNom = 'dateDem
   }
 }
 
-function getAllHistorique(page, typeConvention, dateDebut, dateFin) {
+function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom = 'dateDemande', ordre = 1) {
   return dispatch => {
     dispatch(request());
 
-    conventionService.getAllHistorique(page, typeConvention, dateDebut, dateFin)
+    conventionService.getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre)
     .then(
       conventions => dispatch(success(conventions)),
       error => {
