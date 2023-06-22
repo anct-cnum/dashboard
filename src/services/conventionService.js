@@ -1,5 +1,6 @@
 import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
+import { conventionQueryStringParameters } from '../utils/queryUtils';
 import { API } from './api';
 
 export const conventionService = {
@@ -10,8 +11,12 @@ export const conventionService = {
   updateAvenantRenduPoste,
 };
 
-function getAll(page, typeConvention) {
-  return API.get(`${apiUrlRoot}/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}`)
+function getAll(page, typeConvention, filtreParNomStructure, ordreNom, ordre) {
+  const {
+    ordreColonne,
+    filterByName,
+  } = conventionQueryStringParameters(filtreParNomStructure, ordreNom, ordre);
+  return API.get(`${apiUrlRoot}/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${ordreColonne}${filterByName}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

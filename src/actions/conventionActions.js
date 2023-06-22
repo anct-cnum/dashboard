@@ -8,11 +8,11 @@ export const conventionActions = {
   updateAvenantRenduPoste,
 };
 
-function getAll(page, typeConvention) {
+function getAll(page, typeConvention, filtreParNomStructure, ordreNom = 'dateDemande', ordre = 1) {
   return dispatch => {
     dispatch(request());
 
-    conventionService.getAll(page, typeConvention)
+    conventionService.getAll(page, typeConvention, filtreParNomStructure, ordreNom, ordre)
     .then(
       conventions => dispatch(success(conventions)),
       error => {

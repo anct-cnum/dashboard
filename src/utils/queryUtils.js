@@ -42,7 +42,7 @@ export function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, date
     default:
       break;
   }
-  
+
   // eslint-disable-next-line max-len
   return { ordreColonne, filterDateStart, filterDateEnd, filterByNameConseiller, rupture, coordinateur, filterByRegion, filterByDepartement, filterByNameStructure };
 }
@@ -56,7 +56,7 @@ export function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, da
   }
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
   const pageIfDefined = page ? '&page=' + page : '';
-  
+
   return `?territoire=${territoire}&dateDebut=${dateDebut}&dateFin=${dateFin}${pageIfDefined}${ordreColonne}`;
 }
 
@@ -70,8 +70,15 @@ export function structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateF
   const filterByType = filtreParType !== 'tous' && filtreParType !== undefined ? `&type=${filtreParType}` : '';
   const filterByStatut = filtreParStatut !== 'tous' && filtreParStatut !== undefined ? `&statut=${filtreParStatut}` : '';
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
-  
+
   return { ordreColonne, filterDateStart, filterDateEnd, filterByName, filterByType, filterByStatut, filterByRegion, filterByDepartement };
+}
+
+export function conventionQueryStringParameters(filtreParNomStructure, ordreNom, ordre) {
+  const filterByName = filtreParNomStructure ? `&searchByNomStructure=${filtreParNomStructure}` : '';
+  const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
+
+  return { ordreColonne, filterByName };
 }
 
 // eslint-disable-next-line max-len
@@ -88,7 +95,7 @@ export function statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, 
   const filterByVille = ville !== 'tous' && ville !== undefined ? `&ville=${ville}` : '';
   const filterByConseillerIds = conseillerIds?.length > 0 ? `&conseillerIds=${JSON.stringify(conseillerIds)}` : '';
   const filterByStructureIds = structureIds?.length > 0 ? `&structureIds=${JSON.stringify(structureIds)}` : '';
-  
+
   // eslint-disable-next-line max-len
   return { filterDateStart, filterDateEnd, filterIdType, filterByType, filterByVille, filterByRegion, filterByCodePostal, filterByDepartement, filterByLastName, filterByFirstName, filterByConseillerIds, filterByStructureIds };
 }
@@ -109,7 +116,7 @@ export function statsGrandReseauQueryStringParameters(dateDebut, dateFin, consei
   const filterByVille = ville !== 'tous' && ville !== undefined ? `&ville=${ville}` : '';
   const filterByConseillerIds = conseillerIds?.length > 0 ? `&conseillerIds=${JSON.stringify(conseillerIds)}` : '';
   const filterByStructureIds = structureIds?.length > 0 ? `&structureIds=${JSON.stringify(structureIds)}` : '';
-  
+
   // eslint-disable-next-line max-len
   return { filterDateStart, filterDateEnd, filterByVille, filterByRegion, filterByCodePostal, filterByDepartement, filterByConseillerIds, filterByStructureIds };
 }
@@ -127,6 +134,6 @@ export function candidatQueryStringParameters(filtreParNomCandidat, filtreParReg
   const filterByNameCandidat = filtreParNomCandidat ? `&searchByNomCandidat=${filtreParNomCandidat}` : '';
   const filterByRegion = filtreParRegion !== 'tous' && filtreParRegion !== undefined ? `&region=${filtreParRegion}` : '';
   const filterByDepartement = filtreParDepartement !== 'tous' && filtreParDepartement !== undefined ? `&departement=${filtreParDepartement}` : '';
-  
+
   return { filterByNameCandidat, filterByRegion, filterByDepartement };
 }

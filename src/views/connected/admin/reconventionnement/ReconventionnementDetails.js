@@ -13,7 +13,7 @@ function ReconventionnementDetails({ reconventionnement }) {
   const dossierReconventionnement = reconventionnement?.conventionnement?.dossierReconventionnement;
   const dossierConventionnement = reconventionnement?.conventionnement?.dossierConventionnement;
   const dispatch = useDispatch();
- 
+
 
   const validation = () => {
     dispatch(reconventionnementActions.validation(reconventionnement._id));
@@ -201,7 +201,7 @@ function ReconventionnementDetails({ reconventionnement }) {
               <div className="fr-col-12">
                 <h6 className="fr-card__desc fr-h6">Profils recrut&eacute;s</h6>
               </div>
-              {reconventionnement?.conseillersRecruter?.map((conseiller, index) =>
+              {reconventionnement?.conseillersRecruterConventionnement?.map((conseiller, index) =>
                 <div key={index} className="fr-card fr-col-12 fr-mt-3w fr-p-3w">
                   <div className="fr-card__body fr-p-0">
                     <div className="fr-grid-row" style={{ alignItems: 'center' }}>
@@ -247,12 +247,12 @@ function ReconventionnementDetails({ reconventionnement }) {
                           {validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) &&
                             <span className="fr-text--regular fr-text--md">-</span>
                           }
-                          {(!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && !conseiller?.dateFinDeContrat) &&
+                          {(!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && !conseiller?.dateFinDeContrat && !conseiller?.dateRupture) &&
                             <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
-                              En attente de pi&egrave;ces...
+                              En attente de pi&egrave;...
                             </span>
                           }
-                          {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
+                          {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && !conseiller?.dateRupture) &&
                             <span className="fr-text--regular fr-text--md">
                               {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
                             </span>
