@@ -136,8 +136,8 @@ export default function TableauHistoriqueContrat() {
               <div className="fr-col-12 fr-mb-2w fr-mt-3w">
                 <div className="fr-search-bar fr-search-bar" id="search" role="search" >
                   <input onKeyDown={rechercheParNomConseillerToucheEnter} className="fr-input" defaultValue={''}
-                    placeholder="Rechercher par nom, par id, par siret ou par email" type="search" id="search-input" name="search-input" />
-                  <button className="fr-btn" onClick={rechercheParNomConseiller} title="Rechercher par nom, par id, par siret ou par email">
+                    placeholder="Rechercher par nom ou par id" type="search" id="search-input" name="search-input" />
+                  <button className="fr-btn" onClick={rechercheParNomConseiller} title="Rechercher par nom ou par id">
                     Rechercher
                   </button>
                 </div>
