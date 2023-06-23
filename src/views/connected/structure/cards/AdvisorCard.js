@@ -65,7 +65,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                     {dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY')}
                   </span> :
                   <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
-                    En attente de pi&egrave;...
+                    En attente de pi...
                   </span>
                 }
               </div>
@@ -81,7 +81,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                 }
                 {(!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && !conseiller?.dateFinDeContrat) &&
                   <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
-                    En attente de pi&egrave;ces...
+                    En attente de pi...
                   </span>
                 }
                 {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&

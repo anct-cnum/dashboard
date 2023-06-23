@@ -58,13 +58,13 @@ function MesPostes() {
       case StatutConventionnement.RECONVENTIONNEMENT_EN_COURS:
       case StatutConventionnement.RECONVENTIONNEMENT_INITIÉ:
         return 'withBannerOnTop';
-  
+
       case StatutConventionnement.NON_INTERESSÉ:
         return 'withoutBannerOnTop';
       default:
         break;
     }
-  
+
     if (
       bannieresRenouvellementValide?.length > 0 ||
       (showValidateBanner && structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) ||
@@ -110,7 +110,7 @@ function MesPostes() {
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, id) => {
     dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
   };
-  
+
   return (
     <>
       {bannieresRenouvellementValide?.length > 0 &&
@@ -169,7 +169,7 @@ function MesPostes() {
         {misesEnRelation?.length > 0 && (
           <>
             <HireAdvisorCard
-              nbreConseillersActifs={conseillersActifs.length}
+              nbreConseillersActifs={conseillersActifs.filter(conseiller => conseiller?.conseiller?.statut === 'finalisee').length}
               nbreConseillersRenouveler={conseillersARenouveler.length}
               nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
               structure={structure}
