@@ -98,9 +98,6 @@ export default function TableauHistoriqueConvention() {
     }
   };
 
-  const checkIfAvenantRenduPoste = demande => demande?.statut !== 'en_cours' && demande?.type === 'retrait';
-
-  const checkIfAvenantPostePoste = demande => demande?.statut !== 'en_cours' && demande?.type === 'ajout';
   return (
     <div className="conventions">
       <Spinner loading={loading || loadingExport} />
