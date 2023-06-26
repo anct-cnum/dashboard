@@ -12,12 +12,12 @@ const ValidatedRenouvellementBanner = ({ conseiller, setBannieresRenouvellementV
   }
  
   return (
-    <div className={`fr-notice fr-py-4w banner success background`}>
-      <div className={`fr-container success responsive__banner`}>
+    <div className="fr-notice fr-py-4w banner success background">
+      <div className="fr-container success responsive__banner">
         <div className="responsive__banner">
           <div>
             <p className="fr-notice__title title__color" style={{ width: '70rem' }}>
-              <span className={`fr-icon-checkbox-fill icon__color`} aria-hidden="true"></span>
+              <span className="fr-icon-checkbox-fill icon__color" aria-hidden="true"></span>
               <span className="fr-ml-2w">{`Le nouveau contrat de ${formatNomConseiller(conseiller)} est prêt!`}</span>
             </p>
           </div>

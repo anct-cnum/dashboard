@@ -5,7 +5,7 @@ import { pluralize } from '../../../../utils/formatagesUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import PopinGestionPostes from '../popins/popinGestionPostes';
-import { StatutConventionnement } from '../../../../utils/enumUtils';
+import { PhaseConventionnement, StatutConventionnement } from '../../../../utils/enumUtils';
 import { displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
 
 const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersActifs, nbreConseillersEnCoursDeRecrutement, nbreConseillersRenouveler }) => {
@@ -41,7 +41,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
           <div className="fr-card__content">
             <div className="fr-grid-row fr-grid-row--middle">
               <h4 className="fr-grid-row fr-grid-row--middle">{phase}</h4>
-              <p className="fr-badge fr-badge--warning fr-ml-auto">
+              {isReconventionnement && <p className="fr-badge fr-badge--warning fr-ml-auto">
                 {
                   calcNbJoursAvantDateFinContrat(dossier?.dateFinProchainContrat) > 0 ?
                     calcNbJoursAvantDateFinContrat(dossier?.dateFinProchainContrat) : ''
@@ -52,7 +52,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                   ' jours restants avant la fin du premier contrat',
                   calcNbJoursAvantDateFinContrat(dossier?.dateFinProchainContrat)
                 )}
-              </p>
+              </p>}
             </div>
             <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
               dossier?.dateDeCreation ?
@@ -85,16 +85,18 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                 </span>
               </p>
               {(
-                (isReconventionnement && structure?.demandesCoselec.some(demande => demande.phaseConventionnement === '2')) ||
-                (!isReconventionnement && structure?.demandesCoselec.some(demande => demande.phaseConventionnement === '1'))
+                (isReconventionnement && structure?.demandesCoselec.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_2)) ||
+                (!isReconventionnement && structure?.demandesCoselec.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_1))
               ) &&
              <>
                <div className="fr-col-12 fr-mt-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
                </div>
                {
-                 structure.demandesCoselec
-                 .filter(demande => isReconventionnement ? demande.phaseConventionnement === '2' : demande.phaseConventionnement === '1')
+                 structure?.demandesCoselec
+                 .filter(demande => isReconventionnement ?
+                   demande?.phaseConventionnement === PhaseConventionnement.PHASE_2 :
+                   demande?.phaseConventionnement === PhaseConventionnement.PHASE_1)
                  .map((demande, idx) => (
                    <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }} key={idx}>
                       Avenant - {

@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { pluralize, formatNomConseiller } from '../../../../utils/formatagesUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 import { getNombreDePostes, displayStatutRequestText, displayNombreDePostes } from '../utils/functionUtils';
+import { PhaseConventionnement } from '../../../../utils/enumUtils';
 
 const ConventionnementInfosCard = ({ structure, roleActivated }) => {
 
@@ -56,14 +57,14 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
               </span>
             </p>
             {
-              structure?.demandesCoselec.some(demande => demande.phaseConventionnement === '1') &&
+              structure?.demandesCoselec.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_1) &&
              <>
                <div className="fr-col-12 fr-mt-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
                </div>
                {
-                 structure.demandesCoselec
-                 .filter(demande => demande.phaseConventionnement === '1')
+                 structure?.demandesCoselec
+                 .filter(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_1)
                  .map((demande, idx) => (
                    <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }} key={idx}>
                       Avenant - {

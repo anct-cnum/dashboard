@@ -79,7 +79,7 @@ function MesPostes() {
   };
 
   const createContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
-    dispatch(contratActions.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId, structure?._id,));
+    dispatch(contratActions.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
   };
 
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, id) => {
@@ -138,7 +138,7 @@ function MesPostes() {
               structure={structure}
             />
             {
-              conseillersARenouveler.length > 0 && <RenewAdvisorsSection
+              conseillersARenouveler?.length > 0 && <RenewAdvisorsSection
                 conseillersARenouveler={conseillersARenouveler}
                 structure={structure}
                 roleActivated={roleActivated}
@@ -148,26 +148,26 @@ function MesPostes() {
               />
             }
             {
-              conseillersActifs.length > 0 && <ActiveAdvisorsSection
+              conseillersActifs?.length > 0 && <ActiveAdvisorsSection
                 conseillersActifs={conseillersActifs}
                 structure={structure}
                 setMiseEnrelationId={setMiseEnrelationId}
               />
             }
             {
-              conseillersActifsNonRenouveles.length > 0 &&
-            <ActiveNoRenewalAdvisorsSection
-              conseillersActifsNonRenouveles={conseillersActifsNonRenouveles}
-              structure={structure}
-              roleActivated={roleActivated}
-            />
+              conseillersActifsNonRenouveles?.length > 0 &&
+              <ActiveNoRenewalAdvisorsSection
+                conseillersActifsNonRenouveles={conseillersActifsNonRenouveles}
+                structure={structure}
+                roleActivated={roleActivated}
+              />
             }
             {
-              conseillersEnCoursDeRecrutement.length > 0 &&
+              conseillersEnCoursDeRecrutement?.length > 0 &&
               <HiringInProgressAdvisorsSection conseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement}/>
             }
             {
-              anciensConseillers.length > 0 &&
+              anciensConseillers?.length > 0 &&
             <InactiveAdvisorsSection anciensConseillers={anciensConseillers}/>
             }
           </>

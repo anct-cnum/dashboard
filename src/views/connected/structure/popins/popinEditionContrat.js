@@ -151,7 +151,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           checked={typeDeContrat === 'contrat_de_projet_prive'}
                         />
                         <label className="fr-label fr-ml-1w" htmlFor="radio-3">
-                          Contrat de projet privé
+                          Contrat de projet priv&eacute;
                         </label>
                       </div>
                       <div className="fr-contract-radio-group fr-radio-group--sm">

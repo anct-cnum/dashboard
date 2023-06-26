@@ -24,11 +24,11 @@ const ValidatedAvenantBanner = ({ structure }) => {
   const getPosteDemandeText = () => {
     if (isRefusee) {
       return pluralize('poste', 'poste', 'postes', structure?.lastDemandeCoselec?.nombreDePostesSouhaites);
-    } else {
-      return structure?.lastDemandeCoselec?.type === 'ajout' ?
-        pluralize('poste', 'poste', 'postes', structure?.lastDemandeCoselec?.nombreDePostesAccordes) :
-        pluralize('poste vacant', 'poste vacant', 'postes vacants', structure?.lastDemandeCoselec?.nombreDePostesRendus);
     }
+    return structure?.lastDemandeCoselec?.type === 'ajout' ?
+      pluralize('poste', 'poste', 'postes', structure?.lastDemandeCoselec?.nombreDePostesAccordes) :
+      pluralize('poste vacant', 'poste vacant', 'postes vacants', structure?.lastDemandeCoselec?.nombreDePostesRendus);
+    
   };
 
   const getInfoText = () => {
@@ -57,11 +57,11 @@ const ValidatedAvenantBanner = ({ structure }) => {
   const getDisplayNumber = (structure, isRefusee) => {
     if (isRefusee) {
       return structure?.lastDemandeCoselec?.nombreDePostesSouhaites;
-    } else {
-      return structure?.lastDemandeCoselec?.type === 'ajout' ?
-        `${structure?.lastDemandeCoselec?.nombreDePostesAccordes}/${structure?.lastDemandeCoselec?.nombreDePostesSouhaites}` :
-        structure?.lastDemandeCoselec?.nombreDePostesRendus;
     }
+    return structure?.lastDemandeCoselec?.type === 'ajout' ?
+      `${structure?.lastDemandeCoselec?.nombreDePostesAccordes}/${structure?.lastDemandeCoselec?.nombreDePostesSouhaites}` :
+      structure?.lastDemandeCoselec?.nombreDePostesRendus;
+    
   };
 
   return (

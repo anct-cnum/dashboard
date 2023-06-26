@@ -7,10 +7,10 @@ import { useAdvisors } from '../hooks/useAdvisors';
 function PopinRecapReconvention({ setOpenModal, handleSend, structure }) {
   const navigate = useNavigate();
   const {
-    conseillersActifs,
+    conseillersRecrutes,
     conseillersEnCoursDeRecrutement,
   } = useAdvisors();
-  const postesOccupes = conseillersActifs?.length + conseillersEnCoursDeRecrutement?.length;
+  const postesOccupes = conseillersRecrutes?.length + conseillersEnCoursDeRecrutement?.length;
   return (
     <dialog
       aria-labelledby="fr-modal-2-title"
@@ -107,14 +107,9 @@ function PopinRecapReconvention({ setOpenModal, handleSend, structure }) {
 }
 
 PopinRecapReconvention.propTypes = {
-  updateStatut: PropTypes.func,
-  updateDateRecrutement: PropTypes.func,
-  setDateValidee: PropTypes.func,
   setOpenModal: PropTypes.func,
-  checkedItems: PropTypes.array,
   handleSend: PropTypes.func,
-  nombreDePostes: PropTypes.number,
-  structure: PropTypes.object,
+  structure: PropTypes.object
 };
 
 export default PopinRecapReconvention;

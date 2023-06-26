@@ -43,9 +43,7 @@ const DeniedAvenantBanner = ({ structure }) => {
 };
 
 DeniedAvenantBanner.propTypes = {
-  structure: PropTypes.object,
-  roleActivated: PropTypes.string,
-  setShowValidateBanner: PropTypes.func,
+  structure: PropTypes.object
 };
 
 export default DeniedAvenantBanner;

@@ -17,7 +17,7 @@ const InformationCard = () => (
         target="_blank"
         rel="noopener noreferrer">
         En savoir plus
-      </a>.
+      </a>
     </p>
   </div>
 );

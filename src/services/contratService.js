@@ -31,9 +31,9 @@ function getAllHistorique(page, statutContrat, dateDebut, dateFin) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function createContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId, structureId) {
+function createContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId) {
   // eslint-disable-next-line max-len
-  return API.post(`${apiUrlRoot}/contrat?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId, structureId })
+  return API.post(`${apiUrlRoot}/contrat?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

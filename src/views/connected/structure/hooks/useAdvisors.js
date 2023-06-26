@@ -11,6 +11,7 @@ export function useAdvisors() {
   const [conseillersActifsNonRenouveles, setConseillersActifsNonRenouveles] = useState([]);
   const [conseillersEnCoursDeRecrutement, setConseillersEnCoursDeRecrutement] = useState([]);
   const [anciensConseillers, setAnciensConseillers] = useState([]);
+  const [conseillersRecrutes, setConseillersRecrutes] = useState([]);
   const [bannieresRenouvellementValide, setBannieresRenouvellementValide] = useState([]);
   const dispatch = useDispatch();
 
@@ -110,6 +111,7 @@ export function useAdvisors() {
       setConseillersEnCoursDeRecrutement(conseillersEnCoursDeRecrutement);
       setBannieresRenouvellementValide(bannieresRenouvellementValide);
       setAnciensConseillers(anciensConseillers);
+      setConseillersRecrutes(recrutees);
     }
   }, [misesEnRelation]);
 
@@ -121,5 +123,6 @@ export function useAdvisors() {
     anciensConseillers,
     bannieresRenouvellementValide,
     setBannieresRenouvellementValide,
+    conseillersRecrutes,
   };
 }
