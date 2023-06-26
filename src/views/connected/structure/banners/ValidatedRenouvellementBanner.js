@@ -10,18 +10,15 @@ const ValidatedRenouvellementBanner = ({ conseiller, setBannieresRenouvellementV
     setBannieresRenouvellementValide(bannieresRenouvellementValide.filter(banniere => banniere._id !== conseiller._id));
     dispatch(structureActions.closeBanner('renouvellement', conseiller?.miseEnrelationId));
   }
-  const isRefusee = conseiller?.banniereValidationRenouvellement === 'refusee';
+ 
   return (
-    <div className={`fr-notice fr-py-4w banner ${isRefusee ? 'warning' : 'success'} background`}>
-      <div className={`fr-container ${isRefusee ? 'warning' : 'success'} responsive__banner`}>
+    <div className={`fr-notice fr-py-4w banner success background`}>
+      <div className={`fr-container success responsive__banner`}>
         <div className="responsive__banner">
           <div>
             <p className="fr-notice__title title__color" style={{ width: '70rem' }}>
-              <span className={`fr-icon-${isRefusee ? 'error' : 'checkbox'}-fill icon__color`} aria-hidden="true"></span>
-              {
-                isRefusee ? <span className="fr-ml-2w">{`La demande de nouveau contrat de ${formatNomConseiller(conseiller)} a été refusée`}</span> :
-                  <span className="fr-ml-2w">{`Le nouveau contrat de ${formatNomConseiller(conseiller)} est prêt!`}</span>
-              }
+              <span className={`fr-icon-checkbox-fill icon__color`} aria-hidden="true"></span>
+              <span className="fr-ml-2w">{`Le nouveau contrat de ${formatNomConseiller(conseiller)} est prêt!`}</span>
             </p>
           </div>
           <div className="banner__button_progress_contrat">
