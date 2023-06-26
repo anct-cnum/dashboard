@@ -88,7 +88,7 @@ function InformationCandidat({ conseiller }) {
             </div>
             <div className="fr-mb-3w">
               <strong>Date de recrutement pr&eacute;visionnelle</strong><br/>
-              {(conseiller?.miseEnRelation?.length === 0 || !conseiller?.miseEnRelation) &&
+              {(conseiller?.miseEnRelation?.length === 0 && !conseiller?.miseEnRelation) &&
                 <span>-</span>
               }
               {conseiller?.miseEnRelation?.length > 0 &&

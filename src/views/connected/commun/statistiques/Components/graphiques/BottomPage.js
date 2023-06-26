@@ -7,7 +7,7 @@ import { getGraphiqueStacked, getGraphiquePie, getGraphiqueColumn } from '../uti
 import largeurEcran from '../utils/functionsLargeurEcran';
 import labelsCorrespondance from '../../../../../../datas/labelsCorrespondance.json';
 import { statistiquesActions } from '../../../../../../actions';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 
 require('dayjs/locale/fr');
 
@@ -119,17 +119,20 @@ function BottomPage({ donneesStats }) {
       </div>
       <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 print-graphique">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
-        <div data-tip={`
+        <div
+          data-tooltip-id="tooltip-temps-accompagnement"
+          data-tooltip-float="true"
+          data-tooltip-html="
           <span>Comment calculons nous la donn&eacute;e&nbsp;?</span>
           <ul>
             <li>30min ou moins = 30min</li>
             <li>30min &agrave; 1h = 1h</li>
             <li>Au del&agrave; d&rsquo;1h nous prenons le temps exact renseign&eacute;</li>
           </ul>
-          `}>
+          ">
           <ElementHighcharts donneesStats={statsTempsAccompagnementAteliers} variablesGraphique={pieGraphiqueTemps}/>
         </div>
-        <ReactTooltip html={true} className="infobulle tooltip-temps"/>
+        <Tooltip style={{ zIndex: '1' }} id="tooltip-temps-accompagnement" className="infobulle tooltip-temps"/>
       </div>
       <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 fr-col-lg-3 print-graphique">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>

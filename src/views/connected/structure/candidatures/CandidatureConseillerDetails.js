@@ -6,7 +6,7 @@ import { displayBadgeStatutCandidat, formatNomConseiller, pluralize } from '../.
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 import PopinInteressee from '../popins/popinInteressee';
 import PopinRecrutee from '../popins/popinRecrutee';
 import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
@@ -89,14 +89,16 @@ function CandidatureConseillerDetails() {
         <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
           {conseiller ? formatNomConseiller(conseiller) : ''}
           <img
-            data-tip="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
+            data-tooltip-content="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
+            data-tooltip-id="tooltip-cnfs-candidat-non-mise-en-relation"
+            data-tooltip-float="true"
             className={`fr-ml-2w ${conseiller ? '' : 'fr-hidden'}`}
             src={pinCNFS}
             alt="logo CNFS"
             style={{ height: '50px', position: 'absolute' }}
           />
         </h1>
-        <ReactTooltip type="light" html={true} className="infobulle" />
+        <Tooltip id="tooltip-cnfs-candidat-non-mise-en-relation" variant="light" className="infobulle" />
       </div>
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>

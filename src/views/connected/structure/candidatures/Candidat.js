@@ -8,7 +8,7 @@ import { displayBadgeStatutCandidat, formatNomConseiller } from '../../../../uti
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
 import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 
 function Candidat({ miseEnRelation, currentFilter, search }) {
 
@@ -36,12 +36,13 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
         {(miseEnRelation.conseillerObj?.statut === 'RECRUTE' || miseEnRelation.conseillerObj?.statut === 'RUPTURE') &&
           <>
             <div
-              data-tip="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
-              data-for={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`}
+              data-tooltip-content="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
+              data-tooltip-float="true"
+              data-tooltip-id={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`}
             >
               <img src={pinCNFS} alt="logo CNFS" style={{ height: '36px' }} />
             </div>
-            <ReactTooltip type="light" html={true} className="infobulle" id={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`} />
+            <Tooltip variant="light" className="infobulle" id={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`} />
           </>
         }
       </td>
@@ -49,11 +50,12 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
         {miseEnRelation.conseillerObj?.pix?.partage &&
           <>
             <div
-              data-tip="A partag&eacute; ses r&eacute;sultats Pix"
-              data-for={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`}>
+              data-tooltip-content="A partag&eacute; ses r&eacute;sultats Pix"
+              data-tooltip-float="true"
+              data-tooltip-id={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`}>
               <img src={logoPix} alt="logo Pix" style={{ height: '36px' }} />
             </div>
-            <ReactTooltip type="light" html={true} id={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`} className="infobulle" />
+            <Tooltip variant="light" id={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`} className="infobulle" />
           </>
         }
       </td>
