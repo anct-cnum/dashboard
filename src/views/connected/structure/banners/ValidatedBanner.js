@@ -9,19 +9,14 @@ const ValidatedBanner = ({ structure, conseillersActifs, setShowValidateBanner }
   }
 
   return (
-    <div className="fr-notice fr-py-3w banner success background" style={{ position: 'absolute', top: '173px', left: '0%', right: '0%' }}>
+    <div className="fr-notice fr-py-3w banner success background">
       <div className="fr-container success responsive__banner">
         <div className="fr-notice__body responsive__banner" style={{ paddingLeft: '5px' }}>
           <div>
             <p className="fr-notice__title title__color fr-mb-2w">
-              <span className="fr-icon-checkbox-fill icon__color" aria-hidden="true"></span>
+              <span className="fr-icon-checkbox-fill icon__color fr-mr-2w" aria-hidden="true"></span>
               Votre demande de reconventionnement a &eacute;t&eacute; accept&eacute;&nbsp;!
-              <span
-                className="fr-icon-close-line"
-                aria-hidden="true"
-                style={{ marginLeft: '41rem', cursor: 'pointer' }}
-                onClick={closeBanner}
-              ></span>
+            
             </p>
             <>
               <p className="fr-text fr-text--sm">
@@ -47,6 +42,9 @@ const ValidatedBanner = ({ structure, conseillersActifs, setShowValidateBanner }
               </ul>
               <p className="fr-text fr-text--sm">En savoir plus sur comment recruter vos conseillers.</p>
             </>
+          </div>
+          <div className="banner__button_progress_reconventionnement">
+            <button className="fr-icon-close-line" onClick={() => closeBanner()}></button>
           </div>
         </div>
       </div>

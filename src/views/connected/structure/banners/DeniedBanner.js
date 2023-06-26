@@ -2,13 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import days from 'dayjs';
 
-const InProgressBanner = ({ structure }) => {
+const DeniedBanner = ({ structure, setShowValidateBanner }) => {
+
+  function closeBanner() {
+    setShowValidateBanner(false);
+    localStorage.setItem('bannerClosed', 'true');
+  }
+
   return (
     <div
-      className="fr-notice fr-py-4w banner notice background"
+      className="fr-notice fr-py-4w banner warning background"
     >
-      <div className="fr-container notice responsive__banner">
-        <span className="fr-icon-time-fill icon__color" aria-hidden="true"></span>
+      <div className="fr-container warning responsive__banner">
+        <span className="fr-icon-error-fill icon__color" aria-hidden="true"></span>
         <div className="fr-notice__body responsive__banner" style={{ paddingLeft: '20px' }}>
           <div>
             <p className="fr-notice__title title__color">
@@ -19,18 +25,24 @@ const InProgressBanner = ({ structure }) => {
               }
             </p>
             <p className="fr-text--md">
-              Votre demande est en cours de traitement, vous aurez une r&eacute;ponse tr&egrave;s prochainement.
+            Votre demande &agrave; &eacute;t&eacute; refus&eacute;e.
             </p>
           </div>
         </div>
+        <span
+          className="fr-icon-close-line banner__button_progress_reconventionnement_denied"
+          aria-hidden="true"
+          onClick={closeBanner}
+        ></span>
       </div>
     </div>
   );
 };
 
-InProgressBanner.propTypes = {
+DeniedBanner.propTypes = {
   structure: PropTypes.object,
   roleActivated: PropTypes.string,
+  setShowValidateBanner: PropTypes.func,
 };
 
-export default InProgressBanner;
+export default DeniedBanner;

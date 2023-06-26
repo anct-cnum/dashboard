@@ -2,9 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { pluralize } from '../../../../utils/formatagesUtils';
+import { useAdvisors } from '../hooks/useAdvisors';
 
-function PopinRecapReconvention({ setOpenModal, checkedItems, handleSend, nombreDePostes }) {
+function PopinRecapReconvention({ setOpenModal, handleSend, structure }) {
   const navigate = useNavigate();
+  const {
+    conseillersActifs,
+    conseillersEnCoursDeRecrutement,
+  } = useAdvisors();
+  const postesOccupes = conseillersActifs?.length + conseillersEnCoursDeRecrutement?.length;
   return (
     <dialog
       aria-labelledby="fr-modal-2-title"
@@ -30,12 +36,11 @@ function PopinRecapReconvention({ setOpenModal, checkedItems, handleSend, nombre
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   R&eacute;capitulatif de votre demande
                 </h1>
-                <p>Veuillez confirmez ces informations avant d&rsquo;envoyer votre demande en validation.</p>
                 <>
                   <p>
                     Vous allez faire une demande pour{' '}
                     <span className="fr-text fr-text--bold">
-                      {nombreDePostes}{' '}
+                      {structure?.posteValiderCoselec}{' '}
                       {pluralize(
                         'poste subventionné',
                         'poste subventionné',
@@ -48,7 +53,7 @@ function PopinRecapReconvention({ setOpenModal, checkedItems, handleSend, nombre
                   <ul>
                     <li>
                       <p className="fr-text--bold fr-mb-1w">
-                        {checkedItems.filter(item => item.statut === 'finalisee').length}{' '}
+                        {postesOccupes}{' '}
                         {pluralize(
                           'poste occupé',
                           'poste occupé',
@@ -59,8 +64,8 @@ function PopinRecapReconvention({ setOpenModal, checkedItems, handleSend, nombre
                     </li>
                     <li>
                       <p className="fr-text--bold">
-                        {nombreDePostes -
-                          checkedItems.filter(item => item.statut === 'finalisee').length}{' '}
+                        {structure?.posteValiderCoselec -
+                          postesOccupes}{' '}
                         {pluralize(
                           'poste vacant',
                           'poste vacant',
@@ -109,6 +114,7 @@ PopinRecapReconvention.propTypes = {
   checkedItems: PropTypes.array,
   handleSend: PropTypes.func,
   nombreDePostes: PropTypes.number,
+  structure: PropTypes.object,
 };
 
 export default PopinRecapReconvention;

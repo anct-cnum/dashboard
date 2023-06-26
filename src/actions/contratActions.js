@@ -86,11 +86,11 @@ function getAllHistorique(page, statutContrat, dateDebut, dateFin) {
   }
 }
 
-function createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId) {
+function createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId, structureId) {
   return dispatch => {
     dispatch(request());
 
-    contratService.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId)
+    contratService.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId, structureId)
     .then(() => dispatch(success()),
       error => {
         dispatch(failure(error));

@@ -20,8 +20,8 @@ function popinAnnulationReConvention({ setOpenModal, handleCancel, motif, setMot
     },
     {
       id: 'radio-4',
-      value: `Je ne sais pas encore si je souhaite me reconventionner car je manque de visibilité sur les prochains mois`,
-      label: `Je ne sais pas encore si je souhaite me reconventionner car je manque de visibilité sur les prochains mois`,
+      value: `Je ne sais pas encore si je souhaite reconventionner car je manque de visibilité sur les prochains mois`,
+      label: `Je ne sais pas encore si je souhaite reconventionner car je manque de visibilité sur les prochains mois`,
     },
   ];
 

@@ -20,7 +20,7 @@ function popinGestionPostesMotif({ setStep, setMotif, motif, actionType, autreMo
 
   const ajouterMotifs = [
     'Ma structure souhaite renforcer l\'équipe',
-    'Je souhaite développer l\'offre de service CnFS',
+    'Je souhaite développer l\'offre de service Conseillers Numériques',
     'Je rencontre une forte demande sur mon territoire'
   ];
 
@@ -56,7 +56,7 @@ function popinGestionPostesMotif({ setStep, setMotif, motif, actionType, autreMo
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Pourquoi souhaitez-vous {actionType === 'add' ? 'ajouter' : 'rendre'} un ou des postes ?
                 </h1>
-                <p>Veuillez indiquer les raisons de votre choix de rendre ce ou ces postes de Conseillers num&eacute;riques France Services :</p>
+                <p>Veuillez indiquer les raisons de votre choix de rendre ce ou ces postes de Conseillers Num&eacute;riques :</p>
                 <div className="fr-form-group">
                   <fieldset className="fr-fieldset">
                     <div className="fr-fieldset__content">

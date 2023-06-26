@@ -97,7 +97,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
               </div>
             </div>
             <div className="badge-statut-renouvellement card__text">
-              {calcNbJoursAvantDateFinContrat(miseEnRelation?.dateFinDeContrat) > 0 ?
+              {miseEnRelation.typeDeContrat === 'CDI' || calcNbJoursAvantDateFinContrat(miseEnRelation?.dateFinDeContrat) > 0 ?
                 <p className="fr-badge fr-badge--success">En activit&eacute;</p> :
                 <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>
               }

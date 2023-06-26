@@ -151,7 +151,7 @@ function DemandeReconventionnement() {
         <div className="fr-input-group">
           <h5>Nombre de postes</h5>
           <label className="fr-label" htmlFor="text-input-groups1">
-            <span>Renseignez le nombre de poste total que vous souhaitez&nbsp;:</span>
+            <span>Renseignez le nombre de postes total que vous souhaitez&nbsp;:</span>
           </label>
           <input
             className="fr-input"
