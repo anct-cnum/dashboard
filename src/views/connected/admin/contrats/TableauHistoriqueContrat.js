@@ -76,7 +76,7 @@ export default function TableauHistoriqueContrat() {
   }, [exportHistoriqueContratFileBlob, exportHistoriqueContratError]);
 
   const exportHistoriqueContrat = () => {
-    dispatch(exportsActions.exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin));
+    dispatch(exportsActions.exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre ? -1 : 1));
   };
 
   const ordreColonne = e => {

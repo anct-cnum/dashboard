@@ -78,7 +78,7 @@ export default function TableauHistoriqueConvention() {
   }, [exportHistoriqueDossiersConventionFileBlob, exportHistoriqueDossiersConventionFileError]);
 
   const exportHistoriqueConvention = () => {
-    dispatch(exportsActions.exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin));
+    dispatch(exportsActions.exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure));
   };
 
   const ordreColonne = e => {
