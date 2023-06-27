@@ -10,8 +10,8 @@ function Contrat({ contrat }) {
     if (contrat?.statut === 'renouvellement_initiee' && contrat?.emetteurRenouvellement?.date) {
       return dayjs(contrat.emetteurRenouvellement.date).format('DD/MM/YYYY');
     }
-    if (contrat?.statut === 'recrutee' && contrat?.emettteurRecrutement?.date) {
-      return dayjs(contrat.emettteurRecrutement.date).format('DD/MM/YYYY');
+    if (contrat?.statut === 'recrutee' && contrat?.emetteurRecrutement?.date) {
+      return dayjs(contrat.emetteurRecrutement.date).format('DD/MM/YYYY');
     }
     if (contrat?.statut === 'recrutee' && contrat?.createdAt) {
       return dayjs(contrat.createdAt).format('DD/MM/YYYY');
