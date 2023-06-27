@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
-import { badgeStatutDossierDS, pluralize } from '../../../../utils/formatagesUtils';
+import { pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 import ModalValidationAvenantAjoutPoste from '../modals/ModalValidationAvenantAjoutPoste';
 import { useDispatch } from 'react-redux';
@@ -12,9 +12,6 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
 
   const [openModal, setOpenModal] = useState(false);
   const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.id === idDemandeCoselec);
-  const statutDossierDS = avenant?.conventionnement?.statut.match(/\bRECONVENTIONNEMENT\B/) ?
-    avenant?.conventionnement?.dossierReconventionnement?.statut :
-    avenant?.conventionnement?.dossierConventionnement?.statut;
 
   const refusAvenantAjoutPoste = () => {
     dispatch(conventionActions.updateAvenantAjoutPoste(avenant._id, StatutCoselec.NÉGATIF));
@@ -111,7 +108,6 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
             }
             <li className="fr-ml-auto">
               <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                {badgeStatutDossierDS(statutDossierDS)}
                 <a className="fr-btn fr-btn--secondary" href={avenant?.url} target="_blank" rel="noopener noreferrer">
                   Voir le dossier D&eacute;marche Simplifi&eacute;e
                 </a>
