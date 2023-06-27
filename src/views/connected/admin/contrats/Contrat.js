@@ -10,7 +10,10 @@ function Contrat({ contrat }) {
     if (contrat?.statut === 'renouvellement_initiee' && contrat?.emetteurRenouvellement?.date) {
       return dayjs(contrat.emetteurRenouvellement.date).format('DD/MM/YYYY');
     }
-    if (contrat?.statut === 'recrutee' && contrat?.createdAt) { // en attendant le nouveau parcours de recrutement
+    if (contrat?.statut === 'recrutee' && contrat?.emettteurRecrutement?.date) {
+      return dayjs(contrat.emettteurRecrutement.date).format('DD/MM/YYYY');
+    }
+    if (contrat?.statut === 'recrutee' && contrat?.createdAt) {
       return dayjs(contrat.createdAt).format('DD/MM/YYYY');
     }
     return 'Non renseignée';
