@@ -189,7 +189,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                     <div>
                       <strong className="fr-text--md">Motif</strong><br />
                       <span className="fr-text--regular fr-text--md" title={miseEnRelation?.motifRupture}>
-                        {miseEnRelation?.motifRupture.length > 27 ?
+                        {miseEnRelation?.motifRupture?.length > 27 ?
                           `${miseEnRelation?.motifRupture.substring(0, 27)}...` : formatMotifRupture(miseEnRelation?.motifRupture)
                         }
                       </span>

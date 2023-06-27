@@ -1,26 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import { badgeStatutDossierDS, formatNomConseiller, formatTypeDeContrat, pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
-import { reconventionnementActions } from '../../../../actions';
+import ModalDecisionReconventionnement from '../modals/ModalDecisionReconventionnement';
 
 function ReconventionnementDetails({ reconventionnement }) {
+  const [openModal, setOpenModal] = useState(false);
+  const [statut, setStatut] = useState('');
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const dossierReconventionnement = reconventionnement?.conventionnement?.dossierReconventionnement;
   const dossierConventionnement = reconventionnement?.conventionnement?.dossierConventionnement;
-  const dispatch = useDispatch();
-
-
-  const decisionReconventionnement = statut => {
-    dispatch(reconventionnementActions.decisionReconventionnement(reconventionnement._id, statut));
-  };
 
   return (
     <>
+      {openModal &&
+        <ModalDecisionReconventionnement
+          setOpenModal={setOpenModal}
+          idStructure={reconventionnement?._id}
+          statutReconventionnement={statut}
+        />
+      }
       <div className="fr-card fr-card--no-border" style={{ backgroundColor: '#E8EDFF' }}>
         <div className="fr-card__body">
           <div className="fr-card__content">
@@ -158,7 +161,10 @@ function ReconventionnementDetails({ reconventionnement }) {
                   <li>
                     <button
                       className="fr-btn fr-btn--secondary"
-                      onClick={() => decisionReconventionnement(StatutConventionnement.RECONVENTIONNEMENT_REFUSÉ)}
+                      onClick={() => {
+                        setStatut(StatutConventionnement.RECONVENTIONNEMENT_REFUSÉ);
+                        setOpenModal(true);
+                      }}
                       disabled={dossierReconventionnement?.statut !== 'accepte'}
                     >
                       Refuser la demande
@@ -167,7 +173,10 @@ function ReconventionnementDetails({ reconventionnement }) {
                   <li>
                     <button
                       className="fr-btn"
-                      onClick={() => decisionReconventionnement(StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ)}
+                      onClick={() => {
+                        setStatut(StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ);
+                        setOpenModal(true);
+                      }}
                       disabled={dossierReconventionnement?.statut !== 'accepte'}
                     >
                       Valider la demande
@@ -186,7 +195,7 @@ function ReconventionnementDetails({ reconventionnement }) {
             </ul>
           </div>
         </div>
-      </div>
+      </div >
       <div className="fr-card fr-mt-6w">
         <div className="fr-card__body">
           <div className="fr-card__content">
