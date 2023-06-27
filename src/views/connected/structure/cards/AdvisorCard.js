@@ -78,7 +78,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                 }
               </div>
             </div>
-            <div className="fin-contrat card__text">
+            <div className="fr-col-2 card__text">
               <div>
                 <strong className="fr-text--md">
                   Fin de contrat
@@ -89,7 +89,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                 }
                 {(!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && !conseiller?.dateFinDeContrat) &&
                   <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
-                    En attente de pi&egrave;ces...
+                    En attente de pi&egrave;...
                   </span>
                 }
                 {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
