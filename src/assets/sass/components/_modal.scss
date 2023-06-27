@@ -3,3 +3,17 @@
     opacity: 1;
     visibility: visible;
 }
+
+.fr-fieldset-contract__content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .fr-contract-radio-group {
+    flex-basis: 50%; 
+    align-items: center;
+    display: flex;
+    padding-left: 10px;
+    width: 262px;
+  }

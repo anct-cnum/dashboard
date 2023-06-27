@@ -59,18 +59,8 @@ function popinGestionPostesRecap({
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   R&eacute;capitulatif de votre demande
                 </h1>
-                <p>
-                  {
-                    actionType === 'add' ? <>
-                    Veuillez confirmez ces informations avant d&apos;envoyer votre demande en validation.
-                    </> :
-                      <>
-                      Veuillez confirmez votre demande. Le ou les postes rendus ne pourront plus &ecirc;tre pourvues apr&egrave;s avoir valider votre demande.
-                      </>
-                  }
-                </p>
-                <p>
-              Vous allez faire une demande pour&nbsp;
+                {actionType === 'add' ? <p>
+                  Vous allez faire une demande pour&nbsp;
                   <span className="fr-text fr-text--bold">
                     {nombreDePostes}{' '}
                     {pluralize(
@@ -80,8 +70,21 @@ function popinGestionPostesRecap({
                       nombreDePostes
                     )}.
                   </span>
-                </p>
-                <strong>Motif</strong>
+                </p> :
+                  <p>
+                    Vous souhaitez rendre&nbsp;
+                    <span className="fr-text fr-text--bold">
+                      {nombreDePostes}{' '}
+                      {pluralize(
+                        'poste vacant',
+                        'poste vacant',
+                        'postes vacants',
+                        nombreDePostes
+                      )}.
+                    </span>
+                  </p>
+                }
+                <strong>Motif:</strong>
                 <p style={{ marginBottom: '50px' }}>{motif || autreMotif}</p>
               </div>
               <div className="fr-modal__footer">
