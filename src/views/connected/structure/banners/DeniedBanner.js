@@ -25,7 +25,7 @@ const DeniedBanner = ({ structure, setShowValidateBanner }) => {
               }
             </p>
             <p className="fr-text--md">
-            Votre demande &agrave; &eacute;t&eacute; refus&eacute;e.
+              Votre demande &agrave; &eacute;t&eacute; refus&eacute;e.
             </p>
           </div>
         </div>

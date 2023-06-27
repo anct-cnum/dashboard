@@ -60,7 +60,7 @@ function popinGestionPostesRecap({
                   R&eacute;capitulatif de votre demande
                 </h1>
                 {actionType === 'add' ? <p>
-              Vous allez faire une demande pour&nbsp;
+                  Vous allez faire une demande pour&nbsp;
                   <span className="fr-text fr-text--bold">
                     {nombreDePostes}{' '}
                     {pluralize(
@@ -72,7 +72,7 @@ function popinGestionPostesRecap({
                   </span>
                 </p> :
                   <p>
-              Vous souhaitez rendre&nbsp;
+                    Vous souhaitez rendre&nbsp;
                     <span className="fr-text fr-text--bold">
                       {nombreDePostes}{' '}
                       {pluralize(

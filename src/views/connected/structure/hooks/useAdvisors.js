@@ -86,7 +86,7 @@ export function useAdvisors() {
         // si la mise en relation est en statut finalisee et n'a pas encore été dédoublonée
         const isFinaliseeWithoutConventionnement =
             miseEnRelation.statut === 'finalisee' && !miseEnRelation.miseEnRelationConventionnement;
-        //si la mise en relation à été cochée et dont soit le renouvellemnt à été initié soit la mise en relation est finalisée
+        //si la mise en relation & été cochée et donc soit le renouvellement a été initié soit la mise en relation est finalisée
         // et n'a pas encore été dédoublonnée et n'est pas un CDI
         return hasReconventionnement && (isRenouvellementInitie || isFinaliseeWithoutConventionnement && isNotCDI);
       })

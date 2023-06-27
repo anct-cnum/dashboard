@@ -18,7 +18,7 @@ const ValidatedRenouvellementBanner = ({ conseiller, setBannieresRenouvellementV
           <div>
             <p className="fr-notice__title title__color" style={{ width: '70rem' }}>
               <span className="fr-icon-checkbox-fill icon__color" aria-hidden="true"></span>
-              <span className="fr-ml-2w">{`Le nouveau contrat de ${formatNomConseiller(conseiller)} est prêt!`}</span>
+              <span className="fr-ml-2w">{`Le nouveau contrat de ${formatNomConseiller(conseiller)} est pr&ecirc;t!`}</span>
             </p>
           </div>
           <div className="banner__button_progress_contrat">

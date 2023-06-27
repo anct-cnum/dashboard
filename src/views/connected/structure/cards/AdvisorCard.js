@@ -9,7 +9,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
   const displayBadge = statut => {
     switch (statut) {
       case 'finalisee':
-        return (conseiller?.typeDeContrat === 'CDI' || calcNbJoursAvantDateFinContrat(conseiller?.dateFinDeContrat) > 0) ?
+        return (conseiller?.typeDeContrat === 'CDI' || !conseiller?.dateFinDeContrat || calcNbJoursAvantDateFinContrat(conseiller?.dateFinDeContrat) > 0) ?
           <p className="fr-badge fr-badge--success">En activit&eacute;</p> :
           <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>;
       case 'nouvelle_rupture':

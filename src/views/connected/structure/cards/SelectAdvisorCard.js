@@ -97,11 +97,14 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
               </div>
             </div>
             <div className="badge-statut-renouvellement card__text">
-              {validTypeDeContratWithoutEndDate(miseEnRelation.typeDeContrat) || calcNbJoursAvantDateFinContrat(miseEnRelation?.dateFinDeContrat) > 0 ?
-                <p className="fr-badge fr-badge--success">En activit&eacute;</p> :
-                <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>
-              }
-            </div>
+              {validTypeDeContratWithoutEndDate(miseEnRelation.typeDeContrat) ||
+                !miseEnRelation.dateFinDeContrat ||
+                calcNbJoursAvantDateFinContrat(miseEnRelation?.dateFinDeContrat) > 0 ? (
+                  <p className="fr-badge fr-badge--success">En activit&eacute;</p>
+                ) : (
+                  <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>
+                )}
+            </div>;
             <div className="btn-actions-conseiller fr-ml-auto">
               <button
                 className="fr-btn fr-icon-eye-line fr-mr-2w card__button"

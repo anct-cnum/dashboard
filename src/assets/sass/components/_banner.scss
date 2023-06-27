@@ -38,10 +38,10 @@
 }
 
 .main__banner {
-position: relative;
-top: max(-10vh, -5rem);
-margin-left: -15vh;
-margin-right: -15vh;
+  position: relative;
+  top: max(-10vh, -5rem);
+  margin-left: -15vh;
+  margin-right: -15vh;
 }
 
 .info__color {
@@ -169,7 +169,6 @@ margin-right: -15vh;
       display: block;
       text-align: center;
       padding: auto;
-      
     }
   }
 @media (max-width: 1220px) {

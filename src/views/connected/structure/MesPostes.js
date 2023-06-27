@@ -74,6 +74,10 @@ function MesPostes() {
   };
 
   const handleCancel = () => {
+    if (motif === 'Je ne sais pas encore si je souhaite reconventionner car je manque de visibilité sur les prochains mois') {
+      setMotif('');
+      return;
+    }
     dispatch(reconventionnementActions.update(structure?._id, 'annuler', [], null, motif));
     dispatch(structureActions.getDetails(userAuth?.entity?.$id));
   };
@@ -138,7 +142,8 @@ function MesPostes() {
               structure={structure}
             />
             {
-              conseillersARenouveler?.length > 0 && <RenewAdvisorsSection
+              conseillersARenouveler?.length > 0 &&
+              <RenewAdvisorsSection
                 conseillersARenouveler={conseillersARenouveler}
                 structure={structure}
                 roleActivated={roleActivated}
@@ -148,7 +153,8 @@ function MesPostes() {
               />
             }
             {
-              conseillersActifs?.length > 0 && <ActiveAdvisorsSection
+              conseillersActifs?.length > 0 &&
+              <ActiveAdvisorsSection
                 conseillersActifs={conseillersActifs}
                 structure={structure}
                 setMiseEnrelationId={setMiseEnrelationId}

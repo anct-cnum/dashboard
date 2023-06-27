@@ -91,7 +91,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                 )}
               </p>
               {
-                structure?.demandesCoselec.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_2) &&
+                structure?.demandesCoselec?.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_2) &&
              <>
                <div className="fr-col-12 fr-mt-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
@@ -125,9 +125,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                 <ul className="fr-btns-group fr-btns-group--inline-md">
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={
-                        isButtonDisabled(structure)
-                      }
+                      disabled={isButtonDisabled(structure)}
                       onClick={() => {
                         handlePopin('add', 1);
                       }}>

@@ -10,6 +10,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   const [dateFin, setDateFin] = useState(null);
   const [typeDeContrat, setTypeDeContrat] = useState(null);
   const [salaire, setSalaire] = useState('');
+  const salaireMinimum = 1709.28;
 
   const handleSubmit = () => {
     if (editMode) {
@@ -44,10 +45,10 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
 
   const checkContratValid = () => {
     if (validTypeDeContratWithoutEndDate(typeDeContrat)) {
-      if (!dateDebut || !typeDeContrat || salaire < 1709.28) {
+      if (!dateDebut || !typeDeContrat || salaire < salaireMinimum) {
         return true;
       }
-    } else if (!dateFin || !dateDebut || !typeDeContrat || salaire < 1709.28) {
+    } else if (!dateFin || !dateDebut || !typeDeContrat || salaire < salaireMinimum) {
       return true;
     }
     if (editMode) {
