@@ -16,8 +16,8 @@ function ActiviterStructure({ structure, roleActivated }) {
           <h4 className="titre">Conventionnement phase 1</h4>
           <div className="fr-mb-3w">
             <strong>{pluralize(
-              'Postes validé en comité de sélection',
-              'Postes validé en comité de sélection',
+              'Poste validé en comité de sélection',
+              'Poste validé en comité de sélection',
               'Postes validés en comité de sélection',
               structure?.posteValiderCoselecConventionnement
             )}</strong><br />
@@ -37,7 +37,7 @@ function ActiviterStructure({ structure, roleActivated }) {
                   title="D&eacute;tail"
                   className="fr-text--md"
                   onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}>
-                  {conseiller?.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
+                  {conseiller?.idPG}&nbsp;-&nbsp;{conseiller ? formatNomConseiller(conseiller) : ''}
                 </button>
               </span>
             )}
@@ -72,8 +72,8 @@ function ActiviterStructure({ structure, roleActivated }) {
           <h4 className="titre">Conventionnement phase 2</h4>
           <div className="fr-mb-3w">
             <strong>{pluralize(
-              'Postes validé en comité de sélection',
-              'Postes validé en comité de sélection',
+              'Poste validé en comité de sélection',
+              'Poste validé en comité de sélection',
               'Postes validés en comité de sélection',
               structure?.posteValiderCoselec
             )}</strong><br />
@@ -93,7 +93,7 @@ function ActiviterStructure({ structure, roleActivated }) {
                   title="D&eacute;tail"
                   className="fr-text--md"
                   onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}>
-                  {conseiller?.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
+                  {conseiller?.idPG}&nbsp;-&nbsp;{conseiller ? formatNomConseiller(conseiller) : ''}
                 </button>
               </span>
             )}

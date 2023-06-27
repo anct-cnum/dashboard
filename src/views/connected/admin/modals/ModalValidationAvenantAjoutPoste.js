@@ -27,7 +27,7 @@ function ModalValidationAvenantAjoutPoste({ idStructure, demandesCoselec, nombre
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Validation de l&rsquo;avenant
                 </h1>
-                <p>Veuillez renseigner le nombre de postes suppl&eacute;mentaires attribu&eacute;s à la structure</p>
+                <p>Veuillez renseigner le nombre de postes suppl&eacute;mentaires attribu&eacute;s &agrave; la structure</p>
                 <input
                   className="fr-input"
                   type="number"

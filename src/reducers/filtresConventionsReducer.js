@@ -18,9 +18,7 @@ export default function filtresConventions(state = initialState, action) {
         ordreNom: action.ordreNom
       };
     case 'RESET_FILTER_AND_SORTS':
-      return {
-        ...initialState,
-      };
+      return initialState;
     default:
       return state;
   }
