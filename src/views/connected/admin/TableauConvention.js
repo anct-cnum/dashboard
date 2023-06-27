@@ -44,11 +44,11 @@ export default function TableauConvention() {
     scrollTopWindow();
     if (page === undefined) {
       dispatch(paginationActions.setPage(1));
+      dispatch(filtresConventionsActions.resetFiltre());
       setPage(1);
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(filtresConventionsActions.resetFiltre());
         dispatch(conventionActions.getAll(page, typeConvention, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }

@@ -49,11 +49,11 @@ export default function TableauHistoriqueContrat() {
     scrollTopWindow();
     if (page === undefined) {
       dispatch(paginationActions.setPage(1));
+      dispatch(filtresConventionsActions.resetFiltre());
       setPage(1);
     }
     if (!error) {
       if (initContrat === false && page !== undefined) {
-        dispatch(filtresConventionsActions.resetFiltre());
         dispatch(contratActions.getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre ? -1 : 1));
         setInitContrat(true);
       }
