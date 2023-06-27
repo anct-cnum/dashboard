@@ -10,6 +10,8 @@ export function useAdvisors() {
   const [conseillersARenouveler, setConseillersARenouveler] = useState([]);
   const [conseillersActifsNonRenouveles, setConseillersActifsNonRenouveles] = useState([]);
   const [conseillersEnCoursDeRecrutement, setConseillersEnCoursDeRecrutement] = useState([]);
+  const [anciensConseillers, setAnciensConseillers] = useState([]);
+  const [conseillersRecrutes, setConseillersRecrutes] = useState([]);
   const [bannieresRenouvellementValide, setBannieresRenouvellementValide] = useState([]);
   const dispatch = useDispatch();
 
@@ -65,20 +67,27 @@ export function useAdvisors() {
 
       const nouvellesRuptures = misesEnRelation
       .filter(({ statut }) => statut === 'nouvelle_rupture')
-      .map(({ conseillerObj }) => ({ ...conseillerObj, statut: 'nouvelle_rupture' }));
+      .map(createConseiller);
 
-      const conseillersEnCoursDeRecrutement = misesEnRelation.filter(({ statut }) => statut === 'recrutee');
+      const conseillersEnCoursDeRecrutement = misesEnRelation.filter(({ statut }) => statut === 'recrutee')
+      .map(createConseiller);
 
       const conseillersARenouveler = misesEnRelation
       .filter(miseEnRelation => {
         if (!miseEnRelation) {
           return false;
         }
+        //si la mise en relation à été cochée et à la clé reconventionnement à true
         const hasReconventionnement = miseEnRelation.reconventionnement;
+        // si le mise en relation n'est pas un CDI
         const isNotCDI = !validTypeDeContratWithoutEndDate(miseEnRelation.typeDeContrat);
+        // si la mise en relation est en statut renouvellement_initiee
         const isRenouvellementInitie = miseEnRelation.statut === 'renouvellement_initiee';
+        // si la mise en relation est en statut finalisee et n'a pas encore été dédoublonée
         const isFinaliseeWithoutConventionnement =
             miseEnRelation.statut === 'finalisee' && !miseEnRelation.miseEnRelationConventionnement;
+        //si la mise en relation & été cochée et donc soit le renouvellement a été initié soit la mise en relation est finalisée
+        // et n'a pas encore été dédoublonnée et n'est pas un CDI
         return hasReconventionnement && (isRenouvellementInitie || isFinaliseeWithoutConventionnement && isNotCDI);
       })
       .map(createConseiller);
@@ -88,14 +97,21 @@ export function useAdvisors() {
       .map(createConseiller);
 
       const conseillersActifsNonRenouveles = misesEnRelation
-      .filter(miseEnRelation => !miseEnRelation.reconventionnement)
+      .filter(miseEnRelation => !miseEnRelation.reconventionnement && miseEnRelation.statut === 'finalisee' &&
+      miseEnRelation.typeDeContrat !== 'CDI')
       .map(createConseiller);
 
-      setConseillersActifsNonRenouveles(conseillersActifsNonRenouveles);
+      const anciensConseillers = misesEnRelation
+      .filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture')
+      .map(createConseiller);
+
+      setConseillersActifsNonRenouveles([...conseillersActifsNonRenouveles, ...nouvellesRuptures]);
       setConseillersARenouveler(conseillersARenouveler);
       setConseillersActifs([...recrutees, ...nouvellesRuptures]);
       setConseillersEnCoursDeRecrutement(conseillersEnCoursDeRecrutement);
       setBannieresRenouvellementValide(bannieresRenouvellementValide);
+      setAnciensConseillers(anciensConseillers);
+      setConseillersRecrutes(recrutees);
     }
   }, [misesEnRelation]);
 
@@ -104,7 +120,9 @@ export function useAdvisors() {
     conseillersARenouveler,
     conseillersActifsNonRenouveles,
     conseillersEnCoursDeRecrutement,
+    anciensConseillers,
     bannieresRenouvellementValide,
     setBannieresRenouvellementValide,
+    conseillersRecrutes,
   };
 }

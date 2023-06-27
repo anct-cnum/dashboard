@@ -10,6 +10,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   const [dateFin, setDateFin] = useState(null);
   const [typeDeContrat, setTypeDeContrat] = useState(null);
   const [salaire, setSalaire] = useState('');
+  const salaireMinimum = 1709.28;
 
   const handleSubmit = () => {
     if (editMode) {
@@ -44,10 +45,10 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
 
   const checkContratValid = () => {
     if (validTypeDeContratWithoutEndDate(typeDeContrat)) {
-      if (!dateDebut || !typeDeContrat || !salaire) {
+      if (!dateDebut || !typeDeContrat || salaire < salaireMinimum) {
         return true;
       }
-    } else if (!dateFin || !dateDebut || !typeDeContrat || !salaire) {
+    } else if (!dateFin || !dateDebut || !typeDeContrat || salaire < salaireMinimum) {
       return true;
     }
     if (editMode) {
@@ -72,15 +73,15 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   };
 
   return (
-    <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog">
-      <div className="fr-container fr-container--fluid fr-container-md">
-        <div className="fr-grid-row fr-grid-row--center">
-          <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
-            <div className="fr-modal__body">
+    <dialog aria-labelledby="edition-contrat-title" id="edition-contrat" className="fr-modal modalOpened" role="dialog">
+      <div className="fr-container fr-container--fluid fr-container-sm">
+        <div className="fr-grid-row fr-grid-row--center" >
+          <div className="fr-col-12 fr-col-md-4 fr-col-lg-6">
+            <div className="fr-modal__body" >
               <div className="fr-modal__header">
                 <button
                   className="fr-btn--close fr-btn"
-                  aria-controls="fr-modal-2"
+                  aria-controls="edition-contrat"
                   onClick={() => {
                     setDateDebut(null);
                     setOpenModalContrat(false);
@@ -90,20 +91,22 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                 </button>
               </div>
               <div className="fr-modal__content">
-                <h1 id="fr-modal-2-title" className="fr-modal__title">
+                <h1 id="edition-contrat-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Renseigner un contrat pour ce candidat
                 </h1>
-                <p>Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat avant de fournir ses pi&egrave;ces justificatives.</p>
+                <p style={{ marginBottom: '15px' }}>
+                  Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat avant de fournir ses pi&egrave;ces justificatives.
+                </p>
                 <div className="fr-col-12 fr-mt-1w">
                   <label className="fr-label" style={{ fontSize: 'unset' }} htmlFor="datePicker">
-                    <p>Type de contrat</p>
+                    <p style={{ marginBottom: '15px' }}>Type de contrat</p>
                   </label>
                 </div>
-                <div className="fr-form-group">
+                <div className="fr-form-group fr-mb-2w">
                   <fieldset className="fr-fieldset">
-                    <div className="fr-fieldset__content">
-                      <div className="fr-radio-group">
+                    <div className="fr-fieldset-contract__content">
+                      <div className="fr-contract-radio-group fr-radio-group--sm">
                         <input
                           type="radio"
                           id="radio-1"
@@ -115,11 +118,11 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           value="CDI"
                           checked={typeDeContrat?.includes('CDI')}
                         />
-                        <label className="fr-label" htmlFor="radio-1">
+                        <label className="fr-label fr-ml-1w" htmlFor="radio-1">
                           CDI
                         </label>
                       </div>
-                      <div className="fr-radio-group">
+                      <div className="fr-contract-radio-group fr-radio-group--sm">
                         <input
                           type="radio"
                           id="radio-2"
@@ -128,11 +131,18 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           value="CDD"
                           checked={typeDeContrat?.includes('CDD')}
                         />
-                        <label className="fr-label" htmlFor="radio-2">
+                        <label className="fr-label fr-ml-1w" htmlFor="radio-2">
                           CDD
                         </label>
                       </div>
-                      <div className="fr-radio-group">
+                    </div>
+                  </fieldset>
+                </div>
+
+                <div className="fr-form-group">
+                  <fieldset className="fr-fieldset">
+                    <div className="fr-fieldset-contract__content">
+                      <div className="fr-contract-radio-group fr-radio-group--sm">
                         <input
                           type="radio"
                           id="radio-3"
@@ -141,11 +151,11 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           value="contrat_de_projet_prive"
                           checked={typeDeContrat === 'contrat_de_projet_prive'}
                         />
-                        <label className="fr-label" htmlFor="radio-3">
+                        <label className="fr-label fr-ml-1w" htmlFor="radio-3">
                           Contrat de projet priv&eacute;
                         </label>
                       </div>
-                      <div className="fr-radio-group">
+                      <div className="fr-contract-radio-group fr-radio-group--sm">
                         <input
                           type="radio"
                           id="radio-4"
@@ -154,52 +164,54 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           value="contrat_de_projet_public"
                           checked={typeDeContrat === 'contrat_de_projet_public'}
                         />
-                        <label className="fr-label" htmlFor="radio-4">
+                        <label className="fr-label fr-ml-1w" htmlFor="radio-4">
                           Contrat de projet public
                         </label>
                       </div>
                     </div>
                   </fieldset>
                 </div>
-                <div className="fr-col-12">
-                  <label className="fr-label" style={{ fontSize: 'unset' }}>
+                <div className="fr-grid-row">
+                  <div className="fr-col-6">
+                    <label className="fr-label" style={{ fontSize: 'unset' }}>
                     Date de d&eacute;but de contrat
-                  </label>
-                </div>
-                <div className="fr-col-xl-12 btn-fr-col-xl-3">
-                  <DatePicker
-                    id="datePickerDebutContrat"
-                    name="datePickerDebutContrat"
-                    className="fr-input fr-my-2w fr-mr-6w fr-col-12"
-                    dateFormat="dd/MM/yyyy"
-                    placeholderText="../../...."
-                    locale="fr"
-                    onChangeRaw={e => e.preventDefault()}
-                    minDate={editMode ? null : new Date()}
-                    maxDate={dateFin}
-                    selected={dateDebut}
-                    onChange={date => setDateDebut(date)}
-                  />
-                </div>
-                <div className="fr-col-12 fr-mt-2w">
-                  <label className="fr-label" style={{ fontSize: 'unset' }}>
+                    </label>
+                    <div className="fr-col-xl-8 btn-fr-col-xl-3">
+                      <DatePicker
+                        id="datePickerDebutContrat"
+                        name="datePickerDebutContrat"
+                        className="fr-input fr-my-2w fr-mr-6w fr-col-12"
+                        dateFormat="dd/MM/yyyy"
+                        placeholderText="../../...."
+                        locale="fr"
+                        onChangeRaw={e => e.preventDefault()}
+                        minDate={editMode ? null : new Date()}
+                        maxDate={dateFin}
+                        selected={dateDebut}
+                        onChange={date => setDateDebut(date)}
+                      />
+                    </div>
+                  </div>
+                  <div className="fr-col-6">
+                    <label className="fr-label" style={{ fontSize: 'unset' }}>
                     Date de fin de contrat
-                  </label>
-                </div>
-                <div className="fr-col-xl-12 btn-fr-col-xl-3">
-                  <DatePicker
-                    id="datePickerFinContrat"
-                    name="datePickerFinContrat"
-                    className="fr-input fr-my-2w fr-mr-6w fr-col-12"
-                    dateFormat="dd/MM/yyyy"
-                    placeholderText="../../...."
-                    locale="fr"
-                    disabled={typeDeContrat === 'CDI'}
-                    onChangeRaw={e => e.preventDefault()}
-                    minDate={dateDebut !== null ? dateDebut : new Date()}
-                    selected={dateFin}
-                    onChange={date => setDateFin(date)}
-                  />
+                    </label>
+                    <div className="fr-col-xl-8 btn-fr-col-xl-3">
+                      <DatePicker
+                        id="datePickerFinContrat"
+                        name="datePickerFinContrat"
+                        className="fr-input fr-my-2w fr-mr-6w fr-col-12"
+                        dateFormat="dd/MM/yyyy"
+                        placeholderText="../../...."
+                        locale="fr"
+                        disabled={typeDeContrat === 'CDI'}
+                        onChangeRaw={e => e.preventDefault()}
+                        minDate={dateDebut !== null ? dateDebut : new Date()}
+                        selected={dateFin}
+                        onChange={date => setDateFin(date)}
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="fr-input-group fr-col-6 fr-mt-2w">
                   <label className="fr-label">Salaire brut mensuel

@@ -4,11 +4,13 @@ import { pluralize } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import PopinGestionPostes from '../popins/popinGestionPostes';
 import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
-import { StatutConventionnement } from '../../../../utils/enumUtils';
-import { displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
+import { PhaseConventionnement, StatutConventionnement } from '../../../../utils/enumUtils';
+import { displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
 
 const ReconventionnementInfosCard = ({ structure }) => {
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
+
+  const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
 
   const displayBadge = () => {
     if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ) {
@@ -60,13 +62,13 @@ const ReconventionnementInfosCard = ({ structure }) => {
                   pluralize(
                     ' poste de conseiller',
                     ' poste de conseiller',
-                    ' postes de conseiller',
+                    ' postes de conseillers',
                     structure?.posteValiderCoselec,
                     true
                   )
                 }
                 {' '}
-                {structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' ? (
+                {isReconventionnement ? (
                   <span className="fr-text--regular fr-text--md">
                     {
                       pluralize(
@@ -88,26 +90,32 @@ const ReconventionnementInfosCard = ({ structure }) => {
                     }</span>
                 )}
               </p>
-              {structure?.lastDemandeCoselec &&
+              {
+                structure?.demandesCoselec?.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_2) &&
              <>
                <div className="fr-col-12 fr-mt-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
                </div>
-               <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-               Avenant - {
-                   getNombreDePostes(structure)
-                 } {pluralize(
-                   'poste de conseiller',
-                   'poste de conseiller',
-                   'postes de conseiller',
-                   getNombreDePostes(structure)
-                 )} {' '}
-                 <span className="fr-text--regular fr-text--md">
-                   {displayStatutRequestText(structure)} {' '}{' '}
+               {
+                 structure?.demandesCoselec
+                 .filter(demande => demande?.phaseConventionnement === PhaseConventionnement.PHASE_2)
+                 .map((demande, idx) => (
+                   <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }} key={idx}>
+                      Avenant - {
+                       displayNombreDePostes(demande)
+                     } {pluralize(
+                       'poste de conseiller',
+                       'poste de conseiller',
+                       'postes de conseillers',
+                       getNombreDePostes(demande)
+                     )} {' '}
+                     <span className="fr-text--regular fr-text--md">
+                       {displayStatutRequestText(demande)} {' '}{' '}
                    le {structure?.lastDemandeCoselec?.emetteurAvenant?.date ?
-                     dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date).format('DD/MM/YYYY') : 'Non renseignée'}
-                 </span>
-               </p>
+                         dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date).format('DD/MM/YYYY') : 'Non renseignée'}
+                     </span>
+                   </p>
+                 )) }
                <div className="fr-col-12 fr-my-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
                </div>

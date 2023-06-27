@@ -16,6 +16,8 @@ import PopinRecapReconvention from './popins/popinRecapReconvention';
 import Spinner from '../../../components/Spinner';
 import { pluralize, validTypeDeContratWithoutEndDate } from '../../../utils/formatagesUtils';
 import { StatutConventionnement } from '../../../utils/enumUtils';
+import { useAdvisors } from './hooks/useAdvisors';
+
 
 function DemandeReconventionnement() {
   const dispatch = useDispatch();
@@ -36,6 +38,11 @@ function DemandeReconventionnement() {
   const [openModal, setOpenModal] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
   const [nombreDePostes, setNombreDePostes] = useState(0);
+  const {
+    conseillersRecrutes,
+    conseillersEnCoursDeRecrutement,
+  } = useAdvisors();
+  const postesOccupes = conseillersRecrutes?.length + conseillersEnCoursDeRecrutement?.length;
 
   const errorMessages = {
     errorStructure: 'La structure n\'a pas pu être chargée !',
@@ -151,7 +158,7 @@ function DemandeReconventionnement() {
         <div className="fr-input-group">
           <h5>Nombre de postes</h5>
           <label className="fr-label" htmlFor="text-input-groups1">
-            <span>Renseignez le nombre de poste total que vous souhaitez&nbsp;:</span>
+            <span>Renseignez le nombre de postes total que vous souhaitez&nbsp;:</span>
           </label>
           <input
             className="fr-input"
@@ -196,44 +203,46 @@ function DemandeReconventionnement() {
               <hr style={{ borderWidth: '0.5px' }} />
             </div>
             <h5>R&eacute;capitulatif de votre demande</h5>
-            <p>
-              Vous allez faire une demande pour&nbsp;
-              <span className="fr-text fr-text--bold">
-                {nombreDePostes}{' '}
-                {pluralize(
-                  'poste subventionné',
-                  'poste subventionné',
-                  'postes subventionnés',
-                  nombreDePostes
-                )},{' '}
-              </span>
-              dont&nbsp;:
-            </p>
-            <ul>
-              <li>
-                <p className="fr-text--bold">
-                  {checkedItems.filter(item => item.statut === 'finalisee').length}{' '}
+            <>
+              <p>
+                    Vous allez faire une demande pour{' '}
+                <span className="fr-text fr-text--bold">
+                  {structure?.posteValiderCoselec}{' '}
                   {pluralize(
-                    'poste occupé',
-                    'poste occupé',
-                    'postes occupés',
-                    checkedItems.filter(item => item.statut === 'finalisee').length
-                  )}
-                </p>
-              </li>
-              <li>
-                <p className="fr-text--bold">
-                  {nombreDePostes -
-                          checkedItems.filter(item => item.statut === 'finalisee').length}{' '}
-                  {pluralize(
-                    'poste vacant',
-                    'poste vacant',
-                    'postes vacants',
-                    nombreDePostes
-                  )}
-                </p>
-              </li>
-            </ul>
+                    'poste subventionné',
+                    'poste subventionné',
+                    'postes subventionnés',
+                    true
+                  )},{' '}
+                </span>
+                    dont:
+              </p>
+              <ul>
+                <li>
+                  <p className="fr-text--bold fr-mb-1w">
+                    {postesOccupes}{' '}
+                    {pluralize(
+                      'poste occupé',
+                      'poste occupé',
+                      'postes occupés',
+                      true
+                    )}
+                  </p>
+                </li>
+                <li>
+                  <p className="fr-text--bold">
+                    {structure?.posteValiderCoselec -
+                          postesOccupes}{' '}
+                    {pluralize(
+                      'poste vacant',
+                      'poste vacant',
+                      'postes vacants',
+                      true
+                    )}
+                  </p>
+                </li>
+              </ul>
+            </>
           </>
         )}
         <ul className="fr-btns-group fr-btns-group--inline fr-mt-5w">

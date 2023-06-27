@@ -11,9 +11,8 @@ function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
     conseillersEnCoursDeRecrutement,
   } = useAdvisors();
 
-  const nbConseillerActifTotal = conseillersActifs.length + conseillersARenouveler.length + conseillersEnCoursDeRecrutement.length;
-  
   const structure = useSelector(state => state.structure?.structure);
+  const nbConseillerActifTotal = conseillersActifs.length + conseillersARenouveler.length + conseillersEnCoursDeRecrutement.length;
   const nombreDePostesLibres = structure?.posteValiderCoselec - nbConseillerActifTotal;
   const isErreurNombreDePostes = nombreDePostesLibres < nombreDePostes;
   const disable = () => actionType === 'add' ? !nombreDePostes : isErreurNombreDePostes;
@@ -50,11 +49,11 @@ function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
                       <>Veuillez indiquer le nombre de postes que vous souhaitez rendre dans vos postes vacants</>
                   }
                 </p>
-                <div className={`fr-input-group ${disable() ? 'fr-input-group--error' : ''} fr-col-12 fr-mt-2w`}>
+                <div className={`fr-input-group ${disable() && actionType !== 'add' ? 'fr-input-group--error' : ''} fr-col-12 fr-mt-2w`}>
                   <label className="fr-label" htmlFor="text-input">Nombre de postes</label>
                   <input
                     id="text-input"
-                    className={`fr-input ${disable() ? 'fr-input--error' : ''} `}
+                    className={`fr-input ${disable() && actionType !== 'add' ? 'fr-input--error' : ''} `}
                     type="number"
                     name="nombreDePostes"
                     min={1}
@@ -62,7 +61,7 @@ function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
                     value={nombreDePostes}
                   />
                   {
-                    disable() &&
+                    disable() && actionType !== 'add' &&
                    <p id="text-input-error-desc-error" className="fr-error-text">
                      Le nombre de postes que vous souhaitez rendre doit &ecirc;tre inf&eacute;rieur ou
                      &eacute;gal au nombre de postes inutilis&eacute;s par votre structure.

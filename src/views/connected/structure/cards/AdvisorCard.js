@@ -2,16 +2,24 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { formatNomConseiller, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
+import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
 const AdvisorCard = ({ conseiller, roleActivated }) => {
+
   const displayBadge = statut => {
     switch (statut) {
       case 'finalisee':
-        return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
+        return (conseiller?.typeDeContrat === 'CDI' || !conseiller?.dateFinDeContrat || calcNbJoursAvantDateFinContrat(conseiller?.dateFinDeContrat) > 0) ?
+          <p className="fr-badge fr-badge--success">En activit&eacute;</p> :
+          <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>;
       case 'nouvelle_rupture':
         return <p className="fr-badge fr-badge--info">Rupture en cours</p>;
       case 'renouvellement_initiee':
         return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
+      case 'finalisee_rupture':
+        return <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>;
+      case 'recrutee':
+        return <p className="fr-badge fr-badge--new">Recrutement en cours</p>;
       default:
         return;
     }
@@ -22,7 +30,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
       <div className="fr-card__body fr-p-0">
         <div>
           <div className="fr-grid-row responsive__wide-card" style={{ alignItems: 'center' }}>
-            <div className="fr-col-3 card__text">
+            <div className="fr-col-2 card__text">
               <div>
                 <strong className="fr-text--md fr-text--bold">
                   {conseiller ? formatNomConseiller(conseiller) : ''}
@@ -70,7 +78,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                 }
               </div>
             </div>
-            <div className="fin-contrat card__text">
+            <div className="fr-col-2 card__text">
               <div>
                 <strong className="fr-text--md">
                   Fin de contrat

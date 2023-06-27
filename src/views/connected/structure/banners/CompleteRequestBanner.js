@@ -9,7 +9,6 @@ const CompleteRequestBanner = ({ structure }) => {
   return (
     <div
       className="fr-notice fr-py-3w banner warning background"
-      style={{ position: 'absolute', top: '173px', left: '0%', right: '0%' }}
     >
       <div className="fr-container warning responsive__banner">
         <span className="fr-icon-warning-fill icon__color" aria-hidden="true"></span>

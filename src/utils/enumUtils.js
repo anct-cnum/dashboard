@@ -12,3 +12,8 @@ export const StatutCoselec = {
   POSITIF: 'POSITIF',
   NÉGATIF: 'NÉGATIF',
 };
+
+export const PhaseConventionnement = {
+  PHASE_1: '1',
+  PHASE_2: '2',
+};

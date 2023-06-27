@@ -84,7 +84,7 @@ function PreselectionConseillerDetails() {
             style={{ height: '50px', position: 'absolute' }}
           />
         </h1>
-        <Tooltip id="tooltip-cnfs-candidat-non-mise-en-relation" type="light" className="infobulle" />
+        <Tooltip id="tooltip-cnfs-candidat-non-mise-en-relation" variant="light" className="infobulle" />
       </div>
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>

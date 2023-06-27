@@ -1,12 +1,11 @@
 import { pluralize } from '../../../../utils/formatagesUtils';
 
-export function getNombreDePostes(structure) {
-  const lastDemandeCoselec = structure?.lastDemandeCoselec;
-  if (!lastDemandeCoselec) {
+export function getNombreDePostes(demandesCoselec) {
+  if (!demandesCoselec) {
     return '-';
   }
   
-  const { type, statut, nombreDePostesRendus, nombreDePostesAccordes, nombreDePostesSouhaites } = lastDemandeCoselec;
+  const { type, statut, nombreDePostesRendus, nombreDePostesAccordes, nombreDePostesSouhaites } = demandesCoselec;
   
   switch (type) {
     case 'retrait':
@@ -24,9 +23,32 @@ export function getNombreDePostes(structure) {
   }
 }
 
-export const displayStatutRequestText = structure => {
+export function displayNombreDePostes(demandesCoselec) {
+  if (!demandesCoselec) {
+    return '-';
+  }
+  
+  const { type, statut, nombreDePostesRendus, nombreDePostesAccordes, nombreDePostesSouhaites } = demandesCoselec;
+  
+  switch (type) {
+    case 'retrait':
+      return nombreDePostesRendus;
+    default:
+      switch (statut) {
+        case 'validee':
+          return `${nombreDePostesAccordes}/${nombreDePostesSouhaites}`;
+        case 'en_cours':
+        case 'refusee':
+          return nombreDePostesSouhaites;
+        default:
+          return '-';
+      }
+  }
+}
+
+export const displayStatutRequestText = demandesCoselec => {
   const { type, statut, nombreDePostesSouhaites, nombreDePostesAccordes, nombreDePostesRendus } =
-      structure?.lastDemandeCoselec || {};
+  demandesCoselec || {};
   
   switch (type) {
     case 'ajout':

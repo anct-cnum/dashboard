@@ -132,7 +132,7 @@ function BottomPage({ donneesStats }) {
           ">
           <ElementHighcharts donneesStats={statsTempsAccompagnementAteliers} variablesGraphique={pieGraphiqueTemps}/>
         </div>
-        <Tooltip id="tooltip-temps-accompagnement" className="infobulle tooltip-temps"/>
+        <Tooltip style={{ zIndex: '1' }} id="tooltip-temps-accompagnement" className="infobulle tooltip-temps"/>
       </div>
       <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 fr-col-lg-3 print-graphique">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>

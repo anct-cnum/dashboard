@@ -42,7 +42,7 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
             >
               <img src={pinCNFS} alt="logo CNFS" style={{ height: '36px' }} />
             </div>
-            <Tooltip type="light" className="infobulle" id={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`} />
+            <Tooltip variant="light" className="infobulle" id={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`} />
           </>
         }
       </td>
@@ -55,7 +55,7 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
               data-tooltip-id={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`}>
               <img src={logoPix} alt="logo Pix" style={{ height: '36px' }} />
             </div>
-            <Tooltip type="light" id={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`} className="infobulle" />
+            <Tooltip variant="light" id={`tooltip-pix-candidat${miseEnRelation?.conseillerObj?.idPG}`} className="infobulle" />
           </>
         }
       </td>
