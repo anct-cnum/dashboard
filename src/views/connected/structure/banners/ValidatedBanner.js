@@ -1,8 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
+import { useAdvisors } from '../hooks/useAdvisors';
 
-const ValidatedBanner = ({ structure, conseillersActifs, setShowValidateBanner }) => {
+const ValidatedBanner = ({ structure, setShowValidateBanner }) => {
+  const {
+    conseillersRecrutes,
+    conseillersEnCoursDeRecrutement,
+  } = useAdvisors();
+
+  const postesOccupes = conseillersRecrutes?.length + conseillersEnCoursDeRecrutement?.length;
+
   function closeBanner() {
     setShowValidateBanner(false);
     localStorage.setItem('bannerClosed', 'true');
@@ -22,7 +30,7 @@ const ValidatedBanner = ({ structure, conseillersActifs, setShowValidateBanner }
               <p className="fr-text fr-text--sm">
                 Vous avez obtenu{' '}
                 <span className="fr-text fr-text--bold">
-                  {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees}{' '}
+                  {structure?.posteValiderCoselec}{' '}
                   {pluralize('poste subventionné', 'poste subventionné', 'postes subventionnés', true)},{' '}
                 </span>
                 dont:
@@ -30,12 +38,13 @@ const ValidatedBanner = ({ structure, conseillersActifs, setShowValidateBanner }
               <ul className="fr-pl-4w">
                 <li>
                   <p className="fr-text fr-text--sm">
-                    {conseillersActifs.length} {pluralize('poste occupé', 'poste occupé', 'postes occupés', true)}
+                    {postesOccupes} {pluralize('poste occupé', 'poste occupé', 'postes occupés', true)}
                   </p>
                 </li>
                 <li>
                   <p className="fr-text fr-text--sm">
-                    {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees - conseillersActifs?.length}{' '}
+                    {structure?.posteValiderCoselec -
+                          postesOccupes}{' '}
                     {pluralize('poste vacant', 'poste vacant', 'postes vacants', true)}
                   </p>
                 </li>

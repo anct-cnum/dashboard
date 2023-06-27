@@ -104,7 +104,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                 ) : (
                   <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>
                 )}
-            </div>;
+            </div>
             <div className="btn-actions-conseiller fr-ml-auto">
               <button
                 className="fr-btn fr-icon-eye-line fr-mr-2w card__button"

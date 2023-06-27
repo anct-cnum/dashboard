@@ -49,7 +49,7 @@ const ValidatedAvenantBanner = ({ structure }) => {
           Le poste rendu permettra de subventionné un autre poste de conseiller pour une autre structure en demande.`,
           `Il vous reste ${structure?.posteValiderCoselec} postes subventionnés dès à présent. 
           Les postes rendus permettront de subventionnés d'autres postes de conseillers pour une autre structure en demande.`,
-          structure?.posteValiderCoselec
+          structure?.lastDemandeCoselec?.nombreDePostesRendus
         );
     }
   };

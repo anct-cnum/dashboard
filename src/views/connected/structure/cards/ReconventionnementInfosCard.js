@@ -62,7 +62,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                   pluralize(
                     ' poste de conseiller',
                     ' poste de conseiller',
-                    ' postes de conseiller',
+                    ' postes de conseillers',
                     structure?.posteValiderCoselec,
                     true
                   )

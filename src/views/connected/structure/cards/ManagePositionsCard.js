@@ -85,8 +85,8 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                 </span>
               </p>
               {(
-                (isReconventionnement && structure?.demandesCoselec.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_2)) ||
-                (!isReconventionnement && structure?.demandesCoselec.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_1))
+                (isReconventionnement && structure?.demandesCoselec?.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_2)) ||
+                (!isReconventionnement && structure?.demandesCoselec?.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_1))
               ) &&
              <>
                <div className="fr-col-12 fr-mt-1w">

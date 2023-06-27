@@ -40,7 +40,8 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
           </p>
           <div className="fr-card__desc">
             <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
-              {structure?.posteValiderCoselecConventionnement} - {pluralize(
+              {structure?.posteValiderCoselecConventionnement}{' '}
+              {pluralize(
                 'poste de conseiller',
                 'poste de conseiller',
                 'postes de conseillers',
@@ -57,7 +58,7 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
               </span>
             </p>
             {
-              structure?.demandesCoselec.some(demande => demande.phaseConventionnement !== PhaseConventionnement.PHASE_2) &&
+              structure?.demandesCoselec?.some(demande => demande.phaseConventionnement !== PhaseConventionnement.PHASE_2) &&
              <>
                <div className="fr-col-12 fr-mt-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
