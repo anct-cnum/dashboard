@@ -7,9 +7,9 @@ import { scrollTopWindow } from '../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import Reconventionnement from './reconventionnement/Reconventionnement';
 import Conventionnement from './conventionnement/Conventionnement';
-import { StatutConventionnement } from '../../../utils/enumUtils';
 import AvenantAjoutPoste from './avenantAjoutPoste/AvenantAjoutPoste';
 import AvenantRenduPoste from './avenantRenduPoste/AvenantRenduPoste';
+import { filtresConventionsActions } from '../../../actions/filtresConventionsActions';
 
 export default function TableauConvention() {
 
@@ -21,6 +21,9 @@ export default function TableauConvention() {
   const error = useSelector(state => state.convention?.error);
   const conventions = useSelector(state => state.convention);
   const currentPage = useSelector(state => state.pagination?.currentPage);
+  const ordre = useSelector(state => state.filtresConventions?.ordre);
+  const ordreNom = useSelector(state => state.filtresConventions?.ordreNom);
+  const filtreParNomStructure = useSelector(state => state.filtresConventions?.nom);
   const [initConseiller, setInitConseiller] = useState(false);
   const [typeConvention, setTypeConvention] = useState('toutes');
 
@@ -33,19 +36,20 @@ export default function TableauConvention() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(conventionActions.getAll(currentPage, typeConvention));
+      dispatch(conventionActions.getAll(currentPage, typeConvention, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
     }
-  }, [currentPage, typeConvention]);
+  }, [currentPage, typeConvention, ordreNom, ordre, filtreParNomStructure]);
 
   useEffect(() => {
     scrollTopWindow();
     if (page === undefined) {
       dispatch(paginationActions.setPage(1));
+      dispatch(filtresConventionsActions.resetFiltre());
       setPage(1);
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(conventionActions.getAll(page, typeConvention));
+        dispatch(conventionActions.getAll(page, typeConvention, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
     } else {
@@ -57,11 +61,22 @@ export default function TableauConvention() {
     }
   }, [error, page]);
 
-  const checkIfAvenantAjoutPoste = convention =>
-    convention?.demandesCoselec?.filter(demande => demande.statut === 'en_cours' && demande.type === 'ajout').length > 0;
+  const ordreColonne = e => {
+    dispatch(paginationActions.setPage(1));
+    dispatch(filtresConventionsActions.changeOrdre(e.currentTarget?.id));
+  };
 
-  const checkIfAvenantRenduPoste = convention =>
-    convention?.demandesCoselec?.filter(demande => demande.statut === 'en_cours' && demande.type === 'retrait').length > 0;
+  const rechercheParNomStructure = e => {
+    dispatch(paginationActions.setPage(1));
+    const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
+    dispatch(filtresConventionsActions.changeNom(value));
+  };
+
+  const rechercheParNomStructureToucheEnter = e => {
+    if (e.key === 'Enter') {
+      rechercheParNomStructure(e);
+    }
+  };
 
   return (
     <div className="conventions">
@@ -106,6 +121,15 @@ export default function TableauConvention() {
                   Avenant · poste rendu ({conventions?.items?.totalParConvention?.avenantRenduPoste})
                 </button>
               </ul>
+              <div className="fr-col-12 fr-mb-2w fr-mt-3w">
+                <div className="fr-search-bar fr-search-bar" id="search" role="search" >
+                  <input onKeyDown={rechercheParNomStructureToucheEnter} className="fr-input" defaultValue={''}
+                    placeholder="Rechercher par nom, par id, par siret ou par email" type="search" id="search-input" name="search-input" />
+                  <button className="fr-btn" onClick={rechercheParNomStructure} title="Rechercher par nom, par id, par siret ou par email">
+                    Rechercher
+                  </button>
+                </div>
+              </div>
               <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
                 <div className="fr-col-12">
                   <div className="fr-table">
@@ -114,7 +138,18 @@ export default function TableauConvention() {
                         <tr>
                           <th style={{ width: '5rem' }}>Id</th>
                           <th style={{ width: '15rem' }}>Nom de la structure</th>
-                          <th>Date de la demande</th>
+                          <th style={{ width: '12rem' }}>
+                            <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Date de la demande
+                                {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
+                                  <i className="ri-arrow-down-s-line chevron icone"></i>
+                                }
+                                {(ordreNom === 'dateDemande' && !ordre) &&
+                                  <i className="ri-arrow-up-s-line chevron icone"></i>
+                                }
+                              </span>
+                            </button>
+                          </th>
                           <th>Date de fin du prochain contrat</th>
                           <th>Nombre de postes</th>
                           <th style={{ width: '12rem' }}>Type de la demande</th>
@@ -123,30 +158,21 @@ export default function TableauConvention() {
                       </thead>
                       <tbody>
                         {!error && !loading && conventions?.items?.data?.map((convention, idx) =>
-                          <>
-                            {((typeConvention === 'toutes' || 'avenantAjoutPoste') && checkIfAvenantAjoutPoste(convention)) &&
-                              <tr key={`avenantAjoutPoste-${idx}`}>
-                                <AvenantAjoutPoste avenant={convention} />
-                              </tr>
+                          <tr key={idx}>
+                            {convention?.typeConvention === 'conventionnement' &&
+                              <Conventionnement conventionnement={convention} />
                             }
-                            {((typeConvention === 'toutes' || 'avenantRenduPoste') && checkIfAvenantRenduPoste(convention)) &&
-                              <tr key={`avenantRenduPoste-${idx}`}>
-                                <AvenantRenduPoste avenant={convention} />
-                              </tr>
+                            {convention?.typeConvention === 'reconventionnement' &&
+                              <Reconventionnement reconventionnement={convention} />
                             }
-                            {(typeConvention === 'toutes' || typeConvention.includes('tionnement')) &&
-                              <tr key={`conventionnement-${idx}`}>
-                                {convention?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS &&
-                                  <Reconventionnement reconventionnement={convention} />
-                                }
-                                {convention?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_EN_COURS &&
-                                  <Conventionnement conventionnement={convention} />
-                                }
-                              </tr>
+                            {convention?.typeConvention === 'avenantAjoutPoste' &&
+                              <AvenantAjoutPoste avenant={convention} />
                             }
-                          </>
-                        )
-                        }
+                            {convention?.typeConvention === 'avenantRenduPoste' &&
+                              <AvenantRenduPoste avenant={convention} />
+                            }
+                          </tr>
+                        )}
                         {(!conventions?.items || conventions?.items?.data?.length === 0) &&
                           <tr>
                             <td colSpan="12" style={{ width: '60rem' }}>

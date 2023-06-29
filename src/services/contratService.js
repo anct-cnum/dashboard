@@ -1,5 +1,6 @@
 import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
+import { contratQueryStringParameters } from '../utils/queryUtils';
 import { API } from './api';
 
 export const contratService = {
@@ -10,8 +11,13 @@ export const contratService = {
   updateContract,
 };
 
-function getAll(page, statutContrat) {
-  return API.get(`${apiUrlRoot}/contrats?role=${roleActivated()}&page=${page}&statut=${statutContrat}`)
+function getAll(page, statutContrat, filtreParNomConseiller, ordreNom, ordre) {
+  const {
+    ordreColonne,
+    filterByName,
+  } = contratQueryStringParameters(filtreParNomConseiller, ordreNom, ordre);
+
+  return API.get(`${apiUrlRoot}/contrats?role=${roleActivated()}&page=${page}&statut=${statutContrat}${ordreColonne}${filterByName}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -22,11 +28,16 @@ function validationRenouvellement(id) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllHistorique(page, statutContrat, dateDebut, dateFin) {
+function getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const {
+    ordreColonne,
+    filterByName,
+  } = contratQueryStringParameters(filtreParNomConseiller, ordreNom, ordre);
 
-  return API.get(`${apiUrlRoot}/historique/contrats?role=${roleActivated()}&page=${page}&statut=${statutContrat}${filterDateStart}${filterDateEnd}`)
+  // eslint-disable-next-line max-len
+  return API.get(`${apiUrlRoot}/historique/contrats?role=${roleActivated()}&page=${page}&statut=${statutContrat}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

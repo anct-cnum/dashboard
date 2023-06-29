@@ -5,24 +5,24 @@ import dayjs from 'dayjs';
 
 function Reconventionnement({ reconventionnement }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const dossierReconventionnement = reconventionnement?.conventionnement?.dossierReconventionnement;
+
   return (
     <>
       <td>{reconventionnement?.idPG}</td>
       <td>{reconventionnement?.nom}</td>
       <td>
-        {dossierReconventionnement?.dateDeCreation ?
-          <span>{dayjs(dossierReconventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
+        {reconventionnement?.dateDeCreation ?
+          <span>{dayjs(reconventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>
       <td>
-        {dossierReconventionnement?.dateFinProchainContrat ?
-          <span>{dayjs(dossierReconventionnement?.dateFinProchainContrat).format('DD/MM/YYYY')}</span> :
+        {reconventionnement?.dateFinProchainContrat ?
+          <span>{dayjs(reconventionnement?.dateFinProchainContrat).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>
-      <td>{dossierReconventionnement?.nbPostesAttribuees ?? '-'}</td>
+      <td>{reconventionnement?.nbPostesAttribuees ?? '-'}</td>
       <td>Reconventionnement</td>
       <td>
         <button

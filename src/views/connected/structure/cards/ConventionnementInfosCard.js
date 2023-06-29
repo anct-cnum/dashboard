@@ -94,10 +94,10 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
                   'Profil recruté',
                   'Profil recruté',
                   'Profils recrutés',
-                  structure?.conseillersRecruter?.length
+                  structure?.conseillersRecruterConventionnement?.length
                 )}
                 </p>
-                {structure?.conseillersRecruter?.map((conseiller, idx) =>
+                {structure?.conseillersRecruterConventionnement?.map((conseiller, idx) =>
                   <ul key={idx}style={{ listStyleType: 'none', padding: 0 }}>
                     <li>
                       <button

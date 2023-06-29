@@ -10,6 +10,12 @@ function HistoriqueContrat({ contrat }) {
     if (contrat?.statut === 'renouvelee' && contrat?.emetteurRenouvellement?.date) {
       return dayjs(contrat.emetteurRenouvellement.date).format('DD/MM/YYYY');
     }
+    if (contrat?.statut === 'finalisee' && contrat?.emetteurRecrutement?.date) {
+      return dayjs(contrat.emetteurRecrutement.date).format('DD/MM/YYYY');
+    }
+    if (contrat?.statut === 'finalisee' && contrat?.createdAt) {
+      return dayjs(contrat.createdAt).format('DD/MM/YYYY');
+    }
     return 'Non renseignée';
   };
 

@@ -89,7 +89,7 @@ function MesPostes() {
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, id) => {
     dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
   };
-  
+
   return (
     <div>
       <div className="main__banner">
@@ -136,7 +136,7 @@ function MesPostes() {
         {misesEnRelation?.length > 0 && (
           <>
             <HireAdvisorCard
-              nbreConseillersActifs={conseillersActifs.length}
+              nbreConseillersActifs={conseillersActifs.filter(conseiller => conseiller?.statut === 'finalisee').length}
               nbreConseillersRenouveler={conseillersARenouveler.length}
               nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
               structure={structure}
