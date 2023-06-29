@@ -36,7 +36,7 @@ export default function TableauConvention() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(conventionActions.getAll(currentPage, typeConvention, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+      dispatch(conventionActions.getAll(currentPage, typeConvention, filtreParNomStructure, ordreNom, ordre ? -1 : 1));
     }
   }, [currentPage, typeConvention, ordreNom, ordre, filtreParNomStructure]);
 
@@ -49,7 +49,7 @@ export default function TableauConvention() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(conventionActions.getAll(page, typeConvention, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+        dispatch(conventionActions.getAll(page, typeConvention, filtreParNomStructure, ordreNom, ordre ? -1 : 1));
         setInitConseiller(true);
       }
     } else {
