@@ -1,30 +1,55 @@
 import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
+import { conventionQueryStringParameters } from '../utils/queryUtils';
 import { API } from './api';
 
 export const conventionService = {
   getAll,
   getAllHistorique,
-  get
+  get,
+  updateAvenantAjoutPoste,
+  updateAvenantRenduPoste,
 };
 
-function getAll(page, typeConvention) {
-  return API.get(`${apiUrlRoot}/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}`)
+function getAll(page, typeConvention, filtreParNomStructure, ordreNom, ordre) {
+  const {
+    ordreColonne,
+    filterByName,
+  } = conventionQueryStringParameters(filtreParNomStructure, ordreNom, ordre);
+
+  return API.get(`${apiUrlRoot}/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${ordreColonne}${filterByName}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllHistorique(page, typeConvention, dateDebut, dateFin) {
+function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const {
+    ordreColonne,
+    filterByName,
+  } = conventionQueryStringParameters(filtreParNomStructure, ordreNom, ordre);
+
   // eslint-disable-next-line max-len
-  return API.get(`${apiUrlRoot}/historique/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${filterDateStart}${filterDateEnd}`)
+  return API.get(`${apiUrlRoot}/historique/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
 function get(id) {
   return API.get(`${apiUrlRoot}/convention/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function updateAvenantAjoutPoste(id, statut, nbDePosteAccorder, nbDePosteCoselec) {
+  return API.patch(`${apiUrlRoot}/avenant/ajout-poste/${id}?role=${roleActivated()}`, { statut, nbDePosteAccorder, nbDePosteCoselec })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec) {
+  return API.patch(`${apiUrlRoot}/avenant/rendu-poste/${id}?role=${roleActivated()}`, { nbDePosteRendu, nbDePosteCoselec })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

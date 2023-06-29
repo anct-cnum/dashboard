@@ -5,15 +5,14 @@ import dayjs from 'dayjs';
 
 function HistoriqueConventionnement({ conventionnement }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const dossierConventionnement = conventionnement?.conventionnement?.dossierConventionnement;
 
   return (
     <>
       <td>{conventionnement?.idPG}</td>
       <td>{conventionnement?.nom}</td>
       <td>
-        {dossierConventionnement?.dateDeCreation ?
-          <span>{dayjs(dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
+        {conventionnement?.dateDeCreation ?
+          <span>{dayjs(conventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>
@@ -23,7 +22,7 @@ function HistoriqueConventionnement({ conventionnement }) {
         <button
           className="fr-btn fr-icon-eye-line fr-ml-auto"
           title="D&eacute;tail"
-          onClick={() => window.open(`/${roleActivated}/demandes/convention/${conventionnement?._id}`)}>
+          onClick={() => window.open(`/${roleActivated}/demandes/convention/${conventionnement?._id}?type=conventionnement`)}>
               Voir la demande
         </button>
       </td>

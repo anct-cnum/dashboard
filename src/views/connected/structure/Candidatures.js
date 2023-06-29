@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Candidat from './candidatures/Candidat';
 import CandidatNonMisEnRelation from './candidatures/CandidatNonMisEnRelation';
-import { conseillerActions, statsActions, alerteEtSpinnerActions, paginationActions, filtresCandidaturesActions } from '../../../actions';
+import { conseillerActions, statsActions, alerteEtSpinnerActions, paginationActions } from '../../../actions';
 import Spinner from '../../../components/Spinner';
 import FiltersAndSorts from './candidatures/FiltersAndSorts';
 import {
@@ -76,13 +76,11 @@ function Candidatures() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les candidats n\'ont pas pu être chargées !',
+        message: 'Les candidats n\'ont pas pu être chargés !',
         status: null, description: null
       }));
     }
   }, [error, page]);
-
-  const checkConseillerObjExist = conseillers => conseillers.every(conseiller => 'conseillerObj' in conseiller);
 
   useEffect(() => {
     if (conseillers.downloadError && conseillers.downloadError !== false) {
@@ -94,11 +92,6 @@ function Candidatures() {
       }));
     }
   }, [conseillers.downloadError]);
-
-  const ordreColonne = e => {
-    dispatch(paginationActions.setPage(1));
-    dispatch(filtresCandidaturesActions.changeOrdreColonne(e.currentTarget?.id));
-  };
 
   return (
     <div className="conseillers">
@@ -146,21 +139,15 @@ function Candidatures() {
           <div className="fr-table">
             <table>
               <thead>
-                <tr>
-                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '5rem' }}>Id</th>
-                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '6rem' }}>Prénom</th>
-                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '6rem' }}>Nom</th>
-                  {filtersAndSorts.search !== '' && <th style={{ width: '15rem' }}>Email</th>}
-                  <th style={{ width: filtersAndSorts.search !== '' ? '' : '15rem' }}>Statut</th>
-                  <th>
-                    <button id="createdAt" className="filtre-btn" onClick={ordreColonne}>
-                      <span>Date de candidature</span>
-                    </button>
-                  </th>
-                  <th>Code postal</th>
-                  {filtersAndSorts.search === '' && <th style={{ width: '8rem' }}>Résultat Pix</th> }
-                  <th>Curriculum Vit&aelig;</th>
-                  <th style={{ width: filtersAndSorts.search !== '' && !checkConseillerObjExist(conseillers.items.data) ? '14.2rem' : '' }}></th>
+                <tr style={{ whiteSpace: 'nowrap' }}>
+                  <th style={{ width: '15rem' }}>Candidat</th>
+                  <th>Date de disponibilit&eacute;</th>
+                  <th>CP</th>
+                  <th>Formation CCP1</th>
+                  <th style={{ width: '6rem' }}>R&eacute;sultats Pix</th>
+                  <th>CV</th>
+                  <th style={{ width: '21rem' }}>Statut</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -168,7 +155,7 @@ function Candidatures() {
                   return (
                     conseiller.conseillerObj ?
                       <Candidat key={idx} miseEnRelation={conseiller} currentPage={page} currentFilter={filter} search={filtersAndSorts.search !== ''} /> :
-                      <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={filtersAndSorts.search !== ''} />
+                      <CandidatNonMisEnRelation key={idx} conseiller={conseiller} search={filtersAndSorts.search !== ''} currentFilter={filter} />
                   );
                 })
                 }

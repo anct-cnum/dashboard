@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import React from 'react';
+import StatutCandidat from '../datas/statut-candidat.json';
 
 export function formatDate(date) {
   return dayjs(date).format('YYYY-MM-DD');
@@ -22,7 +23,7 @@ export function pluralize(zero, singulier, pluriel, count, showCount = false) {
     case 1:
       phrase += singulier;
       break;
-  
+
     default:
       phrase += pluriel;
       break;
@@ -34,15 +35,17 @@ export const valideInputEmail = email => {
   const regexValidEmail = new RegExp(
     /^[a-zA-Z0-9-._]+@[a-zA-Z0-9-._]{2,}[.][a-zA-Z]{2,3}$/
   );
-  
+
   return regexValidEmail.test(email);
 };
 
 export const validInputSiret = siret => {
   const regexValidSiret = new RegExp(/^[0-9]{14}$/);
-  
+
   return regexValidSiret.test(siret);
 };
+
+export const validTypeDeContratWithoutEndDate = typeDeContrat => typeDeContrat === 'CDI';
 
 export const formatNomConseiller = conseiller =>
   (conseiller?.nom + ' ' + conseiller?.prenom).toLowerCase().replace(/(^\w{1})|([\s,-]+\w{1})/g, letter => letter.toUpperCase());
@@ -122,5 +125,21 @@ export const badgeStatutDossierDS = statut => {
       return <p className="fr-badge fr-badge--error fr-mr-3w">Dossier refus&eacute;</p>;
     default:
       return <p className="fr-badge fr-badge--warning fr-mr-3w">Dossier non cr&eacute;&eacute;</p>;
+  }
+};
+
+export const displayBadgeStatutCandidat = statut => {
+  const statutObject = StatutCandidat.find(item => item.filter === statut);
+  return <div className={`fr-badge fr-mt-2w fr-mt-md-0 fr-badge--${statutObject?.badge}`}>{statutObject?.name_singular}</div>;
+};
+
+export const formatTypeDeContrat = typeDeContrat => {
+  switch (typeDeContrat) {
+    case 'contrat_de_projet_prive':
+      return 'Projet privé';
+    case 'contrat_de_projet_public':
+      return 'Projet public';
+    default:
+      return typeDeContrat;
   }
 };

@@ -5,7 +5,9 @@ import { conseillerQueryStringParameters, candidatQueryStringParameters } from '
 
 export const conseillerService = {
   get,
+  getConseillerContrat,
   getCandidat,
+  getCandidatRecrutement,
   getAllRecruter,
   getAllCandidats,
   getAllCandidatsByAdmin,
@@ -21,10 +23,17 @@ export const conseillerService = {
   resendInvitCandidat,
   suppressionCandidat,
   getCandidatStructure,
+  getCandidatureConseillerStructure,
 };
 
 function get(id) {
   return API.get(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getConseillerContrat(idConseiller, idMiseEnRelation) {
+  return API.get(`${apiUrlRoot}/conseiller/contrat/${idConseiller}/${idMiseEnRelation}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -35,8 +44,20 @@ function getCandidat(id) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
+function getCandidatRecrutement(idConseiller, idMiseEnRelation) {
+  return API.get(`${apiUrlRoot}/candidat/contrat/${idConseiller}/${idMiseEnRelation}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
 function getCandidatStructure(id) {
   return API.get(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getCandidatureConseillerStructure(id) {
+  return API.get(`${apiUrlRoot}/misesEnRelation-conseiller/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -54,7 +75,7 @@ function suppressionCandidat({ id, motif }) {
 }
 
 // eslint-disable-next-line max-len
-function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre) {
+function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre) {
   let {
     ordreColonne,
     filterDateStart,
@@ -63,29 +84,29 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
     rupture,
     coordinateur,
     filterByRegion,
+    filterByDepartement,
     filterByNameStructure,
   // eslint-disable-next-line max-len
-  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParNomStructure);
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement, filtreParNomStructure);
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/conseillers-recruter?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByNameStructure}&role=${roleActivated()}`;
+  let uri = `${apiUrlRoot}/conseillers-recruter?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}${filterByNameStructure}&role=${roleActivated()}`;
 
   return API.get(uri)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement) {
+function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParDepartement) {
   let {
     filterByNameCandidat,
     filterByRegion,
-    filterByComs,
     filterByDepartement,
   // eslint-disable-next-line max-len
-  } = candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement);
+  } = candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParDepartement);
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/candidats?skip=${page}${filterByNameCandidat}${filterByComs}${filterByDepartement}${filterByRegion}&role=${roleActivated()}`;
+  let uri = `${apiUrlRoot}/candidats?skip=${page}${filterByNameCandidat}${filterByDepartement}${filterByRegion}&role=${roleActivated()}`;
 
   return API.get(uri)
   .then(response => response.data)
@@ -108,6 +129,9 @@ function getAllCandidats(structureId, search, page, nomOrdre, ordre, persoFilter
     }
     if (haveCV(persoFilters)) {
       uri += `&cv=${persoFilters?.cv}`;
+    }
+    if (haveCCP1(persoFilters)) {
+      uri += `&ccp1=${persoFilters?.ccp1}`;
     }
   }
 
@@ -135,6 +159,9 @@ function getAllMisesEnRelation(structureId, search, page, filter, nomOrdre, ordr
     }
     if (haveCV(persoFilters)) {
       uri += `&cv=${persoFilters?.cv}`;
+    }
+    if (haveCCP1(persoFilters)) {
+      uri += `&ccp1=${persoFilters?.ccp1}`;
     }
   }
 
@@ -192,8 +219,8 @@ function validationRupture(id, dateFinDeContrat) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function dossierIncompletRupture(id, dateFinDeContrat) {
-  return API.patch(`${apiUrlRoot}/conseiller/rupture/incomplet/${id}?role=${roleActivated()}`, { dateFinDeContrat })
+function dossierIncompletRupture(id, dateFinDeContrat, dossierIncomplet) {
+  return API.patch(`${apiUrlRoot}/conseiller/rupture/incomplet/${id}?role=${roleActivated()}`, { dateFinDeContrat, dossierIncomplet })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -206,4 +233,7 @@ function haveDiplome(persoFilters) {
 }
 function havePix(persoFilters) {
   return persoFilters?.pix !== undefined && persoFilters?.pix.length > 0;
+}
+function haveCCP1(persoFilters) {
+  return persoFilters?.ccp1 !== undefined && persoFilters?.ccp1 !== null;
 }

@@ -60,17 +60,74 @@ export default function convention(state = initialState, action) {
     case 'UPDATE_STATUT_CONVENTIONNEMENT':
       return {
         ...state,
-        convention: { ...state.convention, conventionnement:
+        convention: {
+          ...state.convention, conventionnement:
           {
             ...state.convention.conventionnement,
             statut: action.statutReconventionnementUpdated
           },
         },
       };
-    case 'RESET_CONVENTION':
+    case 'UPDATE_AVENANT_AJOUT_POSTE_REQUEST':
       return {
         ...state,
-        items: { ...state.items, data: [], total: 0 },
+        error: false,
+        loading: true
+      };
+    case 'UPDATE_AVENANT_AJOUT_POSTE_SUCCESS':
+      return {
+        ...state,
+        convention: {
+          ...state.convention, demandesCoselec:
+            state.convention.demandesCoselec.map(
+              demandeCoselec => {
+                if (demandeCoselec.statut === 'en_cours' && demandeCoselec.type === 'ajout') {
+                  if (action.response.statutAvenantAjoutPosteUpdated === 'validee') {
+                    demandeCoselec.nombreDePostesAccordes = action.response.nbDePosteAccorderUpdated;
+                  }
+                  demandeCoselec.statut = action.response.statutAvenantAjoutPosteUpdated;
+                  return demandeCoselec;
+                }
+                return demandeCoselec;
+              }
+            ),
+        },
+        loading: false
+      };
+    case 'UPDATE_AVENANT_AJOUT_POSTE_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+        loading: false
+      };
+    case 'UPDATE_AVENANT_RENDU_POSTE_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'UPDATE_AVENANT_RENDU_POSTE_SUCCESS':
+      return {
+        ...state,
+        convention: {
+          ...state.convention, demandesCoselec:
+            state.convention.demandesCoselec.map(
+              demandeCoselec => {
+                if (demandeCoselec.statut === 'en_cours' && demandeCoselec.type === 'retrait') {
+                  demandeCoselec.statut = action.response.statutAvenantAjoutPosteUpdated;
+                  return demandeCoselec;
+                }
+                return demandeCoselec;
+              }
+            ),
+        },
+        loading: false
+      };
+    case 'UPDATE_AVENANT_RENDU_POSTE_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+        loading: false
       };
     default:
       return state;

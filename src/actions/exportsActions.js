@@ -13,6 +13,7 @@ export const exportsActions = {
   exportDonneesStructure,
   exportDonneesGestionnaires,
   exportDonneesHistoriqueDossiersConvention,
+  exportDonneesHistoriqueContrat,
 };
 
 function exportFile(nameFile, collection = 'exports', hubName) {
@@ -73,10 +74,10 @@ function exportDonneesTerritoire(territoire = 'departement', dateDebut, dateFin,
   }
 }
 
-function exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+function exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportDonneesConseiller(formatDate(dateDebut), formatDate(dateFin), filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre)
+    await exportsService.getExportDonneesConseiller(formatDate(dateDebut), formatDate(dateFin), filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre)
     .then(exportConseillerFileBlob => dispatch(success(exportConseillerFileBlob)))
     .catch(exportConseillerFileError => dispatch(failure(exportConseillerFileError)));
   };
@@ -93,10 +94,10 @@ function exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordi
   }
 }
 
-function exportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre = 'nom', ordre = 1) {
+function exportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre = 'nom', ordre = 1) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportDonneesStructure(formatDate(dateDebut), formatDate(dateFin), filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre)
+    await exportsService.getExportDonneesStructure(formatDate(dateDebut), formatDate(dateFin), filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre)
     .then(exportStructureFileBlob => dispatch(success(exportStructureFileBlob)))
     .catch(exportStructureFileError => dispatch(failure(exportStructureFileError)));
   };
@@ -159,10 +160,10 @@ function exportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrd
   }
 }
 
-function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin) {
+function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom = 'dateDemande', ordre = 1) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin)
+    await exportsService.getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre)
     .then(exportHistoriqueDossiersConventionFileBlob => dispatch(success(exportHistoriqueDossiersConventionFileBlob)))
     .catch(exportHistoriqueDossiersConventionFileError => dispatch(failure(exportHistoriqueDossiersConventionFileError)));
   };
@@ -176,5 +177,25 @@ function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, da
   }
   function failure(error) {
     return { type: 'EXPORT_HISTORIQUE_DOSSIERS_CONVENTION_FAILURE', error };
+  }
+}
+
+function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom = 'dateDemande', ordre = 1) {
+  return async dispatch => {
+    dispatch(request());
+    await exportsService.getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre)
+    .then(exportHistoriqueContratFileBlob => dispatch(success(exportHistoriqueContratFileBlob)))
+    .catch(exportHistoriqueContratFileError => dispatch(failure(exportHistoriqueContratFileError)));
+  };
+
+  function request() {
+    return { type: 'EXPORT_HISTORIQUE_CONTRAT_REQUEST' };
+  }
+  function success(exportHistoriqueContratFileBlob) {
+    const nameFile = `export-historique-contrat_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+    return { type: 'EXPORT_HISTORIQUE_CONTRAT_SUCCESS', exportHistoriqueContratFileBlob, nameFile };
+  }
+  function failure(error) {
+    return { type: 'EXPORT_HISTORIQUE_CONTRAT_FAILURE', error };
   }
 }

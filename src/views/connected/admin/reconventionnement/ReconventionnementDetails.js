@@ -1,41 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
-import { badgeStatutDossierDS, formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
+import { badgeStatutDossierDS, formatNomConseiller, formatTypeDeContrat, pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
-import { reconventionnementActions } from '../../../../actions';
+import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
+import ModalDecisionReconventionnement from '../modals/ModalDecisionReconventionnement';
 
 function ReconventionnementDetails({ reconventionnement }) {
+  const [openModal, setOpenModal] = useState(false);
+  const [statut, setStatut] = useState('');
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const dossierReconventionnement = reconventionnement?.conventionnement?.dossierReconventionnement;
   const dossierConventionnement = reconventionnement?.conventionnement?.dossierConventionnement;
-  const dispatch = useDispatch();
-
-  const calcNbJoursAvantDateFinContrat = dateFinContrat => {
-    const dateFin = dayjs(dateFinContrat);
-    const dateAujourdhui = dayjs();
-    const nbJours = dateFin.diff(dateAujourdhui, 'day');
-
-    return Math.max(nbJours, 0);
-  };
-
-  const validation = () => {
-    dispatch(reconventionnementActions.validation(reconventionnement._id));
-  };
 
   return (
     <>
+      {openModal &&
+        <ModalDecisionReconventionnement
+          setOpenModal={setOpenModal}
+          idStructure={reconventionnement?._id}
+          statutReconventionnement={statut}
+        />
+      }
       <div className="fr-card fr-card--no-border" style={{ backgroundColor: '#E8EDFF' }}>
         <div className="fr-card__body">
           <div className="fr-card__content">
             <h3 className="fr-card__title fr-h3">
               Conventionnement phase 2
             </h3>
-            {dossierReconventionnement?.dateDeCreation &&
+            {dossierReconventionnement?.dateDerniereModification &&
               <p className="fr-card__desc fr-text--lg fr-text--regular">
-                Demande initi&eacute;e le {dossierReconventionnement ? dayjs(dossierReconventionnement.dateDeCreation).format('DD/MM/YYYY') : ''}
+                Demande initi&eacute;e le {dossierReconventionnement ? dayjs(dossierReconventionnement.dateDerniereModification).format('DD/MM/YYYY') : ''}
               </p>
             }
             <p className="fr-card__desc fr-text--lg fr-text--bold" style={{ color: '#000091' }}>
@@ -75,7 +72,19 @@ function ReconventionnementDetails({ reconventionnement }) {
                             <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">Type de contrat</strong><br />
-                                <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
+                                <span
+                                  className="fr-text--regular fr-text--md"
+                                  title={conseiller?.typeDeContrat ? formatTypeDeContrat(conseiller?.typeDeContrat) : ''}
+                                >
+                                  {conseiller?.typeDeContrat ?
+                                    <>
+                                      {conseiller?.typeDeContrat?.length > 15 ?
+                                        `${formatTypeDeContrat(conseiller?.typeDeContrat)?.substring(0, 15)}...` :
+                                        formatTypeDeContrat(conseiller?.typeDeContrat)
+                                      }
+                                    </> : '-'
+                                  }
+                                </span>
                               </div>
                             </div>
                             <div className="fr-col-3 fr-col-xl-2">
@@ -84,17 +93,28 @@ function ReconventionnementDetails({ reconventionnement }) {
                                 {conseiller?.dateDebutDeContrat ?
                                   <span className="fr-text--regular fr-text--md">
                                     {dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY')}
-                                  </span> : <span>-</span>
+                                  </span> :
+                                  <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                                    En attente de pi&egrave;ces...
+                                  </span>
                                 }
                               </div>
                             </div>
                             <div className="fr-col-3 fr-col-xl-2">
                               <div>
                                 <strong className="fr-text--md">Fin de contrat</strong><br />
-                                {conseiller?.dateFinDeContrat ?
+                                {validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) &&
+                                  <span className="fr-text--regular fr-text--md">-</span>
+                                }
+                                {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
                                   <span className="fr-text--regular fr-text--md">
                                     {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
-                                  </span> : <span>-</span>
+                                  </span>
+                                }
+                                {(!conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
+                                  <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                                    En attente de pi&egrave;ces...
+                                  </span>
                                 }
                               </div>
                             </div>
@@ -123,8 +143,13 @@ function ReconventionnementDetails({ reconventionnement }) {
               }
             </div>
             <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ ?
-                <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
+              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_REFUSÉ &&
+                <p className="fr-badge fr-badge--error">Demande refus&eacute;e</p>
+              }
+              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
+                <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p>
+              }
+              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS &&
                 <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
               }
             </div>
@@ -132,15 +157,32 @@ function ReconventionnementDetails({ reconventionnement }) {
           <div className="fr-card__footer">
             <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
               {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS &&
-                <li>
-                  <button
-                    className="fr-btn"
-                    onClick={validation}
-                    disabled={dossierReconventionnement?.statut !== 'accepte'}
-                  >
-                    Valider la demande
-                  </button>
-                </li>
+                <>
+                  <li>
+                    <button
+                      className="fr-btn fr-btn--secondary"
+                      onClick={() => {
+                        setStatut(StatutConventionnement.RECONVENTIONNEMENT_REFUSÉ);
+                        setOpenModal(true);
+                      }}
+                      disabled={dossierReconventionnement?.statut !== 'accepte'}
+                    >
+                      Refuser la demande
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="fr-btn"
+                      onClick={() => {
+                        setStatut(StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ);
+                        setOpenModal(true);
+                      }}
+                      disabled={dossierReconventionnement?.statut !== 'accepte'}
+                    >
+                      Valider la demande
+                    </button>
+                  </li>
+                </>
               }
               <li className="fr-ml-auto">
                 <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
@@ -153,7 +195,7 @@ function ReconventionnementDetails({ reconventionnement }) {
             </ul>
           </div>
         </div>
-      </div>
+      </div >
       <div className="fr-card fr-mt-6w">
         <div className="fr-card__body">
           <div className="fr-card__content">
@@ -166,12 +208,17 @@ function ReconventionnementDetails({ reconventionnement }) {
                 <span>Non renseign&eacute;e</span>
               }
             </p>
-            <p className="fr-card__desc fr-text--xl"><strong className="fr-text--bold">{reconventionnement?.nombreConseillersCoselec} {pluralize(
-              'poste de conseiller validé',
-              'poste de conseiller validé',
-              'postes de conseiller validés',
-              reconventionnement?.nombreConseillersCoselec
-            )}</strong> pour ce conventionnement</p>
+            <p className="fr-card__desc fr-text--xl">
+              <strong className="fr-text--bold">
+                {reconventionnement?.nombreConseillersCoselecConventionnement}&nbsp;
+                {pluralize(
+                  'poste de conseiller validé',
+                  'poste de conseiller validé',
+                  'postes de conseiller validés',
+                  reconventionnement?.nombreConseillersCoselecConventionnement
+                )}
+              </strong> pour ce conventionnement
+            </p>
             <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">
               <div className="fr-col-12">
                 <hr style={{ borderWidth: '0.5px' }} />
@@ -179,7 +226,7 @@ function ReconventionnementDetails({ reconventionnement }) {
               <div className="fr-col-12">
                 <h6 className="fr-card__desc fr-h6">Profils recrut&eacute;s</h6>
               </div>
-              {reconventionnement?.conseillers?.map((conseiller, index) =>
+              {reconventionnement?.conseillersRecruterConventionnement?.map((conseiller, index) =>
                 <div key={index} className="fr-card fr-col-12 fr-mt-3w fr-p-3w">
                   <div className="fr-card__body fr-p-0">
                     <div className="fr-grid-row" style={{ alignItems: 'center' }}>
@@ -192,7 +239,18 @@ function ReconventionnementDetails({ reconventionnement }) {
                       <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top">
                         <div>
                           <strong className="fr-text--md">Type de contrat</strong><br />
-                          <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
+                          <span
+                            className="fr-text--regular fr-text--md"
+                            title={conseiller?.typeDeContrat ? formatTypeDeContrat(conseiller?.typeDeContrat) : ''}
+                          >
+                            {conseiller?.typeDeContrat ?
+                              <>
+                                {conseiller?.typeDeContrat?.length > 15 ?
+                                  `${formatTypeDeContrat(conseiller?.typeDeContrat)?.substring(0, 15)}...` : formatTypeDeContrat(conseiller?.typeDeContrat)
+                                }
+                              </> : '-'
+                            }
+                          </span>
                         </div>
                       </div>
                       <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top">
@@ -201,17 +259,25 @@ function ReconventionnementDetails({ reconventionnement }) {
                           {conseiller?.dateDebutDeContrat ?
                             <span className="fr-text--regular fr-text--md">
                               {dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY')}
-                            </span> : <span>-</span>
+                            </span> :
+                            <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                              En attente de pi&egrave;...
+                            </span>
                           }
                         </div>
                       </div>
                       <div className="fr-col-12 fr-col-md-4 fr-col-xl-2 margin-top fin-contrat">
                         <div>
                           <strong className="fr-text--md">Fin de contrat</strong><br />
-                          {(!conseiller?.dateFinDeContrat && !conseiller?.dateRupture) &&
+                          {validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) &&
                             <span className="fr-text--regular fr-text--md">-</span>
                           }
-                          {conseiller?.dateFinDeContrat &&
+                          {(!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && !conseiller?.dateFinDeContrat && !conseiller?.dateRupture) &&
+                            <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                              En attente de pi&egrave;...
+                            </span>
+                          }
+                          {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && !conseiller?.dateRupture) &&
                             <span className="fr-text--regular fr-text--md">
                               {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
                             </span>

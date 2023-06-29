@@ -7,10 +7,12 @@ export const structureService = {
   get,
   getAll,
   getDetails,
-  patch,
+  updateContact,
   updateStructureEmail,
   updateStructureSiret,
-  verifyStructureSiret
+  verifyStructureSiret,
+  createAvenant,
+  closeBanner,
 };
 
 function get(id) {
@@ -25,7 +27,7 @@ function getDetails(id) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre) {
+function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre) {
   const {
     ordreColonne,
     filterDateStart,
@@ -34,18 +36,17 @@ function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, fi
     filterByType,
     filterByStatut,
     filterByRegion,
-    filterByComs,
     filterByDepartement,
   // eslint-disable-next-line max-len
-  } = structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs);
+  } = structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut);
   // eslint-disable-next-line max-len
-  return API.get(`${apiUrlRoot}/structures/?skip=${page}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}${filterByComs}&role=${roleActivated()}`)
+  return API.get(`${apiUrlRoot}/structures/?skip=${page}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}&role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function patch({ id, contact }) {
-  return API.patch(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`, { contact })
+function updateContact({ id, contact }) {
+  return API.patch(`${apiUrlRoot}/structure/contact/${id}?role=${roleActivated()}`, { contact })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -64,6 +65,19 @@ function verifyStructureSiret(siret) {
 
 function updateStructureSiret(siret, structureId) {
   return API.patch(`${apiUrlRoot}/structure/siret/${structureId}?role=${roleActivated()}`, { siret })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function createAvenant(type, id, nombreDePostes, motif, autreMotif = '') {
+  // eslint-disable-next-line max-len
+  return API.patch(`${apiUrlRoot}/avenant/creation/${id}?role=${roleActivated()}`, { type, nombreDePostes, motif: motif || autreMotif })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function closeBanner(type, id) {
+  return API.patch(`${apiUrlRoot}/banniere/${id}?type=${type}&role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

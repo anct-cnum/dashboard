@@ -4,14 +4,15 @@ export const conventionActions = {
   getAll,
   getAllHistorique,
   get,
-  reset
+  updateAvenantAjoutPoste,
+  updateAvenantRenduPoste,
 };
 
-function getAll(page, typeConvention) {
+function getAll(page, typeConvention, filtreParNomStructure, ordreNom = 'dateDemande', ordre = 1) {
   return dispatch => {
     dispatch(request());
 
-    conventionService.getAll(page, typeConvention)
+    conventionService.getAll(page, typeConvention, filtreParNomStructure, ordreNom, ordre)
     .then(
       conventions => dispatch(success(conventions)),
       error => {
@@ -31,11 +32,11 @@ function getAll(page, typeConvention) {
   }
 }
 
-function getAllHistorique(page, typeConvention, dateDebut, dateFin) {
+function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom = 'dateDemande', ordre = 1) {
   return dispatch => {
     dispatch(request());
 
-    conventionService.getAllHistorique(page, typeConvention, dateDebut, dateFin)
+    conventionService.getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre)
     .then(
       conventions => dispatch(success(conventions)),
       error => {
@@ -79,6 +80,50 @@ function get(id) {
   }
 }
 
-function reset() {
-  return { type: 'RESET_CONVENTION' };
+function updateAvenantAjoutPoste(id, statut, nbDePosteAccorder = 0, nbDePosteCoselec = 0) {
+  return dispatch => {
+    dispatch(request());
+
+    conventionService.updateAvenantAjoutPoste(id, statut, nbDePosteAccorder, nbDePosteCoselec)
+    .then(
+      response => dispatch(success(response)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_AVENANT_AJOUT_POSTE_REQUEST' };
+  }
+  function success(response) {
+    return { type: 'UPDATE_AVENANT_AJOUT_POSTE_SUCCESS', response };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVENANT_AJOUT_POSTE_FAILURE', error };
+  }
+}
+
+function updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec) {
+  return dispatch => {
+    dispatch(request());
+
+    conventionService.updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec)
+    .then(
+      response => dispatch(success(response)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_AVENANT_RENDU_POSTE_REQUEST' };
+  }
+  function success(response) {
+    return { type: 'UPDATE_AVENANT_RENDU_POSTE_SUCCESS', response };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVENANT_RENDU_POSTE_FAILURE', error };
+  }
 }

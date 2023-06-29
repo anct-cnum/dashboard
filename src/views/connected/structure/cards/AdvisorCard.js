@@ -1,15 +1,25 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import { formatNomConseiller, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
+import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
 const AdvisorCard = ({ conseiller, roleActivated }) => {
+
   const displayBadge = statut => {
     switch (statut) {
       case 'finalisee':
-        return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
+        return (conseiller?.typeDeContrat === 'CDI' || !conseiller?.dateFinDeContrat || calcNbJoursAvantDateFinContrat(conseiller?.dateFinDeContrat) > 0) ?
+          <p className="fr-badge fr-badge--success">En activit&eacute;</p> :
+          <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>;
       case 'nouvelle_rupture':
         return <p className="fr-badge fr-badge--info">Rupture en cours</p>;
+      case 'renouvellement_initiee':
+        return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
+      case 'finalisee_rupture':
+        return <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>;
+      case 'recrutee':
+        return <p className="fr-badge fr-badge--new">Recrutement en cours</p>;
       default:
         return;
     }
@@ -20,7 +30,7 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
       <div className="fr-card__body fr-p-0">
         <div>
           <div className="fr-grid-row responsive__wide-card" style={{ alignItems: 'center' }}>
-            <div className="fr-col-3 card__text">
+            <div className="fr-col-2 card__text">
               <div>
                 <strong className="fr-text--md fr-text--bold">
                   {conseiller ? formatNomConseiller(conseiller) : ''}
@@ -37,7 +47,19 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                   Type de contrat
                 </strong>
                 <br />
-                <span className="fr-text--regular fr-text--md">{conseiller?.typeDeContrat ?? '-'}</span>
+                <span
+                  className="fr-text--regular fr-text--md"
+                  title={conseiller?.typeDeContrat ? formatTypeDeContrat(conseiller?.typeDeContrat) : ''}
+                >
+                  {conseiller?.typeDeContrat ?
+                    <>
+                      {formatTypeDeContrat(conseiller?.typeDeContrat)?.length > 15 ?
+                        `${formatTypeDeContrat(conseiller?.typeDeContrat)?.substring(0, 15)}...` :
+                        formatTypeDeContrat(conseiller?.typeDeContrat)
+                      }
+                    </> : '-'
+                  }
+                </span>
               </div>
             </div>
             <div className="fr-col-2 card__text">
@@ -49,20 +71,31 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
                 {conseiller?.dateDebutDeContrat ?
                   <span className="fr-text--regular fr-text--md">
                     {dayjs(conseiller?.dateDebutDeContrat).format('DD/MM/YYYY')}
-                  </span> : <span>-</span>
+                  </span> :
+                  <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                    En attente de pi...
+                  </span>
                 }
               </div>
             </div>
-            <div className="fin-contrat card__text">
+            <div className="fr-col-2 card__text">
               <div>
                 <strong className="fr-text--md">
                   Fin de contrat
                 </strong>
                 <br />
-                {conseiller?.dateFinDeContrat ?
+                {validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) &&
+                  <span className="fr-text--regular fr-text--md">-</span>
+                }
+                {(!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && !conseiller?.dateFinDeContrat) &&
+                  <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                    En attente de pi...
+                  </span>
+                }
+                {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
                   <span className="fr-text--regular fr-text--md">
                     {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
-                  </span> : <span>-</span>
+                  </span>
                 }
               </div>
             </div>

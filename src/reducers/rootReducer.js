@@ -19,8 +19,9 @@ import filtresStructuresReducer from './filtresStructuresReducer';
 import filtresGestionnairesReducer from './filtresGestionnairesReducer';
 import miseEnRelationReducer from './miseEnRelationReducer';
 import conventionReducer from './conventionReducer';
-import filtresHistoriqueConventionReducer from './filtresHistoriqueConventionReducer';
 import contratReducer from './contratReducer';
+import datePickerReducer from './datePickerReducer';
+import filtresConventionsReducer from './filtresConventionsReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -44,7 +45,8 @@ const rootReducer = combineReducers({
   invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,
   filtresGestionnaires: filtresGestionnairesReducer,
-  filtresHistoriqueConvention: filtresHistoriqueConventionReducer,
+  datePicker: datePickerReducer,
+  filtresConventions: filtresConventionsReducer,
 });
 
 export default rootReducer;

@@ -1,33 +1,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
+import { useAdvisors } from '../hooks/useAdvisors';
 
-const ValidatedBanner = ({ structure }) => {
+const ValidatedBanner = ({ structure, setShowValidateBanner }) => {
+  const {
+    conseillersRecrutes,
+    conseillersEnCoursDeRecrutement,
+  } = useAdvisors();
+
+  const postesOccupes = conseillersRecrutes?.length + conseillersEnCoursDeRecrutement?.length;
+
+  function closeBanner() {
+    setShowValidateBanner(false);
+    localStorage.setItem('bannerClosed', 'true');
+  }
+
   return (
-    <div
-      className="fr-notice fr-py-4w banner success background"
-      style={{ position: 'absolute', top: '173px', left: '0%', right: '0%' }}
-    >
+    <div className="fr-notice fr-py-3w banner success background">
       <div className="fr-container success responsive__banner">
-        <span className="fr-icon-checkbox-fill icon__color" aria-hidden="true"></span>
-        <div className="fr-notice__body responsive__banner" style={{ paddingLeft: '20px' }}>
+        <div className="fr-notice__body responsive__banner" style={{ paddingLeft: '5px' }}>
           <div>
-            <p className="fr-notice__title title__color">
+            <p className="fr-notice__title title__color fr-mb-2w">
+              <span className="fr-icon-checkbox-fill icon__color fr-mr-2w" aria-hidden="true"></span>
               Votre demande de reconventionnement a &eacute;t&eacute; accept&eacute;&nbsp;!
+            
             </p>
-            <p className="fr-text--md">
-              Vous avez {structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees}
-              {pluralize(
-                'poste à pourvoir dès à présent',
-                ' poste à pourvoir dès à présent',
-                ' postes à pourvoir dès à présent',
-                structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
-              )}
-              . En savoir plus sur comment recruter vos conseillers.
-            </p>
+            <>
+              <p className="fr-text fr-text--sm">
+                Vous avez obtenu{' '}
+                <span className="fr-text fr-text--bold">
+                  {structure?.posteValiderCoselec}{' '}
+                  {pluralize('poste subventionné', 'poste subventionné', 'postes subventionnés', true)},{' '}
+                </span>
+                dont:
+              </p>
+              <ul className="fr-pl-4w">
+                <li>
+                  <p className="fr-text fr-text--sm">
+                    {postesOccupes} {pluralize('poste occupé', 'poste occupé', 'postes occupés', true)}
+                  </p>
+                </li>
+                <li>
+                  <p className="fr-text fr-text--sm">
+                    {structure?.posteValiderCoselec -
+                          postesOccupes}{' '}
+                    {pluralize('poste vacant', 'poste vacant', 'postes vacants', true)}
+                  </p>
+                </li>
+              </ul>
+              <p className="fr-text fr-text--sm">En savoir plus sur comment recruter vos conseillers.</p>
+            </>
           </div>
-          <div className="banner__button">
-            <span className="fr-icon-close-line" aria-hidden="true"></span>
+          <div className="banner__button_progress_reconventionnement">
+            <button className="fr-icon-close-line" onClick={() => closeBanner()}></button>
           </div>
         </div>
       </div>
@@ -37,6 +63,8 @@ const ValidatedBanner = ({ structure }) => {
 
 ValidatedBanner.propTypes = {
   structure: PropTypes.object,
+  conseillersActifs: PropTypes.array,
+  setShowValidateBanner: PropTypes.func,
 };
 
 export default ValidatedBanner;

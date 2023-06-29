@@ -92,7 +92,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
         <div className={`${typeStats !== 'nationales' ? 'fr-grid-row' : 'fr-grid-row--center'}`}>
           {(typeStats !== 'nationales' && location.state?.origin !== undefined) &&
             <div className="fr-col-12 fr-col-md-3 fr-mt-6w">
-              <Link to={location.state?.origin} state={{ currentPage }}>
+              <Link to={location.state?.origin} state={{ currentPage, origin: location?.pathname }}>
                 <i className="fr-fi-arrow-left-line"/> Page pr&eacute;c&eacute;dente
               </Link>
             </div>

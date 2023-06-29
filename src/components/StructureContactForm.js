@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { structureActions } from '../actions/structureActions';
+import { valideInputEmail } from '../utils/formatagesUtils';
 
 function StructureContactForm({ setForm, structure }) {
   const dispatch = useDispatch();
@@ -15,7 +16,13 @@ function StructureContactForm({ setForm, structure }) {
     });
   };
   const updateInfo = () => {
-    dispatch(structureActions.patch({ id: structure?._id, contact: infoForm }));
+    Object.keys(infoForm).forEach(k => {
+      infoForm[k] = infoForm[k].trim();
+    });
+    dispatch(structureActions.updateContact({ id: structure?._id, contact: infoForm }));
+    if (structure?.contact?.email !== infoForm?.email) {
+      dispatch(structureActions.updateStructureEmail(infoForm.email.trim(), structure?._id));
+    }
     setForm(false);
   };
   return (
@@ -63,7 +70,7 @@ function StructureContactForm({ setForm, structure }) {
                   </div>
                   <div className="fr-input-group">
                     <label className="fr-label fr-mt-5v">Email</label>
-                    <input className="fr-input" type="text" name="email" maxLength="20" value={infoForm?.email} onChange={handleForm}/>
+                    <input className="fr-input" type="text" name="email" value={infoForm?.email} onChange={handleForm}/>
                   </div>
                 </>
               </div>
@@ -78,6 +85,7 @@ function StructureContactForm({ setForm, structure }) {
                     <button
                       className="fr-btn"
                       onClick={updateInfo}
+                      disabled={!infoForm.nom || !infoForm.prenom || !infoForm.fonction || !infoForm.telephone || !valideInputEmail(infoForm.email) }
                     >
                     Confirmer
                     </button>

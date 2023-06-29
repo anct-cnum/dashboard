@@ -14,7 +14,8 @@ import {
 } from '../../../actions';
 import PopinRecapReconvention from './popins/popinRecapReconvention';
 import Spinner from '../../../components/Spinner';
-import { pluralize } from '../../../utils/formatagesUtils';
+import { pluralize, validTypeDeContratWithoutEndDate } from '../../../utils/formatagesUtils';
+import { StatutConventionnement } from '../../../utils/enumUtils';
 
 function DemandeReconventionnement() {
   const dispatch = useDispatch();
@@ -34,10 +35,7 @@ function DemandeReconventionnement() {
   const [misesEnRelationARenouveller, setMisesEnRelationARenouveller] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
-  const [nombreDePostes, setNombreDePostes] = useState(
-    structure?.conventionnement?.nombreDePostes ?? 0
-  );
-
+  const [nombreDePostes, setNombreDePostes] = useState(0);
 
   const errorMessages = {
     errorStructure: 'La structure n\'a pas pu être chargée !',
@@ -52,7 +50,7 @@ function DemandeReconventionnement() {
   useEffect(() => {
     const errors = [errorStructure, errorMisesEnRelation, errorReconventionnement];
     const detectedErrors = errors.filter(error => error !== false);
-  
+
     if (detectedErrors.length > 0) {
       scrollTopWindow();
       dispatch(
@@ -98,6 +96,8 @@ function DemandeReconventionnement() {
     }
   }, [structure?.conventionnement?.dossierReconventionnement]);
 
+  const calcNombreDePostes = () => structure?.conseillersRecruterConventionnement?.length + structure?.conseillersValiderConventionnement?.length;
+
   const handleSelectAdvisor = e => {
     const { checked } = e.target;
     const value = JSON.parse(e.target.value);
@@ -111,7 +111,7 @@ function DemandeReconventionnement() {
   useEffect(() => {
     setCheckedItems(
       misesEnRelationARenouveller
-      ?.filter(conseiller => conseiller?.reconventionnement)
+      ?.filter(conseiller => conseiller?.reconventionnement || validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat))
     );
   }, [misesEnRelationARenouveller]);
 
@@ -134,6 +134,7 @@ function DemandeReconventionnement() {
       {openModal && (
         <PopinRecapReconvention
           checkedItems={checkedItems}
+          calcNombreDePostes={calcNombreDePostes}
           structure={structure}
           setOpenModal={setOpenModal}
           handleSend={handleSend}
@@ -151,9 +152,9 @@ function DemandeReconventionnement() {
         </p>
         <InformationCard />
         <div className="fr-input-group">
+          <h5>Nombre de postes</h5>
           <label className="fr-label" htmlFor="text-input-groups1">
-            <h5>Nombre de postes</h5>
-            <span>Renseignez le nombre de poste total que vous souhaitez&nbsp;:</span>
+            <span>Renseignez le nombre de postes total que vous souhaitez&nbsp;:</span>
           </label>
           <input
             className="fr-input"
@@ -170,7 +171,7 @@ function DemandeReconventionnement() {
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <div className="container fr-mb-6w">
-          <h5 className="fr-text--bold">Renouvellement de postes</h5>
+          <h5>Renouvellement de postes</h5>
           <p>S&eacute;lectionez les conseillers que vous souhaitez renouveller.</p>
           {misesEnRelationARenouveller &&
             misesEnRelationARenouveller.map((miseEnRelation, idx) => (
@@ -192,50 +193,51 @@ function DemandeReconventionnement() {
           demand&eacute;s avant de pouvoir envoyer votre demande.
         </p>
         <CompleteApplicationCard structure={structure} />
-        {structure?.conventionnement?.statut === 'ENREGISTRÉ' && (
+        {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ && (
           <>
             <div className="fr-col-12 fr-mt-6w fr-mb-2w">
               <hr style={{ borderWidth: '0.5px' }} />
             </div>
             <h5>R&eacute;capitulatif de votre demande</h5>
-            <p>
-              Vous allez faire une demande pour&nbsp;
-              <span className="fr-text fr-text--bold">
-                {nombreDePostes}{' '}
-                {pluralize(
-                  'poste subventionné',
-                  'poste subventionné',
-                  'postes subventionnés',
-                  nombreDePostes
-                )},{' '}
-              </span>
-              dont&nbsp;:
-            </p>
-            <ul>
-              <li>
-                <p className="fr-text--bold">
-                  {checkedItems.filter(item => item.statut === 'finalisee').length}{' '}
+            <>
+              <p>
+                    Vous allez faire une demande pour{' '}
+                <span className="fr-text fr-text--bold">
+                  {structure?.posteValiderCoselec}{' '}
                   {pluralize(
-                    'poste occupé',
-                    'poste occupé',
-                    'postes occupés',
-                    checkedItems.filter(item => item.statut === 'finalisee').length
-                  )}
-                </p>
-              </li>
-              <li>
-                <p className="fr-text--bold">
-                  {nombreDePostes -
-                          checkedItems.filter(item => item.statut === 'finalisee').length}{' '}
-                  {pluralize(
-                    'poste vacant',
-                    'poste vacant',
-                    'postes vacants',
-                    nombreDePostes
-                  )}
-                </p>
-              </li>
-            </ul>
+                    'poste subventionné',
+                    'poste subventionné',
+                    'postes subventionnés',
+                    true
+                  )},{' '}
+                </span>
+                    dont:
+              </p>
+              <ul>
+                <li>
+                  <p className="fr-text--bold fr-mb-1w">
+                    {calcNombreDePostes()}{' '}
+                    {pluralize(
+                      'poste occupé',
+                      'poste occupé',
+                      'postes occupés',
+                      true
+                    )}
+                  </p>
+                </li>
+                <li>
+                  <p className="fr-text--bold">
+                    {structure?.posteValiderCoselec - calcNombreDePostes()}{' '}
+                    {pluralize(
+                      'poste vacant',
+                      'poste vacant',
+                      'postes vacants',
+                      true
+                    )}
+                  </p>
+                </li>
+              </ul>
+            </>
           </>
         )}
         <ul className="fr-btns-group fr-btns-group--inline fr-mt-5w">

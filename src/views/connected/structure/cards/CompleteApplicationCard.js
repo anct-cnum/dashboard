@@ -29,13 +29,14 @@ const CompleteApplicationCard = ({ structure }) => (
           </div>
           <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
             {badgeStatutDossierDS(structure?.dossierConventionnement?.statut)}
-            <button
+            <a
+              href={structure?.urlDossierReconventionnement}
+              target="_blank"
+              rel="noopener noreferrer"
               className="fr-btn card__button"
-              title="D&eacute;tail"
-              onClick={() => window.open(structure.urlDossierReconventionnement)}
             >
               Compl&eacute;ter mon dossier
-            </button>
+            </a>
           </div>
         </div>
       </div>
