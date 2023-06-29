@@ -137,7 +137,7 @@ function StructureDetails() {
             </div>
             <div className="fr-mb-3w">
               <strong>Raison social</strong><br/>
-              <span>{structure?.insee?.entreprise?.raison_sociale ?? '-'}</span>
+              <span>{structure?.insee?.unite_legale?.personne_morale_attributs?.raison_sociale ?? '-'}</span>
             </div>
           </div>
           <div className="fr-col-6">
