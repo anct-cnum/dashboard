@@ -21,6 +21,7 @@ import miseEnRelationReducer from './miseEnRelationReducer';
 import conventionReducer from './conventionReducer';
 import contratReducer from './contratReducer';
 import datePickerReducer from './datePickerReducer';
+import filtresConventionsReducer from './filtresConventionsReducer';
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -44,7 +45,8 @@ const rootReducer = combineReducers({
   invitations: invitationsReducer,
   filtresStructures: filtresStructuresReducer,
   filtresGestionnaires: filtresGestionnairesReducer,
-  datePicker: datePickerReducer
+  datePicker: datePickerReducer,
+  filtresConventions: filtresConventionsReducer,
 });
 
 export default rootReducer;

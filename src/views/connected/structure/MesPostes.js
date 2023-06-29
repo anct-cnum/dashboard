@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PopinAnnulationReConvention from './popins/popinAnnulationReConvention';
 import PopinEditionContrat from './popins/popinEditionContrat';
-import { ValidatedRenouvellementBanner, ValidatedAvenantBanner } from './banners';
 import { ManagePositionsCard, HireAdvisorCard } from './cards';
 import Spinner from '../../../components/Spinner';
 import {
@@ -16,13 +15,12 @@ import {
   ActiveAdvisorsSection,
   RenewAdvisorsSection,
   ActiveNoRenewalAdvisorsSection,
-  ReconventionnementBanner
+  Banners
 } from './views';
 import { useAdvisors } from './hooks/useAdvisors';
 import { useErrors } from './hooks/useErrors';
 import { useStructure } from './hooks/useStructure';
-import InProgressAvenantBanner from './banners/InProgressAvenantBanner';
-import { StatutConventionnement } from '../../../utils/enumUtils';
+import HiringInProgressAdvisorsSection from './views/HiringInProgressAdvisorsSection';
 
 function MesPostes() {
   const [openModalContrat, setOpenModalContrat] = useState(false);
@@ -45,35 +43,12 @@ function MesPostes() {
     conseillersARenouveler,
     conseillersActifsNonRenouveles,
     conseillersEnCoursDeRecrutement,
+    anciensConseillers,
     bannieresRenouvellementValide,
     setBannieresRenouvellementValide,
   } = useAdvisors();
   const { handleErrors } = useErrors([errorStructure, errorMisesEnRelation]);
   const { structure, openModal, setOpenModal } = useStructure();
-
-  function getClassName() {
-
-    switch (structure?.conventionnement?.statut) {
-      case StatutConventionnement.CONVENTIONNEMENT_VALIDÉ:
-      case StatutConventionnement.RECONVENTIONNEMENT_EN_COURS:
-      case StatutConventionnement.RECONVENTIONNEMENT_INITIÉ:
-        return 'withBannerOnTop';
-  
-      case StatutConventionnement.NON_INTERESSÉ:
-        return 'withoutBannerOnTop';
-      default:
-        break;
-    }
-  
-    if (
-      bannieresRenouvellementValide?.length > 0 ||
-      (showValidateBanner && structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) ||
-      structure?.lastDemandeCoselec?.banniereValidationAvenant ||
-      structure?.lastDemandeCoselec?.statut === 'en_cours'
-    ) {
-      return 'withBannerOnTop';
-    }
-  }
 
   useEffect(() => {
     if (structure?._id) {
@@ -99,6 +74,10 @@ function MesPostes() {
   };
 
   const handleCancel = () => {
+    if (motif === 'Je ne sais pas encore si je souhaite reconventionner car je manque de visibilité sur les prochains mois') {
+      setMotif('');
+      return;
+    }
     dispatch(reconventionnementActions.update(structure?._id, 'annuler', [], null, motif));
     dispatch(structureActions.getDetails(userAuth?.entity?.$id));
   };
@@ -110,41 +89,22 @@ function MesPostes() {
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, id) => {
     dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
   };
-  
+
   return (
-    <>
-      {bannieresRenouvellementValide?.length > 0 &&
-        bannieresRenouvellementValide?.map(conseiller => {
-          return (
-            <ValidatedRenouvellementBanner
-              structure={structure}
-              key={conseiller._id}
-              conseiller={conseiller}
-              setBannieresRenouvellementValide={setBannieresRenouvellementValide}
-              bannieresRenouvellementValide={bannieresRenouvellementValide}
-            />
-          );
-        })}
-      {structure?.lastDemandeCoselec?.banniereValidationAvenant && (
-        <ValidatedAvenantBanner
-          structure={structure}
-        />
-      )}
-      {structure?.lastDemandeCoselec?.statut === 'en_cours' && (
-        <InProgressAvenantBanner
+    <div>
+      <div className="main__banner">
+        <Banners
           structure={structure}
           roleActivated={roleActivated}
+          conseillersActifs={conseillersActifs}
+          showValidateBanner={showValidateBanner}
+          setShowValidateBanner={setShowValidateBanner}
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          bannieresRenouvellementValide={bannieresRenouvellementValide}
+          setBannieresRenouvellementValide={setBannieresRenouvellementValide}
         />
-      )}
-      <ReconventionnementBanner
-        structure={structure}
-        roleActivated={roleActivated}
-        conseillersActifs={conseillersActifs}
-        showValidateBanner={showValidateBanner}
-        setShowValidateBanner={setShowValidateBanner}
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-      />
+      </div>
       {openModalContrat && (
         <PopinEditionContrat
           setOpenModalContrat={setOpenModalContrat}
@@ -160,43 +120,66 @@ function MesPostes() {
       <div className="fr-container">
         <Spinner loading={loadingStructure || loadingMisesEnRelation || loadingRenouvellement} />
         <h2
-          className={`fr-mb-6w ${getClassName()}`}
+          className={`fr-mb-6w`}
           style={{ color: '#000091' }}
         >
           G&eacute;rer mes postes
         </h2>
-        <ManagePositionsCard structure={structure} cardStyle={{ backgroundColor: '#E8EDFF' }} hasBorder={false}/>
+        <ManagePositionsCard
+          structure={structure} c
+          cardStyle={{ backgroundColor: '#E8EDFF' }}
+          hasBorder={false}
+          nbreConseillersActifs={conseillersActifs.length}
+          nbreConseillersRenouveler={conseillersARenouveler.length}
+          nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
+        />
         {misesEnRelation?.length > 0 && (
           <>
             <HireAdvisorCard
-              nbreConseillersActifs={conseillersActifs.length}
+              nbreConseillersActifs={conseillersActifs.filter(conseiller => conseiller?.statut === 'finalisee').length}
               nbreConseillersRenouveler={conseillersARenouveler.length}
               nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
               structure={structure}
             />
-            <RenewAdvisorsSection
-              conseillersARenouveler={conseillersARenouveler}
-              structure={structure}
-              roleActivated={roleActivated}
-              setMiseEnrelationId={setMiseEnrelationId}
-              setOpenModalContrat={setOpenModalContrat}
-              handleOpenModalContrat={handleOpenModalContrat}
-            />
-            <ActiveAdvisorsSection
-              conseillersActifs={conseillersActifs}
-              structure={structure}
-              setMiseEnrelationId={setMiseEnrelationId}
-            />
-            <ActiveNoRenewalAdvisorsSection
-              conseillersActifsNonRenouveles={conseillersActifsNonRenouveles}
-              structure={structure}
-              roleActivated={roleActivated}
-            />
-            <InactiveAdvisorsSection />
+            {
+              conseillersARenouveler?.length > 0 &&
+              <RenewAdvisorsSection
+                conseillersARenouveler={conseillersARenouveler}
+                structure={structure}
+                roleActivated={roleActivated}
+                setMiseEnrelationId={setMiseEnrelationId}
+                setOpenModalContrat={setOpenModalContrat}
+                handleOpenModalContrat={handleOpenModalContrat}
+              />
+            }
+            {
+              conseillersActifs?.length > 0 &&
+              <ActiveAdvisorsSection
+                conseillersActifs={conseillersActifs}
+                structure={structure}
+                setMiseEnrelationId={setMiseEnrelationId}
+              />
+            }
+            {
+              conseillersActifsNonRenouveles?.length > 0 &&
+              <ActiveNoRenewalAdvisorsSection
+                conseillersActifsNonRenouveles={conseillersActifsNonRenouveles}
+                structure={structure}
+                roleActivated={roleActivated}
+              />
+            }
+            {
+              conseillersEnCoursDeRecrutement?.length > 0 &&
+              <HiringInProgressAdvisorsSection conseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement}/>
+            }
+            {
+              anciensConseillers?.length > 0 &&
+            <InactiveAdvisorsSection anciensConseillers={anciensConseillers}/>
+            }
           </>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

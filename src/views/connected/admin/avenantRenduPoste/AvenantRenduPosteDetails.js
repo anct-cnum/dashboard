@@ -1,6 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { badgeStatutDossierDS, pluralize } from '../../../../utils/formatagesUtils';
+import { pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { conventionActions } from '../../../../actions';
@@ -9,9 +9,6 @@ function AvenantRenduPosteDetails({ avenant, idDemandeCoselec }) {
   const dispatch = useDispatch();
 
   const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.id === idDemandeCoselec);
-  const statutDossierDS = avenant?.conventionnement?.statut.match(/\bRECONVENTIONNEMENT\B/) ?
-    avenant?.conventionnement?.dossierReconventionnement?.statut :
-    avenant?.conventionnement?.dossierConventionnement?.statut;
 
   const updateAvenantRenduPoste = () => {
     dispatch(conventionActions.updateAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostesRendus, avenant.nombreConseillersCoselec));
@@ -40,7 +37,7 @@ function AvenantRenduPosteDetails({ avenant, idDemandeCoselec }) {
                 demandesCoselec?.nombreDePostesRendus
               )}
             </strong><br />
-            s&ucirc;r {avenant?.nombreConseillersCoselec}
+            sur {avenant?.nombreConseillersCoselec}
             {pluralize(
               ' poste de conseiller validé ',
               ' poste de conseiller validé ',
@@ -70,7 +67,6 @@ function AvenantRenduPosteDetails({ avenant, idDemandeCoselec }) {
             }
             <li className="fr-ml-auto">
               <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                {badgeStatutDossierDS(statutDossierDS)}
                 <a className="fr-btn fr-btn--secondary" href={avenant?.url} target="_blank" rel="noopener noreferrer">
                   Voir le dossier D&eacute;marche Simplifi&eacute;e
                 </a>

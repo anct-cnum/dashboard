@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, exportsActions, paginationActions } from '../../../../actions';
+import { alerteEtSpinnerActions, exportsActions, filtresConventionsActions, paginationActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
@@ -19,6 +19,9 @@ export default function TableauHistoriqueContrat() {
   const loadingExport = useSelector(state => state.exports?.loading);
   const error = useSelector(state => state.contrat?.error);
   const contrats = useSelector(state => state.contrat);
+  const ordre = useSelector(state => state.filtresConventions?.ordre);
+  const ordreNom = useSelector(state => state.filtresConventions?.ordreNom);
+  const filtreParNomConseiller = useSelector(state => state.filtresConventions?.nom);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initContrat, setInitContrat] = useState(false);
   const [statutContrat, setStatutContrat] = useState('toutes');
@@ -38,19 +41,20 @@ export default function TableauHistoriqueContrat() {
 
   useEffect(() => {
     if (initContrat === true) {
-      dispatch(contratActions.getAllHistorique(currentPage, statutContrat, dateDebut, dateFin));
+      dispatch(contratActions.getAllHistorique(currentPage, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre ? -1 : 1));
     }
-  }, [currentPage, statutContrat, dateDebut, dateFin]);
+  }, [currentPage, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordre, ordreNom]);
 
   useEffect(() => {
     scrollTopWindow();
     if (page === undefined) {
       dispatch(paginationActions.setPage(1));
+      dispatch(filtresConventionsActions.resetFiltre());
       setPage(1);
     }
     if (!error) {
       if (initContrat === false && page !== undefined) {
-        dispatch(contratActions.getAllHistorique(page, statutContrat, dateDebut, dateFin));
+        dispatch(contratActions.getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre ? -1 : 1));
         setInitContrat(true);
       }
     } else {
@@ -72,11 +76,28 @@ export default function TableauHistoriqueContrat() {
   }, [exportHistoriqueContratFileBlob, exportHistoriqueContratError]);
 
   const exportHistoriqueContrat = () => {
-    dispatch(exportsActions.exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin));
+    dispatch(exportsActions.exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre ? -1 : 1));
+  };
+
+  const ordreColonne = e => {
+    dispatch(paginationActions.setPage(1));
+    dispatch(filtresConventionsActions.changeOrdre(e.currentTarget?.id));
+  };
+
+  const rechercheParNomConseiller = e => {
+    dispatch(paginationActions.setPage(1));
+    const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
+    dispatch(filtresConventionsActions.changeNom(value));
+  };
+
+  const rechercheParNomConseillerToucheEnter = e => {
+    if (e.key === 'Enter') {
+      rechercheParNomConseiller(e);
+    }
   };
 
   return (
-    <div className="contrats">
+    <div className="conventions">
       <Spinner loading={loading || loadingExport} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
@@ -85,7 +106,7 @@ export default function TableauHistoriqueContrat() {
               <h1 className="fr-h1 title">Historique des demandes de contrats trait&eacute;es</h1>
               <span>Retrouvez ici toutes les demandes de recrutements, renouvellements et ruptures de contrat d&eacute;j&agrave; trait&eacute;es.</span>
             </div>
-            <div className="fr-container--fluid fr-mt-4w">
+            <div className="fr-mt-4w">
               <ul className="tabs fr-tags-group">
                 <button onClick={() => {
                   dispatch(paginationActions.setPage(1));
@@ -112,6 +133,15 @@ export default function TableauHistoriqueContrat() {
                   Rupture de contrat ({contrats?.items?.totalParContrat?.ruptureDeContrat})
                 </button>
               </ul>
+              <div className="fr-col-12 fr-mb-2w fr-mt-3w">
+                <div className="fr-search-bar fr-search-bar" id="search" role="search" >
+                  <input onKeyDown={rechercheParNomConseillerToucheEnter} className="fr-input" defaultValue={''}
+                    placeholder="Rechercher par nom ou par id" type="search" id="search-input" name="search-input" />
+                  <button className="fr-btn" onClick={rechercheParNomConseiller} title="Rechercher par nom ou par id">
+                    Rechercher
+                  </button>
+                </div>
+              </div>
               <div className="fr-container--fluid fr-mt-4w">
                 <div className="fr-grid-row fr-grid-row--end">
                   <div className="fr-col-12 fr-col-md-8 fr-grid-row">
@@ -133,7 +163,18 @@ export default function TableauHistoriqueContrat() {
                           <th style={{ width: '8rem' }}>ID structure</th>
                           <th style={{ width: '17rem' }}>Nom de la structure</th>
                           <th style={{ width: '13rem' }}>Nom du candidat</th>
-                          <th style={{ width: '11rem' }}>Date de la demande</th>
+                          <th style={{ width: '12rem' }}>
+                            <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Date de la demande
+                                {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
+                                  <i className="ri-arrow-down-s-line chevron icone"></i>
+                                }
+                                {(ordreNom === 'dateDemande' && !ordre) &&
+                                  <i className="ri-arrow-up-s-line chevron icone"></i>
+                                }
+                              </span>
+                            </button>
+                          </th>
                           <th style={{ width: '11rem' }}>Type de la demande</th>
                           <th style={{ width: '12rem' }}>Type de contrat</th>
                           <th style={{ width: '12rem' }}>D&eacute;but de contrat</th>

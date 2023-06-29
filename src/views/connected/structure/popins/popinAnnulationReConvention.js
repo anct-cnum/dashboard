@@ -20,8 +20,8 @@ function popinAnnulationReConvention({ setOpenModal, handleCancel, motif, setMot
     },
     {
       id: 'radio-4',
-      value: `Je ne sais pas encore si je souhaite me reconventionner car je manque de visibilité sur les prochains mois`,
-      label: `Je ne sais pas encore si je souhaite me reconventionner car je manque de visibilité sur les prochains mois`,
+      value: `Je ne sais pas encore si je souhaite reconventionner car je manque de visibilité sur les prochains mois`,
+      label: `Je ne sais pas encore si je souhaite reconventionner car je manque de visibilité sur les prochains mois`,
     },
   ];
 
@@ -39,19 +39,22 @@ function popinAnnulationReConvention({ setOpenModal, handleCancel, motif, setMot
                   <span className="fr-fi-arrow-right-line fr-fi--lg"></span>
                   Vous ne souhaitez pas renouveler votre conventionnement&nbsp;?
                 </h1>
-                {radioValues.map(radio => (
-                  <div className="fr-radio-group" key={radio.id}>
-                    <input
-                      type="radio"
-                      id={radio.id}
-                      name="motif"
-                      value={radio.value}
-                      checked={motif === radio.value}
-                      onChange={() => setMotif(radio.value)}
-                    />
-                    <label className="fr-label" htmlFor={radio.id}>
-                      {radio.label}
-                    </label>
+                {radioValues.map((radio, idx) => (
+                  <div className="fr-fieldset__element" key={idx}>
+
+                    <div className="fr-radio-group fr-radio-group--sm">
+                      <input
+                        type="radio"
+                        id={radio.id}
+                        name="motif"
+                        value={radio.value}
+                        checked={motif === radio.value}
+                        onChange={() => setMotif(radio.value)}
+                      />
+                      <label className="fr-label" htmlFor={radio.id}>
+                        {radio.label}
+                      </label>
+                    </div>
                   </div>
                 ))}
               </div>

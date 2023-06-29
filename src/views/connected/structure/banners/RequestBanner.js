@@ -7,7 +7,6 @@ const RequestBanner = ({ setOpenModal, openModal }) => {
   return (
     <div
       className="fr-notice fr-notice--info"
-      style={{ position: 'absolute', top: '173px', left: '0%', right: '0%' }}
     >
       <div className="fr-container">
         <div className="fr-notice__body fr-grid-row fr-grid-row--middle fr-py-1w">

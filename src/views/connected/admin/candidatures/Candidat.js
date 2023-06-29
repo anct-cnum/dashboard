@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { conseillerActions } from '../../../../actions';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 import { Link } from 'react-router-dom';
 
 function Candidat({ candidat }) {
@@ -26,10 +26,13 @@ function Candidat({ candidat }) {
         <td>
           { candidat?.pix?.partage &&
             <>
-              <div data-tip="A partag&eacute; ses r&eacute;sultats Pix">
+              <div
+                data-tooltip-id={`pix-${candidat?.idPG}`}
+                data-tooltip-float="true"
+                data-tooltip-content="A partag&eacute; ses r&eacute;sultats Pix">
                 <img src={logoPix} alt="logo Pix" style={{ height: '36px' }}/>
               </div>
-              <ReactTooltip html={true} className="infobulle"/>
+              <Tooltip variant="light" id={`pix-${candidat?.idPG}`} className="infobulle"/>
             </>
           }
         </td>

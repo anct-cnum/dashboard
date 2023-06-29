@@ -10,8 +10,7 @@ import PopinRecrutee from '../popins/popinRecrutee';
 import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import { formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
-import Statut from '../../../../datas/statut-candidat.json';
+import { displayBadgeStatutCandidat, formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
 import InformationCandidat from '../../../../components/InformationCandidat';
 
 function CandidatDetails() {
@@ -58,10 +57,6 @@ function CandidatDetails() {
     }
   }, [errorUpdateStatus, downloadError]);
 
-  const formatStatutCandidat = statut => {
-    return Statut.find(item => item.filter === statut)?.name_singular;
-  };
-
   return (
     <div className="fr-container candidatDetails">
       <Spinner loading={loading || downloading} />
@@ -71,19 +66,19 @@ function CandidatDetails() {
         Retour &agrave; la liste
       </Link>
       {(downloadError !== undefined && downloadError !== false) &&
-      <div className="fr-alert fr-alert--error fr-mt-3w">
-        <p>Le CV n&rsquo;a pas pu &ecirc;tre r&eacute;cup&eacute;r&eacute; !</p>
-      </div>
+        <div className="fr-alert fr-alert--error fr-mt-3w">
+          <p>Le CV n&rsquo;a pas pu &ecirc;tre r&eacute;cup&eacute;r&eacute; !</p>
+        </div>
       }
-      { (errorUpdateStatus !== undefined && errorUpdateStatus !== false) &&
-      <div className="fr-alert fr-alert--info fr-mt-3w">
-        <p>{errorUpdateStatus}</p>
-      </div>
+      {(errorUpdateStatus !== undefined && errorUpdateStatus !== false) &&
+        <div className="fr-alert fr-alert--info fr-mt-3w">
+          <p>{errorUpdateStatus}</p>
+        </div>
       }
-      { (errorUpdateDate !== undefined && errorUpdateDate !== false) &&
-      <div className="fr-alert fr-alert--info fr-mt-3w">
-        <p>{errorUpdateDate}</p>
-      </div>
+      {(errorUpdateDate !== undefined && errorUpdateDate !== false) &&
+        <div className="fr-alert fr-alert--info fr-mt-3w">
+          <p>{errorUpdateDate}</p>
+        </div>
       }
       {dateRecrutementUpdated === true && conseiller?.miseEnRelation?.dateRecrutement !== null &&
         <p className="fr-alert fr-alert--success fr-mt-3w">
@@ -92,20 +87,22 @@ function CandidatDetails() {
       }
       <div className="fr-col-12 fr-pt-6w">
         {conseiller?.coselec?.nombreConseillersCoselec &&
-      <div className="fr-mb-3w">
-        <span className="fr-text--lg fr-text--bold">
-          {conseiller.coselec.nombreConseillersCoselec}&nbsp;
-          {pluralize(
-            'conseiller validé',
-            'conseiller validé',
-            'conseillers validés',
-            conseiller.coselec.nombreConseillersCoselec
-          )}
-          &nbsp;par l&rsquo;Agence nationale de la coh&eacute;sion des territoires
-        </span>
-      </div>
+          <div className="fr-mb-3w">
+            <span className="fr-text--lg fr-text--bold">
+              {conseiller.coselec.nombreConseillersCoselec}&nbsp;
+              {pluralize(
+                'conseiller validé',
+                'conseiller validé',
+                'conseillers validés',
+                conseiller.coselec.nombreConseillersCoselec
+              )}
+              &nbsp;par l&rsquo;Agence nationale de la coh&eacute;sion des territoires
+            </span>
+          </div>
         }
-        <h1 className="fr-h1" style={{ color: '#000091', marginBottom: '0.8rem' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+        <h1 className="fr-h1" style={{ color: '#000091', marginBottom: '0.3rem' }}>
+          {conseiller ? formatNomConseiller(conseiller) : ''}
+        </h1>
       </div>
       {displayModal &&
         <>
@@ -122,21 +119,19 @@ function CandidatDetails() {
       }
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5" style={{ marginBottom: '0.5rem' }}>ID - {conseiller?.idPG ?? ''}</h5>
+          <h5 className="fr-h5 fr-mb-1v fr-col-12">ID - {conseiller?.idPG ?? ''}</h5>
+          {conseiller?.miseEnRelation?.statut &&
+            <>
+              {displayBadgeStatutCandidat(conseiller?.miseEnRelation?.statut)}
+            </>
+          }
+          <ButtonsAction
+            statut={conseiller?.miseEnRelation?.statut}
+            miseEnRelationId={conseiller?.miseEnRelation?._id}
+            updateStatut={updateStatut}
+            dateRupture={conseiller?.miseEnRelation?.dateRupture}
+            motifRupture={conseiller?.miseEnRelation?.motifRupture} />
         </div>
-      </div>
-      <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
-        {conseiller?.miseEnRelation?.statut && conseiller?.miseEnRelation?.statut === 'nouvelle' &&
-        <p className="fr-badge fr-badge--new" style={{ height: '20%' }}>
-          {conseiller?.miseEnRelation?.statut ? formatStatutCandidat(conseiller?.miseEnRelation?.statut) : ''}
-        </p>
-        }
-        <ButtonsAction
-          statut={conseiller?.miseEnRelation?.statut}
-          miseEnRelationId = {conseiller?.miseEnRelation?._id}
-          updateStatut={updateStatut}
-          dateRupture={conseiller?.miseEnRelation?.dateRupture}
-          motifRupture={conseiller?.miseEnRelation?.motifRupture} />
       </div>
       <InformationCandidat conseiller={conseiller} />
     </div>

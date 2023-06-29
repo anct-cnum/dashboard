@@ -37,6 +37,12 @@
   background-color: $success-950;
 }
 
+.main__banner {
+  position: relative;
+  top: max(-10vh, -5rem);
+  margin-left: -15vh;
+  margin-right: -15vh;
+}
 
 .info__color {
   color: $grey-425;
@@ -99,9 +105,9 @@
       text-align: end;
   }
   .badge-statut {
-      flex: 0 0 17.4%;
-      max-width: 17.4%;
-      width: 17.4%;
+      text-align: center;
+      max-width: 23.4%;
+      width: 23.4%;
   }
   .badge-statut-renouvellement {
       flex: 0 0 16.4%;
@@ -199,7 +205,24 @@
   }
 
 @media (min-width: 1220px) {
-    .banner__button_progress {
-      margin-left: 24rem;
+    .banner__button_progress_avenant {
+      margin-left: 29rem;
+    }
+
+    .banner__button_progress_avenant_denied {
+      margin-left: 29rem;
+    }
+
+    .banner__button_progress_reconventionnement {
+      margin-left: 40rem;
+    }
+
+    .banner__button_progress_reconventionnement_denied {
+      margin-left: 31rem;
+      cursor: pointer;
+    }
+
+    .banner__text_width {
+      width: 70rem;
     }
   }

@@ -42,7 +42,7 @@ const RenewAdvisorsSection = ({
   return (
     structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ && (
       <div className="container fr-mt-4w">
-        <p className="fr-text--bold">Contrats &agrave; renouveller ({conseillersARenouveler?.length})</p>
+        <h6 className="fr-text--bold">Contrats &agrave; renouveller ({conseillersARenouveler?.length})</h6>
         {conseillersARenouveler?.map((conseiller, idx) =>
           renderCard(conseiller, idx, roleActivated, setMiseEnrelationId, setOpenModalContrat, handleOpenModalContrat, structure)
         )}
