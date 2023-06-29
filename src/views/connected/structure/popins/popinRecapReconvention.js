@@ -2,15 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { pluralize } from '../../../../utils/formatagesUtils';
-import { useAdvisors } from '../hooks/useAdvisors';
 
-function PopinRecapReconvention({ setOpenModal, handleSend, structure }) {
+function PopinRecapReconvention({ setOpenModal, handleSend, structure, calcNombreDePostes }) {
   const navigate = useNavigate();
-  const {
-    conseillersRecrutes,
-    conseillersEnCoursDeRecrutement,
-  } = useAdvisors();
-  const postesOccupes = conseillersRecrutes?.length + conseillersEnCoursDeRecrutement?.length;
+
   return (
     <dialog
       aria-labelledby="fr-modal-2-title"
@@ -53,7 +48,7 @@ function PopinRecapReconvention({ setOpenModal, handleSend, structure }) {
                   <ul>
                     <li>
                       <p className="fr-text--bold fr-mb-1w">
-                        {postesOccupes}{' '}
+                        {calcNombreDePostes()}{' '}
                         {pluralize(
                           'poste occupé',
                           'poste occupé',
@@ -65,7 +60,7 @@ function PopinRecapReconvention({ setOpenModal, handleSend, structure }) {
                     <li>
                       <p className="fr-text--bold">
                         {structure?.posteValiderCoselec -
-                          postesOccupes}{' '}
+                          calcNombreDePostes()}{' '}
                         {pluralize(
                           'poste vacant',
                           'poste vacant',
@@ -109,7 +104,8 @@ function PopinRecapReconvention({ setOpenModal, handleSend, structure }) {
 PopinRecapReconvention.propTypes = {
   setOpenModal: PropTypes.func,
   handleSend: PropTypes.func,
-  structure: PropTypes.object
+  structure: PropTypes.object,
+  calcNombreDePostes: PropTypes.func,
 };
 
 export default PopinRecapReconvention;

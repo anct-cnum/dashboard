@@ -136,7 +136,7 @@ function MesPostes() {
         {misesEnRelation?.length > 0 && (
           <>
             <HireAdvisorCard
-              nbreConseillersActifs={conseillersActifs.filter(conseiller => conseiller?.conseiller?.statut === 'finalisee').length}
+              nbreConseillersActifs={conseillersActifs.filter(conseiller => conseiller?.statut === 'finalisee').length}
               nbreConseillersRenouveler={conseillersARenouveler.length}
               nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
               structure={structure}

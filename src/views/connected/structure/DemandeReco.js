@@ -16,8 +16,6 @@ import PopinRecapReconvention from './popins/popinRecapReconvention';
 import Spinner from '../../../components/Spinner';
 import { pluralize, validTypeDeContratWithoutEndDate } from '../../../utils/formatagesUtils';
 import { StatutConventionnement } from '../../../utils/enumUtils';
-import { useAdvisors } from './hooks/useAdvisors';
-
 
 function DemandeReconventionnement() {
   const dispatch = useDispatch();
@@ -38,11 +36,6 @@ function DemandeReconventionnement() {
   const [openModal, setOpenModal] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
   const [nombreDePostes, setNombreDePostes] = useState(0);
-  const {
-    conseillersRecrutes,
-    conseillersEnCoursDeRecrutement,
-  } = useAdvisors();
-  const postesOccupes = conseillersRecrutes?.length + conseillersEnCoursDeRecrutement?.length;
 
   const errorMessages = {
     errorStructure: 'La structure n\'a pas pu être chargée !',
@@ -103,6 +96,8 @@ function DemandeReconventionnement() {
     }
   }, [structure?.conventionnement?.dossierReconventionnement]);
 
+  const calcNombreDePostes = () => structure?.conseillersRecruterConventionnement?.length + structure?.conseillersValiderConventionnement?.length;
+
   const handleSelectAdvisor = e => {
     const { checked } = e.target;
     const value = JSON.parse(e.target.value);
@@ -133,12 +128,13 @@ function DemandeReconventionnement() {
     dispatch(reconventionnementActions.update(structure?._id, 'envoyer', checkedItems, nombreDePostes));
     navigate('/structure/postes');
   };
-  
+
   return (
     <>
       {openModal && (
         <PopinRecapReconvention
           checkedItems={checkedItems}
+          calcNombreDePostes={calcNombreDePostes}
           structure={structure}
           setOpenModal={setOpenModal}
           handleSend={handleSend}
@@ -220,7 +216,7 @@ function DemandeReconventionnement() {
               <ul>
                 <li>
                   <p className="fr-text--bold fr-mb-1w">
-                    {postesOccupes}{' '}
+                    {calcNombreDePostes()}{' '}
                     {pluralize(
                       'poste occupé',
                       'poste occupé',
@@ -231,8 +227,7 @@ function DemandeReconventionnement() {
                 </li>
                 <li>
                   <p className="fr-text--bold">
-                    {structure?.posteValiderCoselec -
-                          postesOccupes}{' '}
+                    {structure?.posteValiderCoselec - calcNombreDePostes()}{' '}
                     {pluralize(
                       'poste vacant',
                       'poste vacant',
