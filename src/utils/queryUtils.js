@@ -74,18 +74,22 @@ export function structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateF
   return { ordreColonne, filterDateStart, filterDateEnd, filterByName, filterByType, filterByStatut, filterByRegion, filterByDepartement };
 }
 
-export function conventionQueryStringParameters(filtreParNomStructure, ordreNom, ordre) {
+export function conventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
   const filterByName = filtreParNomStructure ? `&searchByNomStructure=${filtreParNomStructure}` : '';
+  const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
+  const filterByDepartement = filterDepartement !== 'tous' && filterDepartement !== undefined ? `&departement=${filterDepartement}` : '';
   const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
 
-  return { ordreColonne, filterByName };
+  return { ordreColonne, filterByName, filterByRegion, filterByDepartement };
 }
 
-export function contratQueryStringParameters(filtreParNomConseiller, ordreNom, ordre) {
+export function contratQueryStringParameters(filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre) {
   const filterByName = filtreParNomConseiller ? `&searchByNomConseiller=${filtreParNomConseiller}` : '';
+  const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
+  const filterByDepartement = filterDepartement !== 'tous' && filterDepartement !== undefined ? `&departement=${filterDepartement}` : '';
   const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
 
-  return { ordreColonne, filterByName };
+  return { ordreColonne, filterByName, filterByRegion, filterByDepartement };
 }
 
 // eslint-disable-next-line max-len

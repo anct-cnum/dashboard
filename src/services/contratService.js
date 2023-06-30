@@ -11,13 +11,16 @@ export const contratService = {
   updateContract,
 };
 
-function getAll(page, statutContrat, filtreParNomConseiller, ordreNom, ordre) {
+function getAll(page, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre) {
   const {
     ordreColonne,
     filterByName,
-  } = contratQueryStringParameters(filtreParNomConseiller, ordreNom, ordre);
+    filterByRegion,
+    filterByDepartement
+  } = contratQueryStringParameters(filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre);
 
-  return API.get(`${apiUrlRoot}/contrats?role=${roleActivated()}&page=${page}&statut=${statutContrat}${ordreColonne}${filterByName}`)
+  // eslint-disable-next-line max-len
+  return API.get(`${apiUrlRoot}/contrats?role=${roleActivated()}&page=${page}&statut=${statutContrat}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -28,16 +31,18 @@ function validationRenouvellement(id) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre) {
+function getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const {
     ordreColonne,
     filterByName,
-  } = contratQueryStringParameters(filtreParNomConseiller, ordreNom, ordre);
+    filterByRegion,
+    filterByDepartement
+  } = contratQueryStringParameters(filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre);
 
   // eslint-disable-next-line max-len
-  return API.get(`${apiUrlRoot}/historique/contrats?role=${roleActivated()}&page=${page}&statut=${statutContrat}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}`)
+  return API.get(`${apiUrlRoot}/historique/contrats?role=${roleActivated()}&page=${page}&statut=${statutContrat}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

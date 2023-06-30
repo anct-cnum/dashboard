@@ -11,27 +11,32 @@ export const conventionService = {
   updateAvenantRenduPoste,
 };
 
-function getAll(page, typeConvention, filtreParNomStructure, ordreNom, ordre) {
+function getAll(page, typeConvention, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
   const {
     ordreColonne,
     filterByName,
-  } = conventionQueryStringParameters(filtreParNomStructure, ordreNom, ordre);
+    filterByRegion,
+    filterByDepartement,
+  } = conventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre);
 
-  return API.get(`${apiUrlRoot}/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${ordreColonne}${filterByName}`)
+  // eslint-disable-next-line max-len
+  return API.get(`${apiUrlRoot}/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre) {
+function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const {
     ordreColonne,
     filterByName,
-  } = conventionQueryStringParameters(filtreParNomStructure, ordreNom, ordre);
+    filterByRegion,
+    filterByDepartement
+  } = conventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre);
 
   // eslint-disable-next-line max-len
-  return API.get(`${apiUrlRoot}/historique/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}`)
+  return API.get(`${apiUrlRoot}/historique/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

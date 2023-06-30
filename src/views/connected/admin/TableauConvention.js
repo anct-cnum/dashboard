@@ -10,6 +10,7 @@ import Conventionnement from './conventionnement/Conventionnement';
 import AvenantAjoutPoste from './avenantAjoutPoste/AvenantAjoutPoste';
 import AvenantRenduPoste from './avenantRenduPoste/AvenantRenduPoste';
 import { filtresConventionsActions } from '../../../actions/filtresConventionsActions';
+import FiltresEtTrisConvention from './FiltresEtTrisConvention';
 
 export default function TableauConvention() {
 
@@ -24,6 +25,8 @@ export default function TableauConvention() {
   const ordre = useSelector(state => state.filtresConventions?.ordre);
   const ordreNom = useSelector(state => state.filtresConventions?.ordreNom);
   const filtreParNomStructure = useSelector(state => state.filtresConventions?.nom);
+  const filterDepartement = useSelector(state => state.filtresConventions?.departement);
+  const filtreRegion = useSelector(state => state.filtresConventions?.region);
   const [initConseiller, setInitConseiller] = useState(false);
   const [typeConvention, setTypeConvention] = useState('toutes');
 
@@ -36,9 +39,9 @@ export default function TableauConvention() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(conventionActions.getAll(currentPage, typeConvention, filtreParNomStructure, ordreNom, ordre ? -1 : 1));
+      dispatch(conventionActions.getAll(currentPage, typeConvention, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre ? -1 : 1));
     }
-  }, [currentPage, typeConvention, ordreNom, ordre, filtreParNomStructure]);
+  }, [currentPage, typeConvention, ordreNom, ordre, filtreParNomStructure, filterDepartement, filtreRegion]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -49,7 +52,7 @@ export default function TableauConvention() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(conventionActions.getAll(page, typeConvention, filtreParNomStructure, ordreNom, ordre ? -1 : 1));
+        dispatch(conventionActions.getAll(page, typeConvention, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre ? -1 : 1));
         setInitConseiller(true);
       }
     } else {
@@ -66,130 +69,110 @@ export default function TableauConvention() {
     dispatch(filtresConventionsActions.changeOrdre(e.currentTarget?.id));
   };
 
-  const rechercheParNomStructure = e => {
-    dispatch(paginationActions.setPage(1));
-    const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
-    dispatch(filtresConventionsActions.changeNom(value));
-  };
-
-  const rechercheParNomStructureToucheEnter = e => {
-    if (e.key === 'Enter') {
-      rechercheParNomStructure(e);
-    }
-  };
-
   return (
     <div className="conventions">
       <Spinner loading={loading} />
-      <div className="">
-        <div className="fr-grid-row">
-          <div className="fr-col-12">
-            <div className="fr-col fr-col-lg-12 fr-col-md-8">
-              <h1 style={{ color: '#000091' }} className="fr-h1">Demandes de conventions</h1>
-              <span>Retrouvez ici toutes les demandes de conventionnement, reconventionnement et avenants &agrave; valider.</span>
+      <div className="fr-grid-row">
+        <div className="fr-col-12">
+          <div className="fr-col fr-col-lg-12 fr-col-md-8">
+            <h1 style={{ color: '#000091' }} className="fr-h1">Demandes de conventions</h1>
+            <span>Retrouvez ici toutes les demandes de conventionnement, reconventionnement et avenants &agrave; valider.</span>
+          </div>
+          <div className="fr-mt-4w">
+            <ul className="tabs fr-tags-group">
+              <button onClick={() => {
+                dispatch(paginationActions.setPage(1));
+                setTypeConvention('toutes');
+              }} className="fr-tag" aria-pressed={typeConvention === 'toutes'}>
+                Afficher toutes les demandes ({conventions?.items?.totalParConvention?.total})
+              </button>
+              <button onClick={() => {
+                dispatch(paginationActions.setPage(1));
+                setTypeConvention('conventionnement');
+              }} className="fr-tag" aria-pressed={typeConvention === 'conventionnement'}>
+                Conventionnement initial ({conventions?.items?.totalParConvention?.conventionnement})
+              </button>
+              <button onClick={() => {
+                dispatch(paginationActions.setPage(1));
+                setTypeConvention('reconventionnement');
+              }} className="fr-tag" aria-pressed={typeConvention === 'reconventionnement'}>
+                Reconventionnement ({conventions?.items?.totalParConvention?.reconventionnement})
+              </button>
+              <button onClick={() => {
+                dispatch(paginationActions.setPage(1));
+                setTypeConvention('avenantAjoutPoste');
+              }} className="fr-tag" aria-pressed={typeConvention === 'avenantAjoutPoste'}>
+                Avenant · ajout de poste ({conventions?.items?.totalParConvention?.avenantAjoutPoste})
+              </button>
+              <button onClick={() => {
+                dispatch(paginationActions.setPage(1));
+                setTypeConvention('avenantRenduPoste');
+              }} className="fr-tag" aria-pressed={typeConvention === 'avenantRenduPoste'}>
+                Avenant · poste rendu ({conventions?.items?.totalParConvention?.avenantRenduPoste})
+              </button>
+            </ul>
+            <div className="fr-col-12 fr-mb-2w fr-mt-3w">
+              <FiltresEtTrisConvention />
             </div>
-            <div className="fr-mt-4w">
-              <ul className="tabs fr-tags-group">
-                <button onClick={() => {
-                  dispatch(paginationActions.setPage(1));
-                  setTypeConvention('toutes');
-                }} className="fr-tag" aria-pressed={typeConvention === 'toutes'}>
-                  Afficher toutes les demandes ({conventions?.items?.totalParConvention?.total})
-                </button>
-                <button onClick={() => {
-                  dispatch(paginationActions.setPage(1));
-                  setTypeConvention('conventionnement');
-                }} className="fr-tag" aria-pressed={typeConvention === 'conventionnement'}>
-                  Conventionnement initial ({conventions?.items?.totalParConvention?.conventionnement})
-                </button>
-                <button onClick={() => {
-                  dispatch(paginationActions.setPage(1));
-                  setTypeConvention('reconventionnement');
-                }} className="fr-tag" aria-pressed={typeConvention === 'reconventionnement'}>
-                  Reconventionnement ({conventions?.items?.totalParConvention?.reconventionnement})
-                </button>
-                <button onClick={() => {
-                  dispatch(paginationActions.setPage(1));
-                  setTypeConvention('avenantAjoutPoste');
-                }} className="fr-tag" aria-pressed={typeConvention === 'avenantAjoutPoste'}>
-                  Avenant · ajout de poste ({conventions?.items?.totalParConvention?.avenantAjoutPoste})
-                </button>
-                <button onClick={() => {
-                  dispatch(paginationActions.setPage(1));
-                  setTypeConvention('avenantRenduPoste');
-                }} className="fr-tag" aria-pressed={typeConvention === 'avenantRenduPoste'}>
-                  Avenant · poste rendu ({conventions?.items?.totalParConvention?.avenantRenduPoste})
-                </button>
-              </ul>
-              <div className="fr-col-12 fr-mb-2w fr-mt-3w">
-                <div className="fr-search-bar fr-search-bar" id="search" role="search" >
-                  <input onKeyDown={rechercheParNomStructureToucheEnter} className="fr-input" defaultValue={''}
-                    placeholder="Rechercher par nom, par id, par siret ou par email" type="search" id="search-input" name="search-input" />
-                  <button className="fr-btn" onClick={rechercheParNomStructure} title="Rechercher par nom, par id, par siret ou par email">
-                    Rechercher
-                  </button>
-                </div>
-              </div>
-              <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
-                <div className="fr-col-12">
-                  <div className="fr-table">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th style={{ width: '5rem' }}>Id</th>
-                          <th style={{ width: '15rem' }}>Nom de la structure</th>
-                          <th style={{ width: '12rem' }}>
-                            <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Date de la demande
-                                {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'dateDemande' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
-                            </button>
-                          </th>
-                          <th>Date de fin du prochain contrat</th>
-                          <th>Nombre de postes</th>
-                          <th style={{ width: '12rem' }}>Type de la demande</th>
-                          <th style={{ width: '12rem' }}></th>
+            <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
+              <div className="fr-col-12">
+                <div className="fr-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th style={{ width: '5rem' }}>Id</th>
+                        <th style={{ width: '15rem' }}>Nom de la structure</th>
+                        <th style={{ width: '12rem' }}>
+                          <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
+                            <span>Date de la demande
+                              {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
+                                <i className="ri-arrow-down-s-line chevron icone"></i>
+                              }
+                              {(ordreNom === 'dateDemande' && !ordre) &&
+                                <i className="ri-arrow-up-s-line chevron icone"></i>
+                              }
+                            </span>
+                          </button>
+                        </th>
+                        <th>Date de fin du prochain contrat</th>
+                        <th>Nombre de postes</th>
+                        <th style={{ width: '12rem' }}>Type de la demande</th>
+                        <th style={{ width: '12rem' }}></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {!error && !loading && conventions?.items?.data?.map((convention, idx) =>
+                        <tr key={idx}>
+                          {convention?.typeConvention === 'conventionnement' &&
+                            <Conventionnement conventionnement={convention} />
+                          }
+                          {convention?.typeConvention === 'reconventionnement' &&
+                            <Reconventionnement reconventionnement={convention} />
+                          }
+                          {convention?.typeConvention === 'avenantAjoutPoste' &&
+                            <AvenantAjoutPoste avenant={convention} />
+                          }
+                          {convention?.typeConvention === 'avenantRenduPoste' &&
+                            <AvenantRenduPoste avenant={convention} />
+                          }
                         </tr>
-                      </thead>
-                      <tbody>
-                        {!error && !loading && conventions?.items?.data?.map((convention, idx) =>
-                          <tr key={idx}>
-                            {convention?.typeConvention === 'conventionnement' &&
-                              <Conventionnement conventionnement={convention} />
-                            }
-                            {convention?.typeConvention === 'reconventionnement' &&
-                              <Reconventionnement reconventionnement={convention} />
-                            }
-                            {convention?.typeConvention === 'avenantAjoutPoste' &&
-                              <AvenantAjoutPoste avenant={convention} />
-                            }
-                            {convention?.typeConvention === 'avenantRenduPoste' &&
-                              <AvenantRenduPoste avenant={convention} />
-                            }
-                          </tr>
-                        )}
-                        {(!conventions?.items || conventions?.items?.data?.length === 0) &&
-                          <tr>
-                            <td colSpan="12" style={{ width: '60rem' }}>
-                              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <span className="not-found pair">Aucune demande de convention trouv&eacute;</span>
-                              </div>
-                            </td>
-                          </tr>
-                        }
-                      </tbody>
-                    </table>
-                  </div>
+                      )}
+                      {(!conventions?.items || conventions?.items?.data?.length === 0) &&
+                        <tr>
+                          <td colSpan="12" style={{ width: '60rem' }}>
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                              <span className="not-found pair">Aucune demande de convention trouv&eacute;</span>
+                            </div>
+                          </td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
                 </div>
-                {conventions?.items?.data?.length > 0 &&
-                  <Pagination />
-                }
               </div>
+              {conventions?.items?.data?.length > 0 &&
+                <Pagination />
+              }
             </div>
           </div>
         </div>

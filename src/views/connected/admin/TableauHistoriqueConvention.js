@@ -10,6 +10,7 @@ import HistoriqueReconventionnement from './reconventionnement/HistoriqueReconve
 import HistoriqueConventionnement from './conventionnement/HistoriqueConventionnement';
 import HistoriqueAvenantAjoutPoste from './avenantAjoutPoste/HistoriqueAvenantAjoutPoste';
 import HistoriqueAvenantRenduPoste from './avenantRenduPoste/HistoriqueAvenantRenduPoste';
+import FiltresEtTrisConvention from './FiltresEtTrisConvention';
 
 export default function TableauHistoriqueConvention() {
 
@@ -26,6 +27,8 @@ export default function TableauHistoriqueConvention() {
   const ordre = useSelector(state => state.filtresConventions?.ordre);
   const ordreNom = useSelector(state => state.filtresConventions?.ordreNom);
   const filtreParNomStructure = useSelector(state => state.filtresConventions?.nom);
+  const filterDepartement = useSelector(state => state.filtresConventions?.departement);
+  const filtreRegion = useSelector(state => state.filtresConventions?.region);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
   const [typeConvention, setTypeConvention] = useState('toutes');
@@ -43,9 +46,19 @@ export default function TableauHistoriqueConvention() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(conventionActions.getAllHistorique(currentPage, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre ? -1 : 1));
+      dispatch(conventionActions.getAllHistorique(
+        currentPage,
+        typeConvention,
+        dateDebut,
+        dateFin,
+        filtreParNomStructure,
+        filterDepartement,
+        filtreRegion,
+        ordreNom,
+        ordre ? -1 : 1
+      ));
     }
-  }, [currentPage, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordre, ordreNom]);
+  }, [currentPage, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordre, ordreNom]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -56,7 +69,16 @@ export default function TableauHistoriqueConvention() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(conventionActions.getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre ? -1 : 1));
+        dispatch(conventionActions.getAllHistorique(
+          page,
+          typeConvention,
+          dateDebut, dateFin,
+          filtreParNomStructure,
+          filterDepartement,
+          filtreRegion,
+          ordreNom,
+          ordre ? -1 : 1
+        ));
         setInitConseiller(true);
       }
     } else {
@@ -78,24 +100,21 @@ export default function TableauHistoriqueConvention() {
   }, [exportHistoriqueDossiersConventionFileBlob, exportHistoriqueDossiersConventionFileError]);
 
   const exportHistoriqueConvention = () => {
-    dispatch(exportsActions.exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre ? -1 : 1));
+    dispatch(exportsActions.exportDonneesHistoriqueDossiersConvention(
+      typeConvention,
+      dateDebut,
+      dateFin,
+      filtreParNomStructure,
+      filterDepartement,
+      filtreRegion,
+      ordreNom,
+      ordre ? -1 : 1
+    ));
   };
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresConventionsActions.changeOrdre(e.currentTarget?.id));
-  };
-
-  const rechercheParNomStructure = e => {
-    dispatch(paginationActions.setPage(1));
-    const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
-    dispatch(filtresConventionsActions.changeNom(value));
-  };
-
-  const rechercheParNomStructureToucheEnter = e => {
-    if (e.key === 'Enter') {
-      rechercheParNomStructure(e);
-    }
   };
 
   return (
@@ -142,17 +161,11 @@ export default function TableauHistoriqueConvention() {
                 </button>
               </ul>
               <div className="fr-col-12 fr-mb-2w fr-mt-3w">
-                <div className="fr-search-bar fr-search-bar" id="search" role="search" >
-                  <input onKeyDown={rechercheParNomStructureToucheEnter} className="fr-input" defaultValue={''}
-                    placeholder="Rechercher par nom, par id, par siret ou par email" type="search" id="search-input" name="search-input" />
-                  <button className="fr-btn" onClick={rechercheParNomStructure} title="Rechercher par nom, par id, par siret ou par email">
-                    Rechercher
-                  </button>
-                </div>
+                <FiltresEtTrisConvention />
               </div>
               <div className="fr-container--fluid fr-mt-4w">
                 <div className="fr-grid-row fr-grid-row--end">
-                  <div className="fr-col-12 fr-col-md-8 fr-grid-row">
+                  <div className="fr-col-12 fr-col-md-8 fr-mt-1w fr-grid-row">
                     <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
                   </div>
                   <div className="fr-ml-auto">

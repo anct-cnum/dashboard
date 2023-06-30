@@ -8,11 +8,11 @@ export const conventionActions = {
   updateAvenantRenduPoste,
 };
 
-function getAll(page, typeConvention, filtreParNomStructure, ordreNom = 'dateDemande', ordre = 1) {
+function getAll(page, typeConvention, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = 1) {
   return dispatch => {
     dispatch(request());
 
-    conventionService.getAll(page, typeConvention, filtreParNomStructure, ordreNom, ordre)
+    conventionService.getAll(page, typeConvention, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre)
     .then(
       conventions => dispatch(success(conventions)),
       error => {
@@ -32,11 +32,12 @@ function getAll(page, typeConvention, filtreParNomStructure, ordreNom = 'dateDem
   }
 }
 
-function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom = 'dateDemande', ordre = 1) {
+// eslint-disable-next-line max-len
+function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = 1) {
   return dispatch => {
     dispatch(request());
 
-    conventionService.getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre)
+    conventionService.getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre)
     .then(
       conventions => dispatch(success(conventions)),
       error => {

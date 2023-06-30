@@ -90,9 +90,9 @@ function Header() {
                 </div>
               </div>
               <div className="fr-header__service">
-                <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique France services">
+                <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique">
                   <p className="fr-header__service-title">
-                    Tableau de pilotage - Conseiller num&eacute;rique France services
+                    Tableau de pilotage - Conseiller num&eacute;rique
                   </p>
                 </Link>
               </div>

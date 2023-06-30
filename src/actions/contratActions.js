@@ -9,11 +9,11 @@ export const contratActions = {
   updateContract,
 };
 
-function getAll(page, statutContrat, filtreParNomConseiller, ordreNom = 'dateDemande', ordre = -1) {
+function getAll(page, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = -1) {
   return dispatch => {
     dispatch(request());
 
-    contratService.getAll(page, statutContrat, filtreParNomConseiller, ordreNom, ordre)
+    contratService.getAll(page, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre)
     .then(
       contrats => dispatch(success(contrats)),
       error => {
@@ -62,11 +62,13 @@ function validationRenouvellement(id) {
     return { type: 'UPDATE_MISE_EN_RELATION_CONTRAT', miseEnRelationUpdated };
   }
 }
-function getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom = 'dateDemande', ordre = -1) {
+
+// eslint-disable-next-line max-len
+function getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = -1) {
   return dispatch => {
     dispatch(request());
 
-    contratService.getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre)
+    contratService.getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre)
     .then(
       contrats => dispatch(success(contrats)),
       error => {
