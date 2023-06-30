@@ -91,7 +91,7 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                       </label>
                       {miseEnRelation?.motifRupture ?
                         <span>{formatMotifRupture(miseEnRelation.motifRupture)}</span> :
-                        <span>non renseign&eacute;</span>
+                        <span>Non renseign&eacute;</span>
                       }
                     </div>
                     <div className="fr-form-group fr-mt-2w">
