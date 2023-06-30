@@ -47,19 +47,14 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                       D&eacute;claration d&rsquo;une rupture
                     </h1>
                     <p>
-                      Rupture du conseiller
+                      Rupture de contrat du conseiller
                       {(miseEnRelation?.conseillerObj?.nom && miseEnRelation?.conseillerObj?.prenom) &&
-                        <strong className="uppercase-letter">{miseEnRelation.conseillerObj.nom}
+                        <strong className="uppercase-letter">&nbsp;{miseEnRelation.conseillerObj.nom}
                         &nbsp;{miseEnRelation.conseillerObj.prenom}</strong>
                       }
                       &nbsp;avec la structure
                       {miseEnRelation?.structureObj?.nom &&
                         <strong>&nbsp;{miseEnRelation.structureObj.nom}</strong>
-                      }
-                      &nbsp;pour motif&nbsp;
-                      {miseEnRelation?.motifRupture ?
-                        <span>de &nbsp;{formatMotifRupture(miseEnRelation.motifRupture)}</span> :
-                        <span>non renseign&eacute;</span>
                       }
                     </p>
                     <div className="fr-col-12">
@@ -87,11 +82,22 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                         maxDate={new Date()}
                       />
                     </div>
-                    <div className="fr-form-group fr-mt-1w">
+                    <div className="fr-col-12 fr-mt-1w">
+                      <label
+                        className="fr-label fr-mb-1v"
+                        style={{ fontSize: 'unset' }}
+                      >
+                        <strong className="important">2. Motif&nbsp;:</strong>
+                      </label>
+                      {miseEnRelation?.motifRupture ?
+                        <span>{formatMotifRupture(miseEnRelation.motifRupture)}</span> :
+                        <span>non renseign&eacute;</span>
+                      }
+                    </div>
+                    <div className="fr-form-group fr-mt-2w">
                       <fieldset className="fr-fieldset">
                         <legend className="fr-fieldset__legend fr-text--regular" id="radio-legend">
-                          <strong className="important">2. Renseignez l&lsquo;&eacute;tat de traitement de la demande (obligatoire)&nbsp;:</strong>
-
+                          <strong className="important">3. Renseignez l&lsquo;&eacute;tat de traitement de la demande (obligatoire)&nbsp;:</strong>
                         </legend>
                         <div className="fr-fieldset__content">
                           <div className="fr-radio-group">
