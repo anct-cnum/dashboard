@@ -123,10 +123,8 @@ export default function TableauHistoriqueConvention() {
       <div className="">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <div className="fr-col fr-col-lg-12 fr-col-md-8">
-              <h1 style={{ color: '#000091' }} className="fr-h1">Historique des demandes de conventions trait&eacute;es</h1>
-              <span>Retrouvez ici toutes les demandes de conventionnements, reconventionnements et avenants d&eacute;j&agrave; trait&eacute;es.</span>
-            </div>
+            <h1 style={{ color: '#000091' }} className="fr-h1">Historique des demandes de conventions trait&eacute;es</h1>
+            <span>Retrouvez ici toutes les demandes de conventionnements, reconventionnements et avenants d&eacute;j&agrave; trait&eacute;es.</span>
             <div className="fr-mt-4w">
               <ul className="tabs fr-tags-group">
                 <button onClick={() => {
@@ -168,7 +166,7 @@ export default function TableauHistoriqueConvention() {
                   <div className="fr-col-12 fr-col-md-8 fr-mt-1w fr-grid-row">
                     <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
                   </div>
-                  <div className="fr-ml-auto">
+                  <div id="export">
                     <button className="fr-btn fr-btn--secondary fr-icon-download-line fr-btn--icon-left" onClick={exportHistoriqueConvention}>
                       Exporter les donn&eacute;es
                     </button>

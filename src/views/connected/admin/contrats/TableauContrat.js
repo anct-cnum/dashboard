@@ -70,10 +70,8 @@ export default function TableauContrat() {
       <Spinner loading={loading} />
       <div className="fr-grid-row">
         <div className="fr-col-12">
-          <div className="fr-col fr-col-lg-12 fr-col-md-8">
-            <h1 className="fr-h1 title">Demandes de contrats</h1>
-            <span>Retrouvez ici toutes les demandes de recrutements, renouvellements et ruptures de contrat &agrave; valider.</span>
-          </div>
+          <h1 className="fr-h1 title">Demandes de contrats</h1>
+          <span>Retrouvez ici toutes les demandes de recrutements, renouvellements et ruptures de contrat &agrave; valider.</span>
           <div className="fr-mt-4w">
             <ul className="tabs fr-tags-group">
               <button onClick={() => {

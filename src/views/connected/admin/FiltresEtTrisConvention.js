@@ -46,14 +46,14 @@ function FiltresEtTrisConvention() {
   return (
     <>
       <div className="fr-grid-row">
-        <div className="fr-search-bar fr-search-bar fr-mr-3w" id="search" role="search" >
+        <div className="fr-search-bar fr-search-bar fr-mr-3w fr-col-12" id="search" role="search" >
           <input onKeyDown={rechercheParNomStructureToucheEnter} className="fr-input" defaultValue={''}
             placeholder="Rechercher par nom, par id, par siret ou par email" type="search" id="search-input" name="search-input" />
           <button className="fr-btn" onClick={rechercheParNomStructure} title="Rechercher par nom, par id, par siret ou par email">
             Rechercher
           </button>
         </div>
-        <div className="fr-select-group fr-col-3 fr-mr-3w fr-mb-0" id="filtre-region">
+        <div className="fr-select-group fr-col-xl-3 fr-col-md-5 fr-mr-3w fr-mb-0 fr-col-12" id="filtre-region">
           <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
             <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
             {codeRegions.map((region, idx) =>
@@ -61,7 +61,7 @@ function FiltresEtTrisConvention() {
             )}
           </select>
         </div>
-        <div className="fr-select-group fr-col-3" id="filtre-departement">
+        <div className="fr-select-group fr-col-xl-3 fr-col-md-5 fr-col-12" id="filtre-departement">
           <select className="fr-select" value={filterDepartement} onChange={selectFiltreDepartement}>
             <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
             {getDepartements().map((departement, idx) =>

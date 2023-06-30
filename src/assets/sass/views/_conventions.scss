@@ -18,4 +18,19 @@
       width: 46%;
     }
   }
+  @media (min-width: 768px) {
+    #export, #filtre-departement {
+      margin-left: auto;
+    }
+  }
+  @media (max-width: 1246px) {
+    #filtre-region, #filtre-departement {
+      margin-top: 2rem;
+    }
+  }
+  @media (max-width: 767px) {
+    #export, #filtre-region, #filtre-departement {
+      margin-top: 1rem;
+    }
+  }
 }
