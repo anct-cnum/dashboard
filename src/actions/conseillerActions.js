@@ -483,11 +483,11 @@ function validationRupture(id, dateFinDeContrat) {
   }
 }
 
-function dossierIncompletRupture(id, dateFinDeContrat, dossierIncomplet) {
+function dossierIncompletRupture(id, dateFinDeContrat) {
   return dispatch => {
     dispatch(request());
 
-    conseillerService.dossierIncompletRupture(id, dateFinDeContrat, dossierIncomplet)
+    conseillerService.dossierIncompletRupture(id, dateFinDeContrat)
     .then(
       miseEnRelationUpdated => {
         dispatch(success());
