@@ -124,7 +124,7 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                         <button onClick={() => {
                           setOpenModal(false);
                           setDossierComplet(null);
-                        }} className="fr-btn" title="Notifier la rupture de contrat">
+                        }} className="fr-btn" title="Annuler">
                           Annuler
                         </button>
                       </li>
@@ -132,7 +132,7 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                         <button
                           onClick={gestionRupture}
                           disabled={!dateFinDeContrat || dossierComplet === null}
-                          className="fr-btn fr-btn--icon-left" title="Notifier la rupture de contrat"
+                          className="fr-btn fr-btn--icon-left" title="Valider la rupture de contrat"
                         >
                           Valider
                         </button>
@@ -159,12 +159,12 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                           setOpenModal(false);
                           setConfirmationRupture(false);
                           setDossierComplet(null);
-                        }} className="fr-btn" title="Notifier la rupture de contrat">
+                        }} className="fr-btn" title="Annuler">
                           Annuler
                         </button>
                       </li>
                       <li>
-                        <button onClick={validationRupture} className="fr-btn fr-btn--icon-left" title="Notifier la rupture de contrat">
+                        <button onClick={validationRupture} className="fr-btn fr-btn--icon-left" title="Confirmer la rupture de contrat">
                           Confirmer
                         </button>
                       </li>
