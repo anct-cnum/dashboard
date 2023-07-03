@@ -9,9 +9,9 @@ const InProgressAvenantBanner = ({ structure }) => {
     structure?.lastDemandeCoselec?.nombreDePostesRendus :
     structure?.lastDemandeCoselec?.nombreDePostesSouhaites;
   const pluralizedText = pluralize(
-    isRetrait ? `la restitution d'un poste subventionné` : `un nouveau poste supplementaire subventionné`,
-    isRetrait ? `la restitution d'un poste subventionné` : 'un nouveau poste supplementaire subventionné',
-    isRetrait ? `la restitution de ${nombre} postes subventionnés` : ` ${nombre} nouveaux postes supplementaires subventionnés`,
+    isRetrait ? `la restitution d'un poste subventionné` : `un nouveau poste supplémentaire subventionné`,
+    isRetrait ? `la restitution d'un poste subventionné` : 'un nouveau poste supplémentaire subventionné',
+    isRetrait ? `la restitution de ${nombre} postes subventionnés` : ` ${nombre} nouveaux postes supplémentaires subventionnés`,
     nombre
   );
   
