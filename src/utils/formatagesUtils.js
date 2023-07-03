@@ -135,8 +135,6 @@ export const displayBadgeStatutCandidat = statut => {
 
 export const formatTypeDeContrat = typeDeContrat => {
   switch (typeDeContrat) {
-    case 'contrat_de_projet_prive':
-      return 'Projet privé';
     case 'contrat_de_projet_public':
       return 'Projet public';
     default:

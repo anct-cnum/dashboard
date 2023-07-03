@@ -3,11 +3,12 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { structureActions } from '../../../../actions';
 import { pluralize } from '../../../../utils/formatagesUtils';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 const ValidatedAvenantBanner = ({ structure }) => {
   const dispatch = useDispatch();
   const isRefusee = structure?.lastDemandeCoselec?.type === 'ajout' && structure?.lastDemandeCoselec?.statut === 'refusee';
-
+  const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
   function closeBanner() {
     dispatch(structureActions.closeBanner('avenant', structure?._id));
   }
@@ -71,7 +72,8 @@ const ValidatedAvenantBanner = ({ structure }) => {
         <div className={`fr-notice__body responsive__banner ${isRefusee ? 'warning' : ''}`} style={{ paddingLeft: '20px' }}>
           <div>
             <p className="fr-notice__title title__color">
-          Vous avez {getTypeDemandeText()} {getDisplayNumber(structure, isRefusee)} {getPosteDemandeText()} pour votre conventionnement en cours.
+              Vous avez {getTypeDemandeText()} {getDisplayNumber(structure, isRefusee)}
+              {getPosteDemandeText()} pour votre conventionnement {isReconventionnement ? 'phase 2' : 'phase 1'} en cours.
             </p>
             <p className="fr-text--md">{getInfoText()}</p>
           </div>

@@ -9,9 +9,9 @@ const InProgressAvenantBanner = ({ structure }) => {
     structure?.lastDemandeCoselec?.nombreDePostesRendus :
     structure?.lastDemandeCoselec?.nombreDePostesSouhaites;
   const pluralizedText = pluralize(
-    isRetrait ? `la restitution d'un poste subventionné` : `un nouveau poste subventionné`,
-    isRetrait ? `la restitution d'un poste subventionné` : 'un nouveau poste subventionné',
-    isRetrait ? `la restitution de ${nombre} postes subventionnés` : ` ${nombre} nouveaux postes subventionnés`,
+    isRetrait ? `la restitution d'un poste subventionné` : `un nouveau poste supplémentaire subventionné`,
+    isRetrait ? `la restitution d'un poste subventionné` : 'un nouveau poste supplémentaire subventionné',
+    isRetrait ? `la restitution de ${nombre} postes subventionnés` : ` ${nombre} nouveaux postes supplémentaires subventionnés`,
     nombre
   );
   
@@ -34,7 +34,7 @@ const InProgressAvenantBanner = ({ structure }) => {
               }
             </p>
             <p className="fr-text--md">
-          Votre demande est en cours de traitement, vous aurez une r&eacute;ponse tr&egrave;s prochainement.
+              Votre demande est en cours de traitement par le Pr&eacute;fet et l&apos;ANCT, vous serez notifi&eacute; une fois la d&eacute;cision rendue
             </p>
           </div>
         </div>
