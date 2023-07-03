@@ -93,10 +93,11 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
               <div className="fr-modal__content">
                 <h1 id="edition-contrat-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                  Renseigner un contrat pour ce candidat
+                  Renseigner un contrat
                 </h1>
                 <p style={{ marginBottom: '15px' }}>
-                  Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat avant de fournir ses pi&egrave;ces justificatives.
+                  Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat avant de fournir ses
+                  pi&egrave;ces justificatives sur D&eacute;marche Simplifi&eacute;e.
                 </p>
                 <div className="fr-col-12 fr-mt-1w">
                   <label className="fr-label" style={{ fontSize: 'unset' }} htmlFor="datePicker">
@@ -148,11 +149,11 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           id="radio-3"
                           name="motifRupture"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
-                          value="contrat_de_projet_prive"
-                          checked={typeDeContrat === 'contrat_de_projet_prive'}
+                          value="PEC"
+                          checked={typeDeContrat === 'PEC'}
                         />
                         <label className="fr-label fr-ml-1w" htmlFor="radio-3">
-                          Contrat de projet priv&eacute;
+                          PEC
                         </label>
                       </div>
                       <div className="fr-contract-radio-group fr-radio-group--sm">
