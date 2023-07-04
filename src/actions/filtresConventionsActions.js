@@ -1,6 +1,8 @@
 export const filtresConventionsActions = {
   changeOrdre,
   changeNom,
+  changeFiltreDepartement,
+  changeFiltreRegion,
   resetFiltre,
 };
 
@@ -10,6 +12,14 @@ function changeOrdre(ordreNom) {
 
 function changeNom(nom) {
   return { type: 'CHANGE_NOM', nom };
+}
+
+function changeFiltreDepartement(departement) {
+  return { type: 'CHANGE_DEPARTEMENT', departement };
+}
+
+function changeFiltreRegion(region) {
+  return { type: 'CHANGE_REGION', region };
 }
 
 function resetFiltre() {
