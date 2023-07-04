@@ -50,10 +50,11 @@ function ConseillerDetailsContrat() {
   useEffect(() => {
     if (!errorStructure) {
       if (conseiller !== undefined) {
+        const miseEnRelation = conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0];
         setMisesEnRelationFinalisee(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
-        setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
+        setMisesEnRelationNouvelleRupture(miseEnRelation);
         setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
-        setDateFinDeContrat(new Date(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]?.dateRupture));
+        setDateFinDeContrat(miseEnRelation?.dateRupture ? new Date(miseEnRelation.dateRupture) : null);
         if (conseiller?.statut !== 'RUPTURE') {
           dispatch(structureActions.get(conseiller?.structureId));
         }
