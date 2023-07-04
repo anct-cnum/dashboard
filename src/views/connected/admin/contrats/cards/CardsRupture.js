@@ -93,7 +93,7 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
                 aria-controls="fr-modal-2"
                 onClick={() => setOpenModal(true)}
               >
-                Valider la demande
+                Traiter le demande
               </button>
             </li>
             }
