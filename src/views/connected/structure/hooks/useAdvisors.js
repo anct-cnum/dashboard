@@ -43,6 +43,7 @@ export function useAdvisors() {
       typeDeContrat,
       salaire,
       statut,
+      statutConseiller: conseillerObj?.statut,
     };
   };
 

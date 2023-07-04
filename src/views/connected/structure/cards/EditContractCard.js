@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 import AdvisorCard from './AdvisorCard';
 
-const EditContractCard = ({ conseiller, roleActivated, setOpenModalContrat, setMiseEnrelationId }) => {
+const EditContractCard = ({ conseiller, setOpenModalContrat, setMiseEnrelationId }) => {
 
   useEffect(() => {
     if (conseiller?.miseEnrelationId) {
@@ -13,7 +13,7 @@ const EditContractCard = ({ conseiller, roleActivated, setOpenModalContrat, setM
 
   return (
     <>
-      <AdvisorCard conseiller={conseiller} roleActivated={roleActivated} />
+      <AdvisorCard conseiller={conseiller} />
       {/* banniere */}
       <div className="fr-col-12 fr-py-2w card-banner-bottom-edit">
         <div className="fr-container notice responsive__banner__edit">

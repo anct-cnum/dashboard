@@ -15,11 +15,11 @@ const HiringInProgressAdvisorsSection = ({ conseillersEnCoursDeRecrutement }) =>
       <div className="fr-collapse" id="en-cours-de-recrutement">
         {conseillersEnCoursDeRecrutement?.length > 0 ? (
           conseillersEnCoursDeRecrutement.map((conseiller, index) => (
-            <AdvisorCard key={index} conseiller={conseiller} roleActivated={false} />
+            <AdvisorCard key={index} conseiller={conseiller} />
           ))
         ) : 'Aucun conseiller en cours de recrutement associé à la structure'
         }
-       
+
       </div>
     </section>
   );

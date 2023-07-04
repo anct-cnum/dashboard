@@ -3,9 +3,10 @@ import propTypes from 'prop-types';
 import { formatNomConseiller, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
+import { useSelector } from 'react-redux';
 
-const AdvisorCard = ({ conseiller, roleActivated }) => {
-
+const AdvisorCard = ({ conseiller }) => {
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const displayBadge = statut => {
     switch (statut) {
       case 'finalisee':
@@ -101,11 +102,26 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
             </div>
             <div className="badge-statut card__text">{displayBadge(conseiller?.statut)}</div>
             <div className="btn-actions-conseiller">
-              <button
-                className="fr-btn fr-icon-eye-line fr-mr-2w card__button"
-                title="D&eacute;tail"
-                onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}
-              />
+              {conseiller?.statut === 'recrutee' ?
+                <>
+                  {(conseiller?.statutConseiller === 'RECRUTE' || conseiller?.statutConseiller === 'RUPTURE') ?
+                    <button
+                      className="fr-btn fr-icon-eye-line fr-mr-2w card__button"
+                      title="D&eacute;tail"
+                      onClick={() => window.open(`/${roleActivated}/candidature/conseiller/${conseiller?.miseEnrelationId}`)}
+                    /> : <button
+                      className="fr-btn fr-icon-eye-line fr-mr-2w card__button"
+                      title="D&eacute;tail"
+                      onClick={() => window.open(`/${roleActivated}/candidature/candidat/${conseiller?.miseEnrelationId}`)}
+                    />
+                  }
+                </> :
+                <button
+                  className="fr-btn fr-icon-eye-line fr-mr-2w card__button"
+                  title="D&eacute;tail"
+                  onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}
+                />
+              }
               <button
                 className="fr-btn fr-icon-line-chart-line card__button"
                 title="Statistiques"
@@ -121,7 +137,6 @@ const AdvisorCard = ({ conseiller, roleActivated }) => {
 
 AdvisorCard.propTypes = {
   conseiller: propTypes.object,
-  roleActivated: propTypes.string,
 };
 
 export default AdvisorCard;
