@@ -27,7 +27,7 @@ function FiltresEtTrisConvention() {
   const rechercheParNomStructure = e => {
     dispatch(paginationActions.setPage(1));
     const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
-    dispatch(filtresConventionsActions.changeNomStructure(value));
+    dispatch(filtresConventionsActions.changeNom(value));
   };
 
   const rechercheParNomStructureToucheEnter = e => {

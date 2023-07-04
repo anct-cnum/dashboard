@@ -67,10 +67,10 @@ function ConseillerDetails() {
       </div>
       {conseiller &&
         <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
-          {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
+          {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
             <>
               <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
-              {misesEnRelationFinalisee?.statut === 'finalisee' &&
+              {misesEnRelationFinalisee[0]?.statut === 'finalisee' &&
                 <button className="fr-btn fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0" onClick={() => setOpenModal(true)}>
                   Initier une rupture de contrat
                 </button>
@@ -83,9 +83,9 @@ function ConseillerDetails() {
           {conseiller?.statut === 'RUPTURE' &&
             <p className="fr-badge fr-badge--error fr-badge--no-icon" style={{ height: '20%' }}>Contrat termin&eacute;</p>
           }
-          {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
+          {misesEnRelationNouvelleRupture &&
             <>
-              {misesEnRelationFinalisee?.dossierIncompletRupture ?
+              {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
                 <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
                 <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
               }
