@@ -61,11 +61,13 @@ function CandidatureConseillerDetails() {
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
-      <Link
-        to={location?.state?.origin ?? '/structure/candidats/nouvelle'} state={{ currentPage }}
-        className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
-        Retour &agrave; la liste
-      </Link>
+      {location?.state?.origin &&
+        <Link
+          to={location?.state?.origin} state={{ currentPage }}
+          className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
+          Retour &agrave; la liste
+        </Link>
+      }
       {dateRecrutementUpdated === true && conseiller?.miseEnRelation?.dateRecrutement !== null &&
         <p className="fr-alert fr-alert--success fr-mt-3w">
           La date de recrutement au {dayjs(conseiller?.miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')} a bien &eacute;t&eacute; enregistr&eacute;e

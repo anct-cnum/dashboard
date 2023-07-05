@@ -60,11 +60,13 @@ function CandidatDetails() {
   return (
     <div className="fr-container candidatDetails">
       <Spinner loading={loading || downloading} />
-      <Link
-        to={location?.state?.origin ?? '/structure/candidats/nouvelle'} state={{ currentPage }}
-        className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
-        Retour &agrave; la liste
-      </Link>
+      {location?.state?.origin &&
+        <Link
+          to={location?.state?.origin} state={{ currentPage }}
+          className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
+          Retour &agrave; la liste
+        </Link>
+      }
       {(downloadError !== undefined && downloadError !== false) &&
         <div className="fr-alert fr-alert--error fr-mt-3w">
           <p>Le CV n&rsquo;a pas pu &ecirc;tre r&eacute;cup&eacute;r&eacute; !</p>
