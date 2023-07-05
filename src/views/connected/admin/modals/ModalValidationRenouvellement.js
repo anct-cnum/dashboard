@@ -1,34 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { conseillerActions } from '../../../../actions';
 import { useDispatch } from 'react-redux';
+import { contratActions } from '../../../../actions';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
-function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat }) {
+function ModalValidationRenouvellement({ setOpenModal, idMiseEnRelation }) {
   const dispatch = useDispatch();
-
-  const validationRupture = () => {
-    dispatch(conseillerActions.validationRupture(idConseiller, dateFinDeContrat));
+  const validationRenouvellement = () => {
+    dispatch(contratActions.validationRenouvellement(idMiseEnRelation));
     setOpenModal(false);
+    scrollTopWindow();
   };
 
   return (
-    <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
+    <dialog aria-labelledby="fr-modal-3-title" id="fr-modal-3" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
         <div className="fr-grid-row fr-grid-row--center">
           <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
             <div className="fr-modal__body">
               <div className="fr-modal__header">
-                <button className="fr-btn--close fr-btn" aria-controls="fr-modal-2" onClick={() => setOpenModal(false)}>Fermer</button>
+                <button className="fr-btn--close fr-btn" aria-controls="fr-modal-3" onClick={() => setOpenModal(false)}>Fermer</button>
               </div>
               <div className="fr-modal__content">
-                <h1 id="fr-modal-2-title" className="fr-modal__title">
+                <h1 id="fr-modal-3-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                  &Ecirc;tes-vous s&ucirc;r de vouloir valider la rupture de ce conseiller ?
+                  Important&nbsp;: Vous &ecirc;tes sur le point de valider la demande de renouvellement de contrat.
                 </h1>
                 <p>
-                    Cette action entra&icirc;nera la rupture du conseiller avec sa structure. Ce qui aura pour
-                    cons&eacute;quence de supprimer son adresse mail professionelle, son compte mattermost
-                    ainsi que l&lsquo;acc&egrave;s &agrave; l&lsquo;espace coop.
+                  <strong>
+                    &Ecirc;tes-vous s&ucirc;r de vouloir r&eacute;aliser cette action&nbsp;?
+                  </strong>
                 </p>
               </div>
               <div className="fr-modal__footer">
@@ -39,8 +40,8 @@ function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat
                     </button>
                   </li>
                   <li>
-                    <button onClick={validationRupture} className="fr-btn">
-                        Valider
+                    <button className="fr-btn" onClick={validationRenouvellement}>
+                      Je valide le renouvellement du contrat
                     </button>
                   </li>
                 </ul>
@@ -53,10 +54,9 @@ function ModalConfirmationRupture({ setOpenModal, idConseiller, dateFinDeContrat
   );
 }
 
-ModalConfirmationRupture.propTypes = {
+ModalValidationRenouvellement.propTypes = {
   setOpenModal: PropTypes.func,
-  idConseiller: PropTypes.string,
-  dateFinDeContrat: PropTypes.string
+  idMiseEnRelation: PropTypes.string,
 };
 
-export default ModalConfirmationRupture;
+export default ModalValidationRenouvellement;

@@ -4,21 +4,23 @@ export const structureActions = {
   get,
   getDetails,
   getAll,
-  patch,
+  updateContact,
   updateStructureEmail,
   updateStructureSiret,
   verifyStructureSiret,
   cancelStructureSiret,
-  hiddenMessageError
+  hiddenMessageError,
+  createAvenant,
+  closeBanner
 };
 
 // eslint-disable-next-line max-len
-function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre = 'nom', ordre = 1) {
+function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre = 'nom', ordre = 1) {
   return dispatch => {
     dispatch(request());
 
     // eslint-disable-next-line max-len
-    structureService.getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, filtreParComs, nomOrdre, ordre)
+    structureService.getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre)
     .then(
       structures => dispatch(success(structures)),
       error => {
@@ -86,11 +88,11 @@ function getDetails(id) {
   }
 }
 
-function patch(id, info) {
+function updateContact(id, info) {
   return dispatch => {
     dispatch(request());
 
-    structureService.patch(id, info)
+    structureService.updateContact(id, info)
     .then(
       structure => dispatch(success(structure)),
       error => {
@@ -100,13 +102,13 @@ function patch(id, info) {
   };
 
   function request() {
-    return { type: 'PATCH_STRUCTURE_REQUEST' };
+    return { type: 'PATCH_STRUCTURE_CONTACT_REQUEST' };
   }
   function success(structure) {
-    return { type: 'PATCH_STRUCTURE_SUCCESS', structure };
+    return { type: 'PATCH_STRUCTURE_CONTACT_SUCCESS', structure };
   }
   function failure(error) {
-    return { type: 'PATCH_STRUCTURE_FAILURE', error };
+    return { type: 'PATCH_STRUCTURE_CONTACT_FAILURE', error };
   }
 }
 
@@ -197,4 +199,52 @@ function cancelStructureSiret() {
 
 function hiddenMessageError() {
   return { type: 'ERROR_MESSAGE_HIDDEN' };
+}
+
+function createAvenant(type, structureId, nombreDePostes, motif, autreMotif) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.createAvenant(type, structureId, nombreDePostes, motif, autreMotif)
+    .then(
+      structure => dispatch(success(structure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'CREATE_AVENANT_REQUEST' };
+  }
+  function success(structure) {
+    return { type: 'CREATE_AVENANT_SUCCESS', structure };
+  }
+  function failure(error) {
+    return { type: 'CREATE_AVENANT_FAILURE', error };
+  }
+}
+
+function closeBanner(type, id) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.closeBanner(type, id)
+    .then(
+      structure => dispatch(success(structure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'CLOSE_BANNER_REQUEST' };
+  }
+  function success(structure) {
+    return { type: 'CLOSE_BANNER_SUCCESS', structure };
+  }
+  function failure(error) {
+    return { type: 'CLOSE_BANNER_FAILURE', error };
+  }
 }

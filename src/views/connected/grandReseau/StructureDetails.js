@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { invitationsActions, structureActions, alerteEtSpinnerActions } from '../../../actions';
-import { formatNomConseiller, pluralize, valideInputEmail } from '../../../utils/formatagesUtils';
+import { valideInputEmail } from '../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import Spinner from '../../../components/Spinner';
+import ActiviterStructure from '../../../components/ActiviterStructure';
 
 function StructureDetails() {
 
@@ -69,7 +70,7 @@ function StructureDetails() {
   }, [errorInvitation, success]);
 
   return (
-    <div className="fr-container conseillerDetails">
+    <div className="fr-container structureDetails">
       <Spinner loading={loading} />
       <button
         onClick={() => window.close()}
@@ -114,8 +115,13 @@ function StructureDetails() {
             <div className="fr-mb-3w">
               <strong>Nom</strong><br/>
               <div className="fr-grid-row">
-                <span>{structure?.contact?.nom ?? '-'}&nbsp;</span>
-                <span>{structure?.contact?.prenom ?? ''}</span>
+                <span className="uppercase-letter">{structure?.contact?.nom}</span>
+              </div>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Pr&eacute;nom</strong><br/>
+              <div className="fr-grid-row">
+                <span className="uppercase-letter">{structure?.contact?.prenom}</span>
               </div>
             </div>
             <div className="fr-mb-3w">
@@ -131,7 +137,7 @@ function StructureDetails() {
             </div>
             <div className="fr-mb-3w">
               <strong>Raison social</strong><br/>
-              <span>{structure?.insee?.entreprise?.raison_sociale ?? '-'}</span>
+              <span>{structure?.insee?.unite_legale?.personne_morale_attributs?.raison_sociale ?? '-'}</span>
             </div>
           </div>
           <div className="fr-col-6">
@@ -235,42 +241,7 @@ function StructureDetails() {
             <hr style={{ borderWidth: '0.5px' }} />
           </div>
         </div>
-        <div className="fr-grid-row fr-mt-6w fr-mb-4w">
-          <div className="fr-col-12 titreCol">
-            <h1>Activit&eacute;</h1>
-          </div>
-        </div>
-        <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-6">
-            <h4 className="titre">Conventionnement phase 1</h4>
-            <div className="fr-mb-3w">
-              <strong>{pluralize(
-                'Postes validé en comité de sélection',
-                'Postes validé en comité de sélection',
-                'Postes validés en comité de sélection',
-                structure?.posteValiderCoselec
-              )}</strong><br />
-              <span>{structure?.posteValiderCoselec ?? '-'}</span>
-            </div>
-            <div className="fr-mb-3w fr-grid-row">
-              <strong>Profils recrut&eacute;s</strong>
-              {structure?.conseillers?.map((conseiller, idx) =>
-                <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
-                  <button
-                    style={{ paddingLeft: '0' }}
-                    title="D&eacute;tail"
-                    className="fr-text--md"
-                    onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}>
-                    {conseiller?.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
-                  </button>
-                </span>
-              )}
-              {structure?.conseillers?.length === 0 &&
-                <span className="fr-col-12">-</span>
-              }
-            </div>
-          </div>
-        </div>
+        <ActiviterStructure structure={structure} roleActivated={roleActivated} />
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
             <hr style={{ borderWidth: '0.5px' }}/>

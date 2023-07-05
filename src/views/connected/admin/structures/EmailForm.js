@@ -20,14 +20,27 @@ function EmailForm({ setDisplayFormEmail, structureId, structureEmail }) {
   };
 
   return (
-    <div style={{ width: '320px' }}>
-      <div className="fr-my-3w">
-        <input className="fr-input" type="text" id="text-input-text" value={email} name="email" onChange={handleForm} />
+    <div className="fr-grid-row" style={{ width: '330px' }}>
+      <div>
+        <input
+          className="fr-input"
+          type="text"
+          id="text-input-text"
+          defaultValue={structureEmail}
+          value={email}
+          name="email"
+          onChange={handleForm}
+        />
       </div>
-      <button onClick={() => setDisplayFormEmail(false)} className="fr-btn fr-btn--secondary">Annuler</button>
-      <button className="fr-btn" onClick={ChangeEmail}
-        disabled={(!valideInputEmail(email) || email === structureEmail) ? 'disabled' : ''}
-        style={{ float: 'right' }}>
+      <button onClick={() => setDisplayFormEmail(false)} className="fr-btn fr-icon-close-line fr-ml-2w">
+        Annuler
+      </button>
+      <button
+        className="fr-btn  fr-icon-check-line fr-ml-2w"
+        onClick={ChangeEmail}
+        disabled={!valideInputEmail(email) || email === structureEmail ? 'disabled' : ''}
+        style={{ float: 'right' }}
+      >
         Valider
       </button>
     </div>
@@ -36,6 +49,6 @@ function EmailForm({ setDisplayFormEmail, structureId, structureEmail }) {
 EmailForm.propTypes = {
   setDisplayFormEmail: PropTypes.func,
   structureId: PropTypes.string,
-  structureEmail: PropTypes.string
+  structureEmail: PropTypes.string,
 };
 export default EmailForm;

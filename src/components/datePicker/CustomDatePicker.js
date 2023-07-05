@@ -1,32 +1,40 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
-import { statistiquesActions } from '../../../../../../actions';
+import { datePickerActions } from '../../actions/datePickerActions';
+import { useLocation } from 'react-router-dom';
 
 registerLocale('fr', fr);
 
 function CustomDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin }) {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
+  const { state } = useLocation();
+
 
   const setDate = date => {
     if (nomDate === 'datePickerDebut') {
       if (date <= dateFin) {
-        dispatch(statistiquesActions.changeDateDebut(date));
+        dispatch(datePickerActions.changeDateDebut(date));
       }
     } else if (date >= dateDebut) {
-      dispatch(statistiquesActions.changeDateFin(date));
+      dispatch(datePickerActions.changeDateFin(date));
     }
   };
 
-  const [active, setActive] = useState(false);
+  useEffect(() => {
+    if (!state?.origin.includes('/statistiques') && !location?.pathname.startsWith('/statistiques')) {
+      dispatch(datePickerActions.resetDatePicker());
+    }
+  }, [location]);
 
   const CustomDateInput = forwardRef(
     ({ value, onClick }, ref) => (
-      <span className={`date-btn ${active ?? 'date-active'}` } onClick={onClick} ref={ref}>
+      <span className={`date-btn ${active ?? 'date-active'}`} onClick={onClick} ref={ref}>
         <b>{value}</b>
-        <i className={`chevron-stats ${active ? 'fr-icon-arrow-up-s-line' : 'fr-icon-arrow-down-s-line chevron-stats'}` }></i>
+        <i className={`chevron-stats ${active ? 'fr-icon-arrow-up-s-line' : 'fr-icon-arrow-down-s-line chevron-stats'}`}></i>
       </span>
     ),
   );

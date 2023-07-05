@@ -6,8 +6,9 @@ import { structureActions, alerteEtSpinnerActions, invitationsActions } from '..
 import SiretForm from './SiretForm';
 import EmailForm from './EmailForm';
 import Spinner from '../../../../components/Spinner';
-import { formatNomConseiller, pluralize, valideInputEmail } from '../../../../utils/formatagesUtils';
+import { valideInputEmail } from '../../../../utils/formatagesUtils';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import ActiviterStructure from '../../../../components/ActiviterStructure';
 
 function StructureDetails() {
 
@@ -86,7 +87,7 @@ function StructureDetails() {
       </div>
       <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
         <div className="fr-col-12">
-          <hr style={{ borderWidth: '0.5px' }}/>
+          <hr style={{ borderWidth: '0.5px' }} />
         </div>
       </div>
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
@@ -99,48 +100,53 @@ function StructureDetails() {
           <div className="fr-col-6">
             <h4 className="titre">Contact principal</h4>
             <div className="fr-mb-3w">
-              <strong>Email</strong><br/>
+              <strong>Email</strong><br />
               {displayFormEmail === true ?
                 <div style={{ width: '320px' }}>
                   <EmailForm setDisplayFormEmail={setDisplayFormEmail} structureId={structure?._id} structureEmail={structure?.contact?.email} />
                 </div> : <div>
                   {structure?.contact?.email &&
-                  <div>
-                    <a className="email"href={'mailto:' + structure?.contact?.email}>
-                      {structure?.contact?.email}
-                    </a>
-                    <button onClick={() => setDisplayFormEmail(true)} className="fr-grid fr-ml-1w">
-                      <span className="fr-icon-edit-line"></span>
-                    </button>
-                  </div>
+                    <div>
+                      <a className="email" href={'mailto:' + structure?.contact?.email}>
+                        {structure?.contact?.email}
+                      </a>
+                      <button onClick={() => setDisplayFormEmail(true)} className="fr-grid fr-ml-1w">
+                        <span className="fr-icon-edit-line"></span>
+                      </button>
+                    </div>
                   }
                   {!structure?.contact?.email &&
-              <span>-</span>
+                    <span>-</span>
                   }
                 </div>
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>Nom</strong><br/>
+              <strong>Nom</strong><br />
               <div className="fr-grid-row">
-                <span>{structure?.contact?.nom ?? '-'}&nbsp;</span>
-                <span>{structure?.contact?.prenom ?? ''}</span>
+                <span className="uppercase-letter">{structure?.contact?.nom}</span>
               </div>
             </div>
             <div className="fr-mb-3w">
-              <strong>T&eacute;l&eacute;phone</strong><br/>
+              <strong>Pr&eacute;nom</strong><br />
+              <div className="fr-grid-row">
+                <span className="uppercase-letter">{structure?.contact?.prenom}</span>
+              </div>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>T&eacute;l&eacute;phone</strong><br />
               <span>{structure?.contact?.telephone ?
                 structure?.contact?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
                 <>-</>
               }</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Fonction</strong><br/>
+              <strong>Fonction</strong><br />
               <span>{structure?.contact?.fonction ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Raison social</strong><br/>
-              <span>{structure?.insee?.entreprise?.raison_sociale ?? '-'}</span>
+              <span>{structure?.insee?.unite_legale?.personne_morale_attributs?.raison_sociale ?? '-'}</span>
             </div>
           </div>
           <div className="fr-col-6">
@@ -149,10 +155,8 @@ function StructureDetails() {
               {form === false ?
                 <div>
                   {structure?.users?.length === 0 && <p>Aucun administrateur associ&eacute;</p>}
-                  {structure?.users?.map((user, idx) =>
-                    <>
-                      <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</p>
-                    </>
+                  {structure?.users?.map(user =>
+                    <p key={user._id}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span>}</p>
                   )}
                   <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
                     Inviter un administrateur
@@ -164,7 +168,7 @@ function StructureDetails() {
                       <label className="fr-label" htmlFor="username-input">
                         E-mail de l&lsquo;administrateur
                         <span className="fr-hint-text">
-                        Renseigner le mail de l&lsquo;administrateur et envoyer une invitation &agrave; rejoindre le tableau de pilotage
+                          Renseigner le mail de l&lsquo;administrateur et envoyer une invitation &agrave; rejoindre le tableau de pilotage
                         </span>
                       </label>
                       <input
@@ -176,14 +180,14 @@ function StructureDetails() {
                         value={email}
                         onChange={e => setEmail(e.target.value.trim())} />
                       {email && !valideInputEmail(email) && activeMessage &&
-                  <p id="username-error" className="fr-error-text">
-                      Le format de l&rsquo;adresse mail saisi est invalide.
-                  </p>
+                        <p id="username-error" className="fr-error-text">
+                          Le format de l&rsquo;adresse mail saisi est invalide.
+                        </p>
                       }
                       {email === '' && activeMessage &&
-                  <p id="username-error" className="fr-error-text">
-                      Veuillez saisir une adresse mail.
-                  </p>
+                        <p id="username-error" className="fr-error-text">
+                          Veuillez saisir une adresse mail.
+                        </p>
                       }
                     </div>
                   </div>
@@ -208,11 +212,11 @@ function StructureDetails() {
           <div className="fr-col-6 fr-mt-4w">
             <h4 className="titre">Informations g&eacute;n&eacute;rales</h4>
             <div className="fr-mb-3w">
-              <strong>Id</strong><br/>
+              <strong>Id</strong><br />
               <span>{structure?.idPG ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Siret</strong><br/>
+              <strong>Siret</strong><br />
               {displaySiretForm === true ?
                 <div style={{ width: '320px' }}>
                   <SiretForm setDisplaySiretForm={setDisplaySiretForm} structureId={structure?._id} structureSiret={structure?.siret} />
@@ -226,73 +230,38 @@ function StructureDetails() {
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>Code Postal</strong><br/>
+              <strong>Code Postal</strong><br />
               <span>{structure?.codePostal ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Adresse</strong><br/>
+              <strong>Adresse</strong><br />
               <span>{structure?.adresseFormat ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Type</strong><br/>
+              <strong>Type</strong><br />
               <span>{structure?.type ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Date d&lsquo;inscription</strong><br/>
+              <strong>Date d&lsquo;inscription</strong><br />
               {structure?.createdAt ?
                 <span>{dayjs(structure?.createdAt).format('DD/MM/YYYY')}</span> : <span>-</span>
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>Zone de revitalisation rurale</strong><br/>
+              <strong>Zone de revitalisation rurale</strong><br />
               <span>{structure?.qpvStatut ?? '-'}</span>
             </div>
           </div>
         </div>
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
-            <hr style={{ borderWidth: '0.5px' }}/>
+            <hr style={{ borderWidth: '0.5px' }} />
           </div>
         </div>
-        <div className="fr-grid-row fr-mt-6w fr-mb-4w">
-          <div className="fr-col-12 titreCol">
-            <h1>Activit&eacute;</h1>
-          </div>
-        </div>
-        <div className="fr-grid-row fr-col-12">
-          <div className="fr-col-6">
-            <h4 className="titre">Conventionnement phase 1</h4>
-            <div className="fr-mb-3w">
-              <strong>{pluralize(
-                'Postes validé en comité de sélection',
-                'Postes validé en comité de sélection',
-                'Postes validés en comité de sélection',
-                structure?.posteValiderCoselec
-              )}</strong><br/>
-              <span>{structure?.posteValiderCoselec ?? '-'}</span>
-            </div>
-            <div className="fr-mb-3w fr-grid-row">
-              <strong>Profils recrut&eacute;s</strong>
-              {structure?.conseillers?.map((conseiller, idx) =>
-                <span key={idx} className="fr-col-12" style={{ height: '2rem' }}>
-                  <button
-                    style={{ paddingLeft: '0' }}
-                    title="D&eacute;tail"
-                    className="fr-text--md"
-                    onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}>
-                    {conseiller?.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
-                  </button>
-                </span>
-              )}
-              {structure?.conseillers?.length === 0 &&
-                <span className="fr-col-12">-</span>
-              }
-            </div>
-          </div>
-        </div>
+        <ActiviterStructure structure={structure} roleActivated={roleActivated} />
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
-            <hr style={{ borderWidth: '0.5px' }}/>
+            <hr style={{ borderWidth: '0.5px' }} />
           </div>
         </div>
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
@@ -303,11 +272,11 @@ function StructureDetails() {
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-3">
             <div className="fr-mb-3w">
-              <strong>Cra total cumul&eacute;s</strong><br/>
+              <strong>Cra total cumul&eacute;s</strong><br />
               <span>{structure?.craCount === 0 ? '-' : structure?.craCount}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Personnes accompagn&eacute;es</strong><br/>
+              <strong>Personnes accompagn&eacute;es</strong><br />
               <span>{structure?.accompagnementCount ?? '-'}</span>
             </div>
           </div>

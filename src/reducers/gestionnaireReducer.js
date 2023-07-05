@@ -50,20 +50,20 @@ export default function gestionnaire(state = initialState, action) {
       return {
         ...state,
         loadingSuppression: false,
-        deleteMessageSuccess: action.response.deleteMessageSuccess,
+        deleteMessageSuccess: action.response?.deleteMessageSuccess,
         items: { ...state.items,
-          total: state.items.total - 1,
-          data: state.items.data.filter(gestionnaire => gestionnaire._id !== action.response.idUser),
+          total: state.items?.total - 1,
+          data: state.items?.data?.filter(gestionnaire => gestionnaire?._id !== action.response?.idUser),
         }
       };
     case 'DELETE_ROLE_GESTIONNAIRE_SUCCESS':
       return {
         ...state,
         loadingSuppression: false,
-        deleteMessageSuccess: action.response.deleteMessageSuccess,
+        deleteMessageSuccess: action.response?.deleteMessageSuccess,
         items: { ...state.items,
-          data: state.items.data.map(
-            gestionnaire => (gestionnaire._id === action.response.idUser) ? action.response.user : gestionnaire
+          data: state.items?.data.map(
+            gestionnaire => (gestionnaire?._id === action.response?.idUser) ? action.response?.user : gestionnaire
           ),
         }
       };

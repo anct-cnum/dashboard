@@ -1,0 +1,36 @@
+@import "../colors/colors";
+
+.conventions {
+  .not-found {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .filtre-btn {
+    &:hover {
+      color: $black-hover;
+    }
+  }
+  @media (min-width: 1247px) {
+    #search {
+      flex: 0 0 46%;
+      max-width: 46%;
+      width: 46%;
+    }
+  }
+  @media (min-width: 768px) {
+    #export, #filtre-departement {
+      margin-left: auto;
+    }
+  }
+  @media (max-width: 1246px) {
+    #filtre-region, #filtre-departement {
+      margin-top: 2rem;
+    }
+  }
+  @media (max-width: 767px) {
+    #export, #filtre-region, #filtre-departement {
+      margin-top: 1rem;
+    }
+  }
+}

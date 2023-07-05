@@ -1,0 +1,228 @@
+@import "../colors/colors";
+
+.banner {
+  .warning {
+    .title__color {
+      color: $warning-425;
+    }
+    .icon__color {
+      color: $warning-425;
+    }
+  }
+  .success {
+    .title__color {
+      color: $success-425;
+    }
+    .icon__color {
+      color: $success-425;
+    }
+  }
+  .notice {
+    .title__color {
+      color: $info-425;
+    }
+    .icon__color {
+      color: $info-425;
+    }
+  }
+}
+
+.banner.warning.background {
+  background-color: $warning-925;
+}
+.banner.notice.background {
+  background-color: $info-975;
+}
+.banner.success.background {
+  background-color: $success-950;
+}
+
+.main__banner {
+  position: relative;
+  top: max(-10vh, -5rem);
+  margin-left: -15vh;
+  margin-right: -15vh;
+}
+
+.info__color {
+  color: $grey-425;
+}
+
+@media (max-width: 575px) {
+    .responsive__card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto !important;
+      max-width: 100% !important;
+
+      .card__text {
+        margin: 0 !important;
+        text-align: center;
+        min-width: 100% !important;
+      }
+    }
+  }
+@media (max-width: 890px) {
+    .responsive__wide-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto !important;
+      max-width: 100% !important;
+
+      .card__text {
+        margin: 0 !important;
+        text-align: center;
+        min-width: 100% !important;
+      }
+      .card__button {
+        margin-left: 0.5rem !important;
+        margin-top: 15px;
+      }
+    }
+  }
+
+.responsive__banner {
+    display: flex;
+    align-items: center;
+  }
+
+  .responsive__banner__edit {
+    display: flex;
+    align-items: center;
+  }
+
+  .responsive__wide-card {
+    display: flex;
+    align-items: center;
+    .btn-actions-conseiller {
+      flex: 0 0 9.2%;
+      max-width: 9.2%;
+      width: 9.2%;
+      text-align: end;
+  }
+  .badge-statut {
+      text-align: center;
+      max-width: 23.4%;
+      width: 23.4%;
+  }
+  .badge-statut-renouvellement {
+      flex: 0 0 16.4%;
+      max-width: 16.4%;
+      width: 16.4%;
+  }
+  .fin-contrat {
+      flex: 0 0 13%;
+      max-width: 13%;
+      width: 13%;
+  }
+  .card__text span {
+    color: $light-grey;
+  }
+  .card__text strong {
+    font-weight: 500;
+  }
+  }
+
+
+  .card-banner-top{
+    border: solid 1px #e5e5e5;
+    border-bottom: none;
+  }
+
+  .card-banner-bottom-edit{
+    border: solid 1px #e5e5e5;
+    border-top: none;
+    background-color: $info-975;
+    .icon__color {
+      color: $info-425;
+    }
+    .title__color {
+      color: $info-425;
+    }
+  }
+
+  .banner__text {
+   width: 47rem;
+  }
+
+  .withoutBannerOnTop {
+    margin-top: 100px;
+  }
+
+  .withBannerOnTop {
+    margin-top: 240px;
+  }
+
+
+@media (max-width: 1220px) {
+    .small__banner__button {
+    justify-content: center;
+    }
+  }
+
+@media (max-width: 1220px) {
+    .responsive__banner {
+      display: block;
+      text-align: center;
+      padding: auto;
+    }
+  }
+@media (max-width: 1220px) {
+    .responsive__banner__edit {
+      display: block;
+      text-align: center;
+      padding: auto;
+    }
+    .text {
+      margin: 0 auto;
+    }
+    .buttons {
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 1220px) {
+      .banner__text {
+        margin: auto;
+        width: 100%;
+      }
+    }
+
+@media (max-width: 1220px) {
+    .banner__button {
+      margin: auto;
+    }
+  }
+
+@media (min-width: 1220px) {
+    .banner__button {
+      margin-left: 8.7rem;
+    }
+  }
+
+@media (min-width: 1220px) {
+    .banner__button_progress_avenant {
+      margin-left: 29rem;
+    }
+
+    .banner__button_progress_avenant_denied {
+      margin-left: 29rem;
+    }
+
+    .banner__button_progress_reconventionnement {
+      margin-left: 40rem;
+    }
+
+    .banner__button_progress_reconventionnement_denied {
+      margin-left: 31rem;
+      cursor: pointer;
+    }
+
+    .banner__text_width {
+      width: 70rem;
+    }
+  }

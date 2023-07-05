@@ -1,30 +1,18 @@
 const initialState = {
-  dateDebut: new Date(1605571200000),
-  dateFin: new Date(),
-  codePostalStats: '',
-  villeStats: '',
+  codePostalStats: 'tous',
+  villeStats: 'tous',
   listeAutresReorientations: [],
   error: false,
   errorTerritoire: false,
   loading: false,
   conseillerStats: [],
   structureStats: [],
-  codeRegionStats: '',
-  numeroDepartementStats: '',
+  codeRegionStats: 'tous',
+  numeroDepartementStats: 'tous',
 };
 
 export default function statistiques(state = initialState, action) {
   switch (action.type) {
-    case 'CHANGE_DATE_DEBUT':
-      return {
-        ...state,
-        dateDebut: action.dateDebut,
-      };
-    case 'CHANGE_DATE_FIN':
-      return {
-        ...state,
-        dateFin: action.dateFin,
-      };
     case 'CHANGE_CODE_POSTAL_STATS':
       return {
         ...state,

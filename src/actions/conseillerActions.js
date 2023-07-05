@@ -4,7 +4,9 @@ import download from 'downloadjs';
 
 export const conseillerActions = {
   get,
+  getConseillerContrat,
   getCandidat,
+  getCandidatRecrutement,
   getAllRecruter,
   updateStatus,
   updateDateRecrutement,
@@ -19,6 +21,7 @@ export const conseillerActions = {
   resendInvitCandidat,
   suppressionCandidat,
   getCandidatStructure,
+  getCandidatureConseillerStructure,
 };
 
 function get(id) {
@@ -26,6 +29,30 @@ function get(id) {
     dispatch(request());
 
     conseillerService.get(id)
+    .then(
+      conseiller => dispatch(success(conseiller)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CONSEILLER_REQUEST' };
+  }
+  function success(conseiller) {
+    return { type: 'GET_CONSEILLER_SUCCESS', conseiller };
+  }
+  function failure(error) {
+    return { type: 'GET_CONSEILLER_FAILURE', error };
+  }
+}
+
+function getConseillerContrat(id, idMiseEnRelation) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.getConseillerContrat(id, idMiseEnRelation)
     .then(
       conseiller => dispatch(success(conseiller)),
       error => {
@@ -69,11 +96,59 @@ function getCandidat(id) {
   }
 }
 
+function getCandidatRecrutement(id, idMiseEnRelation) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.getCandidatRecrutement(id, idMiseEnRelation)
+    .then(
+      candidat => dispatch(success(candidat)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CANDIDAT_REQUEST' };
+  }
+  function success(candidat) {
+    return { type: 'GET_CANDIDAT_SUCCESS', candidat };
+  }
+  function failure(error) {
+    return { type: 'GET_CANDIDAT_FAILURE', error };
+  }
+}
+
 function getCandidatStructure(id) {
   return dispatch => {
     dispatch(request());
 
     conseillerService.getCandidatStructure(id)
+    .then(
+      candidat => dispatch(success(candidat)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CANDIDAT_STRUCTURE_REQUEST' };
+  }
+  function success(candidat) {
+    return { type: 'GET_CANDIDAT_STRUCTURE_SUCCESS', candidat };
+  }
+  function failure(error) {
+    return { type: 'GET_CANDIDAT_STRUCTURE_FAILURE', error };
+  }
+}
+
+function getCandidatureConseillerStructure(id) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.getCandidatureConseillerStructure(id)
     .then(
       candidat => dispatch(success(candidat)),
       error => {
@@ -142,11 +217,11 @@ function getAllCandidats({
 }
 
 // eslint-disable-next-line max-len
-function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
   return dispatch => {
     dispatch(request());
     // eslint-disable-next-line max-len
-    conseillerService.getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParNomStructure, nomOrdre, ordre)
+    conseillerService.getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre)
     .then(
       conseillers => {
         dispatch(success(conseillers));
@@ -168,10 +243,10 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
   }
 }
 
-function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement) {
+function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParDepartement) {
   return dispatch => {
     dispatch(request());
-    conseillerService.getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParComs, filtreParDepartement)
+    conseillerService.getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParDepartement)
     .then(
       candidats => {
         dispatch(success(candidats));
@@ -414,7 +489,10 @@ function dossierIncompletRupture(id, dateFinDeContrat) {
 
     conseillerService.dossierIncompletRupture(id, dateFinDeContrat)
     .then(
-      response => dispatch(success(response.dossierIncompletRupture)),
+      miseEnRelationUpdated => {
+        dispatch(success());
+        dispatch(updateMiseEnRelation(miseEnRelationUpdated));
+      },
       error => {
         dispatch(failure(error));
       }
@@ -424,8 +502,11 @@ function dossierIncompletRupture(id, dateFinDeContrat) {
   function request() {
     return { type: 'DOSSIER_INCOMPLET_RUPTURE_REQUEST' };
   }
-  function success(dossierIncompletRupture) {
-    return { type: 'DOSSIER_INCOMPLET_RUPTURE_SUCCESS', dossierIncompletRupture };
+  function success() {
+    return { type: 'DOSSIER_INCOMPLET_RUPTURE_SUCCESS' };
+  }
+  function updateMiseEnRelation(miseEnRelationUpdated) {
+    return { type: 'UPDATE_MISE_EN_RELATION_CONTRAT', miseEnRelationUpdated };
   }
   function failure(error) {
     return { type: 'DOSSIER_INCOMPLET_RUPTURE_FAILURE', error };

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import dayjs from 'dayjs';
 import ElementHighcharts from './ElementHighcharts';
-import { sortByMonthAndYear, get4lastMonths } from '../utils/functionsSort';
 import { getStyle } from '../utils/functionsStyle';
-import { getGraphiqueEvolution, getGraphiqueStacked, getGraphiquePie } from '../utils/functionsGraphique';
+import { getGraphiqueStacked, getGraphiquePie, getGraphiqueColumn } from '../utils/functionsGraphique';
 import largeurEcran from '../utils/functionsLargeurEcran';
 import labelsCorrespondance from '../../../../../../datas/labelsCorrespondance.json';
 import { statistiquesActions } from '../../../../../../actions';
+import { Tooltip } from 'react-tooltip';
+
 require('dayjs/locale/fr');
 
 function BottomPage({ donneesStats }) {
@@ -20,42 +20,14 @@ function BottomPage({ donneesStats }) {
   const tabColorAge = getStyle('age');
   const tabColorStatut = getStyle('statut');
   const tabColorReorientation = getStyle('reorientation');
+  const tabColorDuree = getStyle('duree');
+  const tabColorLieux = getStyle('lieux');
+  const tabColorTemps = getStyle('temps');
   const largeur = largeurEcran();
 
-  const { statsEvolutions, statsUsagers, statsAges, statsReorientations } = donneesStats;
-
-  //Map des stats evolutions pour ajouter les données nécessaires pour le graph (label mois année, valeur)
-  let statsEvolutionsMapped = [];
-  for (const [annee, moisListe] of Object.entries(statsEvolutions)) {
-    let statsEvolutionsMapped2 = moisListe.map(mois => {
-      mois.nom = dayjs().locale('fr').month(`${mois.mois}`).format('MMMM');
-      mois.nom = mois.nom?.concat(' ', annee);
-      mois.annee = annee;
-      mois.valeur = mois.totalCras;
-      return mois;
-    });
-    statsEvolutionsMapped.push(...statsEvolutionsMapped2);
-  }
-
-  //Filtrage pour ne garder que le mois en cours et les 3 précédents max
-  let monthToPrint = get4lastMonths(new Date().getMonth(), new Date().getUTCFullYear());
-  let statsEvolutionsFiltered = Object.values(statsEvolutionsMapped).filter(mois => {
-    // eslint-disable-next-line max-len
-    return monthToPrint[0].includes(mois.mois) && monthToPrint[1][monthToPrint[0].findIndex(mois2 => mois.mois === mois2)].toString() === mois.annee ? mois : '';
-  });
-
-  //Ajout des mois manquants (donc avec totalCras à 0)
-  monthToPrint[0].forEach((value, index) => {
-    if (statsEvolutionsFiltered.some(mois => mois.mois === value) === false) {
-      let annee = monthToPrint[1][index];
-      let nom = dayjs().locale('fr').month(`${value}`).format('MMMM');
-      nom = nom?.concat(' ', annee);
-      statsEvolutionsFiltered.push({ 'mois': value, 'valeur': 0, 'annee': annee.toString(), 'nom': nom });
-    }
-  });
-
-  //Tri par mois/annee croissant
-  statsEvolutionsFiltered.sort(sortByMonthAndYear);
+  const { statsUsagers, statsAges, statsReorientations, statsDurees, statsLieux, statsTempsAccompagnement } = donneesStats;
+  const statsTempsAccompagnementAteliers = statsTempsAccompagnement.filter(stats => stats.nom !== 'total');
+  const statsTempsAccompagnementTotal = statsTempsAccompagnement.find(stats => stats.nom === 'total');
 
   //Tri liste des réorientations autres
   useEffect(() => {
@@ -84,28 +56,92 @@ function BottomPage({ donneesStats }) {
     }
   }, [statsReorientations]);
 
-  const graphiqueEvolution = getGraphiqueEvolution(tabColorAge, '&Eacute;volution des comptes rendus d&rsquo;activit&eacute;');
-  const graphiqueAge = getGraphiqueStacked(tabColorAge, 'Tranches d&rsquo;&acirc;ge des usagers');
-  const graphiqueStatut = getGraphiqueStacked(tabColorStatut, 'Statut des usagers');
+  const formatNameCraActiviter = activiter => {
+    switch (activiter) {
+      case 'collectif':
+        return 'Collectifs&nbsp;&nbsp;';
+      case 'individuel':
+        return 'Individuels';
+      case 'ponctuel':
+        return 'Ponctuels&nbsp;&nbsp;';
+      default:
+        return activiter;
+    }
+  };
+
+  const formatSpaceBetweenValeurActiviter = valeur => {
+    if (valeur < 10) {
+      return '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    }
+    if (valeur < 100 && valeur > 10) {
+      return '&nbsp;&nbsp;&nbsp;&nbsp;';
+    }
+    return '&nbsp;&nbsp;&nbsp;';
+  };
+
+  const legendTempAccompagnement = {
+    labelFormatter: function() {
+      const activiter = formatNameCraActiviter(this.name);
+      const tempsAccompagnement = statsTempsAccompagnementAteliers.find(stats => stats?.nom === this.name);
+      const spaceValeur = formatSpaceBetweenValeurActiviter(parseInt(tempsAccompagnement?.valeur));
+      return activiter + spaceValeur + tempsAccompagnement?.valeur + '%&nbsp;&nbsp;&nbsp;<b>' + tempsAccompagnement?.temps + '</b>';
+    },
+    title: {
+      text: '<span>&nbsp;Au total <b>' + statsTempsAccompagnementTotal?.temps + ' </b><br/> dont : <br/></span>',
+      style: {
+        fontFamily: 'Marianne',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        marginLeft: '20px',
+      }
+    },
+  };
+
+  const graphiqueAge = getGraphiqueStacked(tabColorAge, 'Tranches d&rsquo;&acirc;ge des usagers', largeur);
+  const graphiqueStatut = getGraphiqueStacked(tabColorStatut, 'Statut des usagers', largeur);
   const graphiqueReorientations = getGraphiquePie(tabColorReorientation, 'Usager.&egrave;res r&eacute;orient&eacute;.es', largeur, true);
+  const pieGraphique = getGraphiquePie(tabColorLieux, 'Canaux d\'accompagnements', largeur, false);
+  const pieGraphiqueTemps = getGraphiquePie(tabColorTemps, 'Temps d\'accompagnements', largeur, false, legendTempAccompagnement);
+  const columnGraphique = getGraphiqueColumn(tabColorDuree, 'Dur&eacute;e des accompagnements', largeur);
 
   return (
     <>
-      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 print-graphique">
+      <div className="fr-col-12 fr-col-md-5">
         <div className="print-blank"></div>
-        <div className="fr-mt-6w fr-mb-5w"><hr/></div>
-        <ElementHighcharts donneesStats={statsEvolutionsFiltered} variablesGraphique={graphiqueEvolution}/>
+        <div className="fr-mt-md-3w fr-mt-6w fr-mb-5w"><hr/></div>
+        <ElementHighcharts donneesStats={statsAges} variablesGraphique={graphiqueAge}/>
       </div>
 
-      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 fr-col-lg-3 print-graphique">
+      <div className="fr-col-12 fr-col-md-5 fr-col-offset-md-1">
+        <div className="fr-mt-md-3w fr-mt-6w fr-mb-5w"><hr/></div>
+        <ElementHighcharts donneesStats={statsUsagers} variablesGraphique={graphiqueStatut}/>
         <div className="print-blank"></div>
+      </div>
+      <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 print-graphique">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
-        <ElementHighcharts donneesStats={statsAges} variablesGraphique={graphiqueAge}/>
+        <div
+          data-tooltip-id="tooltip-temps-accompagnement"
+          data-tooltip-float="true"
+          data-tooltip-html="
+          <span>Comment calculons nous la donn&eacute;e&nbsp;?</span>
+          <ul>
+            <li>30min ou moins = 30min</li>
+            <li>30min &agrave; 1h = 1h</li>
+            <li>Au del&agrave; d&rsquo;1h nous prenons le temps exact renseign&eacute;</li>
+          </ul>
+          ">
+          <ElementHighcharts donneesStats={statsTempsAccompagnementAteliers} variablesGraphique={pieGraphiqueTemps}/>
+        </div>
+        <Tooltip style={{ zIndex: '1' }} id="tooltip-temps-accompagnement" className="infobulle tooltip-temps"/>
+      </div>
+      <div className="fr-col-12 fr-col-offset-md-1 fr-col-md-5 fr-col-lg-3 print-graphique">
+        <div className="fr-mt-6w fr-mb-5w"><hr/></div>
+        <ElementHighcharts donneesStats={statsLieux} variablesGraphique={pieGraphique}/>
       </div>
 
       <div className="fr-col-12 fr-col-md-5 fr-col-lg-3 fr-col-offset-lg-1 print-graphique">
         <div className="fr-mt-6w fr-mb-5w"><hr/></div>
-        <ElementHighcharts donneesStats={statsUsagers} variablesGraphique={graphiqueStatut}/>
+        <ElementHighcharts donneesStats={statsDurees} variablesGraphique={columnGraphique}/>
         <div className="print-blank"></div>
       </div>
       <div className="fr-col-lg-11 hide-graphique-lg">
@@ -127,6 +163,5 @@ function BottomPage({ donneesStats }) {
 
 BottomPage.propTypes = {
   donneesStats: PropTypes.object,
-  type: PropTypes.string,
 };
 export default BottomPage;

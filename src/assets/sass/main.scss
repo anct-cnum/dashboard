@@ -2,17 +2,23 @@
 @use './components/footer';
 @use './views/statistiques';
 @use './views/conseillers';
+@use './views/structures';
 @use './views/candidatures';
 @use './views/gestionnaires';
+@use './views/contrats';
 @use './views/structureDetails';
 @use './views/conseillerDetails';
 @use './views/candidatDetails';
-@use './components/tooltip';
+@use './views/conventionDetails';
+@use './views/maStructure';
+@use './views/conventions';
 @use './components/FiltersAndSortsCandidatures';
 @use './components/pagination';
 @use './components/spinner';
 @use './components/modal';
 @use './components/inclusion-connect.scss';
+@use './components/banner';
+@use './components/reactDatePicker.scss';
 
 // @import
 @import '~@gouvfr/dsfr/dist/dsfr/dsfr.min.css';

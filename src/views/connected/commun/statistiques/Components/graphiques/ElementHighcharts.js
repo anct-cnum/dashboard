@@ -12,14 +12,14 @@ function ElementHighcharts({ donneesStats, variablesGraphique, listeAutres }) {
 
   const isReoriente = variablesGraphique.titre.optionTitre === 'Usager.&egrave;res r&eacute;orient&eacute;.es';
   const { typeGraphique, largeurGraphique, hauteurGraphique,
-    margeGaucheGraphique, margeDroiteGraphique, optionResponsive, couleursGraphique } = variablesGraphique.graphique;
+    margeGaucheGraphique, margeDroiteGraphique, optionResponsive, couleursGraphique, optionLegend } = variablesGraphique.graphique;
   const { optionTitre, margeTitre, placementTitre } = variablesGraphique.titre;
 
   const categoriesStatistiques = setCategoriesStatistiques(donneesStats, typeGraphique, labelsCorrespondance);
   const chartStatistiques = setStatistiquesGraphique(typeGraphique, largeurGraphique, hauteurGraphique, margeGaucheGraphique, margeDroiteGraphique);
-  const titreStatistiques = setStatistiquesTitre(optionTitre, margeTitre, placementTitre);
+  const titreStatistiques = setStatistiquesTitre(optionTitre, margeTitre, placementTitre, optionResponsive);
   const seriesStatistiques = setStatistiquesDonnees(donneesStats, typeGraphique, couleursGraphique, labelsCorrespondance);
-  const legendStatistiques = setStatistiquesLegende(typeGraphique, isReoriente, optionResponsive);
+  const legendStatistiques = setStatistiquesLegende(typeGraphique, isReoriente, optionResponsive, optionLegend);
   const yAxisStatistiques = setStatistiquesAxeY(typeGraphique);
   const xAxisStatistiques = setStatistiquesAxeX(typeGraphique, optionResponsive, categoriesStatistiques);
   const plotOptionsStatistiques = setStatistiquesOptionsTrace(typeGraphique, optionResponsive, isReoriente);

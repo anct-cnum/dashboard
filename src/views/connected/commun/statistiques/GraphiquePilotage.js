@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
 
 import Spinner from '../../../../components/Spinner';
-import BlockDatePickers from './Components/commun/BlockDatePickers';
+import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
 import LeftPage from './Components/graphiques/LeftPage';
 import RightPage from './Components/graphiques/RightPage';
 import BottomPage from './Components/graphiques/BottomPage';
 import StatistiquesBanniere from './Components/graphiques/StatistiquesBanniere';
 import FiltresEtTrisGrandReseau from '../../grandReseau/FiltresEtTrisGrandReseau';
 
-export default function GraphiqueNationale() {
+export default function GraphiquePilotage() {
   const dispatch = useDispatch();
 
-  const dateDebut = useSelector(state => state.statistiques?.dateDebut);
-  const dateFin = useSelector(state => state.statistiques?.dateFin);
+  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
+  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const ville = useSelector(state => state.statistiques?.villeStats);
   const structureIds = useSelector(state => state.statistiques?.structureStats);
@@ -27,11 +27,17 @@ export default function GraphiqueNationale() {
   const error = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const loadingExport = useSelector(state => state.exports?.loading);
+  const [initStats, setInitStats] = useState(false);
   
   useEffect(() => {
     if (!error) {
-      // eslint-disable-next-line max-len
-      dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, region, departement, structureIds, conseillerIds));
+      if (!initStats) {
+        setInitStats(true);
+        dispatch(statistiquesActions.resetFiltre());
+      } else {
+        // eslint-disable-next-line max-len
+        dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, region, departement, structureIds, conseillerIds));
+      }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
@@ -39,7 +45,7 @@ export default function GraphiqueNationale() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, codePostal, region, departement, structureIds, conseillerIds, ville, error]);
+  }, [initStats, dateDebut, dateFin, codePostal, region, departement, structureIds, conseillerIds, ville, error]);
 
   return (
     <div className="statistiques">
@@ -68,7 +74,7 @@ export default function GraphiqueNationale() {
             <RightPage donneesStats={donneesStatistiques}/>
             <BottomPage donneesStats={donneesStatistiques}/>
             <StatistiquesBanniere
-              dateDebut={new Date('2020-09-01')}
+              dateDebut={dateDebut}
               dateFin={dateFin}
               structureIds={structureIds}
               conseillerIds={conseillerIds}

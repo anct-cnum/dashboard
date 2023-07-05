@@ -49,14 +49,58 @@
 .fr-fieldset--inline .fr-checkbox-group:not(:last-child) {
   margin-right: 0.75rem;
 }
+.ri-star-fill {
+  margin-right: 0.5rem;
+}
+.block-pix {
+  margin-right: 0.5rem;
+}
 .tri-en-ligne {
   display: inline-block;
+  margin-right: 2rem;
   .fr-toggle {
-    width: 336px;
+    width: 310px;
+  }
+  #selectCV, #selectDiplome, #selectCCP1 {
+    width: 140px;
   }
   .fr-toggle--label-left .fr-toggle__label::before {
     margin-left: 0rem;
     margin-right: -3rem;
   }
+  .ri-star-fill {
+    margin-right: 0.5rem;
+  }
+  @media (max-width: 1200px) {
+    #selectCV, #selectDiplome, #selectCCP1 {
+      width: 100%;
+    }
+    .fr-toggle {
+      width: 340px;
+    }
+  }
 }
 
+@media (max-width: 480px) {
+  .block-diplome, .block-pix {
+    margin-top: 2rem;
+  }
+  .fr-toggle {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .ri-star-fill {
+    margin-right: 0;
+  }
+  .block-pix {
+    margin-right: 0.5rem;
+  }
+  .tri-en-ligne:not(:last-child) {
+    margin-right: 1.3rem;
+  }
+  .tri-en-ligne:last-child {
+    margin-right: 0;
+  }
+}

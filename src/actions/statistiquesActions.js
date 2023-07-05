@@ -2,8 +2,6 @@ import { statistiquesService } from '../services/statistiquesService';
 import { formatDate } from '../utils/formatagesUtils';
 
 export const statistiquesActions = {
-  changeDateDebut,
-  changeDateFin,
   changeCodePostalStats,
   changeStructureStats,
   changeConseillerStats,
@@ -22,14 +20,6 @@ export const statistiquesActions = {
   getCodesPostauxCrasConseiller,
   resetFiltre,
 };
-
-function changeDateDebut(dateDebut) {
-  return { type: 'CHANGE_DATE_DEBUT', dateDebut };
-}
-
-function changeDateFin(dateFin) {
-  return { type: 'CHANGE_DATE_FIN', dateFin };
-}
 
 function changeCodePostalStats(codePostal, ville) {
   return { type: 'CHANGE_CODE_POSTAL_STATS', codePostal, ville };
@@ -138,7 +128,7 @@ function getTerritoire(typeTerritoire, idTerritoire, date) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getTerritoire(typeTerritoire, idTerritoire, date)
+    statistiquesService.getTerritoire(typeTerritoire, idTerritoire, formatDate(date))
     .then(
       territoire => dispatch(success(territoire)),
       error => {

@@ -1,12 +1,18 @@
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
+import MesPostes from './MesPostes';
+import DemandeReco from './DemandeReco';
 import Exports from './Exports';
 import Candidatures from './Candidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
 import ConseillerDetails from './ConseillerDetails';
 import Page404 from '../Page404';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
+import MaStructure from './MaStructure';
+import PreselectionCandidatDetails from './candidatures/PreselectionCandidatDetails';
+import PreselectionConseillerDetails from './candidatures/PreselectionConseillerDetails';
+import CandidatureConseillerDetails from './candidatures/CandidatureConseillerDetails';
 
 export default function Structure() {
 
@@ -26,9 +32,15 @@ export default function Structure() {
       }
       <Routes>
         <Route path="/structure/informations" element={<MesInformations />} />
+        <Route path="/structure/ma-structure" element={<MaStructure />} />
+        <Route path="/structure/postes" element={<MesPostes />} />
+        <Route path="/structure/demande-de-reconventionnement" element={<DemandeReco />} />
         <Route path="/structure/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/structure/candidats/:filter" element={<Candidatures />} /> {/* Routes spécifiques avec /structure */}
-        <Route path="/structure/candidat/:id" element={<CandidatDetails />} />
+        <Route path="/structure/candidature/candidat/:id" element={<CandidatDetails />} />
+        <Route path="/structure/candidature/conseiller/:id" element={<CandidatureConseillerDetails />} />
+        <Route path="/structure/preselection/candidat/:id" element={<PreselectionCandidatDetails />} />
+        <Route path="/structure/preselection/conseiller/:idConseiller" element={<PreselectionConseillerDetails />} />
         <Route path="/structure/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />
       </Routes>

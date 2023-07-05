@@ -1,6 +1,4 @@
 export const filtresStructuresActions = {
-  changeDateDebut,
-  changeDateFin,
   changeOrdre,
   changeNomStructure,
   saveSearchInput,
@@ -8,17 +6,8 @@ export const filtresStructuresActions = {
   changeFiltreType,
   changeFiltreDepartement,
   changeFiltreStatut,
-  changeFiltreComs,
   resetFiltre,
 };
-
-function changeDateDebut(dateDebut) {
-  return { type: 'CHANGE_DATE_DEBUT', dateDebut };
-}
-  
-function changeDateFin(dateFin) {
-  return { type: 'CHANGE_DATE_FIN', dateFin };
-}
   
 function changeOrdre(ordreNom) {
   return { type: 'CHANGE_ORDRE', ordreNom };
@@ -40,10 +29,6 @@ function changeFiltreDepartement(departement) {
   return { type: 'CHANGE_DEPARTEMENT', departement };
 }
 
-function changeFiltreComs(coms) {
-  return { type: 'CHANGE_COMS', coms };
-}
-  
 function saveSearchInput(searchInput, region) {
   return { type: 'SAVE_SEARCH_INPUT', searchInput, region };
 }

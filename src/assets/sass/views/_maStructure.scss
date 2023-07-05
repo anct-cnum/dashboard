@@ -1,0 +1,19 @@
+@import "../colors/colors";
+
+.maStructure {
+  .titre {
+    color: $blue-france;
+  }
+  .color-text span {
+    color: $light-grey;
+  }
+  .color-title-subpart strong {
+    font-weight: 500;
+  }
+  @media (max-width: 77em) {
+    .fonction-structure {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+}

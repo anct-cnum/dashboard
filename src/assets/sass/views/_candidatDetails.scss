@@ -7,4 +7,46 @@
     .delete-candidature:hover {
         background-color: $red-hover !important
     }
+    .titre {
+        color: $blue-france
+    }
+    .react-datepicker-popper {
+        transform: translate3d(90%, 120px, 0px) !important;
+    }
+    .background-cards-contrat {
+        background-color: $light-blue;
+    }
+    .color-text span {
+        color: $light-grey;
+    }
+    .color-title-subpart strong {
+        font-weight: 500;
+    }
+    .color-text span {
+        color: $light-grey;
+    }
+    .color-render-stars p > span {
+        color: $light-black;
+    }
+    .color-render-stars p {
+        color: $light-black;
+    }
+    @media (min-width: 1000px) {
+        .btn-actions-interessee {
+            margin-left: auto;
+        }
+    }
+    @media (min-width: 750px) {
+        .btn-actions {
+            margin-left: auto;
+        }
+    }
+    @media (max-width: 1000px) {
+        .react-datepicker-popper {
+            transform: translate3d(53%, 120px, 0px) !important;
+        }
+        .text-id {
+            width: 100%;
+        }
+    }
 }

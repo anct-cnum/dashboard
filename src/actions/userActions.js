@@ -1,3 +1,4 @@
+import { gestionnaireService } from '../services/gestionnaireService';
 import { userService } from '../services/userService';
 
 export const userActions = {
@@ -5,7 +6,8 @@ export const userActions = {
   inputEmailNotValid,
   getUsers,
   login,
-  validationSuppressionCompteGrandReseau
+  validationSuppressionCompteGrandReseau,
+  validationSuppressionCompteStructure,
 };
 
 function verifyToken(token) {
@@ -100,6 +102,32 @@ function validationSuppressionCompteGrandReseau(idUser) {
     dispatch(request());
 
     userService.validationSuppressionCompteGrandReseau(idUser)
+    .then(
+      response => {
+        dispatch(success(response));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'VALIDATION_SUPPRESSION_COMPTE_REQUEST' };
+  }
+  function success(response) {
+    return { type: 'VALIDATION_SUPPRESSION_COMPTE_SUCCESS', response };
+  }
+  function failure(error) {
+    return { type: 'VALIDATION_SUPPRESSION_COMPTE_FAILURE', error };
+  }
+}
+
+function validationSuppressionCompteStructure(idUser, role = 'tous') {
+  return dispatch => {
+    dispatch(request());
+
+    gestionnaireService.suppressionGestionnaire(idUser, role)
     .then(
       response => {
         dispatch(success(response));

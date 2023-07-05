@@ -1,6 +1,9 @@
 @import "../colors/colors";
 
 .conseillers {
+    .title {
+        color: $blue-france;
+    }
     #menu-rupture,
     #menu-coordinateur {
         width: 221px !important;
@@ -30,9 +33,6 @@
         &:active {
             background-color: #eeeeee !important;
         }
-    }
-    .btn-actions-structures {
-        width: 6rem;
     }
     .fr-nav__btn[aria-current]::before {
         height: 0px !important;
@@ -64,102 +64,10 @@
         color: $black-hover !important;
         font-weight: 600;
     }
-    .date-btn {
-        &:hover,
-        &:active {
-            color: $blue-sky;
-            cursor: pointer;
-        }
-    }
-    .date-active {
-        color: $blue-sky;
-    }
     .filtre-btn {
         &:hover {
             color: $black-hover;
         }
-    }
-    .react-datepicker {
-        font-family: Marianne;
-        background-color: #fff;
-        border: 1px solid $blue-sky;
-        border-radius: 1.4rem;
-        color: #fff;
-
-        .react-datepicker__triangle {
-            display: none;
-        }
-        .react-datepicker__navigation-icon--previous,
-        .react-datepicker__navigation--previous {
-            background: url(../../../assets/icons/datePicker/logo-chevron-gauche.svg) no-repeat;
-            margin-left: 15px;
-            margin-top: 10px;
-            border: none;
-            height: 16px;
-            width: 10px;
-        }
-        .react-datepicker__navigation-icon--next,
-        .react-datepicker__navigation--next {
-            background: url(../../../assets/icons/datePicker/logo-chevron-droit.svg) no-repeat;
-            margin-right: 15px;
-            margin-top: 10px;
-            border: none;
-            height: 16px;
-            width: 10px;
-        }
-        .react-datepicker__header {
-            background-color: #fff;
-            color: $black;
-            border-top-left-radius: 1.4rem;
-            border-top-right-radius: 1.4rem;
-
-            .react-datepicker__current-month,
-            .react-datepicker-time__header,
-            .react-datepicker-year-header {
-                color: $black;
-            }
-            .react-datepicker__day-name,
-            .react-datepicker__day,
-            .react-datepicker__time-name {
-                color: $black;
-            }
-            .react-datepicker__month {
-                color: $black;
-            }
-        }
-        .react-datepicker__day-name,
-        .react-datepicker__day,
-        .react-datepicker__time-name {
-            font-size: 16px;
-            color: $black;
-            width: 28px;
-            height: 28px;
-            margin: 7px;
-        }
-        .react-datepicker__day--outside-month {
-            color: $grey;
-        }
-        .react-datepicker__day:hover,
-        .react-datepicker__month-text:hover,
-        .react-datepicker__quarter-text:hover,
-        .react-datepicker__year-text:hover {
-            background-color: $blue-sky;
-            color: #fff;
-        }
-        .react-datepicker__day--selected,
-        .react-datepicker__day--keyboard-selected {
-            color: #fff;
-            background-color: $black;
-        }
-        .react-date-picker__calendar--open {
-            top: 100% !important;
-            bottom: unset !important;
-        }
-    }
-    .react-datepicker__tab-loop {
-        position: absolute;
-        top: 0px;
-        left: -93px;
     }
     .not-found {
         text-align: center;
@@ -197,6 +105,20 @@
         #navigation-sort-rupture > .fr-nav__list {
             width: 0rem;
             padding-right: 6rem;
+        }
+    }
+    @media (max-width: 1200px) {
+        .date-picker {
+            flex: 0 0 100%;
+            max-width: 100%;
+            width: 100%;
+        }
+    }
+    @media (min-width: 1201px) {
+        .date-picker {
+            flex: 0 0 29.3%;
+            max-width: 29.3%;
+            width: 29.3%;
         }
     }
 }

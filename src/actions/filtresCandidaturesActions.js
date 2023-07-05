@@ -3,23 +3,17 @@ export const filtresCandidaturesActions = {
   updatePix,
   updateDiplome,
   updateCV,
+  updateCCP1,
   changeNomCandidat,
   changeFiltreDepartement,
-  changeFiltreComs,
   changeFiltreRegion,
   changeOrdreColonne,
   updateSearch,
   resetFiltre,
 };
 
-function toggleOrdre(ordreNom) {
-  return dispatch => {
-    dispatch(success(ordreNom));
-  };
-
-  function success(ordreNom) {
-    return { type: 'TOGGLE_ORDRE', ordreNom };
-  }
+function toggleOrdre() {
+  return { type: 'TOGGLE_ORDRE' };
 }
 
 function changeOrdreColonne(ordreNom) {
@@ -56,18 +50,18 @@ function updateCV(cv) {
   }
 }
 
+function updateCCP1(ccp1) {
+  return { type: 'UPDATE_CCP1', ccp1 };
+}
+
 function changeNomCandidat(nomCandidat) {
   return { type: 'CHANGE_NOM_CANDIDAT', nomCandidat };
 }
-  
+
 function changeFiltreDepartement(departement) {
   return { type: 'CHANGE_DEPARTEMENT', departement };
 }
 
-function changeFiltreComs(coms) {
-  return { type: 'CHANGE_COMS', coms };
-}
-  
 function changeFiltreRegion(region) {
   return { type: 'CHANGE_REGION', region };
 }

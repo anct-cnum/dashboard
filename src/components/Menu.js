@@ -9,7 +9,7 @@ function Menu() {
   const dispatch = useDispatch();
   const location = useLocation();
   const { trackEvent } = useMatomo();
-  
+
   const urlAide = `${process.env.REACT_APP_AIDE_HOSTNAME}/category/tableau-de-pilotage-1i6u8in`;
 
   const burgerMenuHidden = useSelector(state => state.menu?.hiddenBurgerMenu);
@@ -52,14 +52,16 @@ function Menu() {
         <div className="fr-header__menu-links"></div>
         <nav className="fr-nav fr-display--none-lg" id="navigation-869" role="navigation" aria-label="Menu principal">
           <ul className="fr-nav__list">
-            <li className="fr-nav__item">
-              <Link
-                to={`${roleActivated}/informations`}
-                className="fr-nav__link"
-                {...(location.pathname.startsWith(`/${roleActivated}/informations`) ? { 'aria-current': 'page' } : {})}>
-                  Mes informations
-              </Link>
-            </li>
+            {roleActivated === 'structure' &&
+             <li className="fr-nav__item">
+               <Link
+                 to={`${roleActivated}/postes`}
+                 className="fr-nav__link"
+                 {...(location.pathname.startsWith(`/${roleActivated}/postes`) ? { 'aria-current': 'page' } : {})}>
+                      G&eacute;rer mes postes
+               </Link>
+             </li>
+            }
             { roleActivated === 'admin' &&
             <li className="fr-nav__item">
               <button
@@ -68,7 +70,7 @@ function Menu() {
                 aria-expanded={ activeMenu === 'listes-traitement-demandes' }
                 aria-controls="menu-listes-traitement-demandes"
                 // eslint-disable-next-line max-len
-                {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
+                {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
                   Traiter les demandes
               </button>
@@ -76,13 +78,33 @@ function Menu() {
                 className={`fr-collapse fr-menu ${activeMenu === 'listes-traitement-demandes' ? 'fr-collapse--expanded' : ''}`}
                 id="menu-listes-traitement-demandes"
               >
-                <ul className="fr-menu__list">
+                <ul className="fr-menu__list" style={{ width: '23rem' }}>
                   <li>
                     <Link className="fr-nav__link" to={`/${roleActivated}/demandes/conventions`}
                       {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
                       onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
                     >
-                      Demandes de conventions à traiter
+                      Demandes de conventions &agrave; traiter
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/historique/demandes/conventions`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
+                      onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
+                    >
+                      Historique des demandes de conventions trait&eacute;es
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/demandes/contrats`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/demandes/contrats`) ? { 'aria-current': 'page' } : {})}>
+                      Demandes de contrats &agrave; traiter
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="fr-nav__link" to={`/${roleActivated}/historique/demandes/contrats`}
+                      {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) ? { 'aria-current': 'page' } : {})}>
+                      Historique des demandes de contrats trait&eacute;es
                     </Link>
                   </li>
                 </ul>

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 
 function Territoire({ territoire, filtreTerritoire }) {
 
   const totalPersonnesUniquesAccompagnees = territoire?.personnesAccompagnees - territoire?.personnesRecurrentes;
   const codeTerritoire = filtreTerritoire !== 'codeDepartement' ? territoire?.codeRegion : territoire?.codeDepartement;
+  const maille = filtreTerritoire !== 'codeDepartement' ? 'region' : 'departement';
 
   return (
     <>
@@ -23,12 +23,11 @@ function Territoire({ territoire, filtreTerritoire }) {
           <Link
             className="fr-btn details-btn fr-fi-eye-line fr-btn--icon-left"
             style={{ boxShadow: 'none' }}
-            to={`/statistiques-territoire/${codeTerritoire}`}
+            to={`/statistiques-territoire/${maille}/${codeTerritoire}`}
             state={{ 'origin': '/statistiques-territoires', territoire }}
           >
               D&eacute;tails
           </Link>
-          <ReactTooltip html={true} className="infobulle" arrowColor="white"/>
         </td>
       </tr>
     </>

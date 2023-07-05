@@ -4,4 +4,93 @@
     .titre {
         color: $blue-france
     }
+    .color-title-subpart strong {
+        font-weight: 500;
+    }
+    .color-text span {
+        color: $light-grey;
+    }
+    .email {
+        color: $light-grey;
+    }
+    .background-cards-contrat {
+        background-color: $light-blue;
+    }
+    .color-text span {
+        color: $light-grey;
+    }
+    .color-title-subpart strong {
+        font-weight: 500;
+    }
+    .color-render-stars p > span {
+        color: $light-black;
+    }
+    .color-render-stars p {
+        color: $light-black;
+    }
+    .uppercase-letter {
+        text-transform: capitalize;
+    }
+    .contrat-terminer {
+        padding-right: 0rem !important;
+        .motif-court {
+            flex: 0 0 11%;
+            max-width: 11%;
+        }
+        .badge {
+            flex: 0 0 18.66667%;
+            max-width: 18.66667%;
+        }
+        .motif-long {
+            flex: 0 0 20%;
+            max-width: 20%;
+        }
+        .fin-contrat {
+            flex: 0 0 12.66667%;
+            max-width: 13%;
+        }
+        .type-contrat {
+            flex: 0 0 14.66667%;
+            max-width: 15%;
+        }
+        .structure-court {
+            flex: 0 0 17.3%;
+            max-width: 17.3%;
+        }
+        .structure-long {
+            flex: 0 0 20.3%;
+            max-width: 20.3%;
+        }
+    }
+    @media (max-width: 1200px) {
+        .display-mobile {
+            display: block;
+        }
+        .display-desktop {
+            display: none;
+        }
+    }
+    @media (min-width: 1201px) {
+        .display-mobile {
+            display: none;
+        }
+        .display-desktop {
+            display: block;
+        }
+    }
+    @media (min-width: 500px) {
+        .btn-statistiques {
+            text-align: right;
+        }
+    }
+    @media (min-width: 1000px) {
+      .btn-actions-interessee {
+          margin-left: auto;
+      }
+    }
+    @media (min-width: 750px) {
+      .btn-actions {
+          margin-left: auto;
+      }
+    }
 }
