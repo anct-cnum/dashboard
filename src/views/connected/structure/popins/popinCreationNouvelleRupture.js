@@ -124,8 +124,6 @@ function popinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
 
 popinCreationNouvelleRupture.propTypes = {
   updateStatut: PropTypes.func,
-  updateDateRecrutement: PropTypes.func,
-  setDateValidee: PropTypes.func,
   setOpenModal: PropTypes.func,
 };
 
