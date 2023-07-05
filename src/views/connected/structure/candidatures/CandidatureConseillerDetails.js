@@ -61,12 +61,17 @@ function CandidatureConseillerDetails() {
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
-      {location?.state?.origin &&
+      {location?.state?.origin ?
         <Link
           to={location?.state?.origin} state={{ currentPage }}
           className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
           Retour &agrave; la liste
-        </Link>
+        </Link> :
+        <button
+          onClick={() => window.close()}
+          className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
+          Retour &agrave; la liste
+        </button>
       }
       {dateRecrutementUpdated === true && conseiller?.miseEnRelation?.dateRecrutement !== null &&
         <p className="fr-alert fr-alert--success fr-mt-3w">

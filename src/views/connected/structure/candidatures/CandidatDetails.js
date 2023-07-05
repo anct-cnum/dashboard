@@ -60,12 +60,17 @@ function CandidatDetails() {
   return (
     <div className="fr-container candidatDetails">
       <Spinner loading={loading || downloading} />
-      {location?.state?.origin &&
+      {location?.state?.origin ?
         <Link
           to={location?.state?.origin} state={{ currentPage }}
           className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
           Retour &agrave; la liste
-        </Link>
+        </Link> :
+        <button
+          onClick={() => window.close()}
+          className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
+          Retour &agrave; la liste
+        </button>
       }
       {(downloadError !== undefined && downloadError !== false) &&
         <div className="fr-alert fr-alert--error fr-mt-3w">
