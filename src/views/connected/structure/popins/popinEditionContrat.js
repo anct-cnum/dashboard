@@ -72,6 +72,14 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
     }
   };
 
+  const errorSalaire = () => {
+    if (salaire && !isNaN(salaire) && salaire.toString().length >= 4) {
+      return salaire < salaireMinimum;
+    }
+    return false;
+  };
+
+
   return (
     <dialog aria-labelledby="edition-contrat-title" id="edition-contrat" className="fr-modal modalOpened" role="dialog">
       <div className="fr-container fr-container--fluid fr-container-sm">
@@ -95,16 +103,16 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Renseigner un contrat
                 </h1>
-                <p style={{ marginBottom: '15px' }}>
+                <p className="fr-text--sm" style={{ marginBottom: '10px' }}>
                   Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat avant de fournir ses
-                  pi&egrave;ces justificatives sur D&eacute;marche Simplifi&eacute;e.
+                  pi&egrave;ces justificatives sur D&eacute;marches Simplifi&eacute;es.
                 </p>
                 <div className="fr-col-12 fr-mt-1w">
                   <label className="fr-label" style={{ fontSize: 'unset' }} htmlFor="datePicker">
-                    <p style={{ marginBottom: '15px' }}>Type de contrat</p>
+                    <p style={{ marginBottom: '10px' }}>Type de contrat</p>
                   </label>
                 </div>
-                <div className="fr-form-group fr-mb-2w">
+                <div className="fr-form-group fr-mb-1w">
                   <fieldset className="fr-fieldset">
                     <div className="fr-fieldset-contract__content">
                       <div className="fr-contract-radio-group fr-radio-group--sm">
@@ -181,7 +189,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                       <DatePicker
                         id="datePickerDebutContrat"
                         name="datePickerDebutContrat"
-                        className="fr-input fr-my-2w fr-mr-6w fr-col-12"
+                        className="fr-input fr-my-1w fr-mr-6w fr-col-12"
                         dateFormat="dd/MM/yyyy"
                         placeholderText="../../...."
                         locale="fr"
@@ -201,7 +209,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                       <DatePicker
                         id="datePickerFinContrat"
                         name="datePickerFinContrat"
-                        className="fr-input fr-my-2w fr-mr-6w fr-col-12"
+                        className="fr-input fr-my-1w fr-mr-6w fr-col-12"
                         dateFormat="dd/MM/yyyy"
                         placeholderText="../../...."
                         locale="fr"
@@ -214,7 +222,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     </div>
                   </div>
                 </div>
-                <div className="fr-input-group fr-col-6 fr-mt-2w">
+                <div className={`fr-input-group ${errorSalaire() && 'fr-input-group--error'} fr-col-6 fr-mt-1w`}>
                   <label className="fr-label">Salaire brut mensuel
                     <span className="fr-hint-text">Renseignez ici une estimation du salaire</span>
                   </label>
@@ -225,6 +233,12 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     onChange={handleChangeSalaire}
                     value={salaire}
                   />
+                  {
+                    errorSalaire() &&
+                   <p id="text-input-error-desc-error" className="fr-error-text">
+                     Le salaire saisi est inf&eacute;rieur au SMIC
+                   </p>
+                  }
                 </div>
               </div>
               <div className="fr-modal__footer">
@@ -237,7 +251,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                   <li>
                     <button
                       onClick={handleSubmit}
-                      disabled={checkContratValid()}
+                      disabled={checkContratValid() || errorSalaire()}
                       className="fr-btn fr-btn--icon-left"
                       title="Notifier la rupture de contrat"
                     >

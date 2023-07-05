@@ -29,9 +29,9 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
           </div>
           <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but :
             {
-              structure?.conventionnement?.dossierConventionnement?.dateDeValidation ?
+              structure?.conventionnement?.dossierConventionnement?.dateDeCreation ?
                 <span>
-              le&nbsp;{dayjs(structure?.conventionnement?.dossierConventionnement?.dateDeValidation).format('DD/MM/YYYY')}
+              le&nbsp;{dayjs(structure?.conventionnement?.dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY')}
                 </span> :
                 <span>
                   {' '}date inconnue
