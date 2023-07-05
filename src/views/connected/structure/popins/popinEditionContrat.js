@@ -254,7 +254,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                       onClick={handleSubmit}
                       disabled={checkContratValid() || errorSalaire()}
                       className="fr-btn fr-btn--icon-left"
-                      title="Editer le contrat"
+                      title="&Eacute;diter le contrat"
                     >
                       {editMode ? 'Modifier' : 'Confirmer'}
                     </button>
