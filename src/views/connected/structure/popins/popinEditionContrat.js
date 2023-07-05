@@ -231,6 +231,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     type="text"
                     name="salaire"
                     onChange={handleChangeSalaire}
+                    min={salaireMinimum}
                     value={salaire}
                   />
                   {
@@ -253,7 +254,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                       onClick={handleSubmit}
                       disabled={checkContratValid() || errorSalaire()}
                       className="fr-btn fr-btn--icon-left"
-                      title="Notifier la rupture de contrat"
+                      title="Editer le contrat"
                     >
                       {editMode ? 'Modifier' : 'Confirmer'}
                     </button>
