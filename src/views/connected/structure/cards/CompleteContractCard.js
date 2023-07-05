@@ -5,7 +5,7 @@ import { calculateMonthsDifference } from '../../../../utils/calculateUtils';
 import AdvisorCard from './AdvisorCard';
 import { formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 
-const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContrat, structure }) => {
+const CompleteContractCard = ({ conseiller, handleOpenModalContrat, structure }) => {
   const { dateDebutDeContrat, dateFinDeContrat, typeDeContrat } = conseiller;
 
   const months = calculateMonthsDifference(dateDebutDeContrat, dateFinDeContrat);
@@ -16,7 +16,7 @@ const CompleteContractCard = ({ conseiller, roleActivated, handleOpenModalContra
 
   return (
     <>
-      <AdvisorCard conseiller={conseiller} roleActivated={roleActivated} />
+      <AdvisorCard conseiller={conseiller} />
       {/* banniere */}
       <div className="fr-notice fr-py-2w banner warning background">
         <div className="fr-container warning fr-grid-row fr-grid-row--middle">

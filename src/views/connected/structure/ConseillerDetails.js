@@ -23,7 +23,11 @@ function ConseillerDetails() {
   const [openModal, setOpenModal] = useState(false);
 
   const updateStatut = (statut, motifRupture, dateRuptureValidee) => {
-    dispatch(conseillerActions.updateStatus(misesEnRelationFinalisee?._id, statut, motifRupture, dateRuptureValidee));
+    if (statut === 'nouvelle_rupture') {
+      dispatch(conseillerActions.updateStatus(misesEnRelationFinalisee[0]?._id, statut, motifRupture, dateRuptureValidee));
+    } else {
+      dispatch(conseillerActions.updateStatus(misesEnRelationNouvelleRupture?._id, statut));
+    }
     scrollTopWindow();
   };
 

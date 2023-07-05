@@ -13,11 +13,11 @@ const InactiveAdvisorsSection = ({ anciensConseillers }) => {
       <div className="fr-collapse" id="accordion-106">
         {anciensConseillers?.length > 0 ? (
           anciensConseillers.map((conseiller, index) => (
-            <AdvisorCard key={index} conseiller={conseiller} roleActivated={false} />
+            <AdvisorCard key={index} conseiller={conseiller} />
           ))
         ) : 'Aucun conseiller inactif associ&eacute; &agrave; la structure'
         }
-       
+
       </div>
     </section>
   );
