@@ -169,9 +169,14 @@ function MaStructure() {
               <span>{structure?.type ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Zone de revitalisation rurale</strong>
+              <strong>Quartier Prioritaire de la Ville</strong>
               <br />
               <span>{structure?.qpvStatut ?? '-'}</span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Zone de revitalisation rurale</strong>
+              <br />
+              <span>{structure?.estZRR ?? '-'}</span>
             </div>
           </div>
           <div className="fr-col-md-6 fr-col-12 fr-mt-4w">

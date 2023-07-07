@@ -248,8 +248,12 @@ function StructureDetails() {
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>Zone de revitalisation rurale</strong><br />
+              <strong>Quartier Prioritaire de la Ville</strong><br />
               <span>{structure?.qpvStatut ?? '-'}</span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Zone de revitalisation rurale</strong><br />
+              <span>{structure?.estZRR ?? '-'}</span>
             </div>
           </div>
         </div>
