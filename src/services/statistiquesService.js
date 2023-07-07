@@ -53,10 +53,10 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, v
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, ville) {
-  const { filterDateStart, filterDateEnd, filterByVille, filterByCodePostal } = statsQueryStringParameters(dateDebut, dateFin, codePostal, ville);
+function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, ville, codeCommune) {
+  const { filterDateStart, filterDateEnd, filterByVille, filterByCodePostal, filterByCodeCommune } = statsQueryStringParameters(dateDebut, dateFin, codePostal, ville, codeCommune);
   return API.get(
-    `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByVille}&idConseiller=${idConseiller}`)
+    `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByVille}${filterByCodeCommune}&idConseiller=${idConseiller}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

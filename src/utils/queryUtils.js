@@ -132,13 +132,14 @@ export function statsGrandReseauQueryStringParameters(dateDebut, dateFin, consei
   return { filterDateStart, filterDateEnd, filterByVille, filterByRegion, filterByCodePostal, filterByDepartement, filterByConseillerIds, filterByStructureIds };
 }
 
-export function statsQueryStringParameters(dateDebut, dateFin, codePostal, ville) {
+export function statsQueryStringParameters(dateDebut, dateFin, codePostal, ville, codeCommune) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const filterByCodePostal = codePostal !== 'tous' && codePostal !== undefined ? `&codePostal=${codePostal}` : '';
   const filterByVille = ville !== 'tous' && ville !== undefined ? `&ville=${ville}` : '';
+  const filterByCodeCommune = codeCommune !== '' && codeCommune !== undefined ? `&codeCommune=${codeCommune}` : '';
 
-  return { filterDateStart, filterDateEnd, filterByCodePostal, filterByVille };
+  return { filterDateStart, filterDateEnd, filterByCodePostal, filterByVille, filterByCodeCommune };
 }
 
 export function candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParDepartement) {

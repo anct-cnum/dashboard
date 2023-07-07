@@ -21,8 +21,8 @@ export const statistiquesActions = {
   resetFiltre,
 };
 
-function changeCodePostalStats(codePostal, ville) {
-  return { type: 'CHANGE_CODE_POSTAL_STATS', codePostal, ville };
+function changeCodePostalStats(codePostal, ville, codeCommune) {
+  return { type: 'CHANGE_CODE_POSTAL_STATS', codePostal, ville, codeCommune };
 }
 
 function changeStructureStats(structureId) {
