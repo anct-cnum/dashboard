@@ -41,10 +41,7 @@ export default function Structure() {
                 <li>Faire une demande de renouvellement de contrat</li>
                 <li>Visualiser les statistiques des conseillers et celles de votre structure</li>
               </ul>
-              Et bien plus encore... <a href="https://cdn.conseiller-numerique.gouv.fr/Guide_pas_a_pas.pdf"
-                className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger le guide pas &agrave; pas">
-                en savoir plus
-              </a>
+              Et bien plus encore...
             </p>
             <br/>
             <p><b>Vous avez des questions&nbsp;?</b></p>
