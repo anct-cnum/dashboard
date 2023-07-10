@@ -1,6 +1,19 @@
 import axios from 'axios';
 import { authenticationActions } from '../../actions';
 import apiUrlRoot from '../../helpers/apiUrl';
+import { UserManager, WebStorageStateStore } from 'oidc-client-ts';
+
+const userManager = new UserManager({
+  authority: process.env.REACT_APP_AUTH_OIDC_AUTHORITY,
+  client_id: process.env.REACT_APP_AUTH_CLIENT_ID,
+  client_secret: process.env.REACT_APP_AUTH_CLIENT_SECRET,
+  redirect_uri:
+    window.location.pathname.startsWith('/invitation') ?
+      `${process.env.REACT_APP_AUTH_REDIRECT_URI}/accueil/${window.location.pathname.split('/').pop()}` :
+      `${process.env.REACT_APP_AUTH_REDIRECT_URI}/accueil`,
+  post_logout_redirect_uri: `${process.env.REACT_APP_AUTH_REDIRECT_URI}/login`,
+  userStore: new WebStorageStateStore({ store: window.localStorage }),
+});
 
 const getProfile = () =>
   JSON.parse(
@@ -36,8 +49,7 @@ const signInCallBack = async store => {
   })
   .catch(() => {
     localStorage.removeItem('user');
-    localStorage.removeItem(process.env.REACT_APP_AUTH_OIDC_USER_KEY);
-    window.location.pathname = '/login';
+    userManager.signoutRedirect();
   });
 };
 
