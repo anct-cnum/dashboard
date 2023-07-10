@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { formatTypeDeContrat } from '../../../../../utils/formatagesUtils';
 
-const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal, setOpenModalValidationRupture }) => {
+const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
 
   return (
     <div className="fr-card fr-mt-4w fr-card--no-border background-cards-contrat">
@@ -89,17 +89,11 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal, setOpenModal
             {miseEnRelation?.statut === 'nouvelle_rupture' &&
             <li>
               <button
-                className="fr-btn fr-btn--secondary" onClick={() => setOpenModal(true)}
-              >
-                Modifier la demande
-              </button>
-              <button
                 className="fr-btn"
                 aria-controls="fr-modal-2"
-                disabled={miseEnRelation?.dossierIncompletRupture !== false}
-                onClick={() => setOpenModalValidationRupture(true)}
+                onClick={() => setOpenModal(true)}
               >
-                Valider la demande
+                Traiter la demande
               </button>
             </li>
             }

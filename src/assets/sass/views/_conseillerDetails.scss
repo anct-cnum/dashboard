@@ -28,6 +28,9 @@
     .color-render-stars p {
         color: $light-black;
     }
+    .uppercase-letter {
+        text-transform: capitalize;
+    }
     .contrat-terminer {
         padding-right: 0rem !important;
         .motif-court {

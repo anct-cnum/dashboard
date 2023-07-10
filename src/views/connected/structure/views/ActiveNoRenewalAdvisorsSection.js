@@ -2,13 +2,13 @@ import React from 'react';
 import propTypes from 'prop-types';
 import AdvisorCard from '../cards/AdvisorCard';
 
-const ActiveNoRenewalAdvisorsSection = ({ structure, conseillersActifsNonRenouveles, roleActivated }) => {
+const ActiveNoRenewalAdvisorsSection = ({ structure, conseillersActifsNonRenouveles }) => {
   return (
     structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' && (
       <div className="container fr-mt-4w">
         <h6 className="fr-text--bold">Vos conseillers actifs non renouvel&eacute;s ({conseillersActifsNonRenouveles?.length})</h6>
         {conseillersActifsNonRenouveles?.map((conseiller, idx) => {
-          return <AdvisorCard conseiller={conseiller} roleActivated={roleActivated} key={idx} />;
+          return <AdvisorCard conseiller={conseiller} key={idx} />;
         })}
       </div>
     )

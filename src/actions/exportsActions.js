@@ -160,10 +160,10 @@ function exportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrd
   }
 }
 
-function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom = 'dateDemande', ordre = 1) {
+function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = 1) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, ordreNom, ordre)
+    await exportsService.getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre)
     .then(exportHistoriqueDossiersConventionFileBlob => dispatch(success(exportHistoriqueDossiersConventionFileBlob)))
     .catch(exportHistoriqueDossiersConventionFileError => dispatch(failure(exportHistoriqueDossiersConventionFileError)));
   };
@@ -180,10 +180,10 @@ function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, da
   }
 }
 
-function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom = 'dateDemande', ordre = 1) {
+function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = 1) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreParNomConseiller, ordreNom, ordre)
+    await exportsService.getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre)
     .then(exportHistoriqueContratFileBlob => dispatch(success(exportHistoriqueContratFileBlob)))
     .catch(exportHistoriqueContratFileError => dispatch(failure(exportHistoriqueContratFileError)));
   };

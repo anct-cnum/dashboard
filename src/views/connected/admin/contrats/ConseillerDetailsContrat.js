@@ -8,7 +8,6 @@ import ModalValidationRupture from '../modals/ModalValidationRupture';
 import CardsRupture from './cards/CardsRupture';
 import CardsRenouvellement from './cards/CardsRenouvellement';
 import ModalValidationRenouvellement from '../modals/ModalValidationRenouvellement';
-import ModalConfirmationRupture from '../modals/ModalConfirmationRupture';
 import PopinEditionContrat from '../../../connected/structure/popins/popinEditionContrat';
 import InformationConseiller from '../../../../components/InformationConseiller';
 import StructureContactCards from '../../../../components/cards/StructureContactCards';
@@ -33,7 +32,6 @@ function ConseillerDetailsContrat() {
   const [dateFinDeContrat, setDateFinDeContrat] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
-  const [openModalValidationRupture, setOpenModalValidationRupture] = useState(false);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -52,10 +50,11 @@ function ConseillerDetailsContrat() {
   useEffect(() => {
     if (!errorStructure) {
       if (conseiller !== undefined) {
+        const miseEnRelation = conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0];
         setMisesEnRelationFinalisee(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
-        setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
+        setMisesEnRelationNouvelleRupture(miseEnRelation);
         setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
-        setDateFinDeContrat(new Date(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]?.dateRupture));
+        setDateFinDeContrat(miseEnRelation?.dateRupture ? new Date(miseEnRelation.dateRupture) : null);
         if (conseiller?.statut !== 'RUPTURE') {
           dispatch(structureActions.get(conseiller?.structureId));
         }
@@ -149,23 +148,15 @@ function ConseillerDetailsContrat() {
               urlDossierDS={conseiller?.url}
               miseEnRelation={conseiller?.contrat}
               setOpenModal={setOpenModal}
-              setOpenModalValidationRupture={setOpenModalValidationRupture}
             />
             {openModal &&
             <ModalValidationRupture
               setOpenModal={setOpenModal}
-              idConseiller={idConseiller}
+              miseEnRelation={conseiller?.contrat}
               dateFinDeContrat={dateFinDeContrat}
               setDateFinDeContrat={setDateFinDeContrat}
               datePrisePoste={conseiller?.datePrisePoste}
             />
-            }
-            {openModalValidationRupture &&
-              <ModalConfirmationRupture
-                setOpenModalValidationRupture={setOpenModalValidationRupture}
-                idConseiller={idConseiller}
-                dateFinDeContrat={dateFinDeContrat}
-              />
             }
           </>
         }

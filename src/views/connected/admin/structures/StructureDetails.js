@@ -158,7 +158,7 @@ function StructureDetails() {
                   {structure?.users?.map(user =>
                     <p key={user._id}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span>}</p>
                   )}
-                  <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)} disabled>
+                  <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
                     Inviter un administrateur
                   </button>
                 </div> :
@@ -248,8 +248,12 @@ function StructureDetails() {
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>Zone de revitalisation rurale</strong><br />
+              <strong>Quartier Prioritaire de la Ville</strong><br />
               <span>{structure?.qpvStatut ?? '-'}</span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Zone de revitalisation rurale</strong><br />
+              <span>{structure?.estZRR ?? '-'}</span>
             </div>
           </div>
         </div>

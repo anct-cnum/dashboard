@@ -203,8 +203,8 @@ function ReconventionnementDetails({ reconventionnement }) {
               Conventionnement phase 1
             </h3>
             <p className="fr-card__desc fr-text--md"><strong>Date de d&eacute;but:&nbsp;</strong>
-              {dossierConventionnement?.dateDeValidation ?
-                <span>{dayjs(dossierConventionnement?.dateDeValidation).format('DD/MM/YYYY')}</span> :
+              {dossierConventionnement?.dateDeCreation ?
+                <span>{dayjs(dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
                 <span>Non renseign&eacute;e</span>
               }
             </p>

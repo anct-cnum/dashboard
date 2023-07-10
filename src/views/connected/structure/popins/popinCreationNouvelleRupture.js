@@ -27,7 +27,7 @@ function popinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Déclaration d&rsquo;une rupture
                 </h1>
-                <p>Veuillez renseigner la date de recrutement que vous souhaitez proposer &agrave; ce candidat</p>
+                <p>Veuillez renseigner les informations ci-dessous</p>
                 <div className="fr-col-12">
                   <label
                     className="fr-label"
@@ -124,8 +124,6 @@ function popinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
 
 popinCreationNouvelleRupture.propTypes = {
   updateStatut: PropTypes.func,
-  updateDateRecrutement: PropTypes.func,
-  setDateValidee: PropTypes.func,
   setOpenModal: PropTypes.func,
 };
 
