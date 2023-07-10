@@ -204,7 +204,6 @@ function MaStructure() {
             className="fr-btn fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-ml-auto"
             onClick={() => setOpenModal(true)}
             title="Ajouter un collaborateur"
-            disabled
           >
             Ajouter un collaborateur
           </button>
