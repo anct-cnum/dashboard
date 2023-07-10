@@ -35,6 +35,8 @@ const signInCallBack = async store => {
     localStorage.setItem('roleActivated', result?.data?.user?.roles[0]);
   })
   .catch(() => {
+    localStorage.removeItem('user');
+    localStorage.removeItem(process.env.REACT_APP_AUTH_OIDC_USER_KEY);
     window.location.pathname = '/login';
   });
 };
