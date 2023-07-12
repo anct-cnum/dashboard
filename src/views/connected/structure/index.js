@@ -31,7 +31,7 @@ export default function Structure() {
               et d&rsquo;informations cl&eacute;s pour suivre et piloter l&rsquo;activité des conseillers num&eacute;rique.
               C&rsquo;est pourquoi votre espace change et &eacute;volue&nbsp;!
             </p>
-            <p>
+            <div>
               Il permet de&nbsp;:
               <ul>
                 <li>S&eacute;lectionner des candidatures</li>
@@ -42,10 +42,10 @@ export default function Structure() {
                 <li>Visualiser les statistiques des conseillers et celles de votre structure</li>
               </ul>
               Et bien plus encore...
-            </p>
+            </div>
             <br/>
             <p><b>Vous avez des questions&nbsp;?</b></p>
-            <p>
+            <div>
               L&rsquo;&eacute;quipe d&rsquo;animation se tient &agrave; votre disposition&nbsp;:
               <br/>
               <ul>
@@ -58,7 +58,7 @@ export default function Structure() {
                     conseiller-numerique@anct.gouv.fr</a>
                 </li>
               </ul>
-            </p>
+            </div>
           </div>
         </div>
       }
