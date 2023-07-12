@@ -34,6 +34,9 @@ function MesInformations() {
         status: null, description: null
       }));
     }
+  }, [error, success]);
+
+  useEffect(() => {
     if (deleteSuccess) {
       scrollTopWindow();
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -49,7 +52,7 @@ function MesInformations() {
         status: null, description: null
       }));
     }
-  }, [error, success, deleteSuccess, errorUserDelete]);
+  }, [deleteSuccess, errorUserDelete]);
 
   return (
     <div className="fr-mt-5w fr-mb-5w">
