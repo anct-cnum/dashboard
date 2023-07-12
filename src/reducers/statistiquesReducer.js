@@ -9,8 +9,8 @@ const initialState = {
   structureStats: [],
   codeRegionStats: 'tous',
   numeroDepartementStats: 'tous',
-  dateDebut: new Date('2020-11-17')?.toISOString(),
-  dateFin: new Date()?.toISOString(),
+  dateDebut: new Date('2020-11-17').toISOString(),
+  dateFin: new Date().toISOString(),
 };
 
 export default function statistiques(state = initialState, action) {
