@@ -34,24 +34,25 @@ function MesInformations() {
         status: null, description: null
       }));
     }
-  }, [error, success]);
+    if (deleteSuccess) {
+      scrollTopWindow();
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'success',
+        message: <>le compte {userDeleted[0].name} a bien &eacute;t&eacute; supprim&eacute;</>,
+        status: null, description: null
+      }));
+    } else if (errorUserDelete) {
+      scrollTopWindow();
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: errorUserDelete,
+        status: null, description: null
+      }));
+    }
+  }, [error, success, deleteSuccess, errorUserDelete]);
 
   return (
     <div className="fr-mt-5w fr-mb-5w">
-      {errorUserDelete &&
-        <div className="fr-alert fr-alert--error" style={{ marginBottom: '2rem' }}>
-          <p className="fr-alert__title">
-            {errorUserDelete}
-          </p>
-        </div>
-      }
-      {deleteSuccess &&
-        <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }}>
-          <p className="fr-alert__title">
-            le compte {userDeleted[0].name} a bien &eacute;t&eacute; supprim&eacute;
-          </p>
-        </div>
-      }
       <Spinner loading={loading || loadingUserDelete} />
       <h2 className="fr-h2" style={{ color: '#000091' }}>Mon profil</h2>
       <div className="fr-grid-row">
