@@ -7,7 +7,7 @@ import { useMatomo } from '@jonkoops/matomo-tracker-react';
 function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const { trackEvent } = useMatomo();
-console.log(conseiller.statut);
+
   return (
     <>
       <tr>
