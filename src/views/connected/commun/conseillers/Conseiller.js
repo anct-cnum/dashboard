@@ -7,7 +7,7 @@ import { useMatomo } from '@jonkoops/matomo-tracker-react';
 function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const { trackEvent } = useMatomo();
-
+console.log(conseiller.statut);
   return (
     <>
       <tr>
@@ -28,10 +28,12 @@ function Conseiller({ conseiller }) {
         </td>
         <td>{conseiller?.craCount}</td>
         <td>
+          {conseiller.statut === 'finalisee' &&
           <button
             className="fr-btn fr-icon-eye-line fr-mb-2w"
             title="D&eacute;tail"
             onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
+          }
           <Link
             onClick={() => trackEvent({ category: 'statistiques-conseillers', action: `click-${roleActivated}` })}
             className="fr-btn fr-icon-line-chart-line"
