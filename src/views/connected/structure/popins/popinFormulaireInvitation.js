@@ -84,7 +84,6 @@ PopinFormulaireInvitation.propTypes = {
   setOpenModal: PropTypes.func,
   email: PropTypes.string,
   setEmail: PropTypes.func,
-  valideInputEmail: PropTypes.func,
   activeMessage: PropTypes.bool,
   sendInvitation: PropTypes.func
 };
