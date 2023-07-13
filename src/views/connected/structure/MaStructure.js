@@ -58,7 +58,7 @@ function MaStructure() {
         })
       );
     }
-  });
+  }, [successInvitation]);
 
   useEffect(() => {
     const errors = [errorInvitation, errorSuppression, errorStructure, errorUsers];
