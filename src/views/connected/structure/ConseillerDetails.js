@@ -17,7 +17,7 @@ function ConseillerDetails() {
   const loading = useSelector(state => state.conseiller?.loading);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
-  const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState({});
+  const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [openModal, setOpenModal] = useState(false);
