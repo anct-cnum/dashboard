@@ -97,6 +97,7 @@ function inviteStructureInDetails({ email, structureId }) {
       successInviteAccountMulticompteSA => {
         dispatch(successMessage(successInviteAccountMulticompteSA.message));
         dispatch(successAddNewAccountInStructure(successInviteAccountMulticompteSA.account));
+        dispatch(successAddNewAccountInUser(successInviteAccountMulticompteSA.account));
       },
       error => {
         dispatch(failure(error));
@@ -112,6 +113,9 @@ function inviteStructureInDetails({ email, structureId }) {
   }
   function successAddNewAccountInStructure(account) {
     return { type: 'ADD_USERS_TO_STRUCTURE', account };
+  }
+  function successAddNewAccountInUser(account) {
+    return { type: 'ADD_USER_TO_LIST', account };
   }
   function failure(error) {
     return { type: 'INVITING_STRUCTURE_FAILURE', error };
