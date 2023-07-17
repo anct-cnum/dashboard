@@ -1,0 +1,10 @@
+.fr-header {
+  @media (max-width: 992px) {
+    .button-user-menu {
+      margin-top: 1rem;
+    }
+    .display-desktop {
+      display: none;
+    }
+  }
+}
