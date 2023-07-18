@@ -98,7 +98,7 @@ function StructureDetails() {
             <div className="fr-mb-3w">
               {structure?.users?.length === 0 && <p>Aucun administrateur associ&eacute;</p>}
               {structure?.users?.map((user, idx) =>
-                <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span>}</p>
+                <p key={idx}>{user.name} - {user?.sub ? <span>(actif)</span> : <span>(inactif)</span>}</p>
               )}
             </div>
           </div>
