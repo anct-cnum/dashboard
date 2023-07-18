@@ -165,7 +165,6 @@ function ReconventionnementDetails({ reconventionnement }) {
                         setStatut(StatutConventionnement.RECONVENTIONNEMENT_REFUSÉ);
                         setOpenModal(true);
                       }}
-                      disabled={dossierReconventionnement?.statut !== 'accepte'}
                     >
                       Refuser la demande
                     </button>
@@ -177,7 +176,6 @@ function ReconventionnementDetails({ reconventionnement }) {
                         setStatut(StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ);
                         setOpenModal(true);
                       }}
-                      disabled={dossierReconventionnement?.statut !== 'accepte'}
                     >
                       Valider la demande
                     </button>
