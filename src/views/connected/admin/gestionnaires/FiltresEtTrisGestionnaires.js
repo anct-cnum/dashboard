@@ -83,8 +83,8 @@ function FiltresEtTrisGestionnaires() {
           <div className="fr-ml-auto fr-col-12 fr-col-md-5 fr-mb-4w fr-mb-md-0">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
               <input className="fr-input" onKeyDown={rechercheParNomGestionnaireToucheEnter} defaultValue={searchInput ?? ''}
-                placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
-              <button className="fr-btn" onClick={rechercheParNomGestionnaire} title="Rechercher par nom">
+                placeholder="Rechercher par email" type="search" id="search-input" name="search-input" />
+              <button className="fr-btn" onClick={rechercheParNomGestionnaire} title="Rechercher par email">
                 Rechercher
               </button>
             </div>

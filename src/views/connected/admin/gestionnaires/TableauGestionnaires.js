@@ -96,7 +96,7 @@ export default function TableauGestionnaires() {
                       <thead>
                         <tr>
                           <th style={{ width: '12.1rem' }}>R&ocirc;le</th>
-                          <th>Email</th>
+                          <th style={{ width: '14.7rem' }}>Email</th>
                           <th style={{ width: '11.1rem' }}>
                             <button id="reseau" className="filtre-btn" onClick={ordreColonne}>
                               <span>Nom du gestionnaire</span>
