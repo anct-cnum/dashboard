@@ -24,7 +24,7 @@ function ModalValidationRecrutement({ setOpenModal, idMiseEnRelation }) {
               <div className="fr-modal__content">
                 <h1 id="fr-modal-3-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                  Important&nbsp;: Vous &ecirc;tes sur le point de valider la demande de recrutement de ce conseiller.
+                  Important&nbsp;: Vous &ecirc;tes sur le point de valider le recrutement de ce conseiller.
                 </h1>
                 <p>
                   <strong>
