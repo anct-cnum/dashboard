@@ -87,7 +87,7 @@ function InformationCandidat({ conseiller }) {
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>Date de recrutement pr&eacute;visionnelle</strong><br/>
+              <strong>Date de recrutement</strong><br/>
               {(conseiller?.miseEnRelation?.length === 0 && !conseiller?.miseEnRelation) &&
                 <span>-</span>
               }
@@ -96,7 +96,7 @@ function InformationCandidat({ conseiller }) {
                   {conseiller?.miseEnRelation?.map((miseEnRelation, idx) =>
                     <>
                       <span key={idx}>
-                        {miseEnRelation?.dateRecrutement ? dayjs(miseEnRelation.dateRecrutement).format('DD/MM/YYYY') : 'Non renseignée'}
+                        {miseEnRelation?.dateDebutDeContrat ? dayjs(miseEnRelation.dateDebutDeContrat).format('DD/MM/YYYY') : 'Non renseignée'}
                         {miseEnRelation?.structureObj?.nom &&
                         <>&nbsp;par {miseEnRelation?.structureObj?.nom}</>
                         }
@@ -107,7 +107,7 @@ function InformationCandidat({ conseiller }) {
               }
               {conseiller?.miseEnRelation &&
               <span>
-                {conseiller?.miseEnRelation?.dateRecrutement ? dayjs(conseiller?.miseEnRelation.dateRecrutement).format('DD/MM/YYYY') : 'Non renseignée'}
+                {conseiller?.miseEnRelation?.dateDebutDeContrat ? dayjs(conseiller?.miseEnRelation.dateDebutDeContrat).format('DD/MM/YYYY') : 'Non renseignée'}
                 {conseiller?.miseEnRelation?.structureObj?.nom &&
                     <>&nbsp;par {conseiller?.miseEnRelation?.structureObj?.nom}</>
                 }

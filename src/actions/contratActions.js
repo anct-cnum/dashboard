@@ -4,8 +4,10 @@ import { contratService } from '../services/contratService.js';
 export const contratActions = {
   getAll,
   validationRenouvellement,
+  validationRecrutement,
   getAllHistorique,
   createContract,
+  createContractRecrutement,
   updateContract,
 };
 
@@ -63,6 +65,36 @@ function validationRenouvellement(id) {
   }
 }
 
+function validationRecrutement(id) {
+  return dispatch => {
+    dispatch(request());
+
+    contratService.validationRecrutement(id)
+    .then(
+      response => {
+        dispatch(success());
+        dispatch(updateMiseEnRelation(response.miseEnRelationUpdated));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'VALIDATION_CONTRAT_RECRUTEMENT_REQUEST' };
+  }
+  function success() {
+    return { type: 'VALIDATION_CONTRAT_RECRUTEMENT_SUCCESS' };
+  }
+  function failure(error) {
+    return { type: 'VALIDATION_CONTRAT_RECRUTEMENT_FAILURE', error };
+  }
+  function updateMiseEnRelation(miseEnRelationUpdated) {
+    return { type: 'UPDATE_MISE_EN_RELATION_CONTRAT', miseEnRelationUpdated };
+  }
+}
+
 // eslint-disable-next-line max-len
 function getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = -1) {
   return dispatch => {
@@ -108,6 +140,35 @@ function createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelati
   }
   function failure(error) {
     return { type: 'CREATE_CONTRAT_RENOUVELLEMENT_FAILURE', error };
+  }
+}
+
+function createContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId) {
+  return dispatch => {
+    dispatch(request());
+
+    contratService.createContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId)
+    .then(response => {
+      dispatch(success(response.message));
+      dispatch(updateMiseEnRelation(response.miseEnRelation));
+    },
+    error => {
+      dispatch(failure(error));
+    }
+    );
+  };
+
+  function request() {
+    return { type: 'CREATE_CONTRAT_RECRUTEMENT_REQUEST' };
+  }
+  function success(message) {
+    return { type: 'CREATE_CONTRAT_RECRUTEMENT_SUCCESS', message };
+  }
+  function updateMiseEnRelation(miseEnRelation) {
+    return { type: 'UPDATE_STATUS_SUCCESS', miseEnRelation };
+  }
+  function failure(error) {
+    return { type: 'CREATE_CONTRAT_RECRUTEMENT_FAILURE', error };
   }
 }
 
