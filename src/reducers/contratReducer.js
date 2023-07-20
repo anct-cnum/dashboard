@@ -101,7 +101,6 @@ export default function contrat(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        message: action.message
       };
     case 'CREATE_CONTRAT_RECRUTEMENT_FAILURE':
       return {

@@ -22,9 +22,7 @@ function CandidatDetails() {
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const errorContrat = useSelector(state => state.contrat?.error);
   const loadingContrat = useSelector(state => state.contrat?.loading);
-  const successMessageContrat = useSelector(state => state.contrat?.message);
   const errorUpdateStatus = useSelector(state => state.conseiller?.errorUpdateStatus);
-  const errorUpdateDate = useSelector(state => state.conseiller?.errorUpdateDate);
   const downloadError = useSelector(state => state.conseiller?.downloadError);
   const downloading = useSelector(state => state.conseiller?.downloading);
   const currentPage = useSelector(state => state.pagination?.currentPage);
@@ -87,16 +85,6 @@ function CandidatDetails() {
         <div className="fr-alert fr-alert--info fr-mt-3w">
           <p>{errorContrat}</p>
         </div>
-      }
-      {(errorUpdateDate !== undefined && errorUpdateDate !== false) &&
-        <div className="fr-alert fr-alert--info fr-mt-3w">
-          <p>{errorUpdateDate}</p>
-        </div>
-      }
-      {successMessageContrat &&
-        <p className="fr-alert fr-alert--success fr-mt-3w">
-          {successMessageContrat}
-        </p>
       }
       <div className="fr-col-12 fr-pt-6w">
         {conseiller?.coselec?.nombreConseillersCoselec &&
