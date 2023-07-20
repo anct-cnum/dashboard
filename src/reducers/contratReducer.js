@@ -91,18 +91,18 @@ export default function contrat(state = initialState, action) {
         error: action.error,
         loading: false
       };
-    case 'CREATE_CONTRAT_RECRUTEMENT_REQUEST':
+    case 'UPDATE_CONTRAT_RECRUTEMENT_REQUEST':
       return {
         ...state,
         error: false,
         loading: true
       };
-    case 'CREATE_CONTRAT_RECRUTEMENT_SUCCESS':
+    case 'UPDATE_CONTRAT_RECRUTEMENT_SUCCESS':
       return {
         ...state,
         loading: false,
       };
-    case 'CREATE_CONTRAT_RECRUTEMENT_FAILURE':
+    case 'UPDATE_CONTRAT_RECRUTEMENT_FAILURE':
       return {
         ...state,
         error: action.error,

@@ -9,7 +9,7 @@ export const contratService = {
   validationRecrutement,
   getAllHistorique,
   createContract,
-  createContractRecrutement,
+  updateContractRecrutement,
   updateContract,
 };
 
@@ -62,9 +62,9 @@ function createContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, sal
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function createContractRecrutement(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId) {
+function updateContractRecrutement(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId) {
   // eslint-disable-next-line max-len
-  return API.post(`${apiUrlRoot}/recrutement/contrat?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId })
+  return API.patch(`${apiUrlRoot}/recrutement/contrat/${miseEnrelationId}?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

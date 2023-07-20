@@ -12,12 +12,8 @@ function ButtonsAction({ updateStatut, miseEnRelation }) {
   const [editMode, setEditMode] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
 
-  const createContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
-    dispatch(contratActions.createContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, miseEnRelation._id));
-  };
-
-  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
-    dispatch(contratActions.createContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, miseEnRelation._id));
+  const updateContractRecrutement = (typeDeContrat, dateDebut, dateFin, salaire) => {
+    dispatch(contratActions.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, miseEnRelation._id));
   };
 
   return (
@@ -25,10 +21,10 @@ function ButtonsAction({ updateStatut, miseEnRelation }) {
       {openModalContrat &&
         <PopinEditionContrat
           setOpenModalContrat={setOpenModalContrat}
-          updateContract={updateContract}
+          updateContract={updateContractRecrutement}
           conseiller={miseEnRelation}
           editMode={editMode}
-          createContract={createContract}
+          createContract={updateContractRecrutement}
         />
       }
       <div className={`${miseEnRelation?.statut === 'interessee' || miseEnRelation?.statut === 'nouvelle' ? 'btn-actions-interessee' : 'btn-actions'}`}>

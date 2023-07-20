@@ -46,7 +46,7 @@ function CandidatDetailsRecrutement() {
   }, [downloadError]);
 
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
-    dispatch(contratActions.createContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnRelation?._id));
+    dispatch(contratActions.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnRelation?._id));
   };
 
   return (
