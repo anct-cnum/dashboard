@@ -78,7 +78,7 @@ const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenMod
             </div>
           </div>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-            {conseiller?.statut === 'RECRUTE' ?
+            {miseEnRelation?.statut === 'finalisee' ?
               <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
               <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
             }
@@ -86,7 +86,7 @@ const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenMod
         </div>
         <div className="fr-card__footer">
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
-            {conseiller?.statut !== 'RECRUTE' &&
+            {miseEnRelation?.statut !== 'finalisee' &&
             <li>
               <button
                 className="fr-btn fr-btn--secondary"

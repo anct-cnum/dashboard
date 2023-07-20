@@ -73,7 +73,7 @@ function validationRecrutement(id) {
     .then(
       response => {
         dispatch(success());
-        dispatch(updateMiseEnRelation(response.miseEnRelationUpdated));
+        dispatch(updateMiseEnRelation(response.miseEnRelation));
       },
       error => {
         dispatch(failure(error));
@@ -90,8 +90,8 @@ function validationRecrutement(id) {
   function failure(error) {
     return { type: 'VALIDATION_CONTRAT_RECRUTEMENT_FAILURE', error };
   }
-  function updateMiseEnRelation(miseEnRelationUpdated) {
-    return { type: 'UPDATE_MISE_EN_RELATION_CONTRAT', miseEnRelationUpdated };
+  function updateMiseEnRelation(miseEnRelation) {
+    return { type: 'UPDATE_STATUS_SUCCESS', miseEnRelation };
   }
 }
 
