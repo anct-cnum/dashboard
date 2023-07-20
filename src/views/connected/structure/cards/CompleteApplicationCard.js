@@ -28,7 +28,7 @@ const CompleteApplicationCard = ({ structure }) => (
             </div>
           </div>
           <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
-            {badgeStatutDossierDS(structure?.dossierConventionnement?.statut)}
+            {badgeStatutDossierDS(structure?.conventionnement?.dossierReconventionnement?.statut)}
             <a
               href={structure?.urlDossierReconventionnement}
               target="_blank"
