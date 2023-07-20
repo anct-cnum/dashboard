@@ -61,6 +61,7 @@ export default function structure(state = initialState, action) {
       };
     case 'PATCH_STRUCTURE_CONTACT_REQUEST':
       return {
+        loading: true,
         error: false,
         contactUpdated: false,
         flashMessage: false
@@ -68,6 +69,7 @@ export default function structure(state = initialState, action) {
     case 'PATCH_STRUCTURE_CONTACT_SUCCESS':
       return {
         ...state,
+        loading: false,
         contactUpdated: true,
         structure: action.structure,
         flashMessage: true
@@ -75,6 +77,7 @@ export default function structure(state = initialState, action) {
     case 'PATCH_STRUCTURE_CONTACT_FAILURE':
       return {
         ...state,
+        loading: false,
         error: action.error,
         flashMessage: true
       };
