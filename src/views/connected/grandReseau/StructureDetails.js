@@ -148,7 +148,7 @@ function StructureDetails() {
                   {structure?.users?.length === 0 && <p>Aucun administrateur associ&eacute;</p>}
                   {structure?.users?.map((user, idx) =>
                     <>
-                      <p key={idx}>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span>}</p>
+                      <p key={idx}>{user.name} - {user?.sub ? <span>(actif)</span> : <span>(inactif)</span>}</p>
                     </>
                   )}
                   <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
