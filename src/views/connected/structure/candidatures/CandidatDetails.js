@@ -77,12 +77,12 @@ function CandidatDetails() {
         </div>
       }
       {(errorUpdateStatus !== undefined && errorUpdateStatus !== false) &&
-        <div className="fr-alert fr-alert--info fr-mt-3w">
+        <div className="fr-alert fr-alert--error fr-mt-3w">
           <p>{errorUpdateStatus}</p>
         </div>
       }
       {(errorContrat !== undefined && errorContrat !== false) &&
-        <div className="fr-alert fr-alert--info fr-mt-3w">
+        <div className="fr-alert fr-alert--error fr-mt-3w">
           <p>{errorContrat}</p>
         </div>
       }
