@@ -21,7 +21,7 @@ export const statistiquesActions = {
   resetFiltre,
 };
 
-function changeCodePostalStats(codePostal, ville, codeCommune) {
+function changeCodePostalStats(codePostal, ville, codeCommune = null) {
   return { type: 'CHANGE_CODE_POSTAL_STATS', codePostal, ville, codeCommune };
 }
 
@@ -223,10 +223,10 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal = 
   }
 }
 
-function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal = null, ville = null) {
+function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal = null, codeCommune = null) {
   return dispatch => {
     dispatch(request());
-    statistiquesService.getStatistiquesConseiller(formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, ville)
+    statistiquesService.getStatistiquesConseiller(formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, codeCommune)
     .then(
       statsConseiller => {
         dispatch(success(statsConseiller));

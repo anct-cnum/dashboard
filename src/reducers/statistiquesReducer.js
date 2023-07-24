@@ -1,6 +1,7 @@
 const initialState = {
   codePostalStats: 'tous',
   villeStats: 'tous',
+  codeCommuneStats: '',
   listeAutresReorientations: [],
   error: false,
   errorTerritoire: false,
@@ -20,6 +21,7 @@ export default function statistiques(state = initialState, action) {
         ...state,
         codePostalStats: action.codePostal,
         villeStats: action.ville,
+        codeCommuneStats: action.codeCommune,
       };
     case 'CHANGE_STRUCTURE_STATS':
       return {
