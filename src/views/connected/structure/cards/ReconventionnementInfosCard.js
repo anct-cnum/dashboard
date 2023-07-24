@@ -163,8 +163,6 @@ const ReconventionnementInfosCard = ({ structure }) => {
 };
 
 ReconventionnementInfosCard.propTypes = {
-  positions: PropTypes.array,
-  onPositionClick: PropTypes.func,
   structure: PropTypes.object,
 };
 

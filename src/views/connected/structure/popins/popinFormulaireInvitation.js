@@ -28,14 +28,8 @@ function PopinFormulaireInvitation({ setOpenModal, email, setEmail, activeMessag
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Inviter un administrateur
                 </h1>
-                <p>Infos conernant l&apos;administrateur.</p>
+                <p>Infos concernant l&apos;administrateur.</p>
                 <div className="fr-input-group">
-                  <label className="fr-label" htmlFor="text-input-groups1">Pr&eacute;nom
-                  </label>
-                  <input className="fr-input fr-mb-2w" type="text" id="text-input-groups1" name="text-input-groups1"/>
-                  <label className="fr-label" htmlFor="text-input-groups1">Nom
-                  </label>
-                  <input className="fr-input fr-mb-2w" type="text" id="text-input-groups1" name="text-input-groups1"/>
                   <label className="fr-label" htmlFor="text-input-groups1">Email de l&apos;administrateur
                     <span className="fr-hint-text">
                       Renseigner le mail de l&apos;administrateur et envoyer une invitation à rejoindre le tableau de pilotage
@@ -90,7 +84,6 @@ PopinFormulaireInvitation.propTypes = {
   setOpenModal: PropTypes.func,
   email: PropTypes.string,
   setEmail: PropTypes.func,
-  valideInputEmail: PropTypes.func,
   activeMessage: PropTypes.bool,
   sendInvitation: PropTypes.func
 };

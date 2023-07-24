@@ -6,7 +6,7 @@ const UserMenu = ({
   user,
   roleActivated,
   changeRoleActivated,
-  buttonLogoutRef,
+  clickButtonLogout,
   auth,
   roles,
   structure,
@@ -32,11 +32,11 @@ const UserMenu = ({
         <ul className="fr-nav__list">
           <li className="fr-nav__item">
             <button
-              className="fr-btn fr-btn--tertiary fr-nav__btn fr-icon-arrow-down-s-fill fr-btn--icon-right"
+              className="fr-btn fr-btn--tertiary fr-nav__btn fr-px-2w button-user-menu fr-icon-arrow-down-s-fill fr-btn--icon-right"
               aria-expanded="false"
               aria-controls="menu-774"
             >
-              <i className="ri-account-circle-line  ri-xl fr-mr-1w" aria-controls="menu-774"></i>
+              <i className="ri-account-circle-line ri-xl fr-mr-1w" aria-controls="menu-774"></i>
               <span className="fr-text--md fr-text--bold">{user?.name}</span>
             </button>
             <div className="fr-collapse fr-menu" id="menu-774" style={{ top: '50%' }}>
@@ -72,9 +72,9 @@ const UserMenu = ({
                 <li>
                   {auth?.isAuthenticated ? (
                     <button
-                      ref={buttonLogoutRef}
                       className="fr-nav__link button-disconnect-auth"
                       href="#"
+                      onClick={clickButtonLogout}
                       target="_self"
                       style={{ display: 'flex', alignItems: 'center' }}
                     >
@@ -83,9 +83,9 @@ const UserMenu = ({
                     </button>
                   ) : (
                     <button
-                      ref={buttonLogoutRef}
                       className="fr-nav__link button-disconnect"
                       href="#"
+                      onClick={clickButtonLogout}
                       target="_self"
                       style={{ display: 'flex', alignItems: 'center' }}
                     >
@@ -97,7 +97,7 @@ const UserMenu = ({
                 {roles?.length > 1 && (
                   <li>
                     <p className="fr-nav__link fr-text--bold" href="#" target="_self">
-                    Mes r&ocirc;les
+                      Mes r&ocirc;les
                     </p>
                     {roles
                     .filter(role => role !== roleActivated)
@@ -129,7 +129,7 @@ UserMenu.propTypes = {
   onLogout: PropTypes.func,
   roleActivated: PropTypes.string,
   changeRoleActivated: PropTypes.func,
-  buttonLogoutRef: PropTypes.object,
+  clickButtonLogout: PropTypes.func,
   auth: PropTypes.object,
   roles: PropTypes.array,
   structure: PropTypes.object,

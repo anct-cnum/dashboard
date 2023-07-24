@@ -29,15 +29,15 @@ function FiltresEtTrisGestionnaires() {
     dispatch(exportsActions.exportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, ordreNom, ordre ? 1 : -1));
   };
 
-  const rechercheParNomGestionnaire = e => {
+  const rechercheParEmailGestionnaire = e => {
     dispatch(paginationActions.setPage(1));
     const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
     dispatch(filtresGestionnairesActions.changeNomGestionnaire(value));
   };
 
-  const rechercheParNomGestionnaireToucheEnter = e => {
+  const rechercheParEmailGestionnaireToucheEnter = e => {
     if (e.key === 'Enter') {
-      rechercheParNomGestionnaire(e);
+      rechercheParEmailGestionnaire(e);
     }
   };
 
@@ -82,9 +82,9 @@ function FiltresEtTrisGestionnaires() {
           </div>
           <div className="fr-ml-auto fr-col-12 fr-col-md-5 fr-mb-4w fr-mb-md-0">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
-              <input className="fr-input" onKeyDown={rechercheParNomGestionnaireToucheEnter} defaultValue={searchInput ?? ''}
-                placeholder="Rechercher par nom" type="search" id="search-input" name="search-input" />
-              <button className="fr-btn" onClick={rechercheParNomGestionnaire} title="Rechercher par nom">
+              <input className="fr-input" onKeyDown={rechercheParEmailGestionnaireToucheEnter} defaultValue={searchInput ?? ''}
+                placeholder="Rechercher par email" type="search" id="search-input" name="search-input" />
+              <button className="fr-btn" onClick={rechercheParEmailGestionnaire} title="Rechercher par email">
                 Rechercher
               </button>
             </div>

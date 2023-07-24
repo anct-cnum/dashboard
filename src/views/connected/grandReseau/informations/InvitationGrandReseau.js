@@ -72,7 +72,7 @@ export default function InvitationGrandReseau() {
                 {users && users?.map((user, idx) => {
                   return (
                     <tr key={idx}>
-                      <td>{user.name} - {user.passwordCreated ? <span>(actif)</span> : <span>(inactif)</span> }</td>
+                      <td>{user.name} - {user?.sub ? <span>(actif)</span> : <span>(inactif)</span> }</td>
                       <td>
                         <button title="Supprimer" onClick={() => deleteAccountAdmin(user._id, user.name)} className="fr-btn fr-icon-delete-line" />
                       </td>

@@ -3,8 +3,19 @@ import { menuActions } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
+import UserMenu from './UserMenu';
+import PropTypes from 'prop-types';
 
-function Menu() {
+function Menu(
+  {
+    user,
+    changeRoleActivated,
+    auth,
+    roles,
+    structure,
+    clickButtonLogout
+  }
+) {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -48,101 +59,112 @@ function Menu() {
   return (
     <div className={`fr-header__menu ${burgerMenuHidden ? 'fr-modal' : ''}`} id="modal-870" aria-labelledby="fr-btn-menu-mobile-4">
       <div className="fr-container">
+        <div className="fr-header__menu-links display-desktop"></div>
         <button className="fr-link--close fr-link" aria-controls="modal-870" onClick={toggleBurgerMenu}>Fermer</button>
-        <div className="fr-header__menu-links"></div>
+        {/Android|iPhone|iPad/i.test(navigator.userAgent) &&
+          <UserMenu
+            user={user}
+            roleActivated={roleActivated}
+            roles={roles}
+            changeRoleActivated={changeRoleActivated}
+            structure={structure}
+            auth={auth}
+            clickButtonLogout={clickButtonLogout}
+          />
+        }
         <nav className="fr-nav fr-display--none-lg" id="navigation-869" role="navigation" aria-label="Menu principal">
           <ul className="fr-nav__list">
             {roleActivated === 'structure' &&
-             <li className="fr-nav__item">
-               <Link
-                 to={`${roleActivated}/postes`}
-                 className="fr-nav__link"
-                 {...(location.pathname.startsWith(`/${roleActivated}/postes`) ? { 'aria-current': 'page' } : {})}>
-                      G&eacute;rer mes postes
-               </Link>
-             </li>
+              <li className="fr-nav__item">
+                <Link
+                  to={`${roleActivated}/postes`}
+                  className="fr-nav__link"
+                  {...(location.pathname.startsWith(`/${roleActivated}/postes`) ? { 'aria-current': 'page' } : {})}>
+                  G&eacute;rer mes postes
+                </Link>
+              </li>
             }
-            { roleActivated === 'admin' &&
-            <li className="fr-nav__item">
-              <button
-                id="listes-traitement-demandes"
-                className="fr-nav__btn"
-                aria-expanded={ activeMenu === 'listes-traitement-demandes' }
-                aria-controls="menu-listes-traitement-demandes"
-                // eslint-disable-next-line max-len
-                {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) ? { 'aria-current': 'page' } : {})}
-                onClick={onClickMenu}>
+            {roleActivated === 'admin' &&
+              <li className="fr-nav__item">
+                <button
+                  id="listes-traitement-demandes"
+                  className="fr-nav__btn"
+                  aria-expanded={activeMenu === 'listes-traitement-demandes'}
+                  aria-controls="menu-listes-traitement-demandes"
+                  // eslint-disable-next-line max-len
+                  {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) ? { 'aria-current': 'page' } : {})}
+                  onClick={onClickMenu}>
                   Traiter les demandes
-              </button>
-              <div
-                className={`fr-collapse fr-menu ${activeMenu === 'listes-traitement-demandes' ? 'fr-collapse--expanded' : ''}`}
-                id="menu-listes-traitement-demandes"
-              >
-                <ul className="fr-menu__list" style={{ width: '23rem' }}>
-                  <li>
-                    <Link className="fr-nav__link" to={`/${roleActivated}/demandes/conventions`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
-                      onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
-                    >
-                      Demandes de conventions &agrave; traiter
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="fr-nav__link" to={`/${roleActivated}/historique/demandes/conventions`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
-                      onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
-                    >
-                      Historique des demandes de conventions trait&eacute;es
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="fr-nav__link" to={`/${roleActivated}/demandes/contrats`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/demandes/contrats`) ? { 'aria-current': 'page' } : {})}>
-                      Demandes de contrats &agrave; traiter
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="fr-nav__link" to={`/${roleActivated}/historique/demandes/contrats`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) ? { 'aria-current': 'page' } : {})}>
-                      Historique des demandes de contrats trait&eacute;es
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </li>
+                </button>
+                <div
+                  className={`fr-collapse fr-menu ${activeMenu === 'listes-traitement-demandes' ? 'fr-collapse--expanded' : ''}`}
+                  id="menu-listes-traitement-demandes"
+                >
+                  <ul className="fr-menu__list" style={{ width: '23rem' }}>
+                    <li>
+                      <Link className="fr-nav__link" to={`/${roleActivated}/demandes/conventions`}
+                        {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
+                        onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
+                      >
+                        Demandes de conventions &agrave; traiter
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="fr-nav__link" to={`/${roleActivated}/historique/demandes/conventions`}
+                        {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
+                        onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
+                      >
+                        Historique des demandes de conventions trait&eacute;es
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="fr-nav__link" to={`/${roleActivated}/demandes/contrats`}
+                        {...(location.pathname.startsWith(`/${roleActivated}/demandes/contrats`) ? { 'aria-current': 'page' } : {})}>
+                        Demandes de contrats &agrave; traiter
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="fr-nav__link" to={`/${roleActivated}/historique/demandes/contrats`}
+                        {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) ? { 'aria-current': 'page' } : {})}>
+                        Historique des demandes de contrats trait&eacute;es
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </li>
             }
             <li className="fr-nav__item">
               <button
                 id="listes"
                 className="fr-nav__btn"
-                aria-expanded={ activeMenu === 'listes' }
+                aria-expanded={activeMenu === 'listes'}
                 aria-controls="menu-listes"
                 // eslint-disable-next-line max-len
                 {...(location.pathname.startsWith(`/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) || location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
-                  Suivis
+                Suivis
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'listes' ? 'fr-collapse--expanded' : ''}`} id="menu-listes">
                 <ul className="fr-menu__list">
-                  { roleActivated === 'structure' &&
-                  <li>
-                    <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}
-                      onClick={() => trackEvent({ category: 'liste-candidatures', action: `click-${roleActivated}` })}
-                    >
-                      Liste des candidatures
-                    </Link>
-                  </li>
+                  {roleActivated === 'structure' &&
+                    <li>
+                      <Link className="fr-nav__link" to={`/${roleActivated}/candidats/nouvelle`}
+                        {...(location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) ? { 'aria-current': 'page' } : {})}
+                        onClick={() => trackEvent({ category: 'liste-candidatures', action: `click-${roleActivated}` })}
+                      >
+                        Liste des candidatures
+                      </Link>
+                    </li>
                   }
-                  { roleActivated === 'admin' &&
-                  <li>
-                    <Link className="fr-nav__link" to={`/${roleActivated}/liste-candidatures`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/liste-candidatures`) ? { 'aria-current': 'page' } : {})}
-                      onClick={() => trackEvent({ category: 'liste-candidatures', action: `click-${roleActivated}` })}
-                    >
-                      Liste des candidatures
-                    </Link>
-                  </li>
+                  {roleActivated === 'admin' &&
+                    <li>
+                      <Link className="fr-nav__link" to={`/${roleActivated}/liste-candidatures`}
+                        {...(location.pathname.startsWith(`/${roleActivated}/liste-candidatures`) ? { 'aria-current': 'page' } : {})}
+                        onClick={() => trackEvent({ category: 'liste-candidatures', action: `click-${roleActivated}` })}
+                      >
+                        Liste des candidatures
+                      </Link>
+                    </li>
                   }
                   <li>
                     <Link className="fr-nav__link" to="liste-conseillers"
@@ -153,24 +175,24 @@ function Menu() {
                     </Link>
                   </li>
                   {roleActivated !== 'structure' &&
-                  <li>
-                    <Link className="fr-nav__link" to={`/liste-structures`}
-                      {...(location.pathname.startsWith(`/liste-structures`) ? { 'aria-current': 'page' } : {})}
-                      onClick={() => trackEvent({ category: 'liste-structures', action: `click-${roleActivated}` })}
-                    >
-                      Liste des structures
-                    </Link>
-                  </li>
+                    <li>
+                      <Link className="fr-nav__link" to={`/liste-structures`}
+                        {...(location.pathname.startsWith(`/liste-structures`) ? { 'aria-current': 'page' } : {})}
+                        onClick={() => trackEvent({ category: 'liste-structures', action: `click-${roleActivated}` })}
+                      >
+                        Liste des structures
+                      </Link>
+                    </li>
                   }
-                  { roleActivated === 'admin' &&
-                  <li>
-                    <Link className="fr-nav__link" to={`/${roleActivated}/liste-gestionnaires`}
-                      {...(location.pathname.startsWith(`/${roleActivated}/liste-gestionnaires`) ? { 'aria-current': 'page' } : {})}
-                      onClick={() => trackEvent({ category: 'liste-gestionnaires', action: `click-${roleActivated}` })}
-                    >
-                      Liste des gestionnaires
-                    </Link>
-                  </li>
+                  {roleActivated === 'admin' &&
+                    <li>
+                      <Link className="fr-nav__link" to={`/${roleActivated}/liste-gestionnaires`}
+                        {...(location.pathname.startsWith(`/${roleActivated}/liste-gestionnaires`) ? { 'aria-current': 'page' } : {})}
+                        onClick={() => trackEvent({ category: 'liste-gestionnaires', action: `click-${roleActivated}` })}
+                      >
+                        Liste des gestionnaires
+                      </Link>
+                    </li>
                   }
                 </ul>
               </div>
@@ -179,10 +201,10 @@ function Menu() {
               <button
                 id="statistiques"
                 className="fr-nav__btn"
-                aria-expanded={ activeMenu === 'statistiques' }
+                aria-expanded={activeMenu === 'statistiques'}
                 aria-controls="menu-statistiques"
                 onClick={onClickMenu}>
-                  Statistiques
+                Statistiques
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'statistiques' ? 'fr-collapse--expanded' : ''}`} id="menu-statistiques">
                 <ul className="fr-menu__list">
@@ -195,24 +217,24 @@ function Menu() {
                   <li>
                     <Link className="fr-nav__link" to="/statistiques-territoires"
                       {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}>
-                        &bull;&nbsp;Statistiques territoriales du dispositif
+                      &bull;&nbsp;Statistiques territoriales du dispositif
                     </Link>
                   </li>
                   {roleActivated === 'structure' &&
-                  <li>
-                    <Link className="fr-nav__link" to={`/statistiques-structure/${authenticationUser}`}
-                      {...(location.pathname.startsWith(`/statistiques-structure`) ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Mes statistiques structure
-                    </Link>
-                  </li>
+                    <li>
+                      <Link className="fr-nav__link" to={`/statistiques-structure/${authenticationUser}`}
+                        {...(location.pathname.startsWith(`/statistiques-structure`) ? { 'aria-current': 'page' } : {})}>
+                        &bull;&nbsp;Mes statistiques structure
+                      </Link>
+                    </li>
                   }
                   {roleActivated === 'grandReseau' &&
-                  <li>
-                    <Link className="fr-nav__link" to={`/statistiques-pilotage`}
-                      {...(location.pathname.startsWith(`/statistiques-pilotage`) ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Mes statistiques de pilotage
-                    </Link>
-                  </li>
+                    <li>
+                      <Link className="fr-nav__link" to={`/statistiques-pilotage`}
+                        {...(location.pathname.startsWith(`/statistiques-pilotage`) ? { 'aria-current': 'page' } : {})}>
+                        &bull;&nbsp;Mes statistiques de pilotage
+                      </Link>
+                    </li>
                   }
                 </ul>
               </div>
@@ -229,11 +251,11 @@ function Menu() {
               <button
                 id="recrutement"
                 className="fr-nav__btn"
-                aria-expanded={ activeMenu === 'recrutement' }
+                aria-expanded={activeMenu === 'recrutement'}
                 aria-controls="menu-recrutement"
                 {...(location.pathname.startsWith(`/certifications`) || location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}
                 onClick={onClickMenu}>
-                  Formation / Certification
+                Formation / Certification
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'recrutement' ? 'fr-collapse--expanded' : ''}`} id="menu-recrutement">
                 <ul className="fr-menu__list">
@@ -250,7 +272,7 @@ function Menu() {
                       className="fr-nav__link"
                       to="/certifications"
                       {...(location.pathname.startsWith(`/certifications`) ? { 'aria-current': 'page' } : {})}>
-                        &bull;&nbsp;Certifications
+                      &bull;&nbsp;Certifications
                     </Link>
                   </li>
                 </ul>
@@ -261,17 +283,17 @@ function Menu() {
                 to={`/documents`}
                 className="fr-nav__link"
                 {...(location.pathname.startsWith(`/documents`) ? { 'aria-current': 'page' } : {})}>
-                  Documents
+                Documents
               </Link>
             </li>
             <li className="fr-nav__item">
               <button
                 id="aide"
                 className="fr-nav__btn"
-                aria-expanded={ activeMenu === 'aide' }
+                aria-expanded={activeMenu === 'aide'}
                 aria-controls="menu-aide"
                 onClick={onClickMenu}>
-                  Aide
+                Aide
               </button>
               <div className={`fr-collapse fr-menu ${activeMenu === 'aide' ? 'fr-collapse--expanded' : ''}`} id="menu-aide">
                 <ul className="fr-menu__list">
@@ -294,5 +316,15 @@ function Menu() {
     </div>
   );
 }
+
+Menu.propTypes = {
+  user: PropTypes.object,
+  onLogout: PropTypes.func,
+  changeRoleActivated: PropTypes.func,
+  clickButtonLogout: PropTypes.func,
+  auth: PropTypes.object,
+  roles: PropTypes.array,
+  structure: PropTypes.object,
+};
 
 export default Menu;

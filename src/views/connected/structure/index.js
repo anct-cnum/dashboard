@@ -25,8 +25,40 @@ export default function Structure() {
         <div className="fr-grid-row fr-grid-row--center fr-my-15w">
           <div className="fr-col--offset-1 fr-col-10">
             <h3>Bienvenue sur votre tableau de pilotage,</h3>
-            <p>Cet espace vous permet de visualiser l&rsquo;ensemble des informations des CnFS que vous coordonnez ainsi que celles de leur structure,
-              de t&eacute;l&eacute;charger les donn&eacute;es statistiques des CnFS ou encore consulter toute la documentation li&eacute;e au dispositif.</p>
+            <p>Nous sommes ravis de vous accueillir sur votre nouvel espace de pilotage.</p>
+            <p>
+              Pour g&eacute;rer au mieux le dispositif Conseiller num&eacute;rique au sein de votre structure, vous avez besoin d&rsquo;indicateurs
+              et d&rsquo;informations cl&eacute;s pour suivre et piloter l&rsquo;activité des conseillers num&eacute;rique.
+              C&rsquo;est pourquoi votre espace change et &eacute;volue&nbsp;!
+            </p>
+            <div>
+              Il permet de&nbsp;:
+              <ul>
+                <li>S&eacute;lectionner des candidatures</li>
+                <li>D&rsquo;acc&eacute;der &agrave; votre compte D&eacute;marches Simplifi&eacute;es</li>
+                <li>D&eacute;clarer un changement de situation pour un conseiller (ex&nbsp;: rupture de contrat)</li>
+                <li>Faire une demande de re conventionnement</li>
+                <li>Faire une demande de renouvellement de contrat</li>
+                <li>Visualiser les statistiques des conseillers et celles de votre structure</li>
+              </ul>
+              Et bien plus encore...
+            </div>
+            <br/>
+            <p><b>Vous avez des questions&nbsp;?</b></p>
+            <div>
+              L&rsquo;&eacute;quipe d&rsquo;animation se tient &agrave; votre disposition&nbsp;:
+              <br/>
+              <ul>
+                <li>Par t&eacute;l&eacute;phone au num&eacute;ro suivant&nbsp;:
+                  <b> 01 58 50 89 42 </b>du <b>lundi</b> au <b>jeudi</b> de <b>09h30 &agrave; 12h00</b> et le <b>mercredi de 14h00 &agrave; 16h00.</b></li>
+                <li>Par email à l&rsquo;adresse&nbsp;: <a
+                  className="fr-link"
+                  href="mailto:conseiller-numerique@anct.gouv.fr"
+                  title="conseiller-numerique@anct.gouv.fr">
+                    conseiller-numerique@anct.gouv.fr</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       }

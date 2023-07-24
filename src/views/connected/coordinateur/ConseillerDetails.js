@@ -19,7 +19,7 @@ function ConseillerDetails() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
-  const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState([]);
+  const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
 
   useEffect(() => {
