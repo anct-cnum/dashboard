@@ -139,7 +139,6 @@ function FiltresEtTrisConseillersPrefet() {
           </div>
           <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-3 fr-mr-4w" id="filtre-region">
             <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
-              <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
               {getRegions().map((region, idx) =>
                 <option key={idx} value={region.code}>{region.nom}</option>
               )}
@@ -147,7 +146,9 @@ function FiltresEtTrisConseillersPrefet() {
           </div>
           <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-3" id="filtre-departement">
             <select className="fr-select" value={filterDepartement} onChange={selectFiltreDepartement}>
-              <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
+              {userAuth?.region &&
+                <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
+              }
               {getDepartements().map((departement, idx) =>
                 <option key={idx} value={departement.num_dep}>{departement.num_dep} - {departement.dep_name}</option>
               )}
