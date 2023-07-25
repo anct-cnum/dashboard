@@ -1,7 +1,7 @@
 const initialState = {
   codePostalStats: 'tous',
   villeStats: 'tous',
-  codeCommuneStats: '',
+  codeCommuneStats: null,
   listeAutresReorientations: [],
   error: false,
   errorTerritoire: false,

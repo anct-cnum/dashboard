@@ -120,6 +120,7 @@ export default function GraphiqueConseiller() {
               id={idConseiller}
               codePostal={codePostal}
               ville={villeStats}
+              codeCommune={codeCommuneStats}
               nom={conseiller.nom}
               prenom={conseiller.prenom}
             />
