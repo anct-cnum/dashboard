@@ -79,19 +79,19 @@ function Menu(
         <nav className="fr-nav fr-display--none-lg" id="navigation-869" role="navigation" aria-label="Menu principal">
           <ul className="fr-nav__list">
             {roleActivated === 'admin' &&
-              <MenuAdmin onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} roleActivated={roleActivated} />
+              <MenuAdmin onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} />
             }
             {roleActivated === 'structure' &&
-              <MenuStructure onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} roleActivated={roleActivated} />
+              <MenuStructure onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} />
             }
             {roleActivated === 'prefet' &&
-              <MenuPrefet onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} roleActivated={roleActivated} />
+              <MenuPrefet onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} />
             }
             {roleActivated === 'grandReseau' &&
-              <MenuGrandReseau onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} roleActivated={roleActivated} />
+              <MenuGrandReseau onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} />
             }
             {roleActivated === 'hub_coop' &&
-              <MenuHub onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} roleActivated={roleActivated} />
+              <MenuHub onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} />
             }
             <li className="fr-nav__item">
               <Link

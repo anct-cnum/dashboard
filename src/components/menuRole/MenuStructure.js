@@ -1,9 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function MenuStructure(onClickMenu, activeMenu, trackEvent, roleActivated) {
+function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
   const authenticationUser = useSelector(state => state.authentication?.user?.entity?.$id);
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   return (
     <>
@@ -49,13 +51,12 @@ export default function MenuStructure(onClickMenu, activeMenu, trackEvent, roleA
       </li>
       <li className="fr-nav__item">
         <button
-          disabled
           id="coordination-territoriale"
           className="fr-nav__btn"
           aria-expanded={activeMenu === 'coordination-territoriale'}
           aria-controls="menu-coordination-territoriale"
           // eslint-disable-next-line max-len
-          {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) ? { 'aria-current': 'page' } : {})}
+          {...(location.pathname.startsWith(`/${roleActivated}/recrutement-coordinateur`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
           Coordination territoriale
         </button>
@@ -65,9 +66,8 @@ export default function MenuStructure(onClickMenu, activeMenu, trackEvent, roleA
         >
           <ul className="fr-menu__list" style={{ width: '23rem' }}>
             <li>
-              <Link className="fr-nav__link" to="liste-conseillers"
-                {...(location.pathname.startsWith(`/liste-conseillers`) ? { 'aria-current': 'page' } : {})}
-                onClick={() => trackEvent({ category: 'liste-conseillers', action: `click-${roleActivated}` })}
+              <Link className="fr-nav__link" to={`/${roleActivated}/recrutement-coordinateur`}
+                {...(location.pathname.startsWith(`/${roleActivated}/recrutement-coordinateur`) ? { 'aria-current': 'page' } : {})}
               >
                 Recrutement d&rsquo;un coordinateur
               </Link>
@@ -120,3 +120,11 @@ export default function MenuStructure(onClickMenu, activeMenu, trackEvent, roleA
     </>
   );
 }
+
+MenuStructure.propTypes = {
+  onClickMenu: PropTypes.func,
+  activeMenu: PropTypes.string,
+  trackEvent: PropTypes.func,
+};
+
+export default MenuStructure;

@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function MenuHub(onClickMenu, activeMenu, trackEvent, roleActivated) {
+function MenuHub({ onClickMenu, activeMenu, trackEvent }) {
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   return (
     <>
@@ -66,3 +69,11 @@ export default function MenuHub(onClickMenu, activeMenu, trackEvent, roleActivat
     </>
   );
 }
+
+MenuHub.propTypes = {
+  onClickMenu: PropTypes.func,
+  activeMenu: PropTypes.string,
+  trackEvent: PropTypes.func,
+};
+
+export default MenuHub;

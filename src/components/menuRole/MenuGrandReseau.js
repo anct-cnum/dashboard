@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function MenuGrandReseau(onClickMenu, activeMenu, trackEvent, roleActivated) {
+function MenuGrandReseau({ onClickMenu, activeMenu, trackEvent }) {
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   return (
     <>
@@ -72,3 +75,11 @@ export default function MenuGrandReseau(onClickMenu, activeMenu, trackEvent, rol
     </>
   );
 }
+
+MenuGrandReseau.propTypes = {
+  onClickMenu: PropTypes.func,
+  activeMenu: PropTypes.string,
+  trackEvent: PropTypes.func,
+};
+
+export default MenuGrandReseau;

@@ -13,6 +13,7 @@ import MaStructure from './MaStructure';
 import PreselectionCandidatDetails from './candidatures/PreselectionCandidatDetails';
 import PreselectionConseillerDetails from './candidatures/PreselectionConseillerDetails';
 import CandidatureConseillerDetails from './candidatures/CandidatureConseillerDetails';
+import RecrutementCoordinateur from './RecrutementCoordinateur';
 
 export default function Structure() {
 
@@ -66,6 +67,7 @@ export default function Structure() {
         <Route path="/structure/informations" element={<MesInformations />} />
         <Route path="/structure/ma-structure" element={<MaStructure />} />
         <Route path="/structure/postes" element={<MesPostes />} />
+        <Route path="/structure/recrutement-coordinateur" element={<RecrutementCoordinateur />} />
         <Route path="/structure/demande-de-reconventionnement" element={<DemandeReco />} />
         <Route path="/structure/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/structure/candidats/:filter" element={<Candidatures />} /> {/* Routes spécifiques avec /structure */}
