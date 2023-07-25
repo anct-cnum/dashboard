@@ -36,12 +36,6 @@ function Header() {
     navigate('/');
   };
 
-  useEffect(() => {
-    if (user?.entity?.$ref === 'structures' && location.pathname !== '/structure') {
-      dispatch(structureActions.get(user?.entity?.$id));
-    }
-  }, [user]);
-
   return (
     <header role="banner" className="fr-header">
       <div className="fr-header__body">
