@@ -35,20 +35,24 @@ function MenuAdmin({ onClickMenu, activeMenu, trackEvent }) {
             <li>
               <Link className="fr-nav__link" to={`/${roleActivated}/historique/demandes/conventions`}
                 {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
-                onClick={() => trackEvent({ category: 'demande-conventions', action: `click-${roleActivated}` })}
+                onClick={() => trackEvent({ category: 'historique-demande-conventions', action: `click-${roleActivated}` })}
               >
                 Historique des demandes de conventions trait&eacute;es
               </Link>
             </li>
             <li>
               <Link className="fr-nav__link" to={`/${roleActivated}/demandes/contrats`}
-                {...(location.pathname.startsWith(`/${roleActivated}/demandes/contrats`) ? { 'aria-current': 'page' } : {})}>
+                {...(location.pathname.startsWith(`/${roleActivated}/demandes/contrats`) ? { 'aria-current': 'page' } : {})}
+                onClick={() => trackEvent({ category: 'demande-contrats', action: `click-${roleActivated}` })}
+              >
                 Demandes de contrats &agrave; traiter
               </Link>
             </li>
             <li>
               <Link className="fr-nav__link" to={`/${roleActivated}/historique/demandes/contrats`}
-                {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) ? { 'aria-current': 'page' } : {})}>
+                {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) ? { 'aria-current': 'page' } : {})}
+                onClick={() => trackEvent({ category: 'historique-demande-contrats', action: `click-${roleActivated}` })}
+              >
                 Historique des demandes de contrats trait&eacute;es
               </Link>
             </li>
@@ -116,13 +120,17 @@ function MenuAdmin({ onClickMenu, activeMenu, trackEvent }) {
           <ul className="fr-menu__list">
             <li>
               <Link className="fr-nav__link" to={`/statistiques-nationales`}
-                {...(location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}>
+                {...(location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}
+                onClick={() => trackEvent({ category: 'statistiques-nationales', action: `click-${roleActivated}` })}
+              >
                 &bull;&nbsp;Statistiques nationales du dispositif
               </Link>
             </li>
             <li>
               <Link className="fr-nav__link" to="/statistiques-territoires"
-                {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}>
+                {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
+                onClick={() => trackEvent({ category: 'statistiques-territoriales', action: `click-${roleActivated}` })}
+              >
                 &bull;&nbsp;Statistiques territoriales du dispositif
               </Link>
             </li>
