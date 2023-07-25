@@ -82,8 +82,6 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
           className="fr-nav__btn"
           aria-expanded={activeMenu === 'coordination-territoriale'}
           aria-controls="menu-coordination-territoriale"
-          // eslint-disable-next-line max-len
-          {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
           Coordination territoriale
         </button>
@@ -96,8 +94,8 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://beta.www.conseiller-numerique.gouv.fr/coordination-territoriale"
-                className="fr-nav__link external-link"
+                href="https://www.conseiller-numerique.gouv.fr/coordination-territoriale"
+                className="fr-nav__link"
               >
                 Les missions et la cartographie des coordinateurs
               </a>
