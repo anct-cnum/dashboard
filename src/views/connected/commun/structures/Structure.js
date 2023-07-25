@@ -17,6 +17,7 @@ function Structure({ structure }) {
         <td>{structure?.contact?.nom}</td>
         <td>{structure?.contact?.prenom}</td>
         <td colSpan="12" style={{ width: '20rem' }}>{structure?.contact?.email}</td>
+        <td>{structure?.conseillersRecruter}/{structure?.posteValiderCoselec}</td>
         <td>
           <div className="btn-actions-structures">
             <button

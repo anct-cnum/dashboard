@@ -7,6 +7,7 @@ import Structure from './Structure';
 import FiltresEtTrisStructures from './FiltresEtTrisStructures';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
+import FiltresEtTrisStructuresPrefet from '../../prefet/FiltresEtTrisStructuresPrefet';
 
 export default function TableauStructures() {
 
@@ -17,6 +18,7 @@ export default function TableauStructures() {
   const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresStructures?.ordre);
   const ordreNom = useSelector(state => state.filtresStructures?.ordreNom);
+  const role = useSelector(state => state.authentication?.roleActivated);
   const loading = useSelector(state => state.structure?.loading);
   const error = useSelector(state => state.structure?.error);
   const structures = useSelector(state => state.structure);
@@ -68,7 +70,7 @@ export default function TableauStructures() {
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <FiltresEtTrisStructures />
+            {role === 'prefet' ? <FiltresEtTrisStructuresPrefet /> : <FiltresEtTrisStructures />}
             <div className="fr-container--fluid">
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
@@ -104,6 +106,7 @@ export default function TableauStructures() {
                           <th>Nom</th>
                           <th>Pr&eacute;nom</th>
                           <th colSpan={structures?.items?.total > 0 ? '12' : ''}>Email</th>
+                          <th>Candidats recrut&eacute;s</th>
                           <th></th>
                         </tr>
                       </thead>
