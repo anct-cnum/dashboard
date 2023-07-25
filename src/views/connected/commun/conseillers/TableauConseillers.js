@@ -7,6 +7,7 @@ import Conseiller from './Conseiller';
 import FiltresEtTrisConseillers from './FiltresEtTrisConseillers';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
+import FiltresEtTrisConseillersPrefet from '../../prefet/FiltresEtTrisConseillersPrefet';
 
 export default function TableauConseillers() {
 
@@ -15,6 +16,7 @@ export default function TableauConseillers() {
   const [page, setPage] = useState(location.state?.currentPage);
 
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
+  const role = useSelector(state => state.authentication?.roleActivated);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresConseillers?.ordre);
   const [basculerFiltreRupture, setBasculerFiltreRupture] = useState(false);
@@ -31,7 +33,7 @@ export default function TableauConseillers() {
   const filterDepartement = useSelector(state => state.filtresConseillers?.departement);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
-  
+
   const filtreClick = e => {
     if (e.target?.id === 'coordinateur') {
       setBasculerFiltreCoordinateur(!basculerFiltreCoordinateur);
@@ -70,7 +72,7 @@ export default function TableauConseillers() {
       dispatch(conseillerActions.getAllRecruter(currentPage, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
         filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
     }
-  // eslint-disable-next-line max-len
+    // eslint-disable-next-line max-len
   }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filterDepartement, filtreParNomStructure]);
 
   useEffect(() => {
@@ -101,7 +103,9 @@ export default function TableauConseillers() {
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <FiltresEtTrisConseillers />
+            {role === 'prefet' ?
+              <FiltresEtTrisConseillersPrefet /> : <FiltresEtTrisConseillers />
+            }
             <div className="fr-container--fluid">
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
