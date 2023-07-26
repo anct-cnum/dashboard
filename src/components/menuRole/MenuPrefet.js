@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const urlSiteVitrine = process.env.REACT_APP_PUBLIC_HOSTNAME;
 
   return (
     <>
@@ -15,7 +16,6 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
           className="fr-nav__btn"
           aria-expanded={activeMenu === 'listes-traitement-demandes'}
           aria-controls="menu-listes-traitement-demandes"
-          // eslint-disable-next-line max-len
           {...(location.pathname.startsWith(`/${roleActivated}/demandes/coordinateurs`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
           Traiter les demandes
@@ -86,7 +86,7 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://www.conseiller-numerique.gouv.fr/coordination-territoriale"
+                href={`${urlSiteVitrine}/coordination-territoriale`}
                 className="fr-nav__link"
               >
                 Les missions et la cartographie des coordinateurs

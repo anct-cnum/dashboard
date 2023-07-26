@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
   const authenticationUser = useSelector(state => state.authentication?.user?.entity?.$id);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const urlSiteVitrine = process.env.REACT_APP_PUBLIC_HOSTNAME;
 
   return (
     <>
@@ -76,6 +77,7 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
+                href={`${urlSiteVitrine}/coordination-territoriale`}
                 href="https://beta.www.conseiller-numerique.gouv.fr/coordination-territoriale"
                 className="fr-nav__link external-link"
               >
