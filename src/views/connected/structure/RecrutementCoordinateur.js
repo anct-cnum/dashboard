@@ -5,7 +5,7 @@ import Spinner from '../../../components/Spinner';
 
 function RecrutementCoordinateur() {
   const dispatch = useDispatch();
-  const userAuth = useSelector(state => state.authentication.user);
+  const userAuth = useSelector(state => state.authentication?.user);
   const structure = useSelector(state => state.structure?.structure);
   const loading = useSelector(state => state.structure?.loading);
   const errorStructure = useSelector(state => state.structure?.error);
