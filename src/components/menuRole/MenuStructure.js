@@ -56,7 +56,6 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
           className="fr-nav__btn"
           aria-expanded={activeMenu === 'coordination-territoriale'}
           aria-controls="menu-coordination-territoriale"
-          // eslint-disable-next-line max-len
           {...(location.pathname.startsWith(`/${roleActivated}/recrutement-coordinateur`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
           Coordination territoriale
