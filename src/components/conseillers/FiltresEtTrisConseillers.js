@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { exportsActions, filtresConseillersActions, paginationActions } from '../../../../actions';
-import Spinner from '../../../../components/Spinner';
-import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
-import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
-import codeRegions from '../../../../datas/code_region.json';
-import departementsRegionRaw from '../../../../datas/departements-region.json';
-import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
+import { exportsActions, filtresConseillersActions, paginationActions } from '../../actions';
+import Spinner from '../Spinner';
+import { downloadFile, scrollTopWindow } from '../../utils/exportsUtils';
+import BlockDatePickers from '../datePicker/BlockDatePickers';
+import codeRegions from '../../datas/code_region.json';
+import departementsRegionRaw from '../../datas/departements-region.json';
+import departementsRegionTomRaw from '../../datas/departements-region-tom.json';
 
 function FiltresEtTrisConseillers() {
   const dispatch = useDispatch();
@@ -117,14 +117,14 @@ function FiltresEtTrisConseillers() {
                 id="toggle-698"
               />
               <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
-              S&eacute;lectionner le type de recherche
+                S&eacute;lectionner le type de recherche
               </label>
             </div>
           </div>
         </div>
         <div className="fr-grid-row fr-grid-row--end">
           <div className="date-picker fr-mb-4w fr-mt-1w fr-grid-row">
-            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
           </div>
           <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-3 fr-mr-4w" id="filtre-region">
             <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>

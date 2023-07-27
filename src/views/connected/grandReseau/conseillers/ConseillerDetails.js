@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { conseillerActions, structureActions, alerteEtSpinnerActions } from '../../../actions';
-import { formatNomConseiller } from '../../../utils/formatagesUtils';
-import Spinner from '../../../components/Spinner';
-import InformationConseiller from '../../../components/InformationConseiller';
-import StructureContactCards from '../../../components/cards/StructureContactCards';
+import { conseillerActions, structureActions, alerteEtSpinnerActions } from '../../../../actions';
+import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import Spinner from '../../../../components/Spinner';
+import InformationConseiller from '../../../../components/InformationConseiller';
+import StructureContactCards from '../../../../components/cards/StructureContactCards';
 
 function ConseillerDetails() {
 

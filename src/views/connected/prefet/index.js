@@ -6,6 +6,7 @@ import ConseillerDetails from './ConseillerDetails';
 import StructureDetails from './StructureDetails';
 import Page404 from '../Page404';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
+import TableauConseillers from './conseillers/TableauConseillers';
 
 export default function Prefet() {
 
@@ -27,6 +28,7 @@ export default function Prefet() {
       <Routes>
         <Route path="/prefet/informations" element={<MesInformations />} />
         <Route path="/prefet/structure/:idStructure" element={<StructureDetails />} />
+        <Route path="/prefet/liste-conseillers" element={<TableauConseillers />} />
         <Route path="/prefet/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/prefet/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />
