@@ -5,7 +5,7 @@ import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import TableStructure from '../../../../components/structures/TableStructure';
+import TableStructure from '../../../../components/structures/TableStructures';
 import FiltresEtTrisStructures from '../../../../components/structures/FiltresEtTrisStructures';
 
 export default function TableauStructures() {

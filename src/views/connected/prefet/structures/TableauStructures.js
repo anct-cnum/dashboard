@@ -6,7 +6,7 @@ import Pagination from '../../../../components/Pagination';
 import FiltresEtTrisStructures from './FiltresEtTrisStructures';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import TableStructure from '../../../../components/structures/TableStructure';
+import TableStructures from '../../../../components/structures/TableStructures';
 
 export default function TableauStructures() {
 
@@ -68,7 +68,7 @@ export default function TableauStructures() {
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
                   <div className="fr-table fr-col-12">
-                    <TableStructure
+                    <TableStructures
                       structures={structures}
                       loading={loading}
                       ordreNom={ordreNom}

@@ -4,7 +4,7 @@ import { filtresStructuresActions, paginationActions } from '../../actions';
 import Structure from './Structure';
 import PropTypes from 'prop-types';
 
-export function TableStructure({ structures, loading, error, ordreNom, ordre }) {
+export function TableStructures({ structures, loading, error, ordreNom, ordre }) {
 
   const dispatch = useDispatch();
 
@@ -68,7 +68,7 @@ export function TableStructure({ structures, loading, error, ordreNom, ordre }) 
   );
 }
 
-TableStructure.propTypes = {
+TableStructures.propTypes = {
   structures: PropTypes.array,
   loading: PropTypes.bool,
   error: PropTypes.string,
@@ -76,4 +76,4 @@ TableStructure.propTypes = {
   ordre: PropTypes.number,
 };
 
-export default TableStructure;
+export default TableStructures;
