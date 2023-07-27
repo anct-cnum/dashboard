@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import Exports from './Exports';
-import ConseillerDetails from './ConseillerDetails';
+import ConseillerDetails from './conseillers/ConseillerDetails';
 import StructureDetails from './StructureDetails';
 import Page404 from '../Page404';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
