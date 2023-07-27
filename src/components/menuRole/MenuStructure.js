@@ -77,7 +77,6 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 href={`${urlSiteVitrine}/coordination-territoriale`}
-                href="https://beta.www.conseiller-numerique.gouv.fr/coordination-territoriale"
                 className="fr-nav__link external-link"
               >
                 Les missions et la cartographie des coordinateurs
