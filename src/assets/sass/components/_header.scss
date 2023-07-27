@@ -7,4 +7,7 @@
       display: none;
     }
   }
+  [target=_blank]:after {
+    display: none;
+  }
 }
