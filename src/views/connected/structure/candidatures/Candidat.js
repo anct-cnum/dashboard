@@ -16,24 +16,25 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const downloadCV = () => {
-    dispatch(conseillerActions.getCurriculumVitae(miseEnRelation.conseillerObj?._id, miseEnRelation.conseillerObj));
+    dispatch(conseillerActions.getCurriculumVitae(miseEnRelation?.conseillerObj?._id, miseEnRelation?.conseillerObj));
   };
 
   return (
     <tr className="conseiller">
       <td>
         <strong className="fr-text--md fr-text--bold">
-          {miseEnRelation.conseillerObj ? formatNomConseiller(miseEnRelation.conseillerObj) : ''}
+          {miseEnRelation?.conseillerObj ? formatNomConseiller(miseEnRelation?.conseillerObj) : ''}
         </strong>
         <br />
         <span className="fr-text--regular fr-text--md">
-          ID - {miseEnRelation.conseillerObj.idPG ?? ''}
+          ID - {miseEnRelation?.conseillerObj?.idPG ?? ''}
         </span>
       </td>
-      <td>{miseEnRelation.conseillerObj?.dateDisponibilite ? dayjs(miseEnRelation.conseillerObj.dateDisponibilite).format('DD/MM/YYYY') : 'Non renseignée'}</td>
-      <td>{miseEnRelation.conseillerObj.codePostal}</td>
+      <td>{miseEnRelation?.conseillerObj?.dateDisponibilite ?
+        dayjs(miseEnRelation?.conseillerObj.dateDisponibilite).format('DD/MM/YYYY') : 'Non renseignée'}</td>
+      <td>{miseEnRelation?.conseillerObj?.codePostal}</td>
       <td style={{ display: 'flex', justifyContent: 'center' }}>
-        {(miseEnRelation.conseillerObj?.statut === 'RECRUTE' || miseEnRelation.conseillerObj?.statut === 'RUPTURE') &&
+        {(miseEnRelation?.conseillerObj?.statut === 'RECRUTE' || miseEnRelation?.conseillerObj?.statut === 'RUPTURE') &&
           <>
             <div
               data-tooltip-content="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
@@ -47,7 +48,7 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
         }
       </td>
       <td>
-        {miseEnRelation.conseillerObj?.pix?.partage &&
+        {miseEnRelation?.conseillerObj?.pix?.partage &&
           <>
             <div
               data-tooltip-content="A partag&eacute; ses r&eacute;sultats Pix"
@@ -60,28 +61,28 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
         }
       </td>
       <td>
-        {miseEnRelation.conseillerObj?.cv?.file && miseEnRelation.statut !== 'finalisee_non_disponible' &&
+        {miseEnRelation?.conseillerObj?.cv?.file && miseEnRelation?.statut !== 'finalisee_non_disponible' &&
           <button className="downloadCVBtn" onClick={downloadCV}>
             <img src={iconeTelechargement} alt="Télécharger le CV" style={{ height: '26px' }} />
           </button>
         }
-        {!miseEnRelation.conseillerObj?.cv?.file &&
+        {!miseEnRelation?.conseillerObj?.cv?.file &&
           <></>
         }
       </td>
-      <td>{displayBadgeStatutCandidat(miseEnRelation.statut)}</td>
+      <td>{displayBadgeStatutCandidat(miseEnRelation?.statut)}</td>
       <td>
-        {miseEnRelation.statut !== 'finalisee_non_disponible' ?
+        {miseEnRelation?.statut !== 'finalisee_non_disponible' ?
           <>
-            {(miseEnRelation.conseillerObj?.statut === 'RECRUTE' || miseEnRelation.conseillerObj?.statut === 'RUPTURE') ?
+            {(miseEnRelation?.conseillerObj?.statut === 'RECRUTE' || miseEnRelation?.conseillerObj?.statut === 'RUPTURE') ?
               <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
-                pathname: `/structure/candidature/conseiller/${miseEnRelation._id}`
+                pathname: `/structure/candidature/conseiller/${miseEnRelation?._id}`
               }}
               state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
                 D&eacute;tails
               </Link> :
               <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
-                pathname: `/structure/candidature/candidat/${miseEnRelation._id}`
+                pathname: `/structure/candidature/candidat/${miseEnRelation?._id}`
               }}
               state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
                 D&eacute;tails
