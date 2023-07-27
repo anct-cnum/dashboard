@@ -8,6 +8,7 @@ export const statistiquesService = {
   getTerritoire,
   getDatasStructures,
   getDatasTerritoires,
+  getDatasTerritoiresPrefet,
   getStatistiquesTerritoire,
   getStatistiquesStructure,
   getStatistiquesConseiller,
@@ -34,6 +35,13 @@ function getDatasStructures(dateDebut, dateFin, page) {
 function getDatasTerritoires(territoire, dateDebut, dateFin, page, nomOrdre, ordre) {
   return API.get(
     `${apiUrlRoot}/stats/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page)}&role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getDatasTerritoiresPrefet(territoire, dateDebut, dateFin, page, nomOrdre, ordre) {
+  return API.get(
+    `${apiUrlRoot}/stats/prefet/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page)}&role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

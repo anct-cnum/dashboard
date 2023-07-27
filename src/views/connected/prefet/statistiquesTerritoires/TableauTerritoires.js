@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, filtresEtTrisStatsActions, paginationActions, statistiquesActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
-import FiltresEtTris from './Components/tableaux/FiltresEtTrisTerritoires';
-import Territoire from './Components/tableaux/Territoire';
 import { useLocation } from 'react-router-dom';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import Territoire from './Territoire';
+import FiltresEtTrisTerritoires from '../../commun/statistiques/Components/tableaux/FiltresEtTrisTerritoires';
 
 export default function TableauTerritoires() {
 
@@ -38,7 +38,7 @@ export default function TableauTerritoires() {
 
   useEffect(() => {
     if (initTerritoire === true) {
-      dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, currentPage, ordreNom, ordre ? 1 : -1));
+      dispatch(statistiquesActions.getDatasTerritoiresPrefet(filtreTerritoire, dateDebut, dateFin, currentPage, ordreNom, ordre ? 1 : -1));
     }
   }, [dateDebut, dateFin, ordre, ordreNom, filtreTerritoire, currentPage]);
 
@@ -50,7 +50,7 @@ export default function TableauTerritoires() {
     }
     if (!error) {
       if (initTerritoire === false && page !== undefined) {
-        dispatch(statistiquesActions.getDatasTerritoires(filtreTerritoire, dateDebut, dateFin, page, ordreNom, ordre ? 1 : -1));
+        dispatch(statistiquesActions.getDatasTerritoiresPrefet(filtreTerritoire, dateDebut, dateFin, page, ordreNom, ordre ? 1 : -1));
         setInitTerritoire(true);
       }
     } else {
@@ -68,10 +68,10 @@ export default function TableauTerritoires() {
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <h1 className="titre">Statistiques par territoire</h1>
+            <h1 className="fr-h1 title">Statistiques par territoire</h1>
           </div>
           <div className="fr-col-12">
-            <FiltresEtTris/>
+            <FiltresEtTrisTerritoires />
             <div className="fr-container--fluid fr-mt-2w">
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
@@ -103,68 +103,33 @@ export default function TableauTerritoires() {
                               </span>
                             </button>
                           </th>
-                          <th data-id="personnesAccompagnees">
-                            <span data-id="personnesAccompagnees">CRA enregistr&eacute;s</span>
+                          <th>CRA</th>
+                          <th>Personnes accompagn&eacute;es</th>
+                          <th>
+                            <button id="posteValider" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Postes valid&eacute;s
+                                {(ordreNom !== 'posteValider' || ordreNom === 'posteValider' && ordre) &&
+                                  <i className="ri-arrow-down-s-line chevron icone"></i>
+                                }
+                                {(ordreNom === 'posteValider' && !ordre) &&
+                                  <i className="ri-arrow-up-s-line chevron icone"></i>
+                                }
+                              </span>
+                            </button>
                           </th>
                           <th>
-                            <span data-id="personnesAccompagnees">Personnes accompagn&eacute;es</span>
-                          </th>
-                          <th>
-                            <button data-id="nombreConseillersCoselec" className="filtre-btn" onClick={ordreColonne}>
-                              <span data-id="nombreConseillersCoselec">Dotation de conseillers
-                                { (ordreNom !== 'nombreConseillersCoselec' || ordreNom === 'nombreConseillersCoselec' && ordre) &&
-                                  <i data-id="nombreConseillersCoselec" className="ri-arrow-down-s-line chevron icone-2"></i>
+                            <button id="conseillersRecruter" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Conseillers recrut&eacute;s
+                                {(ordreNom !== 'conseillersRecruter' || ordreNom === 'conseillersRecruter' && ordre) &&
+                                  <i className="ri-arrow-down-s-line chevron icone"></i>
                                 }
-                                { (ordreNom === 'nombreConseillersCoselec' && !ordre) &&
-                                  <i data-id="nombreConseillersCoselec" className="ri-arrow-up-s-line chevron icone-2"></i>
+                                {(ordreNom === 'conseillersRecruter' && !ordre) &&
+                                  <i className="ri-arrow-up-s-line chevron icone"></i>
                                 }
                               </span>
                             </button>
                           </th>
-                          <th data-id="cnfsActives">
-                            <button data-id="cnfsActives" className="filtre-btn" onClick={ordreColonne}>
-                              <span data-id="cnfsActives">CnFS activ&eacute;s
-                                { (ordreNom !== 'cnfsActives' || ordreNom === 'cnfsActives' && ordre) &&
-                                  <i data-id="cnfsActives" className="ri-arrow-down-s-line chevron icone-2"></i>
-                                }
-                                { (ordreNom === 'cnfsActives' && !ordre) &&
-                                  <i data-id="cnfsActives" className="ri-arrow-up-s-line chevron icone-2"></i>
-                                }
-                              </span>
-                            </button>
-                          </th>
-                          <th data-id="cnfsInactives">
-                            <button data-id="cnfsInactives" className="filtre-btn" onClick={ordreColonne}>
-                              <span data-id="cnfsInactives">CnFS en attente d&rsquo;activation
-                                { (ordreNom !== 'cnfsInactives' || ordreNom === 'cnfsInactives' && ordre) &&
-                                  <i data-id="cnfsInactives" className="ri-arrow-down-s-line chevron icone-3"></i>
-                                }
-                                { (ordreNom === 'cnfsInactives' && !ordre) &&
-                                  <i data-id="cnfsInactives" className="ri-arrow-up-s-line chevron icone-3"></i>
-                                }
-                              </span>
-                            </button>
-                          </th>
-                          <th data-id="tauxActivation">
-                            { filtreTerritoire === 'codeRegion' &&
-                              <button className="filtre-btn">
-                                <span data-id="personnesAccompagnees">Taux d&rsquo;activation</span>
-                              </button>
-                            }
-                            { filtreTerritoire === 'codeDepartement' &&
-                              <button data-id="tauxActivation" className="filtre-btn" onClick={ordreColonne}>
-                                <span data-id="tauxActivation">Taux d&rsquo;activation
-                                  { (ordreNom !== 'tauxActivation' || ordreNom === 'tauxActivation' && ordre) &&
-                                    <i data-id="tauxActivation" className="ri-arrow-down-s-line chevron icone-2"></i>
-                                  }
-                                  { (ordreNom === 'tauxActivation' && !ordre) &&
-                                    <i data-id="tauxActivation" className="ri-arrow-up-s-line chevron icone-2"></i>
-                                  }
-                                </span>
-                              </button>
-                            }
-                          </th>
-                          <th>Afficher</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -172,10 +137,14 @@ export default function TableauTerritoires() {
                           return (<Territoire key={idx} territoire={territoire} filtreTerritoire={filtreTerritoire} />);
                         })
                         }
-                        { (!territoires?.items || territoires?.items?.total === 0) &&
+                        {(!territoires?.items || territoires?.items?.total === 0) &&
                           <tr>
-                            <td colSpan="9" className="not-found pair">
-                              {filtreTerritoire === 'codeDepartement' ? `Aucun département ` : 'Aucune région ' } trouv&eacute;
+                            <td colSpan="12" style={{ width: '75rem' }}>
+                              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <span className="not-found pair">
+                                  {filtreTerritoire === 'codeDepartement' ? `Aucun département ` : 'Aucune région ' } trouv&eacute;
+                                </span>
+                              </div>
                             </td>
                           </tr>
                         }
@@ -183,7 +152,9 @@ export default function TableauTerritoires() {
                     </table>
                   </div>
                 </div>
-                <Pagination />
+                {territoires?.items?.total !== 0 &&
+                  <Pagination />
+                }
               </div>
             </div>
           </div>
