@@ -3,9 +3,10 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import Exports from './Exports';
 import ConseillerDetails from './ConseillerDetails';
-import StructureDetails from './StructureDetails';
+import StructureDetails from './structures/StructureDetails';
 import Page404 from '../Page404';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
+import TableauStructures from './structures/TableauStructures';
 
 export default function GrandReseau() {
 
@@ -25,6 +26,7 @@ export default function GrandReseau() {
       }
       <Routes>
         <Route path="/grandReseau/informations" element={<MesInformations />} />
+        <Route path="/grandReseau/liste-structures" element={<TableauStructures />} />
         <Route path="/grandReseau/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/grandReseau/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/grandReseau/exports" element={<Exports />} />

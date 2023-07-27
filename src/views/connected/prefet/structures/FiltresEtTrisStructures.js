@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { exportsActions, filtresStructuresActions, paginationActions, structureActions } from '../../../actions';
-import Spinner from '../../../components/Spinner';
-import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
-import BlockDatePickers from '../../../components/datePicker/BlockDatePickers';
-import codeRegionsRaw from '../../../datas/code_region.json';
-import departementsRegionRaw from '../../../datas/departements-region.json';
-import departementsRegionTomRaw from '../../../datas/departements-region-tom.json';
+import { exportsActions, filtresStructuresActions, paginationActions, structureActions } from '../../../../actions';
+import Spinner from '../../../../components/Spinner';
+import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
+import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
+import codeRegionsRaw from '../../../../datas/code_region.json';
+import departementsRegionRaw from '../../../../datas/departements-region.json';
+import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
 
-function FiltresEtTrisStructuresPrefet() {
+function FiltresEtTrisStructures() {
   const dispatch = useDispatch();
   const departementsRegionArray = Array.from(departementsRegionRaw);
   const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
@@ -185,4 +185,4 @@ function FiltresEtTrisStructuresPrefet() {
   );
 }
 
-export default FiltresEtTrisStructuresPrefet;
+export default FiltresEtTrisStructures;
