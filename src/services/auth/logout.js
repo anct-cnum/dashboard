@@ -8,7 +8,7 @@ const signOut = async () => {
   localStorage.removeItem('user');
   localStorage.removeItem('roleActivated');
   try {
-    await axios.post(`${apiUrlRoot}/logout`, {
+    await axios.post(`${apiUrlRoot}/logout`, {}, {
       withCredentials: true,
     });
   } catch (error) {
