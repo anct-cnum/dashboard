@@ -31,13 +31,13 @@ function RecrutementCoordinateur() {
       <p className="fr-mt-6w" style={{ width: '65%' }}>
         <strong>
           Pour accueillir un conseiller num&eacute;rique coordinateur, plusieurs &eacute;tapes vous attendent.
-          Chacune d&rsquo;entres elles est d&eacute;taill&eacute;e ci-dessous :
+          Chacune d&rsquo;entre elles est d&eacute;taill&eacute;e ci-dessous :
         </strong>
       </p>
       <ol>
         <li className="fr-mb-2w" style={{ width: '68%' }}>
           Compl&eacute;ter le formulaire de motivation de votre candidature sur D&eacute;marches simplifi&eacute;es en cliquant
-          sur le bouton &laquo; Compl&eacute;ter le formulaire de motivation &raquo;. Celui ci permettra au pr&eacute;fet de
+          sur le bouton &laquo; Compl&eacute;ter le formulaire de motivation &raquo;. Celui-ci permettra au pr&eacute;fet de
           donner un avis et &agrave; l&rsquo;ANCT de valider ou refuser votre demande.
         </li>
         <li className="fr-mb-2w">

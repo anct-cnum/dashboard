@@ -12,7 +12,6 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
       <li className="fr-nav__item">
         <button
           id="listes-traitement-demandes"
-          disabled
           className="fr-nav__btn"
           aria-expanded={activeMenu === 'listes-traitement-demandes'}
           aria-controls="menu-listes-traitement-demandes"
