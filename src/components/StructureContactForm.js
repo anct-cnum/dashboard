@@ -21,7 +21,7 @@ function StructureContactForm({ setForm, structure }) {
     });
     dispatch(structureActions.updateContact({ id: structure?._id, contact: infoForm }));
     if (structure?.contact?.email !== infoForm?.email) {
-      dispatch(structureActions.updateStructureEmail(infoForm.email.trim(), structure?._id));
+      dispatch(structureActions.updateStructureEmail(infoForm?.email.trim(), structure?._id));
     }
     setForm(false);
   };
@@ -85,7 +85,7 @@ function StructureContactForm({ setForm, structure }) {
                     <button
                       className="fr-btn"
                       onClick={updateInfo}
-                      disabled={!infoForm.nom || !infoForm.prenom || !infoForm.fonction || !infoForm.telephone || !valideInputEmail(infoForm.email) }
+                      disabled={!infoForm?.nom || !infoForm?.prenom || !infoForm?.fonction || !infoForm?.telephone || !valideInputEmail(infoForm?.email) }
                     >
                     Confirmer
                     </button>
