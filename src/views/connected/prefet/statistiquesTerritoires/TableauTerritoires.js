@@ -96,11 +96,11 @@ export default function TableauTerritoires() {
                         </tr>
                       </thead>
                       <tbody>
-                        {!error && !loading && territoires?.items?.data?.map((territoire, idx) => {
+                        {!error && !loading && territoires?.map((territoire, idx) => {
                           return (<Territoire key={idx} territoire={territoire} filtreTerritoire={filtreTerritoire} />);
                         })
                         }
-                        {(!territoires?.items || territoires.items?.data.length === 0) &&
+                        {(!territoires || territoires?.length === 0) &&
                           <tr>
                             <td colSpan="12" style={{ width: '75rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
