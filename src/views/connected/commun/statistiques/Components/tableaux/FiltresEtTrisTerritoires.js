@@ -11,9 +11,7 @@ function FiltresEtTrisTerritoires() {
 
   const territoire = useSelector(state => state.filtresEtTris?.territoire);
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
-  const ordreNom = useSelector(state => state.filtresEtTris?.ordreNom);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
-  const ordre = useSelector(state => state.filtresEtTris?.ordre);
 
   const exportTerritoireFileBlob = useSelector(state => state.exports);
   const exportTerritoireFileError = useSelector(state => state.exports?.error);
@@ -24,10 +22,6 @@ function FiltresEtTrisTerritoires() {
   const handleTerritoire = e => {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresEtTrisStatsActions.changeTerritoire(e.target.value));
-  };
-
-  const exportDonneesTerritoire = () => {
-    dispatch(exportsActions.exportDonneesTerritoire(territoire, dateDebut, dateFin, ordreNom, ordre ? 1 : -1));
   };
 
   useEffect(() => {
@@ -46,21 +40,14 @@ function FiltresEtTrisTerritoires() {
   return (
     <>
       <Spinner loading={loading} />
-      <div className="fr-container--fluid">
-        <div className="fr-grid-row fr-grid-row--end">
-          <div className="fr-col-4">
-            <select className="fr-select" id="select" name="select" defaultValue={territoire} onChange={handleTerritoire} >
-              <option value="codeDepartement">Affichage par d&eacute;partement</option>
-              <option value="codeRegion">Affichage par r&eacute;gion</option>
-            </select>
-          </div>
-          <div className="fr-col-12 fr-col-offset-md-1 fr-mt-1w fr-col-md-4 fr-mb-4w fr-mb-md-0">
-            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
-          </div>
-          <div className="fr-ml-auto">
-            <button className="fr-btn fr-btn--secondary" onClick={exportDonneesTerritoire}>Exporter les donn&eacute;es</button>
-          </div>
-        </div>
+      <div className="fr-col-4">
+        <select className="fr-select" id="select" name="select" defaultValue={territoire} onChange={handleTerritoire} >
+          <option value="codeDepartement">Affichage par d&eacute;partement</option>
+          <option value="codeRegion">Affichage par r&eacute;gion</option>
+        </select>
+      </div>
+      <div className="fr-col-12 fr-col-offset-md-1 fr-mt-1w fr-col-md-4 fr-mb-4w fr-mb-md-0">
+        <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
       </div>
     </>
   );

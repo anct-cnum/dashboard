@@ -125,10 +125,10 @@ function getDatasTerritoires(territoire = 'departement', dateDebut, dateFin, pag
   }
 }
 
-function getDatasTerritoiresPrefet(territoire = 'departement', dateDebut, dateFin, page, nomOrdre = 'code', ordre = 1) {
+function getDatasTerritoiresPrefet(territoire = 'departement', dateDebut, dateFin, nomOrdre = 'code', ordre = 1) {
   return dispatch => {
     dispatch(request());
-    statistiquesService.getDatasTerritoiresPrefet(territoire, formatDate(dateDebut), formatDate(dateFin), page, nomOrdre, ordre)
+    statistiquesService.getDatasTerritoiresPrefet(territoire, formatDate(dateDebut), formatDate(dateFin), nomOrdre, ordre)
     .then(
       statsTerritoires => {
         dispatch(success(statsTerritoires));

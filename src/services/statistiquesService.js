@@ -39,9 +39,9 @@ function getDatasTerritoires(territoire, dateDebut, dateFin, page, nomOrdre, ord
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getDatasTerritoiresPrefet(territoire, dateDebut, dateFin, page, nomOrdre, ordre) {
+function getDatasTerritoiresPrefet(territoire, dateDebut, dateFin, nomOrdre, ordre) {
   return API.get(
-    `${apiUrlRoot}/stats/prefet/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page)}&role=${roleActivated()}`)
+    `${apiUrlRoot}/stats/prefet/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

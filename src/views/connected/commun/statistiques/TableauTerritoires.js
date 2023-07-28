@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, filtresEtTrisStatsActions, paginationActions, statistiquesActions } from '../../../../actions';
+import { alerteEtSpinnerActions, exportsActions, filtresEtTrisStatsActions, paginationActions, statistiquesActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
-import FiltresEtTris from './Components/tableaux/FiltresEtTrisTerritoires';
+import FiltresEtTrisTerritoires from './Components/tableaux/FiltresEtTrisTerritoires';
 import Territoire from './Components/tableaux/Territoire';
 import { useLocation } from 'react-router-dom';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
@@ -21,6 +21,7 @@ export default function TableauTerritoires() {
   const loading = useSelector(state => state.statistiques?.loading);
   const error = useSelector(state => state.statistiques?.error);
   const territoires = useSelector(state => state.statistiques?.statsTerritoires);
+  const territoire = useSelector(state => state.filtresEtTris?.territoire);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [page, setPage] = useState(location.state?.currentPage);
   const [initTerritoire, setInitTerritoire] = useState(false);
@@ -62,16 +63,27 @@ export default function TableauTerritoires() {
     }
   }, [error, page]);
 
+  const exportDonneesTerritoire = () => {
+    dispatch(exportsActions.exportDonneesTerritoire(territoire, dateDebut, dateFin, ordreNom, ordre ? 1 : -1));
+  };
+
   return (
     <div className="statistiques">
       <Spinner loading={loading} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <h1 className="titre">Statistiques par territoire</h1>
+            <h1 className="fr-h1 title">Statistiques par territoire</h1>
           </div>
           <div className="fr-col-12">
-            <FiltresEtTris/>
+            <div className="fr-container--fluid">
+              <div className="fr-grid-row fr-grid-row--end">
+                <FiltresEtTrisTerritoires />
+                <div className="fr-ml-auto">
+                  <button className="fr-btn fr-btn--secondary" onClick={exportDonneesTerritoire}>Exporter les donn&eacute;es</button>
+                </div>
+              </div>
+            </div>
             <div className="fr-container--fluid fr-mt-2w">
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">

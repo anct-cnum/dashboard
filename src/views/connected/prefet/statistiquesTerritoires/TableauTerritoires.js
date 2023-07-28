@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, filtresEtTrisStatsActions, paginationActions, statistiquesActions } from '../../../../actions';
+import { alerteEtSpinnerActions, exportsActions, filtresEtTrisStatsActions, statistiquesActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
-import Pagination from '../../../../components/Pagination';
-import { useLocation } from 'react-router-dom';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import Territoire from './Territoire';
 import FiltresEtTrisTerritoires from '../../commun/statistiques/Components/tableaux/FiltresEtTrisTerritoires';
@@ -11,7 +9,6 @@ import FiltresEtTrisTerritoires from '../../commun/statistiques/Components/table
 export default function TableauTerritoires() {
 
   const dispatch = useDispatch();
-  const location = useLocation();
 
   const filtreTerritoire = useSelector(state => state.filtresEtTris?.territoire);
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
@@ -21,8 +18,7 @@ export default function TableauTerritoires() {
   const loading = useSelector(state => state.statistiques?.loading);
   const error = useSelector(state => state.statistiques?.error);
   const territoires = useSelector(state => state.statistiques?.statsTerritoires);
-  const currentPage = useSelector(state => state.pagination?.currentPage);
-  const [page, setPage] = useState(location.state?.currentPage);
+  const territoire = useSelector(state => state.filtresEtTris?.territoire);
   const [initTerritoire, setInitTerritoire] = useState(false);
 
   const ordreColonne = e => {
@@ -30,27 +26,16 @@ export default function TableauTerritoires() {
   };
 
   useEffect(() => {
-    if (territoires?.items) {
-      const count = territoires.items.limit ? Math.floor(territoires.items.total / territoires.items.limit) : 0;
-      dispatch(paginationActions.setPageCount(territoires.items.total % territoires.items.limit === 0 ? count : count + 1));
-    }
-  }, [territoires]);
-
-  useEffect(() => {
     if (initTerritoire === true) {
-      dispatch(statistiquesActions.getDatasTerritoiresPrefet(filtreTerritoire, dateDebut, dateFin, currentPage, ordreNom, ordre ? 1 : -1));
+      dispatch(statistiquesActions.getDatasTerritoiresPrefet(filtreTerritoire, dateDebut, dateFin, ordreNom, ordre ? 1 : -1));
     }
-  }, [dateDebut, dateFin, ordre, ordreNom, filtreTerritoire, currentPage]);
+  }, [dateDebut, dateFin, ordre, ordreNom, filtreTerritoire]);
 
   useEffect(() => {
     scrollTopWindow();
-    if (page === undefined) {
-      dispatch(paginationActions.setPage(1));
-      setPage(1);
-    }
     if (!error) {
-      if (initTerritoire === false && page !== undefined) {
-        dispatch(statistiquesActions.getDatasTerritoiresPrefet(filtreTerritoire, dateDebut, dateFin, page, ordreNom, ordre ? 1 : -1));
+      if (initTerritoire === false) {
+        dispatch(statistiquesActions.getDatasTerritoiresPrefet(filtreTerritoire, dateDebut, dateFin, ordreNom, ordre ? 1 : -1));
         setInitTerritoire(true);
       }
     } else {
@@ -60,7 +45,11 @@ export default function TableauTerritoires() {
         status: null, description: null
       }));
     }
-  }, [error, page]);
+  }, [error]);
+
+  const exportDonneesTerritoire = () => {
+    dispatch(exportsActions.exportDonneesTerritoirePrefet(territoire, dateDebut, dateFin, ordreNom, ordre ? 1 : -1));
+  };
 
   return (
     <div className="statistiques">
@@ -71,7 +60,14 @@ export default function TableauTerritoires() {
             <h1 className="fr-h1 title">Statistiques par territoire</h1>
           </div>
           <div className="fr-col-12">
-            <FiltresEtTrisTerritoires />
+            <div className="fr-container--fluid">
+              <div className="fr-grid-row fr-grid-row--end">
+                <FiltresEtTrisTerritoires />
+                <div className="fr-ml-auto">
+                  <button className="fr-btn fr-btn--secondary" onClick={exportDonneesTerritoire}>Exporter les donn&eacute;es</button>
+                </div>
+              </div>
+            </div>
             <div className="fr-container--fluid fr-mt-2w">
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
@@ -82,53 +78,20 @@ export default function TableauTerritoires() {
                           <th data-id="code">
                             <button data-id="code" className="filtre-btn" onClick={ordreColonne}>
                               <span>Code
-                                { (ordreNom !== 'code' || ordreNom === 'code' && ordre) &&
+                                {(ordreNom !== 'code' || ordreNom === 'code' && ordre) &&
                                   <i data-id="code" className="ri-arrow-down-s-line chevron icone"></i>
                                 }
-                                { (ordreNom === 'code' && !ordre) &&
+                                {(ordreNom === 'code' && !ordre) &&
                                   <i data-id="code" className="ri-arrow-up-s-line chevron icone"></i>
                                 }
                               </span>
                             </button>
                           </th>
-                          <th data-id="nom">
-                            <button data-id="nom" className="filtre-btn" onClick={ordreColonne}>
-                              <span data-id="nom">Nom
-                                { (ordreNom !== 'nom' || ordreNom === 'nom' && ordre) &&
-                                  <i data-id="nom" className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                { (ordreNom === 'nom' && !ordre) &&
-                                  <i data-id="nom" className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
-                            </button>
-                          </th>
+                          <th>Nom</th>
                           <th>CRA</th>
                           <th>Personnes accompagn&eacute;es</th>
-                          <th>
-                            <button id="posteValider" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Postes valid&eacute;s
-                                {(ordreNom !== 'posteValider' || ordreNom === 'posteValider' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'posteValider' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
-                            </button>
-                          </th>
-                          <th>
-                            <button id="conseillersRecruter" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Conseillers recrut&eacute;s
-                                {(ordreNom !== 'conseillersRecruter' || ordreNom === 'conseillersRecruter' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'conseillersRecruter' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
-                            </button>
-                          </th>
+                          <th>Postes valid&eacute;s</th>
+                          <th>Conseillers recrut&eacute;s</th>
                           <th></th>
                         </tr>
                       </thead>
@@ -137,12 +100,12 @@ export default function TableauTerritoires() {
                           return (<Territoire key={idx} territoire={territoire} filtreTerritoire={filtreTerritoire} />);
                         })
                         }
-                        {(!territoires?.items || territoires?.items?.total === 0) &&
+                        {(!territoires?.items || territoires.items?.data.length === 0) &&
                           <tr>
                             <td colSpan="12" style={{ width: '75rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <span className="not-found pair">
-                                  {filtreTerritoire === 'codeDepartement' ? `Aucun département ` : 'Aucune région ' } trouv&eacute;
+                                  {filtreTerritoire === 'codeDepartement' ? `Aucun département ` : 'Aucune région '} trouv&eacute;
                                 </span>
                               </div>
                             </td>
@@ -152,9 +115,6 @@ export default function TableauTerritoires() {
                     </table>
                   </div>
                 </div>
-                {territoires?.items?.total !== 0 &&
-                  <Pagination />
-                }
               </div>
             </div>
           </div>
