@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
   const authenticationUser = useSelector(state => state.authentication?.user?.entity?.$id);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const urlSiteVitrine = process.env.REACT_APP_PUBLIC_HOSTNAME;
+  // const urlSiteVitrine = process.env.REACT_APP_PUBLIC_HOSTNAME; en attente du lancement du parcours coordo en septembre
 
   return (
     <>
@@ -50,7 +50,8 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
           </ul>
         </div>
       </li>
-      <li className="fr-nav__item">
+      {/* en attente du lancement du parcours coordo en septembre */}
+      {/* <li className="fr-nav__item">
         <button
           id="coordination-territoriale"
           className="fr-nav__btn"
@@ -84,7 +85,7 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
             </li>
           </ul>
         </div>
-      </li>
+      </li> */}
       <li className="fr-nav__item">
         <button
           id="statistiques"
