@@ -48,8 +48,8 @@ function FiltresEtTrisContrat() {
       <div className="fr-grid-row">
         <div className="fr-search-bar fr-search-bar fr-mr-3w" id="search" role="search" >
           <input onKeyDown={rechercheParNomConseillerToucheEnter} className="fr-input" defaultValue={''}
-            placeholder="Rechercher par nom ou par id du candidat" type="search" id="search-input" name="search-input" />
-          <button className="fr-btn" onClick={rechercheParNomConseiller} title="Rechercher par nom ou par id du candidat">
+            placeholder="Rechercher par nom, par id du candidat ou de la structure" type="search" id="search-input" name="search-input" />
+          <button className="fr-btn" onClick={rechercheParNomConseiller} title="Rechercher par nom, par id du candidat ou de la structure">
             Rechercher
           </button>
         </div>
