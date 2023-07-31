@@ -23,7 +23,7 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
           className={`fr-collapse fr-menu ${activeMenu === 'listes-traitement-demandes' ? 'fr-collapse--expanded' : ''}`}
           id="menu-listes-traitement-demandes"
         >
-          <ul className="fr-menu__list" style={{ width: '24rem' }}>
+          <ul className="fr-menu__list" style={{ width: '18rem' }}>
             <li>
               <Link className="fr-nav__link" to={`/${roleActivated}/demandes/coordinateurs`}
                 {...(location.pathname.startsWith(`/${roleActivated}/demandes/coordinateurs`) ? { 'aria-current': 'page' } : {})}
