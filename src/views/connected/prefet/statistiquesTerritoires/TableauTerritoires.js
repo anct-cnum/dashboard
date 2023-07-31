@@ -22,7 +22,7 @@ export default function TableauTerritoires() {
   const [initTerritoire, setInitTerritoire] = useState(false);
 
   const ordreColonne = e => {
-    dispatch(filtresEtTrisStatsActions.changeOrdre(e.target.dataset.id));
+    dispatch(filtresEtTrisStatsActions.changeOrdre(e.target?.dataset?.id));
   };
 
   useEffect(() => {
