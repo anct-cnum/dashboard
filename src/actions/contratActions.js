@@ -9,11 +9,12 @@ export const contratActions = {
   updateContract,
 };
 
-function getAll(page, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = -1) {
+// eslint-disable-next-line max-len
+function getAll(page, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom = 'dateDemande', ordre = -1) {
   return dispatch => {
     dispatch(request());
 
-    contratService.getAll(page, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre)
+    contratService.getAll(page, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom, ordre)
     .then(
       contrats => dispatch(success(contrats)),
       error => {

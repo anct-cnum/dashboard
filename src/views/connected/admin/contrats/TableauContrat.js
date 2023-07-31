@@ -7,6 +7,7 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import Contrat from './Contrat';
 import FiltresEtTrisContrat from './FiltresEtTrisContrat';
+import FiltresEtTrisContratRupture from './FiltresEtTrisContratRupture';
 
 export default function TableauContrat() {
 
@@ -22,6 +23,7 @@ export default function TableauContrat() {
   const filtreParNomConseiller = useSelector(state => state.filtresConventions?.nom);
   const filterDepartement = useSelector(state => state.filtresConventions?.departement);
   const filtreRegion = useSelector(state => state.filtresConventions?.region);
+  const filtreStatutDossierRupture = useSelector(state => state.filtresConventions?.statutDossierRupture);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initContrat, setInitContrat] = useState(false);
   const [statutContrat, setStatutContrat] = useState('toutes');
@@ -35,9 +37,18 @@ export default function TableauContrat() {
 
   useEffect(() => {
     if (initContrat === true) {
-      dispatch(contratActions.getAll(currentPage, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre ? -1 : 1));
+      dispatch(contratActions.getAll(
+        currentPage,
+        statutContrat,
+        filtreParNomConseiller,
+        filterDepartement,
+        filtreRegion,
+        filtreStatutDossierRupture,
+        ordreNom,
+        ordre ? -1 : 1
+      ));
     }
-  }, [currentPage, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordre, ordreNom]);
+  }, [currentPage, statutContrat, filtreParNomConseiller, filterDepartement, filtreStatutDossierRupture, filtreRegion, ordre, ordreNom]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -48,7 +59,16 @@ export default function TableauContrat() {
     }
     if (!error) {
       if (initContrat === false && page !== undefined) {
-        dispatch(contratActions.getAll(page, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre ? -1 : 1));
+        dispatch(contratActions.getAll(
+          page,
+          statutContrat,
+          filtreParNomConseiller,
+          filterDepartement,
+          filtreRegion,
+          filtreStatutDossierRupture,
+          ordreNom,
+          ordre ? -1 : 1
+        ));
         setInitContrat(true);
       }
     } else {
@@ -96,8 +116,10 @@ export default function TableauContrat() {
                 Rupture de contrat ({contrats?.items?.totalParContrat?.ruptureDeContrat})
               </button>
             </ul>
-            <div className="fr-col-12 fr-mb-2w fr-mt-3w">
-              <FiltresEtTrisContrat />
+            <div className="fr-col-12 fr-mt-3w">
+              {statutContrat === 'nouvelle_rupture' ?
+                <FiltresEtTrisContratRupture /> : <FiltresEtTrisContrat />
+              }
             </div>
             <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
               <div className="fr-col-12">

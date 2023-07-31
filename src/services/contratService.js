@@ -11,16 +11,17 @@ export const contratService = {
   updateContract,
 };
 
-function getAll(page, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre) {
+function getAll(page, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom, ordre) {
   const {
     ordreColonne,
     filterByName,
     filterByRegion,
-    filterByDepartement
-  } = contratQueryStringParameters(filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre);
+    filterByDepartement,
+    filterByStatutDossierRupture
+  } = contratQueryStringParameters(filtreParNomConseiller, filterDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom, ordre);
 
   // eslint-disable-next-line max-len
-  return API.get(`${apiUrlRoot}/contrats?role=${roleActivated()}&page=${page}&statut=${statutContrat}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
+  return API.get(`${apiUrlRoot}/contrats?role=${roleActivated()}&page=${page}&statut=${statutContrat}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByStatutDossierRupture}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
