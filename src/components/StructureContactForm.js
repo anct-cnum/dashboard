@@ -21,7 +21,7 @@ function StructureContactForm({ setForm, structure }) {
     });
     dispatch(structureActions.updateContact({ id: structure?._id, contact: infoForm }));
     if (structure?.contact?.email !== infoForm?.email) {
-      dispatch(structureActions.updateStructureEmail(infoForm?.email.trim(), structure?._id));
+      dispatch(structureActions.updateStructureEmail(infoForm?.email?.trim(), structure?._id));
     }
     setForm(false);
   };
