@@ -18,6 +18,7 @@ export default function GraphiquePilotage() {
   const dateFin = useSelector(state => state.datePicker?.dateFin);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const ville = useSelector(state => state.statistiques?.villeStats);
+  const codeCommune = useSelector(state => state.statistiques?.codeCommuneStats);
   const structureIds = useSelector(state => state.statistiques?.structureStats);
   const conseillerIds = useSelector(state => state.statistiques?.conseillerStats);
   const region = useSelector(state => state.statistiques?.codeRegionStats);
@@ -36,7 +37,7 @@ export default function GraphiquePilotage() {
         dispatch(statistiquesActions.resetFiltre());
       } else {
         // eslint-disable-next-line max-len
-        dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, region, departement, structureIds, conseillerIds));
+        dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, codePostal, region, departement, structureIds, conseillerIds));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -45,7 +46,7 @@ export default function GraphiquePilotage() {
         status: null, description: null
       }));
     }
-  }, [initStats, dateDebut, dateFin, codePostal, region, departement, structureIds, conseillerIds, ville, error]);
+  }, [initStats, dateDebut, dateFin, codePostal, region, departement, structureIds, conseillerIds, codeCommune, error]);
 
   return (
     <div className="statistiques">
@@ -82,6 +83,7 @@ export default function GraphiquePilotage() {
               departement={departement}
               codePostal={codePostal}
               ville={ville}
+              codeCommune={codeCommune}
               pilotage={true}
               typeStats="grandReseau"
             />
