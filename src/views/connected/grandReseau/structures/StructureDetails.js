@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { invitationsActions, structureActions, alerteEtSpinnerActions } from '../../../actions';
-import { valideInputEmail } from '../../../utils/formatagesUtils';
+import { invitationsActions, structureActions, alerteEtSpinnerActions } from '../../../../actions';
+import { valideInputEmail } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
-import { scrollTopWindow } from '../../../utils/exportsUtils';
-import Spinner from '../../../components/Spinner';
-import ActiviterStructure from '../../../components/ActiviterStructure';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import Spinner from '../../../../components/Spinner';
+import ActiviterStructure from '../../../../components/ActiviterStructure';
 
 function StructureDetails() {
 
@@ -85,7 +85,7 @@ function StructureDetails() {
       </div>
       <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
         <div className="fr-col-12">
-          <hr style={{ borderWidth: '0.5px' }}/>
+          <hr style={{ borderWidth: '0.5px' }} />
         </div>
       </div>
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
@@ -98,7 +98,7 @@ function StructureDetails() {
           <div className="fr-col-6">
             <h4 className="titre">Contact principal</h4>
             <div className="fr-mb-3w">
-              <strong>Email</strong><br/>
+              <strong>Email</strong><br />
               <div>
                 {structure?.contact?.email &&
                   <div>
@@ -113,30 +113,30 @@ function StructureDetails() {
               </div>
             </div>
             <div className="fr-mb-3w">
-              <strong>Nom</strong><br/>
+              <strong>Nom</strong><br />
               <div className="fr-grid-row">
                 <span className="uppercase-letter">{structure?.contact?.nom}</span>
               </div>
             </div>
             <div className="fr-mb-3w">
-              <strong>Pr&eacute;nom</strong><br/>
+              <strong>Pr&eacute;nom</strong><br />
               <div className="fr-grid-row">
                 <span className="uppercase-letter">{structure?.contact?.prenom}</span>
               </div>
             </div>
             <div className="fr-mb-3w">
-              <strong>T&eacute;l&eacute;phone</strong><br/>
+              <strong>T&eacute;l&eacute;phone</strong><br />
               <span>{structure?.contact?.telephone ?
                 structure?.contact?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
                 <>-</>
               }</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Fonction</strong><br/>
+              <strong>Fonction</strong><br />
               <span>{structure?.contact?.fonction ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Raison social</strong><br/>
+              <strong>Raison social</strong><br />
               <span>{structure?.insee?.unite_legale?.personne_morale_attributs?.raison_sociale ?? '-'}</span>
             </div>
           </div>
@@ -248,7 +248,7 @@ function StructureDetails() {
         <ActiviterStructure structure={structure} roleActivated={roleActivated} />
         <div className="fr-grid-row fr-mt-5w fr-mb-2w fr-col-12">
           <div className="fr-col-12">
-            <hr style={{ borderWidth: '0.5px' }}/>
+            <hr style={{ borderWidth: '0.5px' }} />
           </div>
         </div>
         <div className="fr-grid-row fr-mt-6w fr-mb-4w">
@@ -259,11 +259,11 @@ function StructureDetails() {
         <div className="fr-grid-row fr-col-12">
           <div className="fr-col-3">
             <div className="fr-mb-3w">
-              <strong>Cra total cumul&eacute;s</strong><br/>
+              <strong>Cra total cumul&eacute;s</strong><br />
               <span>{structure?.craCount === 0 ? '-' : structure?.craCount}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Personnes accompagn&eacute;es</strong><br/>
+              <strong>Personnes accompagn&eacute;es</strong><br />
               <span>{structure?.accompagnementCount ?? '-'}</span>
             </div>
           </div>

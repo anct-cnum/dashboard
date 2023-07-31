@@ -9,7 +9,6 @@ const UserMenu = ({
   clickButtonLogout,
   auth,
   roles,
-  structure,
 }) => {
   const truncate = input => input?.length > 27 ? `${input?.substring(0, 27)}...` : input;
 
@@ -21,7 +20,7 @@ const UserMenu = ({
     } else if (role === 'hub_coop') {
       return `Hub - ${user?.hub}`;
     } else if (role === 'structure') {
-      return user?.reseau ? `Structure - ${truncate(structure?.nom)}` : 'Structure';
+      return `Structure - ${truncate(user?.nomStructure)}`;
     }
     return role?.charAt(0).toUpperCase() + role?.slice(1).split('_')[0];
   };

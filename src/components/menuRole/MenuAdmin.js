@@ -66,7 +66,7 @@ function MenuAdmin({ onClickMenu, activeMenu, trackEvent }) {
           aria-expanded={activeMenu === 'listes'}
           aria-controls="menu-listes"
           // eslint-disable-next-line max-len
-          {...(location.pathname.startsWith(`/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) || location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
+          {...(location.pathname.startsWith(`/${roleActivated}/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) || location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
           Suivis
         </button>
@@ -81,16 +81,16 @@ function MenuAdmin({ onClickMenu, activeMenu, trackEvent }) {
               </Link>
             </li>
             <li>
-              <Link className="fr-nav__link" to="liste-conseillers"
-                {...(location.pathname.startsWith(`/liste-conseillers`) ? { 'aria-current': 'page' } : {})}
+              <Link className="fr-nav__link" to={`/${roleActivated}/liste-conseillers`}
+                {...(location.pathname.startsWith(`/${roleActivated}/liste-conseillers`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'liste-conseillers', action: `click-${roleActivated}` })}
               >
                 Liste des conseillers
               </Link>
             </li>
             <li>
-              <Link className="fr-nav__link" to={`/liste-structures`}
-                {...(location.pathname.startsWith(`/liste-structures`) ? { 'aria-current': 'page' } : {})}
+              <Link className="fr-nav__link" to={`/${roleActivated}/liste-structures`}
+                {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'liste-structures', action: `click-${roleActivated}` })}
               >
                 Liste des structures

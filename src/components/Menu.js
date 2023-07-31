@@ -17,7 +17,6 @@ function Menu(
     changeRoleActivated,
     auth,
     roles,
-    structure,
     clickButtonLogout
   }
 ) {
@@ -71,7 +70,6 @@ function Menu(
             roleActivated={roleActivated}
             roles={roles}
             changeRoleActivated={changeRoleActivated}
-            structure={structure}
             auth={auth}
             clickButtonLogout={clickButtonLogout}
           />
