@@ -3,7 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import Exports from './Exports';
 import TableauGestionnaires from './gestionnaires/TableauGestionnaires';
-import ConseillerDetails from './ConseillerDetails';
+import ConseillerDetails from './conseillers/ConseillerDetails';
 import StructureDetails from './structures/StructureDetails';
 import Page404 from '../Page404';
 import TableauCandidatures from './candidatures/TableauCandidatures';
@@ -16,6 +16,7 @@ import TableauHistoriqueConvention from './TableauHistoriqueConvention';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 import ConseillerDetailsContrat from './contrats/ConseillerDetailsContrat';
 import CandidatDetailsRecrutement from './contrats/CandidatDetailsRecrutement';
+import TableauConseillers from './conseillers/TableauConseillers';
 
 export default function Admin() {
 
@@ -42,6 +43,7 @@ export default function Admin() {
         <Route path="/admin/liste-candidatures" element={<TableauCandidatures />} />
         <Route path="/admin/liste-gestionnaires" element={<TableauGestionnaires />} />
         <Route path="/admin/structure/:idStructure" element={<StructureDetails />} />
+        <Route path="/admin/liste-conseillers" element={<TableauConseillers />} />
         <Route path="/admin/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/admin/candidat/:idCandidat" element={<CandidatDetails />} />
         <Route path="/admin/demandes/convention/:idStructure" element={<ConventionDetails />} />

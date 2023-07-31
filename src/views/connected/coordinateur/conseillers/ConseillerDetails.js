@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { conseillerActions, structureActions, alerteEtSpinnerActions } from '../../../actions';
-import { formatNomConseiller } from '../../../utils/formatagesUtils';
-import Spinner from '../../../components/Spinner';
-import InformationConseiller from '../../../components/InformationConseiller';
-import StructureContactCards from '../../../components/cards/StructureContactCards';
+import { conseillerActions, structureActions, alerteEtSpinnerActions } from '../../../../actions';
+import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import Spinner from '../../../../components/Spinner';
+import InformationConseiller from '../../../../components/InformationConseiller';
+import StructureContactCards from '../../../../components/cards/StructureContactCards';
 
 function ConseillerDetails() {
 
@@ -96,13 +96,13 @@ function ConseillerDetails() {
       {conseiller &&
         <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
           {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
-          <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
+            <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
           }
           {conseiller?.statut === 'RUPTURE' &&
-          <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
+            <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
           }
           {misesEnRelationNouvelleRupture &&
-          <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
+            <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
           }
         </div>
       }
