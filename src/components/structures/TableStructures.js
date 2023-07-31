@@ -31,7 +31,7 @@ export function TableStructures({ structures, loading, error, ordreNom, ordre })
           </th>
           <th colSpan={structures?.items?.total > 0 ? '12' : ''}>
             <button id="nom" className="filtre-btn" onClick={ordreColonne}>
-              <span>Nom de la structure
+              <span>Structure
                 {(ordreNom !== 'nom' || ordreNom === 'nom' && ordre) &&
                   <i className="ri-arrow-down-s-line chevron icone"></i>
                 }
