@@ -2,11 +2,12 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import Exports from './Exports';
-import ConseillerDetails from './ConseillerDetails';
 import StructureDetails from './structures/StructureDetails';
 import Page404 from '../Page404';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 import TableauStructures from './structures/TableauStructures';
+import ConseillerDetails from './conseillers/ConseillerDetails';
+import TableauConseillers from './conseillers/TableauConseillers';
 
 export default function Coordinateur() {
 
@@ -28,6 +29,7 @@ export default function Coordinateur() {
         <Route path="/coordinateur_coop/informations" element={<MesInformations />} />
         <Route path="/coordinateur_coop/liste-structures" element={<TableauStructures />} />
         <Route path="/coordinateur_coop/structure/:idStructure" element={<StructureDetails />} />
+        <Route path="/coordinateur_coop/liste-conseillers" element={<TableauConseillers />} />
         <Route path="/coordinateur_coop/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/coordinateur_coop/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />

@@ -19,7 +19,6 @@ import GraphiqueTerritoire from './views/connected/commun/statistiques/Graphique
 import TableauTerritoires from './views/connected/commun/statistiques/TableauTerritoires';
 import { useAuth } from 'react-oidc-context';
 import refreshToken from './services/auth/refreshToken';
-import TableauConseillers from './views/connected/commun/conseillers/TableauConseillers';
 import { getAccessToken } from './helpers/getAccessToken';
 import GraphiqueConseiller from './views/connected/commun/statistiques/GraphiqueConseiller';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
@@ -58,7 +57,6 @@ function App() {
           <Route path="/documents" element={<Documents />} />
           <Route path="/certifications" element={<Certifications />} />
           <Route path="/formation" element={<InscriptionFormation />} />
-          <Route path="/liste-conseillers" element={<TableauConseillers />} />
           <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
           <Route path="/statistiques-pilotage" element={<GraphiquePilotage />} />
           <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />

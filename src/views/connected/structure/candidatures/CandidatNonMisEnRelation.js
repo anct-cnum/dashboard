@@ -26,11 +26,11 @@ function CandidatNonMisEnRelation({ conseiller, currentFilter }) {
         </strong>
         <br />
         <span className="fr-text--regular fr-text--md">
-          ID - {conseiller.idPG ?? ''}
+          ID - {conseiller?.idPG ?? ''}
         </span>
       </td>
       <td>{conseiller?.dateDisponibilite ? dayjs(conseiller.dateDisponibilite).format('DD/MM/YYYY') : 'Non renseignée'}</td>
-      <td>{conseiller.codePostal}</td>
+      <td>{conseiller?.codePostal}</td>
       <td style={{ display: 'flex', justifyContent: 'center' }}>
         {(conseiller?.statut === 'RECRUTE' || conseiller?.statut === 'RUPTURE') &&
           <>
@@ -75,13 +75,13 @@ function CandidatNonMisEnRelation({ conseiller, currentFilter }) {
       <td className="td-preselection">
         {(conseiller?.statut === 'RECRUTE' || conseiller?.statut === 'RUPTURE') ?
           <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-1w" to={{
-            pathname: `/structure/preselection/conseiller/${conseiller._id}`
+            pathname: `/structure/preselection/conseiller/${conseiller?._id}`
           }}
           state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
             D&eacute;tails
           </Link> :
           <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-1w" to={{
-            pathname: `/structure/preselection/candidat/${conseiller._id}`
+            pathname: `/structure/preselection/candidat/${conseiller?._id}`
           }}
           state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
             D&eacute;tails
