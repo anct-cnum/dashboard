@@ -12,7 +12,6 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
       <li className="fr-nav__item">
         <button
           id="listes-traitement-demandes"
-          disabled
           className="fr-nav__btn"
           aria-expanded={activeMenu === 'listes-traitement-demandes'}
           aria-controls="menu-listes-traitement-demandes"
@@ -58,8 +57,8 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
               </Link>
             </li>
             <li>
-              <Link className="fr-nav__link" to={`/liste-structures`}
-                {...(location.pathname.startsWith(`/liste-structures`) ? { 'aria-current': 'page' } : {})}
+              <Link className="fr-nav__link" to={`/${roleActivated}/liste-structures`}
+                {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'liste-structures', action: `click-${roleActivated}` })}
               >
                 Liste des structures

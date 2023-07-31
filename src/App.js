@@ -22,7 +22,6 @@ import refreshToken from './services/auth/refreshToken';
 import { getAccessToken } from './helpers/getAccessToken';
 import GraphiqueConseiller from './views/connected/commun/statistiques/GraphiqueConseiller';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
-import TableauStructures from './views/connected/commun/structures/TableauStructures';
 
 function App() {
 
@@ -58,7 +57,6 @@ function App() {
           <Route path="/documents" element={<Documents />} />
           <Route path="/certifications" element={<Certifications />} />
           <Route path="/formation" element={<InscriptionFormation />} />
-          <Route path="/liste-structures" element={<TableauStructures />} />
           <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
           <Route path="/statistiques-pilotage" element={<GraphiquePilotage />} />
           <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />

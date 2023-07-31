@@ -30,8 +30,8 @@ function MenuHub({ onClickMenu, activeMenu, trackEvent }) {
               </Link>
             </li>
             <li>
-              <Link className="fr-nav__link" to={`/liste-structures`}
-                {...(location.pathname.startsWith(`/liste-structures`) ? { 'aria-current': 'page' } : {})}
+              <Link className="fr-nav__link" to={`/${roleActivated}/liste-structures`}
+                {...(location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'liste-structures', action: `click-${roleActivated}` })}
               >
                 Liste des structures

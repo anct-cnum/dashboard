@@ -16,6 +16,7 @@ import TableauHistoriqueConvention from './TableauHistoriqueConvention';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 import ConseillerDetailsContrat from './contrats/ConseillerDetailsContrat';
 import CandidatDetailsRecrutement from './contrats/CandidatDetailsRecrutement';
+import TableauStructures from './structures/TableauStructures';
 import TableauConseillers from './conseillers/TableauConseillers';
 
 export default function Admin() {
@@ -34,6 +35,7 @@ export default function Admin() {
       }
       <Routes>
         <Route path="/admin/informations" element={<MesInformations />} />
+        <Route path="/admin/liste-structures" element={<TableauStructures />} />
         <Route path="/admin/demandes/contrats" element={<TableauContrat />} />
         <Route path="/admin/demandes/contrat/conseiller/:idConseiller/:idMiseEnRelation" element={<ConseillerDetailsContrat />} />
         <Route path="/admin/demandes/contrat/candidat/:idCandidat/:idMiseEnRelation" element={<CandidatDetailsRecrutement />} />
