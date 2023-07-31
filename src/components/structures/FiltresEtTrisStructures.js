@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { exportsActions, filtresStructuresActions, paginationActions, structureActions } from '../../../../actions';
-import Spinner from '../../../../components/Spinner';
-import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
-import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
-import codeRegions from '../../../../datas/code_region.json';
-import departementsRegionRaw from '../../../../datas/departements-region.json';
-import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
+import { exportsActions, filtresStructuresActions, paginationActions, structureActions } from '../../actions';
+import Spinner from '../Spinner';
+import { downloadFile, scrollTopWindow } from '../../utils/exportsUtils';
+import BlockDatePickers from '../datePicker/BlockDatePickers';
+import codeRegions from '../../datas/code_region.json';
+import departementsRegionRaw from '../../datas/departements-region.json';
+import departementsRegionTomRaw from '../../datas/departements-region-tom.json';
 
 function FiltresEtTrisStructures() {
   const dispatch = useDispatch();
@@ -162,7 +162,7 @@ function FiltresEtTrisStructures() {
         </div>
         <div className="fr-grid-row">
           <div className="date-picker fr-mb-4w fr-mt-3w fr-mt-md-1w fr-grid-row">
-            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
           </div>
           <div className="fr-ml-auto">
             <button className="fr-btn fr-btn--secondary" onClick={exportDonneesStructures}>Exporter les donn&eacute;es</button>

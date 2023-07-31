@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, filtresStructuresActions, paginationActions, statistiquesActions, structureActions } from '../../../../actions';
+import { alerteEtSpinnerActions, paginationActions, statistiquesActions, structureActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
-import Structure from './Structure';
-import FiltresEtTrisStructures from './FiltresEtTrisStructures';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
+import TableStructures from '../../../../components/structures/TableStructures';
+import FiltresEtTrisStructures from '../../../../components/structures/FiltresEtTrisStructures';
 
 export default function TableauStructures() {
 
@@ -27,11 +27,6 @@ export default function TableauStructures() {
   const filtreType = useSelector(state => state.filtresStructures?.type);
   const [initConseiller, setInitConseiller] = useState(false);
   const [page, setPage] = useState(location.state?.currentPage);
-
-  const ordreColonne = e => {
-    dispatch(paginationActions.setPage(1));
-    dispatch(filtresStructuresActions.changeOrdre(e.currentTarget?.id));
-  };
 
   useEffect(() => {
     if (structures?.items) {
@@ -73,56 +68,13 @@ export default function TableauStructures() {
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
                   <div className="fr-table fr-col-12">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>
-                            <button id="idPG" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Id
-                                {(ordreNom !== 'idPG' || ordreNom === 'idPG' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'idPG' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
-                            </button>
-                          </th>
-                          <th colSpan={structures?.items?.total > 0 ? '12' : ''}>
-                            <button id="nom" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Nom de la structure
-                                {(ordreNom !== 'nom' || ordreNom === 'nom' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'nom' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
-                            </button>
-                          </th>
-                          <th>Siret</th>
-                          <th>Nom</th>
-                          <th>Pr&eacute;nom</th>
-                          <th colSpan={structures?.items?.total > 0 ? '12' : ''}>Email</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {!error && !loading && structures?.items?.data?.map((structure, idx) => {
-                          return (<Structure key={idx} structure={structure} />);
-                        })
-                        }
-                        {(!structures?.items || structures?.items?.total === 0) &&
-                          <tr>
-                            <td colSpan="12" style={{ width: '75rem' }}>
-                              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <span className="not-found pair">Aucune structure trouv&eacute;e</span>
-                              </div>
-                            </td>
-                          </tr>
-                        }
-                      </tbody>
-                    </table>
+                    <TableStructures
+                      structures={structures}
+                      loading={loading}
+                      ordreNom={ordreNom}
+                      ordre={ordre}
+                      error={error}
+                    />
                   </div>
                 </div>
                 {structures?.items?.total !== 0 &&

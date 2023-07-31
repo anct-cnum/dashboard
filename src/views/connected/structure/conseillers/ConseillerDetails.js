@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { conseillerActions, alerteEtSpinnerActions } from '../../../actions';
-import { formatNomConseiller } from '../../../utils/formatagesUtils';
-import Spinner from '../../../components/Spinner';
-import { scrollTopWindow } from '../../../utils/exportsUtils';
-import PopinCreationNouvelleRupture from './popins/popinCreationNouvelleRupture';
-import InformationConseiller from '../../../components/InformationConseiller';
+import { conseillerActions, alerteEtSpinnerActions } from '../../../../actions';
+import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import Spinner from '../../../../components/Spinner';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import PopinCreationNouvelleRupture from '../popins/popinCreationNouvelleRupture';
+import InformationConseiller from '../../../../components/InformationConseiller';
 
 function ConseillerDetails() {
 

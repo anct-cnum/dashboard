@@ -4,15 +4,16 @@ import { exportsActions, filtresConseillersActions, paginationActions } from '..
 import Spinner from '../../../../components/Spinner';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
 import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
-import codeRegions from '../../../../datas/code_region.json';
+import codeRegionsRaw from '../../../../datas/code_region.json';
 import departementsRegionRaw from '../../../../datas/departements-region.json';
 import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
 
-function FiltresEtTrisConseillers() {
+function FiltresEtTrisConseillersPrefet() {
   const dispatch = useDispatch();
 
   const departementsRegionArray = Array.from(departementsRegionRaw);
   const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
+  const codeRegionArray = Array.from(codeRegionsRaw);
   const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const ordreNom = useSelector(state => state.filtresConseillers?.ordreNom);
@@ -24,7 +25,7 @@ function FiltresEtTrisConseillers() {
   const filterDepartement = useSelector(state => state.filtresConseillers?.departement);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresConseillers?.ordre);
-
+  const userAuth = useSelector(state => state.authentication?.user);
   const exportConseillerFileBlob = useSelector(state => state.exports);
   const exportConseillerFileError = useSelector(state => state.exports?.error);
   const loading = useSelector(state => state.exports?.loading);
@@ -82,10 +83,20 @@ function FiltresEtTrisConseillers() {
   };
 
   const getDepartements = () => {
-    if (filtreRegion !== 'tous') {
-      return departementsRegionList.filter(region => region.region_name === codeRegions.find(r => r.code === filtreRegion).nom);
+    if (userAuth?.region) {
+      return departementsRegionList.filter(departement => departement.region_name === codeRegionArray.find(r => r.code === userAuth?.region).nom);
     }
-    return departementsRegionList;
+    return departementsRegionList.filter(departement => departement.num_dep === userAuth?.departement);
+  };
+
+  const getRegions = () => {
+    if (userAuth?.departement) {
+      return codeRegionArray.filter(
+        region => region.nom === departementsRegionList.find(departement =>
+          departement.num_dep === userAuth.departement).region_name
+      );
+    }
+    return codeRegionArray.filter(region => region.code === userAuth?.region);
   };
 
   return (
@@ -117,26 +128,27 @@ function FiltresEtTrisConseillers() {
                 id="toggle-698"
               />
               <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
-              S&eacute;lectionner le type de recherche
+                S&eacute;lectionner le type de recherche
               </label>
             </div>
           </div>
         </div>
         <div className="fr-grid-row fr-grid-row--end">
           <div className="date-picker fr-mb-4w fr-mt-1w fr-grid-row">
-            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
           </div>
           <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-3 fr-mr-4w" id="filtre-region">
             <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
-              <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
-              {codeRegions.map((region, idx) =>
+              {getRegions().map((region, idx) =>
                 <option key={idx} value={region.code}>{region.nom}</option>
               )}
             </select>
           </div>
           <div className="fr-select-group fr-col-12 fr-col-md-4 fr-col-xl-3" id="filtre-departement">
             <select className="fr-select" value={filterDepartement} onChange={selectFiltreDepartement}>
-              <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
+              {userAuth?.region &&
+                <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
+              }
               {getDepartements().map((departement, idx) =>
                 <option key={idx} value={departement.num_dep}>{departement.num_dep} - {departement.dep_name}</option>
               )}
@@ -151,4 +163,4 @@ function FiltresEtTrisConseillers() {
   );
 }
 
-export default FiltresEtTrisConseillers;
+export default FiltresEtTrisConseillersPrefet;
