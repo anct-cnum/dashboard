@@ -19,7 +19,7 @@ export default function TableauContrat() {
   const contrats = useSelector(state => state.contrat);
   const ordre = useSelector(state => state.filtresConventions?.ordre);
   const ordreNom = useSelector(state => state.filtresConventions?.ordreNom);
-  const filtreParNomConseiller = useSelector(state => state.filtresConventions?.nom);
+  const filtreParNom = useSelector(state => state.filtresConventions?.nom);
   const filterDepartement = useSelector(state => state.filtresConventions?.departement);
   const filtreRegion = useSelector(state => state.filtresConventions?.region);
   const currentPage = useSelector(state => state.pagination?.currentPage);
@@ -35,9 +35,9 @@ export default function TableauContrat() {
 
   useEffect(() => {
     if (initContrat === true) {
-      dispatch(contratActions.getAll(currentPage, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre ? -1 : 1));
+      dispatch(contratActions.getAll(currentPage, statutContrat, filtreParNom, filterDepartement, filtreRegion, ordreNom, ordre ? -1 : 1));
     }
-  }, [currentPage, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordre, ordreNom]);
+  }, [currentPage, statutContrat, filtreParNom, filterDepartement, filtreRegion, ordre, ordreNom]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -48,7 +48,7 @@ export default function TableauContrat() {
     }
     if (!error) {
       if (initContrat === false && page !== undefined) {
-        dispatch(contratActions.getAll(page, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre ? -1 : 1));
+        dispatch(contratActions.getAll(page, statutContrat, filtreParNom, filterDepartement, filtreRegion, ordreNom, ordre ? -1 : 1));
         setInitContrat(true);
       }
     } else {

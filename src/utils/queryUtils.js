@@ -83,8 +83,8 @@ export function conventionQueryStringParameters(filtreParNomStructure, filterDep
   return { ordreColonne, filterByName, filterByRegion, filterByDepartement };
 }
 
-export function contratQueryStringParameters(filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre) {
-  const filterByName = filtreParNomConseiller ? `&searchByNomConseiller=${filtreParNomConseiller}` : '';
+export function contratQueryStringParameters(filtreParNom, filterDepartement, filtreRegion, ordreNom, ordre) {
+  const filterByName = filtreParNom ? `&search=${filtreParNom}` : '';
   const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
   const filterByDepartement = filterDepartement !== 'tous' && filterDepartement !== undefined ? `&departement=${filterDepartement}` : '';
   const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';

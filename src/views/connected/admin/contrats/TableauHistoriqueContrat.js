@@ -22,7 +22,7 @@ export default function TableauHistoriqueContrat() {
   const contrats = useSelector(state => state.contrat);
   const ordre = useSelector(state => state.filtresConventions?.ordre);
   const ordreNom = useSelector(state => state.filtresConventions?.ordreNom);
-  const filtreParNomConseiller = useSelector(state => state.filtresConventions?.nom);
+  const filtreParNom = useSelector(state => state.filtresConventions?.nom);
   const filterDepartement = useSelector(state => state.filtresConventions?.departement);
   const filtreRegion = useSelector(state => state.filtresConventions?.region);
   const currentPage = useSelector(state => state.pagination?.currentPage);
@@ -49,14 +49,14 @@ export default function TableauHistoriqueContrat() {
         statutContrat,
         dateDebut,
         dateFin,
-        filtreParNomConseiller,
+        filtreParNom,
         filterDepartement,
         filtreRegion,
         ordreNom,
         ordre ? -1 : 1
       ));
     }
-  }, [currentPage, statutContrat, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreRegion, ordre, ordreNom]);
+  }, [currentPage, statutContrat, dateDebut, dateFin, filtreParNom, filterDepartement, filtreRegion, ordre, ordreNom]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -72,7 +72,7 @@ export default function TableauHistoriqueContrat() {
           statutContrat,
           dateDebut,
           dateFin,
-          filtreParNomConseiller,
+          filtreParNom,
           filterDepartement,
           filtreRegion,
           ordreNom,
@@ -103,7 +103,7 @@ export default function TableauHistoriqueContrat() {
       statutContrat,
       dateDebut,
       dateFin,
-      filtreParNomConseiller,
+      filtreParNom,
       filterDepartement,
       filtreRegion,
       ordreNom,

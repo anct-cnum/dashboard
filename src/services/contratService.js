@@ -11,13 +11,13 @@ export const contratService = {
   updateContract,
 };
 
-function getAll(page, statutContrat, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre) {
+function getAll(page, statutContrat, filtreParNom, filterDepartement, filtreRegion, ordreNom, ordre) {
   const {
     ordreColonne,
     filterByName,
     filterByRegion,
     filterByDepartement
-  } = contratQueryStringParameters(filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre);
+  } = contratQueryStringParameters(filtreParNom, filterDepartement, filtreRegion, ordreNom, ordre);
 
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/contrats?role=${roleActivated()}&page=${page}&statut=${statutContrat}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
