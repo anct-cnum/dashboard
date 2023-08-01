@@ -180,10 +180,10 @@ function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, da
   }
 }
 
-function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = 1) {
+function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreSearchBar, filtreDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = 1) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre)
+    await exportsService.getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreSearchBar, filtreDepartement, filtreRegion, ordreNom, ordre)
     .then(exportHistoriqueContratFileBlob => dispatch(success(exportHistoriqueContratFileBlob)))
     .catch(exportHistoriqueContratFileError => dispatch(failure(exportHistoriqueContratFileError)));
   };

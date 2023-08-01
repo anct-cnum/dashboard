@@ -22,8 +22,8 @@ export default function TableauHistoriqueContrat() {
   const contrats = useSelector(state => state.contrat);
   const ordre = useSelector(state => state.filtresConventions?.ordre);
   const ordreNom = useSelector(state => state.filtresConventions?.ordreNom);
-  const filtreParNomConseiller = useSelector(state => state.filtresConventions?.nom);
-  const filterDepartement = useSelector(state => state.filtresConventions?.departement);
+  const filtreSearchBar = useSelector(state => state.filtresConventions?.nom);
+  const filtreDepartement = useSelector(state => state.filtresConventions?.departement);
   const filtreRegion = useSelector(state => state.filtresConventions?.region);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initContrat, setInitContrat] = useState(false);
@@ -49,14 +49,14 @@ export default function TableauHistoriqueContrat() {
         statutContrat,
         dateDebut,
         dateFin,
-        filtreParNomConseiller,
-        filterDepartement,
+        filtreSearchBar,
+        filtreDepartement,
         filtreRegion,
         ordreNom,
         ordre ? -1 : 1
       ));
     }
-  }, [currentPage, statutContrat, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreRegion, ordre, ordreNom]);
+  }, [currentPage, statutContrat, dateDebut, dateFin, filtreSearchBar, filtreDepartement, filtreRegion, ordre, ordreNom]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -72,8 +72,8 @@ export default function TableauHistoriqueContrat() {
           statutContrat,
           dateDebut,
           dateFin,
-          filtreParNomConseiller,
-          filterDepartement,
+          filtreSearchBar,
+          filtreDepartement,
           filtreRegion,
           ordreNom,
           ordre ? -1 : 1
@@ -103,8 +103,8 @@ export default function TableauHistoriqueContrat() {
       statutContrat,
       dateDebut,
       dateFin,
-      filtreParNomConseiller,
-      filterDepartement,
+      filtreSearchBar,
+      filtreDepartement,
       filtreRegion,
       ordreNom,
       ordre ? -1 : 1
