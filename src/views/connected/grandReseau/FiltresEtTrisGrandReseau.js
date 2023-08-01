@@ -57,9 +57,14 @@ function FiltresEtTrisGrandReseau() {
           value={value}>
             <option value={'tous'}>Tous codes postaux</option>
             {listeCodesPostaux && listeCodesPostaux?.map((codePostal, idx) => {
-              return (<optgroup key={idx} label={`${codePostal.codePostal} - TOUTES COMMUNES`}>
+              return (<optgroup key={idx} label={`${codePostal.codePostal}`}>
+                {codePostal?.villes?.length > 1 &&
+                  <option value={JSON.stringify({ cp: codePostal.codePostal })}>{codePostal.codePostal} - TOUTES COMMUNES </option>
+                }
                 {codePostal?.villes?.map((ville, idxbis) => {
-                  return (<option key={idxbis} value={JSON.stringify({ cp: codePostal.codePostal, ville })}>{ville.toUpperCase()}</option>);
+                  return (<option key={idxbis} value={JSON.stringify({ cp: codePostal.codePostal, ville: ville.ville, codeCommune: ville.codeCommune })}>
+                    {codePostal.codePostal} - {ville.ville.toUpperCase()}
+                  </option>);
                 })}
               </optgroup>);
             })}

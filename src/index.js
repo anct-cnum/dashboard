@@ -45,6 +45,7 @@ const oidcConfig = {
       `${process.env.REACT_APP_AUTH_REDIRECT_URI}/accueil`,
   post_logout_redirect_uri: `${process.env.REACT_APP_AUTH_REDIRECT_URI}/login`,
   userStore: new WebStorageStateStore({ store: window.localStorage }),
+  scope: 'openid profile email',
   onSigninCallback: () => signInCallBack(store),
 };
 

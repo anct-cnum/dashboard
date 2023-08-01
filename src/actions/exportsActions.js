@@ -118,10 +118,10 @@ function resetExportDonneesTerritoire() {
   return { type: 'EXPORT_TERRITOIRE_RESET' };
 }
 
-function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom, region, departement, structureIds) {
+function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds) {
   return dispatch => {
     dispatch(request());
-    exportsService.getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, nom, prenom, region, departement, structureIds)
+    exportsService.getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds)
     .then(
       data => dispatch(success(data)),
       error => dispatch(failure(error))
@@ -180,10 +180,10 @@ function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, da
   }
 }
 
-function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = 1) {
+function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreSearchBar, filtreDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = 1) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreParNomConseiller, filterDepartement, filtreRegion, ordreNom, ordre)
+    await exportsService.getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreSearchBar, filtreDepartement, filtreRegion, ordreNom, ordre)
     .then(exportHistoriqueContratFileBlob => dispatch(success(exportHistoriqueContratFileBlob)))
     .catch(exportHistoriqueContratFileError => dispatch(failure(exportHistoriqueContratFileError)));
   };
