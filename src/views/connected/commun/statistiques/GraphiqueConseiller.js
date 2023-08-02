@@ -27,6 +27,7 @@ export default function GraphiqueConseiller() {
   const statistiquesLoading = useSelector(state => state.statistiques?.loading);
   const statistiquesError = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
+  const codeCommuneStats = useSelector(state => state.statistiques?.codeCommuneStats);
   const villeStats = useSelector(state => state.statistiques?.villeStats);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
 
@@ -61,7 +62,7 @@ export default function GraphiqueConseiller() {
   useEffect(() => {
     if (!statistiquesError) {
       if (idConseiller && !!conseiller) {
-        dispatch(statistiquesActions.getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, villeStats));
+        dispatch(statistiquesActions.getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, codeCommuneStats));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -70,7 +71,7 @@ export default function GraphiqueConseiller() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, statistiquesError, conseiller, villeStats, codePostal]);
+  }, [dateDebut, dateFin, statistiquesError, conseiller, codePostal, codeCommuneStats]);
 
   const formatNomStatistiques = () => {
     const formatNom = conseiller?.nom.charAt(0).toUpperCase() + conseiller?.nom.slice(1);
@@ -119,6 +120,7 @@ export default function GraphiqueConseiller() {
               id={idConseiller}
               codePostal={codePostal}
               ville={villeStats}
+              codeCommune={codeCommuneStats}
               nom={conseiller.nom}
               prenom={conseiller.prenom}
             />

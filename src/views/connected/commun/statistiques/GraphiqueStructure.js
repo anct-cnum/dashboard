@@ -27,7 +27,7 @@ export default function GraphiqueStructure() {
   const statistiquesError = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const villeStats = useSelector(state => state.statistiques?.villeStats);
-
+  const codeCommuneStats = useSelector(state => state.statistiques?.codeCommuneStats);
   const loadingExport = useSelector(state => state.exports?.loading);
   const [structure, setStructure] = useState(location?.state?.structure);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
@@ -60,7 +60,7 @@ export default function GraphiqueStructure() {
   useEffect(() => {
     if (!statistiquesError) {
       if (structure) {
-        dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, villeStats));
+        dispatch(statistiquesActions.getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, codeCommuneStats));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -69,7 +69,7 @@ export default function GraphiqueStructure() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, statistiquesError, codePostal, structure, villeStats]);
+  }, [dateDebut, dateFin, statistiquesError, codePostal, structure, codeCommuneStats]);
 
   return (
     <div className="statistiques">
@@ -109,6 +109,7 @@ export default function GraphiqueStructure() {
               id={idStructure}
               codePostal={codePostal}
               ville={villeStats}
+              codeCommune={codeCommuneStats}
             />
           </div>
         }

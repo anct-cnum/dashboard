@@ -6,6 +6,7 @@ import ConseillerDetails from './conseillers/ConseillerDetails';
 import StructureDetails from './structures/StructureDetails';
 import Page404 from '../Page404';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
+import TableauTerritoires from './statistiquesTerritoires/TableauTerritoires';
 import TableauStructures from './structures/TableauStructures';
 import TableauConseillers from './conseillers/TableauConseillers';
 
@@ -32,6 +33,7 @@ export default function Prefet() {
         <Route path="/prefet/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/prefet/liste-conseillers" element={<TableauConseillers />} />
         <Route path="/prefet/conseiller/:idConseiller" element={<ConseillerDetails />} />
+        <Route path="/prefet/statistiques-territoires" element={<TableauTerritoires />} />
         <Route path="/prefet/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />
       </Routes>

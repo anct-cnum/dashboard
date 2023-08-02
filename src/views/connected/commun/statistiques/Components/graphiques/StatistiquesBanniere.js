@@ -7,7 +7,7 @@ import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUt
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
 // eslint-disable-next-line max-len
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, nom, prenom, region, departement, conseillerIds, structureIds, pilotage }) {
+function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds, pilotage }) {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -65,7 +65,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
         conseillerIds = territoire?.conseillerIds ?? undefined;
       }
       // eslint-disable-next-line max-len
-      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville, nom, prenom, region, departement, structureIds));
+      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds));
     }
   }
 
@@ -118,6 +118,7 @@ StatistiquesBanniere.propTypes = {
   dateFin: PropTypes.instanceOf(Date),
   codePostal: PropTypes.string,
   ville: PropTypes.string,
+  codeCommune: PropTypes.string,
   region: PropTypes.string,
   departement: PropTypes.string,
   structure: PropTypes.string,

@@ -20,8 +20,8 @@ export default function TableauContrat() {
   const contrats = useSelector(state => state.contrat);
   const ordre = useSelector(state => state.filtresConventions?.ordre);
   const ordreNom = useSelector(state => state.filtresConventions?.ordreNom);
-  const filtreParNomConseiller = useSelector(state => state.filtresConventions?.nom);
-  const filterDepartement = useSelector(state => state.filtresConventions?.departement);
+  const filtreSearchBar = useSelector(state => state.filtresConventions?.nom);
+  const filtreDepartement = useSelector(state => state.filtresConventions?.departement);
   const filtreRegion = useSelector(state => state.filtresConventions?.region);
   const filtreStatutDossierRupture = useSelector(state => state.filtresConventions?.statutDossierRupture);
   const currentPage = useSelector(state => state.pagination?.currentPage);
@@ -40,15 +40,15 @@ export default function TableauContrat() {
       dispatch(contratActions.getAll(
         currentPage,
         statutContrat,
-        filtreParNomConseiller,
-        filterDepartement,
+        filtreSearchBar,
+        filtreDepartement,
         filtreRegion,
         filtreStatutDossierRupture,
         ordreNom,
         ordre ? -1 : 1
       ));
     }
-  }, [currentPage, statutContrat, filtreParNomConseiller, filterDepartement, filtreStatutDossierRupture, filtreRegion, ordre, ordreNom]);
+  }, [currentPage, statutContrat, filtreSearchBar, filtreDepartement, filtreStatutDossierRupture, filtreRegion, ordre, ordreNom]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -62,8 +62,8 @@ export default function TableauContrat() {
         dispatch(contratActions.getAll(
           page,
           statutContrat,
-          filtreParNomConseiller,
-          filterDepartement,
+          filtreSearchBar,
+          filtreDepartement,
           filtreRegion,
           filtreStatutDossierRupture,
           ordreNom,
