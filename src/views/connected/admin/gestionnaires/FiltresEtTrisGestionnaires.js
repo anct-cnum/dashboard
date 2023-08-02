@@ -71,7 +71,6 @@ function FiltresEtTrisGestionnaires() {
           <div className="fr-select-group fr-col-5" id="filtre-role">
             <select className="fr-select" value={filtreRole} onChange={selectFiltreRole}>
               <option value={'tous'}>S&eacute;lectionner un r&ocirc;le</option>
-              <option value="tous">Tous</option>
               <option value="admin">Admin</option>
               <option value="grandReseau">Grand r&eacute;seau</option>
               <option value="prefet">Pr&eacute;fet</option>
