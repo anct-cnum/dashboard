@@ -11,6 +11,7 @@ export const statistiquesActions = {
   getTerritoire,
   getDatasStructures,
   getDatasTerritoires,
+  getDatasTerritoiresPrefet,
   getStatistiquesStructure,
   getStatistiquesConseiller,
   getStatistiquesTerritoire,
@@ -21,8 +22,8 @@ export const statistiquesActions = {
   resetFiltre,
 };
 
-function changeCodePostalStats(codePostal, ville) {
-  return { type: 'CHANGE_CODE_POSTAL_STATS', codePostal, ville };
+function changeCodePostalStats(codePostal, ville, codeCommune = null) {
+  return { type: 'CHANGE_CODE_POSTAL_STATS', codePostal, ville, codeCommune };
 }
 
 function changeStructureStats(structureId) {
@@ -68,12 +69,12 @@ function getStatistiquesNationale(dateDebut, dateFin) {
   }
 }
 
-function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, ville, codePostal, codeRegion, numeroDepartement, structureId, conseillerId) {
+function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, codePostal, codeRegion, numeroDepartement, structureId, conseillerId) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getStatistiquesNationaleGrandReseau(formatDate(dateDebut), formatDate(dateFin)
-      , ville, codePostal, codeRegion, numeroDepartement, structureId, conseillerId)
+    statistiquesService.getStatistiquesNationaleGrandReseau(formatDate(dateDebut), formatDate(dateFin),
+      codeCommune, codePostal, codeRegion, numeroDepartement, structureId, conseillerId)
     .then(
       statsNationales => {
         dispatch(success(statsNationales));
@@ -103,6 +104,31 @@ function getDatasTerritoires(territoire = 'departement', dateDebut, dateFin, pag
   return dispatch => {
     dispatch(request());
     statistiquesService.getDatasTerritoires(territoire, formatDate(dateDebut), formatDate(dateFin), page, nomOrdre, ordre)
+    .then(
+      statsTerritoires => {
+        dispatch(success(statsTerritoires));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_DATAS_TERRITOIRES_REQUEST' };
+  }
+  function success(statsTerritoires) {
+    return { type: 'GET_DATAS_TERRITOIRES_SUCCESS', statsTerritoires };
+  }
+  function failure(error) {
+    return { type: 'GET_DATAS_TERRITOIRES_FAILURE', error };
+  }
+}
+
+function getDatasTerritoiresPrefet(territoire = 'departement', dateDebut, dateFin, nomOrdre = 'code', ordre = 1) {
+  return dispatch => {
+    dispatch(request());
+    statistiquesService.getDatasTerritoiresPrefet(territoire, formatDate(dateDebut), formatDate(dateFin), nomOrdre, ordre)
     .then(
       statsTerritoires => {
         dispatch(success(statsTerritoires));
@@ -198,10 +224,10 @@ function getDatasStructures(dateDebut, dateFin, page) {
   }
 }
 
-function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal = null, ville = null) {
+function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal = null, codeCommune = null) {
   return dispatch => {
     dispatch(request());
-    statistiquesService.getStatistiquesStructure(formatDate(dateDebut), formatDate(dateFin), idStructure, codePostal, ville)
+    statistiquesService.getStatistiquesStructure(formatDate(dateDebut), formatDate(dateFin), idStructure, codePostal, codeCommune)
     .then(
       statsStructure => {
         dispatch(success(statsStructure));
@@ -223,10 +249,10 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal = 
   }
 }
 
-function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal = null, ville = null) {
+function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal = null, codeCommune = null) {
   return dispatch => {
     dispatch(request());
-    statistiquesService.getStatistiquesConseiller(formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, ville)
+    statistiquesService.getStatistiquesConseiller(formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, codeCommune)
     .then(
       statsConseiller => {
         dispatch(success(statsConseiller));

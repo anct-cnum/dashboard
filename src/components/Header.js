@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/brands/logo-rf-conseiller-numerique-min.svg';
-import { menuActions, authenticationActions, structureActions } from '../actions';
+import { menuActions, authenticationActions } from '../actions';
 import Menu from './Menu';
 import { useAuth } from 'react-oidc-context';
 import UserMenu from './UserMenu';
@@ -18,7 +18,6 @@ function Header() {
   const roles = useSelector(state => state.authentication?.rolesAllowed)?.filter(role => !['admin_coop', 'structure_coop', 'conseiller'].includes(role));
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const user = useSelector(state => state.authentication?.user);
-  const structure = useSelector(state => state.structure?.structure);
 
   const clickButtonLogout = async e => {
     await signOut();
@@ -35,12 +34,6 @@ function Header() {
     dispatch(authenticationActions.changeRoleActivated(role));
     navigate('/');
   };
-
-  useEffect(() => {
-    if (user?.entity?.$ref === 'structures' && location.pathname !== '/structure') {
-      dispatch(structureActions.get(user?.entity?.$id));
-    }
-  }, [user]);
 
   return (
     <header role="banner" className="fr-header">
@@ -88,7 +81,7 @@ function Header() {
                   <div className="fr-header__tools" style={{ height: '57px' }}>
                     <div className="fr-header__tools-links" id="navigation-774" role="navigation" aria-label="Compte utilisateur">
                       <UserMenu user={user} roleActivated={roleActivated} roles={roles} changeRoleActivated={changeRoleActivated}
-                        structure={structure} auth={auth} clickButtonLogout={clickButtonLogout} />
+                        auth={auth} clickButtonLogout={clickButtonLogout} />
                     </div>
                   </div>
                 }
@@ -103,7 +96,6 @@ function Header() {
           roleActivated={roleActivated}
           roles={roles}
           changeRoleActivated={changeRoleActivated}
-          structure={structure}
           auth={auth}
           clickButtonLogout={clickButtonLogout}
         />

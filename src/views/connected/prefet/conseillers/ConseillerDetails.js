@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { conseillerActions, structureActions, alerteEtSpinnerActions } from '../../../actions';
-import { formatNomConseiller } from '../../../utils/formatagesUtils';
-import Spinner from '../../../components/Spinner';
-import InformationConseiller from '../../../components/InformationConseiller';
-import StructureContactCards from '../../../components/cards/StructureContactCards';
+import { conseillerActions, structureActions, alerteEtSpinnerActions } from '../../../../actions';
+import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import Spinner from '../../../../components/Spinner';
+import InformationConseiller from '../../../../components/InformationConseiller';
+import StructureContactCards from '../../../../components/cards/StructureContactCards';
 
 function ConseillerDetails() {
 
   const dispatch = useDispatch();
-  const { idConseiller, idMiseEnRelation } = useParams();
+  const { idConseiller } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const structure = useSelector(state => state.structure?.structure);
   const errorStructure = useSelector(state => state.structure?.error);
@@ -25,7 +25,7 @@ function ConseillerDetails() {
   useEffect(() => {
     if (!errorConseiller) {
       if (conseiller?._id !== idConseiller) {
-        dispatch(conseillerActions.get(idConseiller, idMiseEnRelation));
+        dispatch(conseillerActions.get(idConseiller));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({

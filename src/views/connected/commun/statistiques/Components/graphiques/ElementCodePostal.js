@@ -11,19 +11,20 @@ function ElementCodePostal() {
   const setCodePostal = e => {
     const codePostal = e.target.value.split(' - ')[0];
     const ville = e.target.value.split(' - ')[1];
-    dispatch(statistiquesActions.changeCodePostalStats(codePostal, ville));
+    const listCp = listeCodesPostaux?.find(i => i.id === codePostal)?.codeCommune;
+    const codeCommune = listCp?.find(e => e.ville === ville)?.codeCommune;
+    dispatch(statistiquesActions.changeCodePostalStats(codePostal, ville, codeCommune));
   };
-
   return (
     <select className="fr-select code-postal-select" onChange={setCodePostal}>
       <option value="">Tous codes postaux</option>
       {listeCodesPostaux && listeCodesPostaux?.map((codePostal, idx) => {
         return (<optgroup key={idx} label={codePostal.id}>
-          {codePostal?.codePostal?.length > 1 &&
+          {codePostal?.villes?.length > 1 &&
             <option value={codePostal.id}>{codePostal.id} - TOUTES COMMUNES </option>
           }
-          {codePostal?.codePostal?.map((ligne, idxbis) => {
-            return (<option key={idxbis} value={ligne}>{ligne.toUpperCase()}</option>);
+          {codePostal?.villes?.map((ligne, idxbis) => {
+            return (<option key={idxbis} value={`${codePostal.id} - ${ligne}`}>{codePostal.id} - {ligne.toUpperCase()}</option>);
           })}
         </optgroup>);
       })}

@@ -26,7 +26,8 @@ export const selectFiltreCodePostal = (dispatch, e) => {
   } else {
     const ville = JSON.parse(e.target.value).ville;
     const codePostal = JSON.parse(e.target.value).cp;
-    dispatch(statistiquesActions.changeCodePostalStats(codePostal, ville));
+    const codeCommune = JSON.parse(e.target.value).codeCommune;
+    dispatch(statistiquesActions.changeCodePostalStats(codePostal, ville, codeCommune));
   }
   dispatch(statistiquesActions.changeStructureStats(''));
   dispatch(statistiquesActions.changeConseillerStats(''));

@@ -6,13 +6,15 @@ import DemandeReco from './DemandeReco';
 import Exports from './Exports';
 import Candidatures from './Candidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
-import ConseillerDetails from './ConseillerDetails';
+import ConseillerDetails from './conseillers/ConseillerDetails';
 import Page404 from '../Page404';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 import MaStructure from './MaStructure';
 import PreselectionCandidatDetails from './candidatures/PreselectionCandidatDetails';
 import PreselectionConseillerDetails from './candidatures/PreselectionConseillerDetails';
 import CandidatureConseillerDetails from './candidatures/CandidatureConseillerDetails';
+import RecrutementCoordinateur from './RecrutementCoordinateur';
+import TableauConseillers from './conseillers/TableauConseillers';
 
 export default function Structure() {
 
@@ -21,7 +23,7 @@ export default function Structure() {
   return (
     <>
       <PreFetch />
-      { location.pathname === '/accueil' &&
+      {location.pathname === '/accueil' &&
         <div className="fr-grid-row fr-grid-row--center fr-my-15w">
           <div className="fr-col--offset-1 fr-col-10">
             <h3>Bienvenue sur votre tableau de pilotage,</h3>
@@ -43,11 +45,11 @@ export default function Structure() {
               </ul>
               Et bien plus encore...
             </div>
-            <br/>
+            <br />
             <p><b>Vous avez des questions&nbsp;?</b></p>
             <div>
               L&rsquo;&eacute;quipe d&rsquo;animation se tient &agrave; votre disposition&nbsp;:
-              <br/>
+              <br />
               <ul>
                 <li>Par t&eacute;l&eacute;phone au num&eacute;ro suivant&nbsp;:
                   <b> 01 58 50 89 42 </b>du <b>lundi</b> au <b>jeudi</b> de <b>09h30 &agrave; 12h00</b> et le <b>mercredi de 14h00 &agrave; 16h00.</b></li>
@@ -55,7 +57,7 @@ export default function Structure() {
                   className="fr-link"
                   href="mailto:conseiller-numerique@anct.gouv.fr"
                   title="conseiller-numerique@anct.gouv.fr">
-                    conseiller-numerique@anct.gouv.fr</a>
+                  conseiller-numerique@anct.gouv.fr</a>
                 </li>
               </ul>
             </div>
@@ -66,7 +68,9 @@ export default function Structure() {
         <Route path="/structure/informations" element={<MesInformations />} />
         <Route path="/structure/ma-structure" element={<MaStructure />} />
         <Route path="/structure/postes" element={<MesPostes />} />
+        <Route path="/structure/recrutement-coordinateur" element={<RecrutementCoordinateur />} />
         <Route path="/structure/demande-de-reconventionnement" element={<DemandeReco />} />
+        <Route path="/structure/liste-conseillers" element={<TableauConseillers />} />
         <Route path="/structure/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/structure/candidats/:filter" element={<Candidatures />} /> {/* Routes spécifiques avec /structure */}
         <Route path="/structure/candidature/candidat/:id" element={<CandidatDetails />} />
