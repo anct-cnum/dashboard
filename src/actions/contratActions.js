@@ -9,11 +9,11 @@ export const contratActions = {
   updateContract,
 };
 
-function getAll(page, statutContrat, filtreSearchBar, filtreDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = -1) {
+function getAll(page, statutContrat, filtreSearchBar, filtreDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom = 'dateDemande', ordre = -1) {
   return dispatch => {
     dispatch(request());
 
-    contratService.getAll(page, statutContrat, filtreSearchBar, filtreDepartement, filtreRegion, ordreNom, ordre)
+    contratService.getAll(page, statutContrat, filtreSearchBar, filtreDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom, ordre)
     .then(
       contrats => dispatch(success(contrats)),
       error => {

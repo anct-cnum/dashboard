@@ -5,13 +5,14 @@ import codeRegions from '../../../../datas/code_region.json';
 import departementsRegionRaw from '../../../../datas/departements-region.json';
 import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
 
-function FiltresEtTrisContrat() {
+function FiltresEtTrisContratRupture() {
   const dispatch = useDispatch();
   const departementsRegionArray = Array.from(departementsRegionRaw);
   const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
   const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
-  const filtreDepartement = useSelector(state => state.filtresConventions?.departement);
+  const filterDepartement = useSelector(state => state.filtresConventions?.departement);
   const filtreRegion = useSelector(state => state.filtresConventions?.region);
+  const filtreStatut = useSelector(state => state.filtresConventions?.statut);
 
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));
@@ -24,15 +25,15 @@ function FiltresEtTrisContrat() {
     dispatch(filtresConventionsActions.changeFiltreDepartement(e.target?.value));
   };
 
-  const recherche = e => {
+  const rechercheParNomConseiller = e => {
     dispatch(paginationActions.setPage(1));
     const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
     dispatch(filtresConventionsActions.changeNom(value));
   };
 
-  const rechercheToucheEnter = e => {
+  const rechercheParNomConseillerToucheEnter = e => {
     if (e.key === 'Enter') {
-      recherche(e);
+      rechercheParNomConseiller(e);
     }
   };
 
@@ -43,17 +44,22 @@ function FiltresEtTrisContrat() {
     return departementsRegionList;
   };
 
+  const selectFiltreStatut = e => {
+    dispatch(paginationActions.setPage(1));
+    dispatch(filtresConventionsActions.changeFiltreStatut(e.target?.value));
+  };
+
   return (
     <>
-      <div className="fr-grid-row">
-        <div className="fr-search-bar fr-search-bar fr-mr-3w fr-col-12" id="search" role="search" >
-          <input onKeyDown={rechercheToucheEnter} className="fr-input" defaultValue={''}
-            placeholder="Rechercher par nom, par id du candidat ou de la structure" type="search" id="search-input" name="search-input" />
-          <button className="fr-btn" onClick={recherche} title="Rechercher par nom, par id du candidat ou de la structure">
-            Rechercher
-          </button>
-        </div>
-        <div className="fr-select-group fr-col-xl-3 fr-col-md-5 fr-mr-3w fr-mb-0 fr-col-12" id="filtre-region">
+      <div className="fr-search-bar fr-search-bar fr-col-12 fr-mb-3w" role="search" >
+        <input onKeyDown={rechercheParNomConseillerToucheEnter} className="fr-input" defaultValue={''}
+          placeholder="Rechercher par nom ou par id du candidat" type="search" id="search-input" name="search-input" />
+        <button className="fr-btn" onClick={rechercheParNomConseiller} title="Rechercher par nom ou par id du candidat">
+          Rechercher
+        </button>
+      </div>
+      <div className="fr-grid-row fr-col-12">
+        <div className="fr-select-group fr-col-12 fr-col-xl-4 fr-mr-xl-2w" id="filtre-region-rupture">
           <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
             <option value={'tous'}>S&eacute;lectionner une r&eacute;gion</option>
             {codeRegions.map((region, idx) =>
@@ -61,12 +67,19 @@ function FiltresEtTrisContrat() {
             )}
           </select>
         </div>
-        <div className="fr-select-group fr-col-xl-3 fr-col-md-5 fr-col-12" id="filtre-departement">
-          <select className="fr-select" value={filtreDepartement} onChange={selectFiltreDepartement}>
+        <div className="fr-select-group fr-col-12 fr-col-xl-4" id="filtre-departement-rupture">
+          <select className="fr-select" value={filterDepartement} onChange={selectFiltreDepartement}>
             <option value={'tous'}>S&eacute;lectionner un d&eacute;partement</option>
             {getDepartements().map((departement, idx) =>
               <option key={idx} value={departement.num_dep}>{departement.num_dep} - {departement.dep_name}</option>
             )}
+          </select>
+        </div>
+        <div className="fr-select-group fr-col-12" id="filtre-statut">
+          <select className="fr-select" value={filtreStatut} onChange={selectFiltreStatut}>
+            <option value={'tous'}>S&eacute;lectionner le statut du dossier</option>
+            <option value={'true'}>En attente de pi&egrave;ces</option>
+            <option value={'false'}>Complet</option>
           </select>
         </div>
       </div>
@@ -74,4 +87,4 @@ function FiltresEtTrisContrat() {
   );
 }
 
-export default FiltresEtTrisContrat;
+export default FiltresEtTrisContratRupture;
