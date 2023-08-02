@@ -83,8 +83,8 @@ export function conventionQueryStringParameters(filtreParNomStructure, filterDep
   return { ordreColonne, filterByName, filterByRegion, filterByDepartement };
 }
 
-export function contratQueryStringParameters(filtreParNomConseiller, filtreDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom, ordre) {
-  const filterByName = filtreParNomConseiller ? `&searchByNomConseiller=${filtreParNomConseiller}` : '';
+export function contratQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom, ordre) {
+  const filterByName = filtreSearchBar ? `&search=${filtreSearchBar}` : '';
   const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
   const filterByDepartement = filtreDepartement !== 'tous' && filtreDepartement !== undefined ? `&departement=${filtreDepartement}` : '';
   // eslint-disable-next-line max-len
