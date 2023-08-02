@@ -100,6 +100,8 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
           className="fr-nav__btn"
           aria-expanded={activeMenu === 'statistiques'}
           aria-controls="menu-statistiques"
+          // eslint-disable-next-line max-len
+          {...(location.pathname.startsWith(`/${roleActivated}/statistiques-territoires`) || location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
           Statistiques
         </button>
@@ -114,8 +116,8 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
               </Link>
             </li>
             <li>
-              <Link className="fr-nav__link" to="/statistiques-territoires"
-                {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
+              <Link className="fr-nav__link" to={`/${roleActivated}/statistiques-territoires`}
+                {...(location.pathname.startsWith(`/${roleActivated}/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'statistiques-territoriales', action: `click-${roleActivated}` })}
               >
                 &bull;&nbsp;Statistiques territoriales du dispositif
