@@ -3,6 +3,7 @@ import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
 import { statsGrandReseauQueryStringParameters, statsQueryStringParameters, territoireQueryString } from '../utils/queryUtils';
+import signOut from './auth/logout';
 
 export const statistiquesService = {
   getTerritoire,
@@ -74,7 +75,12 @@ function getStatistiquesNationale(dateDebut, dateFin) {
 
   return API.get(`stats/nationales/cras?role=anonyme${filterDateStart}${filterDateEnd}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(error => {
+    if (error.response.status === 403) {
+      signOut();
+    }
+    Promise.reject(error.response.data.message);
+  });
 }
 
 function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, codePostal, region, departement, structureIds, conseillerIds) {
