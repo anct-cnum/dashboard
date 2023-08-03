@@ -10,7 +10,12 @@ const initialState = {
 
 export default function authentication(state = initialState, action) {
   switch (action.type) {
-   
+    case 'LOGIN_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
     case 'LOGIN_SUCCESS':
       return {
         ...state,
@@ -26,7 +31,11 @@ export default function authentication(state = initialState, action) {
         accessToken: action.accessToken
       };
     case 'LOGIN_FAILURE':
-      return {};
+      return {
+        ...state,
+        error: action.error,
+        loading: false
+      };
     case 'CHANGE_ROLE':
       return {
         ...state,

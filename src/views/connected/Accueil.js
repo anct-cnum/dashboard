@@ -15,7 +15,7 @@ export default function Accueil() {
 
 
   useEffect(() => {
-    if (!localStorage.getItem('user')) {
+    if (!localStorage.getItem('user') || (localStorage.getItem('user') && localStorage.getItem('user') === '{}')) {
       navigate('/login');
     } else if (location.pathname.startsWith('/accueil') && localStorage.getItem('user') !== '{}' && window.location.pathname.split('/').length > 2) {
       navigate('/accueil'); // pour ne pas partir en vue 404 si token présent après signInCallBack
