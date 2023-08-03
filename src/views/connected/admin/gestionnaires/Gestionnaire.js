@@ -11,7 +11,7 @@ function Gestionnaire({ gestionnaire }) {
   const dispatch = useDispatch();
   const [confirmSuppressionGestionnaire, setConfirmSuppressionGestionnaire] = useState(false);
   const filtreRole = useSelector(state => state.filtresGestionnaires?.searchRole);
-  const rolesGestionnaire = gestionnaire?.roles.filter(role => role !== 'admin_coop' && role !== 'structure_coop');
+  const rolesGestionnaire = gestionnaire?.roles?.filter(role => role !== 'admin_coop' && role !== 'structure_coop');
 
   const resendInvitGestionnaire = () => {
     scrollTopWindow();
