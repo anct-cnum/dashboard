@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import PrivateRoute from './views/connected/PrivateRoute';
 import Login from './views/anonymous/Login';
 import Passerelle from './views/anonymous/Passerelle';
