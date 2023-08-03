@@ -3,6 +3,7 @@ export const filtresConventionsActions = {
   changeNom,
   changeFiltreDepartement,
   changeFiltreRegion,
+  changeFiltreStatut,
   resetFiltre,
 };
 
@@ -20,6 +21,10 @@ function changeFiltreDepartement(departement) {
 
 function changeFiltreRegion(region) {
   return { type: 'CHANGE_REGION', region };
+}
+
+function changeFiltreStatut(statutDossierRupture) {
+  return { type: 'CHANGE_STATUT_DOSSIER_RUPTURE', statutDossierRupture };
 }
 
 function resetFiltre() {

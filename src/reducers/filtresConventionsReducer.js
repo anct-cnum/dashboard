@@ -4,6 +4,7 @@ const initialState = {
   ordreNom: undefined,
   region: 'tous',
   departement: 'tous',
+  statutDossierRupture: 'tous',
 };
 
 export default function filtresConventions(state = initialState, action) {
@@ -28,6 +29,11 @@ export default function filtresConventions(state = initialState, action) {
       return {
         ...state,
         departement: action.departement
+      };
+    case 'CHANGE_STATUT_DOSSIER_RUPTURE':
+      return {
+        ...state,
+        statutDossierRupture: action.statutDossierRupture
       };
     case 'RESET_FILTER_AND_SORTS':
       return initialState;

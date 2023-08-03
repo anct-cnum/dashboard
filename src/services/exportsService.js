@@ -7,6 +7,7 @@ import { conseillerQueryStringParameters, territoireQueryString, structureQueryS
 export const exportsService = {
   getFile,
   getExportDonneesTerritoire,
+  getExportDonneesTerritoirePrefet,
   getStatistiquesCSV,
   getExportDonneesConseiller,
   getExportDonneesStructure,
@@ -23,6 +24,14 @@ function getFile(name, collection) {
 
 async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrdre, ordre) {
   const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports`;
+  const exportTerritoiresRoute = '/territoires-csv';
+  return API.get(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+async function getExportDonneesTerritoirePrefet(territoire, dateDebut, dateFin, nomOrdre, ordre) {
+  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports/prefet`;
   const exportTerritoiresRoute = '/territoires-csv';
   return API.get(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`)
   .then(response => response.data)

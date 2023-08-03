@@ -17,6 +17,15 @@
       max-width: 46%;
       width: 46%;
     }
+    #filtre-statut {
+      flex: 0 0 28%;
+      max-width: 28%;
+      width: 28%;
+    }
+    #filtre-region-rupture, #filtre-departement-rupture {
+      margin-right: 2rem;
+      margin-bottom: 0;
+    }
   }
   @media (min-width: 768px) {
     #export, #filtre-departement {

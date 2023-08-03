@@ -11,6 +11,7 @@ export const statistiquesActions = {
   getTerritoire,
   getDatasStructures,
   getDatasTerritoires,
+  getDatasTerritoiresPrefet,
   getStatistiquesStructure,
   getStatistiquesConseiller,
   getStatistiquesTerritoire,
@@ -103,6 +104,31 @@ function getDatasTerritoires(territoire = 'departement', dateDebut, dateFin, pag
   return dispatch => {
     dispatch(request());
     statistiquesService.getDatasTerritoires(territoire, formatDate(dateDebut), formatDate(dateFin), page, nomOrdre, ordre)
+    .then(
+      statsTerritoires => {
+        dispatch(success(statsTerritoires));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_DATAS_TERRITOIRES_REQUEST' };
+  }
+  function success(statsTerritoires) {
+    return { type: 'GET_DATAS_TERRITOIRES_SUCCESS', statsTerritoires };
+  }
+  function failure(error) {
+    return { type: 'GET_DATAS_TERRITOIRES_FAILURE', error };
+  }
+}
+
+function getDatasTerritoiresPrefet(territoire = 'departement', dateDebut, dateFin, nomOrdre = 'code', ordre = 1) {
+  return dispatch => {
+    dispatch(request());
+    statistiquesService.getDatasTerritoiresPrefet(territoire, formatDate(dateDebut), formatDate(dateFin), nomOrdre, ordre)
     .then(
       statsTerritoires => {
         dispatch(success(statsTerritoires));

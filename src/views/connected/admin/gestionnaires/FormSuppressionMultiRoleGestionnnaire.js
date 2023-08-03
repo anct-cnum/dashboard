@@ -21,8 +21,6 @@ function FormSuppressionMultiRoleGestionnaire({ setConfirmSuppressionGestionnair
     setRole(e.target.value);
   };
 
-  const hiddenRoleDuplicate = roles => roles.filter(role => role !== 'admin_coop' && role !== 'structure_coop');
-
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog">
       <div className="fr-container fr-container--fluid fr-container-md">
@@ -44,7 +42,7 @@ function FormSuppressionMultiRoleGestionnaire({ setConfirmSuppressionGestionnair
                   <select defaultValue={''} className="fr-select" onChange={handleChangeAction}>
                     <option value="" disabled hidden>S&eacute;lectionnez une action</option>
                     <option value={'tous'}>Supprimer son compte</option>
-                    {hiddenRoleDuplicate(roles).map((role, idx) =>
+                    {roles.map((role, idx) =>
                       <option key={idx} value={role}>Supprimer le r&ocirc;le {role}</option>
                     )}
                   </select>

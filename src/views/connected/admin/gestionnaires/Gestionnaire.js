@@ -11,6 +11,7 @@ function Gestionnaire({ gestionnaire }) {
   const dispatch = useDispatch();
   const [confirmSuppressionGestionnaire, setConfirmSuppressionGestionnaire] = useState(false);
   const filtreRole = useSelector(state => state.filtresGestionnaires?.searchRole);
+  const rolesGestionnaire = gestionnaire?.roles?.filter(role => role !== 'admin_coop' && role !== 'structure_coop');
 
   const resendInvitGestionnaire = () => {
     scrollTopWindow();
@@ -21,15 +22,15 @@ function Gestionnaire({ gestionnaire }) {
 
   const displayRoleGestionnaire = () => {
     if (filtreRole !== 'tous') {
-      return gestionnaire?.roles.filter(role => role === filtreRole);
+      return rolesGestionnaire.filter(role => role === filtreRole);
     }
-    return gestionnaire?.roles.filter(role => role !== 'admin_coop' && role !== 'structure_coop');
+    return rolesGestionnaire;
   };
 
   return (
     <>
       <tr>
-        <td>{displayRoleGestionnaire(gestionnaire?.roles)?.join(',\n') || '-'}</td>
+        <td>{displayRoleGestionnaire()?.join(',\n') || '-'}</td>
         <td>{gestionnaire?.name || '-'}</td>
         <td>{gestionnaire?.reseau || '-'}</td>
         <td>{gestionnaire?.nom || '-'}</td>
@@ -48,14 +49,14 @@ function Gestionnaire({ gestionnaire }) {
               setConfirmSuppressionGestionnaire(true);
               scrollTopWindow();
             }}/>
-          {(confirmSuppressionGestionnaire && gestionnaire.roles.length > 1) &&
+          {(confirmSuppressionGestionnaire && rolesGestionnaire.length > 1) &&
             <FormSuppressionMultiRoleGestionnaire
               setConfirmSuppressionGestionnaire={setConfirmSuppressionGestionnaire}
               idGestionnaire={gestionnaire?._id}
-              roles={gestionnaire.roles}
+              roles={rolesGestionnaire}
             />
           }
-          {(confirmSuppressionGestionnaire && gestionnaire.roles.length === 1) &&
+          {(confirmSuppressionGestionnaire && rolesGestionnaire.length === 1) &&
             <FormSuppressionGestionnaire setConfirmSuppressionGestionnaire={setConfirmSuppressionGestionnaire} idGestionnaire={gestionnaire?._id} />
           }
         </td>
