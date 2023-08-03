@@ -10,6 +10,9 @@
     .color-text span {
         color: $light-grey;
     }
+    .react-datepicker-popper {
+        transform: translate3d(90%, 120px, 0px) !important;
+    }
     .email {
         color: $light-grey;
     }
@@ -68,6 +71,9 @@
         }
         .display-desktop {
             display: none;
+        }
+        .react-datepicker-popper {
+          transform: translate3d(53%, 120px, 0px) !important;
         }
     }
     @media (min-width: 1201px) {

@@ -6,8 +6,10 @@ import { API } from './api';
 export const contratService = {
   getAll,
   validationRenouvellement,
+  validationRecrutement,
   getAllHistorique,
   createContract,
+  updateContractRecrutement,
   updateContract,
 };
 
@@ -32,6 +34,12 @@ function validationRenouvellement(id) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
+function validationRecrutement(id) {
+  return API.patch(`${apiUrlRoot}/contrat/validation-recrutement/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
 function getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreSearchBar, filtreDepartement, filtreRegion, ordreNom, ordre) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
@@ -50,7 +58,14 @@ function getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreSearchB
 
 function createContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId) {
   // eslint-disable-next-line max-len
-  return API.post(`${apiUrlRoot}/contrat?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId })
+  return API.post(`${apiUrlRoot}/renouvellement/contrat?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function updateContractRecrutement(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId) {
+  // eslint-disable-next-line max-len
+  return API.patch(`${apiUrlRoot}/recrutement/contrat/${miseEnrelationId}?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

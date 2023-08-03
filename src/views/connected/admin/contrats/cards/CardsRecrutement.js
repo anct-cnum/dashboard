@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { formatTypeDeContrat } from '../../../../../utils/formatagesUtils';
 
-const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
+const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenModalContrat }) => {
 
   return (
     <div className="fr-card fr-mt-2w fr-card--no-border background-cards-contrat">
@@ -78,7 +78,7 @@ const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
             </div>
           </div>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-            {conseiller?.statut === 'RECRUTE' ?
+            {miseEnRelation?.statut === 'finalisee' ?
               <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
               <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
             }
@@ -86,15 +86,17 @@ const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
         </div>
         <div className="fr-card__footer">
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
-            {conseiller?.statut !== 'RECRUTE' &&
+            {miseEnRelation?.statut !== 'finalisee' &&
             <li>
               <button
-                className="fr-btn fr-btn--secondary" disabled
+                className="fr-btn fr-btn--secondary"
+                onClick={() => setOpenModalContrat(true)}
               >
                 Modifier la demande
               </button>
               <button
-                className="fr-btn" disabled
+                className="fr-btn"
+                onClick={() => setOpenModal(true)}
               >
                 Valider la demande
               </button>
@@ -115,6 +117,9 @@ const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
 CardsRecrutement.propTypes = {
   miseEnRelation: propTypes.object,
   conseiller: propTypes.object,
+  setOpenModal: propTypes.func,
+  setOpenModalContrat: propTypes.func,
+  urlDossierDS: propTypes.string,
 };
 
 export default CardsRecrutement;

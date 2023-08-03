@@ -77,7 +77,7 @@ function popinAnnulationReConvention({ setOpenModal, handleCancel, motif, setMot
                     </button>
                   </li>
                 </ul>
-                
+
               </div>
             </div>
           </div>
@@ -89,7 +89,6 @@ function popinAnnulationReConvention({ setOpenModal, handleCancel, motif, setMot
 
 popinAnnulationReConvention.propTypes = {
   updateStatut: PropTypes.func,
-  updateDateRecrutement: PropTypes.func,
   setDateValidee: PropTypes.func,
   setOpenModal: PropTypes.func,
 };

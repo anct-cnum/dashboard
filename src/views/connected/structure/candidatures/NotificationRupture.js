@@ -126,7 +126,6 @@ NotificationRupture.propTypes = {
   statut: PropTypes.string,
   updateStatut: PropTypes.func,
   miseEnRelationId: PropTypes.string,
-  dateRecrutement: PropTypes.string,
   dateRupture: PropTypes.string,
   motifRupture: PropTypes.string,
   misesEnRelationFinalisee: PropTypes.object,

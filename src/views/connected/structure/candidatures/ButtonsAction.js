@@ -1,95 +1,104 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { conseillerActions } from '../../../../actions/conseillerActions';
 import { useDispatch } from 'react-redux';
-import dayjs from 'dayjs';
 import PopinConfirmationAnnulation from '../popins/popinConfirmationAnnulation';
-import PopinValidationCandidature from '../popins/popinValidationCandidature';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import PopinEditionContrat from '../popins/popinEditionContrat';
+import { contratActions } from '../../../../actions';
 
-function ButtonsAction({ statut, updateStatut, miseEnRelationId }) {
+function ButtonsAction({ updateStatut, miseEnRelation }) {
   const dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
-  const [openModalValidationCandidature, setOpenModalValidationCandidature] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [openModalContrat, setOpenModalContrat] = useState(false);
 
-  const updateDateRecrutement = date => {
-    scrollTopWindow(); //permet de remonter pour visualiser le message date embauche enregistrée
-    date = dayjs(date);
-    dispatch(conseillerActions.updateDateRecrutement({ id: miseEnRelationId, date }));
+  const updateContractRecrutement = (typeDeContrat, dateDebut, dateFin, salaire) => {
+    dispatch(contratActions.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, miseEnRelation._id));
   };
 
   return (
-    <div className={`${statut === 'interessee' || statut === 'nouvelle' ? 'btn-actions-interessee' : 'btn-actions'}`}>
-      {statut === 'nouvelle' &&
-      <>
-        <button onClick={() => updateStatut('nonInteressee')}
-          className="fr-btn fr-btn--secondary fr-mt-2w fr-mt-md-0"
-          title="Ce profil ne correspond pas">
-            Ce profil ne correspond pas
-        </button>
-        <button onClick={() => updateStatut('interessee')} className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0" title="Pr&eacute;s&eacute;lectionner ce candidat">
-          Pr&eacute;s&eacute;lectionner ce candidat
-        </button>
-      </>
+    <>
+      {openModalContrat &&
+        <PopinEditionContrat
+          setOpenModalContrat={setOpenModalContrat}
+          updateContract={updateContractRecrutement}
+          conseiller={miseEnRelation}
+          editMode={editMode}
+          createContract={updateContractRecrutement}
+        />
       }
-      {statut === 'interessee' &&
-      <>
-        {openModalValidationCandidature &&
-          <PopinValidationCandidature
-            updateStatut={updateStatut}
-            updateDateRecrutement={updateDateRecrutement}
-            setOpenModal={setOpenModalValidationCandidature}
-          />
+      <div className={`${miseEnRelation?.statut === 'interessee' || miseEnRelation?.statut === 'nouvelle' ? 'btn-actions-interessee' : 'btn-actions'}`}>
+        {miseEnRelation?.statut === 'nouvelle' &&
+          <>
+            <button onClick={() => updateStatut('nonInteressee')}
+              className="fr-btn fr-btn--secondary fr-mt-2w fr-mt-md-0"
+              title="Ce profil ne correspond pas">
+              Ce profil ne correspond pas
+            </button>
+            <button
+              onClick={() => updateStatut('interessee')}
+              className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0"
+              title="Pr&eacute;s&eacute;lectionner ce candidat">
+              Pr&eacute;s&eacute;lectionner ce candidat
+            </button>
+          </>
         }
-        <button onClick={() => updateStatut('nouvelle')}
-          className="fr-btn fr-btn--secondary"
-          title="Annuler la pr&eacute;-s&eacute;lection">
-        Annuler la pr&eacute;s&eacute;lection
-        </button>
-        <button onClick={() => {
-          setOpenModalValidationCandidature(true);
-        }}
-        className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0"
-        title="Valider cette candidature">
-        Valider cette candidature
-        </button>
-      </>
-      }
-      {statut === 'nonInteressee' &&
-      <button onClick={() => updateStatut('nouvelle')}
-        className="fr-btn fr-btn--secondary"
-        title="Annuler le d&eacute;sint&eacute;r&ecirc;t">
-        Annuler le d&eacute;sint&eacute;r&ecirc;t
-      </button>
-      }
-      {statut === 'recrutee' &&
-        <>
-          {openModal &&
-          <PopinConfirmationAnnulation
-            updateStatut={updateStatut}
-            updateDateRecrutement={updateDateRecrutement}
-            setOpenModal={setOpenModal}
-          />
-          }
-          <button id="btn-annuler" onClick={() => {
-            setOpenModal(true);
-          }}
-          className="fr-btn fr-btn--secondary"
-          title="Annuler le recrutement">
-            Annuler le recrutement
+        {miseEnRelation?.statut === 'interessee' &&
+          <>
+            <button onClick={() => updateStatut('nouvelle')}
+              className="fr-btn fr-btn--secondary"
+              title="Annuler la pr&eacute;-s&eacute;lection">
+              Annuler la pr&eacute;s&eacute;lection
+            </button>
+            <button onClick={() => {
+              setOpenModalContrat(true);
+            }}
+            className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0"
+            title="Valider cette candidature">
+              Valider cette candidature
+            </button>
+          </>
+        }
+        {miseEnRelation?.statut === 'nonInteressee' &&
+          <button onClick={() => updateStatut('nouvelle')}
+            className="fr-btn fr-btn--secondary"
+            title="Annuler le d&eacute;sint&eacute;r&ecirc;t">
+            Annuler le d&eacute;sint&eacute;r&ecirc;t
           </button>
-        </>
-      }
-    </div>
+        }
+        {miseEnRelation?.statut === 'recrutee' &&
+          <>
+            {openModal &&
+              <PopinConfirmationAnnulation
+                updateStatut={updateStatut}
+                setOpenModal={setOpenModal}
+              />
+            }
+            <button id="btn-annuler" onClick={() => {
+              setOpenModal(true);
+            }}
+            className="fr-btn fr-btn--secondary"
+            title="Annuler le recrutement">
+              Annuler le recrutement
+            </button>
+            <button onClick={() => {
+              setEditMode(true);
+              setOpenModalContrat(true);
+            }}
+            className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0"
+            title="Modifier le contrat">
+              Modifier le contrat
+            </button>
+          </>
+        }
+      </div>
+    </>
   );
 }
 
 ButtonsAction.propTypes = {
-  statut: PropTypes.string,
   updateStatut: PropTypes.func,
-  miseEnRelationId: PropTypes.string,
-  dateRecrutement: PropTypes.string,
+  miseEnRelation: PropTypes.object,
 };
 
 export default ButtonsAction;
