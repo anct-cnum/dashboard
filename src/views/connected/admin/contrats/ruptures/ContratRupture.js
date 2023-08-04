@@ -32,7 +32,6 @@ function ContratRupture({ contrat }) {
 
 ContratRupture.propTypes = {
   contrat: PropTypes.object,
-  statutContrat: PropTypes.string,
 };
 
 export default ContratRupture;
