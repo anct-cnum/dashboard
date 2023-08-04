@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, conseillerActions, contratActions } from '../../../../actions';
-import { formatNomConseiller } from '../../../../utils/formatagesUtils';
-import Spinner from '../../../../components/Spinner';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import CardsRecrutement from './cards/CardsRecrutement';
-import InformationCandidat from '../../../../components/InformationCandidat';
-import PopinEditionContrat from '../../../connected/structure/popins/popinEditionContrat';
-import ModalValidationRecrutement from '../modals/ModalValidationRecrutement';
+import { alerteEtSpinnerActions, conseillerActions, contratActions } from '../../../../../actions';
+import { formatNomConseiller } from '../../../../../utils/formatagesUtils';
+import Spinner from '../../../../../components/Spinner';
+import { scrollTopWindow } from '../../../../../utils/exportsUtils';
+import CardsRecrutement from './CardsRecrutement';
+import InformationCandidat from '../../../../../components/InformationCandidat';
+import PopinEditionContrat from '../../../structure/popins/popinEditionContrat';
+import ModalValidationRecrutement from '../../modals/ModalValidationRecrutement';
 
 function CandidatDetailsRecrutement() {
   const dispatch = useDispatch();

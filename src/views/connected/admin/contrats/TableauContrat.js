@@ -7,7 +7,8 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import Contrat from './Contrat';
 import FiltresEtTrisContrat from './FiltresEtTrisContrat';
-import FiltresEtTrisContratRupture from './FiltresEtTrisContratRupture';
+import FiltresEtTrisContratRupture from './ruptures/FiltresEtTrisContratRupture';
+import TableauRuptures from './ruptures/TableauRuptures';
 
 export default function TableauContrat() {
 
@@ -124,44 +125,53 @@ export default function TableauContrat() {
             <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
               <div className="fr-col-12">
                 <div className="fr-table">
-                  <table className={contrats?.items?.data?.length < 2 ? 'no-result-table' : ''}>
-                    <thead>
-                      <tr>
-                        <th style={{ width: '8rem' }}>ID structure</th>
-                        <th style={{ width: '19rem' }}>Nom de la structure</th>
-                        <th style={{ width: '13rem' }}>Nom du candidat</th>
-                        <th style={{ width: '13rem' }}>
-                          <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
-                            <span>Date de la demande
-                              {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
-                                <i className="ri-arrow-down-s-line chevron icone"></i>
-                              }
-                              {(ordreNom === 'dateDemande' && !ordre) &&
-                                <i className="ri-arrow-up-s-line chevron icone"></i>
-                              }
-                            </span>
-                          </button>
-                        </th>
-                        <th style={{ width: '11rem' }}>Type de la demande</th>
-                        <th style={{ width: '12.5rem' }}></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {!error && !loading && contrats?.items?.data?.map((contrat, idx) => {
-                        return (<Contrat key={idx} contrat={contrat} />);
-                      })
-                      }
-                      {(!contrats?.items || contrats?.items?.total === 0) &&
+                  {statutContrat === 'nouvelle_rupture' ?
+                    <TableauRuptures
+                      contrats={contrats}
+                      loading={loading}
+                      error={error}
+                      ordreNom={ordreNom}
+                      ordre={ordre}
+                    /> :
+                    <table className={contrats?.items?.data?.length < 2 ? 'no-result-table' : ''}>
+                      <thead>
                         <tr>
-                          <td colSpan="12" style={{ width: '60rem' }}>
-                            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                              <span className="not-found pair">Aucun contrat trouv&eacute;</span>
-                            </div>
-                          </td>
+                          <th style={{ width: '8rem' }}>ID structure</th>
+                          <th style={{ width: '19rem' }}>Nom de la structure</th>
+                          <th style={{ width: '13rem' }}>Nom du candidat</th>
+                          <th style={{ width: '13rem' }}>
+                            <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Date de la demande
+                                {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
+                                  <i className="ri-arrow-down-s-line chevron icone"></i>
+                                }
+                                {(ordreNom === 'dateDemande' && !ordre) &&
+                                  <i className="ri-arrow-up-s-line chevron icone"></i>
+                                }
+                              </span>
+                            </button>
+                          </th>
+                          <th style={{ width: '11rem' }}>Type de la demande</th>
+                          <th style={{ width: '12.5rem' }}></th>
                         </tr>
-                      }
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {!error && !loading && contrats?.items?.data?.map((contrat, idx) => {
+                          return (<Contrat key={idx} contrat={contrat} statutContrat={statutContrat} />);
+                        })
+                        }
+                        {(!contrats?.items || contrats?.items?.total === 0) &&
+                          <tr>
+                            <td colSpan="12" style={{ width: '60rem' }}>
+                              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <span className="not-found pair">Aucun contrat trouv&eacute;</span>
+                              </div>
+                            </td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  }
                 </div>
               </div>
               {contrats?.items?.data?.length > 0 &&
