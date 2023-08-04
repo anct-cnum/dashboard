@@ -24,6 +24,7 @@ export function useAdvisors() {
       dateDebutDeContrat,
       dateFinDeContrat,
       typeDeContrat,
+      phaseConventionnement,
       salaire,
       statut,
       originalMiseEnRelation,
@@ -36,6 +37,7 @@ export function useAdvisors() {
       miseEnRelationConventionnement,
       banniereValidationRenouvellement,
       reconventionnement,
+      phaseConventionnement,
       miseEnrelationId: _id,
       renouvellement,
       dateDebutDeContrat,
@@ -58,7 +60,7 @@ export function useAdvisors() {
       const recrutees = misesEnRelation
       .filter(({ statut }) => statut === 'finalisee')
       .map(miseEnRelation => {
-        if (miseEnRelation?.reconventionnement) {
+        if (miseEnRelation?.phaseConventionnement) {
           return createConseiller(miseEnRelation);
         } else {
           const { conseillerObj, typeDeContrat, dateDebutDeContrat, dateFinDeContrat } = miseEnRelation;
@@ -98,7 +100,7 @@ export function useAdvisors() {
       .map(createConseiller);
 
       const conseillersActifsNonRenouveles = misesEnRelation
-      .filter(miseEnRelation => !miseEnRelation.reconventionnement && miseEnRelation.statut === 'finalisee' &&
+      .filter(miseEnRelation => !miseEnRelation?.phaseConventionnement && miseEnRelation.statut === 'finalisee' &&
       miseEnRelation.typeDeContrat !== 'CDI')
       .map(createConseiller);
 

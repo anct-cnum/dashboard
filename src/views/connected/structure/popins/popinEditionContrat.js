@@ -194,7 +194,6 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                         placeholderText="../../...."
                         locale="fr"
                         onChangeRaw={e => e.preventDefault()}
-                        minDate={editMode ? null : new Date()}
                         maxDate={dateFin}
                         selected={dateDebut}
                         onChange={date => setDateDebut(date)}
