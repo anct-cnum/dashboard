@@ -13,9 +13,9 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
             Demande de rupture de contrat
           </h3>
           {miseEnRelation?.emetteurRupture?.date &&
-          <p className="fr-card__desc fr-text--lg fr-text--regular">
-            Demande initi&eacute;e le {miseEnRelation ? dayjs(miseEnRelation.emetteurRupture.date).format('DD/MM/YYYY') : ''}
-          </p>
+            <p className="fr-card__desc fr-text--lg fr-text--regular">
+              Demande initi&eacute;e le {miseEnRelation ? dayjs(miseEnRelation.emetteurRupture.date).format('DD/MM/YYYY') : ''}
+            </p>
           }
           <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">
             <div className="fr-col-12">
@@ -82,7 +82,7 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
               </div>
             </div>
             <div className="fr-col-12 fr-mt-2w">
-              <hr style={{ borderWidth: '0.5px' }}/>
+              <hr style={{ borderWidth: '0.5px' }} />
             </div>
           </div>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
@@ -95,20 +95,26 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
         <div className="fr-card__footer">
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
             {miseEnRelation?.statut === 'nouvelle_rupture' &&
-            <li>
-              <button
-                className="fr-btn"
-                aria-controls="fr-modal-2"
-                onClick={() => setOpenModal(true)}
-              >
-                Traiter la demande
-              </button>
-            </li>
+              <li>
+                <button
+                  className="fr-btn"
+                  aria-controls="fr-modal-2"
+                  onClick={() => setOpenModal(true)}
+                >
+                  Traiter la demande
+                </button>
+              </li>
             }
             <li className="fr-ml-auto">
-              <a className="fr-btn fr-btn--secondary" href={urlDossierDS} target="_blank" rel="noopener noreferrer">
-                Voir le dossier D&eacute;marche Simplifi&eacute;e
-              </a>
+              <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
+                {miseEnRelation?.dossierIncompletRupture ?
+                  <p className="fr-badge fr-badge--error fr-mr-3w">Dossier incomplet</p> :
+                  <p className="fr-badge fr-badge--success fr-mr-3w">Dossier complet</p>
+                }
+                <a className="fr-btn fr-btn--secondary" href={urlDossierDS} target="_blank" rel="noopener noreferrer">
+                  Voir le dossier D&eacute;marche Simplifi&eacute;e
+                </a>
+              </div>
             </li>
           </ul>
         </div>
@@ -121,7 +127,6 @@ CardsRupture.propTypes = {
   urlDossierDS: propTypes.string,
   miseEnRelation: propTypes.object,
   setOpenModal: propTypes.func,
-  setOpenModalValidationRupture: propTypes.func,
 };
 
 export default CardsRupture;

@@ -15,7 +15,7 @@ import ConventionDetails from './ConventionDetails';
 import TableauHistoriqueConvention from './TableauHistoriqueConvention';
 import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 import ConseillerDetailsContrat from './contrats/ConseillerDetailsContrat';
-import CandidatDetailsRecrutement from './contrats/CandidatDetailsRecrutement';
+import CandidatDetailsRecrutement from './contrats/recrutements/CandidatDetailsRecrutement';
 import TableauStructures from './structures/TableauStructures';
 import TableauConseillers from './conseillers/TableauConseillers';
 
