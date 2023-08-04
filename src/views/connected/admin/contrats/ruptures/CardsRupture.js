@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { formatTypeDeContrat } from '../../../../../utils/formatagesUtils';
 
 const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
+
   return (
     <div className="fr-card fr-mt-4w fr-card--no-border background-cards-contrat">
       <div className="fr-card__body">
