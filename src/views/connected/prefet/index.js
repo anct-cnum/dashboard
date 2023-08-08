@@ -9,6 +9,7 @@ import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 import TableauTerritoires from './statistiquesTerritoires/TableauTerritoires';
 import TableauStructures from './structures/TableauStructures';
 import TableauConseillers from './conseillers/TableauConseillers';
+import TableauCoordinateurs from './coordinateurs/TableauCoordinateurs';
 
 export default function Prefet() {
 
@@ -29,6 +30,7 @@ export default function Prefet() {
       }
       <Routes>
         <Route path="/prefet/informations" element={<MesInformations />} />
+        <Route path="/prefet/demandes/coordinateurs" element={<TableauCoordinateurs />} />
         <Route path="/prefet/liste-structures" element={<TableauStructures />} />
         <Route path="/prefet/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/prefet/liste-conseillers" element={<TableauConseillers />} />

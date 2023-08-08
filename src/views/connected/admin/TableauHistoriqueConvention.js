@@ -123,7 +123,7 @@ export default function TableauHistoriqueConvention() {
       <div className="">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <h1 style={{ color: '#000091' }} className="fr-h1">Historique des demandes de conventions trait&eacute;es</h1>
+            <h1 className="fr-h1 title">Historique des demandes de conventions trait&eacute;es</h1>
             <span>Retrouvez ici toutes les demandes de conventionnements, reconventionnements et avenants d&eacute;j&agrave; trait&eacute;es.</span>
             <div className="fr-mt-4w">
               <ul className="tabs fr-tags-group">
