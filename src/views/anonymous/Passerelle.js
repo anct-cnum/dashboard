@@ -36,6 +36,7 @@ export default function Passerelle() {
 
   return (
     <div className="login">
+      <Spinner loading={isLoading} />
       <div className="fr-container fr-my-10w">
         {error === 'Connexion refusée' &&
             <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
@@ -52,21 +53,21 @@ export default function Passerelle() {
               </ul>
             </div>
         }
-        <Spinner loading={isLoading === true} />
         <div className="fr-grid-row fr-grid-row--center fr-mt-1-5v" style={{ textAlign: 'center' }}>
-          { (isLoading === true || auth.isLoading === true) &&
-            <div className="wrapperModal"></div>
+          { !isLoading && !auth.isLoading &&
+          <>
+            <div className="logo-inclusion-connect-one-line">
+              <button className="btn-inclusion-connect" onClick={login}>
+                <img src={logoOneLineIC} height="14" alt="Se connecter avec Inclusion Connect" />
+              </button>
+            </div>
+            <div className="logo-inclusion-connect-two-lines">
+              <button className="btn-inclusion-connect" onClick={login}>
+                <img src={logoTwoLinesIC} height="37" alt="Se connecter avec Inclusion Connect" />
+              </button>
+            </div>
+          </>
           }
-          <div className="logo-inclusion-connect-one-line">
-            <button className="btn-inclusion-connect" onClick={login}>
-              <img src={logoOneLineIC} height="14" alt="Se connecter avec Inclusion Connect" />
-            </button>
-          </div>
-          <div className="logo-inclusion-connect-two-lines">
-            <button className="btn-inclusion-connect" onClick={login}>
-              <img src={logoTwoLinesIC} height="37" alt="Se connecter avec Inclusion Connect" />
-            </button>
-          </div>
         </div>
       </div>
     </div>

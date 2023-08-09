@@ -24,6 +24,9 @@ function Header() {
     if (e?.target?.className.includes('button-disconnect-auth')) {
       await auth.signoutRedirect();
     }
+    if (process.env.NODE_ENV === 'development') {
+      navigate('/login');
+    }
   };
 
   const toggleBurgerMenu = () => {

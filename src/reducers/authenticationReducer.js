@@ -13,7 +13,6 @@ export default function authentication(state = initialState, action) {
     case 'LOGIN_REQUEST':
       return {
         ...state,
-        error: false,
         loading: true
       };
     case 'LOGIN_SUCCESS':
@@ -31,11 +30,7 @@ export default function authentication(state = initialState, action) {
         accessToken: action.accessToken
       };
     case 'LOGIN_FAILURE':
-      return {
-        ...state,
-        error: action.error,
-        loading: false
-      };
+      return {};
     case 'CHANGE_ROLE':
       return {
         ...state,

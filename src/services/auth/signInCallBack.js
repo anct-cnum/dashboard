@@ -27,6 +27,7 @@ const signInCallBack = async store => {
   const profile = getProfile();
   const verificationToken = getVerificationToken();
   const token = profile?.access_token;
+  dispatch({ type: 'LOGIN_REQUEST' });
   await axios
   .get(`${apiUrlRoot}/login`, {
     params: {
@@ -48,6 +49,7 @@ const signInCallBack = async store => {
     localStorage.setItem('loginError', JSON.stringify(error.response.data));
     userManager.signoutRedirect();
     localStorage.removeItem('user');
+    dispatch({ type: 'LOGIN_FAILURE' });
   });
 };
 
