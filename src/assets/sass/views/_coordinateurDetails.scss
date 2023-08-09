@@ -8,6 +8,18 @@
         font-weight: 500;
     }
     .questionnaire {
-      color: $black
+      color: $black;
+      background-color: #E8EDFF;
+      padding: 5rem;
+    }
+    @media (max-width: 575px) {
+        .questionnaire {
+            padding: 1rem;
+        }
+    }
+    @media (max-width: 768px) {
+        .questionnaire {
+            padding: 2rem;
+        }
     }
 }

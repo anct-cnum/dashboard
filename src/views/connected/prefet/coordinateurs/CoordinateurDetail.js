@@ -74,17 +74,19 @@ function CoordinateurDetails() {
             </p>
           </div>
           <div className="fr-card__content">
-            <div style={{ backgroundColor: '#E8EDFF' }}>
-              <div className="fr-container questionnaire" style={{ padding: '5rem' }}>
-                <h6 className="fr-text--bold fr-mb-4w">R&eacute;ponses au questionnaire D&eacute;marches simplifi&eacute;es</h6>
-                {coordinateur?.questionnaire.map((question, idx) =>
-                  <div key={idx}>
-                    <p className="fr-text--bold">{question?.question}</p>
-                    <p>{question?.reponse}</p>
+            <div className="fr-container questionnaire">
+              <h6 className="fr-text--bold fr-mb-4w">R&eacute;ponses au questionnaire D&eacute;marches simplifi&eacute;es</h6>
+              {console.log(coordinateur?.questionnaire?.length)}
+              {coordinateur?.questionnaire.map((question, idx) =>
+                <div key={idx}>
+                  <p className="fr-text--bold">{question?.question}</p>
+                  <p>{question?.reponse}</p>
+                  {console.log(idx)}
+                  {idx + 1 < coordinateur?.questionnaire?.length &&
                     <hr />
-                  </div>
-                )}
-              </div>
+                  }
+                </div>
+              )}
             </div>
           </div>
           <div className="fr-card__footer">
