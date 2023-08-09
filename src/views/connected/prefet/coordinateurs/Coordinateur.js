@@ -8,9 +8,9 @@ function Coordinateur({ coordinateur }) {
   const formatAvisPrefet = avisPrefet => {
     switch (avisPrefet) {
       case 'favorable':
-        return <img src={badgeFavorable} alt="badge favorable" style={{ height: '36px' }} />;
+        return <img src={badgeFavorable} alt="badge favorable" style={{ height: '30px' }} />;
       case 'défavorable':
-        return <img src={badgeDefavorable} alt="badge défavorable" style={{ height: '36px' }} />;
+        return <img src={badgeDefavorable} alt="badge défavorable" style={{ height: '30px' }} />;
       default:
         return '';
     }
