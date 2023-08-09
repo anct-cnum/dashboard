@@ -19,7 +19,7 @@ function CoordinateurDetails() {
 
   useEffect(() => {
     if (!errorCoordinateur) {
-      // scrollTopWindow();
+      scrollTopWindow();
       if (coordinateur?._id !== idStructure) {
         dispatch(coordinateurActions.getDemandeCoordinateur(idStructure, idDemandeCoordinateur));
       }
@@ -76,12 +76,10 @@ function CoordinateurDetails() {
           <div className="fr-card__content">
             <div className="fr-container questionnaire">
               <h6 className="fr-text--bold fr-mb-4w">R&eacute;ponses au questionnaire D&eacute;marches simplifi&eacute;es</h6>
-              {console.log(coordinateur?.questionnaire?.length)}
               {coordinateur?.questionnaire.map((question, idx) =>
                 <div key={idx}>
                   <p className="fr-text--bold">{question?.question}</p>
                   <p>{question?.reponse}</p>
-                  {console.log(idx)}
                   {idx + 1 < coordinateur?.questionnaire?.length &&
                     <hr />
                   }
