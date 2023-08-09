@@ -1,21 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAuth } from 'react-oidc-context';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
+import logoOneLineIC from '../../assets/brands/logo-inclusion-connect-one-line.svg';
+import logoTwoLinesIC from '../../assets/brands/logo-inclusion-connect-two-lines.svg';
 
 export default function Passerelle() {
 
-  const error = useSelector(state => state.authentication?.error);
   const user = useSelector(state => state.authentication?.user);
   const isLoading = useSelector(state => state.authentication?.loading);
+  const [error, setError] = useState(null);
   const auth = useAuth();
   const navigate = useNavigate();
 
+
   const login = async () => {
-    await auth.signoutRedirect();
-    await localStorage.setItem('user', JSON.stringify({}));
-    await auth.signinRedirect();
+    localStorage.setItem('user', JSON.stringify({}));
+    auth.signinRedirect();
   };
 
   useEffect(() => {
@@ -23,6 +25,14 @@ export default function Passerelle() {
       navigate('/accueil');
     }
   }, [user, error, isLoading, auth.isLoading]);
+
+  useEffect(() => {
+    const storedError = JSON.parse(localStorage.getItem('loginError'));
+    if (storedError) {
+      setError(storedError);
+      localStorage.removeItem('loginError');
+    }
+  }, []);
 
   return (
     <div className="login">
@@ -37,9 +47,16 @@ export default function Passerelle() {
           { (isLoading === true || auth.isLoading === true) &&
             <div className="wrapperModal"></div>
           }
-          { ((isLoading === false && auth.isLoading === false) && auth.isAuthenticated === true) &&
-         <button className="fr-btn" onClick={login}>Se connecter</button>
-          }
+          <div className="logo-inclusion-connect-one-line">
+            <button className="btn-inclusion-connect" onClick={login}>
+              <img src={logoOneLineIC} height="14" alt="Se connecter avec Inclusion Connect" />
+            </button>
+          </div>
+          <div className="logo-inclusion-connect-two-lines">
+            <button className="btn-inclusion-connect" onClick={login}>
+              <img src={logoTwoLinesIC} height="37" alt="Se connecter avec Inclusion Connect" />
+            </button>
+          </div>
         </div>
       </div>
     </div>

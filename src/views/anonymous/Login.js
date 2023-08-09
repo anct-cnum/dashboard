@@ -52,10 +52,8 @@ export default function Login() {
   }
   
   useEffect(() => {
-    if (localStorage.getItem('user') && localStorage.getItem('user') !== '{}') {
+    if (localStorage.getItem('user')) {
       navigate('/accueil');
-    } else if (auth.isAuthenticated === true) {
-      auth.signoutRedirect();
     }
   }, [user]);
 
@@ -64,7 +62,7 @@ export default function Login() {
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-xs-12 fr-col-md-6">
-            {(window.location.pathname === '/login' || tokenVerified) && auth && auth.isAuthenticated === false &&
+            {(window.location.pathname === '/login' || tokenVerified) &&
               <>
                 <div className="logo-inclusion-connect-one-line">
                   <button className="btn-inclusion-connect" onClick={login}>
@@ -120,7 +118,7 @@ export default function Login() {
             }
             {error &&
             <div className="fr-alert fr-alert--error fr-mt-1w">
-              <p className="fr-alert__title">{ error ?? error.error }</p>
+              <p className="fr-alert__title">{ error.error }</p>
             </div>
             }
           </div>
