@@ -1,0 +1,13 @@
+@import '../colors/colors';
+
+.coordinateurDetails {
+    .color-text span {
+        color: $light-grey;
+    }
+    .color-title-subpart strong {
+        font-weight: 500;
+    }
+    .questionnaire {
+      color: $black
+    }
+}
