@@ -37,12 +37,22 @@ export default function Passerelle() {
   return (
     <div className="login">
       <div className="fr-container fr-my-10w">
-        {error &&
-            <div className="fr-alert fr-alert--error fr-mt-1w">
-              <p className="fr-alert__title">{ error }</p>
+        {error === 'Connexion refusée' &&
+            <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
+              <h3 className="fr-alert__title">Erreur : Le compte avec lequel vous tentez de vous connecter est inconnu.</h3>
+              <p className="fr-mb-1v">Merci de vérifier que vous utilisez une adresse mail identique à l&apos;ancien espace.</p>
+              <p className="fr-mb-1v">Le tableau de pilotage n&apos;est pas destiné aux Conseillers numérique.</p>
+              <p>Si vous rencontrez toujours des problèmes de connexion&nbsp;:</p>
+              <ul>
+                <li>Nous vous invitons à consulter la <a className="fr-link fr-link--lg"
+                  href="https://aide.conseiller-numerique.gouv.fr/fr/article/je-narrive-pas-a-me-connecter-au-tableau-de-pilotage-comment-y-acceder-1fwci8l/">
+                  &nbsp;FAQ</a></li>
+                <li>A contacter le <a className="fr-link fr-link--lg"
+                  href="mailto:conseiller-numerique@anct.gouv.fr">support</a> si vous n&apos;y trouvez pas votre réponse.</li>
+              </ul>
             </div>
         }
-        <Spinner loading={isLoading === true || auth.isLoading === true} />
+        <Spinner loading={isLoading === true} />
         <div className="fr-grid-row fr-grid-row--center fr-mt-1-5v" style={{ textAlign: 'center' }}>
           { (isLoading === true || auth.isLoading === true) &&
             <div className="wrapperModal"></div>

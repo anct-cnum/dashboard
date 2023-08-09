@@ -2,6 +2,7 @@ import axios from 'axios';
 import apiUrlRoot from '../../helpers/apiUrl';
 
 const signOut = async () => {
+  localStorage.setItem('logoutAction', JSON.stringify('Logout en cours...'));
   localStorage.removeItem(
     'oidc.user'
   );
@@ -14,7 +15,6 @@ const signOut = async () => {
   } catch (error) {
     window.location.pathname = '/login';
   }
-  window.location.pathname = '/login';
 };
 
 export default signOut;
