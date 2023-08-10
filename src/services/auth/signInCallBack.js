@@ -7,9 +7,10 @@ const userManager = new UserManager({
   authority: process.env.REACT_APP_AUTH_OIDC_AUTHORITY,
   client_id: process.env.REACT_APP_AUTH_CLIENT_ID,
   client_secret: process.env.REACT_APP_AUTH_CLIENT_SECRET,
-  post_logout_redirect_uri: `${process.env.REACT_APP_AUTH_REDIRECT_URI}/login`,
+  post_logout_redirect_uri: `${process.env.REACT_APP_AUTH_REDIRECT_URI}/passerelle`,
   userStore: new WebStorageStateStore({ store: window.localStorage }),
 });
+
 
 const getProfile = () =>
   JSON.parse(
@@ -26,6 +27,7 @@ const signInCallBack = async store => {
   const profile = getProfile();
   const verificationToken = getVerificationToken();
   const token = profile?.access_token;
+  dispatch({ type: 'LOGIN_REQUEST' });
   await axios
   .get(`${apiUrlRoot}/login`, {
     params: {
@@ -43,9 +45,11 @@ const signInCallBack = async store => {
     localStorage.setItem('user', JSON.stringify(result?.data));
     localStorage.setItem('roleActivated', result?.data?.user?.roles[0]);
   })
-  .catch(() => {
-    localStorage.removeItem('user');
+  .catch(async error => {
+    localStorage.setItem('loginError', JSON.stringify(error.response.data));
     userManager.signoutRedirect();
+    localStorage.removeItem('user');
+    dispatch({ type: 'LOGIN_FAILURE' });
   });
 };
 

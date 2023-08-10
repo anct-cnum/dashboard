@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import PrivateRoute from './views/connected/PrivateRoute';
 import Login from './views/anonymous/Login';
+import Passerelle from './views/anonymous/Passerelle';
 import Accueil from './views/connected/Accueil';
 import Footer from './components/Footer';
 import './assets/js';
@@ -51,6 +52,7 @@ function App() {
       <Alerte />
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/passerelle" element={<Passerelle />} />
         <Route path="/invitation/:verificationToken" element={<Login />} />
         <Route path="/" element={<PrivateRoute/>}>
           {/* routes communes ici */}

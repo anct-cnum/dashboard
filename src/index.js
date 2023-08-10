@@ -41,8 +41,8 @@ const oidcConfig = {
   authority: process.env.REACT_APP_AUTH_OIDC_AUTHORITY,
   redirect_uri:
     window.location.pathname.startsWith('/invitation') ?
-      `${process.env.REACT_APP_AUTH_REDIRECT_URI}/accueil/${window.location.pathname.split('/').pop()}` :
-      `${process.env.REACT_APP_AUTH_REDIRECT_URI}/accueil`,
+      `${process.env.REACT_APP_AUTH_REDIRECT_URI}/passerelle/${window.location.pathname.split('/').pop()}` :
+      `${process.env.REACT_APP_AUTH_REDIRECT_URI}/passerelle`,
   post_logout_redirect_uri: `${process.env.REACT_APP_AUTH_REDIRECT_URI}/login`,
   userStore: new WebStorageStateStore({ store: window.localStorage }),
   scope: 'openid profile email',

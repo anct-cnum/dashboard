@@ -36,6 +36,8 @@ export default function Login() {
       localStorage.removeItem('user');
       dispatch(userActions.verifyToken(verificationToken));
     }
+    // on remove suite à la déconnexion..
+    localStorage.removeItem('logoutAction');
   }, []);
 
   function handleChange(e) {
@@ -52,11 +54,11 @@ export default function Login() {
   }
   
   useEffect(() => {
-    if (localStorage.getItem('user')) {
+    if (localStorage.getItem('user') && localStorage.getItem('user') !== '{}') {
       navigate('/accueil');
     }
   }, [user]);
-  
+
   return (
     <div className="login">
       <div className="fr-container fr-my-10w">
