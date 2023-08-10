@@ -14,7 +14,6 @@ export default function Passerelle() {
   const auth = useAuth();
   const navigate = useNavigate();
 
-
   const login = async () => {
     localStorage.setItem('user', JSON.stringify({}));
     auth.signinRedirect();
@@ -41,15 +40,15 @@ export default function Passerelle() {
         {error === 'Connexion refusée' &&
             <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
               <h3 className="fr-alert__title">Erreur : Le compte avec lequel vous tentez de vous connecter est inconnu.</h3>
-              <p className="fr-mb-1v">Merci de vérifier que vous utilisez une adresse mail identique à l&apos;ancien espace.</p>
-              <p className="fr-mb-1v">Le tableau de pilotage n&apos;est pas destiné aux Conseillers numérique.</p>
-              <p>Si vous rencontrez toujours des problèmes de connexion&nbsp;:</p>
+              <p className="fr-mb-1v">Merci de v&eacute;rifier que vous utilisez une adresse mail identique à l&apos;ancien espace.</p>
+              <p className="fr-mb-1v">Le tableau de pilotage n&apos;est pas destin&eacute; aux Conseillers num&eacute;rique.</p>
+              <p>Si vous rencontrez toujours des probl&egrave;mes de connexion&nbsp;:</p>
               <ul>
                 <li>Nous vous invitons à consulter la <a className="fr-link fr-link--lg"
                   href="https://aide.conseiller-numerique.gouv.fr/fr/article/je-narrive-pas-a-me-connecter-au-tableau-de-pilotage-comment-y-acceder-1fwci8l/">
                   &nbsp;FAQ</a></li>
                 <li>A contacter le <a className="fr-link fr-link--lg"
-                  href="mailto:conseiller-numerique@anct.gouv.fr">support</a> si vous n&apos;y trouvez pas votre réponse.</li>
+                  href="mailto:conseiller-numerique@anct.gouv.fr">support</a> si vous n&apos;y trouvez pas votre r&eacute;ponse.</li>
               </ul>
             </div>
         }
