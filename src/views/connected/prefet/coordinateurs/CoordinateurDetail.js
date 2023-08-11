@@ -87,20 +87,22 @@ function CoordinateurDetails() {
               )}
             </div>
           </div>
-          <div className="fr-card__footer">
-            <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
-              <li>
-                <button className="fr-btn fr-btn--secondary">
-                  Candidature non recevable
-                </button>
-              </li>
-              <li>
-                <button className="fr-btn">
-                  Candidature recevable
-                </button>
-              </li>
-            </ul>
-          </div>
+          {!coordinateur?.demandesCoordinateur[0]?.avisPrefet &&
+            <div className="fr-card__footer">
+              <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
+                <li>
+                  <button className="fr-btn fr-btn--secondary">
+                    Candidature non recevable
+                  </button>
+                </li>
+                <li>
+                  <button className="fr-btn">
+                    Candidature recevable
+                  </button>
+                </li>
+              </ul>
+            </div>
+          }
         </div>
       </div>
     </div>
