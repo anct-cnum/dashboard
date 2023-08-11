@@ -23,8 +23,7 @@ function Header() {
     await signOut();
     if (e?.target?.className.includes('button-disconnect-auth')) {
       await auth.signoutRedirect();
-    }
-    if (process.env.NODE_ENV === 'development') {
+    } else {
       navigate('/login');
     }
   };
