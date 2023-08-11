@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import badgeFavorable from '../../../../assets/icons/badge-favorable.svg';
 import badgeDefavorable from '../../../../assets/icons/badge-defavorable.svg';
+import { useSelector } from 'react-redux';
 
 function Coordinateur({ coordinateur }) {
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
+
   const formatAvisPrefet = avisPrefet => {
     switch (avisPrefet) {
       case 'favorable':
@@ -31,7 +34,7 @@ function Coordinateur({ coordinateur }) {
           <button
             className="fr-btn fr-icon-eye-line fr-btn--icon-left"
             title="D&eacute;tail"
-            onClick={() => window.open(`/admin/demandes/coordinateur/${coordinateur?.idStructure}?demande=${coordinateur?.id}`)}>
+            onClick={() => window.open(`/${roleActivated}/demandes/coordinateur/${coordinateur?.idStructure}?demande=${coordinateur?.id}`)}>
             D&eacute;tails
           </button>
         </td>

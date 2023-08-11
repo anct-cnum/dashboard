@@ -1,13 +1,14 @@
 import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
-import { demandesCoordinateurQueryStringParameters } from '../utils/queryUtils';
 import { API } from './api';
+import { demandesCoordinateurQueryStringParameters } from '../utils/queryUtils';
 
 export const coordinateurService = {
-  getDemandesCoordinateur,
+  getAllDemandesCoordinateur,
+  getDemandeCoordinateur,
 };
 
-function getDemandesCoordinateur(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
+function getAllDemandesCoordinateur(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
   const {
     ordreColonne,
     filterByName,
@@ -18,6 +19,12 @@ function getDemandesCoordinateur(page, statutDemande, filtreSearchBar, filtreDep
 
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/demandes/coordinateurs?role=${roleActivated()}&page=${page}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getDemandeCoordinateur(idStructure, idDemandeCoordinateur) {
+  return API.get(`${apiUrlRoot}/demandes/coordinateur/${idStructure}?role=${roleActivated()}&idDemande=${idDemandeCoordinateur}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
