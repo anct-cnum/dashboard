@@ -36,7 +36,7 @@ export default function TableauCoordinateurs() {
 
   useEffect(() => {
     if (initDemandeCoordinateur === true) {
-      dispatch(coordinateurActions.getDemandesCoordinateur(
+      dispatch(coordinateurActions.getAllDemandesCoordinateur(
         currentPage,
         statutDemande,
         filtreSearchBar,
@@ -57,7 +57,7 @@ export default function TableauCoordinateurs() {
     }
     if (!error) {
       if (initDemandeCoordinateur === false && page !== undefined) {
-        dispatch(coordinateurActions.getDemandesCoordinateur(
+        dispatch(coordinateurActions.getAllDemandesCoordinateur(
           page,
           statutDemande,
           filtreSearchBar,
