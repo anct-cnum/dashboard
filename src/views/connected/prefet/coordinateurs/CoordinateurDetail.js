@@ -69,7 +69,7 @@ function CoordinateurDetails() {
               Date de candidature:&nbsp;
               {coordinateur?.demandesCoordinateur[0]?.dossier.dateDeCreation ?
                 <span>le&nbsp;{dayjs(coordinateur?.demandesCoordinateur[0]?.dossier.dateDeCreation).format('DD/MM/YYYY')}</span> :
-                <span>&agrave; une date inconnue</span>
+                <span>Non renseign&eacute;e</span>
               }
             </p>
           </div>
