@@ -1,6 +1,9 @@
 @import "../colors/colors";
 
 .conventions {
+  .title {
+    color: $blue-france;
+  }
   .not-found {
     text-align: center;
     font-size: 16px;
