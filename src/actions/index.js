@@ -20,4 +20,5 @@ export * from './filtresGestionnairesActions';
 export * from './reconventionnementActions';
 export * from './miseEnRelationActions';
 export * from './filtresConventionsActions';
+export * from './filtresDemandesCoordinateurActions';
 export * from './coordinateurActions';
