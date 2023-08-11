@@ -35,7 +35,7 @@ export default function Passerelle() {
 
   return (
     <div className="login">
-      <Spinner loading={isLoading} />
+      <Spinner loading={!(localStorage.getItem('user') && localStorage.getItem('user') !== '{}') && (isLoading || auth.isLoading)} />
       <div className="fr-container fr-my-10w">
         {error === 'Connexion refusée' &&
             <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
