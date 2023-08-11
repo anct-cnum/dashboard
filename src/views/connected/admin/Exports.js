@@ -76,6 +76,11 @@ function Exports() {
           Export CnFS 0 CRA M+2
         </a>
       </p>
+      <p>
+        <a className="fr-link" href="#" onClick={() => getFile('structure-non-interesser')}>
+          Structures non int&eacute;ress&eacute;es par le reconventionnement
+        </a>
+      </p>
     </div>
   );
 }
