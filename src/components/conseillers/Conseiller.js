@@ -19,7 +19,7 @@ function Conseiller({ conseiller }) {
             {conseiller?.address}
           </a>
         </td>
-        <td style={{ width: '15rem' }}>{conseiller?.nomStructure}</td>
+        <td style={{ width: '27rem' }}>{conseiller?.nomStructure}</td>
         <td className="center-text">
           {conseiller?.rupture}
         </td>
