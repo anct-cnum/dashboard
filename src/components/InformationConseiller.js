@@ -11,6 +11,7 @@ import pixRessources from '../assets/icons/pix-ressources.png';
 import pixCitoyen from '../assets/icons/pix-citoyen.png';
 
 function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRelationFinaliseeRupture, misesEnRelationNouvelleRupture, roleActivated }) {
+console.log('conseiller:', conseiller);
 
   const { trackEvent } = useMatomo();
 
@@ -164,8 +165,8 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
               </div>
               <div className="fr-mb-3w">
                 <strong>Code postal</strong><br />
-                {conseiller?.codeCommune ?
-                  <span>{conseiller?.codeCommune}</span> :
+                {conseiller?.codePostal ?
+                  <span>{conseiller?.codePostal}</span> :
                   <span>-</span>
                 }
               </div>
