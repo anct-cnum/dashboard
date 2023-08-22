@@ -9,6 +9,7 @@ export const conseillerService = {
   getCandidat,
   getCandidatRecrutement,
   getAllRecruter,
+  getAllRecruterRoleStructure,
   getAllCandidats,
   getAllCandidatsByAdmin,
   getAllMisesEnRelation,
@@ -90,6 +91,29 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
 
   // eslint-disable-next-line max-len
   let uri = `${apiUrlRoot}/conseillers-recruter?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}${filterByNameStructure}&role=${roleActivated()}`;
+
+  return API.get(uri)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+// eslint-disable-next-line max-len
+function getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre) {
+  let {
+    ordreColonne,
+    filterDateStart,
+    filterDateEnd,
+    filterByNameConseiller,
+    rupture,
+    coordinateur,
+    filterByRegion,
+    filterByDepartement,
+    filterByNameStructure,
+  // eslint-disable-next-line max-len
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement, filtreParNomStructure);
+
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/structure/conseillers-recruter?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}${filterByNameStructure}`;
 
   return API.get(uri)
   .then(response => response.data)

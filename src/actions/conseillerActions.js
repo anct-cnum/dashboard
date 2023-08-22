@@ -8,6 +8,7 @@ export const conseillerActions = {
   getCandidat,
   getCandidatRecrutement,
   getAllRecruter,
+  getAllRecruterRoleStructure,
   updateStatus,
   updateDateRupture,
   updateMotifRupture,
@@ -221,6 +222,33 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
     dispatch(request());
     // eslint-disable-next-line max-len
     conseillerService.getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre)
+    .then(
+      conseillers => {
+        dispatch(success(conseillers));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GETALL_RECRUTER_REQUEST' };
+  }
+  function success(conseillers) {
+    return { type: 'GETALL_RECRUTER_SUCCESS', conseillers };
+  }
+  function failure(error) {
+    return { type: 'GETALL_RECRUTER_FAILURE', error };
+  }
+}
+
+// eslint-disable-next-line max-len
+function getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+  return dispatch => {
+    dispatch(request());
+    // eslint-disable-next-line max-len
+    conseillerService.getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre)
     .then(
       conseillers => {
         dispatch(success(conseillers));

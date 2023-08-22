@@ -4,15 +4,12 @@ import { alerteEtSpinnerActions, paginationActions, conseillerActions, statistiq
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import { useLocation } from 'react-router-dom';
 import TableConseillers from '../../../../components/conseillers/TableConseillers';
 import FiltresEtTrisConseillers from '../../../../components/conseillers/FiltresEtTrisConseillers';
 
 export default function TableauConseillers() {
 
   const dispatch = useDispatch();
-  const location = useLocation();
-  const [page, setPage] = useState(location.state?.currentPage);
 
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
@@ -27,7 +24,6 @@ export default function TableauConseillers() {
   const filtreParNomStructure = useSelector(state => state.filtresConseillers?.nomStructure);
   const filtreRegion = useSelector(state => state.filtresConseillers?.region);
   const filterDepartement = useSelector(state => state.filtresConseillers?.departement);
-  const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
 
   useEffect(() => {
@@ -39,22 +35,18 @@ export default function TableauConseillers() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(conseillerActions.getAllRecruter(currentPage, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
+      dispatch(conseillerActions.getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
         filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
     }
     // eslint-disable-next-line max-len
-  }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filterDepartement, filtreParNomStructure]);
+  }, [dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filterDepartement, filtreParNomStructure]);
 
   useEffect(() => {
     scrollTopWindow();
-    if (page === undefined) {
-      dispatch(paginationActions.setPage(1));
-      setPage(1);
-    }
     if (!error) {
-      if (initConseiller === false && page !== undefined) {
+      if (initConseiller === false) {
         dispatch(statistiquesActions.resetFiltre());
-        dispatch(conseillerActions.getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
+        dispatch(conseillerActions.getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
           filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
@@ -65,7 +57,7 @@ export default function TableauConseillers() {
         status: null, description: null
       }));
     }
-  }, [error, page]);
+  }, [error]);
 
   return (
     <div className="conseillers">

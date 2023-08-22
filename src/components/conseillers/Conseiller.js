@@ -13,15 +13,15 @@ function Conseiller({ conseiller }) {
       <tr>
         <td>{conseiller?.idPG}</td>
         <td style={{ maxWidth: '8rem' }}>{conseiller?.nom}</td>
-        <td style={{ maxWidth: '8rem' }}>{conseiller?.prenom}</td>
-        <td style={{ width: '20rem' }}>
+        <td style={{ maxWidth: '7rem', overflowWrap: 'break-word' }}>{conseiller?.prenom}</td>
+        <td style={{ maxWidth: '20rem', overflowWrap: 'break-word' }}>
           <a className="email"href={'mailto:' + conseiller?.address}>
             {conseiller?.address}
           </a>
         </td>
         <td style={{ width: '15rem' }}>{conseiller?.nomStructure}</td>
         <td className="center-text">
-          {conseiller.rupture}
+          {conseiller?.rupture}
         </td>
         <td className="center-text">
           {conseiller?.estCoordinateur ? 'Oui' : 'Non' }
@@ -29,6 +29,7 @@ function Conseiller({ conseiller }) {
         <td>{conseiller?.craCount}</td>
         <td>
           <button
+            disabled={conseiller?.statut === 'SUPPRIMER'}
             className="fr-btn fr-icon-eye-line fr-mb-2w"
             title="D&eacute;tail"
             onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
@@ -37,7 +38,7 @@ function Conseiller({ conseiller }) {
             className="fr-btn fr-icon-line-chart-line"
             title="Statistiques"
             to={`/statistiques-conseiller/${conseiller?._id}`}
-            state={{ 'origin': '/liste-conseillers', conseiller }}
+            state={{ 'origin': `/${roleActivated}/liste-conseillers`, conseiller }}
           />
         </td>
       </tr>
