@@ -11,7 +11,6 @@ import pixRessources from '../assets/icons/pix-ressources.png';
 import pixCitoyen from '../assets/icons/pix-citoyen.png';
 
 function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRelationFinaliseeRupture, misesEnRelationNouvelleRupture, roleActivated }) {
-console.log('conseiller:', conseiller);
 
   const { trackEvent } = useMatomo();
 
