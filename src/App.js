@@ -23,6 +23,7 @@ import refreshToken from './services/auth/refreshToken';
 import { getAccessToken } from './helpers/getAccessToken';
 import GraphiqueConseiller from './views/connected/commun/statistiques/GraphiqueConseiller';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
+import Spinner from './components/Spinner';
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
       { isLoading === true &&
       <div className="wrapperModal"></div>
       }
+      <Spinner loading={!(!localStorage.getItem('logoutAction'))} />
       <Header />
       <Alerte />
       <Routes>
