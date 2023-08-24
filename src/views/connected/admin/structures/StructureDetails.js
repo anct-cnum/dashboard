@@ -6,7 +6,7 @@ import { structureActions, alerteEtSpinnerActions, invitationsActions } from '..
 import SiretForm from './SiretForm';
 import EmailForm from './EmailForm';
 import Spinner from '../../../../components/Spinner';
-import { valideInputEmail } from '../../../../utils/formatagesUtils';
+import { formatStatutStructure, valideInputEmail } from '../../../../utils/formatagesUtils';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import ActiviterStructure from '../../../../components/ActiviterStructure';
 
@@ -240,6 +240,12 @@ function StructureDetails() {
             <div className="fr-mb-3w">
               <strong>Type</strong><br />
               <span>{structure?.type ?? '-'}</span>
+            </div>
+            <div className="fr-mb-3w">
+              <strong>Statut</strong><br />
+              {structure?.statut ?
+                <span>{formatStatutStructure(structure?.statut)}</span> : <span>-</span>
+              }
             </div>
             <div className="fr-mb-3w">
               <strong>Date d&lsquo;inscription</strong><br />

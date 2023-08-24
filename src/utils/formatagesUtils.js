@@ -68,6 +68,27 @@ export const formatStatut = statut => {
   }
 };
 
+export const formatStatutStructure = statut => {
+  switch (statut) {
+    case 'VALIDATION_COSELEC':
+      return 'Validée';
+    case 'EXAMEN_COMPLEMENTAIRE_COSELEC':
+      return 'Examen complémentaire';
+    case 'REFUS_COSELEC':
+      return 'Refus';
+    case 'CREEE':
+      return 'Non traitée';
+    case 'ABANDON':
+      return 'Abandonnée';
+    case 'ANNULEE':
+      return 'Annulée';
+    case 'DOUBLON':
+      return 'Doublon';
+    default:
+      return '';
+  }
+};
+
 export const formatMotifRupture = motif => {
   switch (motif) {
     case 'nonReconductionCDD':
