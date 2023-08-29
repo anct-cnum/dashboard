@@ -11,7 +11,6 @@ export const statistiquesService = {
   getDatasTerritoires,
   getDatasTerritoiresPrefet,
   getStatistiquesTerritoire,
-  getStatistiquesTerritoireStructure,
   getStatistiquesStructure,
   getStatistiquesConseiller,
   getStatistiquesNationale,
