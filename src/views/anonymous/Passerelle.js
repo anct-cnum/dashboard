@@ -41,7 +41,7 @@ export default function Passerelle() {
             <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
               <h3 className="fr-alert__title">Erreur : Le compte avec lequel vous tentez de vous connecter est inconnu.</h3>
               <p className="fr-mb-1v">Merci de v&eacute;rifier que vous utilisez la m&ecirc;me adresse mail
-                que votre ancien compte : structure / pr&eacute;fet / coordinateur / grand r&eacute;seau / admin.</p>
+                que votre ancien compte&nbsp;: structure / pr&eacute;fet / coordinateur / grand r&eacute;seau / admin.</p>
               <p>Si malgr&eacute; cela vous rencontrez toujours des difficult&eacute;s pour vous connecter nous vous invitons à&nbsp;:</p>
               <ul>
                 <li>Consulter la <a className="fr-link fr-link--lg"
