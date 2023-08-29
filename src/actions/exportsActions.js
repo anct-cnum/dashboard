@@ -32,8 +32,8 @@ function exportFile(nameFile, collection = 'exports', hubName) {
     return { type: 'EXPORT_FILE_REQUEST' };
   }
   function success(blob, nameFile, hubName) {
-    if (nameFile === 'ruptures') {
-      nameFile = `demandes_${nameFile}_${dayjs(new Date()).format('DD-MM-YYYY')}`;
+    if (nameFile === 'demandes-ruptures') {
+      nameFile = `${nameFile}_${dayjs(new Date()).format('DD-MM-YYYY')}`;
     }
     if (nameFile === 'cnfs-without-cra') {
       nameFile = 'export_cnfs_m2';

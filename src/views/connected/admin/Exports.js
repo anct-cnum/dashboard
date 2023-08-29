@@ -62,7 +62,7 @@ function Exports() {
         </a>
       </p>
       <p>
-        <a className="fr-link" href="#" onClick={() => getFile('ruptures')}>
+        <a className="fr-link" href="#" onClick={() => getFile('demandes-ruptures')}>
           Fichier des demandes de rupture
         </a>
       </p>
