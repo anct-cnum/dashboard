@@ -98,7 +98,7 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
 }
 
 // eslint-disable-next-line max-len
-function getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre) {
+function getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, nomOrdre, ordre) {
   let {
     ordreColonne,
     filterDateStart,
@@ -108,12 +108,11 @@ function getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCo
     coordinateur,
     filterByRegion,
     filterByDepartement,
-    filterByNameStructure,
   // eslint-disable-next-line max-len
-  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement, filtreParNomStructure);
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement);
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/structure/conseillers-recruter?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}${filterByNameStructure}`;
+  let uri = `${apiUrlRoot}/structure/conseillers-recruter?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}`;
 
   return API.get(uri)
   .then(response => response.data)

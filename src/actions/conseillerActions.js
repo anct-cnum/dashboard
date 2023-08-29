@@ -244,11 +244,11 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
 }
 
 // eslint-disable-next-line max-len
-function getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+function getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, nomOrdre = 'prenom', ordre = 1) {
   return dispatch => {
     dispatch(request());
     // eslint-disable-next-line max-len
-    conseillerService.getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre)
+    conseillerService.getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, nomOrdre, ordre)
     .then(
       conseillers => {
         dispatch(success(conseillers));

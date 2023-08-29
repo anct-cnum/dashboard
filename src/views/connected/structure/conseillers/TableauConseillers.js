@@ -5,7 +5,7 @@ import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import TableConseillers from '../../../../components/conseillers/TableConseillers';
-import FiltresEtTrisConseillers from '../../../../components/conseillers/FiltresEtTrisConseillers';
+import FiltresEtTrisConseillers from './FiltresEtTrisConseillers';
 
 export default function TableauConseillers() {
 
@@ -21,7 +21,6 @@ export default function TableauConseillers() {
   const filtreCoordinateur = useSelector(state => state.filtresConseillers?.coordinateur);
   const filtreRupture = useSelector(state => state.filtresConseillers?.rupture);
   const filtreParNomConseiller = useSelector(state => state.filtresConseillers?.nomConseiller);
-  const filtreParNomStructure = useSelector(state => state.filtresConseillers?.nomStructure);
   const filtreRegion = useSelector(state => state.filtresConseillers?.region);
   const filterDepartement = useSelector(state => state.filtresConseillers?.departement);
   const [initConseiller, setInitConseiller] = useState(false);
@@ -36,10 +35,10 @@ export default function TableauConseillers() {
   useEffect(() => {
     if (initConseiller === true) {
       dispatch(conseillerActions.getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
-        filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+        filterDepartement, ordreNom, ordre ? 1 : -1));
     }
     // eslint-disable-next-line max-len
-  }, [dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filterDepartement, filtreParNomStructure]);
+  }, [dateDebut, dateFin, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filterDepartement]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -47,7 +46,7 @@ export default function TableauConseillers() {
       if (initConseiller === false) {
         dispatch(statistiquesActions.resetFiltre());
         dispatch(conseillerActions.getAllRecruterRoleStructure(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
-          filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+          filterDepartement, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
     } else {
