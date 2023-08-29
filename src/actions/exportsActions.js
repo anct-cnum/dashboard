@@ -44,7 +44,7 @@ function exportFile(nameFile, collection = 'exports', hubName) {
     if (nameFile === 'historique-ruptures') {
       nameFile = `${nameFile}_${dayjs(new Date()).format('DD-MM-YYYY')}`;
     }
-    if (nameFile === 'structure-non-interesser') {
+    if (nameFile === 'structure-non-interesser-reconventionnement') {
       nameFile = 'structure_non_interesser_reconventionnement';
     }
     return { type: 'EXPORT_FILE_SUCCESS', blob, nameFile };
