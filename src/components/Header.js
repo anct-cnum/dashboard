@@ -22,7 +22,7 @@ function Header() {
   const clickButtonLogout = async e => {
     await signOut();
     if (e?.target?.className.includes('button-disconnect-auth')) {
-      localStorage.setItem('logoutAction', JSON.stringify('Logout en cours...'));
+      localStorage.setItem('logoutAction', JSON.stringify('Déconnexion en cours...'));
       await auth.signoutRedirect();
     } else {
       navigate('/login');
