@@ -25,7 +25,6 @@ function Coordinateur({ coordinateur }) {
           <span>ID {coordinateur?.idPG}</span>
         </td>
         <td>{coordinateur?.codePostal}</td>
-
         <td>{coordinateur?.dossier?.dateDeCreation ? dayjs(coordinateur.dossier?.dateDeCreation).format('DD/MM/YYYY') : 'Non renseignée'}</td>
         <td style={{ paddingTop: '1.32rem' }}>{formatAvisPrefet(coordinateur?.avisPrefet)}</td>
         <td>
