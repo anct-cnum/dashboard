@@ -15,6 +15,7 @@ import PreselectionConseillerDetails from './candidatures/PreselectionConseiller
 import CandidatureConseillerDetails from './candidatures/CandidatureConseillerDetails';
 import RecrutementCoordinateur from './RecrutementCoordinateur';
 import TableauConseillers from './conseillers/TableauConseillers';
+import GraphiqueConseiller from './candidatures/GraphiqueConseiller';
 
 export default function Structure() {
 
@@ -75,6 +76,7 @@ export default function Structure() {
         <Route path="/structure/candidats/:filter" element={<Candidatures />} /> {/* Routes spécifiques avec /structure */}
         <Route path="/structure/candidature/candidat/:id" element={<CandidatDetails />} />
         <Route path="/structure/candidature/conseiller/:id" element={<CandidatureConseillerDetails />} />
+        <Route path="/structure/candidature/statistiques-conseiller/:idConseiller" element={<GraphiqueConseiller />} />
         <Route path="/structure/preselection/candidat/:id" element={<PreselectionCandidatDetails />} />
         <Route path="/structure/preselection/conseiller/:idConseiller" element={<PreselectionConseillerDetails />} />
         <Route path="/structure/exports" element={<Exports />} />
