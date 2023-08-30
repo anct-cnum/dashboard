@@ -67,7 +67,7 @@ function InformationCandidat({ conseiller }) {
             </div>
             <div className="fr-mb-3w">
               <strong>Code postal</strong><br/>
-              {conseiller?.codeCommune ? <span>{conseiller?.codeCommune}</span> : <span>-</span>}
+              {conseiller?.codePostal ? <span>{conseiller?.codePostal}</span> : <span>-</span>}
             </div>
             <div className="fr-mb-3w">
               <strong>Lieu de r&eacute;sidence</strong><br/>
