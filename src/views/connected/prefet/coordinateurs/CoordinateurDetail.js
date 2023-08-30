@@ -26,7 +26,7 @@ function CoordinateurDetails() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: errorCoordinateur ?? 'La demande n\'a pas pu être chargé !',
+        message: errorCoordinateur ?? 'La demande n\'a pas pu être chargée !',
         status: null, description: null
       }));
     }
@@ -66,7 +66,7 @@ function CoordinateurDetails() {
               Recrutement coordinateur
             </h3>
             <p className="fr-card__desc fr-text--lg fr-text--regular">
-              Date de candidature:&nbsp;
+              Date de candidature&nbsp;:&nbsp;
               {coordinateur?.demandesCoordinateur[0]?.dossier.dateDeCreation ?
                 <span>le&nbsp;{dayjs(coordinateur?.demandesCoordinateur[0]?.dossier.dateDeCreation).format('DD/MM/YYYY')}</span> :
                 <span>Non renseign&eacute;e</span>
