@@ -18,25 +18,23 @@ function Coordinateur({ coordinateur }) {
   };
 
   return (
-    <>
-      <tr>
-        <td className="uppercase-letter">
-          <span className="fr-text--bold">{coordinateur?.nom}</span><br />
-          <span>ID {coordinateur?.idPG}</span>
-        </td>
-        <td>{coordinateur?.codePostal}</td>
-        <td>{coordinateur?.dossier?.dateDeCreation ? dayjs(coordinateur.dossier?.dateDeCreation).format('DD/MM/YYYY') : 'Non renseignée'}</td>
-        <td style={{ paddingTop: '1.32rem' }}>{formatAvisPrefet(coordinateur?.avisPrefet)}</td>
-        <td>
-          <button
-            className="fr-btn fr-icon-eye-line fr-btn--icon-left"
-            title="D&eacute;tail"
-            onClick={() => window.open(`/${roleActivated}/demandes/coordinateur/${coordinateur?.idStructure}?demande=${coordinateur?.id}`)}>
-            D&eacute;tails
-          </button>
-        </td>
-      </tr>
-    </>
+    <tr>
+      <td className="uppercase-letter">
+        <span className="fr-text--bold">{coordinateur?.nom}</span><br />
+        <span>ID {coordinateur?.idPG}</span>
+      </td>
+      <td>{coordinateur?.codePostal}</td>
+      <td>{coordinateur?.dossier?.dateDeCreation ? dayjs(coordinateur.dossier?.dateDeCreation).format('DD/MM/YYYY') : 'Non renseignée'}</td>
+      <td style={{ paddingTop: '1.32rem' }}>{formatAvisPrefet(coordinateur?.avisPrefet)}</td>
+      <td>
+        <button
+          className="fr-btn fr-icon-eye-line fr-btn--icon-left"
+          title="D&eacute;tail"
+          onClick={() => window.open(`/${roleActivated}/demandes/coordinateur/${coordinateur?.idStructure}?demande=${coordinateur?.id}`)}>
+          D&eacute;tails
+        </button>
+      </td>
+    </tr>
   );
 }
 
