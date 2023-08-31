@@ -90,6 +90,7 @@ export function contratQueryStringParameters(filtreSearchBar, filtreDepartement,
   const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
 
   return { ordreColonne, filterByName, filterByRegion, filterByDepartement };
+
 }
 
 export function demandesCoordinateurQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
@@ -100,6 +101,7 @@ export function demandesCoordinateurQueryStringParameters(filtreSearchBar, filtr
   const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
 
   return { ordreColonne, filterByName, filterByRegion, filterByDepartement, filterByAvisPrefet };
+
 }
 
 // eslint-disable-next-line max-len
