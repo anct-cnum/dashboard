@@ -67,7 +67,7 @@ function InformationCandidat({ conseiller }) {
             </div>
             <div className="fr-mb-3w">
               <strong>Code postal</strong><br/>
-              {conseiller?.codeCommune ? <span>{conseiller?.codeCommune}</span> : <span>-</span>}
+              {conseiller?.codePostal ? <span>{conseiller?.codePostal}</span> : <span>-</span>}
             </div>
             <div className="fr-mb-3w">
               <strong>Lieu de r&eacute;sidence</strong><br/>
@@ -84,34 +84,6 @@ function InformationCandidat({ conseiller }) {
               <strong>Date de d&eacute;marrage possible</strong><br/>
               {conseiller?.dateDisponibilite ?
                 <span>{dayjs(conseiller?.dateDisponibilite).format('DD/MM/YYYY')}</span> : <span>-</span>
-              }
-            </div>
-            <div className="fr-mb-3w">
-              <strong>Date de recrutement pr&eacute;visionnelle</strong><br/>
-              {(conseiller?.miseEnRelation?.length === 0 && !conseiller?.miseEnRelation) &&
-                <span>-</span>
-              }
-              {conseiller?.miseEnRelation?.length > 0 &&
-                <>
-                  {conseiller?.miseEnRelation?.map((miseEnRelation, idx) =>
-                    <>
-                      <span key={idx}>
-                        {miseEnRelation?.dateRecrutement ? dayjs(miseEnRelation.dateRecrutement).format('DD/MM/YYYY') : 'Non renseignée'}
-                        {miseEnRelation?.structureObj?.nom &&
-                        <>&nbsp;par {miseEnRelation?.structureObj?.nom}</>
-                        }
-                      </span>
-                    </>
-                  )}
-                </>
-              }
-              {conseiller?.miseEnRelation &&
-              <span>
-                {conseiller?.miseEnRelation?.dateRecrutement ? dayjs(conseiller?.miseEnRelation.dateRecrutement).format('DD/MM/YYYY') : 'Non renseignée'}
-                {conseiller?.miseEnRelation?.structureObj?.nom &&
-                    <>&nbsp;par {conseiller?.miseEnRelation?.structureObj?.nom}</>
-                }
-              </span>
               }
             </div>
             <div className="fr-mb-3w">

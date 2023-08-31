@@ -22,7 +22,10 @@ function Header() {
   const clickButtonLogout = async e => {
     await signOut();
     if (e?.target?.className.includes('button-disconnect-auth')) {
+      localStorage.setItem('logoutAction', JSON.stringify('Déconnexion en cours...'));
       await auth.signoutRedirect();
+    } else {
+      navigate('/login');
     }
   };
 
@@ -77,7 +80,8 @@ function Header() {
             </div>
             {!/Android|iPhone|iPad/i.test(navigator.userAgent) &&
               <>
-                {localStorage.getItem('user') && !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
+                {localStorage.getItem('user') && localStorage.getItem('user') !== '{}' &&
+                 !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
                   <div className="fr-header__tools" style={{ height: '57px' }}>
                     <div className="fr-header__tools-links" id="navigation-774" role="navigation" aria-label="Compte utilisateur">
                       <UserMenu user={user} roleActivated={roleActivated} roles={roles} changeRoleActivated={changeRoleActivated}
@@ -90,7 +94,8 @@ function Header() {
           </div>
         </div>
       </div>
-      {localStorage.getItem('user') && !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
+      {localStorage.getItem('user') && localStorage.getItem('user') !== '{}' &&
+        !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
         <Menu
           user={user}
           roleActivated={roleActivated}

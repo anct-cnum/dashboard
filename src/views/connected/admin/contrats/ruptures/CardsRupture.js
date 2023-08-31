@@ -3,25 +3,25 @@ import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { formatTypeDeContrat } from '../../../../../utils/formatagesUtils';
 
-const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
+const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
 
   return (
-    <div className="fr-card fr-mt-2w fr-card--no-border background-cards-contrat">
+    <div className="fr-card fr-mt-4w fr-card--no-border background-cards-contrat">
       <div className="fr-card__body">
         <div className="fr-card__content fr-pb-2w">
           <h3 className="fr-card__title fr-h3">
-            Demande de recrutement
+            Demande de rupture de contrat
           </h3>
-          {miseEnRelation?.emetteurRecrutement?.date &&
-          <p className="fr-card__desc fr-text--lg fr-text--regular">
-            Demande initi&eacute;e le {miseEnRelation ? dayjs(miseEnRelation.emetteurRecrutement.date).format('DD/MM/YYYY') : ''}
-          </p>
+          {miseEnRelation?.emetteurRupture?.date &&
+            <p className="fr-card__desc fr-text--lg fr-text--regular">
+              Demande initi&eacute;e le {miseEnRelation ? dayjs(miseEnRelation.emetteurRupture.date).format('DD/MM/YYYY') : ''}
+            </p>
           }
-          <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12 color-text color-title-subpart">
+          <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12">
             <div className="fr-col-12">
               <hr style={{ borderWidth: '0.5px' }} />
             </div>
-            <div className="fr-card fr-card--no-background fr-card--no-border fr-col-12">
+            <div className="fr-card fr-card--no-background fr-card--no-border fr-col-12 color-text color-title-subpart">
               <div className="fr-card__body fr-p-0">
                 <div>
                   <div className="fr-grid-row" style={{ alignItems: 'center' }}>
@@ -56,10 +56,18 @@ const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
                     <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Fin de contrat</strong><br />
-                        {miseEnRelation?.dateFinDeContrat ?
+                        {miseEnRelation?.dateRupture &&
+                          <span className="fr-text--regular fr-text--md">
+                            {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
+                          </span>
+                        }
+                        {(miseEnRelation?.dateFinDeContrat && !miseEnRelation?.dateRupture) &&
                           <span className="fr-text--regular fr-text--md">
                             {dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}
-                          </span> : <span>-</span>
+                          </span>
+                        }
+                        {!miseEnRelation?.dateRupture && !miseEnRelation?.dateFinDeContrat &&
+                          <span className="fr-text--regular fr-text--md">-</span>
                         }
                       </div>
                     </div>
@@ -74,11 +82,11 @@ const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
               </div>
             </div>
             <div className="fr-col-12 fr-mt-2w">
-              <hr style={{ borderWidth: '0.5px' }}/>
+              <hr style={{ borderWidth: '0.5px' }} />
             </div>
           </div>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-            {conseiller?.statut === 'RECRUTE' ?
+            {miseEnRelation?.statut === 'finalisee_rupture' ?
               <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
               <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
             }
@@ -86,24 +94,27 @@ const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
         </div>
         <div className="fr-card__footer">
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
-            {conseiller?.statut !== 'RECRUTE' &&
-            <li>
-              <button
-                className="fr-btn fr-btn--secondary" disabled
-              >
-                Modifier la demande
-              </button>
-              <button
-                className="fr-btn" disabled
-              >
-                Valider la demande
-              </button>
-            </li>
+            {miseEnRelation?.statut === 'nouvelle_rupture' &&
+              <li>
+                <button
+                  className="fr-btn"
+                  aria-controls="fr-modal-2"
+                  onClick={() => setOpenModal(true)}
+                >
+                  Traiter la demande
+                </button>
+              </li>
             }
             <li className="fr-ml-auto">
-              <a className="fr-btn fr-btn--secondary" href={conseiller?.url} target="_blank" rel="noopener noreferrer">
-                Voir le dossier D&eacute;marche Simplifi&eacute;e
-              </a>
+              <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
+                {miseEnRelation?.dossierIncompletRupture ?
+                  <p className="fr-badge fr-badge--error fr-mr-3w">Dossier incomplet</p> :
+                  <p className="fr-badge fr-badge--success fr-mr-3w">Dossier complet</p>
+                }
+                <a className="fr-btn fr-btn--secondary" href={urlDossierDS} target="_blank" rel="noopener noreferrer">
+                  Voir le dossier D&eacute;marche Simplifi&eacute;e
+                </a>
+              </div>
             </li>
           </ul>
         </div>
@@ -112,9 +123,10 @@ const CardsRecrutement = ({ miseEnRelation, conseiller }) => {
   );
 };
 
-CardsRecrutement.propTypes = {
+CardsRupture.propTypes = {
+  urlDossierDS: propTypes.string,
   miseEnRelation: propTypes.object,
-  conseiller: propTypes.object,
+  setOpenModal: propTypes.func,
 };
 
-export default CardsRecrutement;
+export default CardsRupture;

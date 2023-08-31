@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filtresConventionsActions, paginationActions } from '../../../../actions';
-import codeRegions from '../../../../datas/code_region.json';
-import departementsRegionRaw from '../../../../datas/departements-region.json';
-import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
+import { filtresConventionsActions, paginationActions } from '../../../../../actions';
+import codeRegions from '../../../../../datas/code_region.json';
+import departementsRegionRaw from '../../../../../datas/departements-region.json';
+import departementsRegionTomRaw from '../../../../../datas/departements-region-tom.json';
 
 function FiltresEtTrisContratRupture() {
   const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions, alerteEtSpinnerActions } from '../../../../actions';
 import { displayBadgeStatutCandidat, formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
@@ -10,18 +10,19 @@ import { Tooltip } from 'react-tooltip';
 import PopinInteressee from '../popins/popinInteressee';
 import PopinRecrutee from '../popins/popinRecrutee';
 import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
-import dayjs from 'dayjs';
 import ButtonsAction from './ButtonsAction';
 import InformationConseiller from '../../../../components/InformationConseiller';
 
 function CandidatureConseillerDetails() {
 
   const dispatch = useDispatch();
+  const location = useLocation();
   const { id } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
-  let dateRecrutementUpdated = useSelector(state => state.conseiller?.dateRecrutementUpdated);
+  const loadingContrat = useSelector(state => state.contrat?.loading);
+  const errorContrat = useSelector(state => state.contrat?.error);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [displayModal, setDisplayModal] = useState(true);
@@ -60,7 +61,7 @@ function CandidatureConseillerDetails() {
 
   return (
     <div className="fr-container conseillerDetails">
-      <Spinner loading={loading} />
+      <Spinner loading={loading || loadingContrat} />
       {location?.state?.origin ?
         <Link
           to={location?.state?.origin} state={{ currentPage }}
@@ -73,10 +74,10 @@ function CandidatureConseillerDetails() {
           Retour &agrave; la liste
         </button>
       }
-      {dateRecrutementUpdated === true && conseiller?.miseEnRelation?.dateRecrutement !== null &&
-        <p className="fr-alert fr-alert--success fr-mt-3w">
-          La date de recrutement au {dayjs(conseiller?.miseEnRelation?.dateRecrutement).format('DD/MM/YYYY')} a bien &eacute;t&eacute; enregistr&eacute;e
-        </p>
+      {(errorContrat !== undefined && errorContrat !== false) &&
+        <div className="fr-alert fr-alert--error fr-mt-3w">
+          <p>{errorContrat}</p>
+        </div>
       }
       <div className="fr-col-12 fr-pt-6w">
         {conseiller?.coselec?.nombreConseillersCoselec &&
@@ -144,11 +145,8 @@ function CandidatureConseillerDetails() {
             </>
           }
           <ButtonsAction
-            statut={conseiller?.miseEnRelation?.statut}
-            miseEnRelationId={conseiller?.miseEnRelation?._id}
+            miseEnRelation={conseiller?.miseEnRelation}
             updateStatut={updateStatut}
-            dateRupture={conseiller?.miseEnRelation?.dateRupture}
-            motifRupture={conseiller?.miseEnRelation?.motifRupture}
           />
         </div>
       }

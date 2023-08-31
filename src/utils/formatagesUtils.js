@@ -85,7 +85,7 @@ export const formatRenderStars = palier => {
   switch (palier) {
     case 1:
       return <p>Degr&eacute; de maîtrise :&nbsp;
-        <span style={{ verticalAlign: 'sub' }}>
+        <span>
           <i className="ri-star-fill ri-xl" title="Débutant"></i>
           <i className="ri-star-line ri-xl" title="Débutant"></i>
           <i className="ri-star-line ri-xl" title="Débutant"></i>
@@ -93,7 +93,7 @@ export const formatRenderStars = palier => {
       </p>;
     case 2:
       return <p>Degr&eacute; de maîtrise :&nbsp;
-        <span style={{ verticalAlign: 'sub' }}>
+        <span>
           <i className="ri-star-fill ri-xl" title="Intermédiaire"></i>
           <i className="ri-star-fill ri-xl" title="Intermédiaire"></i>
           <i className="ri-star-line ri-xl" title="Intermédiaire"></i>
@@ -101,7 +101,7 @@ export const formatRenderStars = palier => {
       </p>;
     case 3:
       return <p>Degr&eacute; de maîtrise :&nbsp;
-        <span style={{ verticalAlign: 'sub' }}>
+        <span>
           <i className="ri-star-fill ri-xl" title="Avancé"></i>
           <i className="ri-star-fill ri-xl" title="Avancé"></i>
           <i className="ri-star-fill ri-xl" title="Avancé"></i>

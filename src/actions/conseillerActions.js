@@ -9,7 +9,6 @@ export const conseillerActions = {
   getCandidatRecrutement,
   getAllRecruter,
   updateStatus,
-  updateDateRecrutement,
   updateDateRupture,
   updateMotifRupture,
   preSelectionner,
@@ -334,30 +333,6 @@ function updateStatus(id, statut, motifRupture, dateRupture) {
   }
   function failure(error) {
     return { type: 'UPDATE_STATUS_FAILURE', error };
-  }
-}
-
-function updateDateRecrutement({ id, date }) {
-  return dispatch => {
-    dispatch(request());
-
-    conseillerService.updateDateRecrutement(id, date)
-    .then(
-      miseEnRelation => dispatch(success(miseEnRelation)),
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
-
-  function request() {
-    return { type: 'UPDATE_DATE_REQUEST' };
-  }
-  function success(miseEnRelation) {
-    return { type: 'UPDATE_DATE_SUCCESS', miseEnRelation };
-  }
-  function failure(error) {
-    return { type: 'UPDATE_DATE_FAILURE', error };
   }
 }
 

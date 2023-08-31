@@ -1,25 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { contratActions } from '../../../../actions';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
-function popinConfirmationAnnulation({ setOpenModal, updateStatut }) {
+function ModalValidationRecrutement({ setOpenModal, idMiseEnRelation }) {
+  const dispatch = useDispatch();
+  const validationRecrutement = () => {
+    dispatch(contratActions.validationRecrutement(idMiseEnRelation));
+    setOpenModal(false);
+    scrollTopWindow();
+  };
 
   return (
-    <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
+    <dialog aria-labelledby="fr-modal-3-title" id="fr-modal-3" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
         <div className="fr-grid-row fr-grid-row--center">
           <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
             <div className="fr-modal__body">
               <div className="fr-modal__header">
-                <button className="fr-btn--close fr-btn" aria-controls="fr-modal-2" onClick={() => setOpenModal(false)}>Fermer</button>
+                <button className="fr-btn--close fr-btn" aria-controls="fr-modal-3" onClick={() => setOpenModal(false)}>Fermer</button>
               </div>
               <div className="fr-modal__content">
-                <h1 id="fr-modal-2-title" className="fr-modal__title">
+                <h1 id="fr-modal-3-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                  Important&nbsp;: Vous êtes sur le point d&rsquo;annuler votre demande de recrutement pour ce candidat.
+                  Important&nbsp;: Vous &ecirc;tes sur le point de valider le recrutement de ce conseiller.
                 </h1>
                 <p>
                   <strong>
-                     Êtes-vous sûr de vouloir réaliser cette action ?
+                    &Ecirc;tes-vous s&ucirc;r de vouloir r&eacute;aliser cette action&nbsp;?
                   </strong>
                 </p>
               </div>
@@ -31,11 +40,8 @@ function popinConfirmationAnnulation({ setOpenModal, updateStatut }) {
                     </button>
                   </li>
                   <li>
-                    <button onClick={() => {
-                      updateStatut('interessee');
-                      setOpenModal(false);
-                    }} className="fr-btn">
-                      Je valide l&rsquo;annulation du recrutement
+                    <button className="fr-btn" onClick={validationRecrutement}>
+                      Je valide le recrutement du conseiller
                     </button>
                   </li>
                 </ul>
@@ -48,9 +54,9 @@ function popinConfirmationAnnulation({ setOpenModal, updateStatut }) {
   );
 }
 
-popinConfirmationAnnulation.propTypes = {
-  updateStatut: PropTypes.func,
+ModalValidationRecrutement.propTypes = {
   setOpenModal: PropTypes.func,
+  idMiseEnRelation: PropTypes.string,
 };
 
-export default popinConfirmationAnnulation;
+export default ModalValidationRecrutement;

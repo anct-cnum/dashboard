@@ -14,7 +14,6 @@ const signOut = async () => {
   } catch (error) {
     window.location.pathname = '/login';
   }
-  window.location.pathname = '/login';
 };
 
 export default signOut;

@@ -5,8 +5,8 @@ import { conseillerActions, structureActions, alerteEtSpinnerActions, contratAct
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 import Spinner from '../../../../components/Spinner';
 import ModalValidationRupture from '../modals/ModalValidationRupture';
-import CardsRupture from './cards/CardsRupture';
-import CardsRenouvellement from './cards/CardsRenouvellement';
+import CardsRupture from './ruptures/CardsRupture';
+import CardsRenouvellement from './renouvellements/CardsRenouvellement';
 import ModalValidationRenouvellement from '../modals/ModalValidationRenouvellement';
 import PopinEditionContrat from '../../../connected/structure/popins/popinEditionContrat';
 import InformationConseiller from '../../../../components/InformationConseiller';
@@ -95,26 +95,26 @@ function ConseillerDetailsContrat() {
         </div>
       }
       {conseiller?.statut === 'RECRUTE' &&
-      <>
-        <div className="fr-col-12 fr-pt-6w">
-          <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
-        </div>
-        <div className="fr-col-12 fr-mb-4w">
-          <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-            <span className="fr-h5" style={{ marginBottom: '0' }}>ID - {structure?.idPG ?? ''}</span>
-            <button className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-auto"
-              onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}>
-              D&eacute;tails structure
-            </button>
+        <>
+          <div className="fr-col-12 fr-pt-6w">
+            <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
           </div>
-        </div>
-        <StructureContactCards structure={structure} />
-        <div className="fr-grid-row fr-mt-7w fr-mb-2w fr-col-12">
-          <div className="fr-col-12">
-            <hr style={{ borderWidth: '0.5px' }} />
+          <div className="fr-col-12 fr-mb-4w">
+            <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+              <span className="fr-h5" style={{ marginBottom: '0' }}>ID - {structure?.idPG ?? ''}</span>
+              <button className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-auto"
+                onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}>
+                D&eacute;tails structure
+              </button>
+            </div>
           </div>
-        </div>
-      </>
+          <StructureContactCards structure={structure} />
+          <div className="fr-grid-row fr-mt-7w fr-mb-2w fr-col-12">
+            <div className="fr-col-12">
+              <hr style={{ borderWidth: '0.5px' }} />
+            </div>
+          </div>
+        </>
       }
       <div className={`fr-col-12 ${conseiller?.statut !== 'RECRUTE' ? 'fr-pt-6w' : ''}`}>
         <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
@@ -125,63 +125,58 @@ function ConseillerDetailsContrat() {
         </div>
       </div>
       {conseiller &&
-      <>
-        <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
-          {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
-          <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
-          }
-          {conseiller?.statut === 'RUPTURE' &&
-          <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
-          }
-          {misesEnRelationNouvelleRupture &&
         <>
-          {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
-            <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
-            <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
+          <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
+            {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
+              <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
+            }
+            {conseiller?.statut === 'RUPTURE' &&
+              <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
+            }
+            {misesEnRelationNouvelleRupture &&
+              <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
+            }
+          </div>
+          {(conseiller?.contrat?.statut === 'finalisee_rupture' || conseiller?.contrat?.statut === 'nouvelle_rupture') &&
+            <>
+              <CardsRupture
+                urlDossierDS={conseiller?.url}
+                miseEnRelation={conseiller?.contrat}
+                setOpenModal={setOpenModal}
+              />
+              {openModal &&
+                <ModalValidationRupture
+                  setOpenModal={setOpenModal}
+                  miseEnRelation={conseiller?.contrat}
+                  dateFinDeContrat={dateFinDeContrat}
+                  setDateFinDeContrat={setDateFinDeContrat}
+                  datePrisePoste={conseiller?.datePrisePoste}
+                />
+              }
+            </>
+          }
+          {(conseiller?.contrat?.statut === 'finalisee' || conseiller?.contrat?.statut === 'renouvellement_initiee') &&
+            <>
+              <CardsRenouvellement
+                urlDossierDS={conseiller?.url}
+                miseEnRelation={conseiller?.contrat}
+                setOpenModal={setOpenModal}
+                setOpenModalContrat={setOpenModalContrat}
+              />
+              {openModal &&
+                <ModalValidationRenouvellement setOpenModal={setOpenModal} idMiseEnRelation={conseiller?.contrat?._id} />
+              }
+              {openModalContrat &&
+                <PopinEditionContrat
+                  setOpenModalContrat={setOpenModalContrat}
+                  updateContract={updateContract}
+                  conseiller={conseiller?.contrat}
+                  editMode={true}
+                />
+              }
+            </>
           }
         </>
-          }
-        </div>
-        {(conseiller?.contrat?.statut === 'finalisee_rupture' || conseiller?.contrat?.statut === 'nouvelle_rupture') &&
-          <>
-            <CardsRupture
-              urlDossierDS={conseiller?.url}
-              miseEnRelation={conseiller?.contrat}
-              setOpenModal={setOpenModal}
-            />
-            {openModal &&
-            <ModalValidationRupture
-              setOpenModal={setOpenModal}
-              miseEnRelation={conseiller?.contrat}
-              dateFinDeContrat={dateFinDeContrat}
-              setDateFinDeContrat={setDateFinDeContrat}
-              datePrisePoste={conseiller?.datePrisePoste}
-            />
-            }
-          </>
-        }
-        {(conseiller?.contrat?.statut === 'finalisee' || conseiller?.contrat?.statut === 'renouvellement_initiee') &&
-          <>
-            <CardsRenouvellement
-              urlDossierDS={conseiller?.url}
-              miseEnRelation={conseiller?.contrat}
-              setOpenModal={setOpenModal}
-              setOpenModalContrat={setOpenModalContrat}
-            />
-            {openModal &&
-              <ModalValidationRenouvellement setOpenModal={setOpenModal} idMiseEnRelation={conseiller?.contrat?._id} />
-            }
-            {openModalContrat &&
-              <PopinEditionContrat
-                setOpenModalContrat={setOpenModalContrat}
-                updateContract={updateContract}
-                conseiller={conseiller?.contrat}
-                editMode={true}
-              />
-            }
-          </>
-        }
-      </>
       }
       <InformationConseiller
         conseiller={conseiller}

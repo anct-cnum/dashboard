@@ -164,8 +164,8 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
               </div>
               <div className="fr-mb-3w">
                 <strong>Code postal</strong><br />
-                {conseiller?.codeCommune ?
-                  <span>{conseiller?.codeCommune}</span> :
+                {conseiller?.codePostal ?
+                  <span>{conseiller?.codePostal}</span> :
                   <span>-</span>
                 }
               </div>
