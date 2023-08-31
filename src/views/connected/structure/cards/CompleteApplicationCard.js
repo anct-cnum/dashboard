@@ -29,7 +29,7 @@ const CompleteApplicationCard = ({ structure, setOpenModalRedirection }) => (
           </div>
           <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
             {badgeStatutDossierDS(structure?.conventionnement?.dossierReconventionnement?.statut)}
-            <button className="fr-btn card__button" onClick={() => setOpenModalRedirection(true)}>
+            <button className="fr-btn card__button" title="Compl&eacute;ter mon dossier" onClick={() => setOpenModalRedirection(true)}>
               Compl&eacute;ter mon dossier
             </button>
           </div>
