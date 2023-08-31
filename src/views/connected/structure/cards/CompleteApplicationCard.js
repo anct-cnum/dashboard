@@ -2,7 +2,7 @@ import React from 'react';
 import propType from 'prop-types';
 import { badgeStatutDossierDS } from '../../../../utils/formatagesUtils';
 
-const CompleteApplicationCard = ({ structure, setOpenModalRedirection }) => (
+const CompleteApplicationCard = ({ structure }) => (
   <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
     <div className="fr-card__body fr-p-0">
       <div>
@@ -29,9 +29,14 @@ const CompleteApplicationCard = ({ structure, setOpenModalRedirection }) => (
           </div>
           <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
             {badgeStatutDossierDS(structure?.conventionnement?.dossierReconventionnement?.statut)}
-            <button className="fr-btn card__button" onClick={() => setOpenModalRedirection(true)}>
+            <a
+              href={structure?.urlDossierReconventionnement}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="fr-btn card__button"
+            >
               Compl&eacute;ter mon dossier
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -41,7 +46,6 @@ const CompleteApplicationCard = ({ structure, setOpenModalRedirection }) => (
 
 CompleteApplicationCard.propTypes = {
   structure: propType.object,
-  setOpenModalRedirection: propType.func,
 };
 
 export default CompleteApplicationCard;

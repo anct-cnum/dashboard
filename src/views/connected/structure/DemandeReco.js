@@ -13,7 +13,6 @@ import {
   miseEnRelationAction
 } from '../../../actions';
 import PopinRecapReconvention from './popins/popinRecapReconvention';
-import PopinRedirectionDemarcheSimplifiee from './popins/popinRedirectionDemarcheSimplifiee';
 import Spinner from '../../../components/Spinner';
 import { pluralize, validTypeDeContratWithoutEndDate } from '../../../utils/formatagesUtils';
 import { StatutConventionnement } from '../../../utils/enumUtils';
@@ -35,7 +34,6 @@ function DemandeReconventionnement() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const [misesEnRelationARenouveller, setMisesEnRelationARenouveller] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const [openModalRedirection, setOpenModalRedirection] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
   const [nombreDePostes, setNombreDePostes] = useState(0);
 
@@ -143,9 +141,6 @@ function DemandeReconventionnement() {
           nombreDePostes={nombreDePostes}
         />
       )}
-      {openModalRedirection &&
-        <PopinRedirectionDemarcheSimplifiee setOpenModalRedirection={setOpenModalRedirection} lienDossier={structure?.urlDossierReconventionnement} />
-      }
       <div className="fr-container">
         <Spinner loading={loadingMisesEnRelation || loadingReconventionnement || loadingStructure} />
         <h2 className="fr-mb-1w" style={{ color: '#000091' }}>
@@ -197,7 +192,7 @@ function DemandeReconventionnement() {
           Renseignez les informations concernant votre structure et les pi&egrave;ces justificatives
           demand&eacute;s avant de pouvoir envoyer votre demande.
         </p>
-        <CompleteApplicationCard structure={structure} setOpenModalRedirection={setOpenModalRedirection} />
+        <CompleteApplicationCard structure={structure} />
         {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ && (
           <>
             <div className="fr-col-12 fr-mt-6w fr-mb-2w">
@@ -206,7 +201,7 @@ function DemandeReconventionnement() {
             <h5>R&eacute;capitulatif de votre demande</h5>
             <>
               <p>
-                Vous allez faire une demande pour{' '}
+                    Vous allez faire une demande pour{' '}
                 <span className="fr-text fr-text--bold">
                   {structure?.posteValiderCoselec}{' '}
                   {pluralize(
@@ -216,7 +211,7 @@ function DemandeReconventionnement() {
                     true
                   )},{' '}
                 </span>
-                dont:
+                    dont:
               </p>
               <ul>
                 <li>
