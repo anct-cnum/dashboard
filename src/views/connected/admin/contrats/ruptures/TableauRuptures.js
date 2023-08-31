@@ -33,7 +33,7 @@ export function TableauRuptures({ contrats, loading, error, ordreNom, ordre }) {
           </th>
           <th style={{ width: '11rem' }}>Type de la demande</th>
           <th style={{ width: '11rem' }}>Statut du dossier</th>
-          <th style={{ width: '14rem' }}></th>
+          <th style={{ width: '15rem' }}></th>
         </tr>
       </thead>
       <tbody>
