@@ -40,7 +40,6 @@ const setup = store => {
       return req;
     } catch (error) {
       await signOut();
-      return Promise.reject(error);
     }
   });
 };
