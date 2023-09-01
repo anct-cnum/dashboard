@@ -122,15 +122,22 @@ function TableauCandidatures() {
         </div>
       }
       <ul className="tabs fr-tags-group">
-        {Tabs.map((tab, idx) => <li key={idx}>
-          <Link className={`fr-tag ${tab.filter === filter ? 'current' : ''}`}
+        {Tabs.map((tab, idx) =>
+          <button
+            key={idx}
+            aria-pressed={tab.filter === filter}
+            className="fr-tag"
             onClick={() => dispatch(paginationActions.setPage(1))}
-            to={{
-              pathname: `/structure/candidats/${tab.filter}`,
-            }}>
-            {tab.name}&nbsp;({countCandidatByStatut(tab.filter)})
-          </Link>
-        </li>)}
+          >
+            <Link
+              className="tag-link"
+              to={{
+                pathname: `/structure/candidats/${tab.filter}`,
+              }}>
+              {tab.name}&nbsp;({countCandidatByStatut(tab.filter)})
+            </Link>
+          </button>
+        )}
       </ul>
       <FiltresEtTrisCandidatures />
       {conseillers && conseillers.loading && <span>Chargement...</span>}
