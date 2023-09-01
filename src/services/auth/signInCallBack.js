@@ -46,7 +46,7 @@ const signInCallBack = async store => {
     localStorage.setItem('roleActivated', result?.data?.user?.roles[0]);
   })
   .catch(async error => {
-    localStorage.setItem('loginError', JSON.stringify(error.response.data));
+    localStorage.setItem('loginError', JSON.stringify(error?.response?.data ?? 'Connexion refusée'));
     userManager.signoutRedirect();
     localStorage.removeItem('user');
     dispatch({ type: 'LOGIN_FAILURE' });
