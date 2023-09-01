@@ -4,7 +4,7 @@ import MesInformations from './MesInformations';
 import MesPostes from './MesPostes';
 import DemandeReco from './DemandeReco';
 import Exports from './Exports';
-import Candidatures from './Candidatures';
+import TableauCandidatures from './candidatures/TableauCandidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
 import ConseillerDetails from './conseillers/ConseillerDetails';
 import Page404 from '../Page404';
@@ -72,7 +72,7 @@ export default function Structure() {
         <Route path="/structure/demande-de-reconventionnement" element={<DemandeReco />} />
         <Route path="/structure/liste-conseillers" element={<TableauConseillers />} />
         <Route path="/structure/conseiller/:idConseiller" element={<ConseillerDetails />} />
-        <Route path="/structure/candidats/:filter" element={<Candidatures />} /> {/* Routes spécifiques avec /structure */}
+        <Route path="/structure/candidats/:filter" element={<TableauCandidatures />} />
         <Route path="/structure/candidature/candidat/:id" element={<CandidatDetails />} />
         <Route path="/structure/candidature/conseiller/:id" element={<CandidatureConseillerDetails />} />
         <Route path="/structure/preselection/candidat/:id" element={<PreselectionCandidatDetails />} />

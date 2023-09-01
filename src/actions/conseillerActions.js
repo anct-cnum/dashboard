@@ -1,5 +1,4 @@
 import { conseillerService } from '../services/conseillerService.js';
-import { statsActions, filtresCandidaturesActions } from '../actions';
 import download from 'downloadjs';
 
 export const conseillerActions = {
@@ -391,8 +390,6 @@ function preSelectionner(conseillerId) {
     conseillerService.preSelectionner(conseillerId)
     .then(
       response => {
-        dispatch(filtresCandidaturesActions.resetFiltre());
-        dispatch(statsActions.ajoutStatsInteressee());
         dispatch(success(response.message));
       },
       error => {

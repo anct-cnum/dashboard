@@ -1,6 +1,6 @@
 const initialState = [];
 
-export default function conseillers(state = initialState, action) {
+export default function misesEnRelation(state = initialState, action) {
   switch (action.type) {
     case 'GET_MISESENRELATION_STRUCTURE_REQUEST':
       return {
@@ -34,6 +34,19 @@ export default function conseillers(state = initialState, action) {
     case 'GET_MISESENRELATION_A_RENOUVELLER_STRUCTURE_FAILURE':
       return {
         loading: false,
+        error: action.error
+      };
+    case 'GET_MISES_EN_RELATION_STATS_REQUEST':
+      return {
+        loading: true
+      };
+    case 'GET_MISES_EN_RELATION_STATS_SUCCESS':
+      return {
+        ...state,
+        stats: action.stats
+      };
+    case 'GET_MISES_EN_RELATION_STATS_FAILURE':
+      return {
         error: action.error
       };
     default:
