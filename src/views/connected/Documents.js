@@ -79,6 +79,19 @@ export default function Documents() {
         </div>
         <div className="fr-grid-row">
           <p>
+            <a href="https://cdn.conseiller-numerique.gouv.fr/Appel_à_candidatures_conseiller_numériques_coordinateurs.pdf"
+              className="fr-link" target="blank"
+              rel="noreferrer noopener"
+              title="T&eacute;l&eacute;charger l&rsquo;appel &agrave; candidature - Conseiller num&eacute;rique Coordinateur">
+              T&eacute;l&eacute;charger l&rsquo;appel &agrave; candidature - Conseiller num&eacute;rique Coordinateur (pdf)
+            </a>
+            <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
+              Appel &agrave; candidatures - Conseiller num&eacute;rique Coordinateur
+            </span>
+          </p>
+        </div>
+        <div className="fr-grid-row">
+          <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/Convention_36_mois.pdf"
               className="fr-link" target="blank"
               rel="noreferrer noopener"
