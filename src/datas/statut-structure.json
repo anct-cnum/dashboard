@@ -1,0 +1,30 @@
+[
+  {
+    "nom": "VALIDATION_COSELEC",
+    "correspondance": "Validée"
+  },
+  {
+    "nom": "EXAMEN_COMPLEMENTAIRE_COSELEC",
+    "correspondance": "Examen complémentaire"
+  },
+  {
+    "nom": "REFUS_COSELEC",
+    "correspondance": "Refus"
+  },
+  {
+    "nom": "CREEE",
+    "correspondance": "Non traitée"
+  },
+  {
+    "nom": "ABANDON",
+    "correspondance" : "Abandonnée"
+  },
+  {
+    "nom": "ANNULEE",
+    "correspondance": "Annulée"
+  },
+  {
+    "nom": "DOUBLON",
+    "correspondance": "Doublon"
+  }
+]

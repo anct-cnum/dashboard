@@ -107,6 +107,10 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
               <strong>Compte activ&eacute;</strong><br />
               <span>{conseiller?.mattermost?.id ? 'Oui' : 'Non'}</span>
             </div>
+            <div className="fr-mb-3w">
+              <strong>Anonyme sur la cartographie</strong><br />
+              <span>{conseiller?.nonAffichageCarto ? 'Oui' : 'Non'}</span>
+            </div>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-mt-4w">
             <h4 className="titre">Lieux d&lsquo;activit&eacute;</h4>

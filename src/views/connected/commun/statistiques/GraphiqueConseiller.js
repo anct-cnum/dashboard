@@ -74,8 +74,8 @@ export default function GraphiqueConseiller() {
   }, [dateDebut, dateFin, statistiquesError, conseiller, codePostal, codeCommuneStats]);
 
   const formatNomStatistiques = () => {
-    const formatNom = conseiller?.nom.charAt(0).toUpperCase() + conseiller?.nom.slice(1);
-    const formatPrenom = conseiller?.prenom.charAt(0).toUpperCase() + conseiller?.prenom.slice(1);
+    const formatNom = conseiller?.nom?.charAt(0)?.toUpperCase() + conseiller?.nom?.slice(1);
+    const formatPrenom = conseiller?.prenom?.charAt(0)?.toUpperCase() + conseiller?.prenom?.slice(1);
     if (formatNom && formatPrenom) {
       return `${formatNom} ${formatPrenom}`;
     }
@@ -88,7 +88,7 @@ export default function GraphiqueConseiller() {
       <div className="structure fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <h1 className={`titre ${conseiller?.nom.length > 50 ? 'titre-long' : ''}`} >Statistiques - {formatNomStatistiques()}</h1>
+            <h1 className={`titre ${conseiller?.nom?.length > 50 ? 'titre-long' : ''}`} >Statistiques - {formatNomStatistiques()}</h1>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w print-graphique">
             <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
