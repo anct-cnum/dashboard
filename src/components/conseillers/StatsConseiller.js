@@ -17,8 +17,8 @@ function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
   const dateFin = useSelector(state => state.datePicker?.dateFin);
 
   const formatNomStatistiques = () => {
-    const formatNom = conseiller?.nom.charAt(0).toUpperCase() + conseiller?.nom.slice(1);
-    const formatPrenom = conseiller?.prenom.charAt(0).toUpperCase() + conseiller?.prenom.slice(1);
+    const formatNom = conseiller?.nom?.charAt(0)?.toUpperCase() + conseiller?.nom?.slice(1);
+    const formatPrenom = conseiller?.prenom?.charAt(0)?.toUpperCase() + conseiller?.prenom?.slice(1);
     if (formatNom && formatPrenom) {
       return `${formatNom} ${formatPrenom}`;
     }
