@@ -92,12 +92,12 @@ function CoordinateurDetails() {
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
                   <button className="fr-btn fr-btn--secondary">
-                    D&eacute;favorable
+                    Avis D&eacute;favorable
                   </button>
                 </li>
                 <li>
                   <button className="fr-btn">
-                    Favorable
+                    Avis Favorable
                   </button>
                 </li>
               </ul>
