@@ -10,33 +10,38 @@ import pixUtilisation from '../assets/icons/pix-utilisation.png';
 import pixRessources from '../assets/icons/pix-ressources.png';
 import pixCitoyen from '../assets/icons/pix-citoyen.png';
 
-function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRelationFinaliseeRupture, misesEnRelationNouvelleRupture, roleActivated }) {
+// eslint-disable-next-line max-len
+function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRelationFinaliseeRupture, misesEnRelationNouvelleRupture, roleActivated, recrutement = false }) {
 
   const { trackEvent } = useMatomo();
 
   return (
     <div>
-      <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
-        <div className="fr-col-12">
-          <hr style={{ borderWidth: '0.5px' }} />
-        </div>
-      </div>
-      <div className="fr-grid-row fr-mt-2w fr-mb-2w">
-        <div className="fr-col-md-6 fr-col-12 titreCol">
-          <h2>Activit&eacute;</h2>
-        </div>
-        <div className="fr-col-md-6 fr-col-12 btn-statistiques fr-mb-2w fr-mb-md-0">
-          <Link
-            onClick={() => trackEvent({ category: 'statistiques-conseillers', action: `click-${roleActivated}` })}
-            className="fr-btn fr-icon-line-chart-line fr-btn--icon-left fr-ml-auto"
-            title="Statistiques"
-            to={`/statistiques-conseiller/${conseiller?._id}`}
-            state={{ 'origin': `/${roleActivated}/conseiller/${conseiller?._id}`, conseiller }}
-          >
-            Voir ses statistiques
-          </Link>
-        </div>
-      </div>
+      {!recrutement &&
+        <>
+          <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
+            <div className="fr-col-12">
+              <hr style={{ borderWidth: '0.5px' }} />
+            </div>
+          </div>
+          <div className="fr-grid-row fr-mt-2w fr-mb-2w">
+            <div className="fr-col-md-6 fr-col-12 titreCol">
+              <h2>Activit&eacute;</h2>
+            </div>
+            <div className="fr-col-md-6 fr-col-12 btn-statistiques fr-mb-2w fr-mb-md-0">
+              <Link
+                onClick={() => trackEvent({ category: 'statistiques-conseillers', action: `click-${roleActivated}` })}
+                className="fr-btn fr-icon-line-chart-line fr-btn--icon-left fr-ml-auto"
+                title="Statistiques"
+                to={`/statistiques-conseiller/${conseiller?._id}`}
+                state={{ 'origin': `/${roleActivated}/conseiller/${conseiller?._id}`, conseiller }}
+              >
+                Voir ses statistiques
+              </Link>
+            </div>
+          </div>
+        </>
+      }
       {conseiller &&
         <>
           <AccordeonContrats
@@ -250,7 +255,8 @@ InformationConseiller.propTypes = {
   misesEnRelationFinalisee: PropTypes.array,
   misesEnRelationFinaliseeRupture: PropTypes.array,
   misesEnRelationNouvelleRupture: PropTypes.object,
-  roleActivated: PropTypes.string
+  roleActivated: PropTypes.string,
+  recrutement: PropTypes.bool
 };
 
 export default InformationConseiller;

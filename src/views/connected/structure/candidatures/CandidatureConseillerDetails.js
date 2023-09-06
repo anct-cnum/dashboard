@@ -62,9 +62,9 @@ function CandidatureConseillerDetails() {
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading || loadingContrat} />
-      {location?.state?.origin ?
+      {location?.state?.origin_parent ?
         <Link
-          to={location?.state?.origin} state={{ currentPage }}
+          to={location?.state?.origin_parent} state={{ currentPage }}
           className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
           Retour &agrave; la liste
         </Link> :
@@ -150,12 +150,37 @@ function CandidatureConseillerDetails() {
           />
         </div>
       }
+      <div className="fr-grid-row fr-mt-4w fr-mb-2w fr-col-12">
+        <div className="fr-col-12">
+          <hr style={{ borderWidth: '0.5px' }} />
+        </div>
+      </div>
+      <div className="fr-grid-row fr-mt-2w fr-mb-2w">
+        <div className="fr-col-md-6 fr-col-12 titreCol">
+          <h2>Activit&eacute;</h2>
+        </div>
+        <div className="fr-col-md-6 fr-col-12 btn-statistiques fr-mb-2w fr-mb-md-0">
+          <Link
+            className="fr-btn fr-icon-line-chart-line fr-btn--icon-left fr-ml-auto"
+            title="Statistiques"
+            to={`/${roleActivated}/candidature/statistiques-conseiller/${conseiller?._id}`}
+            state={{
+              'origin': `/${roleActivated}/candidature/conseiller/${conseiller?.miseEnRelation?._id}`,
+              'origin_parent': location?.state?.origin_parent,
+              conseiller
+            }}
+          >
+            Voir ses statistiques
+          </Link>
+        </div>
+      </div>
       <InformationConseiller
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
         roleActivated={roleActivated}
+        recrutement={true}
       />
     </div>
   );

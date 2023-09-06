@@ -85,14 +85,14 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
       dispatch(exportsActions.resetFile());
     }
   }, [exports]);
-  
+
   return (
     <div className="fr-col-11 no-print">
       <div className="fr-container-fluid">
         <div className={`${typeStats !== 'nationales' ? 'fr-grid-row' : 'fr-grid-row--center'}`}>
           {(typeStats !== 'nationales' && location.state?.origin !== undefined) &&
             <div className="fr-col-12 fr-col-md-3 fr-mt-6w">
-              <Link to={location.state?.origin} state={{ currentPage, origin: location?.pathname }}>
+              <Link to={location.state?.origin} state={{ currentPage, origin: location?.pathname, origin_parent: location?.state?.origin_parent }}>
                 <i className="fr-fi-arrow-left-line"/> Page pr&eacute;c&eacute;dente
               </Link>
             </div>

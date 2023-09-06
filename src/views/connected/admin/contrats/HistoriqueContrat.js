@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
+import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 
 function HistoriqueContrat({ contrat }) {
   const dateDeLaDemande = contrat => {
@@ -39,14 +40,21 @@ function HistoriqueContrat({ contrat }) {
         <td>{contrat?.structureObj?.nom}</td>
         <td className="uppercase-letter">
           <span className="fr-text--bold">{contrat?.conseillerObj?.nom}&nbsp;</span>
-          <span className="fr-text--bold">{contrat?.conseillerObj?.prenom}</span><br/>
+          <span className="fr-text--bold">{contrat?.conseillerObj?.prenom}</span><br />
           <span>ID {contrat?.conseillerObj?.idPG}</span>
         </td>
         <td>{dateDeLaDemande(contrat)}</td>
         <td>{formatStatutContrat(contrat?.statut)}</td>
-        <td>{contrat?.typeDeContrat ?? '-'}</td>
+        <td style={{ maxWidth: '10rem', overflowWrap: 'break-word' }}>{contrat?.typeDeContrat ?? '-'}</td>
         <td>{contrat?.dateDebutDeContrat ? dayjs(contrat?.dateDebutDeContrat).format('DD/MM/YYYY') : '-'}</td>
-        <td>{contrat?.dateFinDeContrat ? dayjs(contrat?.dateFinDeContrat).format('DD/MM/YYYY') : '-'}</td>
+        <td>
+          {(validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) || !contrat?.dateFinDeContrat) &&
+            <span>-</span>
+          }
+          {(!validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) && contrat?.dateFinDeContrat) &&
+            <span>{dayjs(contrat?.dateFinDeContrat).format('DD/MM/YYYY')}</span>
+          }
+        </td>
         <td>
           {contrat?.statut === 'finalisee' ?
             <button

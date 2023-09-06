@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import dayjs from 'dayjs';
-import { formatTypeDeContrat } from '../../../../../utils/formatagesUtils';
+import { formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../../utils/formatagesUtils';
 
 const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenModalContrat }) => {
 
@@ -13,9 +13,9 @@ const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenMod
             Demande de recrutement
           </h3>
           {miseEnRelation?.emetteurRecrutement?.date &&
-          <p className="fr-card__desc fr-text--lg fr-text--regular">
-            Demande initi&eacute;e le {miseEnRelation ? dayjs(miseEnRelation.emetteurRecrutement.date).format('DD/MM/YYYY') : ''}
-          </p>
+            <p className="fr-card__desc fr-text--lg fr-text--regular">
+              Demande initi&eacute;e le {miseEnRelation ? dayjs(miseEnRelation.emetteurRecrutement.date).format('DD/MM/YYYY') : ''}
+            </p>
           }
           <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12 color-text color-title-subpart">
             <div className="fr-col-12">
@@ -56,10 +56,11 @@ const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenMod
                     <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Fin de contrat</strong><br />
-                        {miseEnRelation?.dateFinDeContrat ?
-                          <span className="fr-text--regular fr-text--md">
-                            {dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}
-                          </span> : <span>-</span>
+                        {(validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat) || !miseEnRelation?.dateFinDeContrat) &&
+                          <span className="fr-text--regular fr-text--md">-</span>
+                        }
+                        {(!validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat) && miseEnRelation?.dateFinDeContrat) &&
+                          <span className="fr-text--regular fr-text--md">{dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}</span>
                         }
                       </div>
                     </div>
@@ -74,7 +75,7 @@ const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenMod
               </div>
             </div>
             <div className="fr-col-12 fr-mt-2w">
-              <hr style={{ borderWidth: '0.5px' }}/>
+              <hr style={{ borderWidth: '0.5px' }} />
             </div>
           </div>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
@@ -87,20 +88,20 @@ const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenMod
         <div className="fr-card__footer">
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
             {miseEnRelation?.statut !== 'finalisee' &&
-            <li>
-              <button
-                className="fr-btn fr-btn--secondary"
-                onClick={() => setOpenModalContrat(true)}
-              >
-                Modifier la demande
-              </button>
-              <button
-                className="fr-btn"
-                onClick={() => setOpenModal(true)}
-              >
-                Valider la demande
-              </button>
-            </li>
+              <li>
+                <button
+                  className="fr-btn fr-btn--secondary"
+                  onClick={() => setOpenModalContrat(true)}
+                >
+                  Modifier la demande
+                </button>
+                <button
+                  className="fr-btn"
+                  onClick={() => setOpenModal(true)}
+                >
+                  Valider la demande
+                </button>
+              </li>
             }
             <li className="fr-ml-auto">
               <a className="fr-btn fr-btn--secondary" href={conseiller?.url} target="_blank" rel="noopener noreferrer">

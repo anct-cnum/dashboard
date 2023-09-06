@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
-import { alerteEtSpinnerActions, statistiquesActions, conseillerActions } from '../../../../actions';
+import { alerteEtSpinnerActions, conseillerActions, statistiquesActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import StatsConseiller from '../../../../components/conseillers/StatsConseiller';
 
@@ -53,7 +53,7 @@ export default function GraphiqueConseiller() {
   useEffect(() => {
     if (!statistiquesError) {
       if (idConseiller && !!conseiller) {
-        dispatch(statistiquesActions.getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, codeCommuneStats));
+        dispatch(statistiquesActions.getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idConseiller, codePostal, codeCommuneStats));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
