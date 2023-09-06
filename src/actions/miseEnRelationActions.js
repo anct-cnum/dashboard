@@ -2,7 +2,8 @@ import { miseEnRelationService } from '../services/miseEnRelationService.js';
 
 export const miseEnRelationAction = {
   getMisesEnRelationByStructure,
-  getMisesEnRelationARenouveller
+  getMisesEnRelationARenouveller,
+  getMisesEnRelationStats
 };
 
 
@@ -53,4 +54,26 @@ function getMisesEnRelationARenouveller(id) {
   }
 }
 
+function getMisesEnRelationStats() {
+  return dispatch => {
+    dispatch(request());
 
+    miseEnRelationService.getMisesEnRelationStats()
+    .then(
+      stats => dispatch(success(stats)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_MISES_EN_RELATION_STATS_REQUEST' };
+  }
+  function success(stats) {
+    return { type: 'GET_MISES_EN_RELATION_STATS_SUCCESS', stats };
+  }
+  function failure(error) {
+    return { type: 'GET_MISES_EN_RELATION_STATS_FAILURE', error };
+  }
+}

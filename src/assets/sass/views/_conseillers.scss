@@ -74,6 +74,9 @@
         font-size: 16px;
         font-weight: 600;
     }
+    .tag-link, .tag-link:hover, .tag-link:active, .tag-link:visited {
+      all: unset;
+    }
 
     @media (max-width: 825px) {
         #menu-rupture,

@@ -1,4 +1,4 @@
-import { userEntityId, roleActivated } from '../helpers';
+import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
 import { conseillerQueryStringParameters, candidatQueryStringParameters } from '../utils/queryUtils';
@@ -117,7 +117,7 @@ function getAllCandidats(structureId, search, page, nomOrdre, ordre, persoFilter
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/candidats/structure/${structureId ? structureId : userEntityId()}?skip=${page}${filterSearch}${ordreColonne}&role=${roleActivated()}`;
+  let uri = `${apiUrlRoot}/candidats/structure?skip=${page}${filterSearch}${ordreColonne}&role=${roleActivated()}`;
 
   if (persoFilters) {
     if (havePix(persoFilters)) {
@@ -144,7 +144,7 @@ function getAllMisesEnRelation(structureId, search, page, filter, nomOrdre, ordr
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/structures/${structureId ? structureId : userEntityId()}/misesEnRelation?skip=${page}${ordreColonne}${filterSearch}&role=${roleActivated()}`;
+  let uri = `${apiUrlRoot}/structures/misesEnRelation?skip=${page}${ordreColonne}${filterSearch}&role=${roleActivated()}`;
 
   if (filter) {
     uri += `&filter=${filter}`;
