@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../../../../components/Spinner';
@@ -6,6 +6,7 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { coordinateurActions, alerteEtSpinnerActions } from '../../../../actions';
 import dayjs from 'dayjs';
 import StructureContactCards from '../../../../components/cards/StructureContactCards';
+import ModalConfirmationAvis from './ModalConfirmationAvis';
 
 function CoordinateurDetails() {
   const dispatch = useDispatch();
@@ -16,6 +17,8 @@ function CoordinateurDetails() {
   const coordinateur = useSelector(state => state.coordinateur?.coordinateur);
   const loading = useSelector(state => state.coordinateur?.loading);
   const errorCoordinateur = useSelector(state => state.coordinateur?.error);
+  const [openModalAvis, setOpenModalAvis] = useState(false);
+  const [avisPrefet, setAvisPrefet] = useState('');
 
   useEffect(() => {
     if (!errorCoordinateur) {
@@ -40,6 +43,9 @@ function CoordinateurDetails() {
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </button>
+      {openModalAvis &&
+        <ModalConfirmationAvis setOpenModal={setOpenModalAvis} structure={coordinateur} avisPrefet={avisPrefet} />
+      }
       <div className="fr-col-12 fr-pt-6w">
         <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{coordinateur?.nom ?? '-'}</h1>
       </div>
@@ -91,12 +97,23 @@ function CoordinateurDetails() {
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
-                  <button className="fr-btn fr-btn--secondary">
+                  <button onClick={() => {
+                    setAvisPrefet('défavorable');
+                    setOpenModalAvis(true);
+                  }}
+                  className="fr-btn fr-btn--secondary"
+                  >
                     Candidature non recevable
                   </button>
                 </li>
                 <li>
-                  <button className="fr-btn">
+                  <button
+                    onClick={() => {
+                      setAvisPrefet('favorable');
+                      setOpenModalAvis(true);
+                    }}
+                    className="fr-btn"
+                  >
                     Candidature recevable
                   </button>
                 </li>

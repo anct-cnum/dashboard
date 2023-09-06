@@ -6,6 +6,7 @@ import { demandesCoordinateurQueryStringParameters } from '../utils/queryUtils';
 export const coordinateurService = {
   getAllDemandesCoordinateur,
   getDemandeCoordinateur,
+  confirmationAvisPrefet,
 };
 
 function getAllDemandesCoordinateur(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
@@ -25,6 +26,12 @@ function getAllDemandesCoordinateur(page, statutDemande, filtreSearchBar, filtre
 
 function getDemandeCoordinateur(idStructure, idDemandeCoordinateur) {
   return API.get(`${apiUrlRoot}/demandes/coordinateur/${idStructure}?role=${roleActivated()}&idDemande=${idDemandeCoordinateur}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function confirmationAvisPrefet(idStructure, avisPrefet) {
+  return API.patch(`${apiUrlRoot}/avis/prefet/coordinateur/${idStructure}?role=${roleActivated()}`, { avisPrefet })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
