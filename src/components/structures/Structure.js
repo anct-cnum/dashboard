@@ -33,7 +33,7 @@ function Structure({ structure }) {
               className="fr-btn fr-icon-line-chart-line"
               title="Statistiques"
               to={`/statistiques-structure/${structure?._id}`}
-              state={{ 'origin': `/liste-structures`, structure }}
+              state={{ 'origin': `/${roleActivated}/liste-structures`, structure }}
             />
           </div>
         </td>
