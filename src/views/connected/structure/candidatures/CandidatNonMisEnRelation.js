@@ -77,7 +77,7 @@ function CandidatNonMisEnRelation({ conseiller, currentFilter }) {
           <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-1w" to={{
             pathname: `/structure/preselection/conseiller/${conseiller?._id}`
           }}
-          state={{ 'origin': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
+          state={{ 'origin_parent': `/${roleActivated}/candidats/${currentFilter === undefined ? 'toutes' : currentFilter}` }}>
             D&eacute;tails
           </Link> :
           <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-1w" to={{

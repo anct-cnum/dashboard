@@ -14,6 +14,7 @@ export const statistiquesActions = {
   getDatasTerritoiresPrefet,
   getStatistiquesStructure,
   getStatistiquesConseiller,
+  getStatistiquesConseillerParcoursRecrutement,
   getStatistiquesTerritoire,
   getStatistiquesNationale,
   getStatistiquesNationaleGrandReseau,
@@ -253,6 +254,31 @@ function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal 
   return dispatch => {
     dispatch(request());
     statistiquesService.getStatistiquesConseiller(formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, codeCommune)
+    .then(
+      statsConseiller => {
+        dispatch(success(statsConseiller));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_STATS_CRA_CONSEILLER_REQUEST' };
+  }
+  function success(statsConseiller) {
+    return { type: 'GET_STATS_CRA_CONSEILLER_SUCCESS', statsConseiller };
+  }
+  function failure(error) {
+    return { type: 'GET_STATS_CRA_CONSEILLER_FAILURE', error };
+  }
+}
+
+function getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idConseiller, codePostal = null, codeCommune = null) {
+  return dispatch => {
+    dispatch(request());
+    statistiquesService.getStatistiquesConseillerParcoursRecrutement(formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, codeCommune)
     .then(
       statsConseiller => {
         dispatch(success(statsConseiller));
