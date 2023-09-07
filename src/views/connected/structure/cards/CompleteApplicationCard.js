@@ -2,7 +2,7 @@ import React from 'react';
 import propType from 'prop-types';
 import { badgeStatutDossierDS } from '../../../../utils/formatagesUtils';
 
-const CompleteApplicationCard = ({ structure }) => (
+const CompleteApplicationCard = ({ structure, formatTitreDossierDemarcheSimplifiee }) => (
   <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
     <div className="fr-card__body fr-p-0">
       <div>
@@ -35,7 +35,7 @@ const CompleteApplicationCard = ({ structure }) => (
               rel="noopener noreferrer"
               className="fr-btn card__button"
             >
-              Compl&eacute;ter mon dossier
+              {formatTitreDossierDemarcheSimplifiee(structure)} mon dossier
             </a>
           </div>
         </div>
@@ -46,6 +46,7 @@ const CompleteApplicationCard = ({ structure }) => (
 
 CompleteApplicationCard.propTypes = {
   structure: propType.object,
+  formatTitreDossierDemarcheSimplifiee: propType.func,
 };
 
 export default CompleteApplicationCard;
