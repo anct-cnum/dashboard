@@ -198,7 +198,7 @@ function DemandeReconventionnement() {
         {structure?.conventionnement?.dossierReconventionnement?.statut !== 'accepte' &&
           <p>
             Renseignez les informations concernant votre structure et les pi&egrave;ces justificatives
-            demand&eacute;s avant de pouvoir envoyer votre demande.
+            demand&eacute;es avant de pouvoir envoyer votre demande.
           </p>
         }
         <CompleteApplicationCard structure={structure} formatTitreDossierDemarcheSimplifiee={formatTitreDossierDemarcheSimplifiee} />
