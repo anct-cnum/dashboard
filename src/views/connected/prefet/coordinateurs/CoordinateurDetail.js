@@ -103,7 +103,7 @@ function CoordinateurDetails() {
                   }}
                   className="fr-btn fr-btn--secondary"
                   >
-                    Candidature non recevable
+                    Avis D&eacute;favorable
                   </button>
                 </li>
                 <li>
@@ -114,7 +114,7 @@ function CoordinateurDetails() {
                     }}
                     className="fr-btn"
                   >
-                    Candidature recevable
+                    Avis Favorable
                   </button>
                 </li>
               </ul>

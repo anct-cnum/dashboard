@@ -23,7 +23,7 @@ function DemandeReconventionnement() {
   const reconventionnement = useSelector(state => state.reconventionnement?.reconventionnement);
   const misesEnRelation = useSelector(state => state.misesEnRelation?.misesEnRelation);
   const errorMisesEnRelation = useSelector(state => state?.misesEnRelation?.error);
-  const loadingMisesEnRelation = useSelector(state => state.misesEnRelations?.loading);
+  const loadingMisesEnRelation = useSelector(state => state?.misesEnRelation?.loading);
   const loadingStructure = useSelector(state => state.structure?.loading);
   const errorStructure = useSelector(state => state?.structure?.error);
   const loadingReconventionnement = useSelector(state => state.reconventionnement?.loading);
@@ -129,6 +129,13 @@ function DemandeReconventionnement() {
     navigate('/structure/postes');
   };
 
+  const formatTitreDossierDemarcheSimplifiee = structure => {
+    if (structure?.conventionnement?.dossierReconventionnement?.statut === 'accepte') {
+      return 'Consulter';
+    }
+    return 'Compléter';
+  };
+
   return (
     <>
       {openModal && (
@@ -187,12 +194,14 @@ function DemandeReconventionnement() {
         <div className="fr-col-12 fr-mb-1w">
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
-        <h5>Compl&eacute;tez votre dossier D&eacute;marche Simplifi&eacute;e</h5>
-        <p>
-          Renseignez les informations concernant votre structure et les pi&egrave;ces justificatives
-          demand&eacute;s avant de pouvoir envoyer votre demande.
-        </p>
-        <CompleteApplicationCard structure={structure} />
+        <h5>{formatTitreDossierDemarcheSimplifiee(structure)} votre dossier D&eacute;marche Simplifi&eacute;e</h5>
+        {structure?.conventionnement?.dossierReconventionnement?.statut !== 'accepte' &&
+          <p>
+            Renseignez les informations concernant votre structure et les pi&egrave;ces justificatives
+            demand&eacute;es avant de pouvoir envoyer votre demande.
+          </p>
+        }
+        <CompleteApplicationCard structure={structure} formatTitreDossierDemarcheSimplifiee={formatTitreDossierDemarcheSimplifiee} />
         {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ && (
           <>
             <div className="fr-col-12 fr-mt-6w fr-mb-2w">
@@ -201,7 +210,7 @@ function DemandeReconventionnement() {
             <h5>R&eacute;capitulatif de votre demande</h5>
             <>
               <p>
-                    Vous allez faire une demande pour{' '}
+                Vous allez faire une demande pour{' '}
                 <span className="fr-text fr-text--bold">
                   {structure?.posteValiderCoselec}{' '}
                   {pluralize(
@@ -211,7 +220,7 @@ function DemandeReconventionnement() {
                     true
                   )},{' '}
                 </span>
-                    dont:
+                dont:
               </p>
               <ul>
                 <li>

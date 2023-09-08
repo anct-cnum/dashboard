@@ -4,7 +4,8 @@ import { API } from './api';
 
 export const miseEnRelationService = {
   getMisesEnRelationStructure,
-  getMisesEnRelationARenouveller
+  getMisesEnRelationARenouveller,
+  getMisesEnRelationStats
 };
 
 function getMisesEnRelationStructure(id) {
@@ -14,6 +15,12 @@ function getMisesEnRelationStructure(id) {
 }
 function getMisesEnRelationARenouveller(id) {
   return API.get(`${apiUrlRoot}/misesEnRelation-renouvellement-structure/${id}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getMisesEnRelationStats() {
+  return API.get(`${apiUrlRoot}/structures/misesEnRelation/stats?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
