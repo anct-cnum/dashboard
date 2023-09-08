@@ -7,6 +7,7 @@ export const coordinateurService = {
   getAllDemandesCoordinateur,
   getDemandeCoordinateur,
   confirmationAvisPrefet,
+  closeBannerAvisPrefet,
 };
 
 function getAllDemandesCoordinateur(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
@@ -30,8 +31,14 @@ function getDemandeCoordinateur(idStructure, idDemandeCoordinateur) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function confirmationAvisPrefet(idStructure, avisPrefet) {
-  return API.patch(`${apiUrlRoot}/avis/prefet/coordinateur/${idStructure}?role=${roleActivated()}`, { avisPrefet })
+function confirmationAvisPrefet(idStructure, avisPrefet, idDemandeCoordinateur, commentaire) {
+  return API.patch(`${apiUrlRoot}/avis/prefet/coordinateur/${idStructure}?role=${roleActivated()}`, { avisPrefet, idDemandeCoordinateur, commentaire })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function closeBannerAvisPrefet(idDemandeCoordinateur) {
+  return API.patch(`${apiUrlRoot}/banner/prefet/coordinateur/${idDemandeCoordinateur}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

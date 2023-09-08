@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function Coordinateur({ coordinateur }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -27,12 +28,13 @@ function Coordinateur({ coordinateur }) {
       <td>{coordinateur?.dossier?.dateDeCreation ? dayjs(coordinateur.dossier?.dateDeCreation).format('DD/MM/YYYY') : 'Non renseignée'}</td>
       <td>{formatAvisPrefet(coordinateur?.avisPrefet)}</td>
       <td>
-        <button
-          className="fr-btn fr-icon-eye-line fr-btn--icon-left"
-          title="D&eacute;tail"
-          onClick={() => window.open(`/${roleActivated}/demandes/coordinateur/${coordinateur?.idStructure}?demande=${coordinateur?.id}`)}>
+        <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={{
+          pathname: `/${roleActivated}/demandes/coordinateur/${coordinateur?.idStructure}`,
+          search: `?demande=${coordinateur?.id}`,
+        }}
+        state={{ 'origin': `/${roleActivated}/demandes/coordinateurs` }}>
           D&eacute;tails
-        </button>
+        </Link>
       </td>
     </tr>
   );

@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { coordinateurActions } from '../../../../actions';
 
 function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
   const dispatch = useDispatch();
+  const [commentaire, setCommentaire] = useState('');
+
   const confirmationAvisPrefet = () => {
-    dispatch(coordinateurActions.confirmationAvisPrefet(structure?._id, avisPrefet));
+    dispatch(coordinateurActions.confirmationAvisPrefet(structure?._id, avisPrefet, structure?.demandesCoordinateur[0]?.id, commentaire));
     setOpenModal(false);
+    setCommentaire('');
   };
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
@@ -16,7 +19,10 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
           <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
             <div className="fr-modal__body">
               <div className="fr-modal__header">
-                <button className="fr-btn--close fr-btn" title="Fermer la fenêtre modale" aria-controls="fr-modal-2" onClick={() => setOpenModal(false)}>
+                <button className="fr-btn--close fr-btn" title="Fermer la fenêtre modale" aria-controls="fr-modal-2" onClick={() => {
+                  setOpenModal(false);
+                  setCommentaire('');
+                }}>
                   Fermer
                 </button>
               </div>
@@ -30,13 +36,24 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                   <label className="fr-label" htmlFor="input-usual-name-1664">
                     Commentaire (obligatoire, max 250 caractères) :
                   </label>
-                  <textarea style={{ height: '6rem' }} className="fr-input" type="text" placeholder="Commentaire" />
+                  <textarea
+                    value={commentaire}
+                    maxLength={250}
+                    onChange={e => setCommentaire(e?.target?.value)}
+                    style={{ height: '6rem' }}
+                    className="fr-input"
+                    type="text"
+                    placeholder="Commentaire"
+                  />
                 </div>
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                   <li>
-                    <button onClick={() => setOpenModal(false)} className="fr-btn fr-btn--secondary">
+                    <button onClick={() => {
+                      setOpenModal(false);
+                      setCommentaire('');
+                    }} className="fr-btn fr-btn--secondary">
                       Annuler
                     </button>
                   </li>

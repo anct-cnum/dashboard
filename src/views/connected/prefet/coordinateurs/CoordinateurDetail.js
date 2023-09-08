@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
@@ -10,13 +10,16 @@ import ModalConfirmationAvis from './ModalConfirmationAvis';
 
 function CoordinateurDetails() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { idStructure } = useParams();
   const queryParams = new URLSearchParams(window.location.search);
   const idDemandeCoordinateur = queryParams.get('demande');
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const coordinateur = useSelector(state => state.coordinateur?.coordinateur);
   const loading = useSelector(state => state.coordinateur?.loading);
+  const successAvisPrefet = useSelector(state => state.coordinateur?.successAvisPrefet);
   const errorCoordinateur = useSelector(state => state.coordinateur?.error);
+  const currentPage = useSelector(state => state.pagination?.currentPage);
   const [openModalAvis, setOpenModalAvis] = useState(false);
   const [avisPrefet, setAvisPrefet] = useState('');
 
@@ -35,14 +38,20 @@ function CoordinateurDetails() {
     }
   }, [errorCoordinateur]);
 
+  useEffect(() => {
+    if (successAvisPrefet !== undefined && successAvisPrefet !== false) {
+      window.location.href = '/prefet/demandes/coordinateurs';
+    }
+  }, [successAvisPrefet]);
+
   return (
     <div className="coordinateurDetails">
       <Spinner loading={loading} />
-      <button
-        onClick={() => window.close()}
+      <Link
+        to={location?.state?.origin} state={{ currentPage }}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
-      </button>
+      </Link>
       {openModalAvis &&
         <ModalConfirmationAvis setOpenModal={setOpenModalAvis} structure={coordinateur} avisPrefet={avisPrefet} />
       }
