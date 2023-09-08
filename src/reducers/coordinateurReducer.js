@@ -68,8 +68,8 @@ export default function coordinateur(state = initialState, action) {
         loading: false,
         items: {
           ...state.items, data: state.items.data.map(
-            content => content.id === action.idDemandeCoordinateur ? { ...content, banniereValidationAvisPrefet: false } :
-              content)
+            demandeCoordinateur => demandeCoordinateur.id === action.idDemandeCoordinateur ? { ...demandeCoordinateur, banniereValidationAvisPrefet: false } :
+              demandeCoordinateur)
         },
       };
     case 'UPDATE_BANNER_AVIS_PREFET_FAILURE':
