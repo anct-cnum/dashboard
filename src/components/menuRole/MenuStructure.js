@@ -50,7 +50,6 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
           </ul>
         </div>
       </li>
-      {/* en attente du lancement du parcours coordo en septembre */}
       <li className="fr-nav__item">
         <button
           id="coordination-territoriale"
