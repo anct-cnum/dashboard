@@ -13,7 +13,6 @@ import TableauHistoriqueContrat from './contrats/TableauHistoriqueContrat';
 import TableauConvention from './TableauConvention';
 import ConventionDetails from './ConventionDetails';
 import TableauHistoriqueConvention from './TableauHistoriqueConvention';
-import PreFetch from '../commun/statistiques/Components/commun/PreFetch';
 import ConseillerDetailsContrat from './contrats/ConseillerDetailsContrat';
 import CandidatDetailsRecrutement from './contrats/recrutements/CandidatDetailsRecrutement';
 import TableauStructures from './structures/TableauStructures';
@@ -25,7 +24,6 @@ export default function Admin() {
 
   return (
     <>
-      <PreFetch />
       {location.pathname === '/accueil' &&
         <div className="fr-grid-row fr-grid-row--center fr-my-15w">
           <div className="fr-col--offset-1 fr-col-10">
