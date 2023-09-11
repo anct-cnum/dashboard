@@ -60,7 +60,13 @@ function RecrutementCoordinateur() {
       </p>
       <span>
         <strong>Pour tout savoir sur le recrutement d&rsquo;un coordinateur&nbsp;:&nbsp;
-          <a style={{ color: '#000091' }} href="" target="_blank" rel="noopener noreferrer">consulter la circulaire</a>
+          <a
+            style={{ color: '#000091' }}
+            href="https://cdn.conseiller-numerique.gouv.fr/Appel_a_candidatures_conseiller_numeriques_coordinateurs.pdf"
+            target="_blank"
+            rel="noopener noreferrer">
+            consulter la circulaire
+          </a>
         </strong>
       </span>
       <div className="fr-grid-row fr-grid-row--center fr-mt-5w fr-pb-6w">
