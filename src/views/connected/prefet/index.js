@@ -26,8 +26,8 @@ export default function Prefet() {
             <p>Nous sommes ravis de vous accueillir sur votre nouvel espace de pilotage.</p>
             <p>Pour g&eacute;rer au mieux le dispositif Conseiller num&eacute;rique au sein de votre territoire, vous avez besoin d&rsquo;indicateurs et
               d&rsquo;informations cl&eacute;s pour suivre et piloter l&rsquo;activit&eacute; des structures, des conseillers num&eacute;rique et des
-              conseillers num&eacute;rique coordinateurs. C&rsquo;est pourquoi votre espace change et &eacute;volue !</p>
-            <p> Il permet de&nbsp;:
+              conseillers num&eacute;rique coordinateurs. C&rsquo;est pourquoi votre espace change et &eacute;volue&nbsp;!</p>
+            <p>Il permet de&nbsp;:
               <ul>
                 <li>Visualiser le liste des structures laur&eacute;ates de votre territoire</li>
                 <li>Visualiser la liste des conseillers num&eacute;rique exerçant sur votre territoire</li>
@@ -38,7 +38,7 @@ export default function Prefet() {
               </ul>
               Et bien plus encore...
             </p>
-            <p><b>Vous avez des questions ?</b></p>
+            <p><b>Vous avez des questions&nbsp;?</b></p>
             <p>L&rsquo;&eacute;quipe d&rsquo;animation se tient &agrave; votre disposition par email &agrave; l&rsquo;adresse&nbsp;:&nbsp;
               <a className="email" href={'mailto:conseiller-numerique@anct.gouv.fr'}>conseiller-numerique@anct.gouv.fr</a></p>
           </div>
