@@ -93,7 +93,6 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
           aria-controls="menu-statistiques"
           // eslint-disable-next-line max-len
           {...(location.pathname.startsWith(`/statistiques-nationales`) || location.pathname.startsWith(`/statistiques-territoires`) || location.pathname.startsWith(`/statistiques-structure/${authenticationUser}`) ? { 'aria-current': 'page' } : {})}
-
           onClick={onClickMenu}>
           Statistiques
         </button>
