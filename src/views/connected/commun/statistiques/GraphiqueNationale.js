@@ -20,17 +20,16 @@ export default function GraphiqueNationale() {
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
 
   useEffect(() => {
-    dispatch(statistiquesActions.getStatistiquesNationale(dateDebut, dateFin));
-  }, [dateDebut, dateFin]);
-
-  if (error) {
-    dispatch(alerteEtSpinnerActions.getMessageAlerte({
-      type: 'error',
-      message: 'Les statistiques n\'ont pas pu être chargées !',
-      status: null, description: null
-    }));
-  }
-  
+    if (!error) {
+      dispatch(statistiquesActions.getStatistiquesNationale(dateDebut, dateFin));
+    } else {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'Les statistiques n\'ont pas pu être chargées !',
+        status: null, description: null
+      }));
+    }
+  }, [dateDebut, dateFin, error]);
   
   return (
     <div className="statistiques">
