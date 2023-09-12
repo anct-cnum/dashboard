@@ -14,12 +14,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import setup from './services/api';
 import signInCallBack from '../src/services/auth/signInCallBack';
 import { MatomoProvider, createInstance } from '@jonkoops/matomo-tracker-react';
-import {
-  QueryClient,
-  QueryClientProvider
-} from '@tanstack/react-query';
-
-const queryClient = new QueryClient();
 
 if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
   Sentry.init({
@@ -63,9 +57,7 @@ root.render(
       <Provider store={store}>
         <Router>
           <MatomoProvider value={instance}>
-            <QueryClientProvider client={queryClient}>
-              <App />
-            </QueryClientProvider>
+            <App />
           </MatomoProvider>
         </Router>
       </Provider>
