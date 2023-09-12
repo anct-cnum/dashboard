@@ -62,7 +62,7 @@ function MaStructure() {
 
   useEffect(() => {
     const errors = [errorInvitation, errorSuppression, errorStructure, errorUsers];
-    const errorMessage = errors.filter(error => error !== false);
+    const errorMessage = errors.filter(error => error !== false && error !== undefined);
 
     if (errorMessage.length > 0) {
       scrollTopWindow();
