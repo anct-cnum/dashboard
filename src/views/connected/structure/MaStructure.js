@@ -62,14 +62,14 @@ function MaStructure() {
 
   useEffect(() => {
     const errors = [errorInvitation, errorSuppression, errorStructure, errorUsers];
-    const errorMessage = errors.filter(error => error !== false);
+    const errorMessage = errors.filter(error => error !== false && error !== undefined);
 
     if (errorMessage.length > 0) {
       scrollTopWindow();
       dispatch(
         alerteEtSpinnerActions.getMessageAlerte({
           type: 'error',
-          message: errorMessage[0] ?? errorMessage,
+          message: errorMessage[0],
           status: null,
           description: null,
         })
