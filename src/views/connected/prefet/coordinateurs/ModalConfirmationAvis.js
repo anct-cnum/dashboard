@@ -31,13 +31,14 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                   <span className="fr-fi-arrow-right-line fr-fi--lg"></span>
                   Confirmer l&rsquo;avis
                 </h1>
-                <p>Souhaitez-vous confirmer l&rsquo;avis {avisPrefet} pour la structure <strong>{structure?.nom}</strong> ?</p>
+                <p>Souhaitez-vous confirmer l&rsquo;avis {avisPrefet} pour la structure <strong>{structure?.nom}</strong>&nbsp;?</p>
                 <div className="fr-input-group">
-                  <label className="fr-label" htmlFor="input-usual-name-1664">
-                    Commentaire (obligatoire, max 250 caractères) :
+                  <label className="fr-label" htmlFor="commentaire-input">
+                    Commentaire (obligatoire, max 250 caractères)&nbsp;:
                   </label>
                   <textarea
                     value={commentaire}
+                    id="commentaire-input"
                     maxLength={250}
                     onChange={e => setCommentaire(e?.target?.value)}
                     style={{ height: '6rem' }}

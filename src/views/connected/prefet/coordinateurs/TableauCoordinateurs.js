@@ -84,7 +84,7 @@ export default function TableauCoordinateurs() {
     dispatch(filtresDemandesCoordinateurActions.changeOrdre(e.currentTarget?.id));
   };
 
-  const demandesCoordinateurWithBanner = coordinateurs?.items?.data.filter(demande => demande?.banniereValidationAvisPrefet === true);
+  const demandesCoordinateurWithBanner = coordinateurs?.items?.data?.filter(demande => demande?.banniereValidationAvisPrefet === true);
 
   return (
     <div className="conventions">
