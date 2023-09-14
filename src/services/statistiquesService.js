@@ -13,6 +13,7 @@ export const statistiquesService = {
   getStatistiquesTerritoire,
   getStatistiquesStructure,
   getStatistiquesConseiller,
+  getStatistiquesConseillerParcoursRecrutement,
   getStatistiquesNationale,
   getStatistiquesNationaleGrandReseau,
   getCodesPostauxCrasConseillerStructure,
@@ -66,6 +67,14 @@ function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal,
   const { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune } = statsQueryStringParameters(dateDebut, dateFin, codePostal, codeCommune);
   return API.get(
     `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}&idConseiller=${idConseiller}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idConseiller, codePostal, codeCommune) {
+  const { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune } = statsQueryStringParameters(dateDebut, dateFin, codePostal, codeCommune);
+  return API.get(
+    `${apiUrlRoot}/stats/recrutement/conseiller/cras?role=anonyme${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}&idConseiller=${idConseiller}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

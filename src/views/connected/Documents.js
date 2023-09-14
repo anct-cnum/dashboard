@@ -55,25 +55,17 @@ export default function Documents() {
 
         <div className="fr-grid-row">
           <p>
-            <a href="https://cdn.conseiller-numerique.gouv.fr/AMI_Conseiller-Numerique.pdf"
-              // eslint-disable-next-line max-len
-              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger l&rsquo;Appel &agrave; Manifestation d'Int&eacute;r&ecirc;t Public">
-              T&eacute;l&eacute;charger l&rsquo;Appel &agrave; Manifestation d&rsquo;Int&eacute;r&ecirc;t Public (pdf)
+            <a href="https://cdn.conseiller-numerique.gouv.fr/Appel_a_candidatures_conseiller_numerique_FNE.pdf"
+              className="fr-link"
+              target="blank"
+              rel="noreferrer noopener"
+              title="T&eacute;l&eacute;charger l&rsquo;Appel &agrave; Manifestation d'Int&eacute;r&ecirc;t Num&eacute;rique
+              &ldquo;France Num&eacute;rique Ensemble&rdquo;">
+              T&eacute;l&eacute;charger l&rsquo;Appel &agrave; Manifestation d&rsquo;Int&eacute;r&ecirc;t Num&eacute;rique
+              &ldquo;France Num&eacute;rique Ensemble&rdquo; (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-              Appel &agrave; manifestation d&rsquo;int&eacute;r&ecirc;t pour les collectivit&eacute;s territoriales et leurs groupements
-            </span>
-          </p>
-        </div>
-        <div className="fr-grid-row">
-          <p>
-            <a href="https://cdn.conseiller-numerique.gouv.fr/AMI_Prive.pdf"
-              // eslint-disable-next-line max-len
-              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger l&rsquo;Appel &agrave; Manifestation d'Int&eacute;r&ecirc;t Priv&eacute;">
-              T&eacute;l&eacute;charger l&rsquo;Appel &agrave; Manifestation d&rsquo;Int&eacute;r&ecirc;t Priv&eacute; (pdf)
-            </a>
-            <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-              Appel &agrave; manifestation d&rsquo;int&eacute;r&ecirc;t pour les acteurs &agrave; statut priv&eacute;
+              Appel &agrave; manifestation d&rsquo;int&eacute;r&ecirc;t France Num&eacute;rique Ensemble pour les acteurs priv&eacute;s et publiques
             </span>
           </p>
         </div>

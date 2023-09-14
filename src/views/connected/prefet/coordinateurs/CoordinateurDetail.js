@@ -92,12 +92,12 @@ function CoordinateurDetails() {
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
                   <button className="fr-btn fr-btn--secondary">
-                    Candidature non recevable
+                    Avis D&eacute;favorable
                   </button>
                 </li>
                 <li>
                   <button className="fr-btn">
-                    Candidature recevable
+                    Avis Favorable
                   </button>
                 </li>
               </ul>

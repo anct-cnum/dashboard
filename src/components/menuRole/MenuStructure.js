@@ -50,7 +50,6 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
           </ul>
         </div>
       </li>
-      {/* en attente du lancement du parcours coordo en septembre */}
       <li className="fr-nav__item">
         <button
           id="coordination-territoriale"
@@ -94,7 +93,6 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
           aria-controls="menu-statistiques"
           // eslint-disable-next-line max-len
           {...(location.pathname.startsWith(`/statistiques-nationales`) || location.pathname.startsWith(`/statistiques-territoires`) || location.pathname.startsWith(`/statistiques-structure/${authenticationUser}`) ? { 'aria-current': 'page' } : {})}
-
           onClick={onClickMenu}>
           Statistiques
         </button>

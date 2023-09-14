@@ -10,7 +10,6 @@ import invitationsReducer from './invitationsReducer';
 import alerteEtSpinnerReducer from './alerteEtSpinnerReducer';
 import userReducer from './userReducer';
 import conseillerReducer from './conseillerReducer';
-import statsReducer from './statsReducer';
 import structureReducer from './structureReducer';
 import gestionnaireReducer from './gestionnaireReducer';
 import reconventionnementReducer from './reconventionnementReducer';
@@ -38,7 +37,6 @@ const rootReducer = combineReducers({
   user: userReducer,
   conseiller: conseillerReducer,
   misesEnRelation: miseEnRelationReducer,
-  stats: statsReducer,
   structure: structureReducer,
   gestionnaire: gestionnaireReducer,
   reconventionnement: reconventionnementReducer,

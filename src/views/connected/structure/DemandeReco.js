@@ -23,7 +23,7 @@ function DemandeReconventionnement() {
   const reconventionnement = useSelector(state => state.reconventionnement?.reconventionnement);
   const misesEnRelation = useSelector(state => state.misesEnRelation?.misesEnRelation);
   const errorMisesEnRelation = useSelector(state => state?.misesEnRelation?.error);
-  const loadingMisesEnRelation = useSelector(state => state.misesEnRelations?.loading);
+  const loadingMisesEnRelation = useSelector(state => state?.misesEnRelation?.loading);
   const loadingStructure = useSelector(state => state.structure?.loading);
   const errorStructure = useSelector(state => state?.structure?.error);
   const loadingReconventionnement = useSelector(state => state.reconventionnement?.loading);
