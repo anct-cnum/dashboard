@@ -7,7 +7,7 @@ const BannerConfirmationAvisPrefet = ({ coordinateur }) => {
   const dispatch = useDispatch();
 
   const closeBanner = () => {
-    dispatch(coordinateurActions.closeBannerAvisPrefet(coordinateur?.id));
+    dispatch(coordinateurActions.closeBannerAvisPrefet(coordinateur?.id, coordinateur?.idStructure));
   };
 
   const checkTypeAvisFavorable = () => {

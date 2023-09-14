@@ -80,11 +80,11 @@ function confirmationAvisPrefet(idStructure, avisPrefet, idDemandeCoordinateur, 
   }
 }
 
-function closeBannerAvisPrefet(idDemandeCoordinateur) {
+function closeBannerAvisPrefet(idDemandeCoordinateur, idStructure) {
   return dispatch => {
     dispatch(request());
 
-    coordinateurService.closeBannerAvisPrefet(idDemandeCoordinateur)
+    coordinateurService.closeBannerAvisPrefet(idDemandeCoordinateur, idStructure)
     .then(
       idDemandeCoordinateur => dispatch(success(idDemandeCoordinateur)),
       error => {

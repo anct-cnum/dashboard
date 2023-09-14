@@ -37,8 +37,8 @@ function confirmationAvisPrefet(idStructure, avisPrefet, idDemandeCoordinateur, 
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function closeBannerAvisPrefet(idDemandeCoordinateur) {
-  return API.patch(`${apiUrlRoot}/banner/prefet/coordinateur/${idDemandeCoordinateur}?role=${roleActivated()}`)
+function closeBannerAvisPrefet(idDemandeCoordinateur, idStructure) {
+  return API.patch(`${apiUrlRoot}/banner/prefet/coordinateur/${idStructure}?role=${roleActivated()}`, { idDemandeCoordinateur })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
