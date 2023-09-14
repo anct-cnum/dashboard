@@ -15,7 +15,7 @@ function CoordinateurDetails() {
   const queryParams = new URLSearchParams(window.location.search);
   const idDemandeCoordinateur = queryParams.get('demande');
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const coordinateur = useSelector(state => state.coordinateur?.coordinateur);
+  const structure = useSelector(state => state.coordinateur?.coordinateur);
   const loading = useSelector(state => state.coordinateur?.loading);
   const successAvisPrefet = useSelector(state => state.coordinateur?.successAvisPrefet);
   const errorCoordinateur = useSelector(state => state.coordinateur?.error);
@@ -26,7 +26,7 @@ function CoordinateurDetails() {
   useEffect(() => {
     if (!errorCoordinateur) {
       scrollTopWindow();
-      if (coordinateur?._id !== idStructure) {
+      if (structure?._id !== idStructure) {
         dispatch(coordinateurActions.getDemandeCoordinateur(idStructure, idDemandeCoordinateur));
       }
     } else {
@@ -53,21 +53,21 @@ function CoordinateurDetails() {
         Retour &agrave; la liste
       </Link>
       {openModalAvis &&
-        <ModalConfirmationAvis setOpenModal={setOpenModalAvis} structure={coordinateur} avisPrefet={avisPrefet} />
+        <ModalConfirmationAvis setOpenModal={setOpenModalAvis} structure={structure} avisPrefet={avisPrefet} />
       }
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{coordinateur?.nom ?? '-'}</h1>
+        <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
       </div>
       <div className="fr-col-12 fr-mb-4w">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <span className="fr-text--xl fr-text--bold" style={{ marginBottom: '0' }}>ID - {coordinateur?.idPG ?? ''}</span>
+          <span className="fr-text--xl fr-text--bold" style={{ marginBottom: '0' }}>ID - {structure?.idPG ?? ''}</span>
           <button className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-auto"
-            onClick={() => window.open(`/${roleActivated}/structure/${coordinateur?._id}`)}>
+            onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}>
             D&eacute;tails structure
           </button>
         </div>
       </div>
-      <StructureContactCards structure={coordinateur} />
+      <StructureContactCards structure={structure} />
       <div className="fr-grid-row fr-mt-7w fr-mb-2w fr-col-12">
         <div className="fr-col-12">
           <hr style={{ borderWidth: '0.5px' }} />
@@ -82,8 +82,8 @@ function CoordinateurDetails() {
             </h3>
             <p className="fr-card__desc fr-text--lg fr-text--regular">
               Date de candidature&nbsp;:&nbsp;
-              {coordinateur?.demandesCoordinateur[0]?.dossier.dateDeCreation ?
-                <span>le&nbsp;{dayjs(coordinateur?.demandesCoordinateur[0]?.dossier.dateDeCreation).format('DD/MM/YYYY')}</span> :
+              {structure?.demandesCoordinateur[0]?.dossier.dateDeCreation ?
+                <span>le&nbsp;{dayjs(structure?.demandesCoordinateur[0]?.dossier.dateDeCreation).format('DD/MM/YYYY')}</span> :
                 <span>Non renseign&eacute;e</span>
               }
             </p>
@@ -91,18 +91,18 @@ function CoordinateurDetails() {
           <div className="fr-card__content">
             <div className="fr-container questionnaire">
               <h6 className="fr-text--bold fr-mb-4w">R&eacute;ponses au questionnaire D&eacute;marches simplifi&eacute;es</h6>
-              {coordinateur?.questionnaire.map((question, idx) =>
+              {structure?.questionnaire.map((question, idx) =>
                 <div key={idx}>
                   <p className="fr-text--bold">{question?.question}</p>
                   <p>{question?.reponse}</p>
-                  {idx + 1 < coordinateur?.questionnaire?.length &&
+                  {idx + 1 < structure?.questionnaire?.length &&
                     <hr />
                   }
                 </div>
               )}
             </div>
           </div>
-          {!coordinateur?.demandesCoordinateur[0]?.avisPrefet &&
+          {!structure?.demandesCoordinateur[0]?.avisPrefet &&
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>

@@ -21,7 +21,7 @@ function Coordinateur({ coordinateur }) {
   return (
     <tr>
       <td className="uppercase-letter">
-        <span className="fr-text--bold">{coordinateur?.nom}</span><br />
+        <span className="fr-text--bold">{coordinateur?.nomStructure}</span><br />
         <span>ID {coordinateur?.idPG}</span>
       </td>
       <td>{coordinateur?.codePostal}</td>

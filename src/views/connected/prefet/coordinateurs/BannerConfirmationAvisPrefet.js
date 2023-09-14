@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { coordinateurActions } from '../../../../actions';
 
-const BannerConfirmationAvisPrefet = ({ structure }) => {
+const BannerConfirmationAvisPrefet = ({ coordinateur }) => {
   const dispatch = useDispatch();
 
   const closeBanner = () => {
-    dispatch(coordinateurActions.closeBannerAvisPrefet(structure?.id));
+    dispatch(coordinateurActions.closeBannerAvisPrefet(coordinateur?.id));
   };
 
   const checkTypeAvisFavorable = () => {
-    if (structure?.avisPrefet === 'favorable') {
+    if (coordinateur?.avisPrefet === 'favorable') {
       return true;
     }
     return false;
@@ -24,7 +24,7 @@ const BannerConfirmationAvisPrefet = ({ structure }) => {
           <span className="fr-icon-checkbox-fill icon__color fr-mr-2w" aria-hidden="true"></span>
           <div>
             <p className="fr-notice__title title__color">
-              Un avis {checkTypeAvisFavorable() ? 'favorable' : 'défavorable'} &agrave; &eacute;t&eacute; attribu&eacute; &agrave; {structure?.nom}.
+              Un avis {checkTypeAvisFavorable() ? 'favorable' : 'défavorable'} &agrave; &eacute;t&eacute; attribu&eacute; &agrave; {coordinateur?.nomStructure}.
             </p>
             <p className="fr-text fr-text--sm">
               La structure sera notifi&eacute;e apr&egrave;s d&eacute;cision du comit&eacute; de s&eacute;lection.
@@ -42,7 +42,7 @@ const BannerConfirmationAvisPrefet = ({ structure }) => {
 };
 
 BannerConfirmationAvisPrefet.propTypes = {
-  structure: PropTypes.object,
+  coordinateur: PropTypes.object,
 };
 
 export default BannerConfirmationAvisPrefet;

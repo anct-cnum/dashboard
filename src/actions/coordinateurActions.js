@@ -86,7 +86,7 @@ function closeBannerAvisPrefet(idDemandeCoordinateur) {
 
     coordinateurService.closeBannerAvisPrefet(idDemandeCoordinateur)
     .then(
-      response => dispatch(success(response.idDemandeCoordinateur)),
+      idDemandeCoordinateur => dispatch(success(idDemandeCoordinateur)),
       error => {
         dispatch(failure(error));
       }

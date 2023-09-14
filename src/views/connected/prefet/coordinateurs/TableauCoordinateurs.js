@@ -90,7 +90,7 @@ export default function TableauCoordinateurs() {
     <div className="conventions">
       <Spinner loading={loading} />
       {demandesCoordinateurWithBanner?.length > 0 && demandesCoordinateurWithBanner?.map((coordinateur, idx) => {
-        return (<BannerConfirmationAvisPrefet key={idx} structure={coordinateur} />);
+        return (<BannerConfirmationAvisPrefet key={idx} coordinateur={coordinateur} />);
       })
       }
       <div className="fr-grid-row">
