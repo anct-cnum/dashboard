@@ -70,26 +70,15 @@ function RecrutementCoordinateur() {
         </strong>
       </span>
       <div className="fr-grid-row fr-grid-row--center fr-mt-5w fr-pb-6w">
-        {structure?.demandesCoordinateur?.length > 0 ?
-          <a
-            href={`https://www.demarches-simplifiees.fr/dossiers/${structure?.demandesCoordinateur[0]?.dossier?.numero}`}
-            className="fr-btn"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Consulter votre dossier D&eacute;marche Simplifi&eacute;e"
-          >
-            Consulter votre dossier D&eacute;marche Simplifi&eacute;e
-          </a> :
-          <a
-            href={`${process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_RECRUTEMENT_COORDINATEUR}?champ_Q2hhbXAtMzI3MTEzNw=${structure?.idPG}`}
-            className="fr-btn"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Compl&eacute;ter le formulaire de motivation"
-          >
-            Compl&eacute;ter le formulaire de motivation
-          </a>
-        }
+        <a
+          href={`${process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_RECRUTEMENT_COORDINATEUR}?champ_Q2hhbXAtMzI3MTEzNw=${structure?.idPG}`}
+          className="fr-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Compl&eacute;ter le formulaire de motivation"
+        >
+          Compl&eacute;ter le formulaire de motivation
+        </a>
       </div>
     </div>
   );
