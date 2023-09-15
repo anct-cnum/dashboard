@@ -20,6 +20,18 @@ function HistoriqueContrat({ contrat }) {
     return 'Non renseignée';
   };
 
+  const dateFinDeContrat = contrat => {
+    if (contrat?.dateRupture) {
+      return dayjs(contrat.dateRupture).format('DD/MM/YYYY');
+    }
+    if (validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) || !contrat?.dateFinDeContrat) {
+      return '-';
+    }
+    if (!validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) && contrat?.dateFinDeContrat) {
+      return dayjs(contrat.dateFinDeContrat).format('DD/MM/YYYY');
+    }
+  };
+
   const formatStatutContrat = statut => {
     switch (statut) {
       case 'finalisee_rupture':
@@ -47,14 +59,7 @@ function HistoriqueContrat({ contrat }) {
         <td>{formatStatutContrat(contrat?.statut)}</td>
         <td style={{ maxWidth: '10rem', overflowWrap: 'break-word' }}>{contrat?.typeDeContrat ?? '-'}</td>
         <td>{contrat?.dateDebutDeContrat ? dayjs(contrat?.dateDebutDeContrat).format('DD/MM/YYYY') : '-'}</td>
-        <td>
-          {(validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) || !contrat?.dateFinDeContrat) &&
-            <span>-</span>
-          }
-          {(!validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) && contrat?.dateFinDeContrat) &&
-            <span>{dayjs(contrat?.dateFinDeContrat).format('DD/MM/YYYY')}</span>
-          }
-        </td>
+        <td>{dateFinDeContrat(contrat)}</td>
         <td>
           {contrat?.statut === 'finalisee' ?
             <button
