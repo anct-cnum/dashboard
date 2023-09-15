@@ -81,7 +81,7 @@ function RecrutementCoordinateur() {
             Consulter votre dossier D&eacute;marche Simplifi&eacute;e
           </a> :
           <a
-            href={`https://www.demarches-simplifiees.fr/commencer/conseiller-numerique-coordinateur?champ_Q2hhbXAtMzI3MTEzNw=${structure?.idPG}`}
+            href={`${process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_RECRUTEMENT_COORDINATEUR}?champ_Q2hhbXAtMzI3MTEzNw=${structure?.idPG}`}
             className="fr-btn"
             target="_blank"
             rel="noopener noreferrer"
