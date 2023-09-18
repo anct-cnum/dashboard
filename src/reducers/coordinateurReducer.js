@@ -67,7 +67,7 @@ export default function coordinateur(state = initialState, action) {
         ...state,
         loading: false,
         items: {
-          ...state.items, data: state.items.data.map(
+          ...state.items, data: state?.items?.data?.map(
             demandeCoordinateur => demandeCoordinateur.id === action.idDemandeCoordinateur ? { ...demandeCoordinateur, banniereValidationAvisPrefet: false } :
               demandeCoordinateur)
         },

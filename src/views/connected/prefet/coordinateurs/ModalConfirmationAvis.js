@@ -19,7 +19,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
           <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
             <div className="fr-modal__body">
               <div className="fr-modal__header">
-                <button className="fr-btn--close fr-btn" title="Fermer la fenêtre modale" aria-controls="fr-modal-2" onClick={() => {
+                <button className="fr-btn--close fr-btn" title="Fermer la fen&ecirc;tre modale" aria-controls="fr-modal-2" onClick={() => {
                   setOpenModal(false);
                   setCommentaire('');
                 }}>
@@ -34,7 +34,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                 <p>Souhaitez-vous confirmer l&rsquo;avis {avisPrefet} pour la structure <strong>{structure?.nom}</strong>&nbsp;?</p>
                 <div className="fr-input-group">
                   <label className="fr-label" htmlFor="commentaire-input">
-                    Commentaire (obligatoire, max 250 caractères)&nbsp;:
+                    Commentaire (obligatoire, max 250 caract&egrave;res)&nbsp;:
                   </label>
                   <textarea
                     value={commentaire}

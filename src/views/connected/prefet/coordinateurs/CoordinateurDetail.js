@@ -91,7 +91,7 @@ function CoordinateurDetails() {
           <div className="fr-card__content">
             <div className="fr-container questionnaire">
               <h6 className="fr-text--bold fr-mb-4w">R&eacute;ponses au questionnaire D&eacute;marches simplifi&eacute;es</h6>
-              {structure?.questionnaire.map((question, idx) =>
+              {structure?.questionnaire?.map((question, idx) =>
                 <div key={idx}>
                   <p className="fr-text--bold">{question?.question}</p>
                   <p>{question?.reponse}</p>
