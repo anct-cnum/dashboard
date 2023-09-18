@@ -167,10 +167,18 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                     <div className="fr-col-12 fr-col-md-4">
                       <div>
                         <strong className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</strong><br />
-                        {miseEnRelation?.dateRupture ?
+                        {(!miseEnRelation?.dateRupture && !miseEnRelation?.dateFinDeContrat) &&
+                          <span className="fr-text--regular fr-text--md">-</span>
+                        }
+                        {miseEnRelation?.dateRupture &&
                           <span className="fr-text--regular fr-text--md">
-                            {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
-                          </span> : <span>-</span>
+                            {dayjs(miseEnRelation.dateRupture).format('DD/MM/YYYY')}
+                          </span>
+                        }
+                        {(!miseEnRelation?.dateRupture && miseEnRelation?.dateFinDeContrat) &&
+                          <span className="fr-text--regular fr-text--md">
+                            {dayjs(miseEnRelation.dateFinDeContrat).format('DD/MM/YYYY')}
+                          </span>
                         }
                       </div>
                     </div>
