@@ -57,8 +57,8 @@ jobs:
           envkey_REACT_APP_PIX_CERTIFIER_HOSTNAME: "https://pix.fr/se-certifier"
           envkey_REACT_APP_AIDE_HOSTNAME: "https://aide.conseiller-numerique.gouv.fr/fr"
           envkey_REACT_APP_DEMARCHES_SIMPLIFIEES_HOSTNAME: "https://www.demarches-simplifiees.fr"
-          envkey_REACT_APP_PUBLIC_HOSTNAME: "https://www.conseiller-numerique.gouv.fr"
           envkey_REACT_APP_DEMARCHES_SIMPLIFIEES_RECRUTEMENT_COORDINATEUR: "https://www.demarches-simplifiees.fr/commencer/conseiller-numerique-coordinateur"
+          envkey_REACT_APP_PUBLIC_HOSTNAME: "https://www.conseiller-numerique.gouv.fr"
           envkey_REACT_APP_MATOMO_URL: "https://stats.data.gouv.fr/"
           envkey_REACT_APP_MATOMO_ID: ${{ secrets.MATOMO_SITE_ID }}
           envkey_REACT_APP_AUTH_CLIENT_ID: ${{ secrets.IC_PRODUCTION_AUTH_CLIENT_ID }}
