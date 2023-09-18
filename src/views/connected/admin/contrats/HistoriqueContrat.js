@@ -24,12 +24,10 @@ function HistoriqueContrat({ contrat }) {
     if (contrat?.dateRupture) {
       return dayjs(contrat.dateRupture).format('DD/MM/YYYY');
     }
-    if (validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) || !contrat?.dateFinDeContrat) {
-      return '-';
-    }
     if (!validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) && contrat?.dateFinDeContrat) {
       return dayjs(contrat.dateFinDeContrat).format('DD/MM/YYYY');
     }
+          return '-';
   };
 
   const formatStatutContrat = statut => {
