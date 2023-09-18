@@ -27,7 +27,7 @@ function HistoriqueContrat({ contrat }) {
     if (!validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) && contrat?.dateFinDeContrat) {
       return dayjs(contrat.dateFinDeContrat).format('DD/MM/YYYY');
     }
-          return '-';
+    return '-';
   };
 
   const formatStatutContrat = statut => {
