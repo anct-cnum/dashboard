@@ -8,6 +8,9 @@
     .icon__color {
       color: $warning-425;
     }
+    .icon__color:hover {
+      background-color: $warning-850;
+    }
   }
   .success {
     .title__color {
@@ -15,6 +18,9 @@
     }
     .icon__color {
       color: $success-425;
+    }
+    .icon__color:hover {
+      background-color: $success-850;
     }
   }
   .notice {

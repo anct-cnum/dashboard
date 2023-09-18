@@ -3,6 +3,8 @@ import { coordinateurService } from '../services/coordinateurService.js';
 export const coordinateurActions = {
   getDemandeCoordinateur,
   getAllDemandesCoordinateur,
+  confirmationAvisPrefet,
+  closeBannerAvisPrefet,
 };
 
 // eslint-disable-next-line max-len
@@ -51,5 +53,53 @@ function getDemandeCoordinateur(idStructure, idDemandeCoordinateur) {
   }
   function failure(error) {
     return { type: 'GET_DEMANDE_COORDINATEUR_FAILURE', error };
+  }
+}
+
+function confirmationAvisPrefet(idStructure, avisPrefet, idDemandeCoordinateur, commentaire) {
+  return dispatch => {
+    dispatch(request());
+
+    coordinateurService.confirmationAvisPrefet(idStructure, avisPrefet, idDemandeCoordinateur, commentaire)
+    .then(
+      response => dispatch(success(response.success)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_AVIS_PREFET_REQUEST' };
+  }
+  function success(success) {
+    return { type: 'UPDATE_AVIS_PREFET_SUCCESS', success };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVIS_PREFET_FAILURE', error };
+  }
+}
+
+function closeBannerAvisPrefet(idDemandeCoordinateur, idStructure) {
+  return dispatch => {
+    dispatch(request());
+
+    coordinateurService.closeBannerAvisPrefet(idDemandeCoordinateur, idStructure)
+    .then(
+      idDemandeCoordinateur => dispatch(success(idDemandeCoordinateur)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_BANNER_AVIS_PREFET_REQUEST' };
+  }
+  function success(idDemandeCoordinateur) {
+    return { type: 'UPDATE_BANNER_AVIS_PREFET_SUCCESS', idDemandeCoordinateur };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_BANNER_AVIS_PREFET_FAILURE', error };
   }
 }

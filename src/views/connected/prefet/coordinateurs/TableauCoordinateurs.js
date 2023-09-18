@@ -7,6 +7,7 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import FiltresEtTrisCoordinateur from './FiltresEtTrisCoordinateur';
 import Coordinateur from './Coordinateur';
+import BannerConfirmationAvisPrefet from './BannerConfirmationAvisPrefet';
 
 export default function TableauCoordinateurs() {
 
@@ -83,9 +84,15 @@ export default function TableauCoordinateurs() {
     dispatch(filtresDemandesCoordinateurActions.changeOrdre(e.currentTarget?.id));
   };
 
+  const demandesCoordinateurWithBanner = coordinateurs?.items?.data?.filter(demande => demande?.banniereValidationAvisPrefet === true);
+
   return (
     <div className="conventions">
       <Spinner loading={loading} />
+      {demandesCoordinateurWithBanner?.length > 0 && demandesCoordinateurWithBanner?.map((coordinateur, idx) => {
+        return (<BannerConfirmationAvisPrefet key={idx} coordinateur={coordinateur} />);
+      })
+      }
       <div className="fr-grid-row">
         <div className="fr-col-12">
           <h1 className="fr-h1 title">Demandes de coordinateur &agrave; traiter</h1>
