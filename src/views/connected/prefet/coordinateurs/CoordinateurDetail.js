@@ -93,8 +93,15 @@ function CoordinateurDetails() {
               <h6 className="fr-text--bold fr-mb-4w">R&eacute;ponses au questionnaire D&eacute;marches simplifi&eacute;es</h6>
               {structure?.questionnaire?.map((question, idx) =>
                 <div key={idx}>
-                  <p className="fr-text--bold">{question?.question}</p>
-                  <p>{question?.reponse}</p>
+                  <p className="fr-text--bold">{question.enoncer}</p>
+                  {question.files?.length > 0 ?
+                    question.files?.map((file, idx) =>
+                      <div key={idx} className="fr-mb-4w">
+                        <a href={file?.url} target="_blank" rel="noopener noreferrer">{file?.filename}</a>
+                      </div>
+                    ) :
+                    <p>{question.reponse}</p>
+                  }
                   {idx + 1 < structure?.questionnaire?.length &&
                     <hr />
                   }
