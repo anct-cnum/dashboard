@@ -71,7 +71,7 @@ function RecrutementCoordinateur() {
       </span>
       <div className="fr-grid-row fr-grid-row--center fr-mt-5w fr-pb-6w">
         <a
-          href={`https://www.demarches-simplifiees.fr/commencer/conseiller-numerique-coordinateur?champ_Q2hhbXAtMzI3MTEzNw=${structure?.idPG}`}
+          href={`${process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_RECRUTEMENT_COORDINATEUR}?champ_Q2hhbXAtMzI3MTEzNw=${structure?.idPG}`}
           className="fr-btn"
           target="_blank"
           rel="noopener noreferrer"

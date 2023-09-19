@@ -39,6 +39,7 @@ function MesPostes() {
   const [motif, setMotif] = useState('');
   const dispatch = useDispatch();
   const {
+    conseillersActifsEtRenouveller,
     conseillersActifs,
     conseillersARenouveler,
     conseillersActifsNonRenouveles,
@@ -136,8 +137,7 @@ function MesPostes() {
         {misesEnRelation?.length > 0 && (
           <>
             <HireAdvisorCard
-              nbreConseillersActifs={conseillersActifs.filter(conseiller => conseiller?.statut === 'finalisee').length}
-              nbreConseillersRenouveler={conseillersARenouveler.length}
+              conseillersActifsEtRenouveller={conseillersActifsEtRenouveller.length}
               nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
               structure={structure}
             />

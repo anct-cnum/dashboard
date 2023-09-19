@@ -7,6 +7,7 @@ export function useAdvisors() {
   const misesEnRelation = useSelector(state => state?.misesEnRelation?.misesEnRelation);
   const structure = useSelector(state => state.structure?.structure);
   const [conseillersActifs, setConseillersActifs] = useState([]);
+  const [conseillersActifsEtRenouveller, setConseillersActifsEtRenouveller] = useState([]);
   const [conseillersARenouveler, setConseillersARenouveler] = useState([]);
   const [conseillersActifsNonRenouveles, setConseillersActifsNonRenouveles] = useState([]);
   const [conseillersEnCoursDeRecrutement, setConseillersEnCoursDeRecrutement] = useState([]);
@@ -108,9 +109,13 @@ export function useAdvisors() {
       .filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture')
       .map(createConseiller);
 
+      const countConseillerActifsEtRenouveller =
+      [...new Set([...recrutees, ...nouvellesRuptures, ...conseillersARenouveler].map(miseEnRelation => miseEnRelation.idPG))];
+
       setConseillersActifsNonRenouveles([...conseillersActifsNonRenouveles, ...nouvellesRuptures]);
       setConseillersARenouveler(conseillersARenouveler);
       setConseillersActifs([...recrutees, ...nouvellesRuptures]);
+      setConseillersActifsEtRenouveller(countConseillerActifsEtRenouveller);
       setConseillersEnCoursDeRecrutement(conseillersEnCoursDeRecrutement);
       setBannieresRenouvellementValide(bannieresRenouvellementValide);
       setAnciensConseillers(anciensConseillers);
@@ -119,6 +124,7 @@ export function useAdvisors() {
   }, [misesEnRelation]);
 
   return {
+    conseillersActifsEtRenouveller,
     conseillersActifs,
     conseillersARenouveler,
     conseillersActifsNonRenouveles,
