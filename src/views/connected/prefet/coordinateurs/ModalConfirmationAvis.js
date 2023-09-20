@@ -34,7 +34,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                 <p>Souhaitez-vous confirmer l&rsquo;avis {avisPrefet} pour la structure <strong>{structure?.nom}</strong>&nbsp;?</p>
                 <div className="fr-input-group">
                   <label className="fr-label" htmlFor="commentaire-input">
-                    Commentaire (obligatoire, max 250 caract&egrave;res)&nbsp;:
+                    Commentaire (max 250 caract&egrave;res)&nbsp;:
                   </label>
                   <textarea
                     value={commentaire}

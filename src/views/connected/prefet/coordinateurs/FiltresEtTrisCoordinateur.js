@@ -41,7 +41,7 @@ function FiltresEtTrisCoordinateur() {
 
   const getDepartements = () => {
     if (userAuth?.region) {
-      return departementsRegionList.filter(departement => departement.region_name === codeRegionArray.find(r => r.code === userAuth?.region).nom);
+      return departementsRegionList.filter(departement => departement?.region_name === codeRegionArray.find(r => r.code === userAuth?.region).nom);
     }
     return departementsRegionList.filter(departement => departement.num_dep === userAuth?.departement);
   };
@@ -50,7 +50,7 @@ function FiltresEtTrisCoordinateur() {
     if (userAuth?.departement) {
       return codeRegionArray.filter(
         region => region.nom === departementsRegionList.find(departement =>
-          departement.num_dep === userAuth.departement).region_name
+          departement.num_dep === userAuth.departement)?.region_name
       );
     }
     return codeRegionArray.filter(region => region.code === userAuth?.region);
@@ -74,7 +74,7 @@ function FiltresEtTrisCoordinateur() {
         <div className="fr-select-group fr-col-12 fr-col-xl-4 fr-mr-xl-2w" id="filtre-region-rupture">
           <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
             {getRegions().map((region, idx) =>
-              <option key={idx} value={region.code}>{region.nom}</option>
+              <option key={idx} value={region?.code}>{region?.nom}</option>
             )}
           </select>
         </div>
