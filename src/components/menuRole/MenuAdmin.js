@@ -56,6 +56,14 @@ function MenuAdmin({ onClickMenu, activeMenu, trackEvent }) {
                 Historique des demandes de contrats trait&eacute;es
               </Link>
             </li>
+            <li>
+              <Link className="fr-nav__link" to={`/${roleActivated}/demandes/coordinateurs`}
+                {...(location.pathname.startsWith(`/${roleActivated}/demandes/coordinateurs`) ? { 'aria-current': 'page' } : {})}
+                onClick={() => trackEvent({ category: 'demande-coordinateur', action: `click-${roleActivated}` })}
+              >
+                Demandes de coordinateurs &agrave; traiter
+              </Link>
+            </li>
           </ul>
         </div>
       </li>
