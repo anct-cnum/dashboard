@@ -4,7 +4,8 @@ export const coordinateurActions = {
   getDemandeCoordinateur,
   getAllDemandesCoordinateur,
   confirmationAvisPrefet,
-  closeBannerAvisPrefet,
+  closeBanner,
+  confirmationRefusAvisAdmin,
 };
 
 // eslint-disable-next-line max-len
@@ -80,11 +81,35 @@ function confirmationAvisPrefet(idStructure, avisPrefet, idDemandeCoordinateur, 
   }
 }
 
-function closeBannerAvisPrefet(idDemandeCoordinateur, idStructure) {
+function confirmationRefusAvisAdmin(idStructure, idDemandeCoordinateur) {
   return dispatch => {
     dispatch(request());
 
-    coordinateurService.closeBannerAvisPrefet(idDemandeCoordinateur, idStructure)
+    coordinateurService.confirmationRefusAvisAdmin(idStructure, idDemandeCoordinateur)
+    .then(
+      response => dispatch(success(response.success)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_AVIS_ADMIN_REQUEST' };
+  }
+  function success(success) {
+    return { type: 'UPDATE_AVIS_ADMIN_REQUEST_SUCCESS', success };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVIS_ADMIN_REQUEST_FAILURE', error };
+  }
+}
+
+function closeBanner(idDemandeCoordinateur, idStructure, typeBanner) {
+  return dispatch => {
+    dispatch(request());
+
+    coordinateurService.closeBanner(idDemandeCoordinateur, idStructure, typeBanner)
     .then(
       idDemandeCoordinateur => dispatch(success(idDemandeCoordinateur)),
       error => {
@@ -94,12 +119,12 @@ function closeBannerAvisPrefet(idDemandeCoordinateur, idStructure) {
   };
 
   function request() {
-    return { type: 'UPDATE_BANNER_AVIS_PREFET_REQUEST' };
+    return { type: 'UPDATE_BANNER_REQUEST' };
   }
   function success(idDemandeCoordinateur) {
-    return { type: 'UPDATE_BANNER_AVIS_PREFET_SUCCESS', idDemandeCoordinateur };
+    return { type: 'UPDATE_BANNER_SUCCESS', idDemandeCoordinateur };
   }
   function failure(error) {
-    return { type: 'UPDATE_BANNER_AVIS_PREFET_FAILURE', error };
+    return { type: 'UPDATE_BANNER_FAILURE', error };
   }
 }

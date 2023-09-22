@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { coordinateurActions } from '../../../../actions';
 
-const BannerConfirmationAvisPrefet = ({ coordinateur }) => {
+const BannerConfirmationAttributionPoste = ({ coordinateur }) => {
   const dispatch = useDispatch();
 
   const closeBanner = () => {
-    dispatch(coordinateurActions.closeBanner(coordinateur?.id, coordinateur?.idStructure, 'banniereValidationAvisPrefet'));
+    dispatch(coordinateurActions.closeBannerAvisPrefet(coordinateur?.id, coordinateur?.idStructure, 'banniereValidationAvisAdmin'));
   };
 
   const checkTypeAvisFavorable = () => {
-    if (coordinateur?.avisPrefet === 'favorable') {
+    if (coordinateur?.statut === 'validee') {
       return true;
     }
     return false;
@@ -24,10 +24,11 @@ const BannerConfirmationAvisPrefet = ({ coordinateur }) => {
           <span className="fr-icon-checkbox-fill icon__color fr-mr-2w" aria-hidden="true"></span>
           <div>
             <p className="fr-notice__title title__color">
-              Un avis {coordinateur?.avisPrefet} &agrave; &eacute;t&eacute; attribu&eacute; &agrave; {coordinateur?.nomStructure}.
+              L&rsquo;attribution d&rsquo;un poste de coordinateur a &eacute;t&eacute; valid&eacute;
+              par le comit&eacute; de s&eacute;lection pour la structure {coordinateur?.nomStructure}.
             </p>
             <p className="fr-text fr-text--sm">
-              La structure sera notifi&eacute;e apr&egrave;s d&eacute;cision du comit&eacute; de s&eacute;lection.
+              La structure sera notifi&eacute;e sur son espace.
             </p>
           </div>
           <button
@@ -41,8 +42,8 @@ const BannerConfirmationAvisPrefet = ({ coordinateur }) => {
   );
 };
 
-BannerConfirmationAvisPrefet.propTypes = {
+BannerConfirmationAttributionPoste.propTypes = {
   coordinateur: PropTypes.object,
 };
 
-export default BannerConfirmationAvisPrefet;
+export default BannerConfirmationAttributionPoste;
