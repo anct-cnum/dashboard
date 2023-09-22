@@ -33,6 +33,14 @@ function MenuAdmin({ onClickMenu, activeMenu, trackEvent }) {
               </Link>
             </li>
             <li>
+              <Link className="fr-nav__link" to={`/${roleActivated}/demandes/coordinateurs`}
+                {...(location.pathname.startsWith(`/${roleActivated}/demandes/coordinateurs`) ? { 'aria-current': 'page' } : {})}
+                onClick={() => trackEvent({ category: 'demande-coordinateur', action: `click-${roleActivated}` })}
+              >
+                Demandes de coordinateurs &agrave; traiter
+              </Link>
+            </li>
+            <li>
               <Link className="fr-nav__link" to={`/${roleActivated}/historique/demandes/conventions`}
                 {...(location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'historique-demande-conventions', action: `click-${roleActivated}` })}
