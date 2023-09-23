@@ -98,10 +98,10 @@ function confirmationRefusAvisAdmin(idStructure, idDemandeCoordinateur) {
     return { type: 'UPDATE_AVIS_ADMIN_REQUEST' };
   }
   function success(success) {
-    return { type: 'UPDATE_AVIS_ADMIN_REQUEST_SUCCESS', success };
+    return { type: 'UPDATE_AVIS_ADMIN_SUCCESS', success };
   }
   function failure(error) {
-    return { type: 'UPDATE_AVIS_ADMIN_REQUEST_FAILURE', error };
+    return { type: 'UPDATE_AVIS_ADMIN_FAILURE', error };
   }
 }
 
@@ -111,7 +111,21 @@ function closeBanner(idDemandeCoordinateur, idStructure, typeBanner) {
 
     coordinateurService.closeBanner(idDemandeCoordinateur, idStructure, typeBanner)
     .then(
-      idDemandeCoordinateur => dispatch(success(idDemandeCoordinateur)),
+      idDemandeCoordinateur => {
+        switch (typeBanner) {
+          case 'banniereValidationAvisPrefet':
+            dispatch(successBannerAvisPrefet(idDemandeCoordinateur));
+            break;
+          case 'banniereValidationAvisAdmin':
+            dispatch(successBannerAvisAdmin(idDemandeCoordinateur));
+            break;
+          case 'banniereInformationAvis':
+            dispatch(successBannerAvisStructure(idDemandeCoordinateur));
+            break;
+          default:
+            break;
+        }
+      },
       error => {
         dispatch(failure(error));
       }
@@ -121,8 +135,14 @@ function closeBanner(idDemandeCoordinateur, idStructure, typeBanner) {
   function request() {
     return { type: 'UPDATE_BANNER_REQUEST' };
   }
-  function success(idDemandeCoordinateur) {
-    return { type: 'UPDATE_BANNER_SUCCESS', idDemandeCoordinateur };
+  function successBannerAvisPrefet(idDemandeCoordinateur) {
+    return { type: 'UPDATE_BANNER__PREFET_SUCCESS', idDemandeCoordinateur };
+  }
+  function successBannerAvisAdmin(idDemandeCoordinateur) {
+    return { type: 'UPDATE_BANNER_ADMIN_SUCCESS', idDemandeCoordinateur };
+  }
+  function successBannerAvisStructure(idDemandeCoordinateur) {
+    return { type: 'UPDATE_BANNER_STRUCTURE_SUCCESS', idDemandeCoordinateur };
   }
   function failure(error) {
     return { type: 'UPDATE_BANNER_FAILURE', error };

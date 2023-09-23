@@ -7,7 +7,7 @@ const BannerConfirmationAttributionPoste = ({ coordinateur }) => {
   const dispatch = useDispatch();
 
   const closeBanner = () => {
-    dispatch(coordinateurActions.closeBannerAvisPrefet(coordinateur?.id, coordinateur?.idStructure, 'banniereValidationAvisAdmin'));
+    dispatch(coordinateurActions.closeBanner(coordinateur?.id, coordinateur?.idStructure, 'banniereValidationAvisAdmin'));
   };
 
   const checkTypeAvisFavorable = () => {
@@ -24,7 +24,7 @@ const BannerConfirmationAttributionPoste = ({ coordinateur }) => {
           <span className="fr-icon-checkbox-fill icon__color fr-mr-2w" aria-hidden="true"></span>
           <div>
             <p className="fr-notice__title title__color">
-              L&rsquo;attribution d&rsquo;un poste de coordinateur a &eacute;t&eacute; valid&eacute;
+              L&rsquo;attribution d&rsquo;un poste de coordinateur a &eacute;t&eacute; refus&eacute;e
               par le comit&eacute; de s&eacute;lection pour la structure {coordinateur?.nomStructure}.
             </p>
             <p className="fr-text fr-text--sm">

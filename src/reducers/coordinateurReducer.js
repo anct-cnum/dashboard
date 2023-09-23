@@ -79,13 +79,33 @@ export default function coordinateur(state = initialState, action) {
         loading: true,
         error: false
       };
-    case 'UPDATE_BANNER_SUCCESS':
+    case 'UPDATE_BANNER_PREFET_SUCCESS':
       return {
         ...state,
         loading: false,
         items: {
           ...state.items, data: state?.items?.data?.map(
             demandeCoordinateur => demandeCoordinateur.id === action.idDemandeCoordinateur ? { ...demandeCoordinateur, banniereValidationAvisPrefet: false } :
+              demandeCoordinateur)
+        },
+      };
+    case 'UPDATE_BANNER_ADMIN_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: {
+          ...state.items, data: state?.items?.data?.map(
+            demandeCoordinateur => demandeCoordinateur.id === action.idDemandeCoordinateur ? { ...demandeCoordinateur, banniereValidationAvisAdmin: false } :
+              demandeCoordinateur)
+        },
+      };
+    case 'UPDATE_BANNER_STRUCTURE_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: {
+          ...state.items, data: state?.items?.data?.map(
+            demandeCoordinateur => demandeCoordinateur.id === action.idDemandeCoordinateur ? { ...demandeCoordinateur, banniereInformationAvis: false } :
               demandeCoordinateur)
         },
       };

@@ -15,6 +15,7 @@ function CoordinateurDetails() {
   const queryParams = new URLSearchParams(window.location.search);
   const idDemandeCoordinateur = queryParams.get('demande');
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const successAvisAdmin = useSelector(state => state.coordinateur?.successAvisAdmin);
   const structure = useSelector(state => state.coordinateur?.coordinateur);
   const loading = useSelector(state => state.coordinateur?.loading);
   const errorCoordinateur = useSelector(state => state.coordinateur?.error);
@@ -36,6 +37,12 @@ function CoordinateurDetails() {
       }));
     }
   }, [errorCoordinateur]);
+
+  useEffect(() => {
+    if (successAvisAdmin !== undefined && successAvisAdmin !== false) {
+      window.location.href = '/admin/demandes/coordinateurs';
+    }
+  }, [successAvisAdmin]);
 
   return (
     <div className="coordinateurDetails">

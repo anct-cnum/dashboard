@@ -6,7 +6,7 @@ import { coordinateurActions } from '../../../../actions';
 function ModalConfirmationAttributionPoste({ setOpenModal, structure, typeAttribution }) {
   const dispatch = useDispatch();
 
-  const confirmationAttributionPoste = typeAttribution => {
+  const confirmationAttributionPoste = () => {
     if (typeAttribution === 'refuser') {
       dispatch(coordinateurActions.confirmationRefusAvisAdmin(structure?._id, structure?.demandesCoordinateur[0]?.id));
       setOpenModal(false);
@@ -44,7 +44,7 @@ function ModalConfirmationAttributionPoste({ setOpenModal, structure, typeAttrib
                   </li>
                   <li>
                     <button
-                      onClick={confirmationAttributionPoste(typeAttribution)}
+                      onClick={confirmationAttributionPoste}
                       className="fr-btn"
                     >
                       Confirmer
