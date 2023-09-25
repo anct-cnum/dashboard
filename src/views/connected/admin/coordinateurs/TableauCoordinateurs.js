@@ -72,7 +72,7 @@ export default function TableauCoordinateurs() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les demandes de coordinateurs à traiter n\'ont pas pu être chargés !',
+        message: 'Les demandes de coordinateurs à traiter n\'ont pas pu être chargées !',
         status: null, description: null
       }));
     }
