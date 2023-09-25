@@ -7,6 +7,7 @@ import { coordinateurActions, alerteEtSpinnerActions } from '../../../../actions
 import dayjs from 'dayjs';
 import StructureContactCards from '../../../../components/cards/StructureContactCards';
 import ModalConfirmationAvis from './ModalConfirmationAvis';
+import { validQueryParamsObjectId } from '../../../../utils/formatagesUtils';
 
 function CoordinateurDetails() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function CoordinateurDetails() {
   const [avisPrefet, setAvisPrefet] = useState('');
 
   useEffect(() => {
-    if (!errorCoordinateur) {
+    if (!errorCoordinateur && validQueryParamsObjectId(idDemandeCoordinateur)) {
       scrollTopWindow();
       if (structure?._id !== idStructure) {
         dispatch(coordinateurActions.getDemandeCoordinateur(idStructure, idDemandeCoordinateur));

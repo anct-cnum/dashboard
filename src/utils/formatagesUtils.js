@@ -45,6 +45,12 @@ export const validInputSiret = siret => {
   return regexValidSiret.test(siret);
 };
 
+export const validQueryParamsObjectId = id => {
+  const regexValidId = new RegExp(/^[0-9a-fA-f]{24}$/g);
+
+  return regexValidId.test(id);
+};
+
 export const validTypeDeContratWithoutEndDate = typeDeContrat => typeDeContrat === 'CDI';
 
 export const formatNomConseiller = conseiller =>
