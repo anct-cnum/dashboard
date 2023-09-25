@@ -6,6 +6,7 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { coordinateurActions, alerteEtSpinnerActions } from '../../../../actions';
 import dayjs from 'dayjs';
 import StructureContactCards from '../../../../components/cards/StructureContactCards';
+import { validQueryParamsObjectId } from '../../../../utils/formatagesUtils';
 
 function CoordinateurDetails() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function CoordinateurDetails() {
   const currentPage = useSelector(state => state.pagination?.currentPage);
 
   useEffect(() => {
-    if (!errorCoordinateur) {
+    if (!errorCoordinateur && validQueryParamsObjectId(idDemandeCoordinateur)) {
       scrollTopWindow();
       if (structure?._id !== idStructure) {
         dispatch(coordinateurActions.getDemandeCoordinateur(idStructure, idDemandeCoordinateur));
@@ -47,7 +48,7 @@ function CoordinateurDetails() {
       </div>
       <div className="fr-col-12 fr-mb-4w">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <span className="fr-text--xl fr-text--bold" style={{ marginBottom: '0' }}>ID - {structure?.idPG ?? ''}</span>
+          <span className="fr-text--xl fr-text--bold" style={{ marginBottom: '0' }}>ID - {structure?.idPG}</span>
           <button className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-auto"
             onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}>
             D&eacute;tails structure
@@ -73,8 +74,8 @@ function CoordinateurDetails() {
             }
             <p className="fr-card__desc fr-text--lg fr-text--regular">
               Date de candidature&nbsp;:&nbsp;
-              {structure?.demandesCoordinateur[0]?.dossier.dateDeCreation ?
-                <span>le&nbsp;{dayjs(structure?.demandesCoordinateur[0]?.dossier.dateDeCreation).format('DD/MM/YYYY')}</span> :
+              {structure?.demandesCoordinateur[0]?.dossier?.dateDeCreation ?
+                <span>le&nbsp;{dayjs(structure?.demandesCoordinateur[0].dossier.dateDeCreation).format('DD/MM/YYYY')}</span> :
                 <span>Non renseign&eacute;e</span>
               }
             </p>
