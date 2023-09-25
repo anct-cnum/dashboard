@@ -6,6 +6,7 @@ export const coordinateurActions = {
   confirmationAvisPrefet,
   closeBanner,
   confirmationRefusAvisAdmin,
+  confirmationValidAvisAdmin,
 };
 
 // eslint-disable-next-line max-len
@@ -86,6 +87,30 @@ function confirmationRefusAvisAdmin(idStructure, idDemandeCoordinateur) {
     dispatch(request());
 
     coordinateurService.confirmationRefusAvisAdmin(idStructure, idDemandeCoordinateur)
+    .then(
+      response => dispatch(success(response.success)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_AVIS_ADMIN_REQUEST' };
+  }
+  function success(success) {
+    return { type: 'UPDATE_AVIS_ADMIN_SUCCESS', success };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVIS_ADMIN_FAILURE', error };
+  }
+}
+
+function confirmationValidAvisAdmin(idStructure, idDemandeCoordinateur) {
+  return dispatch => {
+    dispatch(request());
+
+    coordinateurService.confirmationValidAvisAdmin(idStructure, idDemandeCoordinateur)
     .then(
       response => dispatch(success(response.success)),
       error => {

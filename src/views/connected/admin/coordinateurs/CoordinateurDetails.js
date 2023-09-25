@@ -132,7 +132,12 @@ function CoordinateurDetails() {
                   </button>
                 </li>
                 <li>
-                  <button className="fr-btn">
+                  <button onClick={() => {
+                    setTypeAttribution('valider');
+                    setOpenModalAttributionPoste(true);
+                  }}
+                  className="fr-btn"
+                  >
                     Valider la candidature
                   </button>
                 </li>
