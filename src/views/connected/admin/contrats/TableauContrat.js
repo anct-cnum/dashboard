@@ -137,7 +137,7 @@ export default function TableauContrat() {
                       <thead>
                         <tr>
                           <th style={{ width: '8rem' }}>ID structure</th>
-                          <th style={{ width: '19rem' }}>Nom de la structure</th>
+                          <th style={{ width: `${statutContrat === 'toutes' ? '18rem' : '20rem'}` }}>Nom de la structure</th>
                           <th style={{ width: '13rem' }}>Nom du candidat</th>
                           <th style={{ width: '13rem' }}>
                             <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
