@@ -110,7 +110,7 @@ export default function TableauCoordinateurs() {
                 dispatch(paginationActions.setPage(1));
                 setStatutDemande('refusee');
               }} className="fr-tag" aria-pressed={statutDemande === 'refusee'}>
-                Non-retenues ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureNonRetenus})
+                Non valid&eacute;s ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureNonRetenus})
               </button>
             </ul>
             <div className="fr-col-12 fr-mt-3w">
