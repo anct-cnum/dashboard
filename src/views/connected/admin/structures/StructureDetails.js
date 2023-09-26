@@ -77,8 +77,6 @@ function StructureDetails() {
     return '-';
   };
 
-  console.log('####################', structure);
-
   return (
     <div className="fr-container structureDetails">
       {(error !== undefined && error !== false) &&
