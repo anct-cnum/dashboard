@@ -10,6 +10,7 @@ import { valideInputEmail } from '../../../../utils/formatagesUtils';
 import labelCorrespondanceStatutStructure from '../../../../datas/statut-structure.json';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import ActiviterStructure from '../../../../components/ActiviterStructure';
+import { StatutsStructuresInactives } from '../../../../utils/enumUtils';
 
 function StructureDetails() {
 
@@ -27,6 +28,7 @@ function StructureDetails() {
   const [form, setForm] = useState(false);
   const [email, setEmail] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
+  const structureActive = structure && !StatutsStructuresInactives.includes(structure?.statut);
 
   useEffect(() => {
     if (structure?._id !== idStructure) {
@@ -74,6 +76,8 @@ function StructureDetails() {
     }
     return '-';
   };
+
+  console.log('####################', structure);
 
   return (
     <div className="fr-container structureDetails">
@@ -167,9 +171,9 @@ function StructureDetails() {
                   {structure?.users?.map(user =>
                     <p key={user._id}>{user.name} - {user?.sub ? <span>(actif)</span> : <span>(inactif)</span>}</p>
                   )}
-                  <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
+                  {structureActive && <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
                     Inviter un administrateur
-                  </button>
+                  </button>}
                 </div> :
                 <div className="fr-container--fluid">
                   <div className="fr-my-3w">
