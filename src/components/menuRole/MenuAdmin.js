@@ -15,7 +15,7 @@ function MenuAdmin({ onClickMenu, activeMenu, trackEvent }) {
           aria-expanded={activeMenu === 'listes-traitement-demandes'}
           aria-controls="menu-listes-traitement-demandes"
           // eslint-disable-next-line max-len
-          {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) ? { 'aria-current': 'page' } : {})}
+          {...(location.pathname.startsWith(`/${roleActivated}/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/conventions`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) || location.pathname.startsWith(`/${roleActivated}/historique/demandes/contrats`) || location.pathname.startsWith(`/${roleActivated}/demandes/coordinateurs`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
           Traiter les demandes
         </button>
