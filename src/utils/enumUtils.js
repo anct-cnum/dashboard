@@ -18,4 +18,4 @@ export const PhaseConventionnement = {
   PHASE_2: '2',
 };
 
-export const StatutsStructuresInactives = ['EXAMEN_COMPLEMENTAIRE_COSELEC', 'REFUS_COSELEC', 'ABANDON', 'ANNULEE', 'DOUBLON', 'NEGATIF'];
+export const StatutsStructuresActives = ['VALIDATION_COSELEC'];

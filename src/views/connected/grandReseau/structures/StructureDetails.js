@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import Spinner from '../../../../components/Spinner';
 import ActiviterStructure from '../../../../components/ActiviterStructure';
-import { StatutsStructuresInactives } from '../../../../utils/enumUtils';
+import { StatutsStructuresActives } from '../../../../utils/enumUtils';
 
 function StructureDetails() {
 
@@ -22,7 +22,6 @@ function StructureDetails() {
   const [form, setForm] = useState(false);
   const [email, setEmail] = useState('');
   const [activeMessage, setActiveMessage] = useState(false);
-  const structureActive = structure && !StatutsStructuresInactives.includes(structure?.statut);
 
   const sendInvitation = () => {
     if (!valideInputEmail(email)) {
@@ -153,7 +152,8 @@ function StructureDetails() {
                       <p key={idx}>{user.name} - {user?.sub ? <span>(actif)</span> : <span>(inactif)</span>}</p>
                     </>
                   )}
-                  {structureActive && <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
+                  {StatutsStructuresActives.includes(structure?.statut) &&
+                  <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
                     Inviter un administrateur
                   </button>}
                 </div> :
