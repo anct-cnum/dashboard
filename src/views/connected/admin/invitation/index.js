@@ -4,7 +4,7 @@ import InvitationAdmin from './InvitationAdmin';
 import InvitationHub from './InvitationHub';
 import InvitationGrandReseau from './InvitationGrandReseau';
 
-export default function Invation() {
+export default function Invitation() {
   const [option, setOption] = useState('');
   const arrayOption = [
     { value: 'admin', label: 'Admin' },
@@ -23,7 +23,7 @@ export default function Invation() {
             {arrayOption.map((option, key) =>
               <div className="fr-radio-group" key={key}>
                 <input type="radio" id={option.value} name="choix-invitation" onClick={() => setOption(option.value)}
-                  { ...(option.value === 'hub' || option.value === 'prefet') ? { disabled: 'disabled' } : {} }
+                  { ...option.value === 'hub' ? { disabled: 'disabled' } : {} }
                 />
                 <label className="fr-label" htmlFor={option.value}>{option.label}
                 </label>
