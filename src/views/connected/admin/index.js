@@ -17,8 +17,8 @@ import ConseillerDetailsContrat from './contrats/ConseillerDetailsContrat';
 import CandidatDetailsRecrutement from './contrats/recrutements/CandidatDetailsRecrutement';
 import TableauStructures from './structures/TableauStructures';
 import TableauConseillers from './conseillers/TableauConseillers';
-import CoordinateurDetails from './coordinateurs/CoordinateurDetails';
-import TableauCoordinateurs from './coordinateurs/TableauCoordinateurs';
+// import CoordinateurDetails from './coordinateurs/CoordinateurDetails';
+// import TableauCoordinateurs from './coordinateurs/TableauCoordinateurs';
 
 export default function Admin() {
 
@@ -41,8 +41,8 @@ export default function Admin() {
         <Route path="/admin/demandes/contrat/candidat/:idCandidat/:idMiseEnRelation" element={<CandidatDetailsRecrutement />} />
         <Route path="/admin/historique/demandes/contrats" element={<TableauHistoriqueContrat />} />
         <Route path="/admin/demandes/conventions" element={<TableauConvention />} />
-        <Route path="/admin/demandes/coordinateurs" element={<TableauCoordinateurs />} />
-        <Route path="/admin/demandes/coordinateur/:idStructure" element={<CoordinateurDetails />} />
+        {/* <Route path="/admin/demandes/coordinateurs" element={<TableauCoordinateurs />} />
+        <Route path="/admin/demandes/coordinateur/:idStructure" element={<CoordinateurDetails />} /> */}
         <Route path="/admin/historique/demandes/conventions" element={<TableauHistoriqueConvention />} />
         <Route path="/admin/liste-candidatures" element={<TableauCandidatures />} />
         <Route path="/admin/liste-gestionnaires" element={<TableauGestionnaires />} />
