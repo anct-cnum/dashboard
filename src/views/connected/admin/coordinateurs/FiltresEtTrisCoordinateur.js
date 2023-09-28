@@ -41,7 +41,7 @@ function FiltresEtTrisCoordinateur() {
 
   const getDepartements = () => {
     if (userAuth?.region) {
-      return departementsRegionList.filter(departement => departement.region_name === codeRegionArray.find(r => r.code === userAuth?.region).nom);
+      return departementsRegionList.filter(departement => departement?.region_name === codeRegionArray.find(r => r.code === userAuth?.region)?.nom);
     }
     return departementsRegionList.filter(departement => departement.num_dep === userAuth?.departement);
   };
@@ -74,7 +74,7 @@ function FiltresEtTrisCoordinateur() {
         <div className="fr-select-group fr-col-12 fr-col-xl-4 fr-mr-xl-2w" id="filtre-region-rupture">
           <select className="fr-select" value={filtreRegion} onChange={selectFiltreRegion}>
             {getRegions().map((region, idx) =>
-              <option key={idx} value={region.code}>{region.nom}</option>
+              <option key={idx} value={region?.code}>{region?.nom}</option>
             )}
           </select>
         </div>
@@ -90,7 +90,7 @@ function FiltresEtTrisCoordinateur() {
         </div>
         <div className="fr-select-group fr-col-12" id="filtre-statut">
           <select className="fr-select" value={filtreAvisPrefet} onChange={selectFiltreAvisPrefet}>
-            <option value={'tous'}>S&eacute;lectionner l&rsquo;avis</option>
+            <option value={'tous'}>S&eacute;lectionner l&rsquo;avis pr&eacute;fecture</option>
             <option value={'sans-avis'}>Sans avis</option>
             <option value={'favorable'}>Favorable</option>
             <option value={'défavorable'}>D&eacute;favorable</option>

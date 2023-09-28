@@ -7,7 +7,6 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import FiltresEtTrisCoordinateur from './FiltresEtTrisCoordinateur';
 import Coordinateur from './Coordinateur';
-import BannerConfirmationAvisPrefet from './BannerConfirmationAvisPrefet';
 
 export default function TableauCoordinateurs() {
 
@@ -73,7 +72,7 @@ export default function TableauCoordinateurs() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les demandes de coordinateurs à traiter n\'ont pas pu être chargés !',
+        message: 'Les demandes de coordinateurs à traiter n\'ont pas pu être chargées !',
         status: null, description: null
       }));
     }
@@ -84,15 +83,9 @@ export default function TableauCoordinateurs() {
     dispatch(filtresDemandesCoordinateurActions.changeOrdre(e.currentTarget?.id));
   };
 
-  const demandesCoordinateurWithBanner = coordinateurs?.items?.data?.filter(demande => demande?.banniereValidationAvisPrefet === true);
-
   return (
     <div className="conventions">
       <Spinner loading={loading} />
-      {demandesCoordinateurWithBanner?.length > 0 && demandesCoordinateurWithBanner?.map((coordinateur, idx) => {
-        return (<BannerConfirmationAvisPrefet key={idx} coordinateur={coordinateur} />);
-      })
-      }
       <div className="fr-grid-row">
         <div className="fr-col-12">
           <h1 className="fr-h1 title">Demandes de coordinateur &agrave; traiter</h1>
@@ -111,13 +104,13 @@ export default function TableauCoordinateurs() {
                 Nouvelles candidatures ({coordinateurs?.items?.totalParDemandesCoordinateur?.nouvelleCandidature})
               </button>
               <button onClick={() => setStatutDemande('validee')} className="fr-tag" aria-pressed={statutDemande === 'validee'}>
-                Candidatures valid&eacute;es par l&rsquo;ANCT ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureValider})
+                Candidatures valid&eacute;es ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureValider})
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
                 setStatutDemande('refusee');
               }} className="fr-tag" aria-pressed={statutDemande === 'refusee'}>
-                Non valid&eacute;es par l&rsquo;ANCT ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureNonRetenus})
+                Non valid&eacute;es ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureNonRetenus})
               </button>
             </ul>
             <div className="fr-col-12 fr-mt-3w">

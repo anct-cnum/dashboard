@@ -60,6 +60,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                   </li>
                   <li>
                     <button
+                      disabled={commentaire.length === 0}
                       onClick={confirmationAvisPrefet}
                       className="fr-btn"
                     >
