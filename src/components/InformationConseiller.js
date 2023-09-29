@@ -86,7 +86,7 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
             <div className="fr-mb-3w">
               <strong>T&eacute;l&eacute;phone</strong><br />
               <span>
-                {conseiller && typeof conseiller.telephonePro === 'string' ?
+                {conseiller && typeof conseiller?.telephonePro === 'string' ?
                   /* espace tous les 2 chiffres après l'indicatif*/
                   conseiller?.telephonePro?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
                   <>-</>
