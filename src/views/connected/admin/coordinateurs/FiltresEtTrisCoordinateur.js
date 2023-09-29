@@ -13,7 +13,6 @@ function FiltresEtTrisCoordinateur() {
   const filterDepartement = useSelector(state => state.filtresDemandesCoordinateur?.departement);
   const filtreRegion = useSelector(state => state.filtresDemandesCoordinateur?.region);
   const filtreAvisPrefet = useSelector(state => state.filtresDemandesCoordinateur?.avisPrefet);
-  const userAuth = useSelector(state => state.authentication?.user);
 
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));
