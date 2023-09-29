@@ -27,9 +27,7 @@ function CoordinateurDetails() {
   useEffect(() => {
     if (!errorCoordinateur && validQueryParamsObjectId(idDemandeCoordinateur)) {
       scrollTopWindow();
-      if (structure?._id !== idStructure) {
-        dispatch(coordinateurActions.getDemandeCoordinateur(idStructure, idDemandeCoordinateur));
-      }
+      dispatch(coordinateurActions.getDemandeCoordinateur(idStructure, idDemandeCoordinateur));
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',

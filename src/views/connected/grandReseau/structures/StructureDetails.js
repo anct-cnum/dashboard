@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import Spinner from '../../../../components/Spinner';
 import ActiviterStructure from '../../../../components/ActiviterStructure';
+import { StatutsStructuresActives } from '../../../../utils/enumUtils';
 
 function StructureDetails() {
 
@@ -151,9 +152,10 @@ function StructureDetails() {
                       <p key={idx}>{user.name} - {user?.sub ? <span>(actif)</span> : <span>(inactif)</span>}</p>
                     </>
                   )}
+                  {StatutsStructuresActives.includes(structure?.statut) &&
                   <button className="fr-btn fr-mt-1w fr-icon-mail-line fr-btn--icon-left" onClick={() => setForm(true)}>
                     Inviter un administrateur
-                  </button>
+                  </button>}
                 </div> :
                 <div className="fr-container--fluid">
                   <div className="fr-my-3w">

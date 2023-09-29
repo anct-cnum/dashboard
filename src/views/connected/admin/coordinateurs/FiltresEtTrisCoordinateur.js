@@ -90,7 +90,7 @@ function FiltresEtTrisCoordinateur() {
         </div>
         <div className="fr-select-group fr-col-12" id="filtre-statut">
           <select className="fr-select" value={filtreAvisPrefet} onChange={selectFiltreAvisPrefet}>
-            <option value={'tous'}>S&eacute;lectionner l&rsquo;avis</option>
+            <option value={'tous'}>S&eacute;lectionner l&rsquo;avis pr&eacute;fecture</option>
             <option value={'sans-avis'}>Sans avis</option>
             <option value={'favorable'}>Favorable</option>
             <option value={'défavorable'}>D&eacute;favorable</option>
