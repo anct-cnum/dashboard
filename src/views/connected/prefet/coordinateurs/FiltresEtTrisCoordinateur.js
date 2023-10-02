@@ -50,7 +50,7 @@ function FiltresEtTrisCoordinateur() {
     if (userAuth?.departement) {
       return codeRegionArray.filter(
         region => region.nom === departementsRegionList.find(departement =>
-          departement.num_dep === userAuth.departement).region_name
+          departement.num_dep === userAuth.departement)?.region_name
       );
     }
     return codeRegionArray.filter(region => region.code === userAuth?.region);

@@ -144,7 +144,7 @@ function closeBanner(idDemandeCoordinateur, idStructure, typeBanner) {
           case 'banniereValidationAvisAdmin':
             dispatch(successBannerAvisAdmin(idDemandeCoordinateur));
             break;
-          case 'banniereInformationAvis':
+          case 'banniereInformationAvisStructure':
             dispatch(successBannerAvisStructure(idDemandeCoordinateur));
             break;
           default:
@@ -161,7 +161,7 @@ function closeBanner(idDemandeCoordinateur, idStructure, typeBanner) {
     return { type: 'UPDATE_BANNER_REQUEST' };
   }
   function successBannerAvisPrefet(idDemandeCoordinateur) {
-    return { type: 'UPDATE_BANNER__PREFET_SUCCESS', idDemandeCoordinateur };
+    return { type: 'UPDATE_BANNER_PREFET_SUCCESS', idDemandeCoordinateur };
   }
   function successBannerAvisAdmin(idDemandeCoordinateur) {
     return { type: 'UPDATE_BANNER_ADMIN_SUCCESS', idDemandeCoordinateur };

@@ -165,6 +165,7 @@ function FiltresEtTrisStructures() {
               <option value="VALIDATION_COSELEC">Valid&eacute;e</option>
               <option value="EXAMEN_COMPLEMENTAIRE_COSELEC">Examen complémentaire</option>
               <option value="REFUS_COSELEC">Refus</option>
+              <option value="REFUS_COORDINATEUR">Refus coordinateur</option>
               <option value="CREEE">Non trait&eacute;e</option>
               <option value="ABANDON">Abandonn&eacute;e</option>
               <option value="ANNULEE">Annul&eacute;e</option>

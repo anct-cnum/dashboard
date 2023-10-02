@@ -105,8 +105,9 @@ export default function coordinateur(state = initialState, action) {
         loading: false,
         items: {
           ...state.items, data: state?.items?.data?.map(
-            demandeCoordinateur => demandeCoordinateur.id === action.idDemandeCoordinateur ? { ...demandeCoordinateur, banniereInformationAvis: false } :
-              demandeCoordinateur)
+            demandeCoordinateur =>
+              demandeCoordinateur.id === action.idDemandeCoordinateur ? { ...demandeCoordinateur, banniereInformationAvisStructure: false } :
+                demandeCoordinateur)
         },
       };
     case 'UPDATE_BANNER_FAILURE':

@@ -27,9 +27,7 @@ function CoordinateurDetails() {
   useEffect(() => {
     if (!errorCoordinateur && validQueryParamsObjectId(idDemandeCoordinateur)) {
       scrollTopWindow();
-      if (structure?._id !== idStructure) {
-        dispatch(coordinateurActions.getDemandeCoordinateur(idStructure, idDemandeCoordinateur));
-      }
+      dispatch(coordinateurActions.getDemandeCoordinateur(idStructure, idDemandeCoordinateur));
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
@@ -91,7 +89,7 @@ function CoordinateurDetails() {
           </div>
           <div className="fr-card__content">
             <div className="fr-container questionnaire">
-              <h6 className="fr-text--bold fr-mb-4w">R&eacute;ponses au questionnaire D&eacute;marches simplifi&eacute;es</h6>
+              <h6 className="fr-text--bold fr-mb-4w">R&eacute;ponses au questionnaire D&eacute;marches-Simplifi&eacute;es</h6>
               {structure?.questionnaire?.map((question, idx) =>
                 <div key={idx}>
                   <p className="fr-text--bold">{question.enoncer}</p>
