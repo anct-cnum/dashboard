@@ -25,6 +25,9 @@
       right: 0;
       top: 0;
     }
+    #fr-modal-2 #fr-modal-2-title {
+      text-transform: capitalize;
+    }
     @media (max-width: 575px) {
         .questionnaire {
             padding: 1rem;

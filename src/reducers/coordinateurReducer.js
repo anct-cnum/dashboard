@@ -56,13 +56,30 @@ export default function coordinateur(state = initialState, action) {
         loading: false,
         error: action.error
       };
-    case 'UPDATE_BANNER_AVIS_PREFET_REQUEST':
+    case 'UPDATE_AVIS_ADMIN_REQUEST':
       return {
         ...state,
         loading: true,
         error: false
       };
-    case 'UPDATE_BANNER_AVIS_PREFET_SUCCESS':
+    case 'UPDATE_AVIS_ADMIN_SUCCESS':
+      return {
+        ...state,
+        successAvisAdmin: action.success,
+        loading: false
+      };
+    case 'UPDATE_AVIS_ADMIN_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
+    case 'UPDATE_BANNER_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'UPDATE_BANNER_PREFET_SUCCESS':
       return {
         ...state,
         loading: false,
@@ -72,7 +89,28 @@ export default function coordinateur(state = initialState, action) {
               demandeCoordinateur)
         },
       };
-    case 'UPDATE_BANNER_AVIS_PREFET_FAILURE':
+    case 'UPDATE_BANNER_ADMIN_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: {
+          ...state.items, data: state?.items?.data?.map(
+            demandeCoordinateur => demandeCoordinateur.id === action.idDemandeCoordinateur ? { ...demandeCoordinateur, banniereValidationAvisAdmin: false } :
+              demandeCoordinateur)
+        },
+      };
+    case 'UPDATE_BANNER_STRUCTURE_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: {
+          ...state.items, data: state?.items?.data?.map(
+            demandeCoordinateur =>
+              demandeCoordinateur.id === action.idDemandeCoordinateur ? { ...demandeCoordinateur, banniereInformationAvisStructure: false } :
+                demandeCoordinateur)
+        },
+      };
+    case 'UPDATE_BANNER_FAILURE':
       return {
         loading: false,
         error: action.error
