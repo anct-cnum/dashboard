@@ -29,7 +29,7 @@ function ModalConfirmationAttributionPoste({ setOpenModal, structure, typeAttrib
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg"></span>
-                  {typeAttribution} l&rsquo;attribution
+                  <span className="title-modal-confirmation-poste">{typeAttribution} l&rsquo;attribution</span>
                 </h1>
                 <p>
                   Souhaitez-vous {typeAttribution} l&rsquo;attribution d&rsquo;un poste de coordinateur

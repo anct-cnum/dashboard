@@ -79,9 +79,14 @@ function CoordinateurDetails() {
             <h3 className="fr-card__title fr-h3">
               Recrutement coordinateur
             </h3>
-            {structure?.demandesCoordinateur[0]?.avisPrefet === 'favorable' ?
-              <p className="fr-badge fr-badge--success badge-avis-prefet">Avis pr&eacute;fet favorable</p> :
+            {structure?.demandesCoordinateur[0]?.avisPrefet === 'favorable' &&
+              <p className="fr-badge fr-badge--success badge-avis-prefet">Avis pr&eacute;fet favorable</p>
+            }
+            {structure?.demandesCoordinateur[0]?.avisPrefet === 'défavorable' &&
               <p className="fr-badge fr-badge--error badge-avis-prefet">Avis pr&eacute;fet d&eacute;favorable</p>
+            }
+            {!structure?.demandesCoordinateur[0]?.avisPrefet &&
+              <p className="fr-badge fr-badge--new badge-avis-prefet">Avis pr&eacute;fet non renseign&eacute;</p>
             }
             <p className="fr-card__desc fr-text--lg fr-text--regular">
               Date de candidature&nbsp;:&nbsp;

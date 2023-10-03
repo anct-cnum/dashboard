@@ -25,7 +25,10 @@
       right: 0;
       top: 0;
     }
-    #fr-modal-2 #fr-modal-2-title {
+    .title-modal-confirmation-poste {
+      display: inline-block;
+    }
+    .title-modal-confirmation-poste::first-letter {
       text-transform: capitalize;
     }
     @media (max-width: 575px) {
