@@ -149,7 +149,7 @@ function DemandeReconventionnement() {
         </div>
         <div className="container fr-mb-6w">
           <h5>Renouvellement de postes</h5>
-          <p>S&eacute;lectionnez les conseillers que vous souhaitez renouveller.</p>
+          <p>S&eacute;lectionnez les conseillers que vous souhaitez renouveler.</p>
           {misesEnRelationARenouveller &&
             misesEnRelationARenouveller.map((miseEnRelation, idx) => (
               <SelectAdvisorCard

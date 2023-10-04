@@ -63,8 +63,6 @@ function PopinRecapReconvention({ setOpenModal, handleSend }) {
 PopinRecapReconvention.propTypes = {
   setOpenModal: PropTypes.func,
   handleSend: PropTypes.func,
-  structure: PropTypes.object,
-  calcNombreDePostes: PropTypes.func,
 };
 
 export default PopinRecapReconvention;
