@@ -121,8 +121,7 @@ function MaStructure() {
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <h2>Activit&eacute;</h2>
-        {structure?.conventionnement?.statut && (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ ||
-        structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS) &&
+        {structure?.conventionnement?.statut && (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) &&
         (
           <ReconventionnementInfosCard structure={structure}/>
         )}

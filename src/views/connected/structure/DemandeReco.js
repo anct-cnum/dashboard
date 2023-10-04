@@ -125,7 +125,7 @@ function DemandeReconventionnement() {
 
   const handleSend = () => {
     scrollTopWindow();
-    dispatch(reconventionnementActions.update(structure?._id, 'envoyer', checkedItems, nombreDePostes));
+    dispatch(reconventionnementActions.update(structure?._id, 'valider', checkedItems, nombreDePostes));
     navigate('/structure/postes');
   };
 
@@ -251,12 +251,12 @@ function DemandeReconventionnement() {
         )}
         <ul className="fr-btns-group fr-btns-group--inline fr-mt-5w">
           <li>
-            <button className="fr-btn fr-btn--secondary" disabled={nombreDePostes === 0} onClick={handleSave}>
+            <button className="fr-btn fr-btn--secondary" onClick={handleSave}>
               Enregistrer et revenir plus tard
             </button>
           </li>
           <li>
-            <button className="fr-btn" disabled={nombreDePostes === 0} onClick={() => setOpenModal(true)}>
+            <button className="fr-btn" onClick={() => setOpenModal(true)}>
               Envoyer ma demande
             </button>
           </li>

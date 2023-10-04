@@ -16,15 +16,12 @@ const ReconventionnementInfosCard = ({ structure }) => {
     if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ) {
       return <p className="fr-badge fr-badge--warning fr-ml-auto">RECONVENTIONNEMENT ENREGISTR&Eacute;</p>;
     }
-    if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS) {
-      return <p className="fr-badge fr-badge--info fr-ml-auto">RECONVENTIONNEMENT EN COURS</p>;
-    }
     if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) {
       return <p className="fr-badge fr-badge--success fr-ml-auto">RECONVENTIONNEMENT VALID&Eacute;</p>;
     }
     return null;
   };
- 
+
 
   function isButtonDisabled(structure) {
     return (structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut === 'en_cours') ||
