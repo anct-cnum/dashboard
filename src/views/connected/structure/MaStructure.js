@@ -112,9 +112,7 @@ function MaStructure() {
           </div>
         }
         <Spinner loading={loadingStructure || loadingInvitation || loadingSuppression} />
-        <h2 className="fr-mb-1w titre">
-          {structure?.nom}
-        </h2>
+        <h2 className="fr-mb-1w titre">{structure?.nom}</h2>
         <h6>{`ID - ${structure?.idPG}`}</h6>
         <StructureInformationsCard
           structure={structure}
