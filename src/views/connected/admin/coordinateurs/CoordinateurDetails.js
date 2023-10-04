@@ -54,7 +54,6 @@ function CoordinateurDetails() {
       {openModalAttributionPoste &&
         <ModalConfirmationAttributionPoste setOpenModal={setOpenModalAttributionPoste} structure={structure} typeAttribution={typeAttribution} />
       }
-
       <div className="fr-col-12 fr-pt-6w">
         <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
       </div>
