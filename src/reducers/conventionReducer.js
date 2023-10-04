@@ -57,17 +57,6 @@ export default function convention(state = initialState, action) {
         error: action.error,
         loading: false
       };
-    case 'UPDATE_STATUT_CONVENTIONNEMENT':
-      return {
-        ...state,
-        convention: {
-          ...state.convention, conventionnement:
-          {
-            ...state.convention.conventionnement,
-            statut: action.statutReconventionnementUpdated
-          },
-        },
-      };
     case 'UPDATE_AVENANT_AJOUT_POSTE_REQUEST':
       return {
         ...state,
