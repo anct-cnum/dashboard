@@ -26,9 +26,15 @@ const ReconventionnementInfosCard = ({ structure }) => {
   };
  
 
-  function isButtonDisabled(structure) {
+  function isRemoveButtonDisabled(structure) {
     return (structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut === 'en_cours') ||
       structure?.conventionnement?.statut !== StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+  }
+
+  function isAddButtonDisabled(structure) {
+    return structure?.demandesCoselec?.length > 0 &&
+     structure?.lastDemandeCoselec?.statut === 'en_cours' &&
+     structure?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_VALIDÉ;
   }
 
   return (
@@ -125,7 +131,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                 <ul className="fr-btns-group fr-btns-group--inline-md">
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={isButtonDisabled(structure)}
+                      disabled={isAddButtonDisabled(structure)}
                       onClick={() => {
                         handlePopin('add', 1);
                       }}>
@@ -134,7 +140,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                   </li>
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={isButtonDisabled(structure)}
+                      disabled={isRemoveButtonDisabled(structure)}
                       onClick={() => {
                         handlePopin('remove', 1);
                       }}>
