@@ -179,7 +179,7 @@ function DemandeReconventionnement() {
             </button>
           </li>
           <li>
-            <button className="fr-btn" onClick={() => setOpenModal(true)}>
+            <button disabled={!structure?.conventionnement?.dossierReconventionnement?.numero} className="fr-btn" onClick={() => setOpenModal(true)}>
                Valider le reconventionnement
             </button>
           </li>
