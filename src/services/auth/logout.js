@@ -1,6 +1,5 @@
 import axios from 'axios';
 import apiUrlRoot from '../../helpers/apiUrl';
-import * as Sentry from '@sentry/react';
 
 const signOut = async () => {
   localStorage.removeItem(
@@ -13,7 +12,7 @@ const signOut = async () => {
       withCredentials: true,
     });
   } catch (error) {
-    Sentry.captureException(error);
+    window.location.pathname = '/login';
   }
 };
 
