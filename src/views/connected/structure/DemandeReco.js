@@ -12,7 +12,7 @@ import {
   structureActions,
   miseEnRelationAction
 } from '../../../actions';
-import PopinRecapReconvention from './popins/popinRecapReconvention';
+import PopinConfirmationReconventionnement from './popins/popinConfirmationReconventionnement';
 import Spinner from '../../../components/Spinner';
 import { validTypeDeContratWithoutEndDate } from '../../../utils/formatagesUtils';
 
@@ -114,12 +114,12 @@ function DemandeReconventionnement() {
 
   const handleSend = () => {
     scrollTopWindow();
-    dispatch(reconventionnementActions.update(structure?._id, 'valider', checkedItems, nombreDePostes));
+    dispatch(reconventionnementActions.update(structure?._id, 'valider', checkedItems));
     navigate('/structure/postes');
   };
 
   const formatTitreDossierDemarcheSimplifiee = structure => {
-    if (structure?.conventionnement?.dossierReconventionnement?.statut === 'accepte') {
+    if (structure?.conventionnement?.dossierReconventionnement?.numero) {
       return 'Consulter';
     }
     return 'Compléter';
@@ -128,7 +128,7 @@ function DemandeReconventionnement() {
   return (
     <>
       {openModal && (
-        <PopinRecapReconvention
+        <PopinConfirmationReconventionnement
           checkedItems={checkedItems}
           setOpenModal={setOpenModal}
           handleSend={handleSend}
@@ -165,7 +165,7 @@ function DemandeReconventionnement() {
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <h5>{formatTitreDossierDemarcheSimplifiee(structure)} votre dossier D&eacute;marche Simplifi&eacute;e</h5>
-        {structure?.conventionnement?.dossierReconventionnement?.statut !== 'accepte' &&
+        {!structure?.conventionnement?.dossierReconventionnement?.numero &&
           <p>
             Renseignez les informations concernant votre structure et les pi&egrave;ces justificatives
             demand&eacute;es avant de pouvoir envoyer votre demande.

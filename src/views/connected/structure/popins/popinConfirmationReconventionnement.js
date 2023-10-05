@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-function PopinRecapReconvention({ setOpenModal, handleSend }) {
+function popinConfirmationReconventionnement({ setOpenModal, handleSend }) {
   const navigate = useNavigate();
 
   return (
@@ -60,9 +60,9 @@ function PopinRecapReconvention({ setOpenModal, handleSend }) {
   );
 }
 
-PopinRecapReconvention.propTypes = {
+popinConfirmationReconventionnement.propTypes = {
   setOpenModal: PropTypes.func,
   handleSend: PropTypes.func,
 };
 
-export default PopinRecapReconvention;
+export default popinConfirmationReconventionnement;
