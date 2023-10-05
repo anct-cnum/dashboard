@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { pluralize } from '../../../../utils/formatagesUtils';
 
-function PopinRecapReconvention({ setOpenModal, handleSend, structure, calcNombreDePostes }) {
+function PopinRecapReconvention({ setOpenModal, handleSend }) {
   const navigate = useNavigate();
 
   return (
@@ -26,51 +25,11 @@ function PopinRecapReconvention({ setOpenModal, handleSend, structure, calcNombr
                   Fermer
                 </button>
               </div>
-              <div className="fr-modal__content fr-mb-2w">
+              <div className="fr-modal__content fr-mb-6w">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                  R&eacute;capitulatif de votre demande
+                  Confirmez votre demande de reconventionnement
                 </h1>
-                <>
-                  <p>
-                    Vous allez faire une demande pour{' '}
-                    <span className="fr-text fr-text--bold">
-                      {structure?.posteValiderCoselec}{' '}
-                      {pluralize(
-                        'poste subventionné',
-                        'poste subventionné',
-                        'postes subventionnés',
-                        true
-                      )},{' '}
-                    </span>
-                    dont:
-                  </p>
-                  <ul>
-                    <li>
-                      <p className="fr-text--bold fr-mb-1w">
-                        {calcNombreDePostes()}{' '}
-                        {pluralize(
-                          'poste occupé',
-                          'poste occupé',
-                          'postes occupés',
-                          true
-                        )}
-                      </p>
-                    </li>
-                    <li>
-                      <p className="fr-text--bold">
-                        {structure?.posteValiderCoselec -
-                          calcNombreDePostes()}{' '}
-                        {pluralize(
-                          'poste vacant',
-                          'poste vacant',
-                          'postes vacants',
-                          true
-                        )}
-                      </p>
-                    </li>
-                  </ul>
-                </>
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
@@ -104,8 +63,6 @@ function PopinRecapReconvention({ setOpenModal, handleSend, structure, calcNombr
 PopinRecapReconvention.propTypes = {
   setOpenModal: PropTypes.func,
   handleSend: PropTypes.func,
-  structure: PropTypes.object,
-  calcNombreDePostes: PropTypes.func,
 };
 
 export default PopinRecapReconvention;
