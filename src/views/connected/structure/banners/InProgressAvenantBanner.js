@@ -14,7 +14,7 @@ const InProgressAvenantBanner = ({ structure }) => {
     isRetrait ? `la restitution de ${nombre} postes subventionnés` : ` ${nombre} nouveaux postes supplémentaires subventionnés`,
     nombre
   );
-  
+
   return (
     <div
       className="fr-notice fr-py-4w banner notice background"
@@ -34,7 +34,7 @@ const InProgressAvenantBanner = ({ structure }) => {
               }
             </p>
             <p className="fr-text--md">
-              Votre demande est en cours de traitement par le Pr&eacute;fet et l&apos;ANCT, vous serez notifi&eacute; une fois la d&eacute;cision rendue
+              Votre demande est en cours de traitement par la Pr&eacute;fecture et l&apos;ANCT, vous serez notifi&eacute; une fois la d&eacute;cision rendue
             </p>
           </div>
         </div>

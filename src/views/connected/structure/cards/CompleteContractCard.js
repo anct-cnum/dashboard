@@ -23,13 +23,16 @@ const CompleteContractCard = ({ conseiller, handleOpenModalContrat, structure })
           <span className="fr-icon-warning-fill icon__color" aria-hidden="true"></span>
           <div className="responsive__banner fr-ml-2w">
             <div className="banner__text">
-              <p className="fr-notice__title title__color">Envoyer les pi&egrave;ces justificatives pour finaliser la demande de renouvellement</p>
+              <p className="fr-notice__title title__color">
+                Envoyer les pi&egrave;ces justificatives sur D&eacute;marches-Simplifi&eacute;es pour
+                finaliser la demande de renouvellement
+              </p>
               <p className="fr-text--sm">
                 {typeDeContrat ?
                   <>
-                  Demande d&rsquo;un contrat&nbsp;{formatTypeDeContrat(typeDeContrat)}
-                  &nbsp;{validTypeDeContratWithoutEndDate(typeDeContrat) ? '' : `de ${months} mois `}
-                  avec une date de début le {dayjs(dateDebutDeContrat).format('DD/MM/YYYY')}
+                    Demande d&rsquo;un contrat&nbsp;{formatTypeDeContrat(typeDeContrat)}
+                    &nbsp;{validTypeDeContratWithoutEndDate(typeDeContrat) ? '' : `de ${months} mois `}
+                    avec une date de début le {dayjs(dateDebutDeContrat).format('DD/MM/YYYY')}
                   </> : ''
                 }
               </p>
