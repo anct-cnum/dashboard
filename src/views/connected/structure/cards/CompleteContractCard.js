@@ -32,7 +32,7 @@ const CompleteContractCard = ({ conseiller, handleOpenModalContrat, structure })
                   <>
                     Demande d&rsquo;un contrat&nbsp;{formatTypeDeContrat(typeDeContrat)}
                     &nbsp;{validTypeDeContratWithoutEndDate(typeDeContrat) ? '' : `de ${months} mois `}
-                    avec une date de début le {dayjs(dateDebutDeContrat).format('DD/MM/YYYY')}
+                    avec une date de d&eacute;but le {dayjs(dateDebutDeContrat).format('DD/MM/YYYY')}
                   </> : ''
                 }
               </p>
