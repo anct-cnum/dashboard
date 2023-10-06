@@ -105,28 +105,30 @@ function MaStructure() {
       )}
       <div className="fr-container maStructure">
         {deleteMessageSuccess &&
-        <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }}>
-          <p className="fr-alert__title">
-            {deleteMessageSuccess}
-          </p>
-        </div>
+          <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }}>
+            <p className="fr-alert__title">
+              {deleteMessageSuccess}
+            </p>
+          </div>
         }
         <Spinner loading={loadingStructure || loadingInvitation || loadingSuppression} />
-        <h2 className="fr-mb-1w titre">
-          {structure?.nom}
-        </h2>
+        <h2 className="fr-mb-1w titre">{structure?.nom}</h2>
         <h6>{`ID - ${structure?.idPG}`}</h6>
-        <StructureInformationsCard structure={structure} formInformationContact={formInformationContact} setFormInformationContact={setFormInformationContact}/>
+        <StructureInformationsCard
+          structure={structure}
+          formInformationContact={formInformationContact}
+          setFormInformationContact={setFormInformationContact}
+        />
         <div className="fr-col-12 fr-mb-2w fr-mt-7w">
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <h2>Activit&eacute;</h2>
         {structure?.conventionnement?.statut && (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ ||
-        structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS) &&
-        (
-          <ReconventionnementInfosCard structure={structure}/>
-        )}
-        <ConventionnementInfosCard structure={structure} roleActivated={roleActivated}/>
+          structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS) &&
+          (
+            <ReconventionnementInfosCard structure={structure} />
+          )}
+        <ConventionnementInfosCard structure={structure} roleActivated={roleActivated} />
         <h2>Accompagnements</h2>
         <AccompagnementsCard structure={structure} />
         <div className="fr-col-12 fr-my-6w">

@@ -39,6 +39,7 @@ const setup = store => {
 
       return req;
     } catch (error) {
+      window.location.pathname = '/login';
       await signOut();
     }
   });
