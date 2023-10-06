@@ -140,15 +140,14 @@ function DemandeReconventionnement() {
           Demande de reconventionnement
         </h2>
         <p>
-          Veuillez nous indiquer le nombre de postes que vous souhaitez ainsi que le(s) conseiller(s) que
-          vous souhaitez renouveler pour ce nouveau conventionnement.
+          Veuillez nous indiquer le(s) conseiller(s) que vous souhaitez renouveler pour ce nouveau conventionnement.
         </p>
         <InformationCard />
         <div className="fr-col-12 fr-mt-7w fr-mb-2w">
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <div className="container fr-mb-6w">
-          <h5>Renouvellement de postes</h5>
+          <h5>Renouvellement des contrats</h5>
           <p>S&eacute;lectionnez les conseillers que vous souhaitez renouveler.</p>
           {misesEnRelationARenouveller &&
             misesEnRelationARenouveller.map((miseEnRelation, idx) => (
