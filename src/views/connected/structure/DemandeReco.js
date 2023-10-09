@@ -163,7 +163,7 @@ function DemandeReconventionnement() {
         <div className="fr-col-12 fr-mb-1w">
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
-        <h5>{formatTitreDossierDemarcheSimplifiee(structure)} votre dossier D&eacute;marche Simplifi&eacute;e</h5>
+        <h5>{formatTitreDossierDemarcheSimplifiee(structure)} votre dossier D&eacute;marches Simplifi&eacute;es</h5>
         {!structure?.conventionnement?.dossierReconventionnement?.numero &&
           <p>
             Renseignez les informations concernant votre structure et les pi&egrave;ces justificatives
