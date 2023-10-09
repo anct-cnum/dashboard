@@ -28,7 +28,7 @@ function popinConfirmationReconventionnement({ setOpenModal, handleSend }) {
               <div className="fr-modal__content fr-mb-6w">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                  Confirmez votre demande de reconventionnement
+                  Vous &ecirc;tes sur le point de valider votre demande de reconventionnement
                 </h1>
               </div>
               <div className="fr-modal__footer">
