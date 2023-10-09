@@ -52,7 +52,10 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
       return true;
     }
     if (editMode) {
-      if (String(conseiller?.salaire) !== salaire || !conseiller?.typeDeContrat?.includes(typeDeContrat)) {
+      if ((conseiller?.salaire && String(conseiller?.salaire) !== salaire) || (!conseiller?.salaire && salaire)) {
+        return false;
+      }
+      if (!conseiller?.typeDeContrat?.includes(typeDeContrat)) {
         return false;
       }
       if (new Date(conseiller?.dateDebutDeContrat)?.getTime() !== dateDebut?.getTime()) {
@@ -73,12 +76,11 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   };
 
   const errorSalaire = () => {
-    if (salaire && !isNaN(salaire) && salaire.toString().length >= 4) {
+    if (salaire && !isNaN(salaire)) {
       return salaire < salaireMinimum;
     }
     return false;
   };
-
 
   return (
     <dialog aria-labelledby="edition-contrat-title" id="edition-contrat" className="fr-modal modalOpened" role="dialog">
@@ -183,7 +185,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                 <div className="fr-grid-row">
                   <div className="fr-col-6">
                     <label className="fr-label" style={{ fontSize: 'unset' }}>
-                    Date de d&eacute;but de contrat
+                      Date de d&eacute;but de contrat
                     </label>
                     <div className="fr-col-xl-8 btn-fr-col-xl-3">
                       <DatePicker
@@ -202,7 +204,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                   </div>
                   <div className="fr-col-6">
                     <label className="fr-label" style={{ fontSize: 'unset' }}>
-                    Date de fin de contrat
+                      Date de fin de contrat
                     </label>
                     <div className="fr-col-xl-8 btn-fr-col-xl-3">
                       <DatePicker
@@ -233,11 +235,10 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     min={salaireMinimum}
                     value={salaire}
                   />
-                  {
-                    errorSalaire() &&
-                   <p id="text-input-error-desc-error" className="fr-error-text">
-                     Le salaire saisi est inf&eacute;rieur au SMIC
-                   </p>
+                  {errorSalaire() &&
+                    <p id="text-input-error-desc-error" className="fr-error-text">
+                      Le salaire saisi est inf&eacute;rieur au SMIC
+                    </p>
                   }
                 </div>
               </div>
