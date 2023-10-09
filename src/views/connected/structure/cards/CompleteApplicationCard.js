@@ -48,7 +48,7 @@ const CompleteApplicationCard = ({ structure, formatTitreDossierDemarcheSimplifi
         <div className="fr-container">
           <div className="fr-notice__body" style={{ display: 'flex', alignItems: 'center' }}>
             <p className="fr-notice__title">
-              Les dossiers cr&eacute;&eacute;s sont mis &agrave; jour chaque nuit. Vous pourrez confirmer votre reconventionement
+              Les dossiers cr&eacute;&eacute;s sont mis &agrave; jour chaque nuit. Vous pourrez confirmer votre reconventionnement
               le jour suivant la cr&eacute;ation de votre dossier D&eacute;marches-Simplifi&eacute;es.
             </p>
           </div>
