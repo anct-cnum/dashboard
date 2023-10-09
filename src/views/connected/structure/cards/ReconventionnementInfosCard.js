@@ -34,7 +34,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
   function isAddButtonDisabled(structure) {
     return structure?.demandesCoselec?.length > 0 &&
      structure?.lastDemandeCoselec?.statut === 'en_cours' &&
-     structure?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_VALIDÉ;
+     structure?.conventionnement?.statut !== StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
   }
 
   return (
