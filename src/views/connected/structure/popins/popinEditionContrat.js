@@ -45,10 +45,10 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
 
   const checkContratValid = () => {
     if (validTypeDeContratWithoutEndDate(typeDeContrat)) {
-      if (!dateDebut || !typeDeContrat || salaire < salaireMinimum) {
+      if (!dateDebut || !typeDeContrat) {
         return true;
       }
-    } else if (!dateFin || !dateDebut || !typeDeContrat || salaire < salaireMinimum) {
+    } else if (!dateFin || !dateDebut || !typeDeContrat) {
       return true;
     }
     if (editMode) {
