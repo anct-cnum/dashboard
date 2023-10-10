@@ -25,7 +25,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
 
   function isAddButtonDisabled(structure) {
     return structure?.demandesCoselec?.length > 0 &&
-     structure?.lastDemandeCoselec?.statut === 'en_cours' &&
+     structure?.lastDemandeCoselec?.statut === 'en_cours' ||
      structure?.conventionnement?.statut !== StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
   }
   const className = hasBorder ?
