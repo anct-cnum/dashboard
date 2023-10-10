@@ -14,7 +14,6 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
   const dossier = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement :
     structure?.conventionnement?.dossierConventionnement;
   const nbConseillerActifTotal = nbreConseillersActifs + nbreConseillersRenouveler + nbreConseillersEnCoursDeRecrutement;
-  console.log(structure);
   const urlDossier = isReconventionnement ? structure?.urlDossierReconventionnement : structure?.urlDossierConventionnement;
   const phase = isReconventionnement ? 'Conventionnement phase 2' : 'Conventionnement phase 1';
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
