@@ -10,8 +10,6 @@ import { displayNombreDePostes, displayStatutRequestText, getNombreDePostes } fr
 const ReconventionnementInfosCard = ({ structure }) => {
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
 
-  const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
-
   const displayBadge = () => {
     if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ) {
       return <p className="fr-badge fr-badge--warning fr-ml-auto">RECONVENTIONNEMENT ENREGISTR&Eacute;</p>;
@@ -60,6 +58,18 @@ const ReconventionnementInfosCard = ({ structure }) => {
                 </span>
             }</p>
             <div className="fr-card__desc">
+              <p className="fr-text--md">
+                Nombre de
+                {pluralize(
+                  ' poste demandé',
+                  ' poste demandé',
+                  ' postes demandés',
+                  structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
+                )}
+                &nbsp;:&nbsp;{ structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees }
+              </p>
+            </div>
+            <div className="fr-card__desc">
               <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
                 {
                   pluralize(
@@ -71,27 +81,16 @@ const ReconventionnementInfosCard = ({ structure }) => {
                   )
                 }
                 {' '}
-                {isReconventionnement ? (
-                  <span className="fr-text--regular fr-text--md">
-                    {
-                      pluralize(
-                        'validé pour ce conventionnement',
-                        'validé pour ce conventionnement',
-                        'validés pour ce conventionnement',
-                        structure?.posteValiderCoselec,
-                      )
-                    }
-                  </span>
-                ) : (
-                  <span className="fr-text--regular fr-text--md">
-                    {pluralize(
-                      'demandé pour ce conventionnement',
-                      'demandé pour ce conventionnement',
-                      'demandés pour ce conventionnement',
-                      structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees,
+                <span className="fr-text--regular fr-text--md">
+                  {
+                    pluralize(
+                      'validé pour ce conventionnement',
+                      'validé pour ce conventionnement',
+                      'validés pour ce conventionnement',
+                      structure?.posteValiderCoselec,
                     )
-                    }</span>
-                )}
+                  }
+                </span>
               </p>
               {
                 structure?.demandesCoselec?.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_2) &&
