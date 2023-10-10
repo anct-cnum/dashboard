@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-function PopinRecapReconvention({ setOpenModal, handleSend }) {
+function popinConfirmationReconventionnement({ setOpenModal, handleSend }) {
   const navigate = useNavigate();
 
   return (
@@ -28,7 +28,7 @@ function PopinRecapReconvention({ setOpenModal, handleSend }) {
               <div className="fr-modal__content fr-mb-6w">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                  Confirmez votre demande de reconventionnement
+                  Vous &ecirc;tes sur le point de valider votre demande de reconventionnement
                 </h1>
               </div>
               <div className="fr-modal__footer">
@@ -60,9 +60,9 @@ function PopinRecapReconvention({ setOpenModal, handleSend }) {
   );
 }
 
-PopinRecapReconvention.propTypes = {
+popinConfirmationReconventionnement.propTypes = {
   setOpenModal: PropTypes.func,
   handleSend: PropTypes.func,
 };
 
-export default PopinRecapReconvention;
+export default popinConfirmationReconventionnement;

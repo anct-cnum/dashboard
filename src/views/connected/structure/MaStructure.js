@@ -123,12 +123,10 @@ function MaStructure() {
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <h2>Activit&eacute;</h2>
-        {structure?.conventionnement?.statut && (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ ||
-          structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS) &&
-          (
-            <ReconventionnementInfosCard structure={structure} />
-          )}
-        <ConventionnementInfosCard structure={structure} roleActivated={roleActivated} />
+        {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
+          <ReconventionnementInfosCard structure={structure}/>
+        }
+        <ConventionnementInfosCard structure={structure} roleActivated={roleActivated}/>
         <h2>Accompagnements</h2>
         <AccompagnementsCard structure={structure} />
         <div className="fr-col-12 fr-my-6w">

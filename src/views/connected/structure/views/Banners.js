@@ -1,9 +1,7 @@
 import React from 'react';
 import {
   CompleteRequestBanner,
-  InProgressBanner,
   ValidatedBanner,
-  DeniedBanner,
   ValidatedAvenantBanner,
   ValidatedRenouvellementBanner,
   InProgressAvenantBanner,
@@ -29,9 +27,6 @@ const Banners = ({
     case StatutConventionnement.RECONVENTIONNEMENT_INITIÉ:
       reconventionnementBannerComponent = <CompleteRequestBanner structure={structure} />;
       break;
-    case StatutConventionnement.RECONVENTIONNEMENT_EN_COURS:
-      reconventionnementBannerComponent = <InProgressBanner structure={structure} roleActivated={roleActivated} />;
-      break;
     case StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ:
       reconventionnementBannerComponent = showValidateBanner && (
         <ValidatedBanner
@@ -43,11 +38,6 @@ const Banners = ({
       break;
     case StatutConventionnement.CONVENTIONNEMENT_VALIDÉ:
       reconventionnementBannerComponent = <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
-      break;
-    case StatutConventionnement.RECONVENTIONNEMENT_REFUSÉ:
-      reconventionnementBannerComponent = showValidateBanner && (
-        <DeniedBanner structure={structure} setShowValidateBanner={setShowValidateBanner} />
-      );
       break;
     default:
       break;

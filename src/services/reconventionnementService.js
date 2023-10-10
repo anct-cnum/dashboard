@@ -6,7 +6,6 @@ export const reconventionnementService = {
   getAll,
   get,
   update,
-  decisionReconventionnement
 };
 
 function getAll(page) {
@@ -23,12 +22,6 @@ function get(id) {
 function update(structureId, action, misesEnRelations, nombreDePostes, motif) {
   return API.patch(`${apiUrlRoot}/reconventionnement?structureId=${structureId}&action=${action}
   &nombreDePostes=${nombreDePostes}&motif=${motif}&role=${roleActivated()}`, { misesEnRelations })
-  .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
-}
-
-function decisionReconventionnement(id, statut) {
-  return API.patch(`${apiUrlRoot}/decision/reconventionnement/${id}?role=${roleActivated()}`, { statut })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
