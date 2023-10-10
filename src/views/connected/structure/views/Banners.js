@@ -41,7 +41,7 @@ const Banners = ({
     />
   );
 
-  const validatedReconventionnementBannerComponent = structure?.conventionnement?.dossierReconventionnement?.banniereValidationReconventionnement && (
+  const validatedReconventionnementBannerComponent = structure?.conventionnement?.dossierReconventionnement?.banniereValidation && (
     <ValidatedBanner
       structure={structure}
     />
