@@ -28,6 +28,12 @@
     #fr-modal-2 #fr-modal-2-title {
       text-transform: capitalize;
     }
+    .title-modal-confirmation-poste {
+      display: inline-block;
+    }
+    .title-modal-confirmation-poste::first-letter {
+      text-transform: capitalize;
+    }
     @media (max-width: 575px) {
         .questionnaire {
             padding: 1rem;

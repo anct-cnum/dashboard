@@ -5,7 +5,7 @@ import { coordinateurActions } from '../../../../actions';
 
 const BannerConfirmationAttributionPoste = ({ coordinateur }) => {
   const dispatch = useDispatch();
-  const formatAvis = coordinateur?.statut === 'validee' ? 'validé' : 'refusé';
+  const formatAvis = coordinateur?.statut === 'validee' ? 'validée' : 'refusée';
 
   const closeBanner = () => {
     dispatch(coordinateurActions.closeBanner(coordinateur?.id, coordinateur?.idStructure, 'banniereValidationAvisAdmin'));
