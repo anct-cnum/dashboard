@@ -35,7 +35,6 @@ function MesPostes() {
   const [miseEnrelationId, setMiseEnrelationId] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [selectedConseiller, setSelectedConseiller] = useState(null);
-  const [showValidateBanner, setShowValidateBanner] = useState(true);
   const [motif, setMotif] = useState('');
   const dispatch = useDispatch();
   const {
@@ -56,13 +55,6 @@ function MesPostes() {
       dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
     }
   }, [structure?._id, loadingRenouvellement]);
-
-  useEffect(() => {
-    const bannerClosed = localStorage.getItem('bannerClosed');
-    if (bannerClosed === 'true') {
-      setShowValidateBanner(false);
-    }
-  }, []);
 
   useEffect(() => {
     handleErrors();
@@ -97,9 +89,6 @@ function MesPostes() {
         <Banners
           structure={structure}
           roleActivated={roleActivated}
-          conseillersActifs={conseillersActifs}
-          showValidateBanner={showValidateBanner}
-          setShowValidateBanner={setShowValidateBanner}
           openModal={openModal}
           setOpenModal={setOpenModal}
           bannieresRenouvellementValide={bannieresRenouvellementValide}
