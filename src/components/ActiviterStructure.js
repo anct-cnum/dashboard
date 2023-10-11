@@ -67,6 +67,28 @@ function ActiviterStructure({ structure, roleActivated }) {
               <span className="fr-col-12">-</span>
             }
           </div>
+          <div className="fr-mb-3w fr-grid-row">
+            <strong>{pluralize(
+              'Profil en rupture',
+              'Profil en rupture',
+              'Profils en rupture',
+              structure?.conseillersRuptureConventionnement?.length
+            )}</strong>
+            {structure?.conseillersRuptureConventionnement?.map(conseiller =>
+              <span key={conseiller._id} className="fr-col-12" style={{ height: '2rem' }}>
+                <button
+                  style={{ paddingLeft: '0' }}
+                  title="D&eacute;tail"
+                  className="fr-text--md"
+                  onClick={() => window.open(`/${roleActivated}/candidat/${conseiller?._id}`)}>
+                  {conseiller?.idPG}&nbsp;-&nbsp;{conseiller ? formatNomConseiller(conseiller) : ''}
+                </button>
+              </span>
+            )}
+            {structure?.conseillersValiderConventionnement?.length === 0 &&
+              <span className="fr-col-12">-</span>
+            }
+          </div>
         </div>
         <div className="fr-col-6">
           <h4 className="titre">Conventionnement phase 2</h4>
@@ -120,6 +142,28 @@ function ActiviterStructure({ structure, roleActivated }) {
               </span>
             )}
             {structure?.conseillersValiderReconventionnement?.length === 0 &&
+              <span className="fr-col-12">-</span>
+            }
+          </div>
+          <div className="fr-mb-3w fr-grid-row">
+            <strong>{pluralize(
+              'Profil en rupture',
+              'Profil en rupture',
+              'Profils en rupture',
+              structure?.conseillersRuptureReconventionnement?.length
+            )}</strong>
+            {structure?.conseillersRuptureReconventionnement?.map(conseiller =>
+              <span key={conseiller._id} className="fr-col-12" style={{ height: '2rem' }}>
+                <button
+                  style={{ paddingLeft: '0' }}
+                  title="D&eacute;tail"
+                  className="fr-text--md"
+                  onClick={() => window.open(`/${roleActivated}/candidat/${conseiller?._id}`)}>
+                  {conseiller?.idPG}&nbsp;-&nbsp;{conseiller ? formatNomConseiller(conseiller) : ''}
+                </button>
+              </span>
+            )}
+            {structure?.conseillersValiderConventionnement?.length === 0 &&
               <span className="fr-col-12">-</span>
             }
           </div>
