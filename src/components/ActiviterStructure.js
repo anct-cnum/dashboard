@@ -72,7 +72,7 @@ function ActiviterStructure({ structure, roleActivated }) {
               'Profil en rupture',
               'Profil en rupture',
               'Profils en rupture',
-              structure?.conseillersRuptureConventionnement?.length
+              structure?.conseillersRuptureConventionnement?.length ?? 0
             )}</strong>
             {structure?.conseillersRuptureConventionnement?.map(conseiller =>
               <span key={conseiller._id} className="fr-col-12" style={{ height: '2rem' }}>
@@ -80,8 +80,8 @@ function ActiviterStructure({ structure, roleActivated }) {
                   style={{ paddingLeft: '0' }}
                   title="D&eacute;tail"
                   className="fr-text--md"
-                  onClick={() => window.open(`/${roleActivated}/candidat/${conseiller?._id}`)}>
-                  {conseiller?.idPG}&nbsp;-&nbsp;{conseiller ? formatNomConseiller(conseiller) : ''}
+                  onClick={() => window.open(`/${roleActivated}/candidat/${conseiller._id}`)}>
+                  {conseiller.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
                 </button>
               </span>
             )}
@@ -150,7 +150,7 @@ function ActiviterStructure({ structure, roleActivated }) {
               'Profil en rupture',
               'Profil en rupture',
               'Profils en rupture',
-              structure?.conseillersRuptureReconventionnement?.length
+              structure?.conseillersRuptureReconventionnement?.length ?? 0
             )}</strong>
             {structure?.conseillersRuptureReconventionnement?.map(conseiller =>
               <span key={conseiller._id} className="fr-col-12" style={{ height: '2rem' }}>
@@ -158,8 +158,8 @@ function ActiviterStructure({ structure, roleActivated }) {
                   style={{ paddingLeft: '0' }}
                   title="D&eacute;tail"
                   className="fr-text--md"
-                  onClick={() => window.open(`/${roleActivated}/candidat/${conseiller?._id}`)}>
-                  {conseiller?.idPG}&nbsp;-&nbsp;{conseiller ? formatNomConseiller(conseiller) : ''}
+                  onClick={() => window.open(`/${roleActivated}/candidat/${conseiller._id}`)}>
+                  {conseiller.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
                 </button>
               </span>
             )}
