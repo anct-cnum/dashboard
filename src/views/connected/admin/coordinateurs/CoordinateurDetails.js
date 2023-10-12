@@ -116,7 +116,7 @@ function CoordinateurDetails() {
               )}
             </div>
           </div>
-          {structure?.demandesCoordinateur[0]?.statut === 'en_cours' &&
+          {/* {structure?.demandesCoordinateur[0]?.statut === 'en_cours' &&
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
@@ -136,7 +136,7 @@ function CoordinateurDetails() {
                 </li>
               </ul>
             </div>
-          }
+          } */}
         </div>
       </div>
     </div>
