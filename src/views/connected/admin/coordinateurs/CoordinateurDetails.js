@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../../../../components/Spinner';
@@ -6,7 +6,7 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { coordinateurActions, alerteEtSpinnerActions } from '../../../../actions';
 import dayjs from 'dayjs';
 import StructureContactCards from '../../../../components/cards/StructureContactCards';
-// import ModalConfirmationAttributionPoste from './ModalConfirmationAttributionPoste';
+import ModalConfirmationAttributionPoste from './ModalConfirmationAttributionPoste';
 import { validQueryParamsObjectId } from '../../../../utils/formatagesUtils';
 
 function CoordinateurDetails() {
@@ -21,8 +21,8 @@ function CoordinateurDetails() {
   const loading = useSelector(state => state.coordinateur?.loading);
   const errorCoordinateur = useSelector(state => state.coordinateur?.error);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  // const [openModalAttributionPoste, setOpenModalAttributionPoste] = useState(false);
-  // const [typeAttribution, setTypeAttribution] = useState('');
+  const [openModalAttributionPoste, setOpenModalAttributionPoste] = useState(false);
+  const [typeAttribution, setTypeAttribution] = useState('');
 
   useEffect(() => {
     if (!errorCoordinateur && validQueryParamsObjectId(idDemandeCoordinateur)) {
@@ -51,9 +51,9 @@ function CoordinateurDetails() {
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </Link>
-      {/* {openModalAttributionPoste &&
+      {openModalAttributionPoste &&
         <ModalConfirmationAttributionPoste setOpenModal={setOpenModalAttributionPoste} structure={structure} typeAttribution={typeAttribution} />
-      } */}
+      }
       <div className="fr-col-12 fr-pt-6w">
         <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
       </div>
@@ -121,7 +121,7 @@ function CoordinateurDetails() {
               )}
             </div>
           </div>
-          {/* {structure?.demandesCoordinateur[0]?.statut === 'en_cours' &&
+          {structure?.demandesCoordinateur[0]?.statut === 'en_cours' &&
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
@@ -146,7 +146,7 @@ function CoordinateurDetails() {
                 </li>
               </ul>
             </div>
-          } */}
+          }
         </div>
       </div>
     </div>
