@@ -26,5 +26,9 @@
   {
     "nom": "DOUBLON",
     "correspondance": "Doublon"
+  },
+  {
+    "nom": "REFUS_COORDINATEUR",
+    "correspondance": "Refus coordinateur"
   }
 ]

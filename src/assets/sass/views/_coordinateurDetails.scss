@@ -25,6 +25,12 @@
       right: 0;
       top: 0;
     }
+    .title-modal-confirmation-poste {
+      display: inline-block;
+    }
+    .title-modal-confirmation-poste::first-letter {
+      text-transform: capitalize;
+    }
     @media (max-width: 575px) {
         .questionnaire {
             padding: 1rem;

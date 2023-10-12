@@ -5,7 +5,6 @@ import Spinner from '../../../components/Spinner';
 import Pagination from '../../../components/Pagination';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import Reconventionnement from './reconventionnement/Reconventionnement';
 import Conventionnement from './conventionnement/Conventionnement';
 import AvenantAjoutPoste from './avenantAjoutPoste/AvenantAjoutPoste';
 import AvenantRenduPoste from './avenantRenduPoste/AvenantRenduPoste';
@@ -92,12 +91,6 @@ export default function TableauConvention() {
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
-                setTypeConvention('reconventionnement');
-              }} className="fr-tag" aria-pressed={typeConvention === 'reconventionnement'}>
-                Reconventionnement ({conventions?.items?.totalParConvention?.reconventionnement})
-              </button>
-              <button onClick={() => {
-                dispatch(paginationActions.setPage(1));
                 setTypeConvention('avenantAjoutPoste');
               }} className="fr-tag" aria-pressed={typeConvention === 'avenantAjoutPoste'}>
                 Avenant · ajout de poste ({conventions?.items?.totalParConvention?.avenantAjoutPoste})
@@ -143,9 +136,6 @@ export default function TableauConvention() {
                         <tr key={idx}>
                           {convention?.typeConvention === 'conventionnement' &&
                             <Conventionnement conventionnement={convention} />
-                          }
-                          {convention?.typeConvention === 'reconventionnement' &&
-                            <Reconventionnement reconventionnement={convention} />
                           }
                           {convention?.typeConvention === 'avenantAjoutPoste' &&
                             <AvenantAjoutPoste avenant={convention} />

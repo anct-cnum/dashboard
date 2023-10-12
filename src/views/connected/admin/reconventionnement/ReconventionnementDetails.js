@@ -1,29 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import dayjs from 'dayjs';
 import { badgeStatutDossierDS, formatNomConseiller, formatTypeDeContrat, pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { StatutConventionnement } from '../../../../utils/enumUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
-import ModalDecisionReconventionnement from '../modals/ModalDecisionReconventionnement';
 
 function ReconventionnementDetails({ reconventionnement }) {
-  const [openModal, setOpenModal] = useState(false);
-  const [statut, setStatut] = useState('');
+
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const dossierReconventionnement = reconventionnement?.conventionnement?.dossierReconventionnement;
   const dossierConventionnement = reconventionnement?.conventionnement?.dossierConventionnement;
 
   return (
     <>
-      {openModal &&
-        <ModalDecisionReconventionnement
-          setOpenModal={setOpenModal}
-          idStructure={reconventionnement?._id}
-          statutReconventionnement={statut}
-        />
-      }
       <div className="fr-card fr-card--no-border" style={{ backgroundColor: '#E8EDFF' }}>
         <div className="fr-card__body">
           <div className="fr-card__content">
@@ -143,45 +133,11 @@ function ReconventionnementDetails({ reconventionnement }) {
               }
             </div>
             <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_REFUSÉ &&
-                <p className="fr-badge fr-badge--error">Demande refus&eacute;e</p>
-              }
-              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
-                <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p>
-              }
-              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS &&
-                <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
-              }
+              <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p>
             </div>
           </div>
           <div className="fr-card__footer">
             <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
-              {reconventionnement?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_EN_COURS &&
-                <>
-                  <li>
-                    <button
-                      className="fr-btn fr-btn--secondary"
-                      onClick={() => {
-                        setStatut(StatutConventionnement.RECONVENTIONNEMENT_REFUSÉ);
-                        setOpenModal(true);
-                      }}
-                    >
-                      Refuser la demande
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="fr-btn"
-                      onClick={() => {
-                        setStatut(StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ);
-                        setOpenModal(true);
-                      }}
-                    >
-                      Valider la demande
-                    </button>
-                  </li>
-                </>
-              }
               <li className="fr-ml-auto">
                 <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
                   {badgeStatutDossierDS(dossierReconventionnement?.statut)}

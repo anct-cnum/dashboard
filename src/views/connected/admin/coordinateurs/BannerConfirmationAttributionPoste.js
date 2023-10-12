@@ -3,31 +3,33 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { coordinateurActions } from '../../../../actions';
 
-const BannerConfirmationAvisPrefet = ({ coordinateur }) => {
+const BannerConfirmationAttributionPoste = ({ coordinateur }) => {
   const dispatch = useDispatch();
+  const formatAvis = coordinateur?.statut === 'validee' ? 'validée' : 'refusée';
 
   const closeBanner = () => {
-    dispatch(coordinateurActions.closeBanner(coordinateur?.id, coordinateur?.idStructure, 'banniereValidationAvisPrefet'));
+    dispatch(coordinateurActions.closeBanner(coordinateur?.id, coordinateur?.idStructure, 'banniereValidationAvisAdmin'));
   };
 
-  const checkTypeAvisFavorable = () => {
-    if (coordinateur?.avisPrefet === 'favorable') {
+  const checkTypeAvis = () => {
+    if (coordinateur?.statut === 'validee') {
       return true;
     }
     return false;
   };
 
   return (
-    <div className={`fr-notice fr-py-3w banner ${checkTypeAvisFavorable() ? 'success' : 'warning'} background fr-mb-2w`}>
-      <div className={`fr-container responsive__banner ${checkTypeAvisFavorable() ? 'success' : 'warning'}`}>
+    <div className={`fr-notice fr-py-3w banner ${checkTypeAvis() ? 'success' : 'warning'} background fr-mb-2w`}>
+      <div className={`fr-container responsive__banner ${checkTypeAvis() ? 'success' : 'warning'}`}>
         <div style={{ display: 'flex', alignItems: 'center' }} className="fr-col-12">
           <span className="fr-icon-checkbox-fill icon__color fr-mr-2w" aria-hidden="true"></span>
           <div>
             <p className="fr-notice__title title__color">
-              Un avis {coordinateur?.avisPrefet} a &eacute;t&eacute; attribu&eacute; &agrave; {coordinateur?.nomStructure}.
+              L&rsquo;attribution d&rsquo;un poste de coordinateur a &eacute;t&eacute; {formatAvis} par
+              le comit&eacute; de s&eacute;lection pour la structure {coordinateur?.nomStructure}.
             </p>
             <p className="fr-text fr-text--sm">
-              La structure sera notifi&eacute;e apr&egrave;s d&eacute;cision du comit&eacute; de s&eacute;lection.
+              La structure sera notifi&eacute;e sur son espace.
             </p>
           </div>
           <button
@@ -41,8 +43,8 @@ const BannerConfirmationAvisPrefet = ({ coordinateur }) => {
   );
 };
 
-BannerConfirmationAvisPrefet.propTypes = {
+BannerConfirmationAttributionPoste.propTypes = {
   coordinateur: PropTypes.object,
 };
 
-export default BannerConfirmationAvisPrefet;
+export default BannerConfirmationAttributionPoste;

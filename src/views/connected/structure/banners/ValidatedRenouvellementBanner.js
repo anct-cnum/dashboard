@@ -10,7 +10,7 @@ const ValidatedRenouvellementBanner = ({ conseiller, setBannieresRenouvellementV
     setBannieresRenouvellementValide(bannieresRenouvellementValide.filter(banniere => banniere._id !== conseiller._id));
     dispatch(structureActions.closeBanner('renouvellement', conseiller?.miseEnrelationId));
   }
- 
+
   return (
     <div className="fr-notice fr-py-4w banner success background">
       <div className="fr-container success responsive__banner">
@@ -18,7 +18,7 @@ const ValidatedRenouvellementBanner = ({ conseiller, setBannieresRenouvellementV
           <div>
             <p className="fr-notice__title title__color" style={{ width: '70rem' }}>
               <span className="fr-icon-checkbox-fill icon__color" aria-hidden="true"></span>
-              <span className="fr-ml-2w">{`Le nouveau contrat de ${formatNomConseiller(conseiller)} est prêt!`}</span>
+              <span className="fr-ml-2w">{`Le nouveau contrat de ${formatNomConseiller(conseiller)} a bien été reçu et validé`}</span>
             </p>
           </div>
           <div className="banner__button_progress_contrat">

@@ -6,6 +6,7 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { coordinateurActions, alerteEtSpinnerActions } from '../../../../actions';
 import dayjs from 'dayjs';
 import StructureContactCards from '../../../../components/cards/StructureContactCards';
+// import ModalConfirmationAttributionPoste from './ModalConfirmationAttributionPoste';
 import { validQueryParamsObjectId } from '../../../../utils/formatagesUtils';
 
 function CoordinateurDetails() {
@@ -15,10 +16,13 @@ function CoordinateurDetails() {
   const queryParams = new URLSearchParams(window.location.search);
   const idDemandeCoordinateur = queryParams.get('demande');
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const successAvisAdmin = useSelector(state => state.coordinateur?.successAvisAdmin);
   const structure = useSelector(state => state.coordinateur?.coordinateur);
   const loading = useSelector(state => state.coordinateur?.loading);
   const errorCoordinateur = useSelector(state => state.coordinateur?.error);
   const currentPage = useSelector(state => state.pagination?.currentPage);
+  // const [openModalAttributionPoste, setOpenModalAttributionPoste] = useState(false);
+  // const [typeAttribution, setTypeAttribution] = useState('');
 
   useEffect(() => {
     if (!errorCoordinateur && validQueryParamsObjectId(idDemandeCoordinateur)) {
@@ -33,6 +37,12 @@ function CoordinateurDetails() {
     }
   }, [errorCoordinateur]);
 
+  useEffect(() => {
+    if (successAvisAdmin !== undefined && successAvisAdmin !== false) {
+      window.location.href = '/admin/demandes/coordinateurs';
+    }
+  }, [successAvisAdmin]);
+
   return (
     <div className="coordinateurDetails">
       <Spinner loading={loading} />
@@ -41,6 +51,9 @@ function CoordinateurDetails() {
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </Link>
+      {/* {openModalAttributionPoste &&
+        <ModalConfirmationAttributionPoste setOpenModal={setOpenModalAttributionPoste} structure={structure} typeAttribution={typeAttribution} />
+      } */}
       <div className="fr-col-12 fr-pt-6w">
         <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
       </div>
@@ -103,11 +116,16 @@ function CoordinateurDetails() {
               )}
             </div>
           </div>
-          {structure?.demandesCoordinateur[0]?.statut === 'en_cours' &&
+          {/* {structure?.demandesCoordinateur[0]?.statut === 'en_cours' &&
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
-                  <button className="fr-btn fr-btn--secondary">
+                  <button onClick={() => {
+                    setTypeAttribution('refuser');
+                    setOpenModalAttributionPoste(true);
+                  }}
+                  className="fr-btn fr-btn--secondary"
+                  >
                     Refuser la candidature
                   </button>
                 </li>
@@ -118,7 +136,7 @@ function CoordinateurDetails() {
                 </li>
               </ul>
             </div>
-          }
+          } */}
         </div>
       </div>
     </div>

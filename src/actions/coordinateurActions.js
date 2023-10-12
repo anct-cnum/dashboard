@@ -4,7 +4,8 @@ export const coordinateurActions = {
   getDemandeCoordinateur,
   getAllDemandesCoordinateur,
   confirmationAvisPrefet,
-  closeBannerAvisPrefet,
+  closeBanner,
+  confirmationRefusAvisAdmin,
 };
 
 // eslint-disable-next-line max-len
@@ -80,13 +81,13 @@ function confirmationAvisPrefet(idStructure, avisPrefet, idDemandeCoordinateur, 
   }
 }
 
-function closeBannerAvisPrefet(idDemandeCoordinateur, idStructure) {
+function confirmationRefusAvisAdmin(idStructure, idDemandeCoordinateur) {
   return dispatch => {
     dispatch(request());
 
-    coordinateurService.closeBannerAvisPrefet(idDemandeCoordinateur, idStructure)
+    coordinateurService.confirmationRefusAvisAdmin(idStructure, idDemandeCoordinateur)
     .then(
-      idDemandeCoordinateur => dispatch(success(idDemandeCoordinateur)),
+      response => dispatch(success(response.success)),
       error => {
         dispatch(failure(error));
       }
@@ -94,12 +95,56 @@ function closeBannerAvisPrefet(idDemandeCoordinateur, idStructure) {
   };
 
   function request() {
-    return { type: 'UPDATE_BANNER_AVIS_PREFET_REQUEST' };
+    return { type: 'UPDATE_AVIS_ADMIN_REQUEST' };
   }
-  function success(idDemandeCoordinateur) {
-    return { type: 'UPDATE_BANNER_AVIS_PREFET_SUCCESS', idDemandeCoordinateur };
+  function success(success) {
+    return { type: 'UPDATE_AVIS_ADMIN_SUCCESS', success };
   }
   function failure(error) {
-    return { type: 'UPDATE_BANNER_AVIS_PREFET_FAILURE', error };
+    return { type: 'UPDATE_AVIS_ADMIN_FAILURE', error };
+  }
+}
+
+function closeBanner(idDemandeCoordinateur, idStructure, typeBanner) {
+  return dispatch => {
+    dispatch(request());
+
+    coordinateurService.closeBanner(idDemandeCoordinateur, idStructure, typeBanner)
+    .then(
+      idDemandeCoordinateur => {
+        switch (typeBanner) {
+          case 'banniereValidationAvisPrefet':
+            dispatch(successBannerAvisPrefet(idDemandeCoordinateur));
+            break;
+          case 'banniereValidationAvisAdmin':
+            dispatch(successBannerAvisAdmin(idDemandeCoordinateur));
+            break;
+          case 'banniereInformationAvisStructure':
+            dispatch(successBannerAvisStructure(idDemandeCoordinateur));
+            break;
+          default:
+            break;
+        }
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_BANNER_REQUEST' };
+  }
+  function successBannerAvisPrefet(idDemandeCoordinateur) {
+    return { type: 'UPDATE_BANNER_PREFET_SUCCESS', idDemandeCoordinateur };
+  }
+  function successBannerAvisAdmin(idDemandeCoordinateur) {
+    return { type: 'UPDATE_BANNER_ADMIN_SUCCESS', idDemandeCoordinateur };
+  }
+  function successBannerAvisStructure(idDemandeCoordinateur) {
+    return { type: 'UPDATE_BANNER_STRUCTURE_SUCCESS', idDemandeCoordinateur };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_BANNER_FAILURE', error };
   }
 }
