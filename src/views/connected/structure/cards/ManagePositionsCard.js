@@ -14,7 +14,6 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
   const dossier = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement :
     structure?.conventionnement?.dossierConventionnement;
   const nbConseillerActifTotal = nbreConseillersActifs + nbreConseillersRenouveler + nbreConseillersEnCoursDeRecrutement;
-    
   const urlDossier = isReconventionnement ? structure?.urlDossierReconventionnement : structure?.urlDossierConventionnement;
   const phase = isReconventionnement ? 'Conventionnement phase 2' : 'Conventionnement phase 1';
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
@@ -63,6 +62,20 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                   date inconnue
                 </span>
             }</p>
+            {isReconventionnement &&
+              <div className="fr-card__desc">
+                <p className="fr-text--md">
+                  Nombre de
+                  {pluralize(
+                    ' poste demandé',
+                    ' poste demandé',
+                    ' postes demandés',
+                    dossier?.nbPostesAttribuees
+                  )}
+                  &nbsp;:&nbsp;{ dossier?.nbPostesAttribuees }
+                </p>
+              </div>
+            }
             <div className="fr-card__desc">
               <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
                 {isReconventionnement ? structure?.posteValiderCoselec :
@@ -121,15 +134,17 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
               }
               <div>
                 <ul className="fr-btns-group fr-btns-group--inline-md">
-                  <li>
-                    <button className="fr-btn fr-btn--secondary"
-                      disabled={isButtonDisabled(structure)}
-                      onClick={() => {
-                        handlePopin('add', 1);
-                      }}>
+                  {
+                    isReconventionnement && <li>
+                      <button className="fr-btn fr-btn--secondary"
+                        disabled={isButtonDisabled(structure)}
+                        onClick={() => {
+                          handlePopin('add', 1);
+                        }}>
                     Ajouter un poste
-                    </button>
-                  </li>
+                      </button>
+                    </li>
+                  }
                   <li>
                     <button className="fr-btn fr-btn--secondary"
                       disabled={isButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}

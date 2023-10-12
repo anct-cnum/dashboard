@@ -58,14 +58,14 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
               </span>
             </p>
             {
-              structure?.demandesCoselec?.some(demande => demande.phaseConventionnement !== PhaseConventionnement.PHASE_2) &&
+              structure?.demandesCoselec?.some(demande => demande?.phaseConventionnement !== PhaseConventionnement.PHASE_2) &&
              <>
                <div className="fr-col-12 fr-mt-1w">
                  <hr style={{ borderWidth: '0.5px' }} />
                </div>
                {
                  structure?.demandesCoselec
-                 .filter(demande => demande.phaseConventionnement !== PhaseConventionnement.PHASE_2)
+                 .filter(demande => demande?.phaseConventionnement !== PhaseConventionnement.PHASE_2)
                  .map((demande, idx) => (
                    <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }} key={idx}>
                       Avenant - {

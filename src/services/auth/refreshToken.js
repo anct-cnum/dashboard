@@ -18,6 +18,7 @@ const refreshToken = async (auth, dispatch, accessToken) => {
         );
         dispatch(authenticationActions.refreshToken(response.data?.accessToken));
       } catch (error) {
+        window.location.pathname = '/login';
         await signOut(auth);
       }
     }

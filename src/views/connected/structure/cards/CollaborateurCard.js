@@ -5,7 +5,7 @@ import FormSuppressionGestionnaire from '../FormSuppressionGestionnaire';
 
 const CollaborateurCard = ({ gestionnaire }) => {
   const [confirmSuppressionGestionnaire, setConfirmSuppressionGestionnaire] = useState(false);
-  const compteActif = gestionnaire => (!!gestionnaire?.sub);
+  const compteActif = gestionnaire => gestionnaire ? (!!gestionnaire?.sub) : false;
 
   return (
     <div className="fr-card fr-col-12 fr-mt-2w fr-p-3w">
@@ -36,7 +36,7 @@ const CollaborateurCard = ({ gestionnaire }) => {
                 <FormSuppressionGestionnaire
                   setConfirmSuppressionGestionnaire={setConfirmSuppressionGestionnaire}
                   idGestionnaire={gestionnaire?._id}
-                  roles={gestionnaire.roles}
+                  roles={gestionnaire?.roles}
                 />
               }
             </div>

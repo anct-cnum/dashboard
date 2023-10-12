@@ -12,10 +12,9 @@ import {
   structureActions,
   miseEnRelationAction
 } from '../../../actions';
-import PopinRecapReconvention from './popins/popinRecapReconvention';
+import PopinConfirmationReconventionnement from './popins/popinConfirmationReconventionnement';
 import Spinner from '../../../components/Spinner';
-import { pluralize, validTypeDeContratWithoutEndDate } from '../../../utils/formatagesUtils';
-import { StatutConventionnement } from '../../../utils/enumUtils';
+import { validTypeDeContratWithoutEndDate } from '../../../utils/formatagesUtils';
 
 function DemandeReconventionnement() {
   const dispatch = useDispatch();
@@ -35,7 +34,6 @@ function DemandeReconventionnement() {
   const [misesEnRelationARenouveller, setMisesEnRelationARenouveller] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
-  const [nombreDePostes, setNombreDePostes] = useState(0);
 
   const errorMessages = {
     errorStructure: 'La structure n\'a pas pu être chargée !',
@@ -89,15 +87,6 @@ function DemandeReconventionnement() {
     }
   }, [misesEnRelation]);
 
-
-  useEffect(() => {
-    if (structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees !== undefined) {
-      setNombreDePostes(structure.conventionnement?.dossierReconventionnement.nbPostesAttribuees);
-    }
-  }, [structure?.conventionnement?.dossierReconventionnement]);
-
-  const calcNombreDePostes = () => structure?.conseillersRecruterConventionnement?.length + structure?.conseillersValiderConventionnement?.length;
-
   const handleSelectAdvisor = e => {
     const { checked } = e.target;
     const value = JSON.parse(e.target.value);
@@ -118,19 +107,19 @@ function DemandeReconventionnement() {
   const handleSave = async () => {
     scrollTopWindow();
     dispatch(
-      reconventionnementActions.update(structure?._id, 'enregistrer', checkedItems, nombreDePostes)
+      reconventionnementActions.update(structure?._id, 'enregistrer', checkedItems)
     );
     navigate('/structure/postes');
   };
 
   const handleSend = () => {
     scrollTopWindow();
-    dispatch(reconventionnementActions.update(structure?._id, 'envoyer', checkedItems, nombreDePostes));
+    dispatch(reconventionnementActions.update(structure?._id, 'valider', checkedItems));
     navigate('/structure/postes');
   };
 
   const formatTitreDossierDemarcheSimplifiee = structure => {
-    if (structure?.conventionnement?.dossierReconventionnement?.statut === 'accepte') {
+    if (structure?.conventionnement?.dossierReconventionnement?.numero) {
       return 'Consulter';
     }
     return 'Compléter';
@@ -139,13 +128,10 @@ function DemandeReconventionnement() {
   return (
     <>
       {openModal && (
-        <PopinRecapReconvention
+        <PopinConfirmationReconventionnement
           checkedItems={checkedItems}
-          calcNombreDePostes={calcNombreDePostes}
-          structure={structure}
           setOpenModal={setOpenModal}
           handleSend={handleSend}
-          nombreDePostes={nombreDePostes}
         />
       )}
       <div className="fr-container">
@@ -154,32 +140,15 @@ function DemandeReconventionnement() {
           Demande de reconventionnement
         </h2>
         <p>
-          Veuillez nous indiquer le nombre de postes que vous souhaitez ainsi que le(s) conseiller(s) que
-          vous souhaitez renouveler pour ce nouveau conventionnement.
+          Veuillez nous indiquer le(s) conseiller(s) que vous souhaitez renouveler pour ce nouveau conventionnement.
         </p>
         <InformationCard />
-        <div className="fr-input-group">
-          <h5>Nombre de postes</h5>
-          <label className="fr-label" htmlFor="text-input-groups1">
-            <span>Renseignez le nombre de postes total que vous souhaitez&nbsp;:</span>
-          </label>
-          <input
-            className="fr-input"
-            type="number"
-            min="0"
-            id="text-input-groups1"
-            value={nombreDePostes}
-            onChange={e => setNombreDePostes(Number(e.target.value))}
-            name="text-input-groups1"
-            style={{ width: '450px' }}
-          />
-        </div>
         <div className="fr-col-12 fr-mt-7w fr-mb-2w">
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
         <div className="container fr-mb-6w">
-          <h5>Renouvellement de postes</h5>
-          <p>S&eacute;lectionez les conseillers que vous souhaitez renouveller.</p>
+          <h5>Renouvellement des contrats</h5>
+          <p>S&eacute;lectionnez les conseillers que vous souhaitez renouveler.</p>
           {misesEnRelationARenouveller &&
             misesEnRelationARenouveller.map((miseEnRelation, idx) => (
               <SelectAdvisorCard
@@ -194,70 +163,23 @@ function DemandeReconventionnement() {
         <div className="fr-col-12 fr-mb-1w">
           <hr style={{ borderWidth: '0.5px' }} />
         </div>
-        <h5>{formatTitreDossierDemarcheSimplifiee(structure)} votre dossier D&eacute;marche Simplifi&eacute;e</h5>
-        {structure?.conventionnement?.dossierReconventionnement?.statut !== 'accepte' &&
+        <h5>{formatTitreDossierDemarcheSimplifiee(structure)} votre dossier D&eacute;marches-Simplifi&eacute;es</h5>
+        {!structure?.conventionnement?.dossierReconventionnement?.numero &&
           <p>
             Renseignez les informations concernant votre structure et les pi&egrave;ces justificatives
             demand&eacute;es avant de pouvoir envoyer votre demande.
           </p>
         }
         <CompleteApplicationCard structure={structure} formatTitreDossierDemarcheSimplifiee={formatTitreDossierDemarcheSimplifiee} />
-        {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ && (
-          <>
-            <div className="fr-col-12 fr-mt-6w fr-mb-2w">
-              <hr style={{ borderWidth: '0.5px' }} />
-            </div>
-            <h5>R&eacute;capitulatif de votre demande</h5>
-            <>
-              <p>
-                Vous allez faire une demande pour{' '}
-                <span className="fr-text fr-text--bold">
-                  {structure?.posteValiderCoselec}{' '}
-                  {pluralize(
-                    'poste subventionné',
-                    'poste subventionné',
-                    'postes subventionnés',
-                    true
-                  )},{' '}
-                </span>
-                dont:
-              </p>
-              <ul>
-                <li>
-                  <p className="fr-text--bold fr-mb-1w">
-                    {calcNombreDePostes()}{' '}
-                    {pluralize(
-                      'poste occupé',
-                      'poste occupé',
-                      'postes occupés',
-                      true
-                    )}
-                  </p>
-                </li>
-                <li>
-                  <p className="fr-text--bold">
-                    {structure?.posteValiderCoselec - calcNombreDePostes()}{' '}
-                    {pluralize(
-                      'poste vacant',
-                      'poste vacant',
-                      'postes vacants',
-                      true
-                    )}
-                  </p>
-                </li>
-              </ul>
-            </>
-          </>
-        )}
         <ul className="fr-btns-group fr-btns-group--inline fr-mt-5w">
           <li>
-            <button className="fr-btn fr-btn--secondary" disabled={nombreDePostes === 0} onClick={handleSave}>
+            <button className="fr-btn fr-btn--secondary" onClick={handleSave}>
               Enregistrer et revenir plus tard
             </button>
           </li>
           <li>
-            <button className="fr-btn" disabled={nombreDePostes === 0} onClick={() => setOpenModal(true)}>
-              Envoyer ma demande
+            <button disabled={!structure?.conventionnement?.dossierReconventionnement?.numero} className="fr-btn" onClick={() => setOpenModal(true)}>
+               Valider le reconventionnement
             </button>
           </li>
         </ul>
