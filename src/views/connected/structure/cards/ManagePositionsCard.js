@@ -18,15 +18,10 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
   const phase = isReconventionnement ? 'Conventionnement phase 2' : 'Conventionnement phase 1';
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
 
-  function isRemoveButtonDisabled(structure) {
+  function isButtonDisabled(structure) {
     return structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut === 'en_cours';
   }
 
-  function isAddButtonDisabled(structure) {
-    return (structure?.demandesCoselec?.length > 0 &&
-     structure?.lastDemandeCoselec?.statut === 'en_cours') ||
-     structure?.conventionnement?.statut !== StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
-  }
   const className = hasBorder ?
     'fr-card fr-mb-4w' :
     'fr-card fr-card--no-border fr-mb-4w';
@@ -139,18 +134,20 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
               }
               <div>
                 <ul className="fr-btns-group fr-btns-group--inline-md">
-                  <li>
-                    <button className="fr-btn fr-btn--secondary"
-                      disabled={isAddButtonDisabled(structure)}
-                      onClick={() => {
-                        handlePopin('add', 1);
-                      }}>
+                  {
+                    isReconventionnement && <li>
+                      <button className="fr-btn fr-btn--secondary"
+                        disabled={isButtonDisabled(structure)}
+                        onClick={() => {
+                          handlePopin('add', 1);
+                        }}>
                     Ajouter un poste
-                    </button>
-                  </li>
+                      </button>
+                    </li>
+                  }
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}
+                      disabled={isButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}
                       onClick={() => {
                         handlePopin('remove', 1);
                       }}>
