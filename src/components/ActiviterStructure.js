@@ -69,9 +69,9 @@ function ActiviterStructure({ structure, roleActivated }) {
           </div>
           <div className="fr-mb-3w fr-grid-row">
             <strong>{pluralize(
-              'Profil en rupture',
-              'Profil en rupture',
-              'Profils en rupture',
+              'Profil en cours de rupture',
+              'Profil en cours de rupture',
+              'Profils en cours de rupture',
               structure?.conseillersNouvelleRuptureConventionnement?.length ?? 0
             )}</strong>
             {structure?.conseillersNouvelleRuptureConventionnement?.map(conseiller =>
@@ -107,7 +107,7 @@ function ActiviterStructure({ structure, roleActivated }) {
                 </button>
               </span>
             )}
-            {structure?.conseillersValiderConventionnement?.length === 0 &&
+            {structure?.conseillersFinaliseeRuptureConventionnement?.length === 0 &&
               <span className="fr-col-12">-</span>
             }
           </div>
@@ -169,9 +169,9 @@ function ActiviterStructure({ structure, roleActivated }) {
           </div>
           <div className="fr-mb-3w fr-grid-row">
             <strong>{pluralize(
-              'Profil en rupture',
-              'Profil en rupture',
-              'Profils en rupture',
+              'Profil en cours de rupture',
+              'Profil en cours de rupture',
+              'Profils en cours de rupture',
               structure?.conseillersNouvelleRuptureReconventionnement?.length ?? 0
             )}</strong>
             {structure?.conseillersNouvelleRuptureReconventionnement?.map(conseiller =>
@@ -185,7 +185,7 @@ function ActiviterStructure({ structure, roleActivated }) {
                 </button>
               </span>
             )}
-            {structure?.conseillersValiderConventionnement?.length === 0 &&
+            {structure?.conseillersNouvelleRuptureReconventionnement?.length === 0 &&
               <span className="fr-col-12">-</span>
             }
           </div>
@@ -207,7 +207,7 @@ function ActiviterStructure({ structure, roleActivated }) {
                 </button>
               </span>
             )}
-            {structure?.conseillersValiderConventionnement?.length === 0 &&
+            {structure?.conseillersFinaliseeRuptureReconventionnement?.length === 0 &&
               <span className="fr-col-12">-</span>
             }
           </div>
