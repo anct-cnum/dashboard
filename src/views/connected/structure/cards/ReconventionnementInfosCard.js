@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import PopinGestionPostes from '../popins/popinGestionPostes';
 import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import { PhaseConventionnement, StatutConventionnement } from '../../../../utils/enumUtils';
-import { displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
+import { checkStructurePhase2, displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
 
 const ReconventionnementInfosCard = ({ structure }) => {
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
@@ -14,7 +14,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
     if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ) {
       return <p className="fr-badge fr-badge--warning fr-ml-auto">RECONVENTIONNEMENT ENREGISTR&Eacute;</p>;
     }
-    if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) {
+    if (checkStructurePhase2(structure?.conventionnement?.statut)) {
       return <p className="fr-badge fr-badge--success fr-ml-auto">RECONVENTIONNEMENT VALID&Eacute;</p>;
     }
     return null;
@@ -23,7 +23,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
 
   function isRemoveButtonDisabled(structure) {
     return (structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut === 'en_cours') ||
-      structure?.conventionnement?.statut !== StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+       !checkStructurePhase2(structure?.conventionnement?.statut);
   }
 
   function isAddButtonDisabled(structure) {

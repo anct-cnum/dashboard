@@ -5,12 +5,12 @@ import { pluralize } from '../../../../utils/formatagesUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import PopinGestionPostes from '../popins/popinGestionPostes';
-import { PhaseConventionnement, StatutConventionnement } from '../../../../utils/enumUtils';
-import { displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
+import { PhaseConventionnement } from '../../../../utils/enumUtils';
+import { checkStructurePhase2, displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
 
 const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersActifs, nbreConseillersEnCoursDeRecrutement, nbreConseillersRenouveler }) => {
 
-  const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+  const isReconventionnement = checkStructurePhase2(structure?.conventionnement?.statut);
   const dossier = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement :
     structure?.conventionnement?.dossierConventionnement;
   const nbConseillerActifTotal = nbreConseillersActifs + nbreConseillersRenouveler + nbreConseillersEnCoursDeRecrutement;
