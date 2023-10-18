@@ -40,7 +40,6 @@ const setup = store => {
       req.headers.Authorization = `Bearer ${response.data?.accessToken}`;
 
       return req;
-
     } catch (error) {
       return Promise.reject(error);
     }
