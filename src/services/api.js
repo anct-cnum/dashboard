@@ -18,29 +18,31 @@ const setup = store => {
   let accessToken;
   API.interceptors.request.use(async req => {
     accessToken = store.getState()?.authentication?.accessToken || getAccessToken();
-    if (!accessToken || !Object.keys(accessToken)?.length > 0) {
-      await signOut();
-      return;
-    }
-    req.headers.Authorization = `Bearer ${accessToken}`;
-    const decodedToken = jwtDecode(accessToken);
-    const isExpired = decodedToken.exp < Date.now().valueOf() / 1000;
-    if (!isExpired) {
-      return req;
-    }
     try {
+      if (!accessToken || !Object.keys(accessToken)?.length > 0) {
+        await signOut();
+        return;
+      }
+      req.headers.Authorization = `Bearer ${accessToken}`;
+      const decodedToken = jwtDecode(accessToken);
+      const isExpired = decodedToken.exp < Date.now().valueOf() / 1000;
+      
+      if (!isExpired) {
+        return req;
+      }
       const response = await axios.post(
         `${apiUrlRoot}/refresh-token`,
         {},
         { withCredentials: true }
       );
+
       dispatch(authenticationActions.refreshToken(response.data?.accessToken));
       req.headers.Authorization = `Bearer ${response.data?.accessToken}`;
 
       return req;
+
     } catch (error) {
-      window.location.pathname = '/login';
-      await signOut();
+      return Promise.reject(error);
     }
   });
 };
