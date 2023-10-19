@@ -85,7 +85,7 @@ function ActiviterStructure({ structure, roleActivated }) {
                 </button>
               </span>
             )}
-            {structure?.conseillersValiderConventionnement?.length === 0 &&
+            {structure?.conseillersNouvelleRuptureConventionnement?.length === 0 &&
               <span className="fr-col-12">-</span>
             }
           </div>
