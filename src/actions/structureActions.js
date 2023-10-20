@@ -11,7 +11,8 @@ export const structureActions = {
   cancelStructureSiret,
   hiddenMessageError,
   createAvenant,
-  closeBanner
+  closeBanner,
+  checkDisplayBannerCoordinateur
 };
 
 // eslint-disable-next-line max-len
@@ -85,6 +86,30 @@ function getDetails(id) {
   }
   function failure(error) {
     return { type: 'GET_STRUCTURE_DETAILS_FAILURE', error };
+  }
+}
+
+function checkDisplayBannerCoordinateur() {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.checkDisplayBannerCoordinateur()
+    .then(
+      displayBanner => dispatch(success(displayBanner)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_STATE_DISPLAY_BANNER_COORDINATEUR_REQUEST' };
+  }
+  function success(displayBanner) {
+    return { type: 'GET_STATE_DISPLAY_BANNER_COORDINATEUR_SUCCESS', displayBanner };
+  }
+  function failure(error) {
+    return { type: 'GET_STATE_DISPLAY_BANNER_COORDINATEUR_FAILURE', error };
   }
 }
 

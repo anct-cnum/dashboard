@@ -13,6 +13,7 @@ export const structureService = {
   verifyStructureSiret,
   createAvenant,
   closeBanner,
+  checkDisplayBannerCoordinateur,
 };
 
 function get(id) {
@@ -78,6 +79,12 @@ function createAvenant(type, id, nombreDePostes, motif, autreMotif = '') {
 
 function closeBanner(type, id) {
   return API.patch(`${apiUrlRoot}/banniere/${id}?type=${type}&role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function checkDisplayBannerCoordinateur() {
+  return API.get(`${apiUrlRoot}/structure/banner/coordinateur/check?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

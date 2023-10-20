@@ -5,6 +5,7 @@ import ValidatedRenouvellementBanner from './ValidatedRenouvellementBanner';
 import ValidatedAvenantBanner from './ValidatedAvenantBanner';
 import InProgressAvenantBanner from './InProgressAvenantBanner';
 import DeniedAvenantBanner from './DeniedAvenantBanner';
+import ValidatedNewPosteCoordinateur from './ValidedNewPosteCoordinateur';
 
 export {
   CompleteRequestBanner,
@@ -13,5 +14,6 @@ export {
   ValidatedRenouvellementBanner,
   ValidatedAvenantBanner,
   InProgressAvenantBanner,
-  DeniedAvenantBanner
+  DeniedAvenantBanner,
+  ValidatedNewPosteCoordinateur
 };

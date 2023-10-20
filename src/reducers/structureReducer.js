@@ -192,6 +192,24 @@ export default function structure(state = initialState, action) {
         loading: false,
         error: action.error,
       };
+    case 'GET_STATE_DISPLAY_BANNER_COORDINATEUR_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+    case 'GET_STATE_DISPLAY_BANNER_COORDINATEUR_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        displayBanner: action.displayBanner,
+      };
+    case 'GET_STATE_DISPLAY_BANNER_COORDINATEUR_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
     default:
       return state;
   }
