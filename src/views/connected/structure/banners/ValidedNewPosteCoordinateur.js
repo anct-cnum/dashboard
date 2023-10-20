@@ -12,15 +12,15 @@ const ValidatedNewPosteCoordinateur = () => {
             <p className="fr-notice__title title__color">
               Un poste de coordinateur a &eacute;t&eacute; attribu&eacute; &agrave; votre structure !
             </p>
-            <div className="fr-text fr-text--sm" style={{ color: '#3A3A3A' }}>
+            <div className="fr-text fr-text--sm">
               Rendez-vous dans l&rsquo;onglet &laquo;&nbsp;G&eacute;rer mes postes&nbsp;&raquo;&nbsp;:
-              <ul className="fr-mt-0" style={{ listStyleType: '-' }}>
+              <ul className="fr-mt-0 list-banner-coordinateur">
                 <li>
-                  &nbsp;Si le poste concerne l&rsquo;un des conseillers num&eacute;rique de votre &eacute;quipe,
+                  Si le poste concerne l&rsquo;un des conseillers num&eacute;rique de votre &eacute;quipe,
                   cliquez sur &laquo;&nbsp;Attribuer un r&ocirc;le de coordinateur&nbsp;&raquo;.
                 </li>
                 <li>
-                  &nbsp;Si le poste concerne une nouvelle personne, cliquez sur &laquo;&nbsp;Recruter
+                  Si le poste concerne une nouvelle personne, cliquez sur &laquo;&nbsp;Recruter
                   un conseiller&nbsp;&raquo;.
                 </li>
               </ul>

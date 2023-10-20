@@ -30,6 +30,12 @@
     .icon__color {
       color: $info-425;
     }
+    .list-banner-coordinateur {
+      list-style-type: "-";
+    }
+    .list-banner-coordinateur li {
+      padding-left: 0.3rem;
+    }
   }
 }
 
