@@ -15,6 +15,7 @@ import {
 } from './cards';
 import PopinFormulaireInvitation from './popins/popinFormulaireInvitation';
 import { checkStructurePhase2 } from './utils/functionUtils';
+import { StatutConventionnement } from '../../../utils/enumUtils';
 
 function MaStructure() {
   const dispatch = useDispatch();
@@ -126,7 +127,9 @@ function MaStructure() {
         {checkStructurePhase2(structure?.conventionnement?.statut) &&
           <ReconventionnementInfosCard structure={structure}/>
         }
-        <ConventionnementInfosCard structure={structure} roleActivated={roleActivated}/>
+        {structure?.conventionnement?.statut !== StatutConventionnement.CONVENTIONNEMENT_VALIDÉ_PHASE_2 &&
+          <ConventionnementInfosCard structure={structure} roleActivated={roleActivated}/>
+        }
         <h2>Accompagnements</h2>
         <AccompagnementsCard structure={structure} />
         <div className="fr-col-12 fr-my-6w">

@@ -23,12 +23,12 @@ const ReconventionnementInfosCard = ({ structure }) => {
 
   function isRemoveButtonDisabled(structure) {
     return (structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut === 'en_cours') ||
-       !checkStructurePhase2(structure?.conventionnement?.statut);
+      !checkStructurePhase2(structure?.conventionnement?.statut);
   }
 
   function isAddButtonDisabled(structure) {
     return structure?.demandesCoselec?.length > 0 &&
-     structure?.lastDemandeCoselec?.statut === 'en_cours';
+      structure?.lastDemandeCoselec?.statut === 'en_cours';
   }
 
   return (
@@ -50,24 +50,26 @@ const ReconventionnementInfosCard = ({ structure }) => {
             <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
               structure?.conventionnement?.dossierReconventionnement?.dateDeCreation ?
                 <span>
-              le&nbsp;{dayjs(structure?.conventionnement?.dossierReconventionnement?.dateDeCreation).format('DD/MM/YYYY')}
+                  le&nbsp;{dayjs(structure?.conventionnement?.dossierReconventionnement?.dateDeCreation).format('DD/MM/YYYY')}
                 </span> :
                 <span>
-              date inconnue
+                  date inconnue
                 </span>
             }</p>
-            <div className="fr-card__desc">
-              <p className="fr-text--md">
-                Nombre de
-                {pluralize(
-                  ' poste demandé',
-                  ' poste demandé',
-                  ' postes demandés',
-                  structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
-                )}
-                &nbsp;:&nbsp;{ structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees }
-              </p>
-            </div>
+            {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
+              <div className="fr-card__desc">
+                <p className="fr-text--md">
+                  Nombre de
+                  {pluralize(
+                    ' poste demandé',
+                    ' poste demandé',
+                    ' postes demandés',
+                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
+                  )}
+                  &nbsp;:&nbsp;{structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees}
+                </p>
+              </div>
+            }
             <div className="fr-card__desc">
               <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
                 {
@@ -93,34 +95,34 @@ const ReconventionnementInfosCard = ({ structure }) => {
               </p>
               {
                 structure?.demandesCoselec?.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_2) &&
-             <>
-               <div className="fr-col-12 fr-mt-1w">
-                 <hr style={{ borderWidth: '0.5px' }} />
-               </div>
-               {
-                 structure?.demandesCoselec
-                 .filter(demande => demande?.phaseConventionnement === PhaseConventionnement.PHASE_2)
-                 .map((demande, idx) => (
-                   <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }} key={idx}>
-                      Avenant - {
-                       displayNombreDePostes(demande)
-                     } {pluralize(
-                       'poste de conseiller',
-                       'poste de conseiller',
-                       'postes de conseillers',
-                       getNombreDePostes(demande)
-                     )} {' '}
-                     <span className="fr-text--regular fr-text--md">
-                       {displayStatutRequestText(demande)} {' '}{' '}
-                   le {structure?.lastDemandeCoselec?.emetteurAvenant?.date ?
-                         dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date).format('DD/MM/YYYY') : 'Non renseignée'}
-                     </span>
-                   </p>
-                 )) }
-               <div className="fr-col-12 fr-my-1w">
-                 <hr style={{ borderWidth: '0.5px' }} />
-               </div>
-             </>
+                <>
+                  <div className="fr-col-12 fr-mt-1w">
+                    <hr style={{ borderWidth: '0.5px' }} />
+                  </div>
+                  {
+                    structure?.demandesCoselec
+                    .filter(demande => demande?.phaseConventionnement === PhaseConventionnement.PHASE_2)
+                    .map((demande, idx) => (
+                      <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }} key={idx}>
+                          Avenant - {
+                          displayNombreDePostes(demande)
+                        } {pluralize(
+                          'poste de conseiller',
+                          'poste de conseiller',
+                          'postes de conseillers',
+                          getNombreDePostes(demande)
+                        )} {' '}
+                        <span className="fr-text--regular fr-text--md">
+                          {displayStatutRequestText(demande)} {' '}{' '}
+                            le {structure?.lastDemandeCoselec?.emetteurAvenant?.date ?
+                            dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date).format('DD/MM/YYYY') : 'Non renseignée'}
+                        </span>
+                      </p>
+                    ))}
+                  <div className="fr-col-12 fr-my-1w">
+                    <hr style={{ borderWidth: '0.5px' }} />
+                  </div>
+                </>
               }
               <div>
                 <ul className="fr-btns-group fr-btns-group--inline-md">
@@ -130,7 +132,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                       onClick={() => {
                         handlePopin('add', 1);
                       }}>
-                    Ajouter un poste
+                      Ajouter un poste
                     </button>
                   </li>
                   <li>
@@ -139,7 +141,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                       onClick={() => {
                         handlePopin('remove', 1);
                       }}>
-                    Rendre un poste
+                      Rendre un poste
                     </button>
                   </li>
                   <li className="fr-ml-auto">
