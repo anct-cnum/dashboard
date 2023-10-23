@@ -10,6 +10,9 @@ function ModalConfirmationAttributionPoste({ setOpenModal, structure, typeAttrib
     if (typeAttribution === 'refuser') {
       dispatch(coordinateurActions.confirmationRefusAvisAdmin(structure?._id, structure?.demandesCoordinateur[0]?.id));
     }
+    if (typeAttribution === 'valider') {
+      dispatch(coordinateurActions.confirmationValidAvisAdmin(structure?._id, structure?.demandesCoordinateur[0]?.id));
+    }
     setOpenModal(false);
   };
   return (

@@ -69,6 +69,50 @@ function ActiviterStructure({ structure, roleActivated }) {
                 <span className="fr-col-12">-</span>
               }
             </div>
+            <div className="fr-mb-3w fr-grid-row">
+              <strong>{pluralize(
+                'Profil en cours de rupture',
+                'Profil en cours de rupture',
+                'Profils en cours de rupture',
+                structure?.conseillersNouvelleRuptureConventionnement?.length ?? 0
+              )}</strong>
+              {structure?.conseillersNouvelleRuptureConventionnement?.map(conseiller =>
+                <span key={conseiller._id} className="fr-col-12" style={{ height: '2rem' }}>
+                  <button
+                    style={{ paddingLeft: '0' }}
+                    title="D&eacute;tail"
+                    className="fr-text--md"
+                    onClick={() => window.open(`/${roleActivated}/candidat/${conseiller._id}`)}>
+                    {conseiller.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
+                  </button>
+                </span>
+              )}
+              {structure?.conseillersNouvelleRuptureConventionnement?.length === 0 &&
+                <span className="fr-col-12">-</span>
+              }
+            </div>
+            <div className="fr-mb-3w fr-grid-row">
+              <strong>{pluralize(
+                'Ancien conseiller',
+                'Ancien conseiller',
+                'Anciens conseillers',
+                structure?.conseillersFinaliseeRuptureConventionnement?.length ?? 0
+              )}</strong>
+              {structure?.conseillersFinaliseeRuptureConventionnement?.map(conseiller =>
+                <span key={conseiller._id} className="fr-col-12" style={{ height: '2rem' }}>
+                  <button
+                    style={{ paddingLeft: '0' }}
+                    title="D&eacute;tail"
+                    className="fr-text--md"
+                    onClick={() => window.open(`/${roleActivated}/candidat/${conseiller._id}`)}>
+                    {conseiller.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
+                  </button>
+                </span>
+              )}
+              {structure?.conseillersFinaliseeRuptureConventionnement?.length === 0 &&
+                <span className="fr-col-12">-</span>
+              }
+            </div>
           </div>
         }
         <div className="fr-col-6">
@@ -123,6 +167,50 @@ function ActiviterStructure({ structure, roleActivated }) {
               </span>
             )}
             {structure?.conseillersValiderReconventionnement?.length === 0 &&
+              <span className="fr-col-12">-</span>
+            }
+          </div>
+          <div className="fr-mb-3w fr-grid-row">
+            <strong>{pluralize(
+              'Profil en cours de rupture',
+              'Profil en cours de rupture',
+              'Profils en cours de rupture',
+              structure?.conseillersNouvelleRuptureReconventionnement?.length ?? 0
+            )}</strong>
+            {structure?.conseillersNouvelleRuptureReconventionnement?.map(conseiller =>
+              <span key={conseiller._id} className="fr-col-12" style={{ height: '2rem' }}>
+                <button
+                  style={{ paddingLeft: '0' }}
+                  title="D&eacute;tail"
+                  className="fr-text--md"
+                  onClick={() => window.open(`/${roleActivated}/candidat/${conseiller._id}`)}>
+                  {conseiller.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
+                </button>
+              </span>
+            )}
+            {structure?.conseillersNouvelleRuptureReconventionnement?.length === 0 &&
+              <span className="fr-col-12">-</span>
+            }
+          </div>
+          <div className="fr-mb-3w fr-grid-row">
+            <strong>{pluralize(
+              'Ancien conseiller',
+              'Ancien conseiller',
+              'Anciens conseillers',
+              structure?.conseillersFinaliseeRuptureReconventionnement?.length ?? 0
+            )}</strong>
+            {structure?.conseillersFinaliseeRuptureReconventionnement?.map(conseiller =>
+              <span key={conseiller._id} className="fr-col-12" style={{ height: '2rem' }}>
+                <button
+                  style={{ paddingLeft: '0' }}
+                  title="D&eacute;tail"
+                  className="fr-text--md"
+                  onClick={() => window.open(`/${roleActivated}/candidat/${conseiller._id}`)}>
+                  {conseiller.idPG}&nbsp;-&nbsp;{formatNomConseiller(conseiller)}
+                </button>
+              </span>
+            )}
+            {structure?.conseillersFinaliseeRuptureReconventionnement?.length === 0 &&
               <span className="fr-col-12">-</span>
             }
           </div>
