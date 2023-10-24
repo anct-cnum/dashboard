@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import MesPostes from './MesPostes';
@@ -16,34 +16,16 @@ import RecrutementCoordinateur from './RecrutementCoordinateur';
 import TableauConseillers from './conseillers/TableauConseillers';
 import GraphiqueConseiller from './candidatures/GraphiqueConseiller';
 import { ValidatedNewPosteCoordinateur } from './banners';
-import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, structureActions } from '../../../actions';
-import Spinner from '../../../components/Spinner';
+import { useSelector } from 'react-redux';
 
 export default function Structure() {
-  const dispatch = useDispatch();
   const location = useLocation();
-  const loading = useSelector(state => state.structure?.loading);
-  const displayBanner = useSelector(state => state.structure?.displayBanner);
-  const error = useSelector(state => state.structure?.error);
-
-  useEffect(() => {
-    if (!error) {
-      dispatch(structureActions.checkDisplayBannerCoordinateur());
-    } else {
-      dispatch(alerteEtSpinnerActions.getMessageAlerte({
-        type: 'error',
-        message: 'La bannière n\'a pas pu être chargée !',
-        status: null, description: null
-      }));
-    }
-  }, [error]);
+  const displayBanner = useSelector(state => state.authentication?.user?.displayBannerStructure);
 
   return (
     <>
       {location.pathname === '/accueil' &&
         <>
-          <Spinner loading={loading} />
           {displayBanner &&
             <ValidatedNewPosteCoordinateur />
           }
