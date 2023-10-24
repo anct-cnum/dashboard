@@ -95,7 +95,19 @@ export default function Documents() {
             </span>
           </p>
         </div>
-        <h4>2) Pr&eacute;parer le recrutement de votre/vos Conseiller(s) num&eacute;rique(s)</h4>
+        <h4>2) Financement Conseiller num&eacute;rique</h4>
+        <div className="fr-grid-row">
+          <p>
+            <a href="https://cdn.conseiller-numerique.gouv.fr/Panorama_subventions.pdf"
+              className="fr-link" target="blank" title="T&eacute;l&eacute;charger le panorama de financement du dispositif Conseiller num&eacute;rique">
+              T&eacute;l&eacute;charger le panorama de financement du dispositif Conseiller num&eacute;rique (pdf)
+            </a>
+            <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
+              Panorama de financement du dispositif Conseiller num&eacute;rique
+            </span>
+          </p>
+        </div>
+        <h4>3) Pr&eacute;parer le recrutement de votre/vos Conseiller(s) num&eacute;rique(s)</h4>
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/presentation-conseiller-numerique.pdf"
@@ -215,7 +227,7 @@ export default function Documents() {
             </a>
           </p>
         </div>
-        <h4>3) Pr&eacute;parer l&rsquo;arriv&eacute;e de votre conseiller num&eacute;rique</h4>
+        <h4>4) Pr&eacute;parer l&rsquo;arriv&eacute;e de votre conseiller num&eacute;rique</h4>
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/les-conseils-pour-bien-demarrer.pdf"
@@ -251,7 +263,7 @@ export default function Documents() {
             </span>
           </p>
         </div>
-        <h4>4) &Eacute;l&eacute;ments de communication</h4>
+        <h4>5) &Eacute;l&eacute;ments de communication</h4>
         <div className="fr-grid-row">
           <p>
             <a href={`${urlSiteVitrine}/kit-communication`}
@@ -274,7 +286,7 @@ export default function Documents() {
             </span>
           </p>
         </div>
-        <h4>5) Accompagner les Conseillers num&eacute;riques France Services dans leurs missions</h4>
+        <h4>6) Accompagner les Conseillers num&eacute;riques France Services dans leurs missions</h4>
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/guide-d-utilisation-de-l-outil-de-suivi-d-activite.pdf"
