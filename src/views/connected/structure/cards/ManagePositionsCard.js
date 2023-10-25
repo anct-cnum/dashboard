@@ -156,17 +156,19 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                       Rendre un poste
                     </button>
                   </li>
-                  <li className="fr-ml-auto">
-                    <a
-                      href={urlDossier}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="fr-btn"
-                    >
-                      <i className="ri-folder-2-line fr-mr-1w"></i>
-                      Voir le dossier D&eacute;marche Simplifi&eacute;e
-                    </a>
-                  </li>
+                  {((isReconventionnement && structure?.conventionnement?.dossierReconventionnement?.numero) || !isReconventionnement) &&
+                    <li className="fr-ml-auto">
+                      <a
+                        href={urlDossier}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="fr-btn"
+                      >
+                        <i className="ri-folder-2-line fr-mr-1w"></i>
+                        Voir le dossier D&eacute;marche Simplifi&eacute;e
+                      </a>
+                    </li>
+                  }
                 </ul>
               </div>
             </div>

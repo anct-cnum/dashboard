@@ -14,7 +14,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
     if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ) {
       return <p className="fr-badge fr-badge--warning fr-ml-auto">RECONVENTIONNEMENT ENREGISTR&Eacute;</p>;
     }
-    if (checkStructurePhase2(structure?.conventionnement?.statut)) {
+    if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) {
       return <p className="fr-badge fr-badge--success fr-ml-auto">RECONVENTIONNEMENT VALID&Eacute;</p>;
     }
     return null;
@@ -144,17 +144,19 @@ const ReconventionnementInfosCard = ({ structure }) => {
                       Rendre un poste
                     </button>
                   </li>
-                  <li className="fr-ml-auto">
-                    <a
-                      href={structure?.urlDossierReconventionnement}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="fr-btn"
-                    >
-                      <i className="ri-folder-2-line fr-mr-1w"></i>
-                      Voir le dossier D&eacute;marche Simplifi&eacute;e
-                    </a>
-                  </li>
+                  {structure?.conventionnement?.dossierReconventionnement?.numero &&
+                    <li className="fr-ml-auto">
+                      <a
+                        href={structure?.urlDossierReconventionnement}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="fr-btn"
+                      >
+                        <i className="ri-folder-2-line fr-mr-1w"></i>
+                        Voir le dossier D&eacute;marche Simplifi&eacute;e
+                      </a>
+                    </li>
+                  }
                 </ul>
               </div>
             </div>
