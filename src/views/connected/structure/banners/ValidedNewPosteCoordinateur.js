@@ -10,7 +10,7 @@ const ValidatedNewPosteCoordinateur = () => {
           <span className="fr-icon-info-fill icon__color fr-mr-2w" aria-hidden="true"></span>
           <div>
             <p className="fr-notice__title title__color">
-              Un poste de coordinateur a &eacute;t&eacute; attribu&eacute; &agrave; votre structure !
+              Un poste de coordinateur a &eacute;t&eacute; attribu&eacute; &agrave; votre structure&nbsp;!
             </p>
             <div className="fr-text fr-text--sm">
               Rendez-vous dans l&rsquo;onglet &laquo;&nbsp;G&eacute;rer mes postes&nbsp;&raquo;&nbsp;:

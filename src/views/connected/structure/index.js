@@ -20,7 +20,7 @@ import { useSelector } from 'react-redux';
 
 export default function Structure() {
   const location = useLocation();
-  const displayBanner = useSelector(state => state.authentication?.user?.displayBannerStructure);
+  const displayBanner = useSelector(state => state.authentication?.user?.displayBannerPosteCoordinateurStructure);
 
   return (
     <>
