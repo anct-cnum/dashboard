@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
+import { useSelector } from 'react-redux';
 
 registerLocale('fr', fr);
 function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, editMode, createContract }) {
+  const displayBanner = useSelector(state => state.authentication?.user?.displayBannerPosteCoordinateurStructure);
   const [dateDebut, setDateDebut] = useState(null);
   const [dateFin, setDateFin] = useState(null);
   const [typeDeContrat, setTypeDeContrat] = useState(null);
+  const [isRecrutementCoordinateur, setIsRecrutementCoordinateur] = useState(false);
   const [salaire, setSalaire] = useState('');
   const salaireMinimum = 1709.28;
 
@@ -252,15 +255,24 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     </p>
                   }
                 </div>
-                <div className="fr-checkbox-group">
-                  <input name="checkboxes-hint-el-sm-1" id="checkboxes-hint-el-sm-1" type="checkbox" aria-describedby="checkboxes-hint-el-sm-1-messages" />
-                  <label className="fr-label" htmlFor="checkboxes-hint-el-sm-1">
-                    Recrutement d&rsquo;un coordinateur
-                    <span className="fr-hint-text">Texte de description additionnel</span>
-                  </label>
-                  <div className="fr-messages-group" id="checkboxes-hint-el-sm-1-messages" aria-live="assertive">
+                {displayBanner &&
+                  <div className="fr-checkbox-group">
+                    <input
+                      checked={isRecrutementCoordinateur}
+                      onChange={e => setIsRecrutementCoordinateur(e.target.checked)}
+                      name="checkboxes-hint-el-sm-1"
+                      id="checkboxes-hint-el-sm-1"
+                      type="checkbox"
+                      aria-describedby="checkboxes-hint-el-sm-1-messages"
+                    />
+                    <label className="fr-label" htmlFor="checkboxes-hint-el-sm-1">
+                      Recrutement d&rsquo;un coordinateur
+                      <span className="fr-hint-text">Texte de description additionnel</span>
+                    </label>
+                    <div className="fr-messages-group" id="checkboxes-hint-el-sm-1-messages" aria-live="assertive">
+                    </div>
                   </div>
-                </div>
+                }
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
