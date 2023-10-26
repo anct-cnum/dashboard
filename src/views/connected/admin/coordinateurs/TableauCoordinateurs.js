@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions, coordinateurActions, filtresDemandesCoordinateurActions } from '../../../../actions';
+import { alerteEtSpinnerActions, exportsActions, paginationActions, coordinateurActions, filtresDemandesCoordinateurActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import FiltresEtTrisCoordinateur from './FiltresEtTrisCoordinateur';
 import Coordinateur from './Coordinateur';
@@ -25,8 +25,13 @@ export default function TableauCoordinateurs() {
   const filtreRegion = useSelector(state => state.filtresDemandesCoordinateur?.region);
   const filtreAvisPrefet = useSelector(state => state.filtresDemandesCoordinateur?.avisPrefet);
   const currentPage = useSelector(state => state.pagination?.currentPage);
+  const exportCandidaturesCoordinateursFileBlob = useSelector(state => state.exports);
+  const exportCandidaturesCoordinateursFileError = useSelector(state => state.exports?.error);
+
   const [initDemandeCoordinateur, setInitDemandeCoordinateur] = useState(false);
   const [statutDemande, setStatutDemande] = useState('toutes');
+
+  const has = value => value !== null && value !== undefined;
 
   useEffect(() => {
     if (coordinateurs?.items && coordinateurs?.items?.total > 0) {
@@ -79,13 +84,33 @@ export default function TableauCoordinateurs() {
     }
   }, [error, page]);
 
+  const exportCandidaturesCoordinateurs = () => {
+    dispatch(exportsActions.exportCandidaturesCoordinateurs(
+      statutDemande,
+      filtreSearchBar,
+      filtreDepartement,
+      filtreRegion,
+      filtreAvisPrefet,
+      ordreNom,
+      ordre ? -1 : 1
+    ));
+  };
+
+  useEffect(() => {
+    if (has(exportCandidaturesCoordinateursFileBlob?.blob) && exportCandidaturesCoordinateursFileError === false) {
+      downloadFile(exportCandidaturesCoordinateursFileBlob);
+      dispatch(exportsActions.resetFile());
+    } else {
+      scrollTopWindow();
+    }
+  }, [exportCandidaturesCoordinateursFileBlob, exportCandidaturesCoordinateursFileError]);
+
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresDemandesCoordinateurActions.changeOrdre(e.currentTarget?.id));
   };
 
   const demandesCoordinateurWithBanner = coordinateurs?.items?.data?.filter(demande => demande?.banniereValidationAvisAdmin === true);
-
 
   return (
     <div className="conventions">
@@ -123,6 +148,13 @@ export default function TableauCoordinateurs() {
             </ul>
             <div className="fr-col-12 fr-mt-3w">
               <FiltresEtTrisCoordinateur />
+            </div>
+            <div className="fr-grid-row fr-grid-row--end fr-mt-3w">
+              <div className="fr-ml-auto">
+                <button className="fr-btn fr-btn--secondary fr-icon-download-line fr-btn--icon-left" onClick={exportCandidaturesCoordinateurs} >
+                  Exporter les donn&eacute;es
+                </button>
+              </div>
             </div>
             <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
               <div className="fr-col-12">

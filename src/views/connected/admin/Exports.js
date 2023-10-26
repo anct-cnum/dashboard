@@ -57,11 +57,6 @@ function Exports() {
         </a>
       </p>
       <p>
-        <a className="fr-link" href="#" onClick={() => getFile('candidats-coordinateurs-avis-prefets')}>
-          Liste des candidatures coordinateurs avec les avis pr&eacute;fets
-        </a>
-      </p>
-      <p>
         <a className="fr-link" href="#" onClick={() => getFile('structures')}>
           Fichier &laquo;&nbsp;structures&nbsp;&raquo;
         </a>
