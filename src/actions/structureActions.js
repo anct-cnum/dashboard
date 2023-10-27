@@ -11,7 +11,7 @@ export const structureActions = {
   cancelStructureSiret,
   hiddenMessageError,
   createAvenant,
-  closeBanner
+  closeBanner,
 };
 
 // eslint-disable-next-line max-len
