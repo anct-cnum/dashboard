@@ -45,8 +45,8 @@ function CandidatDetailsRecrutement() {
     }
   }, [downloadError]);
 
-  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
-    dispatch(contratActions.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnRelation?._id));
+  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur) => {
+    dispatch(contratActions.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, conseiller?.miseEnRelation?._id));
   };
 
   return (

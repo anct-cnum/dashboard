@@ -17,15 +17,16 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
 
   const handleSubmit = () => {
     if (editMode) {
-      updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnrelationId);
+      updateContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, conseiller?.miseEnrelationId);
     } else {
-      createContract(typeDeContrat, dateDebut, dateFin, salaire);
+      createContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur);
     }
     setDateDebut(null);
     setDateFin(null);
     setTypeDeContrat(null);
     setSalaire('');
     setOpenModalContrat(false);
+    setIsRecrutementCoordinateur(false);
   };
 
   const handleCancel = () => {
@@ -33,11 +34,13 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
     setDateFin(null);
     setTypeDeContrat(null);
     setOpenModalContrat(false);
+    setIsRecrutementCoordinateur(false);
   };
 
   useEffect(() => {
     if (editMode && conseiller) {
       setTypeDeContrat(conseiller?.typeDeContrat);
+      setIsRecrutementCoordinateur(conseiller?.contratCoordinateur ?? false);
       setDateDebut(conseiller?.dateDebutDeContrat ? new Date(conseiller?.dateDebutDeContrat) : null);
       if (!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) {
         setDateFin(conseiller?.dateFinDeContrat ? new Date(conseiller?.dateFinDeContrat) : null);
@@ -59,6 +62,10 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
         return false;
       }
       if (!conseiller?.typeDeContrat?.includes(typeDeContrat)) {
+        return false;
+      }
+      // eslint-disable-next-line max-len
+      if ((conseiller?.contratCoordinateur && conseiller?.contratCoordinateur !== isRecrutementCoordinateur) || (!conseiller?.contratCoordinateur && isRecrutementCoordinateur)) {
         return false;
       }
       if (new Date(conseiller?.dateDebutDeContrat)?.getTime() !== dateDebut?.getTime()) {
@@ -255,7 +262,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     </p>
                   }
                 </div>
-                {displayBanner &&
+                {(conseiller.quotaCoordinateur || conseiller.contratCoordinateur) &&
                   <div className="fr-checkbox-group">
                     <input
                       checked={isRecrutementCoordinateur}

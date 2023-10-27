@@ -64,9 +64,9 @@ function createContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, sal
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function updateContractRecrutement(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, miseEnrelationId) {
+function updateContractRecrutement(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, isRecrutementCoordinateur, miseEnrelationId) {
   // eslint-disable-next-line max-len
-  return API.patch(`${apiUrlRoot}/recrutement/contrat/${miseEnrelationId}?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire })
+  return API.patch(`${apiUrlRoot}/recrutement/contrat/${miseEnrelationId}?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, isRecrutementCoordinateur })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

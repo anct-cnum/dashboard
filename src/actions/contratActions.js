@@ -143,11 +143,11 @@ function createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelati
   }
 }
 
-function updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId) {
+function updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnrelationId) {
   return dispatch => {
     dispatch(request());
 
-    contratService.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId)
+    contratService.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnrelationId)
     .then(response => {
       dispatch(success(response.message));
       dispatch(updateMiseEnRelation(response.miseEnRelation));
@@ -172,11 +172,11 @@ function updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, m
   }
 }
 
-function updateContract(typeDeContrat, dateDebut, dateFin, salaire, id) {
+function updateContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, id) {
   return dispatch => {
     dispatch(request());
 
-    contratService.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id)
+    contratService.updateContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, id)
     .then(
       miseEnRelation => {
         const roleUser = roleActivated();

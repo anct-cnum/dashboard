@@ -12,8 +12,8 @@ function ButtonsAction({ updateStatut, miseEnRelation }) {
   const [editMode, setEditMode] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
 
-  const updateContractRecrutement = (typeDeContrat, dateDebut, dateFin, salaire) => {
-    dispatch(contratActions.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, miseEnRelation._id));
+  const updateContractRecrutement = (typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur) => {
+    dispatch(contratActions.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnRelation._id));
   };
 
   return (
