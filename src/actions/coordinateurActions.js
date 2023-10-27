@@ -144,8 +144,9 @@ function closeBanner(idDemandeCoordinateur, idStructure, typeBanner) {
           case 'banniereValidationAvisAdmin':
             dispatch(successBannerAvisAdmin(idDemandeCoordinateur));
             break;
-          case 'banniereInformationAvisStructure':
-            dispatch(successBannerAvisStructure(idDemandeCoordinateur));
+          case 'banniereRefusAttributionPosteStructure':
+            dispatch(successRefusAttributionPosteStructure(idDemandeCoordinateur));
+            dispatch(successCloseBannerPosteCoordinateur(idDemandeCoordinateur));
             break;
           default:
             break;
@@ -166,8 +167,11 @@ function closeBanner(idDemandeCoordinateur, idStructure, typeBanner) {
   function successBannerAvisAdmin(idDemandeCoordinateur) {
     return { type: 'UPDATE_BANNER_ADMIN_SUCCESS', idDemandeCoordinateur };
   }
-  function successBannerAvisStructure(idDemandeCoordinateur) {
+  function successRefusAttributionPosteStructure(idDemandeCoordinateur) {
     return { type: 'UPDATE_BANNER_STRUCTURE_SUCCESS', idDemandeCoordinateur };
+  }
+  function successCloseBannerPosteCoordinateur(idDemandeCoordinateur) {
+    return { type: 'CLOSE_BANNER_POSTE_COORDINATEUR_SUCCESS', idDemandeCoordinateur };
   }
   function failure(error) {
     return { type: 'UPDATE_BANNER_FAILURE', error };

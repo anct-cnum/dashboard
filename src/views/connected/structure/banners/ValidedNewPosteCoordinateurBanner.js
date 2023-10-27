@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ValidatedNewPosteCoordinateur = () => {
+const ValidatedNewPosteCoordinateurBanner = () => {
 
   return (
     <div className="fr-notice fr-py-4w banner notice background">
@@ -37,4 +37,4 @@ const ValidatedNewPosteCoordinateur = () => {
   );
 };
 
-export default ValidatedNewPosteCoordinateur;
+export default ValidatedNewPosteCoordinateurBanner;
