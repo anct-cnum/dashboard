@@ -75,7 +75,7 @@ jobs:
           source: ".htaccess"
           target: "build/.htaccess"
       - name: Upload release bundle as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: bundle
           path: build/*
