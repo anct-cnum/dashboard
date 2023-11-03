@@ -5,7 +5,7 @@ import PopinConfirmationAnnulation from '../popins/popinConfirmationAnnulation';
 import PopinEditionContrat from '../popins/popinEditionContrat';
 import { contratActions } from '../../../../actions';
 
-function ButtonsAction({ updateStatut, miseEnRelation }) {
+function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal }) {
   const dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
@@ -14,6 +14,9 @@ function ButtonsAction({ updateStatut, miseEnRelation }) {
 
   const updateContractRecrutement = (typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur) => {
     dispatch(contratActions.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnRelation._id));
+    if ((miseEnRelation?.contratCoordinateur && miseEnRelation?.contratCoordinateur !== isRecrutementCoordinateur) || (!miseEnRelation?.contratCoordinateur && isRecrutementCoordinateur)) {
+      setDisplayModal(true);
+    }
   };
 
   return (
@@ -99,6 +102,7 @@ function ButtonsAction({ updateStatut, miseEnRelation }) {
 ButtonsAction.propTypes = {
   updateStatut: PropTypes.func,
   miseEnRelation: PropTypes.object,
+  setDisplayModal: PropTypes.func,
 };
 
 export default ButtonsAction;

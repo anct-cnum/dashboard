@@ -129,6 +129,7 @@ function CandidatDetails() {
           <ButtonsAction
             miseEnRelation={conseiller?.miseEnRelation}
             updateStatut={updateStatut}
+            setDisplayModal={setDisplayModal}
           />
         </div>
       </div>

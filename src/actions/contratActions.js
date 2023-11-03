@@ -149,6 +149,9 @@ function updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, i
 
     contratService.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnrelationId)
     .then(response => {
+      if (response?.urlDossierDS) {
+        dispatch(updateLienDossierDS(response.urlDossierDS));
+      }
       dispatch(success(response.message));
       dispatch(updateMiseEnRelation(response.miseEnRelation));
     },
@@ -166,6 +169,9 @@ function updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, i
   }
   function updateMiseEnRelation(miseEnRelation) {
     return { type: 'UPDATE_STATUS_SUCCESS', miseEnRelation };
+  }
+  function updateLienDossierDS(urlDossierDS) {
+    return { type: 'UPDATE_LIEN_DOSSIER_DS', urlDossierDS };
   }
   function failure(error) {
     return { type: 'UPDATE_CONTRAT_RECRUTEMENT_FAILURE', error };

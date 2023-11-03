@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
-import { useSelector } from 'react-redux';
 
 registerLocale('fr', fr);
 function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, editMode, createContract }) {
-  const displayBanner = useSelector(state => state.authentication?.user?.displayBannerPosteCoordinateurStructure);
   const [dateDebut, setDateDebut] = useState(null);
   const [dateFin, setDateFin] = useState(null);
   const [typeDeContrat, setTypeDeContrat] = useState(null);
@@ -262,7 +260,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     </p>
                   }
                 </div>
-                {(conseiller.quotaCoordinateur || conseiller.contratCoordinateur) &&
+                {(conseiller.quotaCoordinateur || conseiller?.contratCoordinateur) &&
                   <div className="fr-checkbox-group">
                     <input
                       checked={isRecrutementCoordinateur}
