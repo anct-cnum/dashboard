@@ -40,7 +40,7 @@ export default function authentication(state = initialState, action) {
       return {
         ...state,
         user: {
-          ...state.user, demandesCoordinateurRefusPoste: state.user.demandesCoordinateurRefusPoste?.filter(
+          ...state.user, demandesCoordinateurBannerInformation: state.user.demandesCoordinateurBannerInformation?.filter(
             demandeCoordinateur =>
               demandeCoordinateur.id !== action.idDemandeCoordinateur)
         },

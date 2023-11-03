@@ -7,7 +7,7 @@ const DeniedNewPosteCoordinateurBanner = ({ idDemandeCoordinateur, idStructure }
   const dispatch = useDispatch();
 
   function closeBanner() {
-    dispatch(coordinateurActions.closeBanner(idDemandeCoordinateur, idStructure, 'banniereRefusAttributionPosteStructure'));
+    dispatch(coordinateurActions.closeBanner(idDemandeCoordinateur, idStructure, 'banniereInformationAvisStructure'));
   }
 
   return (

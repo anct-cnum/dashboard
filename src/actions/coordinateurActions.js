@@ -144,7 +144,7 @@ function closeBanner(idDemandeCoordinateur, idStructure, typeBanner) {
           case 'banniereValidationAvisAdmin':
             dispatch(successBannerAvisAdmin(idDemandeCoordinateur));
             break;
-          case 'banniereRefusAttributionPosteStructure':
+          case 'banniereInformationAvisStructure':
             dispatch(successRefusAttributionPosteStructure(idDemandeCoordinateur));
             dispatch(successCloseBannerPosteCoordinateur(idDemandeCoordinateur));
             break;

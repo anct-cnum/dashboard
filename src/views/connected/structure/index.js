@@ -28,13 +28,14 @@ export default function Structure() {
   const idDemandeCoordinateur = useSelector(state => state.coordinateur?.idDemandeCoordinateur);
   const errorCoordinateur = useSelector(state => state.coordinateur?.error);
   const idStructure = useSelector(state => state.authentication?.user?.entity?.$id);
-  const demandesCoordinateurRefusPoste = useSelector(state => state.authentication?.user?.demandesCoordinateurRefusPoste);
+  const demandesCoordinateurBannerInformation = useSelector(state => state.authentication?.user?.demandesCoordinateurBannerInformation);
 
   useEffect(() => {
     if (idDemandeCoordinateur) {
       const user = localStorage.getItem('user');
       const formatUser = JSON.parse(user);
-      formatUser.user.demandesCoordinateurRefusPoste = formatUser.user.demandesCoordinateurRefusPoste.filter(demande => demande.id !== idDemandeCoordinateur);
+      // eslint-disable-next-line max-len
+      formatUser.user.demandesCoordinateurBannerInformation = formatUser.user.demandesCoordinateurBannerInformation.filter(demande => demande.id !== idDemandeCoordinateur);
       localStorage.setItem('user', JSON.stringify(formatUser));
     }
     if (errorCoordinateur) {
@@ -45,6 +46,8 @@ export default function Structure() {
       }));
     }
   }, [idDemandeCoordinateur, errorCoordinateur]);
+
+  const demandesCoordinateurRefusPoste = demandesCoordinateurBannerInformation?.filter(demande => demande.statut === 'refusee');
 
   return (
     <>
