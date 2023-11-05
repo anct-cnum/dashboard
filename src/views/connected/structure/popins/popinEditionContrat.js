@@ -260,8 +260,8 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     </p>
                   }
                 </div>
-                {(conseiller.quotaCoordinateur || conseiller?.contratCoordinateur) &&
-                  <div className="fr-checkbox-group">
+                {(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) &&
+                  <div className="fr-checkbox-group fr-col-7">
                     <input
                       checked={isRecrutementCoordinateur}
                       onChange={e => setIsRecrutementCoordinateur(e.target.checked)}
@@ -272,7 +272,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     />
                     <label className="fr-label" htmlFor="checkboxes-hint-el-sm-1">
                       Recrutement d&rsquo;un coordinateur
-                      <span className="fr-hint-text">Texte de description additionnel</span>
+                      <span className="fr-hint-text">Si votre recrutement concerne un coordinateur</span>
                     </label>
                     <div className="fr-messages-group" id="checkboxes-hint-el-sm-1-messages" aria-live="assertive">
                     </div>
@@ -282,7 +282,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                   <li>
-                    <button onClick={handleCancel} className="fr-btn" title="Notifier la rupture de contrat">
+                    <button onClick={handleCancel} className="fr-btn" title="Annuler le contrat">
                       Annuler
                     </button>
                   </li>

@@ -72,9 +72,14 @@ export default function conseiller(state = initialState, action) {
         ...state,
         conseiller: {
           ...state.conseiller, miseEnRelation: action.miseEnRelation, misesEnRelation: state.conseiller.misesEnRelation
-            ?.map(miseEnRelation => miseEnRelation._id === action.miseEnRelation._id ? action.miseEnRelation : miseEnRelation)
+          ?.map(miseEnRelation => miseEnRelation._id === action.miseEnRelation._id ? action.miseEnRelation : miseEnRelation)
         },
         loading: false
+      };
+    case 'UPDATE_CONSEILLER_SUCCESS':
+      return {
+        ...state,
+        conseiller: action.miseEnRelation,
       };
     case 'UPDATE_STATUS_FAILURE':
       return {
