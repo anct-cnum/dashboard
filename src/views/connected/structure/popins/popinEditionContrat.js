@@ -204,9 +204,8 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     <label className="fr-label">
                       Date de d&eacute;but de contrat
                     </label>
-                    <div className="fr-col-xl-11">
+                    <div className="fr-col-xl-11 date-debut-contrat">
                       <DatePicker
-                        calendarStartDay={5}
                         id="datePickerDebutContrat"
                         name="datePickerDebutContrat"
                         className="fr-input fr-my-1w fr-mr-6w fr-col-12"
@@ -224,10 +223,9 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     <label className="fr-label">
                       Date de fin de contrat
                     </label>
-                    <div className="fr-col-xl-11">
+                    <div className="fr-col-xl-11 date-fin-contrat">
                       <DatePicker
                         id="datePickerFinContrat"
-                        calendarStartDay={5}
                         name="datePickerFinContrat"
                         className="fr-input fr-my-1w fr-mr-6w fr-col-12"
                         dateFormat="dd/MM/yyyy"
