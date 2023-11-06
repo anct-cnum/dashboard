@@ -311,7 +311,8 @@ export default function conseiller(state = initialState, action) {
       return {
         ...state,
         loading: true,
-        errorRelanceInvitation: false
+        errorRelanceInvitation: false,
+        successRelanceInvitation: false,
       };
     case 'RESUBMIT_INVITATION_CONSEILLER_SUCCESS':
       return {

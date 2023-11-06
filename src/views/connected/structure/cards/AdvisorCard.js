@@ -108,11 +108,11 @@ const AdvisorCard = ({ conseiller }) => {
             </div>
             <div className="badge-statut card__text">{displayBadge(conseiller?.statut)}</div>
             <div className="btn-actions-conseiller">
-              {conseiller?.emailCN?.address && !conseiller?.mattermost?.error !== false &&
+              {conseiller?.emailCN?.address && !conseiller?.mattermost?.id &&
                 <>
                   <button
                     className="fr-btn fr-mr-1w fr-icon-mail-line card__button"
-                    title="Inviter à rejoindre l'espace Coop"
+                    title="Inviter &agrave; rejoindre l&rsquo;espace Coop"
                     onClick={() => {
                       resendInvitationEspaceCoop(conseiller?._id);
                     }}
