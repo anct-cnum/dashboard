@@ -134,7 +134,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                             setDateFin(null);
                           }}
                           value="CDI"
-                          checked={typeDeContrat?.includes('CDI')}
+                          defaultChecked={typeDeContrat?.includes('CDI')}
                         />
                         <label className="fr-label" htmlFor="radio-1">
                           CDI
@@ -151,7 +151,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           name="radio-inline"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="CDD"
-                          checked={typeDeContrat?.includes('CDD')}
+                          defaultChecked={typeDeContrat?.includes('CDD')}
                         />
                         <label className="fr-label" htmlFor="radio-2">
                           CDD
@@ -173,7 +173,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                             setDateFin(null);
                           }}
                           value="PEC"
-                          checked={typeDeContrat?.includes('PEC')}
+                          defaultChecked={typeDeContrat?.includes('PEC')}
                         />
                         <label className="fr-label" htmlFor="radio-3">
                           PEC
@@ -190,7 +190,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           name="radio-inline"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="contrat_de_projet_public"
-                          checked={typeDeContrat?.includes('contrat_de_projet_public')}
+                          defaultChecked={typeDeContrat?.includes('contrat_de_projet_public')}
                         />
                         <label className="fr-label" htmlFor="radio-4">
                           Contrat de projet public
