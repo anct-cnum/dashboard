@@ -256,7 +256,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                   }
                 </div>
                 {(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) &&
-                  <div className="fr-checkbox-group fr-col-7">
+                  <div className="fr-checkbox-group" style={{ width: '93%' }}>
                     <input
                       checked={isRecrutementCoordinateur}
                       onChange={e => setIsRecrutementCoordinateur(e.target.checked)}
@@ -266,8 +266,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                       aria-describedby="checkboxes-hint-el-sm-1-messages"
                     />
                     <label className="fr-label" htmlFor="checkboxes-hint-el-sm-1">
-                      Recrutement d&rsquo;un coordinateur
-                      <span className="fr-hint-text">Si votre recrutement concerne un coordinateur</span>
+                      Ce contrat concerne un Conseiller numérique coordinateur
                     </label>
                     <div className="fr-messages-group" id="checkboxes-hint-el-sm-1-messages" aria-live="assertive">
                     </div>
