@@ -168,10 +168,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           type="radio"
                           id="radio-3"
                           name="radio-inline"
-                          onChange={motif => {
-                            setTypeDeContrat(motif.target.value);
-                            setDateFin(null);
-                          }}
+                          onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="PEC"
                           defaultChecked={typeDeContrat?.includes('PEC')}
                         />
