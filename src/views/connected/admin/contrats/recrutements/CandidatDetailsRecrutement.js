@@ -75,16 +75,16 @@ function CandidatDetailsRecrutement() {
           {conseiller?.miseEnRelation?.contratCoordinateur &&
             <img
               data-tooltip-content="Conseiller numérique Coordinateur"
-              data-tooltip-id="tooltip-cnfs-candidat-non-mise-en-relation"
+              data-tooltip-id="tooltip-coordinateur-candidat"
               data-tooltip-float="true"
               className={`fr-ml-2w ${conseiller ? '' : 'fr-hidden'}`}
               src={pinCoordinateur}
-              alt="logo CNFS"
+              alt="logo Coordinateur"
               style={{ height: '50px', position: 'absolute' }}
             />
           }
         </h1>
-        <Tooltip id="tooltip-cnfs-candidat-non-mise-en-relation" variant="light" className="infobulle" />
+        <Tooltip id="tooltip-coordinateur-candidat" variant="light" className="infobulle" />
       </div>
       {openModal &&
         <ModalValidationRecrutement setOpenModal={setOpenModal} idMiseEnRelation={conseiller?.miseEnRelation?._id} />
