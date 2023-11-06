@@ -260,16 +260,13 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     <input
                       checked={isRecrutementCoordinateur}
                       onChange={e => setIsRecrutementCoordinateur(e.target.checked)}
-                      name="checkboxes-hint-el-sm-1"
-                      id="checkboxes-hint-el-sm-1"
+                      name="checkboxe-recrutement-coordinateur"
+                      id="checkboxe-recrutement-coordinateur"
                       type="checkbox"
-                      aria-describedby="checkboxes-hint-el-sm-1-messages"
                     />
-                    <label className="fr-label" htmlFor="checkboxes-hint-el-sm-1">
-                      Ce contrat concerne un Conseiller numérique coordinateur
+                    <label className="fr-label" htmlFor="checkboxe-recrutement-coordinateur">
+                      Ce contrat concerne un Conseiller num&eacute;rique coordinateur
                     </label>
-                    <div className="fr-messages-group" id="checkboxes-hint-el-sm-1-messages" aria-live="assertive">
-                    </div>
                   </div>
                 }
               </div>
