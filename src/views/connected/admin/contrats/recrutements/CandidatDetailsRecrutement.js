@@ -82,7 +82,7 @@ function CandidatDetailsRecrutement() {
           {conseiller ? formatNomConseiller(conseiller) : ''}
           {conseiller?.miseEnRelation?.contratCoordinateur &&
             <img
-              data-tooltip-content="Conseiller numérique coordinateur"
+              data-tooltip-content="Conseiller numérique Coordinateur"
               data-tooltip-id="tooltip-coordinateur-candidat"
               data-tooltip-float="true"
               className={`fr-ml-2w ${conseiller ? '' : 'fr-hidden'}`}

@@ -51,7 +51,7 @@ function Contrat({ contrat }) {
             {contrat?.contratCoordinateur &&
               <>
                 <div
-                  data-tooltip-content="Conseiller numérique coordinateur"
+                  data-tooltip-content="Conseiller numérique Coordinateur"
                   data-tooltip-float="true"
                   data-tooltip-id={`tooltip-coordinateur-candidat${contrat?.structureObj?.idPG}`}
                 >

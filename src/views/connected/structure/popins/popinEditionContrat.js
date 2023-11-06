@@ -265,7 +265,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                       type="checkbox"
                     />
                     <label className="fr-label" htmlFor="checkboxe-recrutement-coordinateur">
-                      Ce contrat concerne un Conseiller num&eacute;rique coordinateur
+                      Ce contrat concerne un Conseiller num&eacute;rique Coordinateur
                     </label>
                   </div>
                 }
