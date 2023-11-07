@@ -23,7 +23,7 @@ import { alerteEtSpinnerActions } from '../../../actions';
 export default function Structure() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const displayBanner = useSelector(state => state.authentication?.user?.displayBannerPosteCoordinateurStructure);
+  const displayBannerValidationPosteCoordinateur = useSelector(state => state.authentication?.user?.displayBannerPosteCoordinateurStructure);
   const loadingBannerCoordinateur = useSelector(state => state.coordinateur?.loading);
   const idDemandeCoordinateur = useSelector(state => state.coordinateur?.idDemandeCoordinateur);
   const errorCoordinateur = useSelector(state => state.coordinateur?.error);
@@ -58,10 +58,10 @@ export default function Structure() {
             return (<DeniedNewPosteCoordinateurBanner key={idx} idDemandeCoordinateur={coordinateur.id} idStructure={idStructure} />);
           })
           }
-          {displayBanner &&
+          {displayBannerValidationPosteCoordinateur &&
             <ValidatedNewPosteCoordinateurBanner />
           }
-          <div className={`fr-grid-row fr-grid-row--center ${displayBanner ? 'fr-my-10w' : 'fr-my-15w'}`}>
+          <div className={`fr-grid-row fr-grid-row--center ${displayBannerValidationPosteCoordinateur ? 'fr-my-10w' : 'fr-my-15w'}`}>
             <div className="fr-col--offset-1 fr-col-10">
 
               <h3>Bienvenue sur votre tableau de pilotage,</h3>
