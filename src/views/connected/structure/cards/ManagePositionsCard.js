@@ -156,7 +156,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                       Rendre un poste
                     </button>
                   </li>
-                  {structure?.conventionnement?.statut !== StatutConventionnement.CONVENTIONNEMENT_VALIDÉ_PHASE_2 &&
+                  {(structure?.conventionnement?.dossierReconventionnement?.numero || !isReconventionnement) &&
                     <li className="fr-ml-auto">
                       <a
                         href={urlDossier}
