@@ -27,6 +27,7 @@ export default function TableauCoordinateurs() {
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const exportCandidaturesCoordinateursFileBlob = useSelector(state => state.exports);
   const exportCandidaturesCoordinateursFileError = useSelector(state => state.exports?.error);
+  const loadingExport = useSelector(state => state.exports?.loading);
 
   const [initDemandeCoordinateur, setInitDemandeCoordinateur] = useState(false);
   const [statutDemande, setStatutDemande] = useState('toutes');
@@ -114,7 +115,7 @@ export default function TableauCoordinateurs() {
 
   return (
     <div className="conventions">
-      <Spinner loading={loading} />
+      <Spinner loading={loading || loadingExport} />
       {demandesCoordinateurWithBanner?.length > 0 && demandesCoordinateurWithBanner?.map((coordinateur, idx) => {
         return (<BannerConfirmationAttributionPoste key={idx} coordinateur={coordinateur} />);
       })
