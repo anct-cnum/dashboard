@@ -22,7 +22,7 @@ function Conseiller({ conseiller }) {
         <td style={{ width: '27rem' }}>{conseiller?.nomStructure}</td>
         <td>
           <svg height="80" width="40">
-            <circle cx="10" cy="43" r="8" fill={`${conseiller?.compteCoopActiver ? '#18753C' : '#B34000'}`} />
+            <circle cx="10" cy="43" r="8" fill={`${conseiller?.compteCoopActif ? '#18753C' : '#B34000'}`} />
           </svg>
         </td>
         <td className="center-text">
