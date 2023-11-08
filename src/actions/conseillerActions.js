@@ -20,7 +20,6 @@ export const conseillerActions = {
   suppressionCandidat,
   getCandidatStructure,
   getCandidatureConseillerStructure,
-  resendInvitConseiller,
 };
 
 function get(id) {
@@ -483,27 +482,5 @@ function dossierIncompletRupture(id, dateFinDeContrat) {
   }
   function failure(error) {
     return { type: 'DOSSIER_INCOMPLET_RUPTURE_FAILURE', error };
-  }
-}
-
-function resendInvitConseiller(id) {
-  return dispatch => {
-    dispatch(request());
-
-    conseillerService.resendInvitConseiller(id)
-    .then(
-      successRelanceInvitation => dispatch(success(successRelanceInvitation)),
-      error => dispatch(failure(error))
-    );
-  };
-
-  function request() {
-    return { type: 'RESUBMIT_INVITATION_CONSEILLER_REQUEST' };
-  }
-  function success(successRelanceInvitation) {
-    return { type: 'RESUBMIT_INVITATION_CONSEILLER_SUCCESS', successRelanceInvitation };
-  }
-  function failure(error) {
-    return { type: 'RESUBMIT_INVITATION_CONSEILLER_FAILURE', error };
   }
 }

@@ -20,7 +20,6 @@ export const conseillerService = {
   validationRupture,
   dossierIncompletRupture,
   resendInvitCandidat,
-  resendInvitConseiller,
   suppressionCandidat,
   getCandidatStructure,
   getCandidatureConseillerStructure,
@@ -64,12 +63,6 @@ function getCandidatureConseillerStructure(id) {
 
 function resendInvitCandidat(id) {
   return API.post(`${apiUrlRoot}/candidat/relance-invitation/${id}?role=${roleActivated()}`)
-  .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
-}
-
-function resendInvitConseiller(id) {
-  return API.post(`${apiUrlRoot}/conseiller/relance-invitation/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
