@@ -12,6 +12,7 @@ export const structureActions = {
   hiddenMessageError,
   createAvenant,
   closeBanner,
+  addCoordinateur,
 };
 
 // eslint-disable-next-line max-len
@@ -246,5 +247,29 @@ function closeBanner(type, id) {
   }
   function failure(error) {
     return { type: 'CLOSE_BANNER_FAILURE', error };
+  }
+}
+
+function addCoordinateur(structureId, conseillerId) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.addCoordinateur(structureId, conseillerId)
+    .then(
+      conseillerId => dispatch(success(conseillerId)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'ADD_ROLE_COORDINATEUR_REQUEST' };
+  }
+  function success(conseillerId) {
+    return { type: 'ADD_ROLE_COORDINATEUR_SUCCESS', conseillerId };
+  }
+  function failure(error) {
+    return { type: 'ADD_ROLE_COORDINATEUR_FAILURE', error };
   }
 }

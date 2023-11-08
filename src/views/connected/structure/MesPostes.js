@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PopinAnnulationReConvention from './popins/popinAnnulationReConvention';
 import PopinEditionContrat from './popins/popinEditionContrat';
-import { ManagePositionsCard, HireAdvisorCard } from './cards';
+import { ManagePositionsCard, HireAdvisorCard, HireCoordinatorCard } from './cards';
 import Spinner from '../../../components/Spinner';
 import {
   structureActions,
@@ -49,6 +49,10 @@ function MesPostes() {
   } = useAdvisors();
   const { handleErrors } = useErrors([errorStructure, errorMisesEnRelation]);
   const { structure, openModal, setOpenModal } = useStructure();
+  const countDemandesCoordinateurValide =
+  structure?.demandesCoordinateur?.filter(
+    demandeCoordinateur => demandeCoordinateur.statut === 'validee',
+  ).length;
 
   useEffect(() => {
     if (structure?._id) {
@@ -130,6 +134,13 @@ function MesPostes() {
               nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
               structure={structure}
             />
+            {countDemandesCoordinateurValide > 0 &&
+             <HireCoordinatorCard
+               conseillersActifsEtRenouveller={conseillersActifsEtRenouveller.length}
+               nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
+               conseillersActifs={conseillersActifs}
+               structure={structure}
+             />}
             {
               conseillersARenouveler?.length > 0 &&
               <RenewAdvisorsSection

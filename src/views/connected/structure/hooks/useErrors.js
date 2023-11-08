@@ -8,25 +8,15 @@ export function useErrors() {
   const errorMisesEnRelation = useSelector(state => state?.misesEnRelation?.error);
   const errorStructure = useSelector(state => state?.structure?.error);
 
-  const errorMessages = {
-    errorStructure: 'La structure n\'a pas pu être chargée !',
-    errorMisesEnRelation: 'Les mises en relation n\'ont pas pu être chargées !',
-  };
-
-  const getErrorMessage = detectedError => {
-    return errorMessages[detectedError];
-  };
-
   useEffect(() => {
-    const errors = [errorStructure, errorMisesEnRelation];
-    const detectedErrors = errors.filter(error => error !== false);
-
-    if (detectedErrors.length > 0) {
+    if (errorStructure || errorMisesEnRelation) {
       scrollTopWindow();
+      const errorMessage = errorMisesEnRelation || errorStructure;
+
       dispatch(
         alerteEtSpinnerActions.getMessageAlerte({
           type: 'error',
-          message: getErrorMessage(detectedErrors[0]),
+          message: errorMessage,
           status: null,
           description: null,
         })
@@ -34,7 +24,14 @@ export function useErrors() {
     }
   }, [errorMisesEnRelation, errorStructure, dispatch]);
 
+  const handleErrors = () => {
+    if (errorStructure || errorMisesEnRelation) {
+      return errorMisesEnRelation || errorStructure;
+    }
+    return null;
+  };
+
   return {
-    handleErrors: getErrorMessage,
+    handleErrors: handleErrors,
   };
 }

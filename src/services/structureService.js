@@ -13,6 +13,7 @@ export const structureService = {
   verifyStructureSiret,
   createAvenant,
   closeBanner,
+  addCoordinateur,
 };
 
 function get(id) {
@@ -78,6 +79,12 @@ function createAvenant(type, id, nombreDePostes, motif, autreMotif = '') {
 
 function closeBanner(type, id) {
   return API.patch(`${apiUrlRoot}/banniere/${id}?type=${type}&role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function addCoordinateur(structureId, conseillerId) {
+  return API.patch(`${apiUrlRoot}/structure/add-role-coordinateur/${structureId}?role=${roleActivated()}`, { conseillerId })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
