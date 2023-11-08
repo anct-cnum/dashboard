@@ -135,7 +135,7 @@ function CoordinateurDetails() {
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => {
+                  <button disabled onClick={() => {
                     setTypeAttribution('valider');
                     setOpenModalAttributionPoste(true);
                   }}
