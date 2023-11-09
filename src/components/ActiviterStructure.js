@@ -13,7 +13,7 @@ function ActiviterStructure({ structure, roleActivated }) {
         </div>
       </div>
       <div className="fr-grid-row fr-col-12">
-        {structure?.conventionnement.statut !== StatutConventionnement.CONVENTIONNEMENT_VALIDÉ_PHASE_2 &&
+        {structure?.conventionnement?.statut !== StatutConventionnement.CONVENTIONNEMENT_VALIDÉ_PHASE_2 &&
           <div className="fr-col-6">
             <h4 className="titre">Conventionnement phase 1</h4>
             <div className="fr-mb-3w">
