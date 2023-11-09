@@ -115,7 +115,7 @@ function ConseillerDetails() {
           <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
         </div>
         <div className="fr-col-md-4 fr-col-sm-6 fr-col-12 btn-invitation">
-          {conseiller?.emailCN?.address && conseiller?.mattermost?.id &&
+          {conseiller?.emailCN?.address && !conseiller?.mattermost?.id &&
             <button
               className="fr-btn "
               title="Inviter &agrave; rejoindre l&rsquo;espace Coop"
