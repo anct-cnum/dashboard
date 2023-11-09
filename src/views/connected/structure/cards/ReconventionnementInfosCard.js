@@ -5,10 +5,11 @@ import dayjs from 'dayjs';
 import PopinGestionPostes from '../popins/popinGestionPostes';
 import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import { PhaseConventionnement, StatutConventionnement } from '../../../../utils/enumUtils';
-import { displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
+import { checkStructurePhase2, displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
 
-const ReconventionnementInfosCard = ({ structure }) => {
+const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreConseillersRenouveler, nbreConseillersEnCoursDeRecrutement }) => {
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
+  const nbConseillerActifTotal = nbreConseillersActifs + nbreConseillersRenouveler + nbreConseillersEnCoursDeRecrutement;
 
   const displayBadge = () => {
     if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ) {
@@ -23,12 +24,12 @@ const ReconventionnementInfosCard = ({ structure }) => {
 
   function isRemoveButtonDisabled(structure) {
     return (structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut === 'en_cours') ||
-      structure?.conventionnement?.statut !== StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+      !checkStructurePhase2(structure?.conventionnement?.statut);
   }
 
   function isAddButtonDisabled(structure) {
     return structure?.demandesCoselec?.length > 0 &&
-     structure?.lastDemandeCoselec?.statut === 'en_cours';
+      structure?.lastDemandeCoselec?.statut === 'en_cours';
   }
 
   return (
@@ -50,24 +51,26 @@ const ReconventionnementInfosCard = ({ structure }) => {
             <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
               structure?.conventionnement?.dossierReconventionnement?.dateDeCreation ?
                 <span>
-              le&nbsp;{dayjs(structure?.conventionnement?.dossierReconventionnement?.dateDeCreation).format('DD/MM/YYYY')}
+                  le&nbsp;{dayjs(structure?.conventionnement?.dossierReconventionnement?.dateDeCreation).format('DD/MM/YYYY')}
                 </span> :
                 <span>
-              date inconnue
+                  date inconnue
                 </span>
             }</p>
-            <div className="fr-card__desc">
-              <p className="fr-text--md">
-                Nombre de
-                {pluralize(
-                  ' poste demandé',
-                  ' poste demandé',
-                  ' postes demandés',
-                  structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
-                )}
-                &nbsp;:&nbsp;{ structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees }
-              </p>
-            </div>
+            {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
+              <div className="fr-card__desc">
+                <p className="fr-text--md">
+                  Nombre de
+                  {pluralize(
+                    ' poste demandé',
+                    ' poste demandé',
+                    ' postes demandés',
+                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
+                  )}
+                  &nbsp;:&nbsp;{structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees}
+                </p>
+              </div>
+            }
             <div className="fr-card__desc">
               <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }}>
                 {
@@ -93,34 +96,34 @@ const ReconventionnementInfosCard = ({ structure }) => {
               </p>
               {
                 structure?.demandesCoselec?.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_2) &&
-             <>
-               <div className="fr-col-12 fr-mt-1w">
-                 <hr style={{ borderWidth: '0.5px' }} />
-               </div>
-               {
-                 structure?.demandesCoselec
-                 .filter(demande => demande?.phaseConventionnement === PhaseConventionnement.PHASE_2)
-                 .map((demande, idx) => (
-                   <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }} key={idx}>
-                      Avenant - {
-                       displayNombreDePostes(demande)
-                     } {pluralize(
-                       'poste de conseiller',
-                       'poste de conseiller',
-                       'postes de conseillers',
-                       getNombreDePostes(demande)
-                     )} {' '}
-                     <span className="fr-text--regular fr-text--md">
-                       {displayStatutRequestText(demande)} {' '}{' '}
-                   le {structure?.lastDemandeCoselec?.emetteurAvenant?.date ?
-                         dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date).format('DD/MM/YYYY') : 'Non renseignée'}
-                     </span>
-                   </p>
-                 )) }
-               <div className="fr-col-12 fr-my-1w">
-                 <hr style={{ borderWidth: '0.5px' }} />
-               </div>
-             </>
+                <>
+                  <div className="fr-col-12 fr-mt-1w">
+                    <hr style={{ borderWidth: '0.5px' }} />
+                  </div>
+                  {
+                    structure?.demandesCoselec
+                    .filter(demande => demande?.phaseConventionnement === PhaseConventionnement.PHASE_2)
+                    .map((demande, idx) => (
+                      <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }} key={idx}>
+                          Avenant - {
+                          displayNombreDePostes(demande)
+                        } {pluralize(
+                          'poste de conseiller',
+                          'poste de conseiller',
+                          'postes de conseillers',
+                          getNombreDePostes(demande)
+                        )} {' '}
+                        <span className="fr-text--regular fr-text--md">
+                          {displayStatutRequestText(demande)} {' '}{' '}
+                            le {structure?.lastDemandeCoselec?.emetteurAvenant?.date ?
+                            dayjs(structure?.lastDemandeCoselec?.emetteurAvenant?.date).format('DD/MM/YYYY') : 'Non renseignée'}
+                        </span>
+                      </p>
+                    ))}
+                  <div className="fr-col-12 fr-my-1w">
+                    <hr style={{ borderWidth: '0.5px' }} />
+                  </div>
+                </>
               }
               <div>
                 <ul className="fr-btns-group fr-btns-group--inline-md">
@@ -130,29 +133,31 @@ const ReconventionnementInfosCard = ({ structure }) => {
                       onClick={() => {
                         handlePopin('add', 1);
                       }}>
-                    Ajouter un poste
+                      Ajouter un poste
                     </button>
                   </li>
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={isRemoveButtonDisabled(structure)}
+                      disabled={isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}
                       onClick={() => {
                         handlePopin('remove', 1);
                       }}>
-                    Rendre un poste
+                      Rendre un poste
                     </button>
                   </li>
-                  <li className="fr-ml-auto">
-                    <a
-                      href={structure?.urlDossierReconventionnement}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="fr-btn"
-                    >
-                      <i className="ri-folder-2-line fr-mr-1w"></i>
-                      Voir le dossier D&eacute;marche Simplifi&eacute;e
-                    </a>
-                  </li>
+                  {structure?.conventionnement?.dossierReconventionnement?.numero &&
+                    <li className="fr-ml-auto">
+                      <a
+                        href={structure?.urlDossierReconventionnement}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="fr-btn"
+                      >
+                        <i className="ri-folder-2-line fr-mr-1w"></i>
+                        Voir le dossier D&eacute;marche Simplifi&eacute;e
+                      </a>
+                    </li>
+                  }
                 </ul>
               </div>
             </div>
@@ -165,6 +170,9 @@ const ReconventionnementInfosCard = ({ structure }) => {
 
 ReconventionnementInfosCard.propTypes = {
   structure: PropTypes.object,
+  nbreConseillersActifs: PropTypes.number,
+  nbreConseillersRenouveler: PropTypes.number,
+  nbreConseillersEnCoursDeRecrutement: PropTypes.number,
 };
 
 export default ReconventionnementInfosCard;
