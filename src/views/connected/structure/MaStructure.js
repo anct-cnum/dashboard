@@ -16,6 +16,7 @@ import {
 import PopinFormulaireInvitation from './popins/popinFormulaireInvitation';
 import { checkStructurePhase2 } from './utils/functionUtils';
 import { StatutConventionnement } from '../../../utils/enumUtils';
+import { useAdvisors } from './hooks/useAdvisors';
 
 function MaStructure() {
   const dispatch = useDispatch();
@@ -38,6 +39,11 @@ function MaStructure() {
   const errorUsers = useSelector(state => state.user?.error);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const [initStructure, setInitStructure] = useState(false);
+  const {
+    conseillersActifs,
+    conseillersARenouveler,
+    conseillersEnCoursDeRecrutement,
+  } = useAdvisors();
 
   useEffect(() => {
     if (!errorStructure && !initStructure) {
@@ -125,10 +131,15 @@ function MaStructure() {
         </div>
         <h2>Activit&eacute;</h2>
         {checkStructurePhase2(structure?.conventionnement?.statut) &&
-          <ReconventionnementInfosCard structure={structure}/>
+          <ReconventionnementInfosCard
+            structure={structure}
+            nbreConseillersActifs={conseillersActifs.length}
+            nbreConseillersRenouveler={conseillersARenouveler.length}
+            nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
+          />
         }
         {structure?.conventionnement?.statut !== StatutConventionnement.CONVENTIONNEMENT_VALIDÉ_PHASE_2 &&
-          <ConventionnementInfosCard structure={structure} roleActivated={roleActivated}/>
+          <ConventionnementInfosCard structure={structure} roleActivated={roleActivated} />
         }
         <h2>Accompagnements</h2>
         <AccompagnementsCard structure={structure} />

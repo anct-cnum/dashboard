@@ -7,8 +7,9 @@ import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import { PhaseConventionnement, StatutConventionnement } from '../../../../utils/enumUtils';
 import { checkStructurePhase2, displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
 
-const ReconventionnementInfosCard = ({ structure }) => {
+const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreConseillersRenouveler, nbreConseillersEnCoursDeRecrutement }) => {
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
+  const nbConseillerActifTotal = nbreConseillersActifs + nbreConseillersRenouveler + nbreConseillersEnCoursDeRecrutement;
 
   const displayBadge = () => {
     if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ) {
@@ -137,7 +138,7 @@ const ReconventionnementInfosCard = ({ structure }) => {
                   </li>
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={isRemoveButtonDisabled(structure)}
+                      disabled={isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}
                       onClick={() => {
                         handlePopin('remove', 1);
                       }}>
@@ -169,6 +170,9 @@ const ReconventionnementInfosCard = ({ structure }) => {
 
 ReconventionnementInfosCard.propTypes = {
   structure: PropTypes.object,
+  nbreConseillersActifs: PropTypes.number,
+  nbreConseillersRenouveler: PropTypes.number,
+  nbreConseillersEnCoursDeRecrutement: PropTypes.number,
 };
 
 export default ReconventionnementInfosCard;
