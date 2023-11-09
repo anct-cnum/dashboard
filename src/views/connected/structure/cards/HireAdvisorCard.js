@@ -12,7 +12,7 @@ const HireAdvisorCard = ({ conseillersActifsEtRenouveller, nbreConseillersEnCour
           <div className="fr-grid-row responsive__card" style={{ alignItems: 'center' }}>
             <div className="fr-col-6 card__text">
               <div>
-                <span className="fr-text--md fr-text--bold">{`${nbConseillerActifTotal}/${structure?.posteValiderCoselec}`}</span>
+                <span className="fr-text--md fr-text--bold">{`${nbConseillerActifTotal}/${structure?.posteValiderCoselec ?? 0}`}</span>
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
                   {''}{' '}
                   {pluralize('Poste de conseiller actif', 'Poste de conseiller actif', 'Postes de conseiller actifs', nbConseillerActifTotal)}

@@ -2,7 +2,7 @@
 import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { conseillerQueryStringParameters, territoireQueryString, structureQueryStringParameters, gestionnairesQueryStringParameters, statsCsvQueryStringParameters, conventionQueryStringParameters, contratQueryStringParameters } from '../utils/queryUtils';
+import { conseillerQueryStringParameters, territoireQueryString, structureQueryStringParameters, gestionnairesQueryStringParameters, statsCsvQueryStringParameters, conventionQueryStringParameters, contratQueryStringParameters, demandesCoordinateurQueryStringParameters } from '../utils/queryUtils';
 
 export const exportsService = {
   getFile,
@@ -14,6 +14,7 @@ export const exportsService = {
   getExportDonneesGestionnaires,
   getExportDonneesHistoriqueDossiersConvention,
   getExportDonneesHistoriqueContrat,
+  getExportCandidaturesCoordinateurs,
 };
 
 function getFile(name, collection) {
@@ -136,6 +137,19 @@ function getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, fi
     filterByDepartement
   } = contratQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, ordreNom, ordre);
   return API.get(`${apiUrlRoot}/exports/historique-contrats-csv?role=${roleActivated()}&statut=${statutContrat}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function getExportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
+  const {
+    ordreColonne,
+    filterByName,
+    filterByRegion,
+    filterByDepartement,
+    filterByAvisPrefet,
+  } = demandesCoordinateurQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
+  return API.get(`${apiUrlRoot}/exports/candidatures-coordinateurs-csv?role=${roleActivated()}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

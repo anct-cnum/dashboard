@@ -8,6 +8,7 @@ export const coordinateurService = {
   getDemandeCoordinateur,
   confirmationAvisPrefet,
   confirmationRefusAvisAdmin,
+  confirmationValidAvisAdmin,
   closeBanner,
 };
 
@@ -40,6 +41,12 @@ function confirmationAvisPrefet(idStructure, avisPrefet, idDemandeCoordinateur, 
 
 function confirmationRefusAvisAdmin(idStructure, idDemandeCoordinateur) {
   return API.patch(`${apiUrlRoot}/avis/admin/refus/coordinateur/${idStructure}?role=${roleActivated()}`, { idDemandeCoordinateur })
+  .then(response => response.data)
+  .catch(error => Promise.reject(error.response.data.message));
+}
+
+function confirmationValidAvisAdmin(idStructure, idDemandeCoordinateur) {
+  return API.patch(`${apiUrlRoot}/avis/admin/valid/coordinateur/${idStructure}?role=${roleActivated()}`, { idDemandeCoordinateur })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

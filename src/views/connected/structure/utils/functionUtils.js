@@ -1,12 +1,13 @@
+import { StatutConventionnement } from '../../../../utils/enumUtils';
 import { pluralize } from '../../../../utils/formatagesUtils';
 
 export function getNombreDePostes(demandesCoselec) {
   if (!demandesCoselec) {
     return '-';
   }
-  
+
   const { type, statut, nombreDePostesRendus, nombreDePostesAccordes, nombreDePostesSouhaites } = demandesCoselec;
-  
+
   switch (type) {
     case 'retrait':
       return nombreDePostesRendus;
@@ -27,9 +28,9 @@ export function displayNombreDePostes(demandesCoselec) {
   if (!demandesCoselec) {
     return '-';
   }
-  
+
   const { type, statut, nombreDePostesRendus, nombreDePostesAccordes, nombreDePostesSouhaites } = demandesCoselec;
-  
+
   switch (type) {
     case 'retrait':
       return nombreDePostesRendus;
@@ -49,7 +50,7 @@ export function displayNombreDePostes(demandesCoselec) {
 export const displayStatutRequestText = demandesCoselec => {
   const { type, statut, nombreDePostesSouhaites, nombreDePostesAccordes, nombreDePostesRendus } =
   demandesCoselec || {};
-  
+
   switch (type) {
     case 'ajout':
       switch (statut) {
@@ -69,3 +70,14 @@ export const displayStatutRequestText = demandesCoselec => {
       break;
   }
 };
+
+export const checkStructurePhase2 = statut => {
+  if (statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) {
+    return true;
+  }
+  if (statut === StatutConventionnement.CONVENTIONNEMENT_VALIDÉ_PHASE_2) {
+    return true;
+  }
+  return false;
+};
+

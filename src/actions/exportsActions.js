@@ -15,6 +15,7 @@ export const exportsActions = {
   exportDonneesGestionnaires,
   exportDonneesHistoriqueDossiersConvention,
   exportDonneesHistoriqueContrat,
+  exportCandidaturesCoordinateurs,
 };
 
 function exportFile(nameFile, collection = 'exports', hubName) {
@@ -221,5 +222,25 @@ function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtr
   }
   function failure(error) {
     return { type: 'EXPORT_HISTORIQUE_CONTRAT_FAILURE', error };
+  }
+}
+
+function exportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'dateCandidature', ordre = 1) {
+  return async dispatch => {
+    dispatch(request());
+    await exportsService.getExportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre)
+    .then(exportCandidaturesCoordinateursFileBlob => dispatch(success(exportCandidaturesCoordinateursFileBlob)))
+    .catch(exportCandidaturesCoordinateursFileError => dispatch(failure(exportCandidaturesCoordinateursFileError)));
+  };
+
+  function request() {
+    return { type: 'EXPORT_CANDIDATURES_COORDINATEURS_REQUEST' };
+  }
+  function success(exportCandidaturesCoordinateursFileBlob) {
+    const nameFile = `candidats-coordinateurs`;
+    return { type: 'EXPORT_CANDIDATURES_COORDINATEURS_SUCCESS', exportCandidaturesCoordinateursFileBlob, nameFile };
+  }
+  function failure(error) {
+    return { type: 'EXPORT_CANDIDATURES_COORDINATEURS_FAILURE', error };
   }
 }

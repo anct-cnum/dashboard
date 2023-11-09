@@ -123,13 +123,13 @@ function MesPostes() {
           nbreConseillersRenouveler={conseillersARenouveler.length}
           nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
         />
+        <HireAdvisorCard
+          conseillersActifsEtRenouveller={conseillersActifsEtRenouveller.length}
+          nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
+          structure={structure}
+        />
         {misesEnRelation?.length > 0 && (
           <>
-            <HireAdvisorCard
-              conseillersActifsEtRenouveller={conseillersActifsEtRenouveller.length}
-              nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
-              structure={structure}
-            />
             {
               conseillersARenouveler?.length > 0 &&
               <RenewAdvisorsSection
@@ -159,11 +159,11 @@ function MesPostes() {
             }
             {
               conseillersEnCoursDeRecrutement?.length > 0 &&
-              <HiringInProgressAdvisorsSection conseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement}/>
+              <HiringInProgressAdvisorsSection conseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement} />
             }
             {
               anciensConseillers?.length > 0 &&
-            <InactiveAdvisorsSection anciensConseillers={anciensConseillers}/>
+              <InactiveAdvisorsSection anciensConseillers={anciensConseillers} />
             }
           </>
         )}
