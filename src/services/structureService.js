@@ -13,7 +13,7 @@ export const structureService = {
   verifyStructureSiret,
   createAvenant,
   closeBanner,
-  addCoordinateur,
+  addRoleCoordinateur,
 };
 
 function get(id) {
@@ -83,7 +83,7 @@ function closeBanner(type, id) {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function addCoordinateur(structureId, conseillerId) {
+function addRoleCoordinateur(structureId, conseillerId) {
   return API.patch(`${apiUrlRoot}/structure/add-role-coordinateur/${structureId}?role=${roleActivated()}`, { conseillerId })
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));

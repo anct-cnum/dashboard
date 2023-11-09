@@ -12,7 +12,7 @@ export const structureActions = {
   hiddenMessageError,
   createAvenant,
   closeBanner,
-  addCoordinateur,
+  addRoleCoordinateur,
 };
 
 // eslint-disable-next-line max-len
@@ -250,11 +250,11 @@ function closeBanner(type, id) {
   }
 }
 
-function addCoordinateur(structureId, conseillerId) {
+function addRoleCoordinateur(structureId, conseillerId) {
   return dispatch => {
     dispatch(request());
 
-    structureService.addCoordinateur(structureId, conseillerId)
+    structureService.addRoleCoordinateur(structureId, conseillerId)
     .then(
       conseillerId => dispatch(success(conseillerId)),
       error => {

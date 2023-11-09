@@ -9,11 +9,11 @@ const HireCoordinatorCard = ({ structure, conseillersActifs }) => {
 
   const isReconventionnementValide = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
 
-  const filterActiveAdvisors = conseiller => {
+  const filterActiveAdvisors = contrat => {
     if (isReconventionnementValide) {
       return (
-        (!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && conseiller?.phaseConventionnement && conseiller?.statut === 'finalisee') ||
-        (validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat))
+        (!validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) && contrat?.phaseConventionnement && contrat?.statut === 'finalisee') ||
+        (validTypeDeContratWithoutEndDate(contrat?.typeDeContrat))
       );
     }
 
@@ -45,12 +45,17 @@ const HireCoordinatorCard = ({ structure, conseillersActifs }) => {
                 <span className="fr-text--md fr-text--bold">{`${nbConseillersCoordo}/${nbPostesCoordoDisponible}`}</span>
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
                   {''}{' '}
-                  {pluralize('Rôle de coordinateur actif', 'Rôle de coordinateur actif', 'Rôles de coordinateurs actifs', nbConseillersCoordo)}
+                  {
+                    pluralize('Rôle de coordinateur actif',
+                      'Rôle de coordinateur actif',
+                      'Rôle de coordinateurs actifs',
+                      nbConseillersCoordo)
+                  }
                 </span>
               </div>
             </div>
             <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
-              <button disabled={nbPostesCoordoDisponible === nbConseillersCoordo} className="fr-btn" onClick={() => setOpenModal(true)}>
+              <button disabled={nbPostesCoordoDisponible <= nbConseillersCoordo} className="fr-btn" onClick={() => setOpenModal(true)}>
                   Attribuer un r&ocirc;le de coordinateur
               </button>
             </div>

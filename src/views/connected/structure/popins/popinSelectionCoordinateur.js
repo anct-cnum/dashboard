@@ -14,7 +14,7 @@ function popinSelectionCoordinateur({
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    dispatch(structureActions.addCoordinateur(structure._id, selectedConseiller));
+    dispatch(structureActions.addRoleCoordinateur(structure._id, selectedConseiller));
     setOpenModal(false);
   };
 
@@ -45,7 +45,7 @@ function popinSelectionCoordinateur({
                 </h1>
                 <div className="fr-select-group" style={{ height: '130px' }}>
                   <label className="fr-label" htmlFor="select" style={{ textAlign: 'center' }}>
-                  S&eacute;lectionnez un conseiller &agrave; qui vous souhaitez attribuer attribuer le r&ocirc;le de coordinateur
+                  S&eacute;lectionnez un conseiller &agrave; qui vous souhaitez attribuer le r&ocirc;le de coordinateur
                   </label>
                   <select className="fr-select" id="select" name="select" onChange={
                     e => {
