@@ -179,6 +179,26 @@ export default function exports(state = initialState, action) {
         error: action.error,
         loading: false,
       };
+    case 'EXPORT_CANDIDATURES_COORDINATEURS_REQUEST':
+      return {
+        ...state,
+        blob: null,
+        loading: true,
+        error: false,
+      };
+    case 'EXPORT_CANDIDATURES_COORDINATEURS_SUCCESS':
+      return {
+        ...state,
+        blob: action.exportCandidaturesCoordinateursFileBlob,
+        nameFile: action.nameFile,
+        loading: false,
+      };
+    case 'EXPORT_CANDIDATURES_COORDINATEURS_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
     default:
       return state;
   }

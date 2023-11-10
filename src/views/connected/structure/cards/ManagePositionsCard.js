@@ -6,11 +6,11 @@ import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils
 import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import PopinGestionPostes from '../popins/popinGestionPostes';
 import { PhaseConventionnement, StatutConventionnement } from '../../../../utils/enumUtils';
-import { displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
+import { checkStructurePhase2, displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
 
 const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersActifs, nbreConseillersEnCoursDeRecrutement, nbreConseillersRenouveler }) => {
 
-  const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+  const isReconventionnement = checkStructurePhase2(structure?.conventionnement?.statut);
   const dossier = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement :
     structure?.conventionnement?.dossierConventionnement;
   const nbConseillerActifTotal = nbreConseillersActifs + nbreConseillersRenouveler + nbreConseillersEnCoursDeRecrutement;
@@ -40,18 +40,20 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
           <div className="fr-card__content">
             <div className="fr-grid-row fr-grid-row--middle">
               <h4 className="fr-grid-row fr-grid-row--middle">{phase}</h4>
-              {isReconventionnement && <p className="fr-badge fr-badge--warning fr-ml-auto">
-                {
-                  calcNbJoursAvantDateFinContrat(dossier?.dateFinProchainContrat) > 0 ?
-                    calcNbJoursAvantDateFinContrat(dossier?.dateFinProchainContrat) : ''
-                }
-                {pluralize(
-                  'La date de fin du premier contrat est dépassée',
-                  ' jour restant avant la fin du premier contrat',
-                  ' jours restants avant la fin du premier contrat',
-                  calcNbJoursAvantDateFinContrat(dossier?.dateFinProchainContrat)
-                )}
-              </p>}
+              {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
+                <p className="fr-badge fr-badge--warning fr-ml-auto">
+                  {
+                    calcNbJoursAvantDateFinContrat(dossier?.dateFinProchainContrat) > 0 ?
+                      calcNbJoursAvantDateFinContrat(dossier?.dateFinProchainContrat) : ''
+                  }
+                  {pluralize(
+                    'La date de fin du premier contrat est dépassée',
+                    ' jour restant avant la fin du premier contrat',
+                    ' jours restants avant la fin du premier contrat',
+                    calcNbJoursAvantDateFinContrat(dossier?.dateFinProchainContrat)
+                  )}
+                </p>
+              }
             </div>
             <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
               dossier?.dateDeCreation ?
@@ -62,7 +64,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                   date inconnue
                 </span>
             }</p>
-            {isReconventionnement &&
+            {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
               <div className="fr-card__desc">
                 <p className="fr-text--md">
                   Nombre de
@@ -72,7 +74,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                     ' postes demandés',
                     dossier?.nbPostesAttribuees
                   )}
-                  &nbsp;:&nbsp;{ dossier?.nbPostesAttribuees }
+                  &nbsp;:&nbsp;{dossier?.nbPostesAttribuees}
                 </p>
               </div>
             }
@@ -101,36 +103,36 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                 (isReconventionnement && structure?.demandesCoselec?.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_2)) ||
                 (!isReconventionnement && structure?.demandesCoselec?.some(demande => demande.phaseConventionnement === PhaseConventionnement.PHASE_1))
               ) &&
-             <>
-               <div className="fr-col-12 fr-mt-1w">
-                 <hr style={{ borderWidth: '0.5px' }} />
-               </div>
-               {
-                 structure?.demandesCoselec
-                 .filter(demande => isReconventionnement ?
-                   demande?.phaseConventionnement === PhaseConventionnement.PHASE_2 :
-                   demande?.phaseConventionnement === PhaseConventionnement.PHASE_1)
-                 .map((demande, idx) => (
-                   <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }} key={idx}>
-                      Avenant - {
-                       displayNombreDePostes(demande)
-                     } {pluralize(
-                       'poste de conseiller',
-                       'poste de conseiller',
-                       'postes de conseillers',
-                       getNombreDePostes(demande)
-                     )} {' '}
-                     <span className="fr-text--regular fr-text--md">
-                       {displayStatutRequestText(demande)} {' '}{' '}
-                   le {dayjs(demande?.emetteurAvenant?.date).format('DD/MM/YYYY')}
-                     </span>
-                   </p>
-                 ))
-               }
-               <div className="fr-col-12 fr-my-1w">
-                 <hr style={{ borderWidth: '0.5px' }} />
-               </div>
-             </>
+                <>
+                  <div className="fr-col-12 fr-mt-1w">
+                    <hr style={{ borderWidth: '0.5px' }} />
+                  </div>
+                  {
+                    structure?.demandesCoselec
+                    .filter(demande => isReconventionnement ?
+                      demande?.phaseConventionnement === PhaseConventionnement.PHASE_2 :
+                      demande?.phaseConventionnement === PhaseConventionnement.PHASE_1)
+                    .map((demande, idx) => (
+                      <p className="fr-text--md fr-text--bold" style={{ color: '#000091' }} key={idx}>
+                          Avenant - {
+                          displayNombreDePostes(demande)
+                        } {pluralize(
+                          'poste de conseiller',
+                          'poste de conseiller',
+                          'postes de conseillers',
+                          getNombreDePostes(demande)
+                        )} {' '}
+                        <span className="fr-text--regular fr-text--md">
+                          {displayStatutRequestText(demande)} {' '}{' '}
+                            le {dayjs(demande?.emetteurAvenant?.date).format('DD/MM/YYYY')}
+                        </span>
+                      </p>
+                    ))
+                  }
+                  <div className="fr-col-12 fr-my-1w">
+                    <hr style={{ borderWidth: '0.5px' }} />
+                  </div>
+                </>
               }
               <div>
                 <ul className="fr-btns-group fr-btns-group--inline-md">
@@ -141,7 +143,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                         onClick={() => {
                           handlePopin('add', 1);
                         }}>
-                    Ajouter un poste
+                        Ajouter un poste
                       </button>
                     </li>
                   }
@@ -151,20 +153,22 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                       onClick={() => {
                         handlePopin('remove', 1);
                       }}>
-                    Rendre un poste
+                      Rendre un poste
                     </button>
                   </li>
-                  <li className="fr-ml-auto">
-                    <a
-                      href={urlDossier}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="fr-btn"
-                    >
-                      <i className="ri-folder-2-line fr-mr-1w"></i>
-                      Voir le dossier D&eacute;marche Simplifi&eacute;e
-                    </a>
-                  </li>
+                  {(structure?.conventionnement?.dossierReconventionnement?.numero || !isReconventionnement) &&
+                    <li className="fr-ml-auto">
+                      <a
+                        href={urlDossier}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="fr-btn"
+                      >
+                        <i className="ri-folder-2-line fr-mr-1w"></i>
+                        Voir le dossier D&eacute;marche Simplifi&eacute;e
+                      </a>
+                    </li>
+                  }
                 </ul>
               </div>
             </div>

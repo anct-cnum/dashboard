@@ -56,6 +56,7 @@ export function TableConseillers({ conseillers, loading, error, filtreRupture, f
           </th>
           <th>Email professionnel</th>
           <th>Structure</th>
+          <th>Activ&eacute;</th>
           <th>
             <nav className="fr-nav" id="navigation-sort-rupture" role="navigation">
               <ul className="fr-nav__list">

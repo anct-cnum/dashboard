@@ -1,12 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import AdvisorCard from '../cards/AdvisorCard';
-import { StatutConventionnement } from '../../../../utils/enumUtils';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
+import { checkStructurePhase2 } from '../utils/functionUtils';
 
 const ActiveAdvisorsSection = ({ structure, conseillersActifs, roleActivated }) => {
 
-  const isReconventionnementValide = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+  const isReconventionnementValide = checkStructurePhase2(structure?.conventionnement?.statut);
 
   const filterActiveAdvisors = conseiller => {
     if (isReconventionnementValide) {

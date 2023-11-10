@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { pluralize, formatNomConseiller } from '../../../../utils/formatagesUtils';
-import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 import { getNombreDePostes, displayStatutRequestText, displayNombreDePostes } from '../utils/functionUtils';
 import { PhaseConventionnement } from '../../../../utils/enumUtils';
 
@@ -14,18 +13,6 @@ const ConventionnementInfosCard = ({ structure, roleActivated }) => {
         <div className="fr-card__content">
           <div className="fr-grid-row fr-grid-row--middle">
             <h4 className="fr-grid-row fr-grid-row--middle">Conventionnement phase 1</h4>
-            <p className="fr-badge fr-badge--warning fr-ml-auto">
-              {
-                calcNbJoursAvantDateFinContrat(structure?.conventionnement?.dossierConventionnement?.dateFinProchainContrat) > 0 ?
-                  calcNbJoursAvantDateFinContrat(structure?.conventionnement?.dossierConventionnement?.dateFinProchainContrat) : ''
-              }
-              {pluralize(
-                'La date de fin du premier contrat est dépassée',
-                ' jour restant avant la fin du premier contrat',
-                ' jours restants avant la fin du premier contrat',
-                calcNbJoursAvantDateFinContrat(structure?.conventionnement?.dossierConventionnement?.dateFinProchainContrat)
-              )}
-            </p>
           </div>
           <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but :
             {

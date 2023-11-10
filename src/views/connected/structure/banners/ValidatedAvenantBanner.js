@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { structureActions } from '../../../../actions';
 import { pluralize } from '../../../../utils/formatagesUtils';
-import { StatutConventionnement } from '../../../../utils/enumUtils';
+import { checkStructurePhase2 } from '../utils/functionUtils';
 
 const ValidatedAvenantBanner = ({ structure }) => {
   const dispatch = useDispatch();
   const isRefusee = structure?.lastDemandeCoselec?.type === 'ajout' && structure?.lastDemandeCoselec?.statut === 'refusee';
-  const isReconventionnement = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+  const isReconventionnement = checkStructurePhase2(structure?.conventionnement?.statut);
   function closeBanner() {
     dispatch(structureActions.closeBanner('avenant', structure?._id));
   }
@@ -20,7 +20,7 @@ const ValidatedAvenantBanner = ({ structure }) => {
       return structure?.lastDemandeCoselec?.type === 'ajout' ? 'obtenu' : 'rendu';
     }
   };
-  
+
 
   const getPosteDemandeText = () => {
     if (isRefusee) {
@@ -29,7 +29,7 @@ const ValidatedAvenantBanner = ({ structure }) => {
     return structure?.lastDemandeCoselec?.type === 'ajout' ?
       pluralize('poste', 'poste', 'postes', structure?.lastDemandeCoselec?.nombreDePostesAccordes) :
       pluralize('poste vacant', 'poste vacant', 'postes vacants', structure?.lastDemandeCoselec?.nombreDePostesRendus);
-    
+
   };
 
   const getInfoText = () => {
@@ -44,11 +44,11 @@ const ValidatedAvenantBanner = ({ structure }) => {
           structure?.lastDemandeCoselec?.nombreDePostesAccordes
         ) :
         pluralize(
-          `Il vous reste ${structure?.posteValiderCoselec} poste subventionné dès à présent. 
+          `Il vous reste ${structure?.posteValiderCoselec} poste subventionné dès à présent.
           Le poste rendu permettra de subventionné un autre poste de conseiller pour une autre structure en demande.`,
-          `Il vous reste ${structure?.posteValiderCoselec} poste subventionné dès à présent. 
+          `Il vous reste ${structure?.posteValiderCoselec} poste subventionné dès à présent.
           Le poste rendu permettra de subventionné un autre poste de conseiller pour une autre structure en demande.`,
-          `Il vous reste ${structure?.posteValiderCoselec} postes subventionnés dès à présent. 
+          `Il vous reste ${structure?.posteValiderCoselec} postes subventionnés dès à présent.
           Les postes rendus permettront de subventionnés d'autres postes de conseillers pour une autre structure en demande.`,
           structure?.lastDemandeCoselec?.posteValiderCoselec
         );
@@ -62,7 +62,7 @@ const ValidatedAvenantBanner = ({ structure }) => {
     return structure?.lastDemandeCoselec?.type === 'ajout' ?
       `${structure?.lastDemandeCoselec?.nombreDePostesAccordes}/${structure?.lastDemandeCoselec?.nombreDePostesSouhaites}` :
       structure?.lastDemandeCoselec?.nombreDePostesRendus;
-    
+
   };
 
   return (
