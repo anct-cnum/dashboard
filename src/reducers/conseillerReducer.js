@@ -3,6 +3,7 @@ const initialState = {
   dateDebut: new Date(anneeEnCours + '/01/01'),
   dateFin: new Date(),
   error: false,
+  errorRelanceInvitation: false,
   miseEnRelation: undefined,
   currentPage: undefined,
   currentFilter: undefined
@@ -305,6 +306,25 @@ export default function conseiller(state = initialState, action) {
           misesEnRelation: state.conseiller.misesEnRelation.map(
             miseEnRelation => (miseEnRelation.statut === action.miseEnRelationUpdated.statut) ? action.miseEnRelationUpdated : miseEnRelation
           ) },
+      };
+    case 'RESUBMIT_INVITATION_CONSEILLER_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        errorRelanceInvitation: false,
+        successRelanceInvitation: false,
+      };
+    case 'RESUBMIT_INVITATION_CONSEILLER_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        successRelanceInvitation: action.successRelanceInvitation,
+      };
+    case 'RESUBMIT_INVITATION_CONSEILLER_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        errorRelanceInvitation: action.error,
       };
     default:
       return state;

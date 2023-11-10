@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions, structureActions, alerteEtSpinnerActions } from '../../../../actions';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import Spinner from '../../../../components/Spinner';
 import InformationConseiller from '../../../../components/InformationConseiller';
 import StructureContactCards from '../../../../components/cards/StructureContactCards';
@@ -17,10 +18,16 @@ function ConseillerDetails() {
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-
+  const successSendMail = useSelector(state => state.conseiller?.successRelanceInvitation);
+  const errorSendMail = useSelector(state => state.conseiller?.errorRelanceInvitation);
+  
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+
+  const resendInvitationEspaceCoop = conseillerId => {
+    dispatch(conseillerActions.resendInvitConseiller(conseillerId));
+  };
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -55,6 +62,24 @@ function ConseillerDetails() {
     }
   }, [conseiller, errorStructure]);
 
+  useEffect(() => {
+    scrollTopWindow();
+    if (successSendMail) {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'success',
+        message: successSendMail,
+        status: null, description: null
+      }));
+    }
+    if (errorSendMail) {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: errorSendMail,
+        status: null, description: null
+      }));
+    }
+  }, [successSendMail, errorSendMail]);
+  
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
@@ -85,8 +110,23 @@ function ConseillerDetails() {
           </div>
         </>
       }
-      <div className={`fr-col-12 ${conseiller?.statut !== 'RECRUTE' ? 'fr-pt-6w' : ''}`}>
-        <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+      <div className="fr-grid-row">
+        <div className={`fr-col-md-8 fr-col-sm-6 fr-col-12 ${conseiller?.statut !== 'RECRUTE' ? 'fr-pt-6w' : ''}`}>
+          <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+        </div>
+        <div className="fr-col-md-4 fr-col-sm-6 fr-col-12 btn-invitation">
+          {conseiller?.emailCN?.address && !conseiller?.mattermost?.id &&
+            <button
+              className="fr-btn "
+              title="Inviter &agrave; rejoindre l&rsquo;espace Coop"
+              onClick={() => {
+                resendInvitationEspaceCoop(conseiller?._id);
+              }}
+            >
+              Inviter sur l&rsquo;espace Coop
+            </button>
+          }
+        </div>
       </div>
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
