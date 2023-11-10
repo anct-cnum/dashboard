@@ -5,7 +5,7 @@ import PopinSelectionCoordinateur from '../popins/popinSelectionCoordinateur';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 
-const HireCoordinatorCard = ({ structure, conseillersActifs }) => {
+const HireCoordinatorCard = ({ structure, conseillersActifs, nbPostesCoordoDisponible }) => {
 
   const isReconventionnementValide = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
 
@@ -21,8 +21,6 @@ const HireCoordinatorCard = ({ structure, conseillersActifs }) => {
   };
 
   const filteredActiveAdvisors = conseillersActifs?.filter(filterActiveAdvisors) || [];
-
-  const nbPostesCoordoDisponible = structure?.demandesCoordinateur?.filter(demandeCoordinateur => demandeCoordinateur.statut === 'validee').length || 0;
 
   const nbConseillersCoordo = filteredActiveAdvisors?.filter(conseiller => conseiller.estCoordinateur).length || 0;
 
@@ -44,7 +42,7 @@ const HireCoordinatorCard = ({ structure, conseillersActifs }) => {
               <div>
                 <span className="fr-text--md fr-text--bold">{`${nbConseillersCoordo}/${nbPostesCoordoDisponible}`}</span>
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>
-                  {''}{' '}
+                  {' '}
                   {
                     pluralize('Rôle de coordinateur actif',
                       'Rôle de coordinateur actif',
@@ -69,6 +67,7 @@ const HireCoordinatorCard = ({ structure, conseillersActifs }) => {
 HireCoordinatorCard.propTypes = {
   conseillersActifs: propTypes.array,
   structure: propTypes.object,
+  nbPostesCoordoDisponible: propTypes.number,
 };
 
 export default HireCoordinatorCard;

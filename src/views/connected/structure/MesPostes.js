@@ -52,7 +52,7 @@ function MesPostes() {
   const countDemandesCoordinateurValide =
   structure?.demandesCoordinateur?.filter(
     demandeCoordinateur => demandeCoordinateur.statut === 'validee',
-  ).length;
+  ).length || 0;
 
   useEffect(() => {
     if (structure?._id) {
@@ -140,6 +140,7 @@ function MesPostes() {
                nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
                conseillersActifs={conseillersActifs}
                structure={structure}
+               nbPostesCoordoDisponible={countDemandesCoordinateurValide}
              />}
             {
               conseillersARenouveler?.length > 0 &&
