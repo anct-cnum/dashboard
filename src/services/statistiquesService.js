@@ -48,9 +48,8 @@ function getDatasTerritoiresPrefet(territoire, dateDebut, dateFin, nomOrdre, ord
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, conseillerIds) {
-  conseillerIds = JSON.stringify(conseillerIds);
-  return API.get(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&conseillerIds=${conseillerIds}&role=anonyme`)
+function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, idTerritoire) {
+  return API.get(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&role=${roleActivated()}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

@@ -105,7 +105,7 @@ export function demandesCoordinateurQueryStringParameters(filtreSearchBar, filtr
 }
 
 // eslint-disable-next-line max-len
-export function statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds) {
+export function statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const filterIdType = idType ? `&idType=${idType}` : '';
@@ -117,11 +117,10 @@ export function statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, 
   const filterByCodePostal = codePostal !== 'tous' && codePostal !== undefined ? `&codePostal=${codePostal}` : '';
   const filterByVille = ville !== 'tous' && ville !== undefined ? `&ville=${ville}` : '';
   const filterByCodeCommune = codeCommune !== 'tous' && codeCommune !== undefined ? `&codeCommune=${codeCommune}` : '';
-  const filterByConseillerIds = conseillerIds?.length > 0 ? `&conseillerIds=${JSON.stringify(conseillerIds)}` : '';
   const filterByStructureIds = structureIds?.length > 0 ? `&structureIds=${JSON.stringify(structureIds)}` : '';
 
   // eslint-disable-next-line max-len
-  return { filterDateStart, filterDateEnd, filterIdType, filterByType, filterByVille, filterByCodeCommune, filterByRegion, filterByCodePostal, filterByDepartement, filterByLastName, filterByFirstName, filterByConseillerIds, filterByStructureIds };
+  return { filterDateStart, filterDateEnd, filterIdType, filterByType, filterByVille, filterByCodeCommune, filterByRegion, filterByCodePostal, filterByDepartement, filterByLastName, filterByFirstName, filterByStructureIds };
 }
 
 export function gestionnairesQueryStringParameters(nomOrdre, ordre, filtreParRole, filtreParNom) {

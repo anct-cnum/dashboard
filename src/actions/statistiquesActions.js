@@ -175,11 +175,11 @@ function getTerritoire(typeTerritoire, idTerritoire, date) {
   }
 }
 
-function getStatistiquesTerritoire(dateDebutStats, dateFinStats, typeTerritoire, conseillerIds) {
+function getStatistiquesTerritoire(dateDebutStats, dateFinStats, typeTerritoire, idTerritoire) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getStatistiquesTerritoire(formatDate(dateDebutStats), formatDate(dateFinStats), typeTerritoire, conseillerIds)
+    statistiquesService.getStatistiquesTerritoire(formatDate(dateDebutStats), formatDate(dateFinStats), typeTerritoire, idTerritoire)
     .then(
       statsTerritoire => {
         dispatch(success(statsTerritoire));

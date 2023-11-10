@@ -78,7 +78,7 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds) {
+function getStatistiquesCSV(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds) {
   const role = type === 'nationales' ? 'anonyme' : roleActivated();
   const {
     filterDateStart,
@@ -92,11 +92,10 @@ function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, cod
     filterByDepartement,
     filterByLastName,
     filterByFirstName,
-    filterByConseillerIds,
     filterByStructureIds
-  } = statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds);
+  } = statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds);
 
-  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}${filterDateStart}${filterDateEnd}${filterIdType}${filterByType}${filterByVille}${filterByCodeCommune}${filterByRegion}${filterByCodePostal}${filterByDepartement}${filterByLastName}${filterByFirstName}${filterByConseillerIds}${filterByStructureIds}`)
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}${filterDateStart}${filterDateEnd}${filterIdType}${filterByType}${filterByVille}${filterByCodeCommune}${filterByRegion}${filterByCodePostal}${filterByDepartement}${filterByLastName}${filterByFirstName}${filterByStructureIds}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
