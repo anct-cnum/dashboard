@@ -12,26 +12,31 @@ function Conseiller({ conseiller }) {
     <>
       <tr>
         <td>{conseiller?.idPG}</td>
-        <td style={{ maxWidth: '8rem' }}>{conseiller?.nom}</td>
-        <td style={{ maxWidth: '7rem', overflowWrap: 'break-word' }}>{conseiller?.prenom}</td>
-        <td style={{ maxWidth: '20rem', overflowWrap: 'break-word' }}>
-          <a className="email"href={'mailto:' + conseiller?.address}>
+        <td style={{ maxWidth: '6.5rem' }}>{conseiller?.nom}</td>
+        <td style={{ maxWidth: '4rem', overflowWrap: 'break-word' }}>{conseiller?.prenom}</td>
+        <td style={{ maxWidth: '15rem', overflowWrap: 'break-word' }}>
+          <a className="email" href={'mailto:' + conseiller?.address}>
             {conseiller?.address}
           </a>
         </td>
         <td style={{ width: '27rem' }}>{conseiller?.nomStructure}</td>
+        <td>
+          <svg height="80" width="40">
+            <circle cx="10" cy="43" r="8" fill={`${conseiller?.compteCoopActif ? '#18753C' : '#B34000'}`} />
+          </svg>
+        </td>
         <td className="center-text">
           {conseiller?.rupture}
         </td>
         <td className="center-text">
-          {conseiller?.estCoordinateur ? 'Oui' : 'Non' }
+          {conseiller?.estCoordinateur ? 'Oui' : 'Non'}
         </td>
         <td>{conseiller?.craCount}</td>
         <td>
           <button
             className="fr-btn fr-icon-eye-line fr-mb-2w"
             title="D&eacute;tail"
-            onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}/>
+            onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)} />
           <Link
             onClick={() => trackEvent({ category: 'statistiques-conseillers', action: `click-${roleActivated}` })}
             className="fr-btn fr-icon-line-chart-line"
