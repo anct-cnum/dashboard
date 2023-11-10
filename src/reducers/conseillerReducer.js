@@ -316,11 +316,6 @@ export default function conseiller(state = initialState, action) {
           )
         },
       };
-    case 'UPDATE_LIEN_DOSSIER_DS':
-      return {
-        ...state,
-        conseiller: { ...state.conseiller, urlDossierDS: action.urlDossierDS }
-      };
     default:
       return state;
   }
