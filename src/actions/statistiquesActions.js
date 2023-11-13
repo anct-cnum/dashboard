@@ -151,11 +151,11 @@ function getDatasTerritoiresPrefet(territoire = 'departement', dateDebut, dateFi
   }
 }
 
-function getTerritoire(typeTerritoire, idTerritoire, date) {
+function getTerritoire(typeTerritoire, idTerritoire, dateFin) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getTerritoire(typeTerritoire, idTerritoire, formatDate(date))
+    statistiquesService.getTerritoire(typeTerritoire, idTerritoire, formatDate(dateFin))
     .then(
       territoire => dispatch(success(territoire)),
       error => {
