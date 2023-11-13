@@ -78,8 +78,8 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesCSV(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds) {
-  const role = type === 'nationales' ? 'anonyme' : roleActivated();
+function getStatistiquesCSV(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds, typeStats) {
+  const role = (type === 'nationales' || typeStats === 'territoire') ? 'anonyme' : roleActivated();
   const {
     filterDateStart,
     filterDateEnd,

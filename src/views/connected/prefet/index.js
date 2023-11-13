@@ -5,7 +5,7 @@ import Exports from './Exports';
 import ConseillerDetails from './conseillers/ConseillerDetails';
 import StructureDetails from './structures/StructureDetails';
 import Page404 from '../Page404';
-import TableauTerritoires from './statistiquesTerritoires/TableauTerritoires';
+import TableauTerritoires from './../commun/statistiques/TableauTerritoires';
 import TableauStructures from './structures/TableauStructures';
 import TableauConseillers from './conseillers/TableauConseillers';
 import CoordinateurDetails from './coordinateurs/CoordinateurDetail';

@@ -62,7 +62,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
       window.print();
     } else if (extension === 'csv') {
       // eslint-disable-next-line max-len
-      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds));
+      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds, typeStats));
     }
   }
 
