@@ -10,17 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [19.7.0]
+        node-version: [20.9.0]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - name: Retrieve cached dependencies
         id: retrieve-dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           key: node_modules-${{ hashFiles('package-lock.json') }}
           path: node_modules
@@ -29,7 +29,7 @@ jobs:
         run: npm ci --omit=dev
       - name: Cache dependencies if not present
         if: steps.retrieve-dependencies.outputs.cache-hit == false
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           key: node_modules.-${{ hashFiles('package-lock.json') }}
           path: node_modules
@@ -38,9 +38,9 @@ jobs:
     needs: dependencies
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Retrieve cached dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           key: node_modules-${{ hashFiles('package-lock.json') }}
           path: node_modules
@@ -75,7 +75,7 @@ jobs:
           source: ".htaccess"
           target: "build/.htaccess"
       - name: Upload release bundle as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: bundle
           path: build/*
@@ -84,9 +84,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Retrieve bundle React
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: bundle
           path: build
@@ -98,7 +98,7 @@ jobs:
           FOLDER: build
           SSH_PRIVATE_KEY: ${{ secrets.CLEVER_CLOUD_DEPLOY_PRIVATE_KEY }}
           KNOWN_HOSTS_FILE: resources/known_hosts
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Create Sentry release
         uses: getsentry/action-release@v1
         env:
