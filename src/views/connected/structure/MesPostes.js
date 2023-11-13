@@ -21,6 +21,7 @@ import { useAdvisors } from './hooks/useAdvisors';
 import { useErrors } from './hooks/useErrors';
 import { useStructure } from './hooks/useStructure';
 import HiringInProgressAdvisorsSection from './views/HiringInProgressAdvisorsSection';
+import ValidatedRoleCoordoBanner from './banners/ValidatedRoleCoordoBanner';
 
 function MesPostes() {
   const [openModalContrat, setOpenModalContrat] = useState(false);
@@ -90,6 +91,7 @@ function MesPostes() {
   return (
     <div>
       <div className="main__banner">
+        <ValidatedRoleCoordoBanner/>
         <Banners
           structure={structure}
           roleActivated={roleActivated}
