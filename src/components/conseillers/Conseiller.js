@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
+import { Tooltip } from 'react-tooltip';
 import iconeCoordinateur from '../../assets/icons/icone-coordinateur.svg';
 
 function Conseiller({ conseiller }) {
@@ -32,7 +33,11 @@ function Conseiller({ conseiller }) {
         <td className="center-text">
           { conseiller?.estCoordinateur === true &&
             conseiller?.listeSubordonnes?.type !== undefined &&
-          <img src={iconeCoordinateur} style={{ width: '100%' }}/>
+            <>
+              <img src={iconeCoordinateur} className="image-coordinateur-list"
+                data-tooltip-id="coordinateur" data-tooltip-content="Coordinateur"/>
+              <Tooltip variant="light" id="coordinateur" className="infobulle" />
+            </>
           }
         </td>
         <td>{conseiller?.craCount}</td>
