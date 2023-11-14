@@ -77,7 +77,12 @@
     .tag-link, .tag-link:hover, .tag-link:active, .tag-link:visited {
       all: unset;
     }
-
+    .icone-text-coordinateur-details {
+        position: relative;
+        font-size: 1rem;
+        top: -6px;
+        left: 14px;
+    }
     @media (max-width: 825px) {
         #menu-rupture,
         #menu-coordinateur {
