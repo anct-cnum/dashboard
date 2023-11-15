@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import { structureActions } from '../../../../actions';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 
-const ValidatedRoleCoordoBanner = ({ conseiller, setBannieresRoleCoordoAjoute, bannieresRoleCoordoAjoute }) => {
+const ValidatedRoleCoordoBanner = ({ conseiller, structure, bannieresAjoutRoleCoordinateur, setBannieresAjoutRoleCoordinateur }) => {
   const dispatch = useDispatch();
   function closeBanner() {
-    setBannieresRoleCoordoAjoute(bannieresRoleCoordoAjoute.filter(banniere => banniere._id !== conseiller._id));
-    dispatch(structureActions.closeBanner('roleCoordinateur', conseiller?.miseEnrelationId));
+    setBannieresAjoutRoleCoordinateur(bannieresAjoutRoleCoordinateur.filter(banniere => banniere._id !== conseiller._id));
+    dispatch(structureActions.closeBanner('ajoutRoleCoordinateur', structure._id, conseiller?._id));
   }
-
   return (
     <div className="fr-notice fr-py-4w banner success background">
       <div className="fr-container success responsive__banner">
@@ -34,8 +33,8 @@ const ValidatedRoleCoordoBanner = ({ conseiller, setBannieresRoleCoordoAjoute, b
 
 ValidatedRoleCoordoBanner.propTypes = {
   conseiller: PropTypes.object,
-  setBannieresRoleCoordoAjoute: PropTypes.func,
-  bannieresRoleCoordoAjoute: PropTypes.array,
+  setBannieresAjoutRoleCoordinateur: PropTypes.func,
+  bannieresAjoutRoleCoordinateur: PropTypes.array,
   structure: PropTypes.object,
 };
 

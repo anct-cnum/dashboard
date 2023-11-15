@@ -77,8 +77,8 @@ function createAvenant(type, id, nombreDePostes, motif, autreMotif = '') {
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function closeBanner(type, id) {
-  return API.patch(`${apiUrlRoot}/banniere/${id}?type=${type}&role=${roleActivated()}`)
+function closeBanner(type, id, conseillerId) {
+  return API.patch(`${apiUrlRoot}/banniere/${id}?type=${type}&role=${roleActivated()}${conseillerId ? `&conseillerId=${conseillerId}` : ''}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

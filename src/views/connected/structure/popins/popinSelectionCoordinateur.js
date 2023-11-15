@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { structureActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function popinSelectionCoordinateur({
   setOpenModal,
@@ -16,6 +17,7 @@ function popinSelectionCoordinateur({
   const handleSubmit = () => {
     dispatch(structureActions.addRoleCoordinateur(structure._id, selectedConseiller));
     setOpenModal(false);
+    scrollTopWindow();
   };
 
   return (

@@ -66,6 +66,7 @@ export default function misesEnRelation(state = initialState, action) {
               conseillerObj: {
                 ...miseEnRelation.conseillerObj,
                 estCoordinateur: true,
+                banniereAjoutRoleCoordinateur: true,
               },
             };
           }

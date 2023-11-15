@@ -226,11 +226,11 @@ function createAvenant(type, structureId, nombreDePostes, motif, autreMotif) {
   }
 }
 
-function closeBanner(type, id) {
+function closeBanner(type, id, conseillerId) {
   return dispatch => {
     dispatch(request());
 
-    structureService.closeBanner(type, id)
+    structureService.closeBanner(type, id, conseillerId)
     .then(
       structure => dispatch(success(structure)),
       error => {
