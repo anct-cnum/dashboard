@@ -166,9 +166,9 @@ export function TableConseillers({ conseillers, loading, error, filtreRupture, f
 }
 
 TableConseillers.propTypes = {
-  conseillers: PropTypes.array,
+  conseillers: PropTypes.object,
   loading: PropTypes.bool,
-  error: PropTypes.string,
+  error: PropTypes.bool || PropTypes.string,
   filtreRupture: PropTypes.string,
   filtreCoordinateur: PropTypes.string,
 };
