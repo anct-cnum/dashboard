@@ -79,7 +79,7 @@ export default function conseiller(state = initialState, action) {
     case 'UPDATE_CONSEILLER_SUCCESS':
       return {
         ...state,
-        conseiller: action.miseEnRelation,
+        conseiller: action.conseiller,
       };
     case 'UPDATE_STATUS_FAILURE':
       return {

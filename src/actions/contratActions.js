@@ -149,9 +149,9 @@ function updateContractRecrutementStructure(typeDeContrat, dateDebut, dateFin, s
     dispatch(request());
 
     contratService.updateContractRecrutementStructure(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnrelationId)
-    .then(miseEnRelation => {
+    .then(conseiller => {
       dispatch(success());
-      dispatch(updateMiseEnRelation(miseEnRelation));
+      dispatch(updateConseiller(conseiller));
     },
     error => {
       dispatch(failure(error));
@@ -165,8 +165,8 @@ function updateContractRecrutementStructure(typeDeContrat, dateDebut, dateFin, s
   function success() {
     return { type: 'UPDATE_CONTRAT_RECRUTEMENT_SUCCESS' };
   }
-  function updateMiseEnRelation(miseEnRelation) {
-    return { type: 'UPDATE_CONSEILLER_SUCCESS', miseEnRelation };
+  function updateConseiller(conseiller) {
+    return { type: 'UPDATE_CONSEILLER_SUCCESS', conseiller };
   }
   function failure(error) {
     return { type: 'UPDATE_CONTRAT_RECRUTEMENT_FAILURE', error };
@@ -178,9 +178,9 @@ function updateContractRecrutementAdmin(typeDeContrat, dateDebut, dateFin, salai
     dispatch(request());
 
     contratService.updateContractRecrutementAdmin(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnrelationId, conseillerId)
-    .then(miseEnRelation => {
+    .then(conseiller => {
       dispatch(success());
-      dispatch(updateMiseEnRelation(miseEnRelation));
+      dispatch(updateConseiller(conseiller));
     },
     error => {
       dispatch(failure(error));
@@ -194,8 +194,8 @@ function updateContractRecrutementAdmin(typeDeContrat, dateDebut, dateFin, salai
   function success() {
     return { type: 'UPDATE_CONTRAT_RECRUTEMENT_SUCCESS' };
   }
-  function updateMiseEnRelation(miseEnRelation) {
-    return { type: 'UPDATE_CONSEILLER_SUCCESS', miseEnRelation };
+  function updateConseiller(conseiller) {
+    return { type: 'UPDATE_CONSEILLER_SUCCESS', conseiller };
   }
   function failure(error) {
     return { type: 'UPDATE_CONTRAT_RECRUTEMENT_FAILURE', error };
