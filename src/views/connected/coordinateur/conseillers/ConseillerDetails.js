@@ -91,7 +91,6 @@ function ConseillerDetails() {
           {conseiller ? formatNomConseiller(conseiller) : ''}
           { conseiller?.statut === 'RECRUTE' &&
             conseiller?.estCoordinateur === true &&
-            ['codeDepartement', 'codeRegion', 'conseillers'].includes(conseiller?.listeSubordonnes?.type) &&
             <span>
               <img src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
               <span className="icone-text-coordinateur-details">Coordinateur</span>
