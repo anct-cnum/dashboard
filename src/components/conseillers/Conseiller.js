@@ -32,7 +32,6 @@ function Conseiller({ conseiller }) {
         </td>
         <td className="center-text">
           { conseiller?.estCoordinateur === true &&
-            conseiller?.listeSubordonnes?.type !== undefined &&
             <>
               <img src={iconeCoordinateur} className="image-coordinateur-list"
                 data-tooltip-id="coordinateur" data-tooltip-content="Coordinateur"/>
