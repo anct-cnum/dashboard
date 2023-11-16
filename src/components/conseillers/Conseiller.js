@@ -34,7 +34,7 @@ function Conseiller({ conseiller }) {
           { conseiller?.estCoordinateur === true &&
             <>
               <img src={iconeCoordinateur} className="image-coordinateur-list"
-                data-tooltip-id="coordinateur" data-tooltip-content="Coordinateur"/>
+                data-tooltip-id="coordinateur" data-tooltip-content="Conseiller numérique Coordinateur"/>
               <Tooltip variant="light" id="coordinateur" className="infobulle" />
             </>
           }
