@@ -118,19 +118,41 @@
   }
   .badge-statut {
       text-align: center;
-      max-width: 23.4%;
-      width: 23.4%;
+      max-width: 17.4%;
+      width: 17.4%;
   }
   .badge-statut-renouvellement {
       flex: 0 0 16.4%;
       max-width: 16.4%;
       width: 16.4%;
   }
+  .type-contrat {
+      flex: 0 0 13%;
+      max-width: 13%;
+      width: 13%;
+  }
   .fin-contrat {
       flex: 0 0 13%;
       max-width: 13%;
       width: 13%;
   }
+
+  .coordinateur{
+    flex: 0 0 13%;
+    max-width: 13%;
+    min-width: 13%;
+    width: 13%;
+  }
+
+  .pin-coordo {
+    height: 36px;
+    margin-right: 5px;
+}
+  .fin-contrat-advisor-card {
+    flex: 0 0 14%;
+    max-width: 14%;
+    width: 14%;
+}
   .card__text span {
     color: $light-grey;
   }
@@ -138,7 +160,6 @@
     font-weight: 500;
   }
   }
-
 
   .card-banner-top{
     border: solid 1px #e5e5e5;

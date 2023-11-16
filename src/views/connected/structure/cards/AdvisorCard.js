@@ -4,6 +4,8 @@ import { formatNomConseiller, formatTypeDeContrat, validTypeDeContratWithoutEndD
 import dayjs from 'dayjs';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 import { useSelector } from 'react-redux';
+import pinCoordo from '../../../../assets/icons/pin-coordinateur.svg';
+import { Tooltip } from 'react-tooltip';
 
 const AdvisorCard = ({ conseiller }) => {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -42,7 +44,7 @@ const AdvisorCard = ({ conseiller }) => {
                 </span>
               </div>
             </div>
-            <div className="fr-col-2 card__text">
+            <div className="type-contrat card__text">
               <div>
                 <strong className="fr-text--md">
                   Type de contrat
@@ -79,7 +81,7 @@ const AdvisorCard = ({ conseiller }) => {
                 }
               </div>
             </div>
-            <div className="fr-col-2 card__text">
+            <div className="fin-contrat-advisor-card 2card__text">
               <div>
                 <strong className="fr-text--md">
                   Fin de contrat
@@ -99,6 +101,23 @@ const AdvisorCard = ({ conseiller }) => {
                   </span>
                 }
               </div>
+            </div>
+            <div className="coordinateur card__text">
+              {conseiller?.estCoordinateur &&
+              <>
+                <div
+                  data-tooltip-content="Ce conseiller est coordinateur"
+                  data-tooltip-float="true"
+                  data-tooltip-id={`tooltip-cnfs${conseiller?.idPG}`}
+                  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                >
+                  <img className="pin-coordo" src={pinCoordo} alt="logo coordinateur" />
+                  <span style={{ color: '#000091' }}>Coordinateur</span>
+                </div>
+                <Tooltip variant="light" className="infobulle" id={`tooltip-cnfs${conseiller?.idPG}`} />
+              </>
+              }
+              
             </div>
             <div className="badge-statut card__text">{displayBadge(conseiller?.statut)}</div>
             <div className="btn-actions-conseiller">
