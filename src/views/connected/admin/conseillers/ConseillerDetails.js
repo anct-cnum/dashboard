@@ -144,6 +144,10 @@ function ConseillerDetails() {
                 <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
                 <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
               }
+              {!misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
+                <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Nouvelle demande</p> :
+                <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
+              }
             </>
             }
           </div>

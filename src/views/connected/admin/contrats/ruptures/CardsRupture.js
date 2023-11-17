@@ -107,8 +107,13 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
             }
             <li className="fr-ml-auto">
               <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                {miseEnRelation?.dossierIncompletRupture ?
-                  <p className="fr-badge fr-badge--error fr-mr-3w">Dossier incomplet</p> :
+                {miseEnRelation?.dossierIncompletRupture === true &&
+                  <p className="fr-badge fr-badge--error fr-mr-3w">Dossier incomplet</p>
+                }
+                {miseEnRelation?.dossierIncompletRupture === false &&
+                  <p className="fr-badge fr-badge--error fr-mr-3w">Nouvelle demande</p>
+                }
+                {miseEnRelation?.dossierIncompletRupture === undefined &&
                   <p className="fr-badge fr-badge--success fr-mr-3w">Dossier complet</p>
                 }
                 <a className="fr-btn fr-btn--secondary" href={urlDossierDS} target="_blank" rel="noopener noreferrer">
