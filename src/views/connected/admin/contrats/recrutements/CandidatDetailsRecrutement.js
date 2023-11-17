@@ -9,7 +9,7 @@ import CardsRecrutement from './CardsRecrutement';
 import InformationCandidat from '../../../../../components/InformationCandidat';
 import PopinEditionContrat from '../../../structure/popins/popinEditionContrat';
 import ModalValidationRecrutement from '../../modals/ModalValidationRecrutement';
-import pinCoordinateur from '../../../../../assets/icons/pin-coordinateur.svg';
+import pinCoordinateur from '../../../../../assets/icons/icone-coordinateur.svg';
 import { Tooltip } from 'react-tooltip';
 
 function CandidatDetailsRecrutement() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-import pinCoordinateur from '../../../../assets/icons/pin-coordinateur.svg';
+import pinCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 import { Tooltip } from 'react-tooltip';
 
 function Contrat({ contrat }) {
