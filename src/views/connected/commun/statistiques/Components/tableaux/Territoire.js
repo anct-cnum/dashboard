@@ -15,6 +15,7 @@ function Territoire({ territoire, filtreTerritoire }) {
         <td>{territoire?.nomDepartement ? territoire?.nomDepartement : territoire?.nomRegion}</td>
         <td>{territoire?.CRAEnregistres ?? 0}</td>
         <td>{totalPersonnesUniquesAccompagnees ?? 0}</td>
+        <td>{territoire?.personnesAccompagnees ?? 0}</td>
         <td>{territoire?.nombreConseillersCoselec ?? 0}</td>
         <td>{territoire?.cnfsActives ?? 0}</td>
         <td>{territoire?.cnfsInactives ?? 0}</td>

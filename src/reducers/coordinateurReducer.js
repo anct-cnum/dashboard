@@ -103,12 +103,7 @@ export default function coordinateur(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        items: {
-          ...state.items, data: state?.items?.data?.map(
-            demandeCoordinateur =>
-              demandeCoordinateur.id === action.idDemandeCoordinateur ? { ...demandeCoordinateur, banniereInformationAvisStructure: false } :
-                demandeCoordinateur)
-        },
+        idDemandeCoordinateur: action.idDemandeCoordinateur,
       };
     case 'UPDATE_BANNER_FAILURE':
       return {

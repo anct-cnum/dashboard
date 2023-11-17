@@ -36,6 +36,15 @@ export default function authentication(state = initialState, action) {
         ...state,
         roleActivated: action.role
       };
+    case 'CLOSE_BANNER_POSTE_COORDINATEUR_SUCCESS':
+      return {
+        ...state,
+        user: {
+          ...state.user, demandesCoordinateurBannerInformation: state.user.demandesCoordinateurBannerInformation?.filter(
+            demandeCoordinateur =>
+              demandeCoordinateur.id !== action.idDemandeCoordinateur)
+        },
+      };
     default:
       return state;
   }
