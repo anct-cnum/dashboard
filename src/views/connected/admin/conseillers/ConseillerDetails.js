@@ -151,7 +151,7 @@ function ConseillerDetails() {
         <div className="fr-col-md-4 fr-col-sm-6 fr-col-12 btn-invitation">
           {conseiller?.emailCN?.address && !conseiller?.mattermost?.id &&
             <button
-              className="fr-btn "
+              className="fr-btn fr-icon-mail-line fr-btn--icon-left fr-ml-auto"
               title="Inviter &agrave; rejoindre l&rsquo;espace Coop"
               onClick={() => {
                 resendInvitationEspaceCoop(conseiller?._id);
