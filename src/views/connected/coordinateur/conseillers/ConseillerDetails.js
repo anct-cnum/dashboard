@@ -6,6 +6,7 @@ import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 import Spinner from '../../../../components/Spinner';
 import InformationConseiller from '../../../../components/InformationConseiller';
 import StructureContactCards from '../../../../components/cards/StructureContactCards';
+import iconeCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 
 function ConseillerDetails() {
 
@@ -86,7 +87,16 @@ function ConseillerDetails() {
         </>
       }
       <div className={`fr-col-12 ${conseiller?.statut !== 'RECRUTE' ? 'fr-pt-6w' : ''}`}>
-        <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+        <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
+          {conseiller ? formatNomConseiller(conseiller) : ''}
+          { conseiller?.statut === 'RECRUTE' &&
+            conseiller?.estCoordinateur === true &&
+            <span>
+              <img src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
+              <span className="icone-text-coordinateur-details">Coordinateur</span>
+            </span>
+          }
+        </h1>
       </div>
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>

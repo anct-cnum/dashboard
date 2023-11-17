@@ -122,6 +122,9 @@ export default function TableauTerritoires() {
                             <span data-id="personnesAccompagnees">Personnes accompagn&eacute;es</span>
                           </th>
                           <th>
+                            <span data-id="nombreAccompagnement">Nombre d&rsquo;accompagnement</span>
+                          </th>
+                          <th>
                             <button data-id="nombreConseillersCoselec" className="filtre-btn" onClick={ordreColonne}>
                               <span data-id="nombreConseillersCoselec">Dotation de conseillers
                                 { (ordreNom !== 'nombreConseillersCoselec' || ordreNom === 'nombreConseillersCoselec' && ordre) &&

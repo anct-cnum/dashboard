@@ -3,9 +3,11 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions, structureActions, alerteEtSpinnerActions } from '../../../../actions';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import Spinner from '../../../../components/Spinner';
 import InformationConseiller from '../../../../components/InformationConseiller';
 import StructureContactCards from '../../../../components/cards/StructureContactCards';
+import iconeCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 
 function ConseillerDetails() {
 
@@ -17,10 +19,16 @@ function ConseillerDetails() {
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const loading = useSelector(state => state.conseiller?.loading);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-
+  const successSendMail = useSelector(state => state.conseiller?.successRelanceInvitation);
+  const errorSendMail = useSelector(state => state.conseiller?.errorRelanceInvitation);
+  
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+
+  const resendInvitationEspaceCoop = conseillerId => {
+    dispatch(conseillerActions.resendInvitConseiller(conseillerId));
+  };
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -55,6 +63,24 @@ function ConseillerDetails() {
     }
   }, [conseiller, errorStructure]);
 
+  useEffect(() => {
+    scrollTopWindow();
+    if (successSendMail) {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'success',
+        message: successSendMail,
+        status: null, description: null
+      }));
+    }
+    if (errorSendMail) {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: errorSendMail,
+        status: null, description: null
+      }));
+    }
+  }, [successSendMail, errorSendMail]);
+  
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
@@ -85,17 +111,27 @@ function ConseillerDetails() {
           </div>
         </>
       }
-      <div className={`fr-col-12 ${conseiller?.statut !== 'RECRUTE' ? 'fr-pt-6w' : ''}`}>
-        <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
-      </div>
-      <div className="fr-col-12">
-        <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
+      <div className="fr-grid-row">
+        <div className={`fr-col-12 ${conseiller?.statut !== 'RECRUTE' ? 'fr-pt-6w' : ''}`}>
+          <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
+            {conseiller ? formatNomConseiller(conseiller) : ''}
+            { conseiller?.statut === 'RECRUTE' &&
+              conseiller?.estCoordinateur === true &&
+                <span>
+                  <img src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
+                  <span className="icone-text-coordinateur-details">Coordinateur</span>
+                </span>
+            }
+          </h1>
         </div>
-      </div>
-      {conseiller &&
-        <>
-          <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
+
+        <div className="fr-col-md-8 fr-col-sm-6 fr-col-12">
+          <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+            <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
+          </div>
+        </div>
+        {conseiller &&
+          <div className="fr-col-md-8 fr-col-sm-6  fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
             {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
               <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
             }
@@ -103,16 +139,29 @@ function ConseillerDetails() {
               <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
             }
             {misesEnRelationNouvelleRupture &&
-              <>
-                {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
-                  <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
-                  <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
-                }
-              </>
+            <>
+              {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
+                <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
+                <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
+              }
+            </>
             }
           </div>
-        </>
-      }
+        }
+        <div className="fr-col-md-4 fr-col-sm-6 fr-col-12 btn-invitation">
+          {conseiller?.emailCN?.address && !conseiller?.mattermost?.id &&
+            <button
+              className="fr-btn "
+              title="Inviter &agrave; rejoindre l&rsquo;espace Coop"
+              onClick={() => {
+                resendInvitationEspaceCoop(conseiller?._id);
+              }}
+            >
+              Inviter sur l&rsquo;espace Coop
+            </button>
+          }
+        </div>
+      </div>
       <InformationConseiller
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
