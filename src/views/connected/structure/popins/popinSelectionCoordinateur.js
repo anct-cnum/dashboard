@@ -56,8 +56,8 @@ function popinSelectionCoordinateur({
                   }>
                     <option value="" selected disabled hidden>S&eacute;lectionnez un conseiller</option>
                     {conseillersActifs.filter(conseiller => !conseiller.estCoordinateur).map(conseiller => (
-                      <option key={conseiller?._id} value={conseiller?._id}>
-                        {conseiller?.prenom} {conseiller?.nom} - ID - {conseiller?.idPG}
+                      <option key={conseiller._id} value={conseiller._id}>
+                        {conseiller.prenom} {conseiller.nom} - ID - {conseiller.idPG}
                       </option>
                     ))}
                   </select>
