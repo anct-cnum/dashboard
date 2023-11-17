@@ -112,7 +112,7 @@ function ConseillerDetails() {
         </>
       }
       <div className="fr-grid-row">
-        <div className={`fr-col-md-8 fr-col-sm-6 fr-col-12 ${conseiller?.statut !== 'RECRUTE' ? 'fr-pt-6w' : ''}`}>
+        <div className={`fr-col-12 ${conseiller?.statut !== 'RECRUTE' ? 'fr-pt-6w' : ''}`}>
           <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
             {conseiller ? formatNomConseiller(conseiller) : ''}
             { conseiller?.statut === 'RECRUTE' &&
@@ -124,6 +124,30 @@ function ConseillerDetails() {
             }
           </h1>
         </div>
+
+        <div className="fr-col-md-8 fr-col-sm-6 fr-col-12">
+          <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+            <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
+          </div>
+        </div>
+        {conseiller &&
+          <div className="fr-col-md-8 fr-col-sm-6  fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
+            {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
+              <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
+            }
+            {conseiller?.statut === 'RUPTURE' &&
+              <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
+            }
+            {misesEnRelationNouvelleRupture &&
+            <>
+              {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
+                <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
+                <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
+              }
+            </>
+            }
+          </div>
+        }
         <div className="fr-col-md-4 fr-col-sm-6 fr-col-12 btn-invitation">
           {conseiller?.emailCN?.address && !conseiller?.mattermost?.id &&
             <button
@@ -138,31 +162,6 @@ function ConseillerDetails() {
           }
         </div>
       </div>
-      <div className="fr-col-12">
-        <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
-        </div>
-      </div>
-      {conseiller &&
-        <>
-          <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
-            {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
-              <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
-            }
-            {conseiller?.statut === 'RUPTURE' &&
-              <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
-            }
-            {misesEnRelationNouvelleRupture &&
-              <>
-                {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
-                  <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
-                  <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
-                }
-              </>
-            }
-          </div>
-        </>
-      }
       <InformationConseiller
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
