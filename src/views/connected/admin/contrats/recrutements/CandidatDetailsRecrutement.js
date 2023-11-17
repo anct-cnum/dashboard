@@ -87,7 +87,7 @@ function CandidatDetailsRecrutement() {
               data-tooltip-float="true"
               className={`fr-ml-2w ${conseiller ? '' : 'fr-hidden'}`}
               src={pinCoordinateur}
-              alt="logo Coordinateur"
+              alt="icône Conseiller numérique coordinateur"
               style={{ height: '50px', position: 'absolute' }}
             />
           }

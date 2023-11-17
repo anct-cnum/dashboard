@@ -92,7 +92,7 @@ function ConseillerDetails() {
           { conseiller?.statut === 'RECRUTE' &&
             conseiller?.estCoordinateur === true &&
             <span>
-              <img src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
+              <img alt="icône Conseiller numérique coordinateur" src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
               <span className="icone-text-coordinateur-details">Coordinateur</span>
             </span>
           }

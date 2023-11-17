@@ -55,7 +55,7 @@ function Contrat({ contrat }) {
                   data-tooltip-float="true"
                   data-tooltip-id={`tooltip-coordinateur-candidat${contrat?.structureObj?.idPG}`}
                 >
-                  <img src={pinCoordinateur} alt="logo Coordinateur" className="fr-mt-1w" style={{ height: '34px' }} />
+                  <img src={pinCoordinateur} alt="icône Conseiller numérique coordinateur" className="fr-mt-1w" style={{ height: '34px' }} />
                 </div>
                 <Tooltip variant="light" id={`tooltip-coordinateur-candidat${contrat?.structureObj?.idPG}`} className="infobulle" />
               </>

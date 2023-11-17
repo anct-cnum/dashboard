@@ -89,10 +89,10 @@ function ConseillerDetails() {
       <div className={`fr-col-12 ${conseiller?.statut !== 'RECRUTE' ? 'fr-pt-6w' : ''}`}>
         <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
           {conseiller ? formatNomConseiller(conseiller) : ''}
-          { conseiller?.statut === 'RECRUTE' &&
+          {conseiller?.statut === 'RECRUTE' &&
             conseiller?.estCoordinateur === true &&
             <span>
-              <img src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
+              <img alt="icône Conseiller numérique coordinateur" src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
               <span className="icone-text-coordinateur-details">Coordinateur</span>
             </span>
           }
