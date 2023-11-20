@@ -63,10 +63,10 @@ export default function misesEnRelation(state = initialState, action) {
           if (miseEnRelation.conseillerObj._id === action.conseillerId) {
             return {
               ...miseEnRelation,
+              banniereAjoutRoleCoordinateur: true,
               conseillerObj: {
                 ...miseEnRelation.conseillerObj,
                 estCoordinateur: true,
-                banniereAjoutRoleCoordinateur: true,
               },
             };
           }

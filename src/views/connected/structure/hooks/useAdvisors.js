@@ -102,7 +102,7 @@ export function useAdvisors() {
       .map(createConseiller);
 
       const bannieresAjoutRoleCoordinateur = misesEnRelation
-      .filter(miseEnRelation => miseEnRelation.conseillerObj.banniereAjoutRoleCoordinateur)
+      .filter(miseEnRelation => miseEnRelation.banniereAjoutRoleCoordinateur)
       .map(createConseiller);
 
       const conseillersActifsNonRenouveles = misesEnRelation
