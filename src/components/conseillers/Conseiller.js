@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
+import { Tooltip } from 'react-tooltip';
+import iconeCoordinateur from '../../assets/icons/icone-coordinateur.svg';
 
 function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -29,7 +31,13 @@ function Conseiller({ conseiller }) {
           {conseiller?.rupture}
         </td>
         <td className="center-text">
-          {conseiller?.estCoordinateur ? 'Oui' : 'Non'}
+          { conseiller?.estCoordinateur === true &&
+            <>
+              <img src={iconeCoordinateur} className="image-coordinateur-list"
+                data-tooltip-id={`tooltip-coordinateur${conseiller?.idPG}`} data-tooltip-content="Conseiller numérique coordinateur"/>
+              <Tooltip variant="light" id={`tooltip-coordinateur${conseiller?.idPG}`} className="infobulle" />
+            </>
+          }
         </td>
         <td>{conseiller?.craCount}</td>
         <td>
