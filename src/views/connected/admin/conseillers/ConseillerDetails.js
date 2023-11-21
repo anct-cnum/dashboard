@@ -21,7 +21,7 @@ function ConseillerDetails() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const successSendMail = useSelector(state => state.conseiller?.successRelanceInvitation);
   const errorSendMail = useSelector(state => state.conseiller?.errorRelanceInvitation);
-  
+
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
@@ -80,7 +80,7 @@ function ConseillerDetails() {
       }));
     }
   }, [successSendMail, errorSendMail]);
-  
+
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
@@ -118,7 +118,7 @@ function ConseillerDetails() {
             { conseiller?.statut === 'RECRUTE' &&
               conseiller?.estCoordinateur === true &&
                 <span>
-                  <img src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
+                  <img alt="ic&ocirc;ne Conseiller num&eacute;rique coordinateur" src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
                   <span className="icone-text-coordinateur-details">Coordinateur</span>
                 </span>
             }

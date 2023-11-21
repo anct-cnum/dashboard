@@ -10,8 +10,11 @@
     .titre {
         color: $blue-france
     }
-    .react-datepicker-popper {
-        transform: translate3d(90%, 120px, 0px) !important;
+    .date-debut-contrat .react-datepicker-popper {
+      transform: translate3d(35%, 370px, 0px) !important;
+    }
+    .date-fin-contrat .react-datepicker-popper {
+      transform: translate3d(220%, 370px, 0px) !important;
     }
     .background-cards-contrat {
         background-color: $light-blue;

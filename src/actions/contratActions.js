@@ -7,7 +7,8 @@ export const contratActions = {
   validationRecrutement,
   getAllHistorique,
   createContract,
-  updateContractRecrutement,
+  updateContractRecrutementStructure,
+  updateContractRecrutementAdmin,
   updateContract,
 };
 
@@ -143,14 +144,14 @@ function createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelati
   }
 }
 
-function updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId) {
+function updateContractRecrutementStructure(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnrelationId) {
   return dispatch => {
     dispatch(request());
 
-    contratService.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId)
-    .then(response => {
-      dispatch(success(response.message));
-      dispatch(updateMiseEnRelation(response.miseEnRelation));
+    contratService.updateContractRecrutementStructure(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnrelationId)
+    .then(conseiller => {
+      dispatch(success());
+      dispatch(updateConseiller(conseiller));
     },
     error => {
       dispatch(failure(error));
@@ -161,11 +162,40 @@ function updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, m
   function request() {
     return { type: 'UPDATE_CONTRAT_RECRUTEMENT_REQUEST' };
   }
-  function success(message) {
-    return { type: 'UPDATE_CONTRAT_RECRUTEMENT_SUCCESS', message };
+  function success() {
+    return { type: 'UPDATE_CONTRAT_RECRUTEMENT_SUCCESS' };
   }
-  function updateMiseEnRelation(miseEnRelation) {
-    return { type: 'UPDATE_STATUS_SUCCESS', miseEnRelation };
+  function updateConseiller(conseiller) {
+    return { type: 'UPDATE_CONSEILLER_SUCCESS', conseiller };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_CONTRAT_RECRUTEMENT_FAILURE', error };
+  }
+}
+
+function updateContractRecrutementAdmin(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnrelationId, conseillerId) {
+  return dispatch => {
+    dispatch(request());
+
+    contratService.updateContractRecrutementAdmin(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnrelationId, conseillerId)
+    .then(conseiller => {
+      dispatch(success());
+      dispatch(updateConseiller(conseiller));
+    },
+    error => {
+      dispatch(failure(error));
+    }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_CONTRAT_RECRUTEMENT_REQUEST' };
+  }
+  function success() {
+    return { type: 'UPDATE_CONTRAT_RECRUTEMENT_SUCCESS' };
+  }
+  function updateConseiller(conseiller) {
+    return { type: 'UPDATE_CONSEILLER_SUCCESS', conseiller };
   }
   function failure(error) {
     return { type: 'UPDATE_CONTRAT_RECRUTEMENT_FAILURE', error };

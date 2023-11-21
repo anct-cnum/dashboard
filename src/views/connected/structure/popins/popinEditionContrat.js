@@ -9,20 +9,22 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   const [dateDebut, setDateDebut] = useState(null);
   const [dateFin, setDateFin] = useState(null);
   const [typeDeContrat, setTypeDeContrat] = useState(null);
+  const [isRecrutementCoordinateur, setIsRecrutementCoordinateur] = useState(false);
   const [salaire, setSalaire] = useState('');
   const salaireMinimum = 1709.28;
 
   const handleSubmit = () => {
     if (editMode) {
-      updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnrelationId);
+      updateContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, conseiller?.miseEnrelationId);
     } else {
-      createContract(typeDeContrat, dateDebut, dateFin, salaire);
+      createContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur);
     }
     setDateDebut(null);
     setDateFin(null);
     setTypeDeContrat(null);
     setSalaire('');
     setOpenModalContrat(false);
+    setIsRecrutementCoordinateur(false);
   };
 
   const handleCancel = () => {
@@ -30,11 +32,13 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
     setDateFin(null);
     setTypeDeContrat(null);
     setOpenModalContrat(false);
+    setIsRecrutementCoordinateur(false);
   };
 
   useEffect(() => {
     if (editMode && conseiller) {
       setTypeDeContrat(conseiller?.typeDeContrat);
+      setIsRecrutementCoordinateur(conseiller?.contratCoordinateur ?? false);
       setDateDebut(conseiller?.dateDebutDeContrat ? new Date(conseiller?.dateDebutDeContrat) : null);
       if (!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) {
         setDateFin(conseiller?.dateFinDeContrat ? new Date(conseiller?.dateFinDeContrat) : null);
@@ -56,6 +60,10 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
         return false;
       }
       if (!conseiller?.typeDeContrat?.includes(typeDeContrat)) {
+        return false;
+      }
+      // eslint-disable-next-line max-len
+      if ((conseiller?.contratCoordinateur && conseiller?.contratCoordinateur !== isRecrutementCoordinateur) || (!conseiller?.contratCoordinateur && isRecrutementCoordinateur)) {
         return false;
       }
       if (new Date(conseiller?.dateDebutDeContrat)?.getTime() !== dateDebut?.getTime()) {
@@ -106,88 +114,94 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                   Renseigner un contrat
                 </h1>
                 <p className="fr-text--sm" style={{ marginBottom: '10px' }}>
-                  Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat avant de fournir ses
-                  pi&egrave;ces justificatives sur D&eacute;marches Simplifi&eacute;es.
+                  Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat.
                 </p>
                 <div className="fr-col-12 fr-mt-1w">
                   <label className="fr-label" style={{ fontSize: 'unset' }} htmlFor="datePicker">
                     <p style={{ marginBottom: '10px' }}>Type de contrat</p>
                   </label>
                 </div>
-                <div className="fr-form-group fr-mb-1w">
-                  <fieldset className="fr-fieldset">
-                    <div className="fr-fieldset-contract__content">
-                      <div className="fr-contract-radio-group fr-radio-group--sm">
+                <fieldset className="fr-fieldset fr-grid-row fr-mt-2w" id="radio-inline" aria-labelledby="radio-inline-legend radio-inline-messages">
+                  <div className="fr-col-6">
+                    <div className="fr-fieldset__element fr-fieldset__element--inline" style={{ width: '0' }}>
+                      <div className="fr-radio-group">
                         <input
                           type="radio"
                           id="radio-1"
-                          name="motifRupture"
+                          name="radio-inline"
                           onChange={motif => {
                             setTypeDeContrat(motif.target.value);
                             setDateFin(null);
                           }}
                           value="CDI"
-                          checked={typeDeContrat?.includes('CDI')}
+                          checked={typeDeContrat === 'CDI'}
                         />
-                        <label className="fr-label fr-ml-1w" htmlFor="radio-1">
+                        <label className="fr-label" htmlFor="radio-1">
                           CDI
                         </label>
                       </div>
-                      <div className="fr-contract-radio-group fr-radio-group--sm">
+                    </div>
+                  </div>
+                  <div className="fr-col-6">
+                    <div className="fr-fieldset__element fr-fieldset__element--inline" style={{ width: '0' }}>
+                      <div className="fr-radio-group">
                         <input
                           type="radio"
                           id="radio-2"
-                          name="motifRupture"
+                          name="radio-inline"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="CDD"
-                          checked={typeDeContrat?.includes('CDD')}
+                          checked={typeDeContrat === 'CDD'}
                         />
-                        <label className="fr-label fr-ml-1w" htmlFor="radio-2">
+                        <label className="fr-label" htmlFor="radio-2">
                           CDD
                         </label>
                       </div>
                     </div>
-                  </fieldset>
-                </div>
-
-                <div className="fr-form-group">
-                  <fieldset className="fr-fieldset">
-                    <div className="fr-fieldset-contract__content">
-                      <div className="fr-contract-radio-group fr-radio-group--sm">
+                  </div>
+                </fieldset>
+                <fieldset className="fr-fieldset fr-grid-row" id="radio-inline" aria-labelledby="radio-inline-legend radio-inline-messages">
+                  <div className="fr-col-6">
+                    <div className="fr-fieldset__element fr-fieldset__element--inline" style={{ width: '0' }}>
+                      <div className="fr-radio-group">
                         <input
                           type="radio"
                           id="radio-3"
-                          name="motifRupture"
+                          name="radio-inline"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="PEC"
                           checked={typeDeContrat === 'PEC'}
                         />
-                        <label className="fr-label fr-ml-1w" htmlFor="radio-3">
+                        <label className="fr-label" htmlFor="radio-3">
                           PEC
                         </label>
                       </div>
-                      <div className="fr-contract-radio-group fr-radio-group--sm">
+                    </div>
+                  </div>
+                  <div className="fr-col-6">
+                    <div className="fr-fieldset__element fr-fieldset__element--inline">
+                      <div className="fr-radio-group">
                         <input
                           type="radio"
                           id="radio-4"
-                          name="motifRupture"
+                          name="radio-inline"
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="contrat_de_projet_public"
                           checked={typeDeContrat === 'contrat_de_projet_public'}
                         />
-                        <label className="fr-label fr-ml-1w" htmlFor="radio-4">
+                        <label className="fr-label" htmlFor="radio-4">
                           Contrat de projet public
                         </label>
                       </div>
                     </div>
-                  </fieldset>
-                </div>
+                  </div>
+                </fieldset>
                 <div className="fr-grid-row">
                   <div className="fr-col-6">
-                    <label className="fr-label" style={{ fontSize: 'unset' }}>
+                    <label className="fr-label">
                       Date de d&eacute;but de contrat
                     </label>
-                    <div className="fr-col-xl-8 btn-fr-col-xl-3">
+                    <div className="fr-col-xl-11 date-debut-contrat">
                       <DatePicker
                         id="datePickerDebutContrat"
                         name="datePickerDebutContrat"
@@ -203,10 +217,10 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     </div>
                   </div>
                   <div className="fr-col-6">
-                    <label className="fr-label" style={{ fontSize: 'unset' }}>
+                    <label className="fr-label">
                       Date de fin de contrat
                     </label>
-                    <div className="fr-col-xl-8 btn-fr-col-xl-3">
+                    <div className="fr-col-xl-11 date-fin-contrat">
                       <DatePicker
                         id="datePickerFinContrat"
                         name="datePickerFinContrat"
@@ -241,11 +255,25 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     </p>
                   }
                 </div>
+                {(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) &&
+                  <div className="fr-checkbox-group" style={{ width: '93%' }}>
+                    <input
+                      checked={isRecrutementCoordinateur}
+                      onChange={e => setIsRecrutementCoordinateur(e.target.checked)}
+                      name="checkbox-recrutement-coordinateur"
+                      id="checkbox-recrutement-coordinateur"
+                      type="checkbox"
+                    />
+                    <label className="fr-label" htmlFor="checkbox-recrutement-coordinateur">
+                      Ce contrat concerne un Conseiller num&eacute;rique coordinateur
+                    </label>
+                  </div>
+                }
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                   <li>
-                    <button onClick={handleCancel} className="fr-btn" title="Notifier la rupture de contrat">
+                    <button onClick={handleCancel} className="fr-btn" title="Annuler le contrat">
                       Annuler
                     </button>
                   </li>

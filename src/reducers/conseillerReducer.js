@@ -71,9 +71,16 @@ export default function conseiller(state = initialState, action) {
     case 'UPDATE_STATUS_SUCCESS':
       return {
         ...state,
-        conseiller: { ...state.conseiller, miseEnRelation: action.miseEnRelation, misesEnRelation: state.conseiller.misesEnRelation
-        ?.map(miseEnRelation => miseEnRelation._id === action.miseEnRelation._id ? action.miseEnRelation : miseEnRelation) },
+        conseiller: {
+          ...state.conseiller, miseEnRelation: action.miseEnRelation, misesEnRelation: state.conseiller.misesEnRelation
+          ?.map(miseEnRelation => miseEnRelation._id === action.miseEnRelation._id ? action.miseEnRelation : miseEnRelation)
+        },
         loading: false
+      };
+    case 'UPDATE_CONSEILLER_SUCCESS':
+      return {
+        ...state,
+        conseiller: action.conseiller,
       };
     case 'UPDATE_STATUS_FAILURE':
       return {
@@ -226,7 +233,8 @@ export default function conseiller(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        conseiller: { ...state.conseiller,
+        conseiller: {
+          ...state.conseiller,
           emailCN: '',
           emailPro: '',
           telephonePro: '',
@@ -301,11 +309,13 @@ export default function conseiller(state = initialState, action) {
     case 'UPDATE_MISE_EN_RELATION_CONTRAT':
       return {
         ...state,
-        conseiller: { ...state.conseiller,
+        conseiller: {
+          ...state.conseiller,
           contrat: action.miseEnRelationUpdated,
           misesEnRelation: state.conseiller.misesEnRelation.map(
             miseEnRelation => (miseEnRelation.statut === action.miseEnRelationUpdated.statut) ? action.miseEnRelationUpdated : miseEnRelation
-          ) },
+          )
+        },
       };
     case 'RESUBMIT_INVITATION_CONSEILLER_REQUEST':
       return {
