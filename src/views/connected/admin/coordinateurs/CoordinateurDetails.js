@@ -125,7 +125,7 @@ function CoordinateurDetails() {
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
-                  <button onClick={() => {
+                  <button disabled onClick={() => {
                     setTypeAttribution('refuser');
                     setOpenModalAttributionPoste(true);
                   }}
@@ -135,7 +135,7 @@ function CoordinateurDetails() {
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => {
+                  <button disabled onClick={() => {
                     setTypeAttribution('valider');
                     setOpenModalAttributionPoste(true);
                   }}

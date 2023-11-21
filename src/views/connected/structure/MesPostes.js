@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import PopinAnnulationReConvention from './popins/popinAnnulationReConvention';
 import PopinEditionContrat from './popins/popinEditionContrat';
 import { ManagePositionsCard, HireAdvisorCard, HireCoordinatorCard } from './cards';
+import { scrollTopWindow } from '../../../utils/exportsUtils';
 import Spinner from '../../../components/Spinner';
 import {
   structureActions,
   reconventionnementActions,
   miseEnRelationAction,
-  contratActions
+  contratActions,
+  alerteEtSpinnerActions
 } from '../../../actions';
 import {
   InactiveAdvisorsSection,
@@ -32,6 +34,9 @@ function MesPostes() {
   const loadingStructure = useSelector(state => state.structure?.loading);
   const loadingMisesEnRelation = useSelector(state => state.misesEnRelations?.loading);
   const loadingRenouvellement = useSelector(state => state.contrat?.loading);
+  const successSendMail = useSelector(state => state.conseiller?.successRelanceInvitation);
+  const errorSendMail = useSelector(state => state.conseiller?.errorRelanceInvitation);
+
   const [miseEnrelationId, setMiseEnrelationId] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [selectedConseiller, setSelectedConseiller] = useState(null);
@@ -65,6 +70,24 @@ function MesPostes() {
   useEffect(() => {
     handleErrors();
   }, [errorMisesEnRelation, errorStructure]);
+  
+  useEffect(() => {
+    scrollTopWindow();
+    if (successSendMail) {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'success',
+        message: successSendMail,
+        status: null, description: null
+      }));
+    }
+    if (errorSendMail) {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'L\'envoi d\'email de relance de l\'invitation à l\'espace Coop à échoué !',
+        status: null, description: null
+      }));
+    }
+  }, [successSendMail, errorSendMail]);
 
   const handleOpenModalContrat = (editMode = false, conseiller = null) => {
     setEditMode(editMode);
@@ -131,6 +154,11 @@ function MesPostes() {
           nbreConseillersRenouveler={conseillersARenouveler.length}
           nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
         />
+        <HireAdvisorCard
+          conseillersActifsEtRenouveller={conseillersActifsEtRenouveller.length}
+          nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
+          structure={structure}
+        />
         {misesEnRelation?.length > 0 && (
           <>
             <HireAdvisorCard
@@ -175,11 +203,11 @@ function MesPostes() {
             }
             {
               conseillersEnCoursDeRecrutement?.length > 0 &&
-              <HiringInProgressAdvisorsSection conseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement}/>
+              <HiringInProgressAdvisorsSection conseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement} />
             }
             {
               anciensConseillers?.length > 0 &&
-            <InactiveAdvisorsSection anciensConseillers={anciensConseillers}/>
+              <InactiveAdvisorsSection anciensConseillers={anciensConseillers} />
             }
           </>
         )}

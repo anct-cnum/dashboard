@@ -1,11 +1,25 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import AdvisorCard from '../cards/AdvisorCard';
-import { filterActiveAdvisors } from '../utils/functionUtils';
+import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
+import { checkStructurePhase2 } from '../utils/functionUtils';
 
 const ActiveAdvisorsSection = ({ structure, conseillersActifs, roleActivated }) => {
 
-  const filteredActiveAdvisors = conseillersActifs?.filter(contrat => filterActiveAdvisors(contrat, structure)) || [];
+  const isReconventionnementValide = checkStructurePhase2(structure?.conventionnement?.statut);
+
+  const filterActiveAdvisors = conseiller => {
+    if (isReconventionnementValide) {
+      return (
+        (!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && conseiller?.phaseConventionnement && conseiller?.statut === 'finalisee') ||
+        (validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat))
+      );
+    }
+
+    return true;
+  };
+
+  const filteredActiveAdvisors = conseillersActifs?.filter(filterActiveAdvisors) || [];
 
   return (
     filteredActiveAdvisors.length > 0 &&

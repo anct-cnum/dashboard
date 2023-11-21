@@ -3,11 +3,13 @@ import propTypes from 'prop-types';
 import { formatNomConseiller, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import pinCoordo from '../../../../assets/icons/pin-coordinateur.svg';
 import { Tooltip } from 'react-tooltip';
+import { conseillerActions } from '../../../../actions/conseillerActions';
 
 const AdvisorCard = ({ conseiller }) => {
+  const dispatch = useDispatch();
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const displayBadge = statut => {
     switch (statut) {
@@ -26,6 +28,10 @@ const AdvisorCard = ({ conseiller }) => {
       default:
         return;
     }
+  };
+
+  const resendInvitationEspaceCoop = conseillerId => {
+    dispatch(conseillerActions.resendInvitConseiller(conseillerId));
   };
 
   return (
@@ -106,9 +112,6 @@ const AdvisorCard = ({ conseiller }) => {
               {conseiller?.estCoordinateur &&
               <>
                 <div
-                  data-tooltip-content="Ce conseiller est coordinateur"
-                  data-tooltip-float="true"
-                  data-tooltip-id={`tooltip-cnfs${conseiller?.idPG}`}
                   style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                 >
                   <img className="pin-coordo" src={pinCoordo} alt="logo coordinateur" />
@@ -119,24 +122,35 @@ const AdvisorCard = ({ conseiller }) => {
               }
               
             </div>
-            <div className="badge-statut card__text">{displayBadge(conseiller?.statut)}</div>
+            <div className="badge-statut-advisor-card card__text">{displayBadge(conseiller?.statut)}</div>
             <div className="btn-actions-conseiller">
+              {conseiller?.emailCN?.address && !conseiller?.mattermost?.id &&
+                <>
+                  <button
+                    className="fr-btn fr-mr-1w fr-icon-mail-line card__button"
+                    title="Inviter &agrave; rejoindre l&rsquo;espace Coop"
+                    onClick={() => {
+                      resendInvitationEspaceCoop(conseiller?._id);
+                    }}
+                  />
+                </>
+              }
               {conseiller?.statut === 'recrutee' ?
                 <>
                   {(conseiller?.statutConseiller === 'RECRUTE' || conseiller?.statutConseiller === 'RUPTURE') ?
                     <button
-                      className="fr-btn fr-icon-eye-line fr-mr-2w card__button"
+                      className="fr-btn fr-icon-eye-line fr-mr-1w card__button"
                       title="D&eacute;tail"
                       onClick={() => window.open(`/${roleActivated}/candidature/conseiller/${conseiller?.miseEnrelationId}`)}
                     /> : <button
-                      className="fr-btn fr-icon-eye-line fr-mr-2w card__button"
+                      className="fr-btn fr-icon-eye-line fr-mr-1w card__button"
                       title="D&eacute;tail"
                       onClick={() => window.open(`/${roleActivated}/candidature/candidat/${conseiller?.miseEnrelationId}`)}
                     />
                   }
                 </> :
                 <button
-                  className="fr-btn fr-icon-eye-line fr-mr-2w card__button"
+                  className="fr-btn fr-icon-eye-line fr-mr-1w card__button"
                   title="D&eacute;tail"
                   onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}
                 />

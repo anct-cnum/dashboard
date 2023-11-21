@@ -41,6 +41,10 @@ const setup = store => {
 
       return req;
     } catch (error) {
+      if (error?.response?.status === 403 || error?.response?.status === 401) {
+        await signOut();
+        return;
+      }
       return Promise.reject(error);
     }
   });
