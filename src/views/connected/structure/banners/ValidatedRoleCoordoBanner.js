@@ -18,7 +18,7 @@ const ValidatedRoleCoordoBanner = ({ conseiller, structure, bannieresAjoutRoleCo
             <p className="fr-notice__title title__color" style={{ width: '70rem' }}>
               <span className="fr-icon-checkbox-fill icon__color" aria-hidden="true"></span>
               <span className="fr-ml-2w">
-                {`Le poste de coordinateur a été attribué à ${formatNomConseiller(conseiller)}.`}
+                Le poste de coordinateur a &eacute;t&eacute; attribu&eacute; &agrave; {formatNomConseiller(conseiller)}
               </span>
             </p>
           </div>

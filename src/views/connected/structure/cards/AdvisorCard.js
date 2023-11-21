@@ -81,7 +81,7 @@ const AdvisorCard = ({ conseiller }) => {
                 }
               </div>
             </div>
-            <div className="fin-contrat-advisor-card 2card__text">
+            <div className="fin-contrat-advisor-card card__text">
               <div>
                 <strong className="fr-text--md">
                   Fin de contrat
