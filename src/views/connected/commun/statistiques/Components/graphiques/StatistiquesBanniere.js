@@ -7,7 +7,7 @@ import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUt
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
 // eslint-disable-next-line max-len
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds }) {
+function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds }) {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -62,7 +62,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
       window.print();
     } else if (extension === 'csv') {
       // eslint-disable-next-line max-len
-      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds, typeStats));
+      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds, typeStats));
     }
   }
 
@@ -124,7 +124,8 @@ StatistiquesBanniere.propTypes = {
   prenom: PropTypes.string,
   typeStats: PropTypes.string,
   id: PropTypes.string,
-  structureIds: PropTypes.array
+  conseillerIds: PropTypes.array,
+  structureIds: PropTypes.array,
 };
 
 export default StatistiquesBanniere;
