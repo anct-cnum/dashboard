@@ -71,7 +71,7 @@ const AdvisorCard = ({ conseiller }) => {
                 </span>
               </div>
             </div>
-            <div className="fr-col-2 card__text">
+            <div className="debut-contrat card__text">
               <div>
                 <strong className="fr-text--md">
                   D&eacute;but de contrat
@@ -87,7 +87,7 @@ const AdvisorCard = ({ conseiller }) => {
                 }
               </div>
             </div>
-            <div className="fin-contrat-advisor-card card__text">
+            <div className="fin-contrat card__text">
               <div>
                 <strong className="fr-text--md">
                   Fin de contrat
