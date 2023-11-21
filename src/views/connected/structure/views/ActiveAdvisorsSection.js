@@ -1,25 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import AdvisorCard from '../cards/AdvisorCard';
-import { StatutConventionnement } from '../../../../utils/enumUtils';
-import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
+import { filterActiveAdvisors } from '../utils/functionUtils';
 
 const ActiveAdvisorsSection = ({ structure, conseillersActifs, roleActivated }) => {
 
-  const isReconventionnementValide = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
-
-  const filterActiveAdvisors = conseiller => {
-    if (isReconventionnementValide) {
-      return (
-        (!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && conseiller?.phaseConventionnement && conseiller?.statut === 'finalisee') ||
-        (validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat))
-      );
-    }
-
-    return true;
-  };
-
-  const filteredActiveAdvisors = conseillersActifs?.filter(filterActiveAdvisors) || [];
+  const filteredActiveAdvisors = conseillersActifs?.filter(contrat => filterActiveAdvisors(contrat, structure)) || [];
 
   return (
     filteredActiveAdvisors.length > 0 &&

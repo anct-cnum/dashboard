@@ -1,28 +1,15 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import { pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
+import { pluralize } from '../../../../utils/formatagesUtils';
 import PopinSelectionCoordinateur from '../popins/popinSelectionCoordinateur';
-import { StatutConventionnement } from '../../../../utils/enumUtils';
+import { filterActiveAdvisors } from '../utils/functionUtils';
 
 
 const HireCoordinatorCard = ({ structure, conseillersActifs, nbPostesCoordoDisponible }) => {
 
-  const isReconventionnementValide = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+  const filteredActiveAdvisors = conseillersActifs?.filter(contrat => filterActiveAdvisors(contrat, structure)) || [];
 
-  const filterActiveAdvisors = contrat => {
-    if (isReconventionnementValide) {
-      return (
-        (!validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) && contrat?.phaseConventionnement && contrat?.statut === 'finalisee') ||
-        (validTypeDeContratWithoutEndDate(contrat?.typeDeContrat))
-      );
-    }
-
-    return true;
-  };
-
-  const filteredActiveAdvisors = conseillersActifs?.filter(filterActiveAdvisors) || [];
-
-  const nbConseillersCoordo = filteredActiveAdvisors?.filter(conseiller => conseiller.estCoordinateur).length || 0;
+  const nbConseillersCoordo = filteredActiveAdvisors?.filter(conseiller => conseiller?.estCoordinateur).length || 0;
 
   const [openModal, setOpenModal] = useState(false);
 
