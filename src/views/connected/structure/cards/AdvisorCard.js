@@ -4,7 +4,7 @@ import { formatNomConseiller, formatTypeDeContrat, validTypeDeContratWithoutEndD
 import dayjs from 'dayjs';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 import { useSelector, useDispatch } from 'react-redux';
-import pinCoordo from '../../../../assets/icons/pin-coordinateur.svg';
+import pinCoordo from '../../../../assets/icons/icone-coordinateur.svg';
 import { Tooltip } from 'react-tooltip';
 import { conseillerActions } from '../../../../actions/conseillerActions';
 
