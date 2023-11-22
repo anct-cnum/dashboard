@@ -49,6 +49,36 @@ export default function misesEnRelation(state = initialState, action) {
       return {
         error: action.error
       };
+    case 'ADD_ROLE_COORDINATEUR_REQUEST'
+      : return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+    case 'ADD_ROLE_COORDINATEUR_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        misesEnRelation: state.misesEnRelation.map(miseEnRelation => {
+          if (miseEnRelation.conseillerObj._id === action.conseillerId) {
+            return {
+              ...miseEnRelation,
+              banniereAjoutRoleCoordinateur: true,
+              conseillerObj: {
+                ...miseEnRelation.conseillerObj,
+                estCoordinateur: true,
+              },
+            };
+          }
+          return miseEnRelation;
+        }),
+      };
+    case 'ADD_ROLE_COORDINATEUR_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
     default:
       return state;
   }

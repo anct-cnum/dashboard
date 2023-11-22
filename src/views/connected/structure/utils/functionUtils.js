@@ -1,5 +1,5 @@
 import { StatutConventionnement } from '../../../../utils/enumUtils';
-import { pluralize } from '../../../../utils/formatagesUtils';
+import { pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 
 export function getNombreDePostes(demandesCoselec) {
   if (!demandesCoselec) {
@@ -69,6 +69,15 @@ export const displayStatutRequestText = demandesCoselec => {
     default:
       break;
   }
+};
+
+export const filterActiveAdvisors = (contrat, structure) => {
+  const isReconventionnementValide = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+  if (!isReconventionnementValide) {
+    return true;
+  }
+  return validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) ||
+         (contrat?.phaseConventionnement && contrat?.statut === 'finalisee');
 };
 
 export const checkStructurePhase2 = statut => {
