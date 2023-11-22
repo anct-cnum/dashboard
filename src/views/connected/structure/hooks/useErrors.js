@@ -32,6 +32,6 @@ export function useErrors() {
   };
 
   return {
-    handleErrors: handleErrors,
+    handleErrors
   };
 }
