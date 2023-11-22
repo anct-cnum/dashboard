@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 import { useSelector, useDispatch } from 'react-redux';
 import pinCoordo from '../../../../assets/icons/icone-coordinateur.svg';
-import { Tooltip } from 'react-tooltip';
 import { conseillerActions } from '../../../../actions/conseillerActions';
 
 const AdvisorCard = ({ conseiller }) => {
@@ -117,10 +116,8 @@ const AdvisorCard = ({ conseiller }) => {
                   <img className="pin-coordo" src={pinCoordo} alt="logo coordinateur" />
                   <span style={{ color: '#000091' }}>Coordinateur</span>
                 </div>
-                <Tooltip variant="light" className="infobulle" id={`tooltip-cnfs${conseiller?.idPG}`} />
               </>
               }
-              
             </div>
             <div className="badge-statut-advisor-card card__text">{displayBadge(conseiller?.statut)}</div>
             <div className="btn-actions-conseiller">
