@@ -43,7 +43,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                         <strong className="fr-text--md">&Eacute;tat du dossier</strong><br />
                         <span className="fr-text--regular fr-text--md">
                           {misesEnRelationNouvelleRupture?.dossierIncompletRupture === true && <>Incomplet</>}
-                          {misesEnRelationNouvelleRupture?.dossierIncompletRupture === false && <> Nouvelle demande </>}
+                          {misesEnRelationNouvelleRupture?.dossierIncompletRupture === false && <>Nouvelle demande</>}
                           {misesEnRelationNouvelleRupture?.dossierIncompletRupture === undefined && <>Complet</>}
                         </span>
                       </div>
