@@ -113,7 +113,7 @@ const AdvisorCard = ({ conseiller }) => {
                 <div
                   style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                 >
-                  <img className="pin-coordo" src={pinCoordo} alt="icône Conseiller numérique coordinateur" />
+                  <img className="pin-coordo" src={pinCoordo} alt="ic&ocirc;ne Conseiller num&eacute;rique coordinateur" />
                   <span style={{ color: '#000091' }}>Coordinateur</span>
                 </div>
               </>
