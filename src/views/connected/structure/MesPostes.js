@@ -161,11 +161,6 @@ function MesPostes() {
         />
         {misesEnRelation?.length > 0 && (
           <>
-            <HireAdvisorCard
-              conseillersActifsEtRenouveller={conseillersActifsEtRenouveller.length}
-              nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
-              structure={structure}
-            />
             {countDemandesCoordinateurValide > 0 &&
              <HireCoordinatorCard
                conseillersActifsEtRenouveller={conseillersActifsEtRenouveller.length}
