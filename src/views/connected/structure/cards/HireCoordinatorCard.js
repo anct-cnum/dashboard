@@ -2,14 +2,10 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import PopinSelectionCoordinateur from '../popins/popinSelectionCoordinateur';
-import { filterActiveAdvisors } from '../utils/functionUtils';
-
 
 const HireCoordinatorCard = ({ structure, conseillersActifs, nbPostesCoordoDisponible }) => {
 
-  const filteredActiveAdvisors = conseillersActifs?.filter(contrat => filterActiveAdvisors(contrat, structure)) || [];
-
-  const nbConseillersCoordo = filteredActiveAdvisors?.filter(conseiller => conseiller?.estCoordinateur).length || 0;
+  const nbConseillersCoordo = conseillersActifs?.filter(conseiller => conseiller?.estCoordinateur).length || 0;
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -18,7 +14,7 @@ const HireCoordinatorCard = ({ structure, conseillersActifs, nbPostesCoordoDispo
       {openModal && (
         <PopinSelectionCoordinateur
           setOpenModal={setOpenModal}
-          conseillersActifs={filteredActiveAdvisors}
+          conseillersActifs={conseillersActifs}
           structure={structure}
         />
       )}
