@@ -43,18 +43,15 @@ function popinSelectionCoordinateur({
                   Fermer
                 </button>
               </div>
-              <div className="fr-modal__content fr-mb-2w">
+              <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title" style={{ textAlign: 'center' }}>
-                  R&eacute;capitulatif de votre demande
+                  Attribution du r&ocirc;le coordinateur
                 </h1>
-                <div className="fr-select-group" style={{ height: '130px' }}>
-                  <label className="fr-label" htmlFor="select" style={{ textAlign: 'center' }}>
-                    {conseillers.length === 0 ?
-                      <span>Vous ne poss&eacute;dez aucun conseillers susceptibles de devenir coordinateur</span> :
-                      <span>S&eacute;lectionnez un conseiller &agrave; qui vous souhaitez attribuer le r&ocirc;le de coordinateur</span>
-                    }
+                <div className="fr-select-group">
+                  <label className="fr-label" htmlFor="select">
+                    Seul un conseiller en activit&eacute; peut &ecirc;tre s&eacute;lectionn&eacute;
                   </label>
-                  <select value={selectedConseiller} disabled={conseillers.length === 0} className="fr-select" id="select" name="select" onChange={
+                  <select value={selectedConseiller} disabled={conseillers.length === 0} className="fr-select fr-mt-2w" id="select" name="select" onChange={
                     e => {
                       setSelectedConseiller(e.target.value);
                     }
@@ -67,6 +64,9 @@ function popinSelectionCoordinateur({
                     ))}
                   </select>
                 </div>
+                {conseillers.length === 0 &&
+                  <strong>Vous ne poss&eacute;dez aucun conseiller en activit&eacute;</strong>
+                }
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
