@@ -9,7 +9,8 @@ import {
   structureActions,
   reconventionnementActions,
   miseEnRelationAction,
-  alerteEtSpinnerActions
+  alerteEtSpinnerActions,
+  contratActions
 } from '../../../actions';
 import {
   InactiveAdvisorsSection,
@@ -55,9 +56,9 @@ function MesPostes() {
   const { handleErrors } = useErrors([errorStructure, errorMisesEnRelation]);
   const { structure, openModal, setOpenModal } = useStructure();
   const countDemandesCoordinateurValide =
-  structure?.demandesCoordinateur?.filter(
-    demandeCoordinateur => demandeCoordinateur.statut === 'validee',
-  ).length || 0;
+    structure?.demandesCoordinateur?.filter(
+      demandeCoordinateur => demandeCoordinateur.statut === 'validee',
+    ).length || 0;
 
   useEffect(() => {
     if (structure?._id) {
@@ -68,7 +69,7 @@ function MesPostes() {
   useEffect(() => {
     handleErrors();
   }, [errorMisesEnRelation, errorStructure]);
-  
+
   useEffect(() => {
     scrollTopWindow();
     if (successSendMail) {
@@ -101,6 +102,14 @@ function MesPostes() {
     dispatch(reconventionnementActions.update(structure?._id, 'annuler', [], null, motif));
     dispatch(structureActions.getDetails(userAuth?.entity?.$id));
   };
+
+  const createContract = (typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId) => {
+    dispatch(contratActions.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
+  };
+
+  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId) => {
+    dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
+  };
   
   return (
     <div>
@@ -119,8 +128,10 @@ function MesPostes() {
       {openModalContrat && (
         <PopinEditionContrat
           setOpenModalContrat={setOpenModalContrat}
+          updateContract={updateContract}
           conseiller={selectedConseiller}
           editMode={editMode}
+          createContract={createContract}
         />
       )}
       {openModal && (
@@ -147,16 +158,16 @@ function MesPostes() {
           nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
           structure={structure}
         />
+        {countDemandesCoordinateurValide > 0 &&
+          <HireCoordinatorCard
+            conseillersActifs={conseillersActifs}
+            conseillersActifsNonRenouveles={conseillersActifsNonRenouveles}
+            structure={structure}
+            nbPostesCoordoDisponible={countDemandesCoordinateurValide}
+          />
+        }
         {misesEnRelation?.length > 0 && (
           <>
-            {countDemandesCoordinateurValide > 0 &&
-             <HireCoordinatorCard
-               conseillersActifsEtRenouveller={conseillersActifsEtRenouveller.length}
-               nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
-               conseillersActifs={conseillersActifs}
-               structure={structure}
-               nbPostesCoordoDisponible={countDemandesCoordinateurValide}
-             />}
             {
               conseillersARenouveler?.length > 0 &&
               <RenewAdvisorsSection

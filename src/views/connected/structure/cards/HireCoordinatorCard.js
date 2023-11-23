@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import { pluralize } from '../../../../utils/formatagesUtils';
+import { pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import PopinSelectionCoordinateur from '../popins/popinSelectionCoordinateur';
+import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
-const HireCoordinatorCard = ({ structure, conseillersActifs, nbPostesCoordoDisponible }) => {
+const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersActifsNonRenouveles, nbPostesCoordoDisponible }) => {
+  // conseillers actifs + conseillers actifs non renouvelés traitement pour supprimer les doublons dans les deux listes
+  const conseillers = conseillersActifs.concat(conseillersActifsNonRenouveles?.filter(conseillerActifNonRenouvele => {
+    return conseillersActifs.every(conseillerActif => conseillerActif?._id !== conseillerActifNonRenouvele?._id);
+  }));
 
-  const nbConseillersCoordo = conseillersActifs?.filter(conseiller => conseiller?.estCoordinateur).length || 0;
+  // eslint-disable-next-line max-len
+  const checkConseillerDispoCoordo = contrat => calcNbJoursAvantDateFinContrat(contrat?.dateFinDeContrat) > 0 || validTypeDeContratWithoutEndDate(contrat?.typeDeContrat);
+
+  // conseillers actifs + conseillers actifs non renouvelés pour permettre
+  // à la structure de choisir un coordinateur parmi les conseillers actifs
+  // et les conseillers actifs non renouvelés qui ont une date de fin de contrat non dépassée ou CDI
+  const filteredActiveAdvisors = conseillers?.filter(contrat => contrat?.statut === 'finalisee' && checkConseillerDispoCoordo(contrat));
+  const nbConseillersCoordo = conseillersActifs?.filter(conseiller => conseiller?.estCoordinateur).length;
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -14,7 +26,7 @@ const HireCoordinatorCard = ({ structure, conseillersActifs, nbPostesCoordoDispo
       {openModal && (
         <PopinSelectionCoordinateur
           setOpenModal={setOpenModal}
-          conseillersActifs={conseillersActifs}
+          conseillersActifs={filteredActiveAdvisors}
           structure={structure}
         />
       )}
@@ -37,7 +49,7 @@ const HireCoordinatorCard = ({ structure, conseillersActifs, nbPostesCoordoDispo
             </div>
             <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
               <button disabled={nbPostesCoordoDisponible <= nbConseillersCoordo} className="fr-btn" onClick={() => setOpenModal(true)}>
-                  Attribuer un r&ocirc;le de coordinateur
+                Attribuer un r&ocirc;le de coordinateur
               </button>
             </div>
           </div>
@@ -49,6 +61,7 @@ const HireCoordinatorCard = ({ structure, conseillersActifs, nbPostesCoordoDispo
 
 HireCoordinatorCard.propTypes = {
   conseillersActifs: propTypes.array,
+  conseillersActifsNonRenouveles: propTypes.array,
   structure: propTypes.object,
   nbPostesCoordoDisponible: propTypes.number,
 };

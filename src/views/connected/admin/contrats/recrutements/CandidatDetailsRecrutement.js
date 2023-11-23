@@ -47,7 +47,7 @@ function CandidatDetailsRecrutement() {
     }
   }, [downloadError]);
 
-  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur) => {
+  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur = false) => {
     dispatch(contratActions.updateContractRecrutementAdmin(
       typeDeContrat,
       dateDebut,
