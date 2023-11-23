@@ -120,11 +120,8 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Renseigner un contrat
                 </h1>
-                <p className="fr-text--sm" style={{ marginBottom: '10px' }}>
-                  Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat.
-                </p>
                 {(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) &&
-                  <div className="fr-checkbox-group fr-mt-2w fr-mb-2w" style={{ width: '93%' }}>
+                  <div className="fr-checkbox-group fr-mt-3w fr-mb-4w" style={{ width: '80%' }}>
                     <input
                       checked={isRecrutementCoordinateur}
                       onChange={e => setIsRecrutementCoordinateur(e.target.checked)}
@@ -133,7 +130,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                       type="checkbox"
                     />
                     <label className="fr-label" htmlFor="checkbox-recrutement-coordinateur">
-                      <strong>Ce contrat concerne un Conseiller num&eacute;rique coordinateur</strong>
+                      <strong>Cochez la case si ce contrat concerne un Conseiller num&eacute;rique coordinateur</strong>
                     </label>
                   </div>
                 }
