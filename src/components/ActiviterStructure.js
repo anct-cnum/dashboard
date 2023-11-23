@@ -6,6 +6,8 @@ import { checkStructurePhase2 } from '../views/connected/structure/utils/functio
 
 function ActiviterStructure({ structure, roleActivated }) {
 
+  const posteValiderCoselecReconventionnement = structure?.posteValiderCoselec - structure?.posteValiderCoselecConventionnement;
+
   return (
     <>
       <div className="fr-grid-row fr-mt-6w fr-mb-4w fr-col-12">
@@ -124,7 +126,7 @@ function ActiviterStructure({ structure, roleActivated }) {
                 'Poste attribué',
                 'Poste attribué',
                 'Postes attribués',
-                structure?.posteValiderCoselec
+                posteValiderCoselecReconventionnement
               )}</strong><br />
               <span>{structure?.posteValiderCoselec ?? '-'}</span>
             </div>
