@@ -68,7 +68,7 @@ function popinSelectionCoordinateur({
                   <strong>Vous ne poss&eacute;dez aucuns conseillers en activit&eacute;s</strong>
                 }
               </div>
-              <div className="fr-modal__footer fr-mb-n2w">
+              <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                   <li>
                     <button className="fr-btn fr-btn--secondary" onClick={() => setOpenModal(false)}>
