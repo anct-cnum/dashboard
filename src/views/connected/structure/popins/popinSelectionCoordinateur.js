@@ -65,7 +65,7 @@ function popinSelectionCoordinateur({
                   </select>
                 </div>
                 {conseillers.length === 0 &&
-                  <strong>Vous ne poss&eacute;dez aucuns conseillers en activit&eacute;s</strong>
+                  <strong>Vous ne poss&eacute;dez aucun conseiller en activit&eacute;</strong>
                 }
               </div>
               <div className="fr-modal__footer">
