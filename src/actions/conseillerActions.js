@@ -318,7 +318,7 @@ function updateStatus(id, statut, motifRupture, dateRupture) {
     dispatch(request());
     conseillerService.updateStatus(id, statut, motifRupture, dateRupture)
     .then(
-      miseEnRelation => dispatch(success(miseEnRelation)),
+      response => dispatch(success(response.miseEnRelation)),
       error => {
         dispatch(failure(error));
       }

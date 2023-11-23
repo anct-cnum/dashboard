@@ -14,11 +14,18 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   const salaireMinimum = 1709.28;
 
   const handleSubmit = () => {
-    if (editMode) {
-      updateContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, conseiller?.miseEnrelationId);
+    if (isRecrutementCoordinateur) {
+      if (editMode) {
+        updateContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, conseiller?.miseEnrelationId);
+      } else {
+        createContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur);
+      }
+    } else if (editMode) {
+      updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnrelationId);
     } else {
-      createContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur);
+      createContract(typeDeContrat, dateDebut, dateFin, salaire);
     }
+
     setDateDebut(null);
     setDateFin(null);
     setTypeDeContrat(null);
@@ -116,6 +123,20 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                 <p className="fr-text--sm" style={{ marginBottom: '10px' }}>
                   Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat.
                 </p>
+                {(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) &&
+                  <div className="fr-checkbox-group fr-mt-2w fr-mb-2w" style={{ width: '93%' }}>
+                    <input
+                      checked={isRecrutementCoordinateur}
+                      onChange={e => setIsRecrutementCoordinateur(e.target.checked)}
+                      name="checkbox-recrutement-coordinateur"
+                      id="checkbox-recrutement-coordinateur"
+                      type="checkbox"
+                    />
+                    <label className="fr-label" htmlFor="checkbox-recrutement-coordinateur">
+                      <strong>Ce contrat concerne un Conseiller num&eacute;rique coordinateur</strong>
+                    </label>
+                  </div>
+                }
                 <div className="fr-col-12 fr-mt-1w">
                   <label className="fr-label" style={{ fontSize: 'unset' }} htmlFor="datePicker">
                     <p style={{ marginBottom: '10px' }}>Type de contrat</p>
@@ -255,20 +276,6 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     </p>
                   }
                 </div>
-                {(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) &&
-                  <div className="fr-checkbox-group" style={{ width: '93%' }}>
-                    <input
-                      checked={isRecrutementCoordinateur}
-                      onChange={e => setIsRecrutementCoordinateur(e.target.checked)}
-                      name="checkbox-recrutement-coordinateur"
-                      id="checkbox-recrutement-coordinateur"
-                      type="checkbox"
-                    />
-                    <label className="fr-label" htmlFor="checkbox-recrutement-coordinateur">
-                      Ce contrat concerne un Conseiller num&eacute;rique coordinateur
-                    </label>
-                  </div>
-                }
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
