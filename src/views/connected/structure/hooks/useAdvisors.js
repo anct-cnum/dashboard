@@ -14,6 +14,7 @@ export function useAdvisors() {
   const [anciensConseillers, setAnciensConseillers] = useState([]);
   const [conseillersRecrutes, setConseillersRecrutes] = useState([]);
   const [bannieresRenouvellementValide, setBannieresRenouvellementValide] = useState([]);
+  const [bannieresAjoutRoleCoordinateur, setBanniereAjoutRoleCoordinateur] = useState([]);
   const dispatch = useDispatch();
 
   const createConseiller = miseEnRelation => {
@@ -100,9 +101,13 @@ export function useAdvisors() {
       .filter(miseEnRelation => miseEnRelation.banniereValidationRenouvellement)
       .map(createConseiller);
 
+      const bannieresAjoutRoleCoordinateur = misesEnRelation
+      .filter(miseEnRelation => miseEnRelation.banniereAjoutRoleCoordinateur)
+      .map(createConseiller);
+
       const conseillersActifsNonRenouveles = misesEnRelation
       .filter(miseEnRelation => !miseEnRelation?.phaseConventionnement && miseEnRelation.statut === 'finalisee' &&
-      miseEnRelation.typeDeContrat !== 'CDI')
+      miseEnRelation.typeDeContrat !== 'CDI' && !miseEnRelation?.reconventionnement)
       .map(createConseiller);
 
       const anciensConseillers = misesEnRelation
@@ -118,6 +123,7 @@ export function useAdvisors() {
       setConseillersActifsEtRenouveller(countConseillerActifsEtRenouveller);
       setConseillersEnCoursDeRecrutement(conseillersEnCoursDeRecrutement);
       setBannieresRenouvellementValide(bannieresRenouvellementValide);
+      setBanniereAjoutRoleCoordinateur(bannieresAjoutRoleCoordinateur);
       setAnciensConseillers(anciensConseillers);
       setConseillersRecrutes(recrutees);
     }
@@ -131,6 +137,8 @@ export function useAdvisors() {
     conseillersEnCoursDeRecrutement,
     anciensConseillers,
     bannieresRenouvellementValide,
+    bannieresAjoutRoleCoordinateur,
+    setBanniereAjoutRoleCoordinateur,
     setBannieresRenouvellementValide,
     conseillersRecrutes,
   };

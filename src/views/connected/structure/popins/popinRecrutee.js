@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function popinRecrutee({ setDisplayModal, urlDossierConventionnement }) {
+function popinRecrutee({ setDisplayModal, urlDossierDS }) {
   const demarchesSimplifieesUrl = process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_HOSTNAME;
 
   return (
@@ -35,8 +35,8 @@ function popinRecrutee({ setDisplayModal, urlDossierConventionnement }) {
                   <br/><br/>
                     NB : Si vous avez valid&eacute; plusieurs candidatures, merci de ne r&eacute;aliser qu&rsquo;une seule demande.
                   <br /><br />
-                  {urlDossierConventionnement ?
-                    <a className="fr-btn fr-btn--secondary" href={urlDossierConventionnement} target="_blank" rel="noopener noreferrer">
+                  {urlDossierDS ?
+                    <a className="fr-btn fr-btn--secondary" href={urlDossierDS} target="_blank" rel="noopener noreferrer">
                       Votre dossier D&eacute;marche Simplifi&eacute;e
                     </a> :
                     <>

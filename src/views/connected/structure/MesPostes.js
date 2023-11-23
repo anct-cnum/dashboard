@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PopinAnnulationReConvention from './popins/popinAnnulationReConvention';
 import PopinEditionContrat from './popins/popinEditionContrat';
-import { ManagePositionsCard, HireAdvisorCard } from './cards';
+import { ManagePositionsCard, HireAdvisorCard, HireCoordinatorCard } from './cards';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import Spinner from '../../../components/Spinner';
 import {
@@ -50,10 +50,16 @@ function MesPostes() {
     conseillersEnCoursDeRecrutement,
     anciensConseillers,
     bannieresRenouvellementValide,
+    bannieresAjoutRoleCoordinateur,
     setBannieresRenouvellementValide,
+    setBanniereAjoutRoleCoordinateur
   } = useAdvisors();
   const { handleErrors } = useErrors([errorStructure, errorMisesEnRelation]);
   const { structure, openModal, setOpenModal } = useStructure();
+  const countDemandesCoordinateurValide =
+    structure?.demandesCoordinateur?.filter(
+      demandeCoordinateur => demandeCoordinateur.statut === 'validee',
+    ).length || 0;
 
   useEffect(() => {
     if (structure?._id) {
@@ -64,7 +70,7 @@ function MesPostes() {
   useEffect(() => {
     handleErrors();
   }, [errorMisesEnRelation, errorStructure]);
-  
+
   useEffect(() => {
     scrollTopWindow();
     if (successSendMail) {
@@ -115,6 +121,8 @@ function MesPostes() {
           openModal={openModal}
           setOpenModal={setOpenModal}
           bannieresRenouvellementValide={bannieresRenouvellementValide}
+          bannieresAjoutRoleCoordinateur={bannieresAjoutRoleCoordinateur}
+          setBannieresAjoutRoleCoordinateur={setBanniereAjoutRoleCoordinateur}
           setBannieresRenouvellementValide={setBannieresRenouvellementValide}
         />
       </div>
@@ -151,6 +159,14 @@ function MesPostes() {
           nbreConseillersEnCoursDeRecrutement={conseillersEnCoursDeRecrutement.length}
           structure={structure}
         />
+        {countDemandesCoordinateurValide > 0 &&
+          <HireCoordinatorCard
+            conseillersActifs={conseillersActifs}
+            conseillersActifsNonRenouveles={conseillersActifsNonRenouveles}
+            structure={structure}
+            nbPostesCoordoDisponible={countDemandesCoordinateurValide}
+          />
+        }
         {misesEnRelation?.length > 0 && (
           <>
             {

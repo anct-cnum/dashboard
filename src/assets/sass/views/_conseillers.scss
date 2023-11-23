@@ -77,6 +77,10 @@
     .tag-link, .tag-link:hover, .tag-link:active, .tag-link:visited {
       all: unset;
     }
+    .image-coordinateur-list {
+        padding-left: 2rem;
+        padding-top: 0.4rem;
+    }
 
     @media (max-width: 825px) {
         #menu-rupture,

@@ -10,8 +10,17 @@
     .color-text span {
         color: $light-grey;
     }
-    .react-datepicker-popper {
-        transform: translate3d(90%, 120px, 0px) !important;
+    .date-debut-contrat .react-datepicker-popper {
+      transform: translate3d(35%, 0px, 0px) !important;
+    }
+    .date-fin-contrat .react-datepicker-popper {
+      transform: translate3d(122%, 0px, 0px) !important;
+    }
+    .date-debut-contrat-coordinateur .react-datepicker-popper {
+      transform: translate3d(35%, 370px, 0px) !important;
+    }
+    .date-fin-contrat-coordinateur .react-datepicker-popper {
+      transform: translate3d(220%, 370px, 0px) !important;
     }
     .email {
         color: $light-grey;

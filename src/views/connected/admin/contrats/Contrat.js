@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
+import pinCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
+import { Tooltip } from 'react-tooltip';
 
 function Contrat({ contrat }) {
   const dateDeLaDemande = contrat => {
@@ -19,14 +21,14 @@ function Contrat({ contrat }) {
     return 'Non renseignée';
   };
 
-  const formatStatutContrat = statut => {
+  const formatStatutContrat = (statut, contratCoordinateur) => {
     switch (statut) {
       case 'nouvelle_rupture':
-        return 'Rupture de contrat';
+        return <span>Rupture de contrat</span>;
       case 'recrutee':
-        return 'Recrutement';
+        return <span className={`${contratCoordinateur ? 'fr-mr-2w' : ''}`}>Recrutement</span>;
       case 'renouvellement_initiee':
-        return 'Renouvellement';
+        return <span>Renouvellement</span>;
       default:
         return '';
     }
@@ -39,11 +41,27 @@ function Contrat({ contrat }) {
         <td>{contrat?.structureObj?.nom}</td>
         <td className="uppercase-letter">
           <span className="fr-text--bold">{contrat?.conseillerObj?.nom}&nbsp;</span>
-          <span className="fr-text--bold">{contrat?.conseillerObj?.prenom}</span><br/>
+          <span className="fr-text--bold">{contrat?.conseillerObj?.prenom}</span><br />
           <span>ID {contrat?.conseillerObj?.idPG}</span>
         </td>
         <td>{dateDeLaDemande(contrat)}</td>
-        <td>{formatStatutContrat(contrat?.statut)}</td>
+        <td>
+          <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+            {formatStatutContrat(contrat?.statut, contrat?.contratCoordinateur)}
+            {contrat?.contratCoordinateur &&
+              <>
+                <div
+                  data-tooltip-content="Conseiller numérique coordinateur"
+                  data-tooltip-float="true"
+                  data-tooltip-id={`tooltip-coordinateur-candidat${contrat?.structureObj?.idPG}`}
+                >
+                  <img src={pinCoordinateur} alt="icône Conseiller numérique coordinateur" className="fr-mt-1w" style={{ height: '34px' }} />
+                </div>
+                <Tooltip variant="light" id={`tooltip-coordinateur-candidat${contrat?.structureObj?.idPG}`} className="infobulle" />
+              </>
+            }
+          </div>
+        </td>
         <td>
           {contrat?.statut === 'recrutee' ?
             <button

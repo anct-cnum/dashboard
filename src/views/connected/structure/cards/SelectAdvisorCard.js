@@ -27,7 +27,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                 <label className="fr-label" htmlFor={`checkbox-${miseEnRelation?.miseEnRelationId}`} />
               </div>
             </div>
-            <div style={{ flex: '0 0 22%' }} className="fr-col-3 card__text">
+            <div style={{ flex: '0 0 22%' }} className="fr-col-2 card__text">
               <div>
                 <strong className="fr-text--md fr-text--bold">
                   {miseEnRelation?.conseiller ? formatNomConseiller(miseEnRelation?.conseiller) : ''}

@@ -45,11 +45,11 @@ const ValidatedAvenantBanner = ({ structure }) => {
         ) :
         pluralize(
           `Il vous reste ${structure?.posteValiderCoselec} poste subventionné dès à présent.
-          Le poste rendu permettra de subventionné un autre poste de conseiller pour une autre structure en demande.`,
+          Le poste rendu permettra de subventionner un autre poste de conseiller pour une autre structure en demande.`,
           `Il vous reste ${structure?.posteValiderCoselec} poste subventionné dès à présent.
-          Le poste rendu permettra de subventionné un autre poste de conseiller pour une autre structure en demande.`,
+          Le poste rendu permettra de subventionner un autre poste de conseiller pour une autre structure en demande.`,
           `Il vous reste ${structure?.posteValiderCoselec} postes subventionnés dès à présent.
-          Les postes rendus permettront de subventionnés d'autres postes de conseillers pour une autre structure en demande.`,
+          Les postes rendus permettront de subventionner d'autres postes de conseillers pour une autre structure en demande.`,
           structure?.lastDemandeCoselec?.posteValiderCoselec
         );
     }

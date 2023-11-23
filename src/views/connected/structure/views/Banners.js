@@ -9,6 +9,7 @@ import {
 } from '../banners/index';
 import propTypes from 'prop-types';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
+import ValidatedRoleCoordoBanner from '../banners/ValidatedRoleCoordoBanner';
 
 const Banners = ({
   structure,
@@ -16,7 +17,10 @@ const Banners = ({
   openModal,
   setOpenModal,
   bannieresRenouvellementValide,
+  bannieresAjoutRoleCoordinateur,
+  setBannieresAjoutRoleCoordinateur,
   setBannieresRenouvellementValide,
+  
 }) => {
   let reconventionnementBannerComponent = null;
   switch (structure?.conventionnement?.statut) {
@@ -60,6 +64,20 @@ const Banners = ({
       );
     });
 
+  const validatedAjoutRoleCoordinateurBannerComponent = bannieresAjoutRoleCoordinateur?.length > 0 &&
+    bannieresAjoutRoleCoordinateur?.map(conseiller => {
+      return (
+        <ValidatedRoleCoordoBanner
+          structure={structure}
+          key={conseiller._id}
+          conseiller={conseiller}
+          setBannieresAjoutRoleCoordinateur={setBannieresAjoutRoleCoordinateur}
+          bannieresAjoutRoleCoordinateur={bannieresAjoutRoleCoordinateur}
+        />
+      );
+    }
+    );
+
   return (
     <>
       {reconventionnementBannerComponent}
@@ -67,6 +85,7 @@ const Banners = ({
       {validatedAvenantBannerComponent}
       {ValidatedRenouvellementBannerComponent}
       {validatedReconventionnementBannerComponent}
+      {validatedAjoutRoleCoordinateurBannerComponent}
     </>
   );
 };
@@ -79,5 +98,7 @@ Banners.propTypes = {
   roleActivated: propTypes.string,
   bannieresRenouvellementValide: propTypes.array,
   setBannieresRenouvellementValide: propTypes.func,
+  bannieresAjoutRoleCoordinateur: propTypes.array,
+  setBannieresAjoutRoleCoordinateur: propTypes.func,
 };
 export default Banners;

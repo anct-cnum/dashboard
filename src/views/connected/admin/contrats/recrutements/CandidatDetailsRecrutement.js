@@ -9,6 +9,8 @@ import CardsRecrutement from './CardsRecrutement';
 import InformationCandidat from '../../../../../components/InformationCandidat';
 import PopinEditionContrat from '../../../structure/popins/popinEditionContrat';
 import ModalValidationRecrutement from '../../modals/ModalValidationRecrutement';
+import pinCoordinateur from '../../../../../assets/icons/icone-coordinateur.svg';
+import { Tooltip } from 'react-tooltip';
 
 function CandidatDetailsRecrutement() {
   const dispatch = useDispatch();
@@ -45,8 +47,16 @@ function CandidatDetailsRecrutement() {
     }
   }, [downloadError]);
 
-  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
-    dispatch(contratActions.updateContractRecrutement(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnRelation?._id));
+  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur = false) => {
+    dispatch(contratActions.updateContractRecrutementAdmin(
+      typeDeContrat,
+      dateDebut,
+      dateFin,
+      salaire,
+      isRecrutementCoordinateur,
+      conseiller?.miseEnRelation?._id,
+      conseiller?._id,
+    ));
   };
 
   return (
@@ -68,7 +78,21 @@ function CandidatDetailsRecrutement() {
         </div>
       }
       <div className="fr-col-12 fr-pt-6w">
-        <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{conseiller ? formatNomConseiller(conseiller) : ''}</h1>
+        <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
+          {conseiller ? formatNomConseiller(conseiller) : ''}
+          {conseiller?.miseEnRelation?.contratCoordinateur &&
+            <img
+              data-tooltip-content="Conseiller numérique coordinateur"
+              data-tooltip-id="tooltip-coordinateur-candidat"
+              data-tooltip-float="true"
+              className={`fr-ml-2w ${conseiller ? '' : 'fr-hidden'}`}
+              src={pinCoordinateur}
+              alt="ic&ocirc;ne Conseiller numérique coordinateur"
+              style={{ height: '50px', position: 'absolute' }}
+            />
+          }
+        </h1>
+        <Tooltip id="tooltip-coordinateur-candidat" variant="light" className="infobulle" />
       </div>
       {openModal &&
         <ModalValidationRecrutement setOpenModal={setOpenModal} idMiseEnRelation={conseiller?.miseEnRelation?._id} />

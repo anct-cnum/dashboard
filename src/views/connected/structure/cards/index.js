@@ -11,6 +11,7 @@ import StructureInformationsCard from './structureInformationsCard';
 import EditContractCard from './EditContractCard';
 import CompleteContractCard from './CompleteContractCard';
 import ReconventionnementInfosCard from './ReconventionnementInfosCard';
+import HireCoordinatorCard from './HireCoordinatorCard';
 
 export {
   AccompagnementsCard,
@@ -25,5 +26,6 @@ export {
   StructureInformationsCard,
   EditContractCard,
   CompleteContractCard,
-  ReconventionnementInfosCard
+  ReconventionnementInfosCard,
+  HireCoordinatorCard
 };

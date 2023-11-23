@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
+import { Tooltip } from 'react-tooltip';
+import iconeCoordinateur from '../../assets/icons/icone-coordinateur.svg';
 
 function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -14,7 +16,7 @@ function Conseiller({ conseiller }) {
         <td>{conseiller?.idPG}</td>
         <td style={{ maxWidth: '6.5rem' }}>{conseiller?.nom}</td>
         <td style={{ maxWidth: '4rem', overflowWrap: 'break-word' }}>{conseiller?.prenom}</td>
-        <td style={{ maxWidth: '15rem', overflowWrap: 'break-word' }}>
+        <td style={{ maxWidth: '13rem', overflowWrap: 'break-word' }}>
           <a className="email" href={'mailto:' + conseiller?.address}>
             {conseiller?.address}
           </a>
@@ -29,7 +31,16 @@ function Conseiller({ conseiller }) {
           {conseiller?.rupture}
         </td>
         <td className="center-text">
-          {conseiller?.estCoordinateur ? 'Oui' : 'Non'}
+          {conseiller?.estCoordinateur === true &&
+            <>
+              <div className="image-coordinateur-list">
+                <img src={iconeCoordinateur} width="32"
+                  alt="ic&ocirc;ne Conseiller num&eacute;rique coordinateur"
+                  data-tooltip-id={`tooltip-coordinateur${conseiller?.idPG}`} data-tooltip-content="Conseiller numérique coordinateur" />
+                <Tooltip variant="light" id={`tooltip-coordinateur${conseiller?.idPG}`} className="infobulle" />
+              </div>
+            </>
+          }
         </td>
         <td>{conseiller?.craCount}</td>
         <td>

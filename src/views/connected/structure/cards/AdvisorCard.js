@@ -3,7 +3,8 @@ import propTypes from 'prop-types';
 import { formatNomConseiller, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import pinCoordo from '../../../../assets/icons/icone-coordinateur.svg';
 import { conseillerActions } from '../../../../actions/conseillerActions';
 
 const AdvisorCard = ({ conseiller }) => {
@@ -48,7 +49,7 @@ const AdvisorCard = ({ conseiller }) => {
                 </span>
               </div>
             </div>
-            <div className="fr-col-2 card__text">
+            <div className="type-contrat card__text">
               <div>
                 <strong className="fr-text--md">
                   Type de contrat
@@ -69,7 +70,7 @@ const AdvisorCard = ({ conseiller }) => {
                 </span>
               </div>
             </div>
-            <div className="fr-col-2 card__text">
+            <div className="debut-contrat card__text">
               <div>
                 <strong className="fr-text--md">
                   D&eacute;but de contrat
@@ -85,7 +86,7 @@ const AdvisorCard = ({ conseiller }) => {
                 }
               </div>
             </div>
-            <div className="fr-col-2 card__text">
+            <div className="fin-contrat card__text">
               <div>
                 <strong className="fr-text--md">
                   Fin de contrat
@@ -106,7 +107,19 @@ const AdvisorCard = ({ conseiller }) => {
                 }
               </div>
             </div>
-            <div className="badge-statut card__text">{displayBadge(conseiller?.statut)}</div>
+            <div className="coordinateur card__text">
+              {conseiller?.estCoordinateur &&
+              <>
+                <div
+                  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                >
+                  <img className="pin-coordo" src={pinCoordo} alt="ic&ocirc;ne Conseiller num&eacute;rique coordinateur" />
+                  <span style={{ color: '#000091' }}>Coordinateur</span>
+                </div>
+              </>
+              }
+            </div>
+            <div className="badge-statut-advisor-card card__text">{displayBadge(conseiller?.statut)}</div>
             <div className="btn-actions-conseiller">
               {conseiller?.emailCN?.address && !conseiller?.mattermost?.id &&
                 <>
