@@ -6,10 +6,14 @@ import { StatutConventionnement } from '../../../../utils/enumUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
 const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersActifsNonRenouveles, nbPostesCoordoDisponible }) => {
+  // conseillers actifs + conseillers actifs non renouvelés traitement pour supprimer les doublons dans les deux listes
   const conseillers = conseillersActifs.concat(conseillersActifsNonRenouveles.filter(conseillerActifNonRenouvele => {
     return conseillersActifs.every(conseillerActif => conseillerActif._id !== conseillerActifNonRenouvele._id);
   }));
 
+  // conseillers actifs + conseillers actifs non renouvelés pour permettre
+  // à la structure de choisir un coordinateur parmi les conseillers actifs
+  // et les conseillers actifs non renouvelés qui ont une date de fin de contrat non dépassée
   const filteredActiveAdvisors = conseillers?.filter(contrat => {
     const isReconventionnementValide = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
     if (contrat?.statut === 'finalisee' && calcNbJoursAvantDateFinContrat(contrat?.dateFinDeContrat) > 0) {
