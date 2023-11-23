@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import PopinSelectionCoordinateur from '../popins/popinSelectionCoordinateur';
-import { StatutConventionnement } from '../../../../utils/enumUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
 const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersActifsNonRenouveles, nbPostesCoordoDisponible }) => {
@@ -11,20 +10,14 @@ const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersActifsNo
     return conseillersActifs.every(conseillerActif => conseillerActif._id !== conseillerActifNonRenouvele._id);
   }));
 
+  // eslint-disable-next-line max-len
+  const checkConseillerDispoCoordo = contrat => calcNbJoursAvantDateFinContrat(contrat?.dateFinDeContrat) > 0 || validTypeDeContratWithoutEndDate(contrat?.typeDeContrat);
+
   // conseillers actifs + conseillers actifs non renouvelés pour permettre
   // à la structure de choisir un coordinateur parmi les conseillers actifs
-  // et les conseillers actifs non renouvelés qui ont une date de fin de contrat non dépassée
-  const filteredActiveAdvisors = conseillers?.filter(contrat => {
-    const isReconventionnementValide = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
-    if (contrat?.statut === 'finalisee' && calcNbJoursAvantDateFinContrat(contrat?.dateFinDeContrat) > 0) {
-      if (!isReconventionnementValide) {
-        return true;
-      }
-      return contrat?.phaseConventionnement || validTypeDeContratWithoutEndDate(contrat?.typeDeContrat);
-    }
-    return false;
-  }) || [];
-  const nbConseillersCoordo = conseillersActifs?.filter(conseiller => conseiller?.estCoordinateur).length || 0;
+  // et les conseillers actifs non renouvelés qui ont une date de fin de contrat non dépassée ou CDI
+  const filteredActiveAdvisors = conseillers?.filter(contrat => contrat?.statut === 'finalisee' && checkConseillerDispoCoordo(contrat));
+  const nbConseillersCoordo = conseillersActifs?.filter(conseiller => conseiller?.estCoordinateur).length;
 
   const [openModal, setOpenModal] = useState(false);
 
