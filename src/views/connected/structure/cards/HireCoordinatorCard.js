@@ -6,7 +6,9 @@ import { StatutConventionnement } from '../../../../utils/enumUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
 const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersActifsNonRenouveles, nbPostesCoordoDisponible }) => {
-  const conseillers = conseillersActifs.concat(conseillersActifsNonRenouveles.filter(bo => conseillersActifs.every(ao => ao._id !== bo._id)));
+  const conseillers = conseillersActifs.concat(conseillersActifsNonRenouveles.filter(conseillerActifNonRenouvele => {
+    return conseillersActifs.every(conseillerActif => conseillerActif._id !== conseillerActifNonRenouvele._id);
+  }));
 
   const filteredActiveAdvisors = conseillers?.filter(contrat => {
     const isReconventionnementValide = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
