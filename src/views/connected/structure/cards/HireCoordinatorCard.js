@@ -6,8 +6,8 @@ import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils
 
 const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersActifsNonRenouveles, nbPostesCoordoDisponible }) => {
   // conseillers actifs + conseillers actifs non renouvelés traitement pour supprimer les doublons dans les deux listes
-  const conseillers = conseillersActifs.concat(conseillersActifsNonRenouveles.filter(conseillerActifNonRenouvele => {
-    return conseillersActifs.every(conseillerActif => conseillerActif._id !== conseillerActifNonRenouvele._id);
+  const conseillers = conseillersActifs.concat(conseillersActifsNonRenouveles?.filter(conseillerActifNonRenouvele => {
+    return conseillersActifs.every(conseillerActif => conseillerActif?._id !== conseillerActifNonRenouvele?._id);
   }));
 
   // eslint-disable-next-line max-len
