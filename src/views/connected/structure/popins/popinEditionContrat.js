@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
@@ -222,7 +223,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     <label className="fr-label">
                       Date de d&eacute;but de contrat
                     </label>
-                    <div className="fr-col-xl-11 date-debut-contrat">
+                    <div className={`fr-col-xl-11 ${(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) ? 'date-debut-contrat-coordinateur' : 'date-debut-contrat'} `}>
                       <DatePicker
                         id="datePickerDebutContrat"
                         name="datePickerDebutContrat"
@@ -241,7 +242,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     <label className="fr-label">
                       Date de fin de contrat
                     </label>
-                    <div className="fr-col-xl-11 date-fin-contrat">
+                    <div className={`fr-col-xl-11 ${(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) ? 'date-fin-contrat-coordinateur' : 'date-fin-contrat'} `}>
                       <DatePicker
                         id="datePickerFinContrat"
                         name="datePickerFinContrat"
