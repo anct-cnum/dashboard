@@ -10,12 +10,11 @@ const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersActifsNo
 
   const filteredActiveAdvisors = conseillers?.filter(contrat => {
     const isReconventionnementValide = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
-    if (contrat?.statut === 'finalisee') {
+    if (contrat?.statut === 'finalisee' && calcNbJoursAvantDateFinContrat(contrat?.dateFinDeContrat) > 0) {
       if (!isReconventionnementValide) {
         return true;
       }
-      // eslint-disable-next-line max-len
-      return contrat?.phaseConventionnement || validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) || calcNbJoursAvantDateFinContrat(contrat?.dateFinDeContrat) > 0;
+      return contrat?.phaseConventionnement || validTypeDeContratWithoutEndDate(contrat?.typeDeContrat);
     }
     return false;
   }) || [];

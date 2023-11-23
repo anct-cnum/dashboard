@@ -107,7 +107,7 @@ export function useAdvisors() {
 
       const conseillersActifsNonRenouveles = misesEnRelation
       .filter(miseEnRelation => !miseEnRelation?.phaseConventionnement && miseEnRelation.statut === 'finalisee' &&
-      miseEnRelation.typeDeContrat !== 'CDI')
+      miseEnRelation.typeDeContrat !== 'CDI' && !miseEnRelation.reconventionnement)
       .map(createConseiller);
 
       const anciensConseillers = misesEnRelation

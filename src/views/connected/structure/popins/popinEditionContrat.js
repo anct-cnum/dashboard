@@ -14,11 +14,18 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   const salaireMinimum = 1709.28;
 
   const handleSubmit = () => {
-    if (editMode) {
-      updateContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, conseiller?.miseEnrelationId);
+    if (isRecrutementCoordinateur) {
+      if (editMode) {
+        updateContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, conseiller?.miseEnrelationId);
+      } else {
+        createContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur);
+      }
+    } else if (editMode) {
+      updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnrelationId);
     } else {
-      createContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur);
+      createContract(typeDeContrat, dateDebut, dateFin, salaire);
     }
+
     setDateDebut(null);
     setDateFin(null);
     setTypeDeContrat(null);

@@ -12,7 +12,7 @@ function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal }) {
   const [editMode, setEditMode] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
 
-  const updateContractRecrutement = (typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur) => {
+  const updateContractRecrutement = (typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur = false) => {
     dispatch(contratActions.updateContractRecrutementStructure(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnRelation._id));
     // eslint-disable-next-line max-len
     if ((miseEnRelation?.contratCoordinateur && miseEnRelation?.contratCoordinateur !== isRecrutementCoordinateur) || (!miseEnRelation?.contratCoordinateur && isRecrutementCoordinateur)) {
