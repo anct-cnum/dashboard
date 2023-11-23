@@ -3,21 +3,24 @@ import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
+import { contratActions } from '../../../../actions';
+import { useDispatch } from 'react-redux';
 
 registerLocale('fr', fr);
-function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, editMode, createContract }) {
+function popinEditionContrat({ setOpenModalContrat, conseiller, editMode }) {
   const [dateDebut, setDateDebut] = useState(null);
   const [dateFin, setDateFin] = useState(null);
   const [typeDeContrat, setTypeDeContrat] = useState(null);
   const [isRecrutementCoordinateur, setIsRecrutementCoordinateur] = useState(false);
   const [salaire, setSalaire] = useState('');
   const salaireMinimum = 1709.28;
+  const dispatch = useDispatch();
 
   const handleSubmit = () => {
     if (editMode) {
-      updateContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, conseiller?.miseEnrelationId);
+      dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnrelationId));
     } else {
-      createContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur);
+      dispatch(contratActions.createContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnrelationId));
     }
     setDateDebut(null);
     setDateFin(null);

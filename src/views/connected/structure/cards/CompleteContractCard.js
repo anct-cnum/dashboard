@@ -10,10 +10,6 @@ const CompleteContractCard = ({ conseiller, handleOpenModalContrat, structure })
 
   const months = calculateMonthsDifference(dateDebutDeContrat, dateFinDeContrat);
 
-  const handleEditContract = conseiller => {
-    handleOpenModalContrat(true, conseiller);
-  };
-
   return (
     <>
       <AdvisorCard conseiller={conseiller} />
@@ -50,7 +46,7 @@ const CompleteContractCard = ({ conseiller, handleOpenModalContrat, structure })
             <button
               className="fr-btn fr-btn--secondary fr-icon-edit-line fr-ml-2w"
               title="&Eacute;diter le contrat"
-              onClick={() => handleEditContract(conseiller)}
+              onClick={() => handleOpenModalContrat(true, conseiller)}
             ></button>
           </div>
         </div>

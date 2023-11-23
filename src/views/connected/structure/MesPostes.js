@@ -9,7 +9,6 @@ import {
   structureActions,
   reconventionnementActions,
   miseEnRelationAction,
-  contratActions,
   alerteEtSpinnerActions
 } from '../../../actions';
 import {
@@ -37,7 +36,6 @@ function MesPostes() {
   const successSendMail = useSelector(state => state.conseiller?.successRelanceInvitation);
   const errorSendMail = useSelector(state => state.conseiller?.errorRelanceInvitation);
 
-  const [miseEnrelationId, setMiseEnrelationId] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [selectedConseiller, setSelectedConseiller] = useState(null);
   const [motif, setMotif] = useState('');
@@ -94,7 +92,7 @@ function MesPostes() {
     setSelectedConseiller(conseiller);
     setOpenModalContrat(true);
   };
-
+  
   const handleCancel = () => {
     if (motif === 'Je ne sais pas encore si je souhaite reconventionner car je manque de visibilité sur les prochains mois') {
       setMotif('');
@@ -103,15 +101,7 @@ function MesPostes() {
     dispatch(reconventionnementActions.update(structure?._id, 'annuler', [], null, motif));
     dispatch(structureActions.getDetails(userAuth?.entity?.$id));
   };
-
-  const createContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
-    dispatch(contratActions.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
-  };
-
-  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, id) => {
-    dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
-  };
-
+  
   return (
     <div>
       <div className="main__banner">
@@ -129,10 +119,8 @@ function MesPostes() {
       {openModalContrat && (
         <PopinEditionContrat
           setOpenModalContrat={setOpenModalContrat}
-          updateContract={updateContract}
           conseiller={selectedConseiller}
           editMode={editMode}
-          createContract={createContract}
         />
       )}
       {openModal && (
@@ -175,8 +163,6 @@ function MesPostes() {
                 conseillersARenouveler={conseillersARenouveler}
                 structure={structure}
                 roleActivated={roleActivated}
-                setMiseEnrelationId={setMiseEnrelationId}
-                setOpenModalContrat={setOpenModalContrat}
                 handleOpenModalContrat={handleOpenModalContrat}
               />
             }
@@ -185,7 +171,6 @@ function MesPostes() {
               <ActiveAdvisorsSection
                 conseillersActifs={conseillersActifs}
                 structure={structure}
-                setMiseEnrelationId={setMiseEnrelationId}
               />
             }
             {
