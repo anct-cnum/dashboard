@@ -16,7 +16,7 @@ function Conseiller({ conseiller }) {
         <td>{conseiller?.idPG}</td>
         <td style={{ maxWidth: '6.5rem' }}>{conseiller?.nom}</td>
         <td style={{ maxWidth: '4rem', overflowWrap: 'break-word' }}>{conseiller?.prenom}</td>
-        <td style={{ maxWidth: '15rem', overflowWrap: 'break-word' }}>
+        <td style={{ maxWidth: '13rem', overflowWrap: 'break-word' }}>
           <a className="email" href={'mailto:' + conseiller?.address}>
             {conseiller?.address}
           </a>
@@ -31,11 +31,14 @@ function Conseiller({ conseiller }) {
           {conseiller?.rupture}
         </td>
         <td className="center-text">
-          { conseiller?.estCoordinateur === true &&
+          {conseiller?.estCoordinateur === true &&
             <>
-              <img src={iconeCoordinateur} className="image-coordinateur-list"
-                data-tooltip-id={`tooltip-coordinateur${conseiller?.idPG}`} data-tooltip-content="Conseiller numérique coordinateur"/>
-              <Tooltip variant="light" id={`tooltip-coordinateur${conseiller?.idPG}`} className="infobulle" />
+              <div className="image-coordinateur-list">
+                <img src={iconeCoordinateur} width="32"
+                  alt="ic&ocirc;ne Conseiller num&eacute;rique coordinateur"
+                  data-tooltip-id={`tooltip-coordinateur${conseiller?.idPG}`} data-tooltip-content="Conseiller numérique coordinateur" />
+                <Tooltip variant="light" id={`tooltip-coordinateur${conseiller?.idPG}`} className="infobulle" />
+              </div>
             </>
           }
         </td>

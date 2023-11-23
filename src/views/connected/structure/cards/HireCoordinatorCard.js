@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import { pluralize } from '../../../../utils/formatagesUtils';
+import { pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import PopinSelectionCoordinateur from '../popins/popinSelectionCoordinateur';
+import { StatutConventionnement } from '../../../../utils/enumUtils';
+import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
-const HireCoordinatorCard = ({ structure, conseillersActifs, nbPostesCoordoDisponible }) => {
+const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersActifsNonRenouveles, nbPostesCoordoDisponible }) => {
+  const conseillers = conseillersActifs.concat(conseillersActifsNonRenouveles.filter(bo => conseillersActifs.every(ao => ao._id !== bo._id)));
 
+  const filteredActiveAdvisors = conseillers?.filter(contrat => {
+    const isReconventionnementValide = structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+    if (contrat?.statut === 'finalisee') {
+      if (!isReconventionnementValide) {
+        return true;
+      }
+      // eslint-disable-next-line max-len
+      return contrat?.phaseConventionnement || validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) || calcNbJoursAvantDateFinContrat(contrat?.dateFinDeContrat) > 0;
+    }
+    return false;
+  }) || [];
   const nbConseillersCoordo = conseillersActifs?.filter(conseiller => conseiller?.estCoordinateur).length || 0;
 
   const [openModal, setOpenModal] = useState(false);
@@ -14,7 +28,7 @@ const HireCoordinatorCard = ({ structure, conseillersActifs, nbPostesCoordoDispo
       {openModal && (
         <PopinSelectionCoordinateur
           setOpenModal={setOpenModal}
-          conseillersActifs={conseillersActifs}
+          conseillersActifs={filteredActiveAdvisors}
           structure={structure}
         />
       )}
@@ -37,7 +51,7 @@ const HireCoordinatorCard = ({ structure, conseillersActifs, nbPostesCoordoDispo
             </div>
             <div className="fr-col-6 card__text" style={{ textAlign: 'end' }}>
               <button disabled={nbPostesCoordoDisponible <= nbConseillersCoordo} className="fr-btn" onClick={() => setOpenModal(true)}>
-                  Attribuer un r&ocirc;le de coordinateur
+                Attribuer un r&ocirc;le de coordinateur
               </button>
             </div>
           </div>
@@ -49,6 +63,7 @@ const HireCoordinatorCard = ({ structure, conseillersActifs, nbPostesCoordoDispo
 
 HireCoordinatorCard.propTypes = {
   conseillersActifs: propTypes.array,
+  conseillersActifsNonRenouveles: propTypes.array,
   structure: propTypes.object,
   nbPostesCoordoDisponible: propTypes.number,
 };

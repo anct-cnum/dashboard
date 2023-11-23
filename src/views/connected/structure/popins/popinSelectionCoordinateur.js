@@ -11,7 +11,7 @@ function popinSelectionCoordinateur({
   structure
 }) {
   const loadingMisesEnRelation = useSelector(state => state.misesEnRelations?.loading);
-  const [selectedConseiller, setSelectedConseiller] = useState(null);
+  const [selectedConseiller, setSelectedConseiller] = useState('tous');
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
@@ -19,6 +19,8 @@ function popinSelectionCoordinateur({
     setOpenModal(false);
     scrollTopWindow();
   };
+
+  const conseillers = conseillersActifs.filter(conseiller => !conseiller.estCoordinateur);
 
   return (
     <dialog
@@ -47,15 +49,18 @@ function popinSelectionCoordinateur({
                 </h1>
                 <div className="fr-select-group" style={{ height: '130px' }}>
                   <label className="fr-label" htmlFor="select" style={{ textAlign: 'center' }}>
-                  S&eacute;lectionnez un conseiller &agrave; qui vous souhaitez attribuer le r&ocirc;le de coordinateur
+                    {conseillers.length === 0 ?
+                      <span>Vous ne poss&eacute;dez aucun conseillers susceptibles de devenir coordinateur</span> :
+                      <span>S&eacute;lectionnez un conseiller &agrave; qui vous souhaitez attribuer le r&ocirc;le de coordinateur</span>
+                    }
                   </label>
-                  <select className="fr-select" id="select" name="select" onChange={
+                  <select value={selectedConseiller} disabled={conseillers.length === 0} className="fr-select" id="select" name="select" onChange={
                     e => {
                       setSelectedConseiller(e.target.value);
                     }
                   }>
-                    <option value="" selected disabled hidden>S&eacute;lectionnez un conseiller</option>
-                    {conseillersActifs.filter(conseiller => !conseiller.estCoordinateur).map(conseiller => (
+                    <option value="tous">S&eacute;lectionnez un conseiller</option>
+                    {conseillers.map(conseiller => (
                       <option key={conseiller._id} value={conseiller._id}>
                         {conseiller.prenom} {conseiller.nom} - ID - {conseiller.idPG}
                       </option>
@@ -67,13 +72,14 @@ function popinSelectionCoordinateur({
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                   <li>
                     <button className="fr-btn fr-btn--secondary" onClick={() => setOpenModal(false)}>
-                     Annuler
+                      Annuler
                     </button>
                   </li>
                   <li>
                     <button
                       className="fr-btn"
                       onClick={handleSubmit}
+                      disabled={selectedConseiller === 'tous'}
                     >
                       D&eacute;finir comme coordinateur
                     </button>
