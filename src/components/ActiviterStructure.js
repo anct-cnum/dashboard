@@ -6,8 +6,6 @@ import { checkStructurePhase2 } from '../views/connected/structure/utils/functio
 
 function ActiviterStructure({ structure, roleActivated }) {
 
-  const posteValiderCoselecReconventionnement = structure?.posteValiderCoselec - structure?.posteValiderCoselecConventionnement;
-
   return (
     <>
       <div className="fr-grid-row fr-mt-6w fr-mb-4w fr-col-12">
@@ -16,7 +14,7 @@ function ActiviterStructure({ structure, roleActivated }) {
         </div>
       </div>
       <div className="fr-grid-row fr-col-12">
-        {!checkStructurePhase2 &&
+        {structure?.conventionnement?.statut !== StatutConventionnement.CONVENTIONNEMENT_VALIDÉ_PHASE_2 &&
           <div className="fr-col-6">
             <h4 className="titre">Conventionnement phase 1</h4>
             <div className="fr-mb-3w">
@@ -119,7 +117,7 @@ function ActiviterStructure({ structure, roleActivated }) {
           </div>
         }
         <div className="fr-col-6">
-          {structure?.conventionnement?.statut !== StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ ? <>
+          {checkStructurePhase2 ? <>
             <h4 className="titre">Conventionnement phase 2</h4>
             <div className="fr-mb-3w">
               <strong>{pluralize(
