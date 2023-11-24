@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
@@ -120,11 +121,8 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Renseigner un contrat
                 </h1>
-                <p className="fr-text--sm" style={{ marginBottom: '10px' }}>
-                  Veuillez renseigner le contrat que vous souhaitez proposer &agrave; ce candidat.
-                </p>
                 {(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) &&
-                  <div className="fr-checkbox-group fr-mt-2w fr-mb-2w" style={{ width: '93%' }}>
+                  <div className="fr-checkbox-group fr-mt-3w fr-mb-4w" style={{ width: '80%' }}>
                     <input
                       checked={isRecrutementCoordinateur}
                       onChange={e => setIsRecrutementCoordinateur(e.target.checked)}
@@ -133,7 +131,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                       type="checkbox"
                     />
                     <label className="fr-label" htmlFor="checkbox-recrutement-coordinateur">
-                      <strong>Ce contrat concerne un Conseiller num&eacute;rique coordinateur</strong>
+                      <strong>Cochez la case si ce contrat concerne un Conseiller num&eacute;rique coordinateur</strong>
                     </label>
                   </div>
                 }
@@ -222,7 +220,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     <label className="fr-label">
                       Date de d&eacute;but de contrat
                     </label>
-                    <div className="fr-col-xl-11 date-debut-contrat">
+                    <div className={`fr-col-xl-11 ${(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) ? 'date-debut-contrat-coordinateur' : 'date-debut-contrat'} `}>
                       <DatePicker
                         id="datePickerDebutContrat"
                         name="datePickerDebutContrat"
@@ -241,7 +239,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     <label className="fr-label">
                       Date de fin de contrat
                     </label>
-                    <div className="fr-col-xl-11 date-fin-contrat">
+                    <div className={`fr-col-xl-11 ${(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) ? 'date-fin-contrat-coordinateur' : 'date-fin-contrat'} `}>
                       <DatePicker
                         id="datePickerFinContrat"
                         name="datePickerFinContrat"
