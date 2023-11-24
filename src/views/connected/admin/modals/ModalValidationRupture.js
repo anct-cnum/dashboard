@@ -8,7 +8,7 @@ import { formatMotifRupture } from '../../../../utils/formatagesUtils';
 
 //Print datePicker calendar in FR
 registerLocale('fr', fr);
-function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, dateFinDeContrat, setDateFinDeContrat }) {
+function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, dateFinDeContrat, setDateFinDeContrat, dateFinDeContratInitiale }) {
   const [confirmationRupture, setConfirmationRupture] = useState(false);
   const [dossierComplet, setDossierComplet] = useState(null);
   const dispatch = useDispatch();
@@ -79,7 +79,7 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                         peekNextMonth
                         onChangeRaw={e => e.preventDefault()}
                         minDate={new Date(datePrisePoste)}
-                        maxDate={new Date()}
+                        maxDate={new Date(dateFinDeContratInitiale)}
                       />
                     </div>
                     <div className="fr-col-12 fr-mt-1w">
@@ -186,6 +186,7 @@ ModalValidationRupture.propTypes = {
   miseEnRelation: PropTypes.object,
   setOpenModal: PropTypes.func,
   setDateFinDeContrat: PropTypes.func,
+  dateFinDeContratInitiale: PropTypes.instanceOf(Date),
 };
 
 export default ModalValidationRupture;
