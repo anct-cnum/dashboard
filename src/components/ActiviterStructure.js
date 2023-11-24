@@ -126,9 +126,9 @@ function ActiviterStructure({ structure, roleActivated }) {
                 'Poste attribué',
                 'Poste attribué',
                 'Postes attribués',
-                posteValiderCoselecReconventionnement
+                structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
               )}</strong><br />
-              <span>{structure?.posteValiderCoselec ?? '-'}</span>
+              <span>{structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees ?? '-'}</span>
             </div>
             <div className="fr-mb-3w fr-grid-row">
               <strong>{pluralize(
