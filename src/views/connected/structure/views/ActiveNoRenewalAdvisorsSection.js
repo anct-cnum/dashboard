@@ -20,10 +20,5 @@ export default ActiveNoRenewalAdvisorsSection;
 
 ActiveNoRenewalAdvisorsSection.propTypes = {
   structure: propTypes.object,
-  conseiller: propTypes.object,
-  roleActivated: propTypes.string,
-  setMiseEnrelationId: propTypes.func,
-  setOpenModalContrat: propTypes.func,
-  handleOpenModalContrat: propTypes.func,
   conseillersActifsNonRenouveles: propTypes.array,
 };
