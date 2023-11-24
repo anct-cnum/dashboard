@@ -93,7 +93,7 @@ function MesPostes() {
     setSelectedConseiller(conseiller);
     setOpenModalContrat(true);
   };
-  
+
   const handleCancel = () => {
     if (motif === 'Je ne sais pas encore si je souhaite reconventionner car je manque de visibilité sur les prochains mois') {
       setMotif('');
@@ -110,9 +110,9 @@ function MesPostes() {
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId) => {
     dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
   };
-  
+
   return (
-    <div>
+    <div className="mes-postes">
       <div className="main__banner">
         <Banners
           structure={structure}

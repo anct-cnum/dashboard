@@ -16,11 +16,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
 
   const handleSubmit = () => {
     if (isRecrutementCoordinateur) {
-      if (editMode) {
-        updateContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, conseiller?.miseEnrelationId);
-      } else {
-        createContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur);
-      }
+      updateContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur);
     } else if (editMode) {
       updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnrelationId);
     } else {
