@@ -9,8 +9,8 @@ import {
   structureActions,
   reconventionnementActions,
   miseEnRelationAction,
-  contratActions,
-  alerteEtSpinnerActions
+  alerteEtSpinnerActions,
+  contratActions
 } from '../../../actions';
 import {
   InactiveAdvisorsSection,
@@ -37,7 +37,6 @@ function MesPostes() {
   const successSendMail = useSelector(state => state.conseiller?.successRelanceInvitation);
   const errorSendMail = useSelector(state => state.conseiller?.errorRelanceInvitation);
 
-  const [miseEnrelationId, setMiseEnrelationId] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [selectedConseiller, setSelectedConseiller] = useState(null);
   const [motif, setMotif] = useState('');
@@ -104,16 +103,16 @@ function MesPostes() {
     dispatch(structureActions.getDetails(userAuth?.entity?.$id));
   };
 
-  const createContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
+  const createContract = (typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId) => {
     dispatch(contratActions.createContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
   };
 
-  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, id) => {
-    dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, id));
+  const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId) => {
+    dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
   };
 
   return (
-    <div>
+    <div className="mes-postes">
       <div className="main__banner">
         <Banners
           structure={structure}
@@ -175,8 +174,6 @@ function MesPostes() {
                 conseillersARenouveler={conseillersARenouveler}
                 structure={structure}
                 roleActivated={roleActivated}
-                setMiseEnrelationId={setMiseEnrelationId}
-                setOpenModalContrat={setOpenModalContrat}
                 handleOpenModalContrat={handleOpenModalContrat}
               />
             }
@@ -185,7 +182,6 @@ function MesPostes() {
               <ActiveAdvisorsSection
                 conseillersActifs={conseillersActifs}
                 structure={structure}
-                setMiseEnrelationId={setMiseEnrelationId}
               />
             }
             {

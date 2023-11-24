@@ -1,15 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 import AdvisorCard from './AdvisorCard';
 
-const EditContractCard = ({ conseiller, setOpenModalContrat, setMiseEnrelationId }) => {
-
-  useEffect(() => {
-    if (conseiller?.miseEnrelationId) {
-      setMiseEnrelationId(conseiller?.miseEnrelationId);
-    }
-  }, [conseiller.miseEnrelationId]);
+const EditContractCard = ({ conseiller, handleOpenModalContrat }) => {
 
   return (
     <>
@@ -29,7 +23,7 @@ const EditContractCard = ({ conseiller, setOpenModalContrat, setMiseEnrelationId
             <button
               className="fr-btn fr-btn--icon-left fr-icon-edit-line card__button"
               title="&Eacute;diter son nouveau contrat"
-              onClick={() => setOpenModalContrat(true)}
+              onClick={() => handleOpenModalContrat(false, conseiller)}
             >
               &Eacute;diter son nouveau contrat
             </button>
@@ -43,8 +37,7 @@ const EditContractCard = ({ conseiller, setOpenModalContrat, setMiseEnrelationId
 EditContractCard.propTypes = {
   conseiller: propTypes.object,
   roleActivated: propTypes.string,
-  setOpenModalContrat: propTypes.func,
-  setMiseEnrelationId: propTypes.func,
+  handleOpenModalContrat: propTypes.func,
 };
 
 export default EditContractCard;
