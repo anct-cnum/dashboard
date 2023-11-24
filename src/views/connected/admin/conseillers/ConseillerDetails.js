@@ -140,8 +140,13 @@ function ConseillerDetails() {
             }
             {misesEnRelationNouvelleRupture &&
             <>
-              {misesEnRelationNouvelleRupture?.dossierIncompletRupture ?
-                <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p> :
+              {misesEnRelationNouvelleRupture?.dossierIncompletRupture === true &&
+                <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p>
+              }
+              {misesEnRelationNouvelleRupture?.dossierIncompletRupture === false &&
+                <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>En attente de traitement</p>
+              }
+              {misesEnRelationNouvelleRupture?.dossierIncompletRupture === undefined &&
                 <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
               }
             </>
