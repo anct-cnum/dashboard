@@ -16,9 +16,9 @@ function ContratRupture({ contrat }) {
       <td>{contrat?.emetteurRupture?.date ? dayjs(contrat.emetteurRupture.date).format('DD/MM/YYYY') : 'Non renseignée'}</td>
       <td>Rupture de contrat</td>
       <td>
-        {contrat?.dossierIncompletRupture === true && <> En attente de pièces </>}
-        {contrat?.dossierIncompletRupture === false && <> Nouvelle demande </>}
-        {contrat?.dossierIncompletRupture === undefined && <> Complet </>}
+        {contrat?.dossierIncompletRupture === true && <>En attente de pi&egrave;ces</>}
+        {contrat?.dossierIncompletRupture === false && <>Nouvelle demande</>}
+        {contrat?.dossierIncompletRupture === undefined && <>Complet</>}
         
       </td>
       <td>
