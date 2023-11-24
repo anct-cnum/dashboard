@@ -140,10 +140,10 @@ function ConseillerDetails() {
             }
             {misesEnRelationNouvelleRupture &&
             <>
-              {misesEnRelationNouvelleRupture?.dossierIncompletRupture &&
+              {misesEnRelationNouvelleRupture?.dossierIncompletRupture === true &&
                 <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p>
               }
-              {!misesEnRelationNouvelleRupture?.dossierIncompletRupture &&
+              {misesEnRelationNouvelleRupture?.dossierIncompletRupture === false &&
                 <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>En attente de traitement</p>
               }
               {misesEnRelationNouvelleRupture?.dossierIncompletRupture === undefined &&
