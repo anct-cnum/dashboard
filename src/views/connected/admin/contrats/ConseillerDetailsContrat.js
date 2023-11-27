@@ -30,11 +30,11 @@ function ConseillerDetailsContrat() {
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
-  const [dateFinDeContratInitiale, setDateFinDeContratInitiale] = useState(null);
+  const [dateFinDeContratInitiale, setDateFinDeContratInitiale] = useState(new Date());
   const [dateFinDeContrat, setDateFinDeContrat] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
-  const [afficherErreur, setAfficherErreur] = useState(false);
+  const [libelleErreur, setLibelleErreur] = useState(false);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -75,9 +75,9 @@ function ConseillerDetailsContrat() {
   useEffect(() => {
     if (errorRupture || errorContrat) {
       scrollTopWindow();
-      setAfficherErreur(errorRupture || errorContrat);
+      setLibelleErreur(errorRupture || errorContrat);
       setTimeout(() => {
-        setAfficherErreur(false);
+        setLibelleErreur(false);
       }, 5000);
     }
   }, [errorRupture, errorContrat]);
@@ -94,10 +94,10 @@ function ConseillerDetailsContrat() {
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </button>
-      {afficherErreur &&
+      {libelleErreur &&
         <div className="fr-alert fr-alert--error fr-mt-4w">
           <p className="fr-alert__title">
-            {afficherErreur}
+            {libelleErreur}
           </p>
         </div>
       }
