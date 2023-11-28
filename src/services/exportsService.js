@@ -7,7 +7,6 @@ import { conseillerQueryStringParameters, territoireQueryString, structureQueryS
 export const exportsService = {
   getFile,
   getExportDonneesTerritoire,
-  getExportDonneesTerritoirePrefet,
   getStatistiquesCSV,
   getExportDonneesConseiller,
   getExportDonneesStructure,
@@ -26,15 +25,7 @@ function getFile(name, collection) {
 async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrdre, ordre) {
   const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports`;
   const exportTerritoiresRoute = '/territoires-csv';
-  return API.get(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`)
-  .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
-}
-
-async function getExportDonneesTerritoirePrefet(territoire, dateDebut, dateFin, nomOrdre, ordre) {
-  const apiUrlRoot = `${process.env.REACT_APP_API_URL}/exports/prefet`;
-  const exportTerritoiresRoute = '/territoires-csv';
-  return API.get(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`)
+  return API.get(`${apiUrlRoot}${exportTerritoiresRoute}${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=anonyme`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -78,8 +69,8 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds) {
-  const role = type === 'nationales' ? 'anonyme' : roleActivated();
+function getStatistiquesCSV(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds, typeStats) {
+  const role = (type === 'nationales' || typeStats === 'territoire') ? 'anonyme' : roleActivated();
   const {
     filterDateStart,
     filterDateEnd,
@@ -93,10 +84,10 @@ function getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, cod
     filterByLastName,
     filterByFirstName,
     filterByConseillerIds,
-    filterByStructureIds
-  } = statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds);
+    filterByStructureIds,
+  } = statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds);
 
-  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}${filterDateStart}${filterDateEnd}${filterIdType}${filterByType}${filterByVille}${filterByCodeCommune}${filterByRegion}${filterByCodePostal}${filterByDepartement}${filterByLastName}${filterByFirstName}${filterByConseillerIds}${filterByStructureIds}`)
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}${filterDateStart}${filterDateEnd}${filterIdType}${filterByType}${filterByVille}${filterByCodeCommune}${filterByRegion}${filterByCodePostal}${filterByDepartement}${filterByLastName}${filterByFirstName}${filterByStructureIds}${filterByConseillerIds}`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }

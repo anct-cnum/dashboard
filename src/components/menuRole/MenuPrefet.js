@@ -120,7 +120,7 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
                 {...(location.pathname.startsWith(`/${roleActivated}/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'statistiques-territoriales', action: `click-${roleActivated}` })}
               >
-                &bull;&nbsp;Statistiques territoriales
+                &bull;&nbsp;Statistiques territoriales du dispositif
               </Link>
             </li>
           </ul>

@@ -55,7 +55,7 @@ export default function GraphiqueTerritoire() {
   useEffect(() => {
     if (!error) {
       if (territoire) {
-        dispatch(statistiquesActions.getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, territoire?.conseillerIds));
+        dispatch(statistiquesActions.getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, territoire[typeTerritoire]));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({

@@ -9,7 +9,6 @@ export const statistiquesService = {
   getTerritoire,
   getDatasStructures,
   getDatasTerritoires,
-  getDatasTerritoiresPrefet,
   getStatistiquesTerritoire,
   getStatistiquesStructure,
   getStatistiquesConseiller,
@@ -20,9 +19,9 @@ export const statistiquesService = {
   getCodesPostauxCrasConseiller
 };
 
-function getTerritoire(typeTerritoire, idTerritoire, date) {
+function getTerritoire(typeTerritoire, idTerritoire, dateFin) {
   return API.get(
-    `${apiUrlRoot}/stats/territoire?typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&dateFin=${date}&role=${roleActivated()}`)
+    `${apiUrlRoot}/stats/territoire?typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&dateFin=${dateFin}&role=anonyme`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
@@ -36,21 +35,13 @@ function getDatasStructures(dateDebut, dateFin, page) {
 
 function getDatasTerritoires(territoire, dateDebut, dateFin, page, nomOrdre, ordre) {
   return API.get(
-    `${apiUrlRoot}/stats/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page)}&role=${roleActivated()}`)
+    `${apiUrlRoot}/stats/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page)}&role=anonyme`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
 
-function getDatasTerritoiresPrefet(territoire, dateDebut, dateFin, nomOrdre, ordre) {
-  return API.get(
-    `${apiUrlRoot}/stats/prefet/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`)
-  .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
-}
-
-function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, conseillerIds) {
-  conseillerIds = JSON.stringify(conseillerIds);
-  return API.get(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&conseillerIds=${conseillerIds}&role=anonyme`)
+function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, idTerritoire) {
+  return API.get(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&role=anonyme`)
   .then(response => response.data)
   .catch(error => Promise.reject(error.response.data.message));
 }
