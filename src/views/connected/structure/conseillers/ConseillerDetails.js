@@ -15,6 +15,7 @@ function ConseillerDetails() {
   const { idConseiller } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const errorConseiller = useSelector(state => state.conseiller?.error);
+  const errorConseillerStatut = useSelector(state => state.conseiller?.errorUpdateStatus);
   const loading = useSelector(state => state.conseiller?.loading);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
@@ -44,7 +45,14 @@ function ConseillerDetails() {
         status: null, description: null
       }));
     }
-  }, [errorConseiller]);
+    if (errorConseillerStatut) {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: errorConseillerStatut,
+        status: null, description: null
+      }));
+    }
+  }, [errorConseiller, errorConseillerStatut]);
 
   useEffect(() => {
     if (conseiller !== undefined) {
