@@ -45,7 +45,7 @@ jobs:
           key: node_modules-${{ hashFiles('package-lock.json') }}
           path: node_modules
       - name: Override .env
-        uses: SpicyPizza/create-envfile@v1
+        uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_REACT_APP_API_URL: ${{ secrets.REACT_ADMIN_API_PRODUCTION }}
           envkey_REACT_APP_STRATEGYAUTH: "local"
