@@ -164,7 +164,18 @@ export default function TableauCoordinateurs() {
                     <thead>
                       <tr>
                         <th style={{ width: '40rem' }}>Structure</th>
-                        <th style={{ width: '19rem' }}>CP</th>
+                        <th style={{ width: '19rem' }}>
+                          <button id="codePostal" className="filtre-btn" onClick={ordreColonne}>
+                            <span>CP
+                              {(ordreNom !== 'codePostal' || ordreNom === 'codePostal' && ordre) &&
+                                <i className="ri-arrow-down-s-line chevron icone"></i>
+                              }
+                              {(ordreNom === 'codePostal' && !ordre) &&
+                                <i className="ri-arrow-up-s-line chevron icone"></i>
+                              }
+                            </span>
+                          </button>
+                        </th>
                         <th style={{ width: '20rem' }}>
                           <button id="dateCandidature" className="filtre-btn" onClick={ordreColonne}>
                             <span>Date de candidature
