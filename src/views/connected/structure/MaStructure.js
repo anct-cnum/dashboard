@@ -50,6 +50,12 @@ function MaStructure() {
       setInitStructure(true);
       dispatch(structureActions.getDetails(userAuth?.entity?.$id));
       dispatch(userActions.getUsers());
+    } else {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: 'La structure n\'a pas pu être chargée !',
+        status: null, description: null
+      }));
     }
   }, [structure]);
 
@@ -68,7 +74,7 @@ function MaStructure() {
   }, [successInvitation]);
 
   useEffect(() => {
-    const errors = [errorInvitation, errorSuppression, errorStructure, errorUsers];
+    const errors = [errorInvitation, errorSuppression, errorUsers];
     const errorMessage = errors.filter(error => error !== false && error !== undefined);
 
     if (errorMessage.length > 0) {
@@ -76,13 +82,13 @@ function MaStructure() {
       dispatch(
         alerteEtSpinnerActions.getMessageAlerte({
           type: 'error',
-          message: errorMessage[0] || 'Une erreur s’est produite',
+          message: errorMessage[0],
           status: null,
           description: null,
         })
       );
     }
-  }, [errorInvitation, errorSuppression, errorStructure, errorUsers]);
+  }, [errorInvitation, errorSuppression, errorUsers]);
 
   const sendInvitation = () => {
     if (!valideInputEmail(email)) {
