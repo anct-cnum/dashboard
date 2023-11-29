@@ -85,12 +85,9 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
             </div>
             <div className="fr-mb-3w">
               <strong>T&eacute;l&eacute;phone</strong><br />
-              <span>
-                {conseiller && typeof conseiller?.telephonePro === 'string' ?
-                  formatNumeroTelephone(conseiller?.telephonePro) :
-                  <>-</>
-                }
-              </span>
+              {conseiller?.telephonePro ?
+                <span>{formatNumeroTelephone(conseiller?.telephonePro)}</span> : <span>-</span>
+              }
             </div>
             <div className="fr-mb-3w">
               <strong>Email secondaire</strong><br />
@@ -151,7 +148,7 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
               </div>
               <div className="fr-mb-3w fr-col-6">
                 <strong>T&eacute;l&eacute;phone</strong><br />
-                {conseiller && typeof conseiller?.supHierarchique?.numeroTelephone === 'string' ?
+                {conseiller?.supHierarchique?.numeroTelephone ?
                   <span>{formatNumeroTelephone(conseiller?.supHierarchique?.numeroTelephone)}</span> :
                   <span>-</span>
                 }
@@ -182,12 +179,9 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
               </div>
               <div className="fr-mb-3w">
                 <strong>T&eacute;l&eacute;phone</strong><br />
-                <span>
-                  {conseiller && typeof conseiller?.telephone === 'string' ?
-                    formatNumeroTelephone(conseiller?.telephone) :
-                    <>-</>
-                  }
-                </span>
+                {conseiller?.telephone ?
+                  <span>{formatNumeroTelephone(conseiller?.telephone)}</span> : <span>-</span>
+                }
               </div>
               <div className="fr-mb-3w">
                 <strong>Email</strong><br />

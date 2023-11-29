@@ -22,7 +22,7 @@ function InformationCandidat({ conseiller }) {
     <div>
       <div className="fr-grid-row fr-mt-4w fr-col-12">
         <div className="fr-col-12">
-          <hr style={{ borderWidth: '0.5px' }}/>
+          <hr style={{ borderWidth: '0.5px' }} />
         </div>
       </div>
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
@@ -35,78 +35,75 @@ function InformationCandidat({ conseiller }) {
           <div className="fr-col-12 fr-col-md-6">
             <h4 className="titre">Informations personnelles</h4>
             <div className="fr-mb-3w">
-              <strong>Sexe</strong><br/>
+              <strong>Sexe</strong><br />
               <span>{conseiller?.sexe ?? '-'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Date de naissance</strong><br/>
+              <strong>Date de naissance</strong><br />
               {conseiller?.dateDeNaissance ?
                 <span>{dayjs(conseiller?.dateDeNaissance).format('DD/MM/YYYY')}</span> : <span>-</span>
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>T&eacute;l&eacute;phone</strong><br/>
-              <span>
-                {conseiller && typeof conseiller?.telephone === 'string' ?
-                  formatNumeroTelephone(conseiller?.telephone) :
-                  <>-</>
-                }
-              </span>
+              <strong>T&eacute;l&eacute;phone</strong><br />
+              {conseiller?.telephone ?
+                <span>{formatNumeroTelephone(conseiller?.telephone)}</span> : <span>-</span>
+              }
             </div>
             <div className="fr-mb-3w">
-              <strong>Email</strong><br/>
+              <strong>Email</strong><br />
               {conseiller?.email &&
-              <a className="email" href={'mailto:' + conseiller?.email}>
-                {conseiller?.email}
-              </a>
+                <a className="email" href={'mailto:' + conseiller?.email}>
+                  {conseiller?.email}
+                </a>
               }
               {!conseiller?.email &&
-              <span>-</span>
+                <span>-</span>
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>Code postal</strong><br/>
+              <strong>Code postal</strong><br />
               {conseiller?.codePostal ? <span>{conseiller?.codePostal}</span> : <span>-</span>}
             </div>
             <div className="fr-mb-3w">
-              <strong>Lieu de r&eacute;sidence</strong><br/>
+              <strong>Lieu de r&eacute;sidence</strong><br />
               {conseiller?.nomCommune ? <span>{conseiller?.nomCommune}</span> : <span>-</span>}
             </div>
           </div>
           <div className="fr-col-12 fr-col-md-6">
             <h4 className="titre">Informations de candidatures</h4>
             <div className="fr-mb-3w">
-              <strong>Mobilit&eacute; g&eacute;ographique</strong><br/>
+              <strong>Mobilit&eacute; g&eacute;ographique</strong><br />
               {conseiller?.distanceMax ? <span>{conseiller?.distanceMax}&nbsp;km</span> : <span>-</span>}
             </div>
             <div className="fr-mb-3w">
-              <strong>Date de d&eacute;marrage possible</strong><br/>
+              <strong>Date de d&eacute;marrage possible</strong><br />
               {conseiller?.dateDisponibilite ?
                 <span>{dayjs(conseiller?.dateDisponibilite).format('DD/MM/YYYY')}</span> : <span>-</span>
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>Disponible</strong><br/>
+              <strong>Disponible</strong><br />
               <span>{conseiller?.disponible ? 'Oui' : 'Non'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Dipl&ocirc;m&eacute;</strong><br/>
+              <strong>Dipl&ocirc;m&eacute;</strong><br />
               <span>{conseiller?.estDiplomeMedNum ? 'Oui' : 'Non'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>A de l&rsquo;exp&eacute;rience dans la m&eacute;diation num&eacute;rique</strong><br/>
+              <strong>A de l&rsquo;exp&eacute;rience dans la m&eacute;diation num&eacute;rique</strong><br />
               <span>{conseiller?.aUneExperienceMedNum ? 'Oui' : 'Non'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Situation professionnelle</strong><br/>
+              <strong>Situation professionnelle</strong><br />
               <span>{conseiller?.estEnEmploi ? 'En emploi' : 'Sans emploi'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Poss&egrave;de un compte candidat</strong><br/>
+              <strong>Poss&egrave;de un compte candidat</strong><br />
               <span>{conseiller?.possedeCompteCandidat ? 'Oui' : 'Non'}</span>
             </div>
             <div className="fr-mb-3w">
-              <strong>Curriculum vitæ</strong><br/>
+              <strong>Curriculum vitæ</strong><br />
               {conseiller?.cv?.file ?
                 <button className="fr-link fr-link--icon-right fr-icon-download-fill" onClick={downloadCV}>
                   T&eacute;l&eacute;charger le CV
@@ -114,7 +111,7 @@ function InformationCandidat({ conseiller }) {
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>R&eacute;sultat Pix</strong><br/>
+              <strong>R&eacute;sultat Pix</strong><br />
               {conseiller?.pix?.partage ?
                 <div>
                   <div className="color-render-stars">
@@ -122,25 +119,25 @@ function InformationCandidat({ conseiller }) {
                   </div>
                   <p>
                     {conseiller?.pix?.competence1 &&
-                    <img src={pixUtilisation}
-                      alt="Utilisation du num&eacute;rique"
-                      title="Utilisation du num&eacute;rique dans la vie professionnelle"
-                      className="fr-mr-2w"
-                    />
+                      <img src={pixUtilisation}
+                        alt="Utilisation du num&eacute;rique"
+                        title="Utilisation du num&eacute;rique dans la vie professionnelle"
+                        className="fr-mr-2w"
+                      />
                     }
                     {conseiller?.pix?.competence2 &&
-                    <img src={pixRessources}
-                      alt="Production de ressources"
-                      title="Production de ressources"
-                      className="fr-mr-2w"
-                    />
+                      <img src={pixRessources}
+                        alt="Production de ressources"
+                        title="Production de ressources"
+                        className="fr-mr-2w"
+                      />
                     }
                     {conseiller?.pix?.competence3 &&
-                  <img src={pixCitoyen}
-                    alt="Comp&eacute;tences num&eacute;riques en lien avec la e-citoyennet&eacute;"
-                    title="Comp&eacute;tences num&eacute;riques en lien avec la e-citoyennet&eacute;"
-                    className="fr-mr-2w"
-                  />
+                      <img src={pixCitoyen}
+                        alt="Comp&eacute;tences num&eacute;riques en lien avec la e-citoyennet&eacute;"
+                        title="Comp&eacute;tences num&eacute;riques en lien avec la e-citoyennet&eacute;"
+                        className="fr-mr-2w"
+                      />
                     }
                   </p>
                   <p>
@@ -149,7 +146,7 @@ function InformationCandidat({ conseiller }) {
                       target="blank"
                       rel="noopener noreferrer"
                       title="T&eacute;l&eacute;charger le document d&rsquo;analyse des r&eacute;sultats Pix">
-                    T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
+                      T&eacute;l&eacute;charger l&rsquo;analyse des r&eacute;sultats Pix
                     </a>
                     <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
                       Document d&rsquo;aide pour lire les r&eacute;sultats du dianostic des candidats

@@ -25,8 +25,8 @@ function MesInformations() {
           {conseiller &&
             <>
               <p>{formatNomConseiller(conseiller)}</p>
-              <p>T&eacute;l&eacute;phone professionnel :
-                {conseiller && typeof conseiller?.telephonePro === 'string' ?
+              <p>T&eacute;l&eacute;phone professionnel&nbsp;:&nbsp;
+                {conseiller?.telephonePro ?
                   formatNumeroTelephone(conseiller?.telephonePro) :
                   'Non renseigné'
                 }
