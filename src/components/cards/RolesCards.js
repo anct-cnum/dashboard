@@ -1,7 +1,7 @@
 import React from 'react';
 import propType from 'prop-types';
 
-const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
+const RolesCards = ({ roles, reseau, user, structure, changeRoleActivated }) => {
 
   const displayRole = (role, idx) => {
     switch (role) {
@@ -17,14 +17,13 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
             </div>
             <div className="fr-col-4 fr fr-grid-row--end" style={{ textAlign: 'right' }}>
               <button className="fr-btn fr-btn--tertiary-no-outline"
-                onClick={() => window.open(`/${roleActivated}/ma-structure/`)}
+                onClick={() => window.open(`/${role}/ma-structure/`)}
               >
                 <i className="ri-home-4-line fr-mr-1w"></i>G&eacute;rer ma structure
               </button>
             </div>
           </div>
-        </div>
-        ;
+        </div>;
       case 'grandReseau':
         return <div key={idx}>
           <hr className="fr-mt-4w fr-mb-2w" style={{ borderWidth: '0.5px' }} />
@@ -37,9 +36,13 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
             </div>
             <div className="fr-col-4 fr fr-grid-row--end" style={{ textAlign: 'right' }}>
               <button className="fr-btn fr-btn--tertiary-no-outline"
-                onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}
+                style={{ whiteSpace: 'nowrap' }}
+                onClick={() => {
+                  changeRoleActivated(role);
+                  window.open(`/${role}/structure/${structure?._id}`); // lien à re-définir !
+                }}
               >
-                <i className="ri-home-4-line fr-mr-1w"></i>G&eacute;rer ma structure
+                <i className="ri-home-4-line fr-mr-1w"></i>G&eacute;rer mon grand réseau
               </button>
             </div>
           </div>
@@ -85,6 +88,7 @@ RolesCards.propTypes = {
   user: propType.object,
   roleActivated: propType.string,
   structure: propType.object,
+  changeRoleActivated: propType.func,
 };
 
 export default RolesCards;
