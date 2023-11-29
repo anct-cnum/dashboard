@@ -76,7 +76,7 @@ function MaStructure() {
       dispatch(
         alerteEtSpinnerActions.getMessageAlerte({
           type: 'error',
-          message: errorMessage[0],
+          message: errorMessage[0] || 'Une erreur s’est produite',
           status: null,
           description: null,
         })
