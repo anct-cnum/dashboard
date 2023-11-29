@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import AccordeonContrats from './AccordeonContrats';
 import ContratsCards from './cards/ContratsCards';
-import { formatAdressePermanence, formatRenderStars } from '../utils/formatagesUtils';
+import { formatAdressePermanence, formatNumeroTelephone, formatRenderStars } from '../utils/formatagesUtils';
 import pixUtilisation from '../assets/icons/pix-utilisation.png';
 import pixRessources from '../assets/icons/pix-ressources.png';
 import pixCitoyen from '../assets/icons/pix-citoyen.png';
@@ -87,8 +87,7 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
               <strong>T&eacute;l&eacute;phone</strong><br />
               <span>
                 {conseiller && typeof conseiller?.telephonePro === 'string' ?
-                  /* espace tous les 2 chiffres après l'indicatif*/
-                  conseiller?.telephonePro?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
+                  formatNumeroTelephone(conseiller?.telephonePro) :
                   <>-</>
                 }
               </span>
@@ -153,8 +152,7 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
               <div className="fr-mb-3w fr-col-6">
                 <strong>T&eacute;l&eacute;phone</strong><br />
                 {conseiller && typeof conseiller?.supHierarchique?.numeroTelephone === 'string' ?
-                  /* espace tous les 2 chiffres après l'indicatif*/
-                  <span>{conseiller?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7')}</span> :
+                  <span>{formatNumeroTelephone(conseiller?.supHierarchique?.numeroTelephone)}</span> :
                   <span>-</span>
                 }
               </div>
@@ -186,8 +184,7 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
                 <strong>T&eacute;l&eacute;phone</strong><br />
                 <span>
                   {conseiller && typeof conseiller?.telephone === 'string' ?
-                    /* espace tous les 2 chiffres après l'indicatif*/
-                    conseiller?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
+                    formatNumeroTelephone(conseiller?.telephone) :
                     <>-</>
                   }
                 </span>

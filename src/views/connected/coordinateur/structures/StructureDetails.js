@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { structureActions } from '../../../../actions';
 import ActiviterStructure from '../../../../components/ActiviterStructure';
+import { formatNumeroTelephone } from '../../../../utils/formatagesUtils';
 
 function StructureDetails() {
 
@@ -80,7 +81,7 @@ function StructureDetails() {
             <div className="fr-mb-3w">
               <strong>T&eacute;l&eacute;phone</strong><br />
               <span>{structure?.contact?.telephone ?
-                structure?.contact?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
+                formatNumeroTelephone(structure?.contact?.telephone) :
                 <>-</>
               }</span>
             </div>

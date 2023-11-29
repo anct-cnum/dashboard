@@ -56,6 +56,9 @@ export const validTypeDeContratWithoutEndDate = typeDeContrat => typeDeContrat =
 export const formatNomConseiller = conseiller =>
   (conseiller?.nom + ' ' + conseiller?.prenom).toLowerCase().replace(/(^\w{1})|([\s,-]+\w{1})/g, letter => letter.toUpperCase());
 
+/* espace tous les 2 chiffres après l'indicatif*/
+export const formatNumeroTelephone = telephone => telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7');
+
 export const formatNomContactStructure = structure =>
   (structure?.contact?.nom + ' ' + structure?.contact?.prenom).toLowerCase().replace(/(^\w{1})|([\s,-]+\w{1})/g, letter => letter.toUpperCase());
 

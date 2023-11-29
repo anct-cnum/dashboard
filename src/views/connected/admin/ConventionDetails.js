@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, conventionActions } from '../../../actions';
-import { formatNomContactStructure } from '../../../utils/formatagesUtils';
+import { formatNomContactStructure, formatNumeroTelephone } from '../../../utils/formatagesUtils';
 import Spinner from '../../../components/Spinner';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import ReconventionnementDetails from './reconventionnement/ReconventionnementDetails';
@@ -107,7 +107,10 @@ function ConventionDetails() {
                   <div className="fr-mb-3w">
                     <strong>T&eacute;l&eacute;phone</strong><br />
                     <span className="fr-text--regular fr-text--md">
-                      {convention?.contact?.telephone ?? '-'}
+                      {convention?.contact?.telephone ?
+                        formatNumeroTelephone(convention?.contact?.telephone) :
+                        <>-</>
+                      }
                     </span>
                   </div>
                 </div>

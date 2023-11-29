@@ -6,7 +6,7 @@ import pixUtilisation from '../assets/icons/pix-utilisation.png';
 import pixRessources from '../assets/icons/pix-ressources.png';
 import pixCitoyen from '../assets/icons/pix-citoyen.png';
 import { scrollTopWindow } from '../utils/exportsUtils';
-import { formatRenderStars } from '../utils/formatagesUtils';
+import { formatNumeroTelephone, formatRenderStars } from '../utils/formatagesUtils';
 import { conseillerActions } from '../actions';
 
 function InformationCandidat({ conseiller }) {
@@ -48,8 +48,7 @@ function InformationCandidat({ conseiller }) {
               <strong>T&eacute;l&eacute;phone</strong><br/>
               <span>
                 {conseiller && typeof conseiller?.telephone === 'string' ?
-                  /* espace tous les 2 chiffres après l'indicatif*/
-                  conseiller?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
+                  formatNumeroTelephone(conseiller?.telephone) :
                   <>-</>
                 }
               </span>
