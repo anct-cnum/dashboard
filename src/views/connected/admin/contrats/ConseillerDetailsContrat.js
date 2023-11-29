@@ -58,7 +58,9 @@ function ConseillerDetailsContrat() {
         setMisesEnRelationNouvelleRupture(miseEnRelation);
         setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
         setDateFinDeContrat(miseEnRelation?.dateRupture ? new Date(miseEnRelation.dateRupture) : null);
-        setDateFinDeContratInitiale(miseEnRelation?.dateFinDeContrat ? new Date(miseEnRelation.dateFinDeContrat) : null);
+        setDateFinDeContratInitiale(miseEnRelation?.dateFinDeContrat ?
+          new Date(miseEnRelation.dateFinDeContrat) :
+          new Date(new Date().setMonth(new Date().getMonth() + 2))); //Max date à M+2
         if (conseiller?.statut !== 'RUPTURE') {
           dispatch(structureActions.get(conseiller?.structureId));
         }

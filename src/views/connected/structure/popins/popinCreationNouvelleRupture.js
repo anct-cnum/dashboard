@@ -2,13 +2,23 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
+import { useSelector } from 'react-redux';
 
 //Print datePicker calendar in FR
 registerLocale('fr', fr);
 function popinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
-  const today = new Date();
+  const conseiller = useSelector(state => state.conseiller?.conseiller);
+  const miseEnRelation = conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee')[0];
   const [dateRuptureValidee, setDateRuptureValidee] = useState(null);
   const [motifRuptureValide, setMotifRuptureValide] = useState(null);
+
+  const today = new Date();
+  const dateMinRupture = miseEnRelation?.dateDebutDeContrat ?
+    new Date(miseEnRelation.dateDebutDeContrat) :
+    new Date('11/01/2020');
+  const dateMaxRupture = miseEnRelation?.dateFinDeContrat ?
+    new Date(miseEnRelation.dateFinDeContrat) :
+    new Date(today.setMonth(today.getMonth() + 2)); //Max date à M+2
 
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
@@ -45,8 +55,8 @@ function popinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
                     placeholderText="../../...."
                     locale="fr"
                     onChangeRaw={e => e.preventDefault()}
-                    maxDate={new Date(today.setMonth(today.getMonth() + 2))} //Max date à M+2
-                    minDate={new Date('11/01/2020')}
+                    maxDate={dateMaxRupture}
+                    minDate={dateMinRupture}
                     selected={dateRuptureValidee}
                     onChange={date => setDateRuptureValidee(date)}
                   />
