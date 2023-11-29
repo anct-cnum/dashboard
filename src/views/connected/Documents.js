@@ -98,7 +98,7 @@ export default function Documents() {
         <h4>2) Financement Conseiller num&eacute;rique</h4>
         <div className="fr-grid-row">
           <p>
-            <a href="https://cdn.conseiller-numerique.gouv.fr/Panorama_subventions.pdf"
+            <a href="https://cdn.conseiller-numerique.gouv.fr/Panorama_financements.pdf"
               className="fr-link" target="blank" title="T&eacute;l&eacute;charger le panorama de financement du dispositif Conseiller num&eacute;rique">
               T&eacute;l&eacute;charger le panorama de financement du dispositif Conseiller num&eacute;rique (pdf)
             </a>
