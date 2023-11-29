@@ -60,7 +60,7 @@ function ConseillerDetailsContrat() {
         setDateFinDeContrat(miseEnRelation?.dateRupture ? new Date(miseEnRelation.dateRupture) : null);
         setDateFinDeContratInitiale(miseEnRelation?.dateFinDeContrat ?
           new Date(miseEnRelation.dateFinDeContrat) :
-          new Date(new Date().setMonth(new Date().getMonth() + 2))); //Max date à M+2
+          new Date(new Date().setMonth(new Date().getMonth() + 2)));
         if (conseiller?.statut !== 'RUPTURE') {
           dispatch(structureActions.get(conseiller?.structureId));
         }
@@ -133,7 +133,6 @@ function ConseillerDetailsContrat() {
           <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
         </div>
       </div>
-      {errorRupture}
       {conseiller &&
         <>
           <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
