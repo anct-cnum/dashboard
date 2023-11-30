@@ -69,7 +69,7 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                       <DatePicker
                         id="datePicker"
                         name="datePicker"
-                        className="fr-input fr-my-2w fr-mr-6w fr-col-6"
+                        className={`fr-input fr-my-2w fr-mr-6w fr-col-6 ${dossierComplet === true && dateFinDeContrat > new Date() ? 'input-error' : ''}`}
                         dateFormat="dd/MM/yyyy"
                         placeholderText="../../...."
                         locale="fr"
@@ -81,6 +81,11 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                         minDate={new Date(datePrisePoste)}
                         maxDate={new Date(dateFinDeContratInitiale)}
                       />
+                      {dossierComplet === true && dateFinDeContrat > new Date() &&
+                      <p className="text-error">
+                        Vous ne pouvez pas valider un dossier complet dont la date de rupture est supp&eacute;rieur &agrave; la date du jour
+                      </p>
+                      }
                     </div>
                     <div className="fr-col-12 fr-mt-1w">
                       <label
@@ -131,7 +136,7 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                       <li>
                         <button
                           onClick={gestionRupture}
-                          disabled={!dateFinDeContrat || dossierComplet === null}
+                          disabled={!dateFinDeContrat || dossierComplet === null || dossierComplet === true && dateFinDeContrat > new Date()}
                           className="fr-btn fr-btn--icon-left" title="Valider la rupture de contrat"
                         >
                           Valider
