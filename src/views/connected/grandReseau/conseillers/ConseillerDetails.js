@@ -22,7 +22,7 @@ function ConseillerDetails() {
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
-  const [misesEnRelationTermineeNaturel, setMisesEnRelationTermineeNaturel] = useState([]);
+  const [misesEnRelationTermineeNaturelle, setMisesEnRelationTermineeNaturelle] = useState([]);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -44,7 +44,7 @@ function ConseillerDetails() {
         setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
         setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
         setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
-        setMisesEnRelationTermineeNaturel(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'terminee_naturel'));
+        setMisesEnRelationTermineeNaturelle(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'terminee_naturelle'));
         if (conseiller?.structureId) {
           dispatch(structureActions.get(conseiller?.structureId));
         }
@@ -130,7 +130,7 @@ function ConseillerDetails() {
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
         misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
-        misesEnRelationTermineeNaturel={misesEnRelationTermineeNaturel}
+        misesEnRelationTermineeNaturelle={misesEnRelationTermineeNaturelle}
         roleActivated={roleActivated}
       />
     </div>
