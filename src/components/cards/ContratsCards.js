@@ -271,7 +271,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                   <div className="fr-col-2">
                     <div>
                       <strong className="fr-text--md">Motif</strong><br />
-                      <span className="fr-text--regular fr-text--md" title="Non reconduction du contrat">
+                      <span className="fr-text--regular fr-text--md" title="Non-reconduction du contrat">
                         Non-reconduction
                       </span>
                     </div>
