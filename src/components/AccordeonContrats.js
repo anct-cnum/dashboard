@@ -243,7 +243,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                       <div>
                         <strong className="fr-text--md" style={{ fontWeight: '500' }}>Motif</strong><br />
                         <span className="fr-text--regular fr-text--md">
-                          Non reconduction du contrat
+                          Non-reconduction du contrat
                         </span>
                       </div>
                     </div>

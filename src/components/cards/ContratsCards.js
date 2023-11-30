@@ -219,10 +219,10 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                   <div className="badge">
                     <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
                   </div>
-                  <div className="structure-court">
+                  <div className="structure-long">
                     <strong className="fr-text--md" title={miseEnRelation?.structureObj?.nom}>
-                      {miseEnRelation?.structureObj?.nom?.length > 15 ?
-                        `${miseEnRelation?.structureObj?.nom.substring(0, 15)}...` : miseEnRelation?.structureObj?.nom
+                      {miseEnRelation?.structureObj?.nom?.length > 20 ?
+                        `${miseEnRelation?.structureObj?.nom.substring(0, 20)}...` : miseEnRelation?.structureObj?.nom
                       }
                     </strong><br />
                     <span className="fr-text--md">ID - {miseEnRelation?.structureObj?.idPG}</span>
@@ -268,11 +268,11 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                       }
                     </div>
                   </div>
-                  <div className="motif-long">
+                  <div className="fr-col-2">
                     <div>
                       <strong className="fr-text--md">Motif</strong><br />
                       <span className="fr-text--regular fr-text--md" title="Non reconduction du contrat">
-                        Non reconduction
+                        Non-reconduction
                       </span>
                     </div>
                   </div>
