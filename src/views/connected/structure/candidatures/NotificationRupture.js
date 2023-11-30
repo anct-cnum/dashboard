@@ -5,11 +5,16 @@ import fr from 'date-fns/locale/fr';
 //Print datePicker calendar in FR
 registerLocale('fr', fr);
 function NotificationRupture({ misesEnRelationFinalisee, dateRupture, motifRupture, updateStatut }) {
-  const today = new Date();
   const [dateRuptureValidee, setDateRuptureValidee] = useState(dateRupture);
   const [motifRuptureValide, setMotifRuptureValide] = useState(motifRupture);
   const [afficherRupture, setAfficherRupture] = useState(false);
-
+  const today = new Date();
+  const dateMinRupture = misesEnRelationFinalisee?.dateDebutDeContrat ?
+    new Date(misesEnRelationFinalisee.dateDebutDeContrat) :
+    new Date('11/01/2020');
+  const dateMaxRupture = misesEnRelationFinalisee?.dateFinDeContrat ?
+    new Date(misesEnRelationFinalisee.dateFinDeContrat) :
+    new Date(today.setMonth(today.getMonth() + 2)); //Max date à M+2
   return (
     <>
       {misesEnRelationFinalisee?.statut === 'finalisee' && <>
@@ -35,8 +40,8 @@ function NotificationRupture({ misesEnRelationFinalisee, dateRupture, motifRuptu
             className="fr-input fr-my-2w fr-mr-6w"
             dateFormat="dd/MM/yyyy"
             placeholderText="../../...."
-            maxDate={new Date(today.setMonth(today.getMonth() + 2))} //Max date à M+2
-            minDate={new Date('11/01/2020')}
+            maxDate={dateMaxRupture}
+            minDate={dateMinRupture}
             locale="fr"
             selected={dateRuptureValidee ? new Date(dateRuptureValidee) : ''}
             onChange={date => setDateRuptureValidee(date)}
