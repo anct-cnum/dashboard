@@ -4,7 +4,7 @@ import { formatMotifRupture, formatTypeDeContrat, validTypeDeContratWithoutEndDa
 import dayjs from 'dayjs';
 
 // eslint-disable-next-line max-len
-function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, misesEnRelationTermineeNaturel, conseiller }) {
+function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, misesEnRelationTermineeNaturelle, conseiller }) {
 
   return (
     <section className="fr-accordion display-mobile fr-mb-2w">
@@ -180,9 +180,11 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                     <div className="fr-col-12 fr-mt-2w">
                       <div>
                         <strong className="fr-text--md" style={{ fontWeight: '500' }}>Motif</strong><br />
-                        <span className="fr-text--regular fr-text--md" title={miseEnRelation?.motifRupture}>
-                          {formatMotifRupture(miseEnRelation?.motifRupture)}
-                        </span>
+                        {miseEnRelation?.motifRupture ?
+                          <span className="fr-text--regular fr-text--md" title={miseEnRelation?.motifRupture}>
+                            {formatMotifRupture(miseEnRelation?.motifRupture)}
+                          </span> : <span>-</span>
+                        }
                       </div>
                     </div>
                   </div>
@@ -190,7 +192,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
               </div>
             </div>
           )}
-          {misesEnRelationTermineeNaturel?.map(miseEnRelation =>
+          {misesEnRelationTermineeNaturelle?.map(miseEnRelation =>
             <div
               // eslint-disable-next-line max-len
               className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture || misesEnRelationFinaliseeRupture?.length > 0 ? 'fr-mt-3w' : ''}`}
@@ -297,7 +299,7 @@ AccordeonContrats.propTypes = {
   misesEnRelationNouvelleRupture: PropTypes.object,
   misesEnRelationFinaliseeRupture: PropTypes.array,
   misesEnRelationFinalisee: PropTypes.array,
-  misesEnRelationTermineeNaturel: PropTypes.array,
+  misesEnRelationTermineeNaturelle: PropTypes.array,
   conseiller: PropTypes.object,
 };
 
