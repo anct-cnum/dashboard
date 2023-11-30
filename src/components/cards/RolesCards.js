@@ -1,7 +1,7 @@
 import React from 'react';
 import propType from 'prop-types';
 
-const RolesCards = ({ roles, reseau, user, structure, changeRoleActivated }) => {
+const RolesCards = ({ roles, reseau, user, changeRoleActivated }) => {
 
   const displayRole = (role, idx) => {
     switch (role) {
@@ -17,7 +17,10 @@ const RolesCards = ({ roles, reseau, user, structure, changeRoleActivated }) => 
             </div>
             <div className="fr-col-4 fr fr-grid-row--end" style={{ textAlign: 'right' }}>
               <button className="fr-btn fr-btn--tertiary-no-outline"
-                onClick={() => window.open(`/${role}/ma-structure/`)}
+                onClick={() => {
+                  changeRoleActivated(role);
+                  window.open(`/${role}/ma-structure/`);
+                }}
               >
                 <i className="ri-home-4-line fr-mr-1w"></i>G&eacute;rer ma structure
               </button>
@@ -39,7 +42,7 @@ const RolesCards = ({ roles, reseau, user, structure, changeRoleActivated }) => 
                 style={{ whiteSpace: 'nowrap' }}
                 onClick={() => {
                   changeRoleActivated(role);
-                  window.open(`/${role}/structure/${structure?._id}`); // lien à re-définir !
+                  window.open(`/${role}/liste-structures/`);
                 }}
               >
                 <i className="ri-home-4-line fr-mr-1w"></i>G&eacute;rer mon grand réseau
@@ -68,7 +71,7 @@ const RolesCards = ({ roles, reseau, user, structure, changeRoleActivated }) => 
 
   return (
     <>
-      <div className="fr-card fr-col-8 fr-mt-2w fr-p-3w">
+      { roles && roles.filter(i => i !== 'structure_coop').length >= 2 && <div className="fr-card fr-col-8 fr-mt-2w fr-p-3w">
         <div className="fr-card__body fr-p-0">
           <div>
             <h4>Mes r&ocirc;les</h4>
@@ -77,7 +80,7 @@ const RolesCards = ({ roles, reseau, user, structure, changeRoleActivated }) => 
             )) }
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 };
