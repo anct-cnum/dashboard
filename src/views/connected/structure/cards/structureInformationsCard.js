@@ -49,10 +49,7 @@ const StructureInformationsCard = ({ structure, formInformationContact, setFormI
                 </strong>
                 <br />
                 <span className="fr-text--regular fr-text--md">
-                  {structure?.contact?.telephone ?
-                    formatNumeroTelephone(structure?.contact?.telephone) :
-                    <>-</>
-                  }
+                  {formatNumeroTelephone(structure?.contact?.telephone)}
                 </span>
               </div>
             </div>

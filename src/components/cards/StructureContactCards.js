@@ -37,10 +37,7 @@ export default function StructureContactCards({ structure }) {
                   <div className="fr-mb-3w">
                     <strong>T&eacute;l&eacute;phone</strong><br />
                     <span className="fr-text--regular fr-text--md">
-                      {structure?.contact?.telephone ?
-                        formatNumeroTelephone(structure?.contact?.telephone) :
-                        <>-</>
-                      }
+                      {formatNumeroTelephone(structure?.contact?.telephone)}
                     </span>
                   </div>
                 </div>

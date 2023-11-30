@@ -25,11 +25,9 @@ function MesInformations() {
           {conseiller &&
             <>
               <p>{formatNomConseiller(conseiller)}</p>
-              <p>T&eacute;l&eacute;phone professionnel&nbsp;:&nbsp;
-                {conseiller?.telephonePro ?
-                  formatNumeroTelephone(conseiller?.telephonePro) :
-                  'Non renseigné'
-                }
+              <p>
+                T&eacute;l&eacute;phone professionnel&nbsp;:&nbsp;
+                {formatNumeroTelephone(conseiller?.telephonePro)}
               </p>
             </>
           }

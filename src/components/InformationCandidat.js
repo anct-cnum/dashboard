@@ -46,9 +46,7 @@ function InformationCandidat({ conseiller }) {
             </div>
             <div className="fr-mb-3w">
               <strong>T&eacute;l&eacute;phone</strong><br />
-              {conseiller?.telephone ?
-                <span>{formatNumeroTelephone(conseiller?.telephone)}</span> : <span>-</span>
-              }
+              <span>{formatNumeroTelephone(conseiller?.telephone)}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Email</strong><br />

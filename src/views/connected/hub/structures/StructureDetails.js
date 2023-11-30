@@ -80,10 +80,7 @@ function StructureDetails() {
             </div>
             <div className="fr-mb-3w">
               <strong>T&eacute;l&eacute;phone</strong><br />
-              <span>{structure?.contact?.telephone ?
-                formatNumeroTelephone(structure?.contact?.telephone) :
-                <>-</>
-              }</span>
+              <span>{formatNumeroTelephone(structure?.contact?.telephone)}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Fonction</strong><br />

@@ -85,9 +85,7 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
             </div>
             <div className="fr-mb-3w">
               <strong>T&eacute;l&eacute;phone</strong><br />
-              {conseiller?.telephonePro ?
-                <span>{formatNumeroTelephone(conseiller?.telephonePro)}</span> : <span>-</span>
-              }
+              <span>{formatNumeroTelephone(conseiller?.telephonePro)}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Email secondaire</strong><br />
@@ -148,10 +146,7 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
               </div>
               <div className="fr-mb-3w fr-col-6">
                 <strong>T&eacute;l&eacute;phone</strong><br />
-                {conseiller?.supHierarchique?.numeroTelephone ?
-                  <span>{formatNumeroTelephone(conseiller?.supHierarchique?.numeroTelephone)}</span> :
-                  <span>-</span>
-                }
+                <span>{formatNumeroTelephone(conseiller?.supHierarchique?.numeroTelephone)}</span>
               </div>
               <div className="fr-mb-3w">
                 <strong>Fonction</strong><br />
@@ -179,9 +174,7 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
               </div>
               <div className="fr-mb-3w">
                 <strong>T&eacute;l&eacute;phone</strong><br />
-                {conseiller?.telephone ?
-                  <span>{formatNumeroTelephone(conseiller?.telephone)}</span> : <span>-</span>
-                }
+                <span>{formatNumeroTelephone(conseiller?.telephone)}</span>
               </div>
               <div className="fr-mb-3w">
                 <strong>Email</strong><br />

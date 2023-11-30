@@ -107,10 +107,7 @@ function ConventionDetails() {
                   <div className="fr-mb-3w">
                     <strong>T&eacute;l&eacute;phone</strong><br />
                     <span className="fr-text--regular fr-text--md">
-                      {convention?.contact?.telephone ?
-                        formatNumeroTelephone(convention?.contact?.telephone) :
-                        <>-</>
-                      }
+                      {formatNumeroTelephone(convention?.contact?.telephone)}
                     </span>
                   </div>
                 </div>
