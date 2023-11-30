@@ -29,7 +29,7 @@ function ConseillerDetailsContrat() {
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
-  const [misesEnRelationTermineeNaturel, setMisesEnRelationTermineeNaturel] = useState([]);
+  const [misesEnRelationTermineeNaturelle, setMisesEnRelationTermineeNaturelle] = useState([]);
   const [dateFinDeContrat, setDateFinDeContrat] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
@@ -55,7 +55,7 @@ function ConseillerDetailsContrat() {
         setMisesEnRelationFinalisee(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
         setMisesEnRelationNouvelleRupture(miseEnRelation);
         setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
-        setMisesEnRelationTermineeNaturel(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'terminee_naturel'));
+        setMisesEnRelationTermineeNaturelle(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'terminee_naturel'));
 
         setDateFinDeContrat(miseEnRelation?.dateRupture ? new Date(miseEnRelation.dateRupture) : null);
         if (conseiller?.structureId) {
@@ -186,7 +186,7 @@ function ConseillerDetailsContrat() {
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
         misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
-        misesEnRelationTermineeNaturel={misesEnRelationTermineeNaturel}
+        misesEnRelationTermineeNaturelle={misesEnRelationTermineeNaturelle}
         roleActivated={roleActivated}
       />
     </div>
