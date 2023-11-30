@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { formatMotifRupture, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 
-function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, conseiller }) {
+// eslint-disable-next-line max-len
+function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, misesEnRelationTermineeNaturel, conseiller }) {
   const checkMotifRupture = motif => !!(motif === 'licenciement' || motif === 'demission');
 
   return (
@@ -190,10 +191,88 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                   <div className={`${checkMotifRupture(miseEnRelation?.motifRupture) ? 'motif-court' : 'motif-long'}`}>
                     <div>
                       <strong className="fr-text--md">Motif</strong><br />
-                      <span className="fr-text--regular fr-text--md" title={miseEnRelation?.motifRupture}>
-                        {miseEnRelation?.motifRupture?.length > 27 ?
-                          `${miseEnRelation?.motifRupture.substring(0, 27)}...` : formatMotifRupture(miseEnRelation?.motifRupture)
+                      {miseEnRelation?.motifRupture ?
+                        <span className="fr-text--regular fr-text--md" title={miseEnRelation?.motifRupture}>
+                          {miseEnRelation?.motifRupture?.length > 27 ?
+                            `${miseEnRelation?.motifRupture.substring(0, 27)}...` : formatMotifRupture(miseEnRelation?.motifRupture)
+                          }
+                        </span> :
+                        <span className="fr-text--regular fr-text--md">-</span>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {misesEnRelationTermineeNaturel?.map(miseEnRelation =>
+          <div
+            // eslint-disable-next-line max-len
+            className={`fr-card fr-col-12 fr-p-4w contrat-terminer ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture || misesEnRelationFinaliseeRupture?.length > 0 ? 'fr-mt-3w' : ''}`}
+            key={miseEnRelation?._id}
+            style={{ paddingLeft: '1rem' }}
+          >
+            <div className="fr-card__body" style={{ padding: '0 0' }}>
+              <div>
+                <div className="fr-grid-row fr-grid-row--middle">
+                  <div className="badge">
+                    <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
+                  </div>
+                  <div className="structure-court">
+                    <strong className="fr-text--md" title={miseEnRelation?.structureObj?.nom}>
+                      {miseEnRelation?.structureObj?.nom?.length > 15 ?
+                        `${miseEnRelation?.structureObj?.nom.substring(0, 15)}...` : miseEnRelation?.structureObj?.nom
+                      }
+                    </strong><br />
+                    <span className="fr-text--md">ID - {miseEnRelation?.structureObj?.idPG}</span>
+                  </div>
+                  <div className="type-contrat">
+                    <div>
+                      <strong className="fr-text--md">Type de contrat</strong><br />
+                      <span
+                        className="fr-text--regular fr-text--md"
+                        title={miseEnRelation?.typeDeContrat ? formatTypeDeContrat(miseEnRelation?.typeDeContrat) : ''}
+                      >
+                        {miseEnRelation?.typeDeContrat ?
+                          <>
+                            {miseEnRelation?.typeDeContrat?.length > 15 ?
+                              `${formatTypeDeContrat(miseEnRelation?.typeDeContrat)?.substring(0, 15)}...` :
+                              formatTypeDeContrat(miseEnRelation?.typeDeContrat)
+                            }
+                          </> : '-'
                         }
+                      </span>
+                    </div>
+                  </div>
+                  <div className="fr-col-2">
+                    <div>
+                      <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
+                      {miseEnRelation?.dateDebutDeContrat ?
+                        <span className="fr-text--regular fr-text--md">
+                          {dayjs(miseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY')}
+                        </span> :
+                        <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
+                          En attente de pi&egrave;ces...
+                        </span>
+                      }
+                    </div>
+                  </div>
+                  <div className="fin-contrat">
+                    <div>
+                      <strong className="fr-text--md">Fin de contrat</strong><br />
+                      {miseEnRelation?.dateFinDeContrat ?
+                        <span className="fr-text--regular fr-text--md">
+                          {dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}
+                        </span> : <span>-</span>
+                      }
+                    </div>
+                  </div>
+                  <div className="motif-long">
+                    <div>
+                      <strong className="fr-text--md">Motif</strong><br />
+                      <span className="fr-text--regular fr-text--md" title="Non reconduction du contrat">
+                        Non reconduction du con...
                       </span>
                     </div>
                   </div>
@@ -248,6 +327,7 @@ ContratsCards.propTypes = {
   misesEnRelationNouvelleRupture: PropTypes.object,
   misesEnRelationFinaliseeRupture: PropTypes.array,
   misesEnRelationFinalisee: PropTypes.array,
+  misesEnRelationTermineeNaturel: PropTypes.array,
   conseiller: PropTypes.object,
 };
 

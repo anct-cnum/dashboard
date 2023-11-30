@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { formatMotifRupture, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../utils/formatagesUtils';
 import dayjs from 'dayjs';
 
-function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, conseiller }) {
+// eslint-disable-next-line max-len
+function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, misesEnRelationTermineeNaturel, conseiller }) {
 
   return (
     <section className="fr-accordion display-mobile fr-mb-2w">
@@ -189,6 +190,66 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
               </div>
             </div>
           )}
+          {misesEnRelationTermineeNaturel?.map(miseEnRelation =>
+            <div
+              // eslint-disable-next-line max-len
+              className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture || misesEnRelationFinaliseeRupture?.length > 0 ? 'fr-mt-3w' : ''}`}
+              key={miseEnRelation?._id}
+              style={{ paddingLeft: '1rem' }}
+            >
+              <div className="fr-card__body" style={{ padding: '0 0' }}>
+                <div>
+                  <div className="fr-grid-row fr-grid-row--middle">
+                    <div className="fr-col-12 fr-mb-2w">
+                      <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
+                    </div>
+                    <div className="fr-col-12 fr-mb-2w">
+                      <strong className="fr-text--md fr-col-12 fr-mb-0">
+                        {miseEnRelation?.structureObj?.nom}
+                      </strong><br />
+                      <span className="fr-text--md">ID - {miseEnRelation?.structureObj?.idPG}</span>
+                    </div>
+                    <div className="fr-col-12 fr-mb-md-0 fr-mb-2w fr-col-md-4">
+                      <div>
+                        <strong className="fr-text--md">Type de contrat</strong><br />
+                        <span className="fr-text--regular fr-text--md">
+                          {miseEnRelation?.typeDeContrat ? formatTypeDeContrat(miseEnRelation?.typeDeContrat) : '-'}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="fr-col-12 fr-col-md-4 fr-mb-md-0 fr-mb-2w">
+                      <div>
+                        <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
+                        {miseEnRelation?.dateDebutDeContrat ?
+                          <span className="fr-text--regular fr-text--md">
+                            {dayjs(miseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY')}
+                          </span> : <span>-</span>
+                        }
+                      </div>
+                    </div>
+                    <div className="fr-col-12 fr-col-md-4">
+                      <div>
+                        <strong className="fr-text--md" style={{ fontWeight: '500' }}>Fin de contrat</strong><br />
+                        {miseEnRelation?.dateFinDeContrat ?
+                          <span className="fr-text--regular fr-text--md">
+                            {dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}
+                          </span> : <span>-</span>
+                        }
+                      </div>
+                    </div>
+                    <div className="fr-col-12 fr-mt-2w">
+                      <div>
+                        <strong className="fr-text--md" style={{ fontWeight: '500' }}>Motif</strong><br />
+                        <span className="fr-text--regular fr-text--md">
+                          Non reconduction du contrat
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="fr-card fr-col-12 fr-mt-3w fr-p-4w">
             <div className="fr-card__body" style={{ padding: '0 0' }}>
               <div>
@@ -236,6 +297,7 @@ AccordeonContrats.propTypes = {
   misesEnRelationNouvelleRupture: PropTypes.object,
   misesEnRelationFinaliseeRupture: PropTypes.array,
   misesEnRelationFinalisee: PropTypes.array,
+  misesEnRelationTermineeNaturel: PropTypes.array,
   conseiller: PropTypes.object,
 };
 

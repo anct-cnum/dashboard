@@ -22,6 +22,8 @@ function ConseillerDetails() {
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
+  const [misesEnRelationTermineeNaturel, setMisesEnRelationTermineeNaturel] = useState([]);
+
   const [openModal, setOpenModal] = useState(false);
 
   const updateStatut = (statut, motifRupture, dateRuptureValidee) => {
@@ -59,6 +61,7 @@ function ConseillerDetails() {
       setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
       setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
       setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
+      setMisesEnRelationTermineeNaturel(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'terminee_naturel'));
     }
   }, [conseiller]);
 
@@ -127,6 +130,7 @@ function ConseillerDetails() {
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
+        misesEnRelationTermineeNaturel={misesEnRelationTermineeNaturel}
         roleActivated={roleActivated}
       />
     </div>

@@ -11,7 +11,7 @@ import pixRessources from '../assets/icons/pix-ressources.png';
 import pixCitoyen from '../assets/icons/pix-citoyen.png';
 
 // eslint-disable-next-line max-len
-function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRelationFinaliseeRupture, misesEnRelationNouvelleRupture, roleActivated, recrutement = false }) {
+function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRelationFinaliseeRupture, misesEnRelationNouvelleRupture, misesEnRelationTermineeNaturel, roleActivated, recrutement = false }) {
 
   const { trackEvent } = useMatomo();
 
@@ -49,12 +49,14 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
             misesEnRelationFinalisee={misesEnRelationFinalisee}
             misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
             misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
+            misesEnRelationTermineeNaturel={misesEnRelationTermineeNaturel}
           />
           <ContratsCards
             conseiller={conseiller}
             misesEnRelationFinalisee={misesEnRelationFinalisee}
             misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
             misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
+            misesEnRelationTermineeNaturel={misesEnRelationTermineeNaturel}
           />
         </>
       }
@@ -255,6 +257,7 @@ InformationConseiller.propTypes = {
   misesEnRelationFinalisee: PropTypes.array,
   misesEnRelationFinaliseeRupture: PropTypes.array,
   misesEnRelationNouvelleRupture: PropTypes.object,
+  misesEnRelationTermineeNaturel: PropTypes.array,
   roleActivated: PropTypes.string,
   recrutement: PropTypes.bool
 };

@@ -22,6 +22,7 @@ function ConseillerDetails() {
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const [misesEnRelationTermineeNaturel, setMisesEnRelationTermineeNaturel] = useState([]);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -43,7 +44,8 @@ function ConseillerDetails() {
         setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
         setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
         setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
-        if (conseiller?.statut !== 'RUPTURE') {
+        setMisesEnRelationTermineeNaturel(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'terminee_naturel'));
+        if (conseiller?.structureId) {
           dispatch(structureActions.get(conseiller?.structureId));
         }
       }
@@ -64,7 +66,7 @@ function ConseillerDetails() {
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </button>
-      {conseiller?.statut === 'RECRUTE' &&
+      {conseiller?.structureId &&
         <>
           <div className="fr-col-12 fr-pt-6w">
             <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
@@ -128,6 +130,7 @@ function ConseillerDetails() {
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
         misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        misesEnRelationTermineeNaturel={misesEnRelationTermineeNaturel}
         roleActivated={roleActivated}
       />
     </div>
