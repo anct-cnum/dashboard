@@ -105,7 +105,7 @@ function ConseillerDetails() {
               }
             </>
           }
-          {conseiller?.statut === 'RUPTURE' &&
+          {(conseiller?.statut === 'RUPTURE' || conseiller?.statut === 'TERMINE') &&
             <p className="fr-badge fr-badge--error fr-badge--no-icon" style={{ height: '20%' }}>Contrat termin&eacute;</p>
           }
           {misesEnRelationNouvelleRupture &&

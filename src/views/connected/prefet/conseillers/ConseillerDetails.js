@@ -111,7 +111,7 @@ function ConseillerDetails() {
             {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
               <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
             }
-            {conseiller?.statut === 'RUPTURE' &&
+            {(conseiller?.statut === 'RUPTURE' || conseiller?.statut === 'TERMINE') &&
               <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
             }
             {misesEnRelationNouvelleRupture &&
