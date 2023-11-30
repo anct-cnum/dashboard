@@ -29,6 +29,7 @@ function ConseillerDetailsContrat() {
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const [misesEnRelationTermineeNaturel, setMisesEnRelationTermineeNaturel] = useState([]);
   const [dateFinDeContrat, setDateFinDeContrat] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
@@ -54,8 +55,10 @@ function ConseillerDetailsContrat() {
         setMisesEnRelationFinalisee(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
         setMisesEnRelationNouvelleRupture(miseEnRelation);
         setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
+        setMisesEnRelationTermineeNaturel(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'terminee_naturel'));
+
         setDateFinDeContrat(miseEnRelation?.dateRupture ? new Date(miseEnRelation.dateRupture) : null);
-        if (conseiller?.statut !== 'RUPTURE') {
+        if (conseiller?.structureId) {
           dispatch(structureActions.get(conseiller?.structureId));
         }
       }
@@ -94,7 +97,7 @@ function ConseillerDetailsContrat() {
           </p>
         </div>
       }
-      {conseiller?.statut === 'RECRUTE' &&
+      {conseiller?.structureId &&
         <>
           <div className="fr-col-12 fr-pt-6w">
             <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
@@ -130,7 +133,7 @@ function ConseillerDetailsContrat() {
             {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
               <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
             }
-            {conseiller?.statut === 'RUPTURE' &&
+            {(conseiller?.statut === 'RUPTURE' || conseiller?.statut === 'TERMINE') &&
               <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
             }
             {misesEnRelationNouvelleRupture &&
@@ -183,6 +186,7 @@ function ConseillerDetailsContrat() {
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
         misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        misesEnRelationTermineeNaturel={misesEnRelationTermineeNaturel}
         roleActivated={roleActivated}
       />
     </div>
