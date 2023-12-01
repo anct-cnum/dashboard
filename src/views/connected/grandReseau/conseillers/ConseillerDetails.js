@@ -91,7 +91,7 @@ function ConseillerDetails() {
       <div className={`fr-col-12 ${conseiller?.statut !== 'RECRUTE' ? 'fr-pt-6w' : ''}`}>
         <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
           {conseiller ? formatNomConseiller(conseiller) : ''}
-          { conseiller?.statut === 'RECRUTE' &&
+          {conseiller?.statut === 'RECRUTE' &&
             conseiller?.estCoordinateur === true &&
             <span>
               <img alt="ic&ocirc;ne Conseiller num&eacute;rique coordinateur" src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
