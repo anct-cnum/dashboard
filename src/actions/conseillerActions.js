@@ -8,6 +8,7 @@ export const conseillerActions = {
   getCandidatRecrutement,
   getAllRecruter,
   updateStatus,
+  updateStatusAnnulationAdmin,
   updateDateRupture,
   updateMotifRupture,
   preSelectionner,
@@ -335,7 +336,28 @@ function updateStatus(id, statut, motifRupture, dateRupture) {
     return { type: 'UPDATE_STATUS_FAILURE', error };
   }
 }
+function updateStatusAnnulationAdmin(id, statut, banniereRefusRecrutement) {
+  return dispatch => {
+    dispatch(request());
+    conseillerService.updateStatusAnnulationAdmin(id, statut, banniereRefusRecrutement)
+    .then(
+      response => dispatch(success(response.miseEnRelation)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
 
+  function request() {
+    return { type: 'UPDATE_STATUS_REQUEST' };
+  }
+  function success(miseEnRelation) {
+    return { type: 'UPDATE_STATUS_SUCCESS', miseEnRelation };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_STATUS_FAILURE', error };
+  }
+}
 function updateDateRupture({ id, date }) {
   return dispatch => {
     dispatch(request());

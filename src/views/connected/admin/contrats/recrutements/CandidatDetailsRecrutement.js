@@ -27,6 +27,7 @@ function CandidatDetailsRecrutement() {
   const [openModal, setOpenModal] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
   const [openModalAnnulationAdmin, setOpenModalAnnulationAdmin] = useState(false);
+  const [openMessageSuccessAnnulationAdmin, setOpenMessageSuccessAnnulationAdmin] = useState(false);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -49,6 +50,17 @@ function CandidatDetailsRecrutement() {
     }
   }, [downloadError]);
 
+  useEffect(() => {
+    if (conseiller?.miseEnRelation?.banniereRefusRecrutement && openMessageSuccessAnnulationAdmin) {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'success',
+        message: `La demande de recrutement de ${formatNomConseiller(conseiller)} a été annulée`,
+        status: null, description: null
+      }));
+      scrollTopWindow();
+    }
+  }, [conseiller?.miseEnRelation]);
+
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur = false) => {
     dispatch(contratActions.updateContractRecrutementAdmin(
       typeDeContrat,
@@ -61,7 +73,7 @@ function CandidatDetailsRecrutement() {
     ));
   };
   const updateStatut = statut => {
-    dispatch(conseillerActions.updateStatus(idMiseEnRelation, statut));
+    dispatch(conseillerActions.updateStatusAnnulationAdmin(idMiseEnRelation, statut, true));
     scrollTopWindow();
   };
   return (
@@ -114,6 +126,7 @@ function CandidatDetailsRecrutement() {
         <PopinConfirmationAnnulationAdmin
           setOpenModalAnnulationAdmin={setOpenModalAnnulationAdmin}
           updateStatut={updateStatut}
+          setOpenMessageSuccessAnnulationAdmin={setOpenMessageSuccessAnnulationAdmin}
         />
       }
       <div className="fr-col-12">

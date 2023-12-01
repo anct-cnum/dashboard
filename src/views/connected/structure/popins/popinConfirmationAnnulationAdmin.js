@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function popinConfirmationAnnulationAdmin({ setOpenModalAnnulationAdmin, updateStatut}) {
+function popinConfirmationAnnulationAdmin({ setOpenModalAnnulationAdmin, updateStatut, setOpenMessageSuccessAnnulationAdmin }) {
 
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
@@ -34,8 +34,9 @@ function popinConfirmationAnnulationAdmin({ setOpenModalAnnulationAdmin, updateS
                     <button onClick={() => {
                       updateStatut('interessee');
                       setOpenModalAnnulationAdmin(false);
+                      setOpenMessageSuccessAnnulationAdmin(true);
                     }} className="fr-btn">
-                      Je valide l&rsquo;annulation du recrutement
+                      Annuler le recrutement
                     </button>
                   </li>
                 </ul>
@@ -51,6 +52,7 @@ function popinConfirmationAnnulationAdmin({ setOpenModalAnnulationAdmin, updateS
 popinConfirmationAnnulationAdmin.propTypes = {
   setOpenModalAnnulationAdmin: PropTypes.func,
   setAnnulationRecrutement: PropTypes.func,
+  setOpenMessageSuccessAnnulationAdmin: PropTypes.func,
 };
 
 export default popinConfirmationAnnulationAdmin;
