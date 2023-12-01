@@ -89,6 +89,9 @@
         top: 100% !important;
         bottom: unset !important;
     }
+    .react-datepicker__day--disabled {
+        color: #909090;
+    }
 }
 .react-datepicker__tab-loop {
     position: absolute;
