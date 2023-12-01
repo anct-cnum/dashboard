@@ -8,6 +8,7 @@ import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import CardsRecrutement from './CardsRecrutement';
 import InformationCandidat from '../../../../../components/InformationCandidat';
 import PopinEditionContrat from '../../../structure/popins/popinEditionContrat';
+import PopinConfirmationAnnulationAdmin from '../../../structure/popins/popinConfirmationAnnulationAdmin';
 import ModalValidationRecrutement from '../../modals/ModalValidationRecrutement';
 import pinCoordinateur from '../../../../../assets/icons/icone-coordinateur.svg';
 import { Tooltip } from 'react-tooltip';
@@ -25,6 +26,7 @@ function CandidatDetailsRecrutement() {
   const downloadError = useSelector(state => state.conseiller?.downloadError);
   const [openModal, setOpenModal] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
+  const [openModalAnnulationAdmin, setOpenModalAnnulationAdmin] = useState(false);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -58,7 +60,10 @@ function CandidatDetailsRecrutement() {
       conseiller?._id,
     ));
   };
-
+  const updateStatut = statut => {
+    dispatch(conseillerActions.updateStatus(idMiseEnRelation, statut));
+    scrollTopWindow();
+  };
   return (
     <div className="fr-container candidatDetails">
       <Spinner loading={loading || downloading || loadingContrat} />
@@ -105,6 +110,12 @@ function CandidatDetailsRecrutement() {
           editMode={true}
         />
       }
+      {openModalAnnulationAdmin &&
+        <PopinConfirmationAnnulationAdmin
+          setOpenModalAnnulationAdmin={setOpenModalAnnulationAdmin}
+          updateStatut={updateStatut}
+        />
+      }
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
           <h5 className="fr-h5 fr-mb-3v">ID - {conseiller?.idPG ?? ''}</h5>
@@ -114,6 +125,7 @@ function CandidatDetailsRecrutement() {
         miseEnRelation={conseiller?.miseEnRelation}
         conseiller={conseiller}
         setOpenModalContrat={setOpenModalContrat}
+        setOpenModalAnnulationAdmin={setOpenModalAnnulationAdmin}
         setOpenModal={setOpenModal}
       />
       <InformationCandidat conseiller={conseiller} />
