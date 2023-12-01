@@ -89,8 +89,6 @@ RolesCards.propTypes = {
   roles: propType.array,
   reseau: propType.string,
   user: propType.object,
-  roleActivated: propType.string,
-  structure: propType.object,
   changeRoleActivated: propType.func,
 };
 
