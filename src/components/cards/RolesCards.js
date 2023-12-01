@@ -71,7 +71,7 @@ const RolesCards = ({ roles, reseau, user, changeRoleActivated }) => {
 
   return (
     <>
-      { roles && roles.filter(i => i !== 'structure_coop').length >= 2 && <div className="fr-card fr-col-8 fr-mt-2w fr-p-3w">
+      { roles && roles.filter(role => role !== 'structure_coop').length >= 2 && <div className="fr-card fr-col-8 fr-mt-2w fr-p-3w">
         <div className="fr-card__body fr-p-0">
           <div>
             <h4>Mes r&ocirc;les</h4>
