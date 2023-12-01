@@ -152,10 +152,10 @@ export default function TableauTerritoires() {
                             <button data-id="cnfsInactives" className="filtre-btn" onClick={ordreColonne}>
                               <span data-id="cnfsInactives">CnFS en attente d&rsquo;activation
                                 { (ordreNom !== 'cnfsInactives' || ordreNom === 'cnfsInactives' && ordre) &&
-                                  <i data-id="cnfsInactives" className="ri-arrow-down-s-line chevron icone-3"></i>
+                                  <i data-id="cnfsInactives" className="ri-arrow-down-s-line chevron icone-2"></i>
                                 }
                                 { (ordreNom === 'cnfsInactives' && !ordre) &&
-                                  <i data-id="cnfsInactives" className="ri-arrow-up-s-line chevron icone-3"></i>
+                                  <i data-id="cnfsInactives" className="ri-arrow-up-s-line chevron icone-2"></i>
                                 }
                               </span>
                             </button>
