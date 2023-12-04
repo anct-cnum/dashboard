@@ -79,7 +79,7 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                         peekNextMonth
                         onChangeRaw={e => e.preventDefault()}
                         minDate={new Date(datePrisePoste)}
-                        maxDate={new Date(dateFinDeContratInitiale)}
+                        maxDate={dossierComplet === true ? new Date() : new Date(dateFinDeContratInitiale)}
                       />
                       {dossierComplet === true && dateFinDeContrat > new Date() &&
                       <p className="text-error">
