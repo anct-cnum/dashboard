@@ -11,12 +11,12 @@ const RefusRecrutementBanner = ({ conseiller, structure }) => {
   }
 
   return (
-    <div className="fr-notice fr-py-4w banner success background">
-      <div className="fr-container success responsive__banner">
+    <div className="fr-notice fr-py-4w banner warning background">
+      <div className="fr-container warning responsive__banner">
         <div className="responsive__banner">
           <div>
             <p className="fr-notice__title title__color" style={{ width: '70rem' }}>
-              <span className="fr-icon-checkbox-fill icon__color" aria-hidden="true"></span>
+              <span className="fr-icon-warning-fill icon__color" aria-hidden="true"></span>
               <span className="fr-ml-2w">
                 {`Le recrutement de ${formatNomConseiller(conseiller?.conseillerObj)} a été refusé. Pour plus d'informations, contactez`}
                 &nbsp;<a href="mailto:conseiller-numerique@anct.gouv.fr"
