@@ -64,7 +64,7 @@ function MesPostes() {
     if (structure?._id) {
       dispatch(miseEnRelationAction.getMisesEnRelationByStructure(structure?._id));
     }
-  }, [structure?._id, loadingRenouvellement]);
+  }, [structure?._id, loadingRenouvellement, loadingStructure]);
 
   useEffect(() => {
     handleErrors();
@@ -123,6 +123,7 @@ function MesPostes() {
           bannieresAjoutRoleCoordinateur={bannieresAjoutRoleCoordinateur}
           setBannieresAjoutRoleCoordinateur={setBanniereAjoutRoleCoordinateur}
           setBannieresRenouvellementValide={setBannieresRenouvellementValide}
+          misesEnRelation={misesEnRelation}
         />
       </div>
       {openModalContrat && (
