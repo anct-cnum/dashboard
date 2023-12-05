@@ -138,7 +138,7 @@ export default function TableauTerritoires() {
                           </th>
                           <th data-id="cnfsActives">
                             <button data-id="cnfsActives" className="filtre-btn" onClick={ordreColonne}>
-                              <span data-id="cnfsActives">CnFS activ&eacute;s
+                              <span data-id="cnfsActives">Conum activ&eacute;s
                                 { (ordreNom !== 'cnfsActives' || ordreNom === 'cnfsActives' && ordre) &&
                                   <i data-id="cnfsActives" className="ri-arrow-down-s-line chevron icone-2"></i>
                                 }
@@ -150,7 +150,7 @@ export default function TableauTerritoires() {
                           </th>
                           <th data-id="cnfsInactives">
                             <button data-id="cnfsInactives" className="filtre-btn" onClick={ordreColonne}>
-                              <span data-id="cnfsInactives">CnFS en attente d&rsquo;activation
+                              <span data-id="cnfsInactives">Conum en attente d&rsquo;activation
                                 { (ordreNom !== 'cnfsInactives' || ordreNom === 'cnfsInactives' && ordre) &&
                                   <i data-id="cnfsInactives" className="ri-arrow-down-s-line chevron icone-3"></i>
                                 }
