@@ -45,7 +45,7 @@ function Header() {
           <div className="fr-header__body-row">
             <div className="fr-header__brand fr-enlarge-link">
               <div className="fr-header__brand-top">
-                <div className="fr-header__logo" style={{ paddingRight: '0.7rem', marginRight: '0' }}>
+                <div className="fr-header__logo" style={{ paddingRight: '0.7rem', marginRight: '0', paddingTop: '1rem' }}>
                   <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique France services">
                     <p className="fr-logo">
                       R&eacute;publique
@@ -54,8 +54,13 @@ function Header() {
                     </p>
                   </Link>
                 </div>
-                <div className="fr-header__operator" style={{ paddingLeft: '0' }}>
-                  <img src={logo} className="fr-responsive-img" alt="Logo Conseiller num&eacute;rique" />
+                <div className="fr-header__operator" style={{ paddingLeft: '0', paddingBottom: '0', paddingTop: '0' }}>
+                  <div className="fr-grid-row">
+                    <svg width="15" height="80">
+                      <line x1="0" x2="0" y1="75" y2="5" stroke="black" strokeWidth="0.4" />
+                    </svg>
+                    <img src={logo} className="fr-responsive-img" style={{ width: '4.8rem' }} alt="Logo Conseiller num&eacute;rique" />
+                  </div>
                 </div>
                 <div className="fr-header__navbar">
                   <button
@@ -81,7 +86,7 @@ function Header() {
             {!/Android|iPhone|iPad/i.test(navigator.userAgent) &&
               <>
                 {localStorage.getItem('user') && localStorage.getItem('user') !== '{}' &&
-                 !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
+                  !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
                   <div className="fr-header__tools" style={{ height: '57px' }}>
                     <div className="fr-header__tools-links" id="navigation-774" role="navigation" aria-label="Compte utilisateur">
                       <UserMenu user={user} roleActivated={roleActivated} roles={roles} changeRoleActivated={changeRoleActivated}
