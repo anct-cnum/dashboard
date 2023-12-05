@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import logo from '../assets/brands/logo-rf-conseiller-numerique-min.svg';
+import logo from '../assets/brands/logo-conseiller-numerique-min.svg';
 import { menuActions, authenticationActions } from '../actions';
 import Menu from './Menu';
 import { useAuth } from 'react-oidc-context';
