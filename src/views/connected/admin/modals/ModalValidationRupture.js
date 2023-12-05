@@ -185,7 +185,6 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, dateFinDeContrat
 }
 
 ModalValidationRupture.propTypes = {
-  datePrisePoste: PropTypes.instanceOf(Date),
   dateFinDeContrat: PropTypes.instanceOf(Date),
   miseEnRelation: PropTypes.object,
   setOpenModal: PropTypes.func,
