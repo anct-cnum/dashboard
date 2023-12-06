@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import AccordeonContrats from './AccordeonContrats';
 import ContratsCards from './cards/ContratsCards';
-import { formatAdressePermanence, formatRenderStars } from '../utils/formatagesUtils';
+import { formatAdressePermanence, formatNumeroTelephone, formatRenderStars } from '../utils/formatagesUtils';
 import pixUtilisation from '../assets/icons/pix-utilisation.png';
 import pixRessources from '../assets/icons/pix-ressources.png';
 import pixCitoyen from '../assets/icons/pix-citoyen.png';
@@ -87,13 +87,7 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
             </div>
             <div className="fr-mb-3w">
               <strong>T&eacute;l&eacute;phone</strong><br />
-              <span>
-                {conseiller && typeof conseiller?.telephonePro === 'string' ?
-                  /* espace tous les 2 chiffres après l'indicatif*/
-                  conseiller?.telephonePro?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
-                  <>-</>
-                }
-              </span>
+              <span>{formatNumeroTelephone(conseiller?.telephonePro)}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Email secondaire</strong><br />
@@ -124,15 +118,43 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
             {conseiller?.permanences?.length > 0 ?
               <>
                 {conseiller?.permanences?.map((permanence, idx) =>
-                  <>
-                    <div className="fr-mb-3w" key={idx}>
-                      <strong>{permanence?.nomEnseigne?.toUpperCase()}</strong><br />
-                      <span>{formatAdressePermanence(permanence?.adresse)?.toUpperCase()}</span>
-                    </div>
-                  </>
+                  <div className="fr-mb-3w" key={idx}>
+                    <strong>{permanence?.nomEnseigne?.toUpperCase()}</strong><br />
+                    <span>{formatAdressePermanence(permanence?.adresse)?.toUpperCase()}</span>
+                  </div>
                 )}
               </> : <span>Aucun lieu d&lsquo;activit&eacute; renseign&eacute;</span>
             }
+          </div>
+          <div className="fr-grid-row fr-mt-4w fr-mb-4w fr-col-12">
+            <div className="fr-col-12">
+              <hr style={{ borderWidth: '0.5px' }} />
+            </div>
+          </div>
+          <div className="fr-grid-row fr-col-12">
+            <h4 className="titre">Contact du responsable</h4>
+            <div className="fr-grid-row fr-col-12">
+              <div className="fr-mb-3w fr-col-6">
+                <strong>Nom</strong><br />
+                <span>{conseiller?.supHierarchique?.nom ?? '-'}</span>
+              </div>
+              <div className="fr-mb-3w fr-col-6">
+                <strong>Email</strong><br />
+                <span>{conseiller?.supHierarchique?.email ?? '-'}</span>
+              </div>
+              <div className="fr-mb-3w fr-col-6">
+                <strong>Pr&eacute;nom</strong><br />
+                <span>{conseiller?.supHierarchique?.prenom ?? '-'}</span>
+              </div>
+              <div className="fr-mb-3w fr-col-6">
+                <strong>T&eacute;l&eacute;phone</strong><br />
+                <span>{formatNumeroTelephone(conseiller?.supHierarchique?.numeroTelephone)}</span>
+              </div>
+              <div className="fr-mb-3w">
+                <strong>Fonction</strong><br />
+                <span>{conseiller?.supHierarchique?.fonction ?? '-'}</span>
+              </div>
+            </div>
           </div>
           <div className="fr-grid-row fr-mt-4w fr-mb-4w fr-col-12">
             <div className="fr-col-12">
@@ -154,13 +176,7 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
               </div>
               <div className="fr-mb-3w">
                 <strong>T&eacute;l&eacute;phone</strong><br />
-                <span>
-                  {conseiller && typeof conseiller?.telephone === 'string' ?
-                    /* espace tous les 2 chiffres après l'indicatif*/
-                    conseiller?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
-                    <>-</>
-                  }
-                </span>
+                <span>{formatNumeroTelephone(conseiller?.telephone)}</span>
               </div>
               <div className="fr-mb-3w">
                 <strong>Email</strong><br />

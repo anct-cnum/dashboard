@@ -117,8 +117,8 @@ function ActiviterStructure({ structure, roleActivated }) {
           </div>
         }
         <div className="fr-col-6">
+          <h4 className="titre">Conventionnement phase 2</h4>
           {checkStructurePhase2(structure?.conventionnement?.statut) ? <>
-            <h4 className="titre">Conventionnement phase 2</h4>
             <div className="fr-mb-3w">
               <strong>{pluralize(
                 'Poste attribué',

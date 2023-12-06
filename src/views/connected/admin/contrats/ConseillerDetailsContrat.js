@@ -11,6 +11,7 @@ import ModalValidationRenouvellement from '../modals/ModalValidationRenouvelleme
 import PopinEditionContrat from '../../../connected/structure/popins/popinEditionContrat';
 import InformationConseiller from '../../../../components/InformationConseiller';
 import StructureContactCards from '../../../../components/cards/StructureContactCards';
+import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
 function ConseillerDetailsContrat() {
 
@@ -30,9 +31,12 @@ function ConseillerDetailsContrat() {
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
   const [misesEnRelationTermineeNaturelle, setMisesEnRelationTermineeNaturelle] = useState([]);
+
+  const [dateFinDeContratInitiale, setDateFinDeContratInitiale] = useState(new Date());
   const [dateFinDeContrat, setDateFinDeContrat] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
+  const [libelleErreur, setLibelleErreur] = useState(false);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -58,6 +62,9 @@ function ConseillerDetailsContrat() {
         setMisesEnRelationTermineeNaturelle(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'terminee_naturel'));
 
         setDateFinDeContrat(miseEnRelation?.dateRupture ? new Date(miseEnRelation.dateRupture) : null);
+        setDateFinDeContratInitiale(miseEnRelation?.dateFinDeContrat ?
+          new Date(miseEnRelation.dateFinDeContrat) :
+          new Date(new Date().setMonth(new Date().getMonth() + 2)));
         if (conseiller?.structureId) {
           dispatch(structureActions.get(conseiller?.structureId));
         }
@@ -71,6 +78,16 @@ function ConseillerDetailsContrat() {
     }
   }, [conseiller, errorStructure]);
 
+  useEffect(() => {
+    if (errorRupture || errorContrat) {
+      scrollTopWindow();
+      setLibelleErreur(errorRupture || errorContrat);
+      setTimeout(() => {
+        setLibelleErreur(false);
+      }, 5000);
+    }
+  }, [errorRupture, errorContrat]);
+
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
     dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.contrat?._id));
   };
@@ -83,17 +100,10 @@ function ConseillerDetailsContrat() {
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </button>
-      {errorRupture &&
+      {libelleErreur &&
         <div className="fr-alert fr-alert--error fr-mt-4w">
           <p className="fr-alert__title">
-            {errorRupture}
-          </p>
-        </div>
-      }
-      {errorContrat &&
-        <div className="fr-alert fr-alert--error fr-mt-4w">
-          <p className="fr-alert__title">
-            {errorContrat}
+            {libelleErreur}
           </p>
         </div>
       }
@@ -153,7 +163,8 @@ function ConseillerDetailsContrat() {
                   miseEnRelation={conseiller?.contrat}
                   dateFinDeContrat={dateFinDeContrat}
                   setDateFinDeContrat={setDateFinDeContrat}
-                  datePrisePoste={conseiller?.datePrisePoste}
+                  datePrisePoste={conseiller?.datePrisePoste ?? new Date('2020-11-17')}
+                  dateFinDeContratInitiale={dateFinDeContratInitiale}
                 />
               }
             </>
