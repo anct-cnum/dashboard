@@ -93,7 +93,7 @@ export default function TableauCoordinateurs() {
       filtreRegion,
       filtreAvisPrefet,
       ordreNom,
-      ordre ? 1 : 1
+      ordre ? 1 : -1
     ));
   };
 
