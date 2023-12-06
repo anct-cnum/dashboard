@@ -51,7 +51,7 @@ export default function TableauCoordinateurs() {
         filtreRegion,
         filtreAvisPrefet,
         ordreNom,
-        ordre ? -1 : 1
+        ordre ? 1 : -1
       ));
     }
   }, [currentPage, statutDemande, filtreSearchBar, filtreDepartement, filtreAvisPrefet, filtreRegion, ordre, ordreNom]);
@@ -72,7 +72,7 @@ export default function TableauCoordinateurs() {
           filtreRegion,
           filtreAvisPrefet,
           ordreNom,
-          ordre ? -1 : 1
+          ordre ? 1 : -1
         ));
         setInitDemandeCoordinateur(true);
       }
@@ -93,7 +93,7 @@ export default function TableauCoordinateurs() {
       filtreRegion,
       filtreAvisPrefet,
       ordreNom,
-      ordre ? -1 : 1
+      ordre ? 1 : 1
     ));
   };
 
