@@ -6,12 +6,11 @@ import dayjs from 'dayjs';
 // eslint-disable-next-line max-len
 function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, misesEnRelationTermineeNaturelle, conseiller }) {
   const checkMotifRupture = motif => !!(motif === 'licenciement' || motif === 'demission');
-
   return (
     <>
       <div className="fr-grid-row fr-col-12 display-desktop color-text color-title-subpart">
         {misesEnRelationNouvelleRupture &&
-          <div className="fr-card fr-col-12 fr-p-4w">
+          <div className="fr-card fr-col-12 fr-p-4w fr-mb-3w">
             <div className="fr-card__body" style={{ padding: '0 0' }}>
               <div>
                 <div className="fr-grid-row fr-grid-row--middle">
@@ -52,7 +51,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
           </div>
         }
         {(misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture) &&
-          <div className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}>
+          <div className="fr-card fr-col-12 fr-p-4w fr-mb-3w">
             <div className="fr-card__body" style={{ padding: '0 0' }}>
               <div>
                 <div className="fr-grid-row fr-grid-row--middle">
@@ -128,8 +127,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
         }
         {misesEnRelationFinaliseeRupture?.map(miseEnRelation =>
           <div
-            // eslint-disable-next-line max-len
-            className={`fr-card fr-col-12 fr-p-4w contrat-terminer ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}
+            className="fr-card fr-col-12 fr-p-4w contrat-terminer fr-mb-3w"
             key={miseEnRelation?._id}
             style={{ paddingLeft: '1rem' }}
           >
@@ -208,8 +206,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
         )}
         {misesEnRelationTermineeNaturelle?.map(miseEnRelation =>
           <div
-            // eslint-disable-next-line max-len
-            className={`fr-card fr-col-12 fr-p-4w contrat-terminer ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture || misesEnRelationFinaliseeRupture?.length > 0 ? 'fr-mt-3w' : ''}`}
+            className="fr-card fr-col-12 fr-p-4w contrat-terminer fr-mb-3w"
             key={miseEnRelation?._id}
             style={{ paddingLeft: '1rem' }}
           >
@@ -281,7 +278,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
             </div>
           </div>
         )}
-        <div className="fr-card fr-col-12 fr-mt-3w fr-p-4w">
+        <div className="fr-card fr-col-12 fr-p-4w">
           <div className="fr-card__body" style={{ padding: '0 0' }}>
             <div>
               <div className="fr-grid-row fr-grid-row--middle">
