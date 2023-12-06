@@ -95,6 +95,19 @@ export default function Documents() {
             </span>
           </p>
         </div>
+        <div className="fr-grid-row">
+          <p>
+            <a href="https://cdn.conseiller-numerique.gouv.fr/Convention_subvention_conseiller_numerique_coordinateur.pdf"
+              className="fr-link" target="blank"
+              rel="noreferrer noopener"
+              title="T&eacute;l&eacute;charger la convention de subvention de conseiller num&eacute;rique coordinateur">
+              T&eacute;l&eacute;charger la convention de subvention de conseiller num&eacute;rique coordinateur (pdf)
+            </a>
+            <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
+              Mod&egrave;le de convention de subvention de conseiller num&eacute;rique coordinateur avec la Banque des Territoires
+            </span>
+          </p>
+        </div>
         <h4>2) Financement Conseiller num&eacute;rique</h4>
         <div className="fr-grid-row">
           <p>
@@ -307,7 +320,7 @@ export default function Documents() {
               // eslint-disable-next-line max-len
               className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger la note &laquo;&nbsp; Conseillers num&eacute;riques, structures d&rsquo;accueil : comment accompagner les usagers dans leurs d&eacute;marches administratives en ligne ?&nbsp;&raquo;">
               T&eacute;l&eacute;charger la note &laquo;&nbsp; Conseillers num&eacute;riques, structures d&rsquo;accueil&nbsp;:
-                comment accompagner les usagers dans leurs d&eacute;marches administratives en ligne&nbsp;?&nbsp;&raquo; (pdf)
+              comment accompagner les usagers dans leurs d&eacute;marches administratives en ligne&nbsp;?&nbsp;&raquo; (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
               Cette note propose des pistes aux Conseillers num&eacute;riques et &agrave; leurs employeurs pour accueillir les demandes
