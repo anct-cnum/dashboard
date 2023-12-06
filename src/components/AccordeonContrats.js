@@ -14,7 +14,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
       <div className="fr-collapse color-text color-title-subpart" id="accordion-activiter">
         <div className="fr-grid-row fr-col-12">
           {misesEnRelationNouvelleRupture &&
-            <div className="fr-card fr-col-12 fr-p-4w">
+            <div className="fr-card fr-col-12 fr-p-4w fr-mb-3w">
               <div className="fr-card__body" style={{ padding: '0 0' }}>
                 <div>
                   <div className="fr-grid-row fr-grid-row--middle">
@@ -55,7 +55,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
             </div>
           }
           {(misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture) &&
-            <div className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}>
+            <div className="fr-card fr-col-12 fr-p-4w fr-mb-3w">
               <div className="fr-card__body" style={{ padding: '0 0' }}>
                 <div>
                   <div className="fr-grid-row fr-grid-row--middle">
@@ -133,7 +133,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
           }
           {misesEnRelationFinaliseeRupture?.map(miseEnRelation =>
             <div
-              className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}
+              className="fr-card fr-col-12 fr-p-4w fr-mb-3w"
               key={miseEnRelation?._id}
               style={{ paddingLeft: '1rem' }}
             >
@@ -194,8 +194,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
           )}
           {misesEnRelationTermineeNaturelle?.map(miseEnRelation =>
             <div
-              // eslint-disable-next-line max-len
-              className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture || misesEnRelationFinaliseeRupture?.length > 0 ? 'fr-mt-3w' : ''}`}
+              className="fr-card fr-col-12 fr-p-4w fr-mb-3w"
               key={miseEnRelation?._id}
               style={{ paddingLeft: '1rem' }}
             >
@@ -252,7 +251,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
               </div>
             </div>
           )}
-          <div className="fr-card fr-col-12 fr-mt-3w fr-p-4w">
+          <div className="fr-card fr-col-12 fr-p-4w">
             <div className="fr-card__body" style={{ padding: '0 0' }}>
               <div>
                 <div className="fr-grid-row fr-grid-row--middle">
