@@ -74,11 +74,11 @@ export default function Documents() {
             <a href="https://cdn.conseiller-numerique.gouv.fr/Appel_a_candidatures_conseiller_numeriques_coordinateurs.pdf"
               className="fr-link" target="blank"
               rel="noreferrer noopener"
-              title="T&eacute;l&eacute;charger l&rsquo;appel &agrave; candidature - Conseiller num&eacute;rique Coordinateur">
-              T&eacute;l&eacute;charger l&rsquo;appel &agrave; candidature - Conseiller num&eacute;rique Coordinateur (pdf)
+              title="T&eacute;l&eacute;charger l&rsquo;appel &agrave; candidature - Conseiller num&eacute;rique coordinateur">
+              T&eacute;l&eacute;charger l&rsquo;appel &agrave; candidature - Conseiller num&eacute;rique coordinateur (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-              Appel &agrave; candidatures - Conseiller num&eacute;rique Coordinateur
+              Appel &agrave; candidatures - Conseiller num&eacute;rique coordinateur
             </span>
           </p>
         </div>
