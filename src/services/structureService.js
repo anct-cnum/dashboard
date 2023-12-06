@@ -1,4 +1,4 @@
-import { roleActivated } from '../helpers';
+import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
 import { structureQueryStringParameters } from '../utils/queryUtils';
@@ -25,7 +25,7 @@ function get(id) {
 function getDetails(id) {
   return API.get(`${apiUrlRoot}/structure/details/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre) {

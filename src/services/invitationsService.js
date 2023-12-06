@@ -1,4 +1,4 @@
-import { roleActivated } from '../helpers';
+import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
 
@@ -31,7 +31,7 @@ function inviteStructure({ email, structureId }) {
     `${apiUrlRoot}/inviteStructure?role=${roleActivated()}`,
     { email, structureId })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function inviteAccountHub({ hub, nom, prenom, email }) {
