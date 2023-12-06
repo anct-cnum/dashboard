@@ -137,7 +137,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
               <div>
                 <div className="fr-grid-row fr-grid-row--middle">
                   <div className="badge">
-                    <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
+                    <p className="fr-badge fr-badge--error">Contrat termin&eacute;</p>
                   </div>
                   <div className={`${checkMotifRupture(miseEnRelation?.motifRupture) ? 'structure-long' : 'structure-court'}`}>
                     <strong className="fr-text--md" title={miseEnRelation?.structureObj?.nom}>
@@ -217,7 +217,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
               <div>
                 <div className="fr-grid-row fr-grid-row--middle">
                   <div className="badge">
-                    <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
+                    <p className="fr-badge fr-badge--error">Contrat termin&eacute;</p>
                   </div>
                   <div className="structure-long">
                     <strong className="fr-text--md" title={miseEnRelation?.structureObj?.nom}>

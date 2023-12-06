@@ -141,7 +141,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                 <div>
                   <div className="fr-grid-row fr-grid-row--middle">
                     <div className="fr-col-12 fr-mb-2w">
-                      <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
+                      <p className="fr-badge fr-badge--error">Contrat termin&eacute;</p>
                     </div>
                     <div className="fr-col-12 fr-mb-2w">
                       <strong className="fr-text--md fr-col-12 fr-mb-0">
@@ -203,7 +203,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                 <div>
                   <div className="fr-grid-row fr-grid-row--middle">
                     <div className="fr-col-12 fr-mb-2w">
-                      <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
+                      <p className="fr-badge fr-badge--error">Contrat termin&eacute;</p>
                     </div>
                     <div className="fr-col-12 fr-mb-2w">
                       <strong className="fr-text--md fr-col-12 fr-mb-0">
