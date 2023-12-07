@@ -1,7 +1,7 @@
 import React from 'react';
 import propType from 'prop-types';
 
-const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
+const RolesCards = ({ roles, reseau, user, changeRoleActivated }) => {
 
   const displayRole = (role, idx) => {
     switch (role) {
@@ -17,14 +17,16 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
             </div>
             <div className="fr-col-4 fr fr-grid-row--end" style={{ textAlign: 'right' }}>
               <button className="fr-btn fr-btn--tertiary-no-outline"
-                onClick={() => window.open(`/${roleActivated}/ma-structure/`)}
+                onClick={() => {
+                  changeRoleActivated(role);
+                  window.open(`/${role}/ma-structure/`);
+                }}
               >
                 <i className="ri-home-4-line fr-mr-1w"></i>G&eacute;rer ma structure
               </button>
             </div>
           </div>
-        </div>
-        ;
+        </div>;
       case 'grandReseau':
         return <div key={idx}>
           <hr className="fr-mt-4w fr-mb-2w" style={{ borderWidth: '0.5px' }} />
@@ -34,13 +36,6 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
                 <span className="fr-text--md fr-text--bold">Gestionnaire Grand r&eacute;seau</span><br/>
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{reseau}</span>
               </div>
-            </div>
-            <div className="fr-col-4 fr fr-grid-row--end" style={{ textAlign: 'right' }}>
-              <button className="fr-btn fr-btn--tertiary-no-outline"
-                onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}
-              >
-                <i className="ri-home-4-line fr-mr-1w"></i>G&eacute;rer ma structure
-              </button>
             </div>
           </div>
         </div>;
@@ -65,7 +60,7 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
 
   return (
     <>
-      <div className="fr-card fr-col-8 fr-mt-2w fr-p-3w">
+      { roles && roles.filter(role => role !== 'structure_coop').length >= 2 && <div className="fr-card fr-col-8 fr-mt-2w fr-p-3w">
         <div className="fr-card__body fr-p-0">
           <div>
             <h4>Mes r&ocirc;les</h4>
@@ -74,7 +69,7 @@ const RolesCards = ({ roles, reseau, user, roleActivated, structure }) => {
             )) }
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 };
@@ -83,8 +78,7 @@ RolesCards.propTypes = {
   roles: propType.array,
   reseau: propType.string,
   user: propType.object,
-  roleActivated: propType.string,
-  structure: propType.object,
+  changeRoleActivated: propType.func,
 };
 
 export default RolesCards;

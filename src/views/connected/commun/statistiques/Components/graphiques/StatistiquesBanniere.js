@@ -7,7 +7,7 @@ import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUt
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
 // eslint-disable-next-line max-len
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds, pilotage }) {
+function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds }) {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -61,11 +61,8 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
       document.title = getTitlePDF();
       window.print();
     } else if (extension === 'csv') {
-      if (!pilotage) {
-        conseillerIds = territoire?.conseillerIds ?? undefined;
-      }
       // eslint-disable-next-line max-len
-      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, conseillerIds, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds));
+      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds, typeStats));
     }
   }
 
@@ -127,9 +124,8 @@ StatistiquesBanniere.propTypes = {
   prenom: PropTypes.string,
   typeStats: PropTypes.string,
   id: PropTypes.string,
-  pilotage: PropTypes.bool,
   conseillerIds: PropTypes.array,
-  structureIds: PropTypes.array
+  structureIds: PropTypes.array,
 };
 
 export default StatistiquesBanniere;

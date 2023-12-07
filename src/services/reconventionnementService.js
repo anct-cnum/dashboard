@@ -1,4 +1,4 @@
-import { roleActivated } from '../helpers';
+import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
 
@@ -11,17 +11,17 @@ export const reconventionnementService = {
 function getAll(page) {
   return API.get(`${apiUrlRoot}/reconventionnements?role=${roleActivated()}&page=${page}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function get(id) {
   return API.get(`${apiUrlRoot}/reconventionnement/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 function update(structureId, action, misesEnRelations, nombreDePostes, motif) {
   return API.patch(`${apiUrlRoot}/reconventionnement?structureId=${structureId}&action=${action}
   &nombreDePostes=${nombreDePostes}&motif=${motif}&role=${roleActivated()}`, { misesEnRelations })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }

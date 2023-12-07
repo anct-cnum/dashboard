@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { roleActivated } from '../helpers';
+import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
 import { statsGrandReseauQueryStringParameters, statsQueryStringParameters, territoireQueryString } from '../utils/queryUtils';
@@ -9,7 +9,6 @@ export const statistiquesService = {
   getTerritoire,
   getDatasStructures,
   getDatasTerritoires,
-  getDatasTerritoiresPrefet,
   getStatistiquesTerritoire,
   getStatistiquesStructure,
   getStatistiquesConseiller,
@@ -20,39 +19,31 @@ export const statistiquesService = {
   getCodesPostauxCrasConseiller
 };
 
-function getTerritoire(typeTerritoire, idTerritoire, date) {
+function getTerritoire(typeTerritoire, idTerritoire, dateFin) {
   return API.get(
-    `${apiUrlRoot}/stats/territoire?typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&dateFin=${date}&role=${roleActivated()}`)
+    `${apiUrlRoot}/stats/territoire?typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&dateFin=${dateFin}&role=anonyme`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getDatasStructures(dateDebut, dateFin, page) {
   return API.get(
     `${apiUrlRoot}/stats/datas/structures?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&page=${page}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getDatasTerritoires(territoire, dateDebut, dateFin, page, nomOrdre, ordre) {
   return API.get(
-    `${apiUrlRoot}/stats/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page)}&role=${roleActivated()}`)
+    `${apiUrlRoot}/stats/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page)}&role=anonyme`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
-function getDatasTerritoiresPrefet(territoire, dateDebut, dateFin, nomOrdre, ordre) {
-  return API.get(
-    `${apiUrlRoot}/stats/prefet/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin)}&role=${roleActivated()}`)
+function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, idTerritoire) {
+  return API.get(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&role=anonyme`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
-}
-
-function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, conseillerIds) {
-  conseillerIds = JSON.stringify(conseillerIds);
-  return API.get(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&conseillerIds=${conseillerIds}&role=anonyme`)
-  .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, codeCommune) {
@@ -60,7 +51,7 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, c
   return API.get(
     `${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}&idStructure=${idStructure}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, codeCommune) {
@@ -68,7 +59,7 @@ function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal,
   return API.get(
     `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}&idConseiller=${idConseiller}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idConseiller, codePostal, codeCommune) {
@@ -76,7 +67,7 @@ function getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idCons
   return API.get(
     `${apiUrlRoot}/stats/recrutement/conseiller/cras?role=anonyme${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}&idConseiller=${idConseiller}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getStatistiquesNationale(dateDebut, dateFin) {
@@ -105,17 +96,17 @@ function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, co
   } = statsGrandReseauQueryStringParameters(dateDebut, dateFin, conseillerIds, codePostal, codeCommune, region, departement, structureIds);
   return API.get(`stats/nationales/cras/grand-reseau?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}${filterByRegion}${filterByDepartement}${filterByStructureIds}${filterByConseillerIds}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getCodesPostauxCrasConseillerStructure(idStructure) {
   return API.get(`${apiUrlRoot}/cras/codesPostaux/structure?role=${roleActivated()}&id=${idStructure}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getCodesPostauxCrasConseiller(idConseiller) {
   return API.get(`${apiUrlRoot}/cras/codesPostaux/conseiller?role=${roleActivated()}&id=${idConseiller}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }

@@ -78,8 +78,9 @@ function FiltresEtTrisContratRupture() {
         <div className="fr-select-group fr-col-12" id="filtre-statut">
           <select className="fr-select" value={filtreStatut} onChange={selectFiltreStatut}>
             <option value={'tous'}>S&eacute;lectionner le statut du dossier</option>
+            <option value={'false'}>Nouvelle demande</option>
             <option value={'true'}>En attente de pi&egrave;ces</option>
-            <option value={'false'}>Complet</option>
+            <option value={'null'}>Complet</option>
           </select>
         </div>
       </div>

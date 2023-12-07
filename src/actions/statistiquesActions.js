@@ -11,7 +11,6 @@ export const statistiquesActions = {
   getTerritoire,
   getDatasStructures,
   getDatasTerritoires,
-  getDatasTerritoiresPrefet,
   getStatistiquesStructure,
   getStatistiquesConseiller,
   getStatistiquesConseillerParcoursRecrutement,
@@ -126,36 +125,11 @@ function getDatasTerritoires(territoire = 'departement', dateDebut, dateFin, pag
   }
 }
 
-function getDatasTerritoiresPrefet(territoire = 'departement', dateDebut, dateFin, nomOrdre = 'code', ordre = 1) {
-  return dispatch => {
-    dispatch(request());
-    statistiquesService.getDatasTerritoiresPrefet(territoire, formatDate(dateDebut), formatDate(dateFin), nomOrdre, ordre)
-    .then(
-      statsTerritoires => {
-        dispatch(success(statsTerritoires));
-      },
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
-
-  function request() {
-    return { type: 'GET_DATAS_TERRITOIRES_REQUEST' };
-  }
-  function success(statsTerritoires) {
-    return { type: 'GET_DATAS_TERRITOIRES_SUCCESS', statsTerritoires };
-  }
-  function failure(error) {
-    return { type: 'GET_DATAS_TERRITOIRES_FAILURE', error };
-  }
-}
-
-function getTerritoire(typeTerritoire, idTerritoire, date) {
+function getTerritoire(typeTerritoire, idTerritoire, dateFin) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getTerritoire(typeTerritoire, idTerritoire, formatDate(date))
+    statistiquesService.getTerritoire(typeTerritoire, idTerritoire, formatDate(dateFin))
     .then(
       territoire => dispatch(success(territoire)),
       error => {
@@ -175,11 +149,11 @@ function getTerritoire(typeTerritoire, idTerritoire, date) {
   }
 }
 
-function getStatistiquesTerritoire(dateDebutStats, dateFinStats, typeTerritoire, conseillerIds) {
+function getStatistiquesTerritoire(dateDebutStats, dateFinStats, typeTerritoire, idTerritoire) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getStatistiquesTerritoire(formatDate(dateDebutStats), formatDate(dateFinStats), typeTerritoire, conseillerIds)
+    statistiquesService.getStatistiquesTerritoire(formatDate(dateDebutStats), formatDate(dateFinStats), typeTerritoire, idTerritoire)
     .then(
       statsTerritoire => {
         dispatch(success(statsTerritoire));

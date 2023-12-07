@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { invitationsActions, structureActions, alerteEtSpinnerActions } from '../../../../actions';
-import { valideInputEmail } from '../../../../utils/formatagesUtils';
+import { formatNumeroTelephone, valideInputEmail } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import Spinner from '../../../../components/Spinner';
@@ -127,10 +127,7 @@ function StructureDetails() {
             </div>
             <div className="fr-mb-3w">
               <strong>T&eacute;l&eacute;phone</strong><br />
-              <span>{structure?.contact?.telephone ?
-                structure?.contact?.telephone?.replace(/(\+)(33|590|596|594|262|269)(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1$2$3 $4 $5 $6 $7') :
-                <>-</>
-              }</span>
+              <span>{formatNumeroTelephone(structure?.contact?.telephone)}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Fonction</strong><br />

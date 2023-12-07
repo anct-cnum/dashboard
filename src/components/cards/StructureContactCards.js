@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatNomContactStructure } from '../../utils/formatagesUtils';
+import { formatNomContactStructure, formatNumeroTelephone } from '../../utils/formatagesUtils';
 
 export default function StructureContactCards({ structure }) {
 
@@ -37,7 +37,7 @@ export default function StructureContactCards({ structure }) {
                   <div className="fr-mb-3w">
                     <strong>T&eacute;l&eacute;phone</strong><br />
                     <span className="fr-text--regular fr-text--md">
-                      {structure?.contact?.telephone ?? '-'}
+                      {formatNumeroTelephone(structure?.contact?.telephone)}
                     </span>
                   </div>
                 </div>
@@ -47,8 +47,8 @@ export default function StructureContactCards({ structure }) {
                     <span className="fr-text--regular fr-text--md" title={structure?.contact?.email ?? ''}>
                       {structure?.contact?.email ?
                         <>
-                          {structure?.contact?.email?.length > 30 ?
-                            `${structure?.contact?.email.substring(0, 30)}...` : structure?.contact?.email
+                          {structure?.contact?.email?.length > 28 ?
+                            `${structure?.contact?.email.substring(0, 28)}...` : structure?.contact?.email
                           }
                         </> : '-'
                       }

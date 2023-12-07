@@ -7,7 +7,6 @@ export const exportsActions = {
   exportFile,
   resetFile,
   exportDonneesTerritoire,
-  exportDonneesTerritoirePrefet,
   resetExportDonneesTerritoire,
   exportStatistiquesCSV,
   exportDonneesConseiller,
@@ -79,26 +78,6 @@ function exportDonneesTerritoire(territoire = 'departement', dateDebut, dateFin,
   }
 }
 
-function exportDonneesTerritoirePrefet(territoire = 'departement', dateDebut, dateFin, nomOrdre = 'code', ordre = 1) {
-  return async dispatch => {
-    dispatch(request());
-    await exportsService.getExportDonneesTerritoirePrefet(territoire, formatDate(dateDebut), formatDate(dateFin), nomOrdre, ordre)
-    .then(exportTerritoireFileBlob => dispatch(success(exportTerritoireFileBlob)))
-    .catch(exportTerritoireFileError => dispatch(failure(exportTerritoireFileError)));
-  };
-
-  function request() {
-    return { type: 'EXPORT_TERRITOIRE_REQUEST' };
-  }
-  function success(exportTerritoireFileBlob) {
-    const nameFile = `export-territoires_${territoire}_entre_${dayjs(dateDebut).format('YYYY-MM-DD')}_et_${dayjs(dateFin).format('YYYY-MM-DD')}`;
-    return { type: 'EXPORT_TERRITOIRE_SUCCESS', exportTerritoireFileBlob, nameFile };
-  }
-  function failure(exportTerritoireFileError) {
-    return { type: 'EXPORT_TERRITOIRE_FAILURE', exportTerritoireFileError };
-  }
-}
-
 function exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
   return async dispatch => {
     dispatch(request());
@@ -143,10 +122,10 @@ function resetExportDonneesTerritoire() {
   return { type: 'EXPORT_TERRITOIRE_RESET' };
 }
 
-function exportStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds) {
+function exportStatistiquesCSV(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds, typeStats) {
   return dispatch => {
     dispatch(request());
-    exportsService.getStatistiquesCSV(dateDebut, dateFin, type, idType, conseillerIds, codePostal, ville, codeCommune, nom, prenom, region, departement, structureIds)
+    exportsService.getStatistiquesCSV(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds, typeStats)
     .then(
       data => dispatch(success(data)),
       error => dispatch(failure(error))
@@ -225,7 +204,7 @@ function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtr
   }
 }
 
-function exportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'dateCandidature', ordre = 1) {
+function exportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'codePostal', ordre) {
   return async dispatch => {
     dispatch(request());
     await exportsService.getExportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre)

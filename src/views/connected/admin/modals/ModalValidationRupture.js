@@ -8,11 +8,10 @@ import { formatMotifRupture } from '../../../../utils/formatagesUtils';
 
 //Print datePicker calendar in FR
 registerLocale('fr', fr);
-function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, dateFinDeContrat, setDateFinDeContrat }) {
+function ModalValidationRupture({ setOpenModal, miseEnRelation, dateFinDeContrat, setDateFinDeContrat, dateFinDeContratInitiale }) {
   const [confirmationRupture, setConfirmationRupture] = useState(false);
   const [dossierComplet, setDossierComplet] = useState(null);
   const dispatch = useDispatch();
-
   const validationRupture = () => {
     dispatch(conseillerActions.validationRupture(miseEnRelation?.conseillerObj?._id, dateFinDeContrat));
     setOpenModal(false);
@@ -69,7 +68,7 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                       <DatePicker
                         id="datePicker"
                         name="datePicker"
-                        className="fr-input fr-my-2w fr-mr-6w fr-col-6"
+                        className={`fr-input fr-my-2w fr-mr-6w fr-col-6 ${dossierComplet === true && dateFinDeContrat > new Date() ? 'input-error' : ''}`}
                         dateFormat="dd/MM/yyyy"
                         placeholderText="../../...."
                         locale="fr"
@@ -78,9 +77,14 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                         value={dateFinDeContrat}
                         peekNextMonth
                         onChangeRaw={e => e.preventDefault()}
-                        minDate={new Date(datePrisePoste)}
-                        maxDate={new Date()}
+                        minDate={new Date(miseEnRelation?.dateDebutDeContrat ?? '2020/11/17')}
+                        maxDate={dossierComplet === true ? new Date() : new Date(dateFinDeContratInitiale)}
                       />
+                      {dossierComplet === true && dateFinDeContrat > new Date() &&
+                      <p className="text-error">
+                        Vous ne pouvez pas valider un dossier complet dont la date de rupture est supp&eacute;rieur &agrave; la date du jour
+                      </p>
+                      }
                     </div>
                     <div className="fr-col-12 fr-mt-1w">
                       <label
@@ -131,7 +135,7 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
                       <li>
                         <button
                           onClick={gestionRupture}
-                          disabled={!dateFinDeContrat || dossierComplet === null}
+                          disabled={!dateFinDeContrat || dossierComplet === null || dossierComplet === true && dateFinDeContrat > new Date()}
                           className="fr-btn fr-btn--icon-left" title="Valider la rupture de contrat"
                         >
                           Valider
@@ -181,11 +185,11 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, 
 }
 
 ModalValidationRupture.propTypes = {
-  datePrisePoste: PropTypes.string,
   dateFinDeContrat: PropTypes.instanceOf(Date),
   miseEnRelation: PropTypes.object,
   setOpenModal: PropTypes.func,
   setDateFinDeContrat: PropTypes.func,
+  dateFinDeContratInitiale: PropTypes.instanceOf(Date),
 };
 
 export default ModalValidationRupture;

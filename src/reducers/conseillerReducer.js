@@ -267,6 +267,7 @@ export default function conseiller(state = initialState, action) {
       };
     case 'DOSSIER_INCOMPLET_RUPTURE_FAILURE':
       return {
+        ...state,
         loading: false,
         errorRupture: action.error
       };

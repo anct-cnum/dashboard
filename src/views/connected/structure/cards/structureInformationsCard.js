@@ -1,7 +1,7 @@
 import React from 'react';
 import propType from 'prop-types';
 import StructureContactForm from '../../../../components/StructureContactForm';
-import { formatNomContactStructure } from '../../../../utils/formatagesUtils';
+import { formatNomContactStructure, formatNumeroTelephone } from '../../../../utils/formatagesUtils';
 
 const StructureInformationsCard = ({ structure, formInformationContact, setFormInformationContact }) => {
 
@@ -49,7 +49,7 @@ const StructureInformationsCard = ({ structure, formInformationContact, setFormI
                 </strong>
                 <br />
                 <span className="fr-text--regular fr-text--md">
-                  {structure?.contact?.telephone ?? '-'}
+                  {formatNumeroTelephone(structure?.contact?.telephone)}
                 </span>
               </div>
             </div>
