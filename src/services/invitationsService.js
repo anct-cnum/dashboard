@@ -15,7 +15,7 @@ function inviteAccountPrefet(email, maille) {
     `${apiUrlRoot}/inviteAccountPrefet?role=${roleActivated()}`,
     { ...email, ...maille })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function inviteAccountAdmin({ email, nom, prenom }) {
@@ -23,7 +23,7 @@ function inviteAccountAdmin({ email, nom, prenom }) {
     `${apiUrlRoot}/inviteAccountAdmin?role=${roleActivated()}`,
     { email, nom, prenom })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function inviteStructure({ email, structureId }) {
@@ -39,7 +39,7 @@ function inviteAccountHub({ hub, nom, prenom, email }) {
     `${apiUrlRoot}/inviteAccountHub?role=${roleActivated()}`,
     { hub, nom, prenom, email })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function inviteAccountGrandReseau({ reseau, email, nom, prenom }) {
@@ -47,5 +47,5 @@ function inviteAccountGrandReseau({ reseau, email, nom, prenom }) {
     `${apiUrlRoot}/inviteAccountGrandReseau?role=${roleActivated()}`,
     { reseau, email, nom, prenom })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
