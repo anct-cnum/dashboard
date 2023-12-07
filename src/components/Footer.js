@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logoFR from '../assets/brands/logo-france-relance-gouv-ue.png';
-import logoANCT from '../assets/brands/logo-anct-min.svg';
-import logoSONUM from '../assets/brands/logo-sonum-min.svg';
+import logoAnctSonum from '../assets/brands/logo-sonum-anct-min.svg';
 
 function Footer() {
 
@@ -28,7 +27,7 @@ function Footer() {
                   title="Cartographie"
                   href="https://carte.conseiller-numerique.gouv.fr/"
                   target="_blank" rel="noopener noreferrer">
-                    Cartographie
+                  Cartographie
                 </a>
               </li>
               <li className="fr-footer__content-item">
@@ -37,7 +36,7 @@ function Footer() {
                   title="Statistiques publiques"
                   href="https://metabase.conseiller-numerique.gouv.fr/public/dashboard/446208c4-cae2-4c0c-be19-44cb14ce7d06"
                   target="_blank" rel="noopener noreferrer">
-                    Statistiques publiques
+                  Statistiques publiques
                 </a>
               </li>
               <li className="fr-footer__content-item">
@@ -46,7 +45,7 @@ function Footer() {
                   title="Statistiques publiques"
                   href="https://metabase.conseiller-numerique.gouv.fr/dashboard/6"
                   target="_blank" rel="noopener noreferrer">
-                    Statistiques internes
+                  Statistiques internes
                 </a>
               </li>
               {/* Seulement pour hub & coordo pour Mattermost ? */}
@@ -56,7 +55,7 @@ function Footer() {
                   className="fr-footer__content-link"
                   href="https://discussion.conseiller-numerique.gouv.fr/"
                   target="_blank" rel="noopener noreferrer">
-                    Mattermost
+                  Mattermost
                 </a>
               </li>
               <li className="fr-footer__content-item">
@@ -65,7 +64,7 @@ function Footer() {
                   className="fr-footer__content-link"
                   href="https://labase.anct.gouv.fr/base/3"
                   target="_blank" rel="noopener noreferrer">
-                    La Base
+                  La Base
                 </a>
               </li>
             </ul>
@@ -91,18 +90,14 @@ function Footer() {
           </h4>
           <div className="fr-footer__partners-logos">
             <div className="fr-footer__partners-main">
-              <a className="footer__partners-link" href="https://agence-cohesion-territoires.gouv.fr">
-                <img className="fr-footer__logo" style={{ height: '4.5rem' }} src={logoANCT} alt="Agence Nationale de la Coh&eacute;sion des Territoires" />
+              <a className="footer__partners-link" href="https://societenumerique.gouv.fr/fr/">
+                <img
+                  className="fr-footer__logo"
+                  style={{ height: '72px' }}
+                  src={logoAnctSonum}
+                  alt="Agence Nationale de la Coh&eacute;sion des Territoires - Soci&eacute;t&eacute; num&eacute;rique"
+                />
               </a>
-            </div>
-            <div className="fr-footer__partners-sub" style={{ order: 1 }}>
-              <ul style={{ alignItems: 'center' }}>
-                <li style={{ paddingTop: '5px' }}>
-                  <a className="fr-footer__partners-link" href="https://societenumerique.gouv.fr">
-                    <img className="fr-footer__logo" style={{ height: '4rem' }} src={logoSONUM} alt="Soci&eacute;t&eacute; Num&eacute;rique" />
-                  </a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
@@ -114,7 +109,7 @@ function Footer() {
                 title="Accessibilit&eacute;"
                 className="fr-footer__bottom-link"
                 onClick={onClickLink}>
-                  Accessibilit&eacute;: non conforme
+                Accessibilit&eacute;: non conforme
               </a>
             </li>
             <li className="fr-footer__bottom-item">
@@ -123,7 +118,7 @@ function Footer() {
                 title="Mentions L&eacute;gales"
                 className="fr-footer__bottom-link"
                 onClick={onClickLink}>
-                  Mentions l&eacute;gales
+                Mentions l&eacute;gales
               </a>
             </li>
             <li className="fr-footer__bottom-item">
@@ -131,7 +126,7 @@ function Footer() {
                 className="fr-footer__bottom-link"
                 title="Donn&eacute;es personnelles"
                 target="_blank" rel="noopener noreferrer">
-                  Donn&eacute;es personnelles
+                Donn&eacute;es personnelles
               </a>
             </li>
           </ul>
