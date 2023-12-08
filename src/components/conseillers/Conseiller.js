@@ -9,7 +9,7 @@ import iconeCoordinateur from '../../assets/icons/icone-coordinateur.svg';
 function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const { trackEvent } = useMatomo();
-
+console.log(conseiller);
   return (
     <>
       <tr>
