@@ -29,8 +29,7 @@ function ConseillerDetailsContrat() {
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
-  const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
-  const [misesEnRelationTermineeNaturelle, setMisesEnRelationTermineeNaturelle] = useState([]);
+  const [misesEnRelationSansMission, setMisesEnRelationSansMission] = useState([]);
 
   const [dateFinDeContratInitiale, setDateFinDeContratInitiale] = useState(new Date());
   const [dateFinDeContrat, setDateFinDeContrat] = useState(null);
@@ -58,14 +57,16 @@ function ConseillerDetailsContrat() {
         const miseEnRelation = conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0];
         setMisesEnRelationFinalisee(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
         setMisesEnRelationNouvelleRupture(miseEnRelation);
-        setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
-        setMisesEnRelationTermineeNaturelle(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'terminee_naturel'));
+        setMisesEnRelationSansMission(conseiller.misesEnRelation?.filter(
+          miseEnRelation =>
+            miseEnRelation.statut === 'finalisee_rupture' || miseEnRelation.statut === 'terminee_naturelle'
+        ));
 
         setDateFinDeContrat(miseEnRelation?.dateRupture ? new Date(miseEnRelation.dateRupture) : null);
         setDateFinDeContratInitiale(miseEnRelation?.dateFinDeContrat ?
           new Date(miseEnRelation.dateFinDeContrat) :
           new Date(new Date().setMonth(new Date().getMonth() + 2)));
-        if (conseiller?.structureId) {
+        if (conseiller?.statut === 'RECRUTE') {
           dispatch(structureActions.get(conseiller?.structureId));
         }
       }
@@ -107,7 +108,7 @@ function ConseillerDetailsContrat() {
           </p>
         </div>
       }
-      {conseiller?.structureId &&
+      {conseiller?.statut === 'RECRUTE' &&
         <>
           <div className="fr-col-12 fr-pt-6w">
             <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
@@ -196,8 +197,7 @@ function ConseillerDetailsContrat() {
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
-        misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
-        misesEnRelationTermineeNaturelle={misesEnRelationTermineeNaturelle}
+        misesEnRelationSansMission={misesEnRelationSansMission}
         roleActivated={roleActivated}
       />
     </div>
