@@ -34,7 +34,7 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
         dayjs(miseEnRelation?.conseillerObj.dateDisponibilite).format('DD/MM/YYYY') : 'Non renseignée'}</td>
       <td>{miseEnRelation?.conseillerObj?.codePostal}</td>
       <td style={{ display: 'flex', justifyContent: 'center' }}>
-        {(miseEnRelation?.conseillerObj?.statut === 'RECRUTE' || miseEnRelation?.conseillerObj?.statut === 'RUPTURE') &&
+        {['RECRUTE', 'RUPTURE', 'TERMINE'].includes(miseEnRelation?.conseillerObj?.statut) &&
           <>
             <div
               data-tooltip-content="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"

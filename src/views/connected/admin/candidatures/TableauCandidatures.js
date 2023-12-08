@@ -87,6 +87,7 @@ export default function TableauCandidatures() {
                           <th style={{ width: '9.1rem' }}>Nom</th>
                           <th style={{ width: '10.7rem' }}>Date de candidature</th>
                           <th style={{ width: '6rem' }}>Code postal</th>
+                          <th style={{ width: '5rem' }}>Formation CCP1</th>
                           <th style={{ width: '7rem' }}>R&eacute;sultat Pix</th>
                           <th style={{ width: '9.1rem' }}>Curriculum Vit&aelig;</th>
                           <th></th>
