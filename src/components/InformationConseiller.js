@@ -11,7 +11,7 @@ import pixRessources from '../assets/icons/pix-ressources.png';
 import pixCitoyen from '../assets/icons/pix-citoyen.png';
 
 // eslint-disable-next-line max-len
-function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRelationFinaliseeRupture, misesEnRelationNouvelleRupture, misesEnRelationTermineeNaturelle, roleActivated, recrutement = false }) {
+function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRelationSansMission, misesEnRelationNouvelleRupture, roleActivated, recrutement = false }) {
 
   const { trackEvent } = useMatomo();
 
@@ -47,16 +47,14 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
           <AccordeonContrats
             conseiller={conseiller}
             misesEnRelationFinalisee={misesEnRelationFinalisee}
-            misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+            misesEnRelationSansMission={misesEnRelationSansMission}
             misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
-            misesEnRelationTermineeNaturelle={misesEnRelationTermineeNaturelle}
           />
           <ContratsCards
             conseiller={conseiller}
             misesEnRelationFinalisee={misesEnRelationFinalisee}
-            misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+            misesEnRelationSansMission={misesEnRelationSansMission}
             misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
-            misesEnRelationTermineeNaturelle={misesEnRelationTermineeNaturelle}
           />
         </>
       }
@@ -271,9 +269,8 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
 InformationConseiller.propTypes = {
   conseiller: PropTypes.object,
   misesEnRelationFinalisee: PropTypes.array,
-  misesEnRelationFinaliseeRupture: PropTypes.array,
+  misesEnRelationSansMission: PropTypes.array,
   misesEnRelationNouvelleRupture: PropTypes.object,
-  misesEnRelationTermineeNaturelle: PropTypes.array,
   roleActivated: PropTypes.string,
   recrutement: PropTypes.bool
 };

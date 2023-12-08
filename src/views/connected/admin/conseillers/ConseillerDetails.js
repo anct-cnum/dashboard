@@ -24,8 +24,7 @@ function ConseillerDetails() {
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
-  const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
-  const [misesEnRelationTermineeNaturelle, setMisesEnRelationTermineeNaturelle] = useState([]);
+  const [misesEnRelationSansMission, setMisesEnRelationSansMission] = useState([]);
 
   const resendInvitationEspaceCoop = conseillerId => {
     dispatch(conseillerActions.resendInvitConseiller(conseillerId));
@@ -50,9 +49,11 @@ function ConseillerDetails() {
       if (conseiller !== undefined) {
         setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
         setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
-        setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
-        setMisesEnRelationTermineeNaturelle(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'terminee_naturelle'));
-        if (conseiller?.structureId) {
+        setMisesEnRelationSansMission(conseiller.misesEnRelation?.filter(
+          miseEnRelation =>
+            miseEnRelation.statut === 'finalisee_rupture' || miseEnRelation.statut === 'terminee_naturelle'
+        ));
+        if (conseiller?.statut === 'RECRUTE') {
           dispatch(structureActions.get(conseiller?.structureId));
         }
       }
@@ -91,7 +92,7 @@ function ConseillerDetails() {
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </button>
-      {conseiller?.structureId &&
+      {conseiller?.statut === 'RECRUTE' &&
         <>
           <div className="fr-col-12 fr-pt-6w">
             <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
@@ -173,8 +174,7 @@ function ConseillerDetails() {
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
-        misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
-        misesEnRelationTermineeNaturelle={misesEnRelationTermineeNaturelle}
+        misesEnRelationSansMission={misesEnRelationSansMission}
         roleActivated={roleActivated}
       />
     </div>

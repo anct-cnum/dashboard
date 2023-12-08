@@ -20,9 +20,8 @@ function ConseillerDetails() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
-  const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const [misesEnRelationSansMission, setMisesEnRelationSansMission] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
-  const [misesEnRelationTermineeNaturelle, setMisesEnRelationTermineeNaturelle] = useState([]);
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -60,8 +59,10 @@ function ConseillerDetails() {
     if (conseiller !== undefined) {
       setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
       setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
-      setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
-      setMisesEnRelationTermineeNaturelle(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'terminee_naturelle'));
+      setMisesEnRelationSansMission(conseiller.misesEnRelation?.filter(
+        miseEnRelation =>
+          miseEnRelation.statut === 'finalisee_rupture' || miseEnRelation.statut === 'terminee_naturelle'
+      ));
     }
   }, [conseiller]);
 
@@ -128,9 +129,8 @@ function ConseillerDetails() {
       <InformationConseiller
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
-        misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        misesEnRelationSansMission={misesEnRelationSansMission}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
-        misesEnRelationTermineeNaturelle={misesEnRelationTermineeNaturelle}
         roleActivated={roleActivated}
       />
     </div>
