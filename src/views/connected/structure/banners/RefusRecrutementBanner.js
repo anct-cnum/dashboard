@@ -18,7 +18,7 @@ const RefusRecrutementBanner = ({ conseiller, structure }) => {
             <p className="fr-notice__title title__color" style={{ width: '70rem' }}>
               <span className="fr-icon-warning-fill icon__color" aria-hidden="true"></span>
               <span className="fr-ml-2w">
-                {`Le recrutement de ${formatNomConseiller(conseiller?.conseillerObj)} a été refusé. Pour plus d'informations, contactez`}
+                {`Le recrutement de ${formatNomConseiller(conseiller?.conseillerObj)} a &eacute;t&eacute; refus&eacute;. Pour plus d'informations, contactez`}
                 &nbsp;<a href="mailto:conseiller-numerique@anct.gouv.fr"
                   title="conseiller-numerique@anct.gouv.fr">conseiller-numerique@anct.gouv.fr</a></span>
             </p>
