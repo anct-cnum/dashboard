@@ -132,19 +132,19 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
           <div className="fr-grid-row fr-col-12">
             <h4 className="titre">Contact du responsable</h4>
             <div className="fr-grid-row fr-col-12">
-              <div className="fr-mb-3w fr-col-6">
+              <div className="fr-mb-3w fr-col-12 fr-col-md-6">
                 <strong>Nom</strong><br />
                 <span>{conseiller?.supHierarchique?.nom ?? '-'}</span>
               </div>
-              <div className="fr-mb-3w fr-col-6">
+              <div className="fr-mb-3w fr-col-12 fr-col-md-6">
                 <strong>Email</strong><br />
                 <span>{conseiller?.supHierarchique?.email ?? '-'}</span>
               </div>
-              <div className="fr-mb-3w fr-col-6">
+              <div className="fr-mb-3w fr-col-12 fr-col-md-6">
                 <strong>Pr&eacute;nom</strong><br />
                 <span>{conseiller?.supHierarchique?.prenom ?? '-'}</span>
               </div>
-              <div className="fr-mb-3w fr-col-6">
+              <div className="fr-mb-3w fr-col-12 fr-col-md-6">
                 <strong>T&eacute;l&eacute;phone</strong><br />
                 <span>{formatNumeroTelephone(conseiller?.supHierarchique?.numeroTelephone)}</span>
               </div>

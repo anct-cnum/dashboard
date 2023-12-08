@@ -43,6 +43,22 @@
     .uppercase-letter {
         text-transform: capitalize;
     }
+    .contact-structure {
+      .contact-mail span {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+        width: 280px;
+      }
+      .contact-fonction span {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+        width: 260px;
+      }
+    }
     .contrat-terminer {
         padding-right: 0rem !important;
         .motif {
