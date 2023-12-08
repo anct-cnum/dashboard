@@ -238,7 +238,6 @@ export default function conseiller(state = initialState, action) {
           emailCN: '',
           emailPro: '',
           telephonePro: '',
-          structureId: '',
           statut: 'RUPTURE',
           mattermost: '',
           contrat: action.miseEnRelationUpdated,
