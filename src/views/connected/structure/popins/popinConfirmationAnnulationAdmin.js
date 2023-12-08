@@ -15,11 +15,11 @@ function popinConfirmationAnnulationAdmin({ setOpenModalAnnulationAdmin, updateS
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
-                  Important&nbsp;: Vous êtes sur le point d&rsquo;annuler la demande de recrutement pour ce candidat.
+                  Important&nbsp;: Vous &ecirc;tes sur le point d&rsquo;annuler la demande de recrutement pour ce candidat.
                 </h1>
                 <p>
                   <strong>
-                     Êtes-vous sûr de vouloir réaliser cette action ?
+                  &Ecirc;tes-vous s&ucirc;r de vouloir r&eacute;aliser cette action&nbsp;?
                   </strong>
                 </p>
               </div>
