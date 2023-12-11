@@ -97,7 +97,7 @@ const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenMod
                 </button>
               </li>
             }
-            {miseEnRelation?.statut !== 'finalisee' && miseEnRelation?.statut !== 'interessee' &&
+            {['recrutee', 'nouvelle_rupture', 'renouvellement_initiee'].includes(miseEnRelation?.statut) &&
               <li>
                 <button
                   className="fr-btn fr-btn--secondary"
