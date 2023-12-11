@@ -204,7 +204,7 @@ function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtr
   }
 }
 
-function exportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'codePostal', ordre) {
+function exportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'dateCandidature', ordre = 1) {
   return async dispatch => {
     dispatch(request());
     await exportsService.getExportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre)

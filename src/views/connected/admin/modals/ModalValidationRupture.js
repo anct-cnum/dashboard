@@ -8,10 +8,11 @@ import { formatMotifRupture } from '../../../../utils/formatagesUtils';
 
 //Print datePicker calendar in FR
 registerLocale('fr', fr);
-function ModalValidationRupture({ setOpenModal, miseEnRelation, dateFinDeContrat, setDateFinDeContrat, dateFinDeContratInitiale }) {
+function ModalValidationRupture({ setOpenModal, miseEnRelation, datePrisePoste, dateFinDeContrat, setDateFinDeContrat, dateFinDeContratInitiale }) {
   const [confirmationRupture, setConfirmationRupture] = useState(false);
   const [dossierComplet, setDossierComplet] = useState(null);
   const dispatch = useDispatch();
+
   const validationRupture = () => {
     dispatch(conseillerActions.validationRupture(miseEnRelation?.conseillerObj?._id, dateFinDeContrat));
     setOpenModal(false);
@@ -77,7 +78,7 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, dateFinDeContrat
                         value={dateFinDeContrat}
                         peekNextMonth
                         onChangeRaw={e => e.preventDefault()}
-                        minDate={new Date(miseEnRelation?.dateDebutDeContrat ?? '2020/11/17')}
+                        minDate={new Date(datePrisePoste)}
                         maxDate={dossierComplet === true ? new Date() : new Date(dateFinDeContratInitiale)}
                       />
                       {dossierComplet === true && dateFinDeContrat > new Date() &&
@@ -185,6 +186,7 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, dateFinDeContrat
 }
 
 ModalValidationRupture.propTypes = {
+  datePrisePoste: PropTypes.string,
   dateFinDeContrat: PropTypes.instanceOf(Date),
   miseEnRelation: PropTypes.object,
   setOpenModal: PropTypes.func,

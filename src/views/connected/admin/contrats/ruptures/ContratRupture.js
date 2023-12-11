@@ -19,6 +19,7 @@ function ContratRupture({ contrat }) {
         {contrat?.dossierIncompletRupture === true && <>En attente de pi&egrave;ces</>}
         {contrat?.dossierIncompletRupture === false && <>Nouvelle demande</>}
         {contrat?.dossierIncompletRupture === undefined && <>Complet</>}
+        
       </td>
       <td>
         <button

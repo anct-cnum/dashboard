@@ -1,7 +1,7 @@
 const initialState = {
   departement: 'tous',
-  ordreNom: 'codePostal',
-  ordre: false,
+  ordreNom: 'dateDisponibilite',
+  ordre: true,
   pix: [],
   diplome: undefined,
   cv: undefined,

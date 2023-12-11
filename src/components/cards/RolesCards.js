@@ -37,6 +37,17 @@ const RolesCards = ({ roles, reseau, user, changeRoleActivated }) => {
                 <span className="fr-text--regular fr-text--md" style={{ color: '#666666' }}>{reseau}</span>
               </div>
             </div>
+            <div className="fr-col-4 fr fr-grid-row--end" style={{ textAlign: 'right' }}>
+              <button className="fr-btn fr-btn--tertiary-no-outline"
+                style={{ whiteSpace: 'nowrap' }}
+                onClick={() => {
+                  changeRoleActivated(role);
+                  window.open(`/${role}/liste-structures/`);
+                }}
+              >
+                <i className="ri-home-4-line fr-mr-1w"></i>G&eacute;rer mon grand réseau
+              </button>
+            </div>
           </div>
         </div>;
       case 'prefet':

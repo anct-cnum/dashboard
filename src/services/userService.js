@@ -1,4 +1,4 @@
-import { handleApiError, roleActivated } from '../helpers';
+import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
 import signOut from './auth/logout';
@@ -62,11 +62,11 @@ function handleResponse(response) {
 function getUsers() {
   return API.get(`${apiUrlRoot}/users?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function validationSuppressionCompteGrandReseau(idUser) {
   return API.delete(`${apiUrlRoot}/user/grandReseau/${idUser}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }

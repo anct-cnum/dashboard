@@ -68,7 +68,7 @@ function MaStructure() {
   }, [successInvitation]);
 
   useEffect(() => {
-    const errors = [errorInvitation, errorSuppression, errorUsers, errorStructure];
+    const errors = [errorInvitation, errorSuppression, errorStructure, errorUsers];
     const errorMessage = errors.filter(error => error !== false && error !== undefined);
 
     if (errorMessage.length > 0) {
@@ -82,7 +82,7 @@ function MaStructure() {
         })
       );
     }
-  }, [errorInvitation, errorSuppression, errorUsers, errorStructure]);
+  }, [errorInvitation, errorSuppression, errorStructure, errorUsers]);
 
   const sendInvitation = () => {
     if (!valideInputEmail(email)) {

@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { handleApiError, roleActivated } from '../helpers';
+import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
 import { statsGrandReseauQueryStringParameters, statsQueryStringParameters, territoireQueryString } from '../utils/queryUtils';
@@ -23,27 +23,27 @@ function getTerritoire(typeTerritoire, idTerritoire, dateFin) {
   return API.get(
     `${apiUrlRoot}/stats/territoire?typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&dateFin=${dateFin}&role=anonyme`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getDatasStructures(dateDebut, dateFin, page) {
   return API.get(
     `${apiUrlRoot}/stats/datas/structures?role=${roleActivated()}&dateDebut=${dateDebut}&dateFin=${dateFin}&page=${page}`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getDatasTerritoires(territoire, dateDebut, dateFin, page, nomOrdre, ordre) {
   return API.get(
     `${apiUrlRoot}/stats/territoires${territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page)}&role=anonyme`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, idTerritoire) {
   return API.get(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&role=anonyme`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, codeCommune) {
@@ -51,7 +51,7 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, c
   return API.get(
     `${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}&idStructure=${idStructure}`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, codeCommune) {
@@ -59,7 +59,7 @@ function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal,
   return API.get(
     `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}&idConseiller=${idConseiller}`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idConseiller, codePostal, codeCommune) {
@@ -67,7 +67,7 @@ function getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idCons
   return API.get(
     `${apiUrlRoot}/stats/recrutement/conseiller/cras?role=anonyme${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}&idConseiller=${idConseiller}`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getStatistiquesNationale(dateDebut, dateFin) {
@@ -96,17 +96,17 @@ function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, co
   } = statsGrandReseauQueryStringParameters(dateDebut, dateFin, conseillerIds, codePostal, codeCommune, region, departement, structureIds);
   return API.get(`stats/nationales/cras/grand-reseau?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}${filterByRegion}${filterByDepartement}${filterByStructureIds}${filterByConseillerIds}`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getCodesPostauxCrasConseillerStructure(idStructure) {
   return API.get(`${apiUrlRoot}/cras/codesPostaux/structure?role=${roleActivated()}&id=${idStructure}`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getCodesPostauxCrasConseiller(idConseiller) {
   return API.get(`${apiUrlRoot}/cras/codesPostaux/conseiller?role=${roleActivated()}&id=${idConseiller}`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }

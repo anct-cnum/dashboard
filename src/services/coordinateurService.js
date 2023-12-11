@@ -1,4 +1,4 @@
-import { handleApiError, roleActivated } from '../helpers';
+import { roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
 import { demandesCoordinateurQueryStringParameters } from '../utils/queryUtils';
@@ -24,35 +24,35 @@ function getAllDemandesCoordinateur(page, statutDemande, filtreSearchBar, filtre
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/demandes/coordinateurs?role=${roleActivated()}&page=${page}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function getDemandeCoordinateur(idStructure, idDemandeCoordinateur) {
   return API.get(`${apiUrlRoot}/demandes/coordinateur/${idStructure}?role=${roleActivated()}&idDemande=${idDemandeCoordinateur}`)
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function confirmationAvisPrefet(idStructure, avisPrefet, idDemandeCoordinateur, commentaire) {
   return API.patch(`${apiUrlRoot}/avis/prefet/coordinateur/${idStructure}?role=${roleActivated()}`, { avisPrefet, idDemandeCoordinateur, commentaire })
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function confirmationRefusAvisAdmin(idStructure, idDemandeCoordinateur) {
   return API.patch(`${apiUrlRoot}/avis/admin/refus/coordinateur/${idStructure}?role=${roleActivated()}`, { idDemandeCoordinateur })
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function confirmationValidAvisAdmin(idStructure, idDemandeCoordinateur) {
   return API.patch(`${apiUrlRoot}/avis/admin/valid/coordinateur/${idStructure}?role=${roleActivated()}`, { idDemandeCoordinateur })
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
 
 function closeBanner(idDemandeCoordinateur, idStructure, typeBanner) {
   return API.patch(`${apiUrlRoot}/banner/coordinateur/${idStructure}?role=${roleActivated()}`, { idDemandeCoordinateur, typeBanner })
   .then(response => response.data)
-  .catch(handleApiError);
+  .catch(error => Promise.reject(error.response.data.message));
 }
