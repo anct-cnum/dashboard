@@ -95,10 +95,6 @@ const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenMod
                 >
                   Annuler la demande
                 </button>
-              </li>
-            }
-            {['recrutee', 'nouvelle_rupture', 'renouvellement_initiee'].includes(miseEnRelation?.statut) &&
-              <li>
                 <button
                   className="fr-btn fr-btn--secondary"
                   onClick={() => setOpenModalContrat(true)}
