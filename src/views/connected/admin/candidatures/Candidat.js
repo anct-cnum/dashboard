@@ -32,7 +32,7 @@ function Candidat({ candidat }) {
               data-tooltip-float="true"
               data-tooltip-id={`tooltip-cnfs-candidat${candidat?.idPG}`}
             >
-              <img src={pinCNFS} alt="logo CNFS" style={{ height: '36px' }} />
+              <img src={pinCNFS} alt="logo Conseiller num&eacute;rique" style={{ height: '36px' }} />
             </div>
             <Tooltip variant="light" className="infobulle" id={`tooltip-cnfs-candidat${candidat?.idPG}`} />
           </>
