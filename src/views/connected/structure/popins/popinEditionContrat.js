@@ -299,7 +299,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
 }
 
 PopinEditionContrat.propTypes = {
-  updateContrat: PropTypes.func,
+  updateContract: PropTypes.func,
   conseiller: PropTypes.object,
   setOpenModalContrat: PropTypes.func,
   editMode: PropTypes.bool,

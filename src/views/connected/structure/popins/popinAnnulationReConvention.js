@@ -91,6 +91,9 @@ PopinAnnulationReConvention.propTypes = {
   updateStatut: PropTypes.func,
   setDateValidee: PropTypes.func,
   setOpenModal: PropTypes.func,
+  handleCancel: PropTypes.func,
+  motif: PropTypes.string,
+  setMotif: PropTypes.func,
 };
 
 export default PopinAnnulationReConvention;

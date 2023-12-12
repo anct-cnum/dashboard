@@ -72,6 +72,7 @@ function PopinRecrutee({ setDisplayModal, urlDossierDS }) {
 PopinRecrutee.propTypes = {
   setDisplayModal: PropTypes.func,
   urlDossierConventionnement: PropTypes.string,
+  urlDossierDS: PropTypes.string
 };
 
 export default PopinRecrutee;
