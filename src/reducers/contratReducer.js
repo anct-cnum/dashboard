@@ -108,6 +108,14 @@ export default function contrat(state = initialState, action) {
         error: action.error,
         loading: false
       };
+    case 'UPDATE_CONTRAT_ANNULATION_RECRUTEMENT':
+      return {
+        ...state,
+        loading: false,
+        items: {
+          ...state.items, data: state?.items?.data?.filter(contrat => contrat._id !== action.idMiseEnRelation)
+        },
+      };
     case 'UPDATE_CONTRAT_RENOUVELLEMENT_REQUEST':
       return {
         ...state,

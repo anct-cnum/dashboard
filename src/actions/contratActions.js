@@ -10,6 +10,7 @@ export const contratActions = {
   updateContractRecrutementStructure,
   updateContractRecrutementAdmin,
   updateContract,
+  updateContratAnnulationRecrutement,
 };
 
 function getAll(page, statutContrat, filtreSearchBar, filtreDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom = 'dateDemande', ordre = -1) {
@@ -233,4 +234,8 @@ function updateContract(typeDeContrat, dateDebut, dateFin, salaire, id) {
   function failure(error) {
     return { type: 'UPDATE_CONTRAT_RENOUVELLEMENT_FAILURE', error };
   }
+}
+
+function updateContratAnnulationRecrutement(idMiseEnRelation) {
+  return { type: 'UPDATE_CONTRAT_ANNULATION_RECRUTEMENT', idMiseEnRelation };
 }

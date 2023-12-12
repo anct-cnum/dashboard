@@ -5,7 +5,7 @@ import { alerteEtSpinnerActions } from '../actions';
 import codeAlertes from '../datas/code_alertes.json';
 
 export default function Alerte() {
-  
+
   const dispatch = useDispatch();
 
   const alerte = useSelector(state => state.alerteEtSpinner?.alerte);
@@ -16,10 +16,10 @@ export default function Alerte() {
     if (alerte?.type) {
       setTimeout(() => {
         dispatch(alerteEtSpinnerActions.resetMessageAlerte());
-      }, 5000);
+      }, alerte?.delay);
     }
   }, [alerte]);
-  
+
   return (
     <>
       { alerte?.type &&

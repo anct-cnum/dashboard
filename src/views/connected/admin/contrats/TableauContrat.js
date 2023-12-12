@@ -9,6 +9,7 @@ import Contrat from './Contrat';
 import FiltresEtTrisContrat from './FiltresEtTrisContrat';
 import FiltresEtTrisContratRupture from './ruptures/FiltresEtTrisContratRupture';
 import TableauRuptures from './ruptures/TableauRuptures';
+import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 
 export default function TableauContrat() {
 
@@ -85,6 +86,29 @@ export default function TableauContrat() {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresConventionsActions.changeOrdre(e.currentTarget?.id));
   };
+
+  useEffect(() => {
+    function annulationRecrutement() {
+      const data = localStorage.getItem('contrat');
+      if (data) {
+        const contrat = JSON.parse(data);
+        scrollTopWindow();
+        dispatch(alerteEtSpinnerActions.getMessageAlerte({
+          type: 'success',
+          message: `La demande de recrutement de ${formatNomConseiller(contrat)} a été annulée`,
+          status: null, description: null, delay: 10000
+        }));
+        dispatch(contratActions.updateContratAnnulationRecrutement(contrat.idMiseEnRelation));
+        localStorage.removeItem('contrat');
+      }
+    }
+
+    window.addEventListener('storage', annulationRecrutement);
+
+    return () => {
+      window.removeEventListener('storage', annulationRecrutement);
+    };
+  }, []);
 
   return (
     <div className="conventions">
