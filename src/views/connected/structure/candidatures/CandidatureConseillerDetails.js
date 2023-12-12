@@ -7,9 +7,9 @@ import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
 import { Tooltip } from 'react-tooltip';
-import PopinInteressee from '../popins/popinInteressee';
-import PopinRecrutee from '../popins/popinRecrutee';
-import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
+import PopinInteressee from '../popins/PopinInteressee';
+import PopinRecrutee from '../popins/PopinRecrutee';
+import PopinNouvelleRupture from '../popins/PopinNouvelleRupture';
 import ButtonsAction from './ButtonsAction';
 import InformationConseiller from '../../../../components/InformationConseiller';
 

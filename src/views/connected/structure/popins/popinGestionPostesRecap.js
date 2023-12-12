@@ -5,7 +5,7 @@ import { structureActions } from '../../../../actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-function popinGestionPostesRecap({
+function PopinGestionPostesRecap({
   setStep, autreMotif,
   nombreDePostes, actionType, motif,
   setAutreMotif, setNombreDePostes, setMotif,
@@ -116,7 +116,7 @@ function popinGestionPostesRecap({
   );
 }
 
-popinGestionPostesRecap.propTypes = {
+PopinGestionPostesRecap.propTypes = {
   setStep: PropTypes.func.isRequired,
   autreMotif: PropTypes.string,
   nombreDePostes: PropTypes.number.isRequired,
@@ -127,4 +127,4 @@ popinGestionPostesRecap.propTypes = {
   setMotif: PropTypes.func.isRequired,
 };
 
-export default popinGestionPostesRecap;
+export default PopinGestionPostesRecap;

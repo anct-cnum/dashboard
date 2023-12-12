@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function popinConfirmationAnnulation({ setOpenModal, updateStatut }) {
+function PopinConfirmationAnnulation({ setOpenModal, updateStatut }) {
 
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
@@ -48,9 +48,9 @@ function popinConfirmationAnnulation({ setOpenModal, updateStatut }) {
   );
 }
 
-popinConfirmationAnnulation.propTypes = {
+PopinConfirmationAnnulation.propTypes = {
   updateStatut: PropTypes.func,
   setOpenModal: PropTypes.func,
 };
 
-export default popinConfirmationAnnulation;
+export default PopinConfirmationAnnulation;

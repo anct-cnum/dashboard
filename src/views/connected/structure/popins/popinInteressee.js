@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function popinInteressee({ setDisplayModal }) {
+function PopinInteressee({ setDisplayModal }) {
 
   return (
     <dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="fr-modal-1" className="fr-modal modalOpened">
@@ -51,8 +51,8 @@ function popinInteressee({ setDisplayModal }) {
 
 }
 
-popinInteressee.propTypes = {
+PopinInteressee.propTypes = {
   setDisplayModal: PropTypes.func
 };
 
-export default popinInteressee;
+export default PopinInteressee;

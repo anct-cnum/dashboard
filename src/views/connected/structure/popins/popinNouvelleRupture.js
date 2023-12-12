@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function popinNouvelleRupture({ setDisplayModal }) {
+function PopinNouvelleRupture({ setDisplayModal }) {
 
   return (
     <dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="fr-modal-1" className="fr-modal modalOpened">
@@ -51,8 +51,8 @@ function popinNouvelleRupture({ setDisplayModal }) {
 
 }
 
-popinNouvelleRupture.propTypes = {
+PopinNouvelleRupture.propTypes = {
   setDisplayModal: PropTypes.func
 };
 
-export default popinNouvelleRupture;
+export default PopinNouvelleRupture;

@@ -6,7 +6,7 @@ import fr from 'date-fns/locale/fr';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 
 registerLocale('fr', fr);
-function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, editMode, createContract }) {
+function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, editMode, createContract }) {
   const [dateDebut, setDateDebut] = useState(null);
   const [dateFin, setDateFin] = useState(null);
   const [typeDeContrat, setTypeDeContrat] = useState(null);
@@ -298,7 +298,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   );
 }
 
-popinEditionContrat.propTypes = {
+PopinEditionContrat.propTypes = {
   updateContrat: PropTypes.func,
   conseiller: PropTypes.object,
   setOpenModalContrat: PropTypes.func,
@@ -306,4 +306,4 @@ popinEditionContrat.propTypes = {
   createContract: PropTypes.func,
 };
 
-export default popinEditionContrat;
+export default PopinEditionContrat;
