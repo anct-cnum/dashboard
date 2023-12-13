@@ -18,15 +18,20 @@ export default function Login() {
   const dispatch = useDispatch();
   const auth = useAuth();
   const [submitted, setSubmitted] = useState(false);
+  const [networkError, setNetworkError] = useState(false);
   const { username, password } = inputs;
   const user = useSelector(state => state.authentication?.user);
   
   const navigate = useNavigate();
 
 
-  const login = () => {
+  const login = async () => {
     localStorage.setItem('user', JSON.stringify({}));
-    auth.signinRedirect();
+    try {
+      await auth.signinRedirect();
+    } catch (e) {
+      setNetworkError(true);
+    }
   };
 
   const { verificationToken } = useParams();
@@ -76,7 +81,12 @@ export default function Login() {
                     <img src={logoTwoLinesIC} height="37" alt="Se connecter avec Inclusion Connect" />
                   </button>
                 </div>
-
+                {
+                  networkError && <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
+                    <h3 className="fr-alert__title">Echec de la connexion a Inclusion Connect</h3>
+                    <p className="fr-mb-1v">Merci de v&eacute;rifier votre réseau ou contactez le support Inclusion Connect</p>
+                  </div>
+                }
                 {process.env.NODE_ENV === 'development' &&
                 <>
                   <div className="fr-my-4w">
