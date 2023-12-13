@@ -83,7 +83,7 @@ export default function Login() {
                 </div>
                 {
                   networkError && <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
-                    <h3 className="fr-alert__title">Echec de la connexion a Inclusion Connect</h3>
+                    <h3 className="fr-alert__title">&Eacute;chec de la connexion &agrave; Inclusion Connect</h3>
                     <p className="fr-mb-1v">Merci de v&eacute;rifier votre réseau ou contactez le support Inclusion Connect</p>
                   </div>
                 }
