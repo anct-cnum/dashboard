@@ -12,16 +12,16 @@ function ModalAnnulationRecrutement({ setOpenModalAnnulation, idMiseEnRelation, 
   };
 
   return (
-    <dialog aria-labelledby="fr-modal-3-title" id="fr-modal-3" className="fr-modal modalOpened" role="dialog" >
+    <dialog aria-labelledby="fr-modal-ccl-recruitment-title" id="fr-modal-ccl-recruitment" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
         <div className="fr-grid-row fr-grid-row--center">
           <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
             <div className="fr-modal__body">
               <div className="fr-modal__header">
-                <button className="fr-btn--close fr-btn" aria-controls="fr-modal-3" onClick={() => setOpenModalAnnulation(false)}>Fermer</button>
+                <button className="fr-btn--close fr-btn" aria-controls="fr-modal-ccl-recruitment" onClick={() => setOpenModalAnnulation(false)}>Fermer</button>
               </div>
               <div className="fr-modal__content">
-                <h1 id="fr-modal-3-title" className="fr-modal__title">
+                <h1 id="fr-modal-ccl-recruitment-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Important&nbsp;: Vous &ecirc;tes sur le point d&rsquo;annuler la demande de recrutement pour ce candidat.
                 </h1>
