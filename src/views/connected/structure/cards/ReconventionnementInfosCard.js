@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
-import PopinGestionPostes from '../popins/popinGestionPostes';
+import PopinGestionPostes from '../popins/PopinGestionPostes';
 import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import { PhaseConventionnement, StatutConventionnement } from '../../../../utils/enumUtils';
 import { checkStructurePhase2, displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';

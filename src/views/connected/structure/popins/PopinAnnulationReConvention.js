@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function popinAnnulationReConvention({ setOpenModal, handleCancel, motif, setMotif }) {
+function PopinAnnulationReConvention({ setOpenModal, handleCancel, motif, setMotif }) {
   const radioValues = [
     {
       id: 'radio-1',
@@ -87,10 +87,13 @@ function popinAnnulationReConvention({ setOpenModal, handleCancel, motif, setMot
   );
 }
 
-popinAnnulationReConvention.propTypes = {
+PopinAnnulationReConvention.propTypes = {
   updateStatut: PropTypes.func,
   setDateValidee: PropTypes.func,
   setOpenModal: PropTypes.func,
+  handleCancel: PropTypes.func,
+  motif: PropTypes.string,
+  setMotif: PropTypes.func,
 };
 
-export default popinAnnulationReConvention;
+export default PopinAnnulationReConvention;
