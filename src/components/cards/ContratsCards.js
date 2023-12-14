@@ -179,8 +179,8 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationSansMiss
                     <div>
                       <strong className="fr-text--md">Motif</strong><br />
                       {miseEnRelation?.motifRupture ?
-                        <span title={miseEnRelation?.motifRupture}>
-                          {miseEnRelation?.motifRupture}
+                        <span title={formatMotifRupture(miseEnRelation?.motifRupture)}>
+                          {formatMotifRupture(miseEnRelation?.motifRupture)}
                         </span> :
                         <span title="Non reconduction de contrat">
                           Non reconduction de contrat

@@ -180,9 +180,12 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationSans
                       <div>
                         <strong className="fr-text--md" style={{ fontWeight: '500' }}>Motif</strong><br />
                         {miseEnRelation?.motifRupture ?
-                          <span className="fr-text--regular fr-text--md" title={miseEnRelation?.motifRupture}>
+                          <span title={formatMotifRupture(miseEnRelation?.motifRupture)}>
                             {formatMotifRupture(miseEnRelation?.motifRupture)}
-                          </span> : <span>-</span>
+                          </span> :
+                          <span title="Non reconduction de contrat">
+                            Non reconduction de contrat
+                          </span>
                         }
                       </div>
                     </div>
