@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { conseillerActions } from '../../../../actions';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
 import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg';
+import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
 import { Tooltip } from 'react-tooltip';
 import { Link } from 'react-router-dom';
 
@@ -23,6 +24,20 @@ function Candidat({ candidat }) {
         <td>{candidat?.nom}</td>
         <td>{dayjs(candidat?.createdAt).format('DD/MM/YYYY')}</td>
         <td>{candidat?.codePostal}</td>
+        <td style={{ display: 'flex', justifyContent: 'center' }}>
+          {(candidat?.statut === 'TERMINE' || candidat?.statut === 'RUPTURE') &&
+          <>
+            <div
+              data-tooltip-content="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
+              data-tooltip-float="true"
+              data-tooltip-id={`tooltip-cnfs-candidat${candidat?.idPG}`}
+            >
+              <img src={pinCNFS} alt="logo Conseiller num&eacute;rique" style={{ height: '36px' }} />
+            </div>
+            <Tooltip variant="light" className="infobulle" id={`tooltip-cnfs-candidat${candidat?.idPG}`} />
+          </>
+          }
+        </td>
         <td>
           { candidat?.pix?.partage &&
             <>
