@@ -13,7 +13,7 @@ export const conseillerService = {
   getAllCandidatsByAdmin,
   getAllMisesEnRelation,
   updateStatus,
-  updateStatusAnnulationAdmin,
+  updateStatusAnnulationRecrutement,
   updateDateRupture,
   updateMotifRupture,
   preSelectionner,
@@ -183,7 +183,7 @@ function updateStatus(id, statut, motifRupture, dateRupture) {
   .then(response => response.data)
   .catch(handleApiError);
 }
-function updateStatusAnnulationAdmin(id, statut, banniereRefusRecrutement) {
+function updateStatusAnnulationRecrutement(id, statut, banniereRefusRecrutement) {
   return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
     statut, banniereRefusRecrutement })
   .then(response => response.data)

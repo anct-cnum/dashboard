@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { conseillerActions } from '../../../../actions';
 
-function ModalAnnulationRecrutement({ setOpenModalAnnulation, idMiseEnRelation, setSuccessAnnulationRecrutement }) {
+function ModalAnnulationRecrutement({ setOpenModalAnnulation, idMiseEnRelation }) {
   const dispatch = useDispatch();
   const annulationRecrutement = () => {
-    dispatch(conseillerActions.updateStatus(idMiseEnRelation, 'interessee'));
+    dispatch(conseillerActions.updateStatusAnnulationRecrutement(idMiseEnRelation, 'interessee', true));
     setOpenModalAnnulation(false);
-    setSuccessAnnulationRecrutement(true);
   };
 
   return (
@@ -56,7 +55,6 @@ function ModalAnnulationRecrutement({ setOpenModalAnnulation, idMiseEnRelation, 
 ModalAnnulationRecrutement.propTypes = {
   setOpenModalAnnulation: PropTypes.func,
   idMiseEnRelation: PropTypes.string,
-  setSuccessAnnulationRecrutement: PropTypes.func,
 };
 
 export default ModalAnnulationRecrutement;

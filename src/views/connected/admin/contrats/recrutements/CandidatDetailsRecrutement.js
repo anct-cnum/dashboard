@@ -23,13 +23,14 @@ function CandidatDetailsRecrutement() {
   const loading = useSelector(state => state.conseiller?.loading);
   const loadingContrat = useSelector(state => state.contrat?.loading);
   const errorConseiller = useSelector(state => state.conseiller?.error);
+  const errorAnnulationRecrutement = useSelector(state => state.conseiller?.errorAnnulationRecrutement);
+  const successAnnulationRecrutement = useSelector(state => state.conseiller?.successAnnulationRecrutement);
   const errorContrat = useSelector(state => state.contrat?.error);
   const downloading = useSelector(state => state.conseiller?.downloading);
   const downloadError = useSelector(state => state.conseiller?.downloadError);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [openModal, setOpenModal] = useState(false);
   const [openModalAnnulation, setOpenModalAnnulation] = useState(false);
-  const [successAnnulationRecrutement, setSuccessAnnulationRecrutement] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
 
   useEffect(() => {
@@ -70,6 +71,7 @@ function CandidatDetailsRecrutement() {
           replace: true
         }
       );
+      dispatch(conseillerActions.resetSuccessAnnulationRecrutement());
     }
   }, [successAnnulationRecrutement]);
 
@@ -103,6 +105,11 @@ function CandidatDetailsRecrutement() {
           <p>{errorContrat}</p>
         </div>
       }
+      {(errorAnnulationRecrutement !== undefined && errorAnnulationRecrutement !== false) &&
+        <div className="fr-alert fr-alert--error fr-mt-4w">
+          <p>{errorAnnulationRecrutement}</p>
+        </div>
+      }
       <div className="fr-col-12 fr-pt-6w">
         <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
           {conseiller ? formatNomConseiller(conseiller) : ''}
@@ -123,7 +130,6 @@ function CandidatDetailsRecrutement() {
       {openModalAnnulation &&
         <ModalAnnulationRecrutement
           setOpenModalAnnulation={setOpenModalAnnulation}
-          setSuccessAnnulationRecrutement={setSuccessAnnulationRecrutement}
           idMiseEnRelation={conseiller?.miseEnRelation?._id}
         />
       }

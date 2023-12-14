@@ -8,7 +8,7 @@ export const conseillerActions = {
   getCandidatRecrutement,
   getAllRecruter,
   updateStatus,
-  updateStatusAnnulationAdmin,
+  updateStatusAnnulationRecrutement,
   updateDateRupture,
   updateMotifRupture,
   preSelectionner,
@@ -22,6 +22,7 @@ export const conseillerActions = {
   getCandidatStructure,
   getCandidatureConseillerStructure,
   resendInvitConseiller,
+  resetSuccessAnnulationRecrutement,
 };
 
 function get(id) {
@@ -336,12 +337,14 @@ function updateStatus(id, statut, motifRupture, dateRupture) {
     return { type: 'UPDATE_STATUS_FAILURE', error };
   }
 }
-function updateStatusAnnulationAdmin(id, statut, banniereRefusRecrutement) {
+function updateStatusAnnulationRecrutement(id, statut, banniereRefusRecrutement) {
   return dispatch => {
     dispatch(request());
-    conseillerService.updateStatusAnnulationAdmin(id, statut, banniereRefusRecrutement)
+    conseillerService.updateStatusAnnulationRecrutement(id, statut, banniereRefusRecrutement)
     .then(
-      response => dispatch(success(response.miseEnRelation)),
+      response => {
+        dispatch(success(response.miseEnRelation));
+      },
       error => {
         dispatch(failure(error));
       }
@@ -349,13 +352,13 @@ function updateStatusAnnulationAdmin(id, statut, banniereRefusRecrutement) {
   };
 
   function request() {
-    return { type: 'UPDATE_STATUS_REQUEST' };
+    return { type: 'UPDATE_ANNULATION_RECRUTEMENT_REQUEST' };
   }
   function success(miseEnRelation) {
-    return { type: 'UPDATE_STATUS_SUCCESS', miseEnRelation };
+    return { type: 'UPDATE_ANNULATION_RECRUTEMENT_SUCCESS', miseEnRelation };
   }
   function failure(error) {
-    return { type: 'UPDATE_STATUS_FAILURE', error };
+    return { type: 'UPDATE_ANNULATION_RECRUTEMENT_FAILURE', error };
   }
 }
 function updateDateRupture({ id, date }) {
@@ -528,4 +531,8 @@ function resendInvitConseiller(id) {
   function failure(error) {
     return { type: 'RESUBMIT_INVITATION_CONSEILLER_FAILURE', error };
   }
+}
+
+function resetSuccessAnnulationRecrutement() {
+  return { type: 'RESET_SUCCESS_ANNULATION_RECRUTEMENT' };
 }

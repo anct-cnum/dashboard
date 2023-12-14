@@ -94,16 +94,40 @@ export default function conseiller(state = initialState, action) {
         },
         loading: false
       };
-    case 'UPDATE_CONSEILLER_SUCCESS':
-      return {
-        ...state,
-        conseiller: action.conseiller,
-      };
     case 'UPDATE_STATUS_FAILURE':
       return {
         ...state,
         errorUpdateStatus: action.error,
         loading: false
+      };
+    case 'UPDATE_ANNULATION_RECRUTEMENT_REQUEST':
+      return {
+        ...state,
+        errorAnnulationRecrutement: false,
+        loading: true
+      };
+    case 'UPDATE_ANNULATION_RECRUTEMENT_SUCCESS':
+      return {
+        ...state,
+        successAnnulationRecrutement: true,
+        loading: false
+      };
+    case 'UPDATE_ANNULATION_RECRUTEMENT_FAILURE':
+      return {
+        ...state,
+        errorAnnulationRecrutement: action.error,
+        loading: false
+      };
+    case 'RESET_SUCCESS_ANNULATION_RECRUTEMENT': {
+      return {
+        ...state,
+        successAnnulationRecrutement: false
+      };
+    }
+    case 'UPDATE_CONSEILLER_SUCCESS':
+      return {
+        ...state,
+        conseiller: action.conseiller,
       };
     case 'PRESELECTIONNER_CONSEILLER_REQUEST':
       return {
