@@ -62,8 +62,8 @@ function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
             codePostal={codePostal}
             ville={villeStats}
             codeCommune={codeCommuneStats}
-            nom={conseiller.nom}
-            prenom={conseiller.prenom}
+            nom={conseiller?.nom}
+            prenom={conseiller?.prenom}
           />
         </div>
       }
