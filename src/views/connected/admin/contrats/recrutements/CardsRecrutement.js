@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../../utils/formatagesUtils';
 
-const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenModalContrat, setOpenModalAnnulationAdmin }) => {
+const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenModalContrat, setOpenModalAnnulation }) => {
 
   return (
     <div className="fr-card fr-mt-2w fr-card--no-border background-cards-contrat">
@@ -91,7 +91,7 @@ const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenMod
               <li>
                 <button
                   className="fr-btn fr-btn--secondary"
-                  onClick={() => setOpenModalAnnulationAdmin(true)}
+                  onClick={() => setOpenModalAnnulation(true)}
                 >
                   Annuler la demande
                 </button>
@@ -126,7 +126,7 @@ CardsRecrutement.propTypes = {
   conseiller: propTypes.object,
   setOpenModal: propTypes.func,
   setOpenModalContrat: propTypes.func,
-  setOpenModalAnnulationAdmin: propTypes.func,
+  setOpenModalAnnulation: propTypes.func,
   urlDossierDS: propTypes.string,
 };
 

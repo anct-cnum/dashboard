@@ -62,6 +62,23 @@ export default function conseiller(state = initialState, action) {
         loading: false,
         error: action.error
       };
+    case 'GET_CONSEILLER_CONTRAT_REQUEST':
+      return {
+        ...initialState,
+        loading: true,
+        error: false
+      };
+    case 'GET_CONSEILLER_CONTRAT_SUCCESS':
+      return {
+        ...state,
+        conseillerContrat: action.conseiller,
+        loading: false
+      };
+    case 'GET_CONSEILLER_CONTRAT_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
     case 'UPDATE_STATUS_REQUEST':
       return {
         ...state,
@@ -233,15 +250,15 @@ export default function conseiller(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        conseiller: {
-          ...state.conseiller,
+        conseillerContrat: {
+          ...state.conseillerContrat,
           emailCN: '',
           emailPro: '',
           telephonePro: '',
           statut: 'RUPTURE',
           mattermost: '',
           contrat: action.miseEnRelationUpdated,
-          misesEnRelation: state.conseiller.misesEnRelation.map(
+          misesEnRelation: state.conseillerContrat.misesEnRelation.map(
             miseEnRelation => (miseEnRelation._id === action.miseEnRelationUpdated._id) ? action.miseEnRelationUpdated : miseEnRelation
           ),
           permanences: []
@@ -310,10 +327,10 @@ export default function conseiller(state = initialState, action) {
     case 'UPDATE_MISE_EN_RELATION_CONTRAT':
       return {
         ...state,
-        conseiller: {
-          ...state.conseiller,
+        conseillerContrat: {
+          ...state.conseillerContrat,
           contrat: action.miseEnRelationUpdated,
-          misesEnRelation: state.conseiller.misesEnRelation.map(
+          misesEnRelation: state.conseillerContrat.misesEnRelation.map(
             miseEnRelation => (miseEnRelation.statut === action.miseEnRelationUpdated.statut) ? action.miseEnRelationUpdated : miseEnRelation
           )
         },

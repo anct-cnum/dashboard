@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function ContratRupture({ contrat }) {
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   return (
     <tr>
@@ -21,12 +24,13 @@ function ContratRupture({ contrat }) {
         {contrat?.dossierIncompletRupture === undefined && <>Complet</>}
       </td>
       <td>
-        <button
+        <Link
           className="fr-btn"
-          title="D&eacute;tail"
-          onClick={() => window.open(`/admin/demandes/contrat/conseiller/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
+          state={{ 'origin': `/${roleActivated}/demandes/contrats`, 'statutContrat': 'nouvelle_rupture' }}
+          to={`/admin/demandes/contrat/conseiller/${contrat?.conseillerObj?._id}/${contrat?._id}`}
+        >
           Voir la demande
-        </button>
+        </Link>
       </td>
     </tr>
   );

@@ -4,7 +4,7 @@ import { alerteEtSpinnerActions, paginationActions, contratActions, filtresConve
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Contrat from './Contrat';
 import FiltresEtTrisContrat from './FiltresEtTrisContrat';
 import FiltresEtTrisContratRupture from './ruptures/FiltresEtTrisContratRupture';
@@ -15,8 +15,10 @@ export default function TableauContrat() {
 
   const dispatch = useDispatch();
   const location = useLocation();
-  const [page, setPage] = useState(location.state?.currentPage);
+  const navigate = useNavigate();
 
+  const [page, setPage] = useState(location.state?.currentPage);
+  const [annulationRecrutement, setAnnulationRecrutement] = useState(location.state?.conseillerRefusRecrutement || null);
   const loading = useSelector(state => state.contrat?.loading);
   const error = useSelector(state => state.contrat?.error);
   const contrats = useSelector(state => state.contrat);
@@ -28,7 +30,7 @@ export default function TableauContrat() {
   const filtreStatutDossierRupture = useSelector(state => state.filtresConventions?.statutDossierRupture);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initContrat, setInitContrat] = useState(false);
-  const [statutContrat, setStatutContrat] = useState('toutes');
+  const [statutContrat, setStatutContrat] = useState(location.state?.statutContrat || 'toutes');
 
   useEffect(() => {
     if (contrats?.items && contrats?.items?.total > 0) {
@@ -71,6 +73,7 @@ export default function TableauContrat() {
           ordreNom,
           ordre ? -1 : 1
         ));
+        navigate(location.pathname, { replace: true });
         setInitContrat(true);
       }
     } else {
@@ -88,31 +91,23 @@ export default function TableauContrat() {
   };
 
   useEffect(() => {
-    function annulationRecrutement() {
-      const data = localStorage.getItem('contrat');
-      if (data) {
-        const contrat = JSON.parse(data);
-        scrollTopWindow();
-        dispatch(alerteEtSpinnerActions.getMessageAlerte({
-          type: 'success',
-          message: `La demande de recrutement de ${formatNomConseiller(contrat)} a été annulée`,
-          status: null, description: null, delay: 10000
-        }));
-        dispatch(contratActions.updateContratAnnulationRecrutement(contrat.idMiseEnRelation));
-        localStorage.removeItem('contrat');
-      }
+    if (annulationRecrutement) {
+      setTimeout(() => {
+        setAnnulationRecrutement(null);
+      }, 5000);
     }
-
-    window.addEventListener('storage', annulationRecrutement);
-
-    return () => {
-      window.removeEventListener('storage', annulationRecrutement);
-    };
-  }, []);
+  }, [annulationRecrutement]);
 
   return (
     <div className="conventions">
       <Spinner loading={loading} />
+      {annulationRecrutement &&
+        <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
+          <p className="fr-alert__title">
+            La demande de recrutement de {formatNomConseiller(annulationRecrutement)} a &eacute;t&eacute; annul&eacute;e
+          </p>
+        </div>
+      }
       <div className="fr-grid-row">
         <div className="fr-col-12">
           <h1 className="fr-h1 title">Demandes de contrats</h1>

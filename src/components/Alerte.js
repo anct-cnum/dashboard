@@ -22,7 +22,7 @@ export default function Alerte() {
 
   return (
     <>
-      { alerte?.type &&
+      {alerte?.type &&
         <div className={'fr-my-6w fr-container'} >
           <div className="fr-grid-row">
             <div className="fr-col-12">
