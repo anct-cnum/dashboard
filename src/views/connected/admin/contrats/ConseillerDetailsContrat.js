@@ -159,7 +159,6 @@ function ConseillerDetailsContrat() {
                   miseEnRelation={conseiller?.contrat}
                   dateFinDeContrat={dateFinDeContrat}
                   setDateFinDeContrat={setDateFinDeContrat}
-                  datePrisePoste={conseiller?.datePrisePoste}
                   dateFinDeContratInitiale={dateFinDeContratInitiale}
                 />
               }

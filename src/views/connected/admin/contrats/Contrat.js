@@ -38,8 +38,8 @@ function Contrat({ contrat }) {
     <>
       <tr>
         <td>{contrat?.structureObj?.idPG}</td>
-        <td>{contrat?.structureObj?.nom}</td>
-        <td className="uppercase-letter">
+        <td style={{ maxWidth: '12rem', overflowWrap: 'break-word' }}>{contrat?.structureObj?.nom}</td>
+        <td style={{ maxWidth: '12rem', overflowWrap: 'break-word' }} className="uppercase-letter">
           <span className="fr-text--bold">{contrat?.conseillerObj?.nom}&nbsp;</span>
           <span className="fr-text--bold">{contrat?.conseillerObj?.prenom}</span><br />
           <span>ID {contrat?.conseillerObj?.idPG}</span>

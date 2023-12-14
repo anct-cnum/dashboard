@@ -117,8 +117,8 @@ function ActiviterStructure({ structure, roleActivated }) {
           </div>
         }
         <div className="fr-col-6">
+          <h4 className="titre">Conventionnement phase 2</h4>
           {checkStructurePhase2(structure?.conventionnement?.statut) ? <>
-            <h4 className="titre">Conventionnement phase 2</h4>
             <div className="fr-mb-3w">
               <strong>{pluralize(
                 'Poste attribué',
@@ -222,8 +222,8 @@ function ActiviterStructure({ structure, roleActivated }) {
             La structure n&rsquo;a pas effectu&eacute; de reconventionnement
               </p>
               <a className="fr-link"
-                href={`https://outline.incubateur.anct.gouv.fr/s/ab5a3b4d-e742-4f69-b004-b08b6fdbd3db/
-                doc/la-structure-na-pas-effectue-de-reconventionnement-pourquoi-St26xzBOOP`}
+                // eslint-disable-next-line max-len
+                href="https://outline.incubateur.anct.gouv.fr/s/ab5a3b4d-e742-4f69-b004-b08b6fdbd3db/doc/la-structure-na-pas-effectue-de-reconventionnement-pourquoi-St26xzBOOP"
                 target="_blank"
                 rel="noopener noreferrer">
                 En savoir plus

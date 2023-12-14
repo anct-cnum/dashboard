@@ -1,4 +1,4 @@
-import { roleActivated } from '../helpers';
+import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
 import { conseillerQueryStringParameters, candidatQueryStringParameters } from '../utils/queryUtils';
@@ -30,55 +30,55 @@ export const conseillerService = {
 function get(id) {
   return API.get(`${apiUrlRoot}/conseiller/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getConseillerContrat(idConseiller, idMiseEnRelation) {
   return API.get(`${apiUrlRoot}/conseiller/contrat/${idConseiller}/${idMiseEnRelation}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getCandidat(id) {
   return API.get(`${apiUrlRoot}/candidat/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getCandidatRecrutement(idConseiller, idMiseEnRelation) {
   return API.get(`${apiUrlRoot}/candidat/contrat/${idConseiller}/${idMiseEnRelation}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getCandidatStructure(id) {
   return API.get(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getCandidatureConseillerStructure(id) {
   return API.get(`${apiUrlRoot}/misesEnRelation-conseiller/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function resendInvitCandidat(id) {
   return API.post(`${apiUrlRoot}/candidat/relance-invitation/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function resendInvitConseiller(id) {
   return API.post(`${apiUrlRoot}/conseiller/relance-invitation/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function suppressionCandidat({ id, motif }) {
   return API.delete(`${apiUrlRoot}/candidat/${id}?motif=${motif}&role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 // eslint-disable-next-line max-len
@@ -101,7 +101,7 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
 
   return API.get(uri)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParDepartement) {
@@ -117,7 +117,7 @@ function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, fil
 
   return API.get(uri)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getAllCandidats(structureId, search, page, nomOrdre, ordre, persoFilters) {
@@ -144,7 +144,7 @@ function getAllCandidats(structureId, search, page, nomOrdre, ordre, persoFilter
 
   return API.get(uri)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getAllMisesEnRelation(structureId, search, page, filter, nomOrdre, ordre, persoFilters) {
@@ -174,14 +174,14 @@ function getAllMisesEnRelation(structureId, search, page, filter, nomOrdre, ordr
 
   return API.get(uri)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function updateStatus(id, statut, motifRupture, dateRupture) {
   return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
     statut, motifRupture, dateRupture })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 function updateStatusAnnulationAdmin(id, statut, banniereRefusRecrutement) {
   return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
@@ -192,7 +192,7 @@ function updateStatusAnnulationAdmin(id, statut, banniereRefusRecrutement) {
 function preSelectionner(conseillerId) {
   return API.patch(`${apiUrlRoot}/structure/pre-selectionner/${conseillerId}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function updateDateRupture(id, date) {
@@ -200,7 +200,7 @@ function updateDateRupture(id, date) {
     dateRupture: date
   })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function updateMotifRupture(id, motif) {
@@ -208,7 +208,7 @@ function updateMotifRupture(id, motif) {
     motifRupture: motif
   })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getCurriculumVitae(id) {
@@ -220,13 +220,13 @@ function getCurriculumVitae(id) {
 function validationRupture(id, dateFinDeContrat) {
   return API.patch(`${apiUrlRoot}/conseiller/rupture/validation/${id}?role=${roleActivated()}`, { dateFinDeContrat })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function dossierIncompletRupture(id, dateFinDeContrat) {
   return API.patch(`${apiUrlRoot}/conseiller/rupture/incomplet/${id}?role=${roleActivated()}`, { dateFinDeContrat })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function haveCV(persoFilters) {

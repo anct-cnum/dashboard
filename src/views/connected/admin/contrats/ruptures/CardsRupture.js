@@ -111,7 +111,7 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
                   <p className="fr-badge fr-badge--error fr-mr-3w">Dossier incomplet</p>
                 }
                 {miseEnRelation?.dossierIncompletRupture === false &&
-                  <p className="fr-badge fr-badge--error fr-mr-3w">Nouvelle demande</p>
+                  <p className="fr-badge fr-badge--info fr-mr-3w" style={{ background: '#d5e3fb' }}>Nouvelle demande</p>
                 }
                 {miseEnRelation?.dossierIncompletRupture === undefined &&
                   <p className="fr-badge fr-badge--success fr-mr-3w">Dossier complet</p>

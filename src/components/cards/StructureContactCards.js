@@ -47,8 +47,8 @@ export default function StructureContactCards({ structure }) {
                     <span className="fr-text--regular fr-text--md" title={structure?.contact?.email ?? ''}>
                       {structure?.contact?.email ?
                         <>
-                          {structure?.contact?.email?.length > 30 ?
-                            `${structure?.contact?.email.substring(0, 30)}...` : structure?.contact?.email
+                          {structure?.contact?.email?.length > 28 ?
+                            `${structure?.contact?.email.substring(0, 28)}...` : structure?.contact?.email
                           }
                         </> : '-'
                       }

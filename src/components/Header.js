@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import logo from '../assets/brands/logo-rf-conseiller-numerique-min.svg';
+import logo from '../assets/brands/logo-conseiller-numerique-min.svg';
 import { menuActions, authenticationActions } from '../actions';
 import Menu from './Menu';
 import { useAuth } from 'react-oidc-context';
@@ -45,7 +45,7 @@ function Header() {
           <div className="fr-header__body-row">
             <div className="fr-header__brand fr-enlarge-link">
               <div className="fr-header__brand-top">
-                <div className="fr-header__logo" style={{ paddingRight: '0.7rem', marginRight: '0' }}>
+                <div className="fr-header__logo" style={{ paddingRight: '0', marginRight: '0' }}>
                   <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique France services">
                     <p className="fr-logo">
                       R&eacute;publique
@@ -54,8 +54,8 @@ function Header() {
                     </p>
                   </Link>
                 </div>
-                <div className="fr-header__operator" style={{ paddingLeft: '0' }}>
-                  <img src={logo} className="fr-responsive-img" alt="Logo Conseiller num&eacute;rique" />
+                <div className="fr-header__operator" style={{ paddingLeft: '24px' }}>
+                  <img src={logo} className="fr-responsive-img" style={{ height: '70px' }} alt="Logo Conseiller num&eacute;rique" />
                 </div>
                 <div className="fr-header__navbar">
                   <button
@@ -81,7 +81,7 @@ function Header() {
             {!/Android|iPhone|iPad/i.test(navigator.userAgent) &&
               <>
                 {localStorage.getItem('user') && localStorage.getItem('user') !== '{}' &&
-                 !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
+                  !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
                   <div className="fr-header__tools" style={{ height: '57px' }}>
                     <div className="fr-header__tools-links" id="navigation-774" role="navigation" aria-label="Compte utilisateur">
                       <UserMenu user={user} roleActivated={roleActivated} roles={roles} changeRoleActivated={changeRoleActivated}

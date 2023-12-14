@@ -1,4 +1,4 @@
-import { roleActivated } from '../helpers';
+import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
 import { structureQueryStringParameters } from '../utils/queryUtils';
@@ -19,13 +19,13 @@ export const structureService = {
 function get(id) {
   return API.get(`${apiUrlRoot}/structure/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getDetails(id) {
   return API.get(`${apiUrlRoot}/structure/details/${id}?role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre) {
@@ -43,48 +43,48 @@ function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, fi
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/structures/?skip=${page}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}&role=${roleActivated()}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function updateContact({ id, contact }) {
   return API.patch(`${apiUrlRoot}/structure/contact/${id}?role=${roleActivated()}`, { contact })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function updateStructureEmail(email, structureId) {
   return API.patch(`${apiUrlRoot}/structure/email/${structureId}?role=${roleActivated()}`, { email })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function verifyStructureSiret(siret) {
   return API.get(`${apiUrlRoot}/structure/verify-siret/${siret}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function updateStructureSiret(siret, structureId) {
   return API.patch(`${apiUrlRoot}/structure/siret/${structureId}?role=${roleActivated()}`, { siret })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function createAvenant(type, id, nombreDePostes, motif, autreMotif = '') {
   // eslint-disable-next-line max-len
   return API.patch(`${apiUrlRoot}/avenant/creation/${id}?role=${roleActivated()}`, { type, nombreDePostes, motif: motif || autreMotif })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function closeBanner(type, id, conseillerId) {
   return API.patch(`${apiUrlRoot}/banniere/${id}?type=${type}&role=${roleActivated()}${conseillerId ? `&conseillerId=${conseillerId}` : ''}`)
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
 
 function addRoleCoordinateur(structureId, conseillerId) {
   return API.patch(`${apiUrlRoot}/structure/add-role-coordinateur/${structureId}?role=${roleActivated()}`, { conseillerId })
   .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
+  .catch(handleApiError);
 }
