@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function popinGestionPostesMotif({ setStep, setMotif, motif, actionType, autreMotif, setAutreMotif, setNombreDePostes }) {
+function PopinGestionPostesMotif({ setStep, setMotif, motif, actionType, autreMotif, setAutreMotif, setNombreDePostes }) {
 
  
   const handleCancel = () => {
@@ -120,7 +120,7 @@ function popinGestionPostesMotif({ setStep, setMotif, motif, actionType, autreMo
   );
 }
 
-popinGestionPostesMotif.propTypes = {
+PopinGestionPostesMotif.propTypes = {
   setStep: PropTypes.func,
   setMotif: PropTypes.func,
   motif: PropTypes.string,
@@ -130,4 +130,4 @@ popinGestionPostesMotif.propTypes = {
   setNombreDePostes: PropTypes.func,
 };
 
-export default popinGestionPostesMotif;
+export default PopinGestionPostesMotif;

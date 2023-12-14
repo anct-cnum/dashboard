@@ -13,7 +13,7 @@ import {
   AccompagnementsCard,
   CollaborateurCard
 } from './cards';
-import PopinFormulaireInvitation from './popins/popinFormulaireInvitation';
+import PopinFormulaireInvitation from './popins/PopinFormulaireInvitation';
 import { checkStructurePhase2 } from './utils/functionUtils';
 import { StatutConventionnement } from '../../../utils/enumUtils';
 import { useAdvisors } from './hooks/useAdvisors';

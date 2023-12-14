@@ -7,7 +7,7 @@ import Spinner from '../../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import CardsRecrutement from './CardsRecrutement';
 import InformationCandidat from '../../../../../components/InformationCandidat';
-import PopinEditionContrat from '../../../structure/popins/popinEditionContrat';
+import PopinEditionContrat from '../../../structure/popins/PopinEditionContrat';
 import ModalValidationRecrutement from '../../modals/ModalValidationRecrutement';
 import pinCoordinateur from '../../../../../assets/icons/icone-coordinateur.svg';
 import { Tooltip } from 'react-tooltip';

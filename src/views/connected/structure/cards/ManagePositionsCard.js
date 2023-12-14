@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
-import PopinGestionPostes from '../popins/popinGestionPostes';
+import PopinGestionPostes from '../popins/PopinGestionPostes';
 import { PhaseConventionnement, StatutConventionnement } from '../../../../utils/enumUtils';
 import { checkStructurePhase2, displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
 

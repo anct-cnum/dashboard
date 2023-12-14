@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
-import PopinSelectionCoordinateur from '../popins/popinSelectionCoordinateur';
+import PopinSelectionCoordinateur from '../popins/PopinSelectionCoordinateur';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
 const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersActifsNonRenouveles, nbPostesCoordoDisponible }) => {
