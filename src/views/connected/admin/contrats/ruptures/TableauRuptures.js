@@ -63,10 +63,7 @@ TableauRuptures.propTypes = {
     PropTypes.bool,
   ]),
   ordreNom: PropTypes.string,
-  ordre: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.bool,
-  ]),
+  ordre: PropTypes.bool,
 };
 
 export default TableauRuptures;

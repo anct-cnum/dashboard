@@ -13,7 +13,7 @@ export const contratActions = {
   updateContratAnnulationRecrutement,
 };
 
-function getAll(page, statutContrat, filtreSearchBar, filtreDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom = 'dateDemande', ordre = -1) {
+function getAll(page, statutContrat, filtreSearchBar, filtreDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom = 'dateDemande', ordre) {
   return dispatch => {
     dispatch(request());
 
