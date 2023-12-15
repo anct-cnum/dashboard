@@ -91,7 +91,7 @@ function CandidatDetailsRecrutement() {
       <Spinner loading={loading || downloading || loadingContrat} />
       <Link
         to={location?.state?.origin}
-        state={{ currentPage, statutContrat: location?.state?.statutContrat }}
+        state={{ currentPage, statutContrat: location?.state?.statutContrat ?? 'toutes' }}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </Link>
@@ -105,7 +105,7 @@ function CandidatDetailsRecrutement() {
           <p>{errorContrat}</p>
         </div>
       }
-      {(errorAnnulationRecrutement !== undefined && errorAnnulationRecrutement !== false) &&
+      {errorAnnulationRecrutement &&
         <div className="fr-alert fr-alert--error fr-mt-4w">
           <p>{errorAnnulationRecrutement}</p>
         </div>
