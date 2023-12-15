@@ -117,7 +117,7 @@ export default function TableauCoordinateurs() {
                 dispatch(paginationActions.setPage(1));
                 setStatutDemande('refusee');
               }} className="fr-tag" aria-pressed={statutDemande === 'refusee'}>
-                Non valid&eacute;es par l&rsquo;ANCT ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureNonRetenus})
+                Candidatures refus&eacute;es par l&rsquo;ANCT ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureNonRetenus})
               </button>
             </ul>
             <div className="fr-col-12 fr-mt-3w">
