@@ -95,7 +95,7 @@ function ConseillerDetailsContrat() {
       <Spinner loading={loading || loadingContrat} />
       <Link
         to={location?.state?.origin}
-        state={{ currentPage, statutContrat: location?.state?.statutContrat }}
+        state={{ currentPage, statutContrat: location?.state?.statutContrat ?? 'toutes' }}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </Link>

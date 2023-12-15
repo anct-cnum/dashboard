@@ -13,7 +13,7 @@ export default function conseiller(state = initialState, action) {
   switch (action.type) {
     case 'GET_CANDIDAT_REQUEST':
       return {
-        ...initialState,
+        ...state,
         loading: true,
         error: false
       };
@@ -30,7 +30,7 @@ export default function conseiller(state = initialState, action) {
       };
     case 'GET_CANDIDAT_STRUCTURE_REQUEST':
       return {
-        ...initialState,
+        ...state,
         loading: true,
         error: false
       };
@@ -47,7 +47,7 @@ export default function conseiller(state = initialState, action) {
       };
     case 'GET_CONSEILLER_REQUEST':
       return {
-        ...initialState,
+        ...state,
         loading: true,
         error: false
       };
@@ -64,7 +64,7 @@ export default function conseiller(state = initialState, action) {
       };
     case 'GET_CONSEILLER_CONTRAT_REQUEST':
       return {
-        ...initialState,
+        ...state,
         loading: true,
         error: false
       };
