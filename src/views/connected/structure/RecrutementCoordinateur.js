@@ -65,7 +65,7 @@ function RecrutementCoordinateur() {
             href="https://cdn.conseiller-numerique.gouv.fr/Appel_a_candidatures_conseiller_numeriques_coordinateurs.pdf"
             target="_blank"
             rel="noopener noreferrer">
-            consulter l&rsquo;appel &agrave; candidature
+            consulter l&rsquo;Appel &agrave; Candidature Coordinateur
           </a>
         </strong>
       </span>
