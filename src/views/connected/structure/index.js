@@ -90,7 +90,9 @@ export default function Structure() {
                 <br />
                 <ul>
                   <li>Par t&eacute;l&eacute;phone au num&eacute;ro suivant&nbsp;:
-                    <b> 01 58 50 89 42 </b>du <b>lundi</b> au <b>jeudi</b> de <b>09h30 &agrave; 12h00</b> et le <b>mercredi de 14h00 &agrave; 16h00.</b></li>
+                    <b> 01 58 50 89 42 </b>le <b>lundi toute la journ&eacute;e</b> et le <b>mercredi</b>
+                    &nbsp;et <b>jeudi matin</b> de <b>9h30 &agrave; 12h00</b>
+                  </li>
                   <li>Par email à l&rsquo;adresse&nbsp;: <a
                     className="fr-link"
                     href="mailto:conseiller-numerique@anct.gouv.fr"
