@@ -55,15 +55,16 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                 </p>
               }
             </div>
-            <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
-              dossier?.dateDeCreation ?
+            <p className="fr-card__desc fr-text--lg fr-text--regular">
+              {dossier?.dateDeCreation ?
                 <span>
-                  le&nbsp;{dayjs(dossier?.dateDeCreation).format('DD/MM/YYYY')}
+                  Vous avez effectu&eacute; votre demande de conventionnement en date du {dayjs(dossier?.dateDeCreation).format('DD/MM/YYYY')}
                 </span> :
                 <span>
-                  date inconnue
+                  Votre demande de conventionnement n&rsquo;a pas de date connue
                 </span>
-            }</p>
+              }
+            </p>
             {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
               <div className="fr-card__desc">
                 <p className="fr-text--md">
