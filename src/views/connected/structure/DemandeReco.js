@@ -12,7 +12,7 @@ import {
   structureActions,
   miseEnRelationAction
 } from '../../../actions';
-import PopinConfirmationReconventionnement from './popins/popinConfirmationReconventionnement';
+import PopinConfirmationReconventionnement from './popins/PopinConfirmationReconventionnement';
 import Spinner from '../../../components/Spinner';
 import { validTypeDeContratWithoutEndDate } from '../../../utils/formatagesUtils';
 

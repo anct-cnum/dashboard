@@ -138,13 +138,13 @@ export default function TableauCoordinateurs() {
                 Nouvelles candidatures ({coordinateurs?.items?.totalParDemandesCoordinateur?.nouvelleCandidature})
               </button>
               <button onClick={() => setStatutDemande('validee')} className="fr-tag" aria-pressed={statutDemande === 'validee'}>
-                Candidatures valid&eacute;es ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureValider})
+                Candidatures valid&eacute;es par l&rsquo;ANCT ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureValider})
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
                 setStatutDemande('refusee');
               }} className="fr-tag" aria-pressed={statutDemande === 'refusee'}>
-                Non valid&eacute;es ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureNonRetenus})
+                Candidatures refus&eacute;es par l&rsquo;ANCT ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureNonRetenus})
               </button>
             </ul>
             <div className="fr-col-12 fr-mt-3w">

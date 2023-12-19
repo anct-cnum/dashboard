@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useAdvisors } from '../hooks/useAdvisors';
 
-function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionType, setStep }) {
+function PopinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionType, setStep }) {
 
   const {
     conseillersActifs,
@@ -98,11 +98,11 @@ function popinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
   );
 }
 
-popinGestionPostesNombre.propTypes = {
+PopinGestionPostesNombre.propTypes = {
   setNombreDePostes: PropTypes.func,
   setStep: PropTypes.func,
   nombreDePostes: PropTypes.number,
   actionType: PropTypes.string,
 };
 
-export default popinGestionPostesNombre;
+export default PopinGestionPostesNombre;

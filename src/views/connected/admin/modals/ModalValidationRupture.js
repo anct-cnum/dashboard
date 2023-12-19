@@ -115,7 +115,7 @@ function ModalValidationRupture({ setOpenModal, miseEnRelation, dateFinDeContrat
                               setDossierComplet(false);
                             }} />
                             <label className="fr-label" htmlFor="non_interesse_dispositif">
-                              Demande de pi&eacute;ces justificatives
+                              Demande de pi&egrave;ces justificatives
                             </label>
                           </div>
                         </div>
