@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { contratActions } from '../../../../actions';
 import { useDispatch } from 'react-redux';
 
-function popinConfirmationAnnulation({ setOpenModal, idMiseEnRelation }) {
+function PopinConfirmationAnnulation({ setOpenModal, idMiseEnRelation }) {
   const dispatch = useDispatch();
   const annulationRecrutement = () => {
     dispatch(contratActions.annulationRecrutement(idMiseEnRelation));
@@ -51,9 +51,9 @@ function popinConfirmationAnnulation({ setOpenModal, idMiseEnRelation }) {
   );
 }
 
-popinConfirmationAnnulation.propTypes = {
+PopinConfirmationAnnulation.propTypes = {
   idMiseEnRelation: PropTypes.string,
   setOpenModal: PropTypes.func,
 };
 
-export default popinConfirmationAnnulation;
+export default PopinConfirmationAnnulation;

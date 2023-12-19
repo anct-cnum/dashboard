@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { filtresConseillersActions, filtresStructuresActions, paginationActions } from '../../actions';
+import { filtresConseillersActions, paginationActions } from '../../actions';
 import PropTypes from 'prop-types';
 import Conseiller from './Conseiller';
 
@@ -32,7 +32,7 @@ export function TableConseillers({ conseillers, loading, error, filtreRupture, f
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresStructuresActions.changeOrdre(e.currentTarget?.id));
+    dispatch(filtresConseillersActions.changeOrdre(e.currentTarget?.id));
   };
 
   return (

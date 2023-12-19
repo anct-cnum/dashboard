@@ -8,7 +8,7 @@ import ModalValidationRupture from '../modals/ModalValidationRupture';
 import CardsRupture from './ruptures/CardsRupture';
 import CardsRenouvellement from './renouvellements/CardsRenouvellement';
 import ModalValidationRenouvellement from '../modals/ModalValidationRenouvellement';
-import PopinEditionContrat from '../../../connected/structure/popins/popinEditionContrat';
+import PopinEditionContrat from '../../../connected/structure/popins/PopinEditionContrat';
 import InformationConseiller from '../../../../components/InformationConseiller';
 import StructureContactCards from '../../../../components/cards/StructureContactCards';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';

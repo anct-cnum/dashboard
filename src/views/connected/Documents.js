@@ -299,6 +299,19 @@ export default function Documents() {
             </span>
           </p>
         </div>
+        <div className="fr-grid-row">
+          <p>
+            <a href="https://cdn.conseiller-numerique.gouv.fr/ANCT_CampagneCNFS.zip"
+              className="fr-link" target="blank" rel="noreferrer noopener" title="Presse Quotidienne R&eacute;gionale (PQR) - campagne d&eacute;cembre 2023">
+              Presse Quotidienne R&eacute;gionale (PQR) - campagne d&eacute;cembre 2023 (zip)
+            </a>
+            <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
+              Retrouvez les articles de valorisation du dispositif Conseiller num&eacute;rique pour chaque d&eacute;partement&nbsp;: 4 pages
+              avec une pr&eacute;sentation du dispositif, la carte des lieux d&rsquo;accompagnement d&eacute;clar&eacute;s dans l&rsquo;Espace coop
+              et un t&eacute;moignage de conseiller num&eacute;rique.
+            </span>
+          </p>
+        </div>
         <h4>6) Accompagner les Conseillers num&eacute;riques France Services dans leurs missions</h4>
         <div className="fr-grid-row">
           <p>

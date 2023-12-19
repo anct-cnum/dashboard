@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PopinAnnulationReConvention from './popins/popinAnnulationReConvention';
-import PopinEditionContrat from './popins/popinEditionContrat';
+import PopinAnnulationReConvention from './popins/PopinAnnulationReConvention';
+import PopinEditionContrat from './popins/PopinEditionContrat';
 import { ManagePositionsCard, HireAdvisorCard, HireCoordinatorCard } from './cards';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
 import Spinner from '../../../components/Spinner';

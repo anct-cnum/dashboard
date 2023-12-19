@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import PopinConfirmationAnnulation from '../popins/popinConfirmationAnnulation';
-import PopinEditionContrat from '../popins/popinEditionContrat';
+import PopinConfirmationAnnulation from '../popins/PopinConfirmationAnnulation';
+import PopinEditionContrat from '../popins/PopinEditionContrat';
 import { contratActions } from '../../../../actions';
 
 function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal }) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function popinRecrutee({ setDisplayModal, urlDossierDS }) {
+function PopinRecrutee({ setDisplayModal, urlDossierDS }) {
   const demarchesSimplifieesUrl = process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_HOSTNAME;
 
   return (
@@ -69,9 +69,10 @@ function popinRecrutee({ setDisplayModal, urlDossierDS }) {
 
 }
 
-popinRecrutee.propTypes = {
+PopinRecrutee.propTypes = {
   setDisplayModal: PropTypes.func,
   urlDossierConventionnement: PropTypes.string,
+  urlDossierDS: PropTypes.string
 };
 
-export default popinRecrutee;
+export default PopinRecrutee;
