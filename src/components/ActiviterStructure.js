@@ -120,13 +120,26 @@ function ActiviterStructure({ structure, roleActivated }) {
           <h4 className="titre">Conventionnement phase 2</h4>
           {checkStructurePhase2(structure?.conventionnement?.statut) ? <>
             <div className="fr-mb-3w">
-              <strong>{pluralize(
-                'Poste attribué',
-                'Poste attribué',
-                'Postes attribués',
-                structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
-              )}</strong><br />
-              <span>{structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees ?? '-'}</span>
+              {structure?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_VALIDÉ_PHASE_2 ?
+                <>
+                  <strong>{pluralize(
+                    'Poste attribué',
+                    'Poste attribué',
+                    'Postes attribués',
+                    structure?.posteValiderCoselec
+                  )}</strong><br />
+                  <span>{structure?.posteValiderCoselec ?? '-'}</span>
+                </> :
+                <>
+                  <strong>{pluralize(
+                    'Poste attribué',
+                    'Poste attribué',
+                    'Postes attribués',
+                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
+                  )}</strong><br />
+                  <span>{structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees ?? '-'}</span>
+                </>
+              }
             </div>
             <div className="fr-mb-3w fr-grid-row">
               <strong>{pluralize(
@@ -147,7 +160,7 @@ function ActiviterStructure({ structure, roleActivated }) {
                 </span>
               )}
               {structure?.conseillersRecruterReconventionnement?.length === 0 &&
-              <span className="fr-col-12">-</span>
+                <span className="fr-col-12">-</span>
               }
             </div>
             <div className="fr-mb-3w fr-grid-row">
@@ -169,7 +182,7 @@ function ActiviterStructure({ structure, roleActivated }) {
                 </span>
               )}
               {structure?.conseillersValiderReconventionnement?.length === 0 &&
-              <span className="fr-col-12">-</span>
+                <span className="fr-col-12">-</span>
               }
             </div>
             <div className="fr-mb-3w fr-grid-row">
@@ -191,7 +204,7 @@ function ActiviterStructure({ structure, roleActivated }) {
                 </span>
               )}
               {structure?.conseillersNouvelleRuptureReconventionnement?.length === 0 &&
-              <span className="fr-col-12">-</span>
+                <span className="fr-col-12">-</span>
               }
             </div>
             <div className="fr-mb-3w fr-grid-row">
@@ -213,13 +226,13 @@ function ActiviterStructure({ structure, roleActivated }) {
                 </span>
               )}
               {structure?.conseillersFinaliseeRuptureReconventionnement?.length === 0 &&
-              <span className="fr-col-12">-</span>
+                <span className="fr-col-12">-</span>
               }
             </div>
           </> :
             <>
               <p>
-            La structure n&rsquo;a pas effectu&eacute; de reconventionnement
+                La structure n&rsquo;a pas effectu&eacute; de reconventionnement
               </p>
               <a className="fr-link"
                 // eslint-disable-next-line max-len
