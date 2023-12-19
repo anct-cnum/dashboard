@@ -85,9 +85,13 @@ export default function Login() {
                   networkError && <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
                     <h3 className="fr-alert__title">&Eacute;chec de la connexion &agrave; Inclusion Connect</h3>
                     <p className="fr-mb-1v">
-                      Merci de v&eacute;rifier votre r&eacute;seau ou contacter le support Inclusion Connect par mail au <a className="fr-link"
-                        href="mailto:support@connect.inclusion.beta.gouv.fr">support@connect.inclusion.beta.gouv.fr</a>
+                      Inclusion Connect ne r&eacute;pond pas,
+                      merci de v&eacute;rifier votre r&eacute;seau ou de contacter le
+                      support Inclusion Connect par mail pour plus d&rsquo;informations.
                     </p>
+                    <a className="fr-link"
+                      href="mailto:support@connect.inclusion.beta.gouv.fr">support@connect.inclusion.beta.gouv.fr
+                    </a>
                   </div>
                 }
                 {process.env.NODE_ENV === 'development' &&
