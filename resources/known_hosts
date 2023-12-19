@@ -4,7 +4,6 @@
 # push-n2-par-clevercloud-customers.services.clever-cloud.com:22 SSH-2.0-OpenSSH_8.5
 |1|1nh6smh7CcY/XC5DXFIWTBv4WQ4=|kRkMBiNwoktUySWd1JZOcQbBrZY= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC1ng9sIlH9CGMmSHvTRenr/N0L4Mq85LOjilW1JtOhW
 # push-n3-par-clevercloud-customers.services.clever-cloud.com:22 SSH-2.0-OpenSSH_9.4
-push-n3-par-clevercloud-customers.services.clever-cloud.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOE3e4fL9CtKcHluvFYzLgPBPmFpqRPED03O4ixc0FhUChuC2DQ0k2XR3hUR5QBL7r72vUakqAaOXORNpS+SoG0=
+|1|OwxLBaHb2ahqIW7CYJhqpKJXn28=|OM81AKso+7ByOJOotrWexCAu+tk= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOE3e4fL9CtKcHluvFYzLgPBPmFpqRPED03O4ixc0FhUChuC2DQ0k2XR3hUR5QBL7r72vUakqAaOXORNpS+SoG0=
 # push-n3-par-clevercloud-customers.services.clever-cloud.com:22 SSH-2.0-OpenSSH_9.4
-push-n3-par-clevercloud-customers.services.clever-cloud.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC1ng9sIlH9CGMmSHvTRenr/N0L4Mq85LOjilW1JtOhW
-# push-n3-par-clevercloud-customers.services.clever-cloud.com:22 SSH-2.0-OpenSSH_9.4
+|1|wyVjcuc333RNPl4gKuWBOxAnmao=|wIB29d7BbMwCaLrB5894pXaUDv8= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC1ng9sIlH9CGMmSHvTRenr/N0L4Mq85LOjilW1JtOhW
