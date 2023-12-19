@@ -44,8 +44,8 @@ function validationRecrutement(id) {
   .catch(handleApiError);
 }
 
-function annulationRecrutement(id) {
-  return API.patch(`${apiUrlRoot}/contrat/annulation-recrutement/${id}?role=${roleActivated()}`)
+function annulationRecrutement(id, banniereRefusRecrutement) {
+  return API.patch(`${apiUrlRoot}/contrat/annulation-recrutement/${id}?role=${roleActivated()}`, { banniereRefusRecrutement })
   .then(response => response.data)
   .catch(handleApiError);
 }

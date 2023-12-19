@@ -238,11 +238,11 @@ function updateContract(typeDeContrat, dateDebut, dateFin, salaire, id) {
   }
 }
 
-function annulationRecrutement(idMiseEnRelation) {
+function annulationRecrutement(idMiseEnRelation, banniereRefusRecrutement = false) {
   return dispatch => {
     dispatch(request());
 
-    contratService.annulationRecrutement(idMiseEnRelation)
+    contratService.annulationRecrutement(idMiseEnRelation, banniereRefusRecrutement)
     .then(
       response => {
         dispatch(success());

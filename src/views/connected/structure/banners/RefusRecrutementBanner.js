@@ -21,7 +21,7 @@ const RefusRecrutementBanner = ({ conseiller, idMiseEnRelation }) => {
             </p>
             <p className="fr-text fr-text--sm">
               Pour toutes question, veuillez contacter le&nbsp;
-              <a style={{ color: '#000091' }} target="_blank" rel="noreferrer noopener" href="mailto:conseiller-numerique@anct.gouv.fr">
+              <a style={{ color: '#000091' }} href="mailto:conseiller-numerique@anct.gouv.fr">
                 service support Conseiller num&eacute;rique
               </a>
             </p>

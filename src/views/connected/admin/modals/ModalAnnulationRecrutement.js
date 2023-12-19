@@ -6,7 +6,7 @@ import { contratActions } from '../../../../actions';
 function ModalAnnulationRecrutement({ setOpenModalAnnulation, idMiseEnRelation }) {
   const dispatch = useDispatch();
   const annulationRecrutement = () => {
-    dispatch(contratActions.annulationRecrutement(idMiseEnRelation));
+    dispatch(contratActions.annulationRecrutement(idMiseEnRelation, true));
     setOpenModalAnnulation(false);
   };
 
