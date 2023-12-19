@@ -73,6 +73,7 @@ export default function TableauContrat() {
           ordreNom,
           ordre ? -1 : 1
         ));
+        // reset state location pour éviter d'avoir un statut de contrat par défaut
         navigate(location.pathname, { replace: true });
         setInitContrat(true);
       }
