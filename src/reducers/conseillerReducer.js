@@ -25,6 +25,7 @@ export default function conseiller(state = initialState, action) {
       };
     case 'GET_CANDIDAT_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };
@@ -42,6 +43,7 @@ export default function conseiller(state = initialState, action) {
       };
     case 'GET_CANDIDAT_STRUCTURE_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };
@@ -59,6 +61,7 @@ export default function conseiller(state = initialState, action) {
       };
     case 'GET_CONSEILLER_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };
@@ -76,6 +79,7 @@ export default function conseiller(state = initialState, action) {
       };
     case 'GET_CONSEILLER_CONTRAT_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };
@@ -100,30 +104,6 @@ export default function conseiller(state = initialState, action) {
         errorUpdateStatus: action.error,
         loading: false
       };
-    case 'UPDATE_ANNULATION_RECRUTEMENT_REQUEST':
-      return {
-        ...state,
-        errorAnnulationRecrutement: false,
-        loading: true
-      };
-    case 'UPDATE_ANNULATION_RECRUTEMENT_SUCCESS':
-      return {
-        ...state,
-        successAnnulationRecrutement: true,
-        loading: false
-      };
-    case 'UPDATE_ANNULATION_RECRUTEMENT_FAILURE':
-      return {
-        ...state,
-        errorAnnulationRecrutement: action.error,
-        loading: false
-      };
-    case 'RESET_SUCCESS_ANNULATION_RECRUTEMENT': {
-      return {
-        ...state,
-        successAnnulationRecrutement: false
-      };
-    }
     case 'UPDATE_CONSEILLER_SUCCESS':
       return {
         ...state,

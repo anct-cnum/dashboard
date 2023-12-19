@@ -5,14 +5,13 @@ import {
   ValidatedAvenantBanner,
   ValidatedRenouvellementBanner,
   InProgressAvenantBanner,
-  RequestBanner,
-  RefusRecrutementBanner
+  RequestBanner
 } from '../banners/index';
 import propTypes from 'prop-types';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
 import ValidatedRoleCoordoBanner from '../banners/ValidatedRoleCoordoBanner';
 
-const Banners = ({
+const MesPostesBanners = ({
   structure,
   roleActivated,
   openModal,
@@ -21,7 +20,6 @@ const Banners = ({
   bannieresAjoutRoleCoordinateur,
   setBannieresAjoutRoleCoordinateur,
   setBannieresRenouvellementValide,
-  misesEnRelation,
 }) => {
   let reconventionnementBannerComponent = null;
   switch (structure?.conventionnement?.statut) {
@@ -79,18 +77,6 @@ const Banners = ({
     }
     );
 
-  const refusRecrutementBannerComponent = misesEnRelation?.filter(i => i.banniereRefusRecrutement === true)?.length > 0 &&
-    misesEnRelation.filter(i => i.banniereRefusRecrutement === true)?.map(conseiller => {
-      return (
-        <RefusRecrutementBanner
-          key={conseiller._id}
-          conseiller={conseiller}
-          structure={structure}
-        />
-      );
-    }
-    );
-
   return (
     <>
       {reconventionnementBannerComponent}
@@ -99,13 +85,12 @@ const Banners = ({
       {ValidatedRenouvellementBannerComponent}
       {validatedReconventionnementBannerComponent}
       {validatedAjoutRoleCoordinateurBannerComponent}
-      {refusRecrutementBannerComponent}
     </>
   );
 };
 
 
-Banners.propTypes = {
+MesPostesBanners.propTypes = {
   structure: propTypes.object,
   openModal: propTypes.bool,
   setOpenModal: propTypes.func,
@@ -114,6 +99,5 @@ Banners.propTypes = {
   setBannieresRenouvellementValide: propTypes.func,
   bannieresAjoutRoleCoordinateur: propTypes.array,
   setBannieresAjoutRoleCoordinateur: propTypes.func,
-  misesEnRelation: propTypes.array,
 };
-export default Banners;
+export default MesPostesBanners;

@@ -8,7 +8,6 @@ export const conseillerActions = {
   getCandidatRecrutement,
   getAllRecruter,
   updateStatus,
-  updateStatusAnnulationRecrutement,
   updateDateRupture,
   updateMotifRupture,
   preSelectionner,
@@ -22,7 +21,6 @@ export const conseillerActions = {
   getCandidatStructure,
   getCandidatureConseillerStructure,
   resendInvitConseiller,
-  resetSuccessAnnulationRecrutement,
 };
 
 function get(id) {
@@ -337,30 +335,7 @@ function updateStatus(id, statut, motifRupture, dateRupture) {
     return { type: 'UPDATE_STATUS_FAILURE', error };
   }
 }
-function updateStatusAnnulationRecrutement(id, statut, banniereRefusRecrutement) {
-  return dispatch => {
-    dispatch(request());
-    conseillerService.updateStatusAnnulationRecrutement(id, statut, banniereRefusRecrutement)
-    .then(
-      response => {
-        dispatch(success(response.miseEnRelation));
-      },
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
 
-  function request() {
-    return { type: 'UPDATE_ANNULATION_RECRUTEMENT_REQUEST' };
-  }
-  function success(miseEnRelation) {
-    return { type: 'UPDATE_ANNULATION_RECRUTEMENT_SUCCESS', miseEnRelation };
-  }
-  function failure(error) {
-    return { type: 'UPDATE_ANNULATION_RECRUTEMENT_FAILURE', error };
-  }
-}
 function updateDateRupture({ id, date }) {
   return dispatch => {
     dispatch(request());
@@ -531,8 +506,4 @@ function resendInvitConseiller(id) {
   function failure(error) {
     return { type: 'RESUBMIT_INVITATION_CONSEILLER_FAILURE', error };
   }
-}
-
-function resetSuccessAnnulationRecrutement() {
-  return { type: 'RESET_SUCCESS_ANNULATION_RECRUTEMENT' };
 }

@@ -1,31 +1,36 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { structureActions } from '../../../../actions';
+import { contratActions } from '../../../../actions';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 
-const RefusRecrutementBanner = ({ conseiller, structure }) => {
+const RefusRecrutementBanner = ({ conseiller, idMiseEnRelation }) => {
   const dispatch = useDispatch();
   function closeBanner() {
-    dispatch(structureActions.closeBanner('refusRecrutement', structure?._id, conseiller?.conseillerObj?._id));
+    dispatch(contratActions.closeBannerAnnulationRecrutement(idMiseEnRelation));
   }
 
   return (
-    <div className="fr-notice fr-py-4w banner warning background">
+    <div className="fr-notice fr-py-4w banner warning background fr-mt-2w">
       <div className="fr-container warning responsive__banner">
-        <div className="responsive__banner">
+        <div style={{ display: 'flex', alignItems: 'center' }} className="fr-col-12">
+          <span className="fr-icon-info-fill icon__color fr-mr-2w" aria-hidden="true"></span>
           <div>
-            <p className="fr-notice__title title__color" style={{ width: '70rem' }}>
-              <span className="fr-icon-warning-fill icon__color" aria-hidden="true"></span>
-              <span className="fr-ml-2w">
-                Le recrutement {formatNomConseiller(conseiller?.conseillerObj)} a &eacute;t&eacute; refus&eacute;. Pour plus d&rsquo;informations, contactez
-                &nbsp;<a href="mailto:conseiller-numerique@anct.gouv.fr"
-                  title="conseiller-numerique@anct.gouv.fr">conseiller-numerique@anct.gouv.fr</a></span>
+            <p className="fr-notice__title title__color">
+              Le recrutement de {formatNomConseiller(conseiller)} a &eacute;t&eacute; refus&eacute;.
+            </p>
+            <p className="fr-text fr-text--sm">
+              Pour toutes question, veuillez contacter le&nbsp;
+              <a style={{ color: '#000091' }} target="_blank" rel="noreferrer noopener" href="mailto:conseiller-numerique@anct.gouv.fr">
+                service support Conseiller num&eacute;rique
+              </a>
             </p>
           </div>
-          <div className="banner__button_progress_contrat">
-            <button className="fr-icon-close-line" onClick={() => closeBanner()}></button>
-          </div>
+          <button
+            title="Masquer le message"
+            style={{ marginLeft: 'auto' }}
+            className="fr-icon-close-line icon__color"
+            onClick={closeBanner}></button>
         </div>
       </div>
     </div>
@@ -34,7 +39,7 @@ const RefusRecrutementBanner = ({ conseiller, structure }) => {
 
 RefusRecrutementBanner.propTypes = {
   conseiller: PropTypes.object,
-  structure: PropTypes.object
+  idMiseEnRelation: PropTypes.string
 };
 
 export default RefusRecrutementBanner;

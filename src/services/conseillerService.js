@@ -13,7 +13,6 @@ export const conseillerService = {
   getAllCandidatsByAdmin,
   getAllMisesEnRelation,
   updateStatus,
-  updateStatusAnnulationRecrutement,
   updateDateRupture,
   updateMotifRupture,
   preSelectionner,
@@ -183,12 +182,7 @@ function updateStatus(id, statut, motifRupture, dateRupture) {
   .then(response => response.data)
   .catch(handleApiError);
 }
-function updateStatusAnnulationRecrutement(id, statut, banniereRefusRecrutement) {
-  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
-    statut, banniereRefusRecrutement })
-  .then(response => response.data)
-  .catch(error => Promise.reject(error.response.data.message));
-}
+
 function preSelectionner(conseillerId) {
   return API.patch(`${apiUrlRoot}/structure/pre-selectionner/${conseillerId}?role=${roleActivated()}`)
   .then(response => response.data)

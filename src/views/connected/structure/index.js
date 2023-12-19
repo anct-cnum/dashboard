@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import MesPostes from './MesPostes';
@@ -15,53 +15,17 @@ import CandidatureConseillerDetails from './candidatures/CandidatureConseillerDe
 import RecrutementCoordinateur from './RecrutementCoordinateur';
 import TableauConseillers from './conseillers/TableauConseillers';
 import GraphiqueConseiller from './candidatures/GraphiqueConseiller';
-import { DeniedNewPosteCoordinateurBanner, ValidatedNewPosteCoordinateurBanner } from './banners';
-import { useDispatch, useSelector } from 'react-redux';
-import Spinner from '../../../components/Spinner';
-import { alerteEtSpinnerActions } from '../../../actions';
+import { AccueilBanners } from './views';
 
 export default function Structure() {
   const location = useLocation();
-  const dispatch = useDispatch();
-  const displayBannerValidationPosteCoordinateur = useSelector(state => state.authentication?.user?.displayBannerPosteCoordinateurStructure);
-  const loadingBannerCoordinateur = useSelector(state => state.coordinateur?.loading);
-  const idDemandeCoordinateur = useSelector(state => state.coordinateur?.idDemandeCoordinateur);
-  const errorCoordinateur = useSelector(state => state.coordinateur?.error);
-  const idStructure = useSelector(state => state.authentication?.user?.entity?.$id);
-  const demandesCoordinateurBannerInformation = useSelector(state => state.authentication?.user?.demandesCoordinateurBannerInformation);
-
-  useEffect(() => {
-    if (idDemandeCoordinateur) {
-      const user = localStorage.getItem('user');
-      const formatUser = JSON.parse(user);
-      // eslint-disable-next-line max-len
-      formatUser.user.demandesCoordinateurBannerInformation = formatUser.user.demandesCoordinateurBannerInformation.filter(demande => demande.id !== idDemandeCoordinateur);
-      localStorage.setItem('user', JSON.stringify(formatUser));
-    }
-    if (errorCoordinateur) {
-      dispatch(alerteEtSpinnerActions.getMessageAlerte({
-        type: 'error',
-        message: errorCoordinateur ?? 'La demande n\'a pas pu être fermée !',
-        status: null, description: null
-      }));
-    }
-  }, [idDemandeCoordinateur, errorCoordinateur]);
-
-  const demandesCoordinateurRefusPoste = demandesCoordinateurBannerInformation?.filter(demande => demande.statut === 'refusee');
 
   return (
     <>
       {location.pathname === '/accueil' &&
         <>
-          <Spinner loading={loadingBannerCoordinateur} />
-          {demandesCoordinateurRefusPoste?.length > 0 && demandesCoordinateurRefusPoste?.map((coordinateur, idx) => {
-            return (<DeniedNewPosteCoordinateurBanner key={idx} idDemandeCoordinateur={coordinateur.id} idStructure={idStructure} />);
-          })
-          }
-          {displayBannerValidationPosteCoordinateur &&
-            <ValidatedNewPosteCoordinateurBanner />
-          }
-          <div className={`fr-grid-row fr-grid-row--center ${displayBannerValidationPosteCoordinateur ? 'fr-my-10w' : 'fr-my-15w'}`}>
+          <AccueilBanners />
+          <div className="fr-grid-row fr-grid-row--center fr-my-10w">
             <div className="fr-col--offset-1 fr-col-10">
 
               <h3>Bienvenue sur votre tableau de pilotage,</h3>

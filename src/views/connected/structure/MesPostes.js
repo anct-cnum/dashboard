@@ -17,7 +17,7 @@ import {
   ActiveAdvisorsSection,
   RenewAdvisorsSection,
   ActiveNoRenewalAdvisorsSection,
-  Banners
+  MesPostesBanners
 } from './views';
 import { useAdvisors } from './hooks/useAdvisors';
 import { useErrors } from './hooks/useErrors';
@@ -114,7 +114,7 @@ function MesPostes() {
   return (
     <div className="mes-postes">
       <div className="main__banner">
-        <Banners
+        <MesPostesBanners
           structure={structure}
           roleActivated={roleActivated}
           openModal={openModal}
@@ -123,7 +123,6 @@ function MesPostes() {
           bannieresAjoutRoleCoordinateur={bannieresAjoutRoleCoordinateur}
           setBannieresAjoutRoleCoordinateur={setBanniereAjoutRoleCoordinateur}
           setBannieresRenouvellementValide={setBannieresRenouvellementValide}
-          misesEnRelation={misesEnRelation}
         />
       </div>
       {openModalContrat && (

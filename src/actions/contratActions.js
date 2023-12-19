@@ -5,12 +5,14 @@ export const contratActions = {
   getAll,
   validationRenouvellement,
   validationRecrutement,
+  annulationRecrutement,
   getAllHistorique,
   createContract,
   updateContractRecrutementStructure,
   updateContractRecrutementAdmin,
   updateContract,
-  updateContratAnnulationRecrutement,
+  resetAnnulationRecrutement,
+  closeBannerAnnulationRecrutement,
 };
 
 function getAll(page, statutContrat, filtreSearchBar, filtreDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom = 'dateDemande', ordre) {
@@ -236,6 +238,66 @@ function updateContract(typeDeContrat, dateDebut, dateFin, salaire, id) {
   }
 }
 
-function updateContratAnnulationRecrutement(idMiseEnRelation) {
-  return { type: 'UPDATE_CONTRAT_ANNULATION_RECRUTEMENT', idMiseEnRelation };
+function annulationRecrutement(idMiseEnRelation) {
+  return dispatch => {
+    dispatch(request());
+
+    contratService.annulationRecrutement(idMiseEnRelation)
+    .then(
+      response => {
+        dispatch(success());
+        dispatch(updateMiseEnRelation(response.miseEnRelation));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'ANNULATION_CONTRAT_RECRUTEMENT_REQUEST' };
+  }
+  function success() {
+    return { type: 'ANNULATION_CONTRAT_RECRUTEMENT_SUCCESS' };
+  }
+  function failure(error) {
+    return { type: 'ANNULATION_CONTRAT_RECRUTEMENT_FAILURE', error };
+  }
+  function updateMiseEnRelation(miseEnRelation) {
+    return { type: 'UPDATE_STATUS_SUCCESS', miseEnRelation };
+  }
+}
+
+function closeBannerAnnulationRecrutement(idMiseEnRelation) {
+  return dispatch => {
+    dispatch(request());
+
+    contratService.closeBannerAnnulationRecrutement(idMiseEnRelation)
+    .then(
+      idMiseEnRelation => {
+        dispatch(success(idMiseEnRelation));
+        dispatch(successCloseBannerPosteCoordinateur(idMiseEnRelation));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_BANNER_ANNULATION_RECRUTEMENT_REQUEST' };
+  }
+  function success(idMiseEnRelation) {
+    return { type: 'UPDATE_BANNER_ANNULATION_RECRUTEMENT_SUCCESS', idMiseEnRelation };
+  }
+  function successCloseBannerPosteCoordinateur(idMiseEnRelation) {
+    return { type: 'CLOSE_BANNER_REFUS_RECRUTEMENT_SUCCESS', idMiseEnRelation };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_BANNER_ANNULATION_RECRUTEMENT_FAILURE', error };
+  }
+}
+
+function resetAnnulationRecrutement() {
+  return { type: 'RESET_ANNULATION_CONTRAT_RECRUTEMENT' };
 }

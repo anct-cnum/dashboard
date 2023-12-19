@@ -23,8 +23,7 @@ function CandidatDetailsRecrutement() {
   const loading = useSelector(state => state.conseiller?.loading);
   const loadingContrat = useSelector(state => state.contrat?.loading);
   const errorConseiller = useSelector(state => state.conseiller?.error);
-  const errorAnnulationRecrutement = useSelector(state => state.conseiller?.errorAnnulationRecrutement);
-  const successAnnulationRecrutement = useSelector(state => state.conseiller?.successAnnulationRecrutement);
+  const successAnnulationRecrutement = useSelector(state => state.contrat?.successAnnulationRecrutement);
   const errorContrat = useSelector(state => state.contrat?.error);
   const downloading = useSelector(state => state.conseiller?.downloading);
   const downloadError = useSelector(state => state.conseiller?.downloadError);
@@ -71,7 +70,7 @@ function CandidatDetailsRecrutement() {
           replace: true
         }
       );
-      dispatch(conseillerActions.resetSuccessAnnulationRecrutement());
+      dispatch(contratActions.resetAnnulationRecrutement());
     }
   }, [successAnnulationRecrutement]);
 
@@ -103,11 +102,6 @@ function CandidatDetailsRecrutement() {
       {(errorContrat !== undefined && errorContrat !== false) &&
         <div className="fr-alert fr-alert--error fr-mt-4w">
           <p>{errorContrat}</p>
-        </div>
-      }
-      {errorAnnulationRecrutement &&
-        <div className="fr-alert fr-alert--error fr-mt-4w">
-          <p>{errorAnnulationRecrutement}</p>
         </div>
       }
       <div className="fr-col-12 fr-pt-6w">

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { conseillerActions } from '../../../../actions';
+import { contratActions } from '../../../../actions';
 
 function ModalAnnulationRecrutement({ setOpenModalAnnulation, idMiseEnRelation }) {
   const dispatch = useDispatch();
   const annulationRecrutement = () => {
-    dispatch(conseillerActions.updateStatusAnnulationRecrutement(idMiseEnRelation, 'interessee', true));
+    dispatch(contratActions.annulationRecrutement(idMiseEnRelation));
     setOpenModalAnnulation(false);
   };
 
