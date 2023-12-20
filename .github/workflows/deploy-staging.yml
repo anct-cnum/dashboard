@@ -62,7 +62,7 @@ jobs:
           envkey_REACT_APP_AUTH_CLIENT_ID: ${{ secrets.IC_RECETTE_AUTH_CLIENT_ID }}
           envkey_REACT_APP_AUTH_CLIENT_SECRET: ${{ secrets.IC_RECETTE_AUTH_CLIENT_SECRET }}
           envkey_REACT_APP_AUTH_OIDC_AUTHORITY: ${{ secrets.IC_RECETTE_AUTH_OIDC_AUTHORITY }}
-          envkey_REACT_APP_AUTH_REDIRECT_URI: ${{ secrets.IC_RECETTE_AUTH_REDIRECT_URI }}
+          envkey_REACT_APP_AUTH_REDIRECT_URI: ${{ secrets.IC_STAGING_AUTH_REDIRECT_URI }}
           envkey_REACT_APP_AUTH_OIDC_USER_KEY: ${{ secrets.IC_RECETTE_AUTH_OIDC_USER_KEY }}
           file_name: .env
       - name: Build application
