@@ -155,7 +155,7 @@ const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreCon
                       }}>
                       Rendre un poste
                     </button>
-                    {(isAddButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec) &&
+                    {(isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec) &&
                       <Tooltip variant="light" id={`tooltip-bouton-rendre-poste`} className="infobulle" />
                     }
                   </li>
