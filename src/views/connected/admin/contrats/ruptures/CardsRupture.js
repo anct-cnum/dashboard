@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import dayjs from 'dayjs';
-import { formatTypeDeContrat } from '../../../../../utils/formatagesUtils';
+import { formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../../utils/formatagesUtils';
 
 const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
 
@@ -56,18 +56,21 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
                     <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Fin de contrat</strong><br />
-                        {(miseEnRelation?.dateRupture && !miseEnRelation?.dateFinDeContrat) &&
-                          <span className="fr-text--regular fr-text--md">
-                            {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
-                          </span>
+                        {!miseEnRelation?.dateFinDeContrat &&
+                          <>
+                            {validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat) ?
+                              <span className="fr-text--regular fr-text--md">-</span> :
+                              <span className="fr-text--regular fr-text--md">En attente de pi&egrave;ces justificatives</span>
+                            }
+                          </>
                         }
-                        {(miseEnRelation?.dateFinDeContrat) &&
-                          <span className="fr-text--regular fr-text--md">
-                            {dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}
-                          </span>
-                        }
-                        {!miseEnRelation?.dateRupture && !miseEnRelation?.dateFinDeContrat &&
-                          <span className="fr-text--regular fr-text--md">-</span>
+                        {miseEnRelation?.dateFinDeContrat &&
+                          <>
+                            {validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat) ?
+                              <span className="fr-text--regular fr-text--md">-</span> :
+                              <span className="fr-text--regular fr-text--md">{dayjs(miseEnRelation.dateFinDeContrat).format('DD/MM/YYYY')}</span>
+                            }
+                          </>
                         }
                       </div>
                     </div>
