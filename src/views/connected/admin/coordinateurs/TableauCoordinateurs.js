@@ -25,8 +25,8 @@ export default function TableauCoordinateurs() {
   const filtreRegion = useSelector(state => state.filtresDemandesCoordinateur?.region);
   const filtreAvisPrefet = useSelector(state => state.filtresDemandesCoordinateur?.avisPrefet);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  const exportCandidaturesCoordinateursFileBlob = useSelector(state => state.exports);
-  const exportCandidaturesCoordinateursFileError = useSelector(state => state.exports?.error);
+  const exportDemandesCoordinateursFileBlob = useSelector(state => state.exports);
+  const exportDemandesCoordinateursFileError = useSelector(state => state.exports?.error);
   const loadingExport = useSelector(state => state.exports?.loading);
 
   const [initDemandeCoordinateur, setInitDemandeCoordinateur] = useState(false);
@@ -85,8 +85,8 @@ export default function TableauCoordinateurs() {
     }
   }, [error, page]);
 
-  const exportCandidaturesCoordinateurs = () => {
-    dispatch(exportsActions.exportCandidaturesCoordinateurs(
+  const exportDemandesCoordinateurs = () => {
+    dispatch(exportsActions.exportDemandesCoordinateurs(
       statutDemande,
       filtreSearchBar,
       filtreDepartement,
@@ -98,13 +98,13 @@ export default function TableauCoordinateurs() {
   };
 
   useEffect(() => {
-    if (has(exportCandidaturesCoordinateursFileBlob?.blob) && exportCandidaturesCoordinateursFileError === false) {
-      downloadFile(exportCandidaturesCoordinateursFileBlob);
+    if (has(exportDemandesCoordinateursFileBlob?.blob) && exportDemandesCoordinateursFileError === false) {
+      downloadFile(exportDemandesCoordinateursFileBlob);
       dispatch(exportsActions.resetFile());
     } else {
       scrollTopWindow();
     }
-  }, [exportCandidaturesCoordinateursFileBlob, exportCandidaturesCoordinateursFileError]);
+  }, [exportDemandesCoordinateursFileBlob, exportDemandesCoordinateursFileError]);
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
@@ -152,7 +152,7 @@ export default function TableauCoordinateurs() {
             </div>
             <div className="fr-grid-row fr-grid-row--end fr-mt-3w">
               <div className="fr-ml-auto">
-                <button className="fr-btn fr-btn--secondary fr-icon-download-line fr-btn--icon-left" onClick={exportCandidaturesCoordinateurs} >
+                <button className="fr-btn fr-btn--secondary fr-icon-download-line fr-btn--icon-left" onClick={exportDemandesCoordinateurs} >
                   Exporter les donn&eacute;es
                 </button>
               </div>

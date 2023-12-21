@@ -13,7 +13,7 @@ export const exportsService = {
   getExportDonneesGestionnaires,
   getExportDonneesHistoriqueDossiersConvention,
   getExportDonneesHistoriqueContrat,
-  getExportCandidaturesCoordinateurs,
+  getExportDemandesCoordinateurs,
 };
 
 function getFile(name, collection) {
@@ -132,7 +132,7 @@ function getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, fi
   .catch(handleApiError);
 }
 
-function getExportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
+function getExportDemandesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
   const {
     ordreColonne,
     filterByName,
@@ -140,7 +140,7 @@ function getExportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filt
     filterByDepartement,
     filterByAvisPrefet,
   } = demandesCoordinateurQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
-  return API.get(`${apiUrlRoot}/exports/candidatures-coordinateurs-csv?role=${roleActivated()}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
+  return API.get(`${apiUrlRoot}/exports/demandes-coordinateurs-csv?role=${roleActivated()}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
   .then(response => response.data)
   .catch(handleApiError);
 }

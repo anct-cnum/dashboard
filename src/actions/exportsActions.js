@@ -14,7 +14,7 @@ export const exportsActions = {
   exportDonneesGestionnaires,
   exportDonneesHistoriqueDossiersConvention,
   exportDonneesHistoriqueContrat,
-  exportCandidaturesCoordinateurs,
+  exportDemandesCoordinateurs,
 };
 
 function exportFile(nameFile, collection = 'exports', hubName) {
@@ -204,22 +204,22 @@ function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtr
   }
 }
 
-function exportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'codePostal', ordre) {
+function exportDemandesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'codePostal', ordre) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre)
-    .then(exportCandidaturesCoordinateursFileBlob => dispatch(success(exportCandidaturesCoordinateursFileBlob)))
-    .catch(exportCandidaturesCoordinateursFileError => dispatch(failure(exportCandidaturesCoordinateursFileError)));
+    await exportsService.getExportDemandesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre)
+    .then(exportDemandesCoordinateursFileBlob => dispatch(success(exportDemandesCoordinateursFileBlob, statutDemande)))
+    .catch(exportDemandesCoordinateursFileError => dispatch(failure(exportDemandesCoordinateursFileError)));
   };
 
   function request() {
-    return { type: 'EXPORT_CANDIDATURES_COORDINATEURS_REQUEST' };
+    return { type: 'EXPORT_DEMANDES_COORDINATEURS_REQUEST' };
   }
-  function success(exportCandidaturesCoordinateursFileBlob) {
-    const nameFile = `candidats-coordinateurs`;
-    return { type: 'EXPORT_CANDIDATURES_COORDINATEURS_SUCCESS', exportCandidaturesCoordinateursFileBlob, nameFile };
+  function success(exportDemandesCoordinateursFileBlob, statutDemande) {
+    const nameFile = `demandes-coordinateurs-${statutDemande}`;
+    return { type: 'EXPORT_DEMANDES_COORDINATEURS_SUCCESS', exportDemandesCoordinateursFileBlob, nameFile };
   }
   function failure(error) {
-    return { type: 'EXPORT_CANDIDATURES_COORDINATEURS_FAILURE', error };
+    return { type: 'EXPORT_DEMANDES_COORDINATEURS_FAILURE', error };
   }
 }
