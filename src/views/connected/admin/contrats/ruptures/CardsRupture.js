@@ -56,12 +56,12 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
                     <div className="fr-col-12 fr-mt-2w fr-mt-md-0 fr-col-md-3">
                       <div>
                         <strong className="fr-text--md">Fin de contrat</strong><br />
-                        {miseEnRelation?.dateRupture &&
+                        {(miseEnRelation?.dateRupture && !miseEnRelation?.dateFinDeContrat) &&
                           <span className="fr-text--regular fr-text--md">
                             {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
                           </span>
                         }
-                        {(miseEnRelation?.dateFinDeContrat && !miseEnRelation?.dateRupture) &&
+                        {(miseEnRelation?.dateFinDeContrat) &&
                           <span className="fr-text--regular fr-text--md">
                             {dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}
                           </span>
