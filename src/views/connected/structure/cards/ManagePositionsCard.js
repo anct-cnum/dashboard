@@ -152,7 +152,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                         Ajouter un poste
                       </button>
                       {isButtonDisabled(structure) &&
-                        <Tooltip variant="light" id={`tooltip-bouton-ajout-poste`} className="infobulle" />
+                        <Tooltip variant="light" id="tooltip-bouton-ajout-poste" className="infobulle" />
                       }
                     </li>
                   }
