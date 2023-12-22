@@ -45,6 +45,15 @@ export default function authentication(state = initialState, action) {
               demandeCoordinateur.id !== action.idDemandeCoordinateur)
         },
       };
+    case 'CLOSE_BANNER_REFUS_RECRUTEMENT_SUCCESS':
+      return {
+        ...state,
+        user: {
+          ...state.user, miseEnRelationRefusRecrutement: state.user.miseEnRelationRefusRecrutement?.filter(
+            miseEnRelation =>
+              miseEnRelation._id !== action.idMiseEnRelation)
+        },
+      };
     default:
       return state;
   }

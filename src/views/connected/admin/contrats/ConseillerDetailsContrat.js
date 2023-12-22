@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions, structureActions, alerteEtSpinnerActions, contratActions } from '../../../../actions';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
@@ -17,7 +17,9 @@ function ConseillerDetailsContrat() {
 
   const dispatch = useDispatch();
   const { idConseiller, idMiseEnRelation } = useParams();
-  const conseiller = useSelector(state => state.conseiller?.conseiller);
+  const location = useLocation();
+
+  const conseiller = useSelector(state => state.conseiller?.conseillerContrat);
   const structure = useSelector(state => state.structure?.structure);
   const errorStructure = useSelector(state => state.structure?.error);
   const errorConseiller = useSelector(state => state.conseiller?.error);
@@ -26,7 +28,7 @@ function ConseillerDetailsContrat() {
   const errorContrat = useSelector(state => state.contrat?.error);
   const errorRupture = useSelector(state => state.conseiller?.errorRupture);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-
+  const currentPage = useSelector(state => state.pagination?.currentPage);
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
@@ -91,11 +93,12 @@ function ConseillerDetailsContrat() {
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading || loadingContrat} />
-      <button
-        onClick={() => window.close()}
+      <Link
+        to={location?.state?.origin}
+        state={{ currentPage, statutContrat: location?.state?.statutContrat ?? 'toutes' }}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
-      </button>
+      </Link>
       {libelleErreur &&
         <div className="fr-alert fr-alert--error fr-mt-4w">
           <p className="fr-alert__title">

@@ -74,7 +74,7 @@ function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal }) {
           <>
             {openModal &&
               <PopinConfirmationAnnulation
-                updateStatut={updateStatut}
+                idMiseEnRelation={miseEnRelation._id}
                 setOpenModal={setOpenModal}
               />
             }
