@@ -168,7 +168,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                       Rendre un poste
                     </button>
                     {(isButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec) &&
-                      <Tooltip variant="light" id={`tooltip-bouton-rendre-poste`} className="infobulle" />
+                      <Tooltip variant="light" id="tooltip-bouton-rendre-poste" className="infobulle" />
                     }
                   </li>
                   {(structure?.conventionnement?.dossierReconventionnement?.numero || !isReconventionnement) &&
