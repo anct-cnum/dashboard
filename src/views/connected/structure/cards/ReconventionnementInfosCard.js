@@ -6,10 +6,12 @@ import PopinGestionPostes from '../popins/PopinGestionPostes';
 import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import { PhaseConventionnement, StatutConventionnement } from '../../../../utils/enumUtils';
 import { checkStructurePhase2, displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
+import { Tooltip } from 'react-tooltip';
 
 const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreConseillersRenouveler, nbreConseillersEnCoursDeRecrutement }) => {
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
   const nbConseillerActifTotal = nbreConseillersActifs + nbreConseillersRenouveler + nbreConseillersEnCoursDeRecrutement;
+  const texteTooltip = `Une demande est en cours d'instruction. Vous ne pouvez faire aucune action pendant cette période.`;
 
   const displayBadge = () => {
     if (structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_INITIÉ) {
@@ -130,20 +132,32 @@ const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreCon
                   <li>
                     <button className="fr-btn fr-btn--secondary"
                       disabled={isAddButtonDisabled(structure)}
+                      data-tooltip-id="tooltip-bouton-ajout-poste"
+                      data-tooltip-float="true"
+                      data-tooltip-content={texteTooltip}
                       onClick={() => {
                         handlePopin('add', 1);
                       }}>
                       Ajouter un poste
                     </button>
+                    {isAddButtonDisabled(structure) &&
+                      <Tooltip variant="light" id="tooltip-bouton-ajout-poste" className="infobulle" />
+                    }
                   </li>
                   <li>
                     <button className="fr-btn fr-btn--secondary"
                       disabled={isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}
+                      data-tooltip-id="tooltip-bouton-rendre-poste"
+                      data-tooltip-float="true"
+                      data-tooltip-content={texteTooltip}
                       onClick={() => {
                         handlePopin('remove', 1);
                       }}>
                       Rendre un poste
                     </button>
+                    {(isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec) &&
+                      <Tooltip variant="light" id="tooltip-bouton-rendre-poste" className="infobulle" />
+                    }
                   </li>
                   {structure?.conventionnement?.dossierReconventionnement?.numero &&
                     <li className="fr-ml-auto">
