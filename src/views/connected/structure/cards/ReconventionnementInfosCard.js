@@ -141,7 +141,7 @@ const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreCon
                       Ajouter un poste
                     </button>
                     {isAddButtonDisabled(structure) &&
-                      <Tooltip variant="light" id={`tooltip-bouton-ajout-poste`} className="infobulle" />
+                      <Tooltip variant="light" id="tooltip-bouton-ajout-poste" className="infobulle" />
                     }
                   </li>
                   <li>
