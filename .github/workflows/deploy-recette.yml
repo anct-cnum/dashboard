@@ -66,7 +66,7 @@ jobs:
           envkey_REACT_APP_AUTH_OIDC_AUTHORITY: ${{ secrets.IC_RECETTE_AUTH_OIDC_AUTHORITY }}
           envkey_REACT_APP_AUTH_REDIRECT_URI: ${{ secrets.IC_RECETTE_AUTH_REDIRECT_URI }}
           envkey_REACT_APP_AUTH_OIDC_USER_KEY: ${{ secrets.IC_RECETTE_AUTH_OIDC_USER_KEY }}
-          envkey_REACT_APP_CONTRAT_SMIC: 1709.28
+          envkey_REACT_APP_CONTRAT_SMIC: 1766.92
           file_name: .env
       - name: Build application
         run: npm run build
