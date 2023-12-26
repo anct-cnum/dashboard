@@ -139,9 +139,6 @@ function CandidatureConseillerDetails() {
           {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
             <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
           }
-          {conseiller?.statutCandidat === 'TERMINE' &&
-            <p className="fr-badge fr-badge--info fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Sans mission</p>
-          }
           {conseiller?.miseEnRelation?.statut &&
             <>
               {displayBadgeStatutCandidat(conseiller?.miseEnRelation?.statut)}
