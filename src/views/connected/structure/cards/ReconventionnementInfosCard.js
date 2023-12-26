@@ -133,7 +133,6 @@ const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreCon
                     <button className="fr-btn fr-btn--secondary"
                       disabled={isAddButtonDisabled(structure)}
                       data-tooltip-id="tooltip-bouton-ajout-poste"
-                      data-tooltip-float="true"
                       data-tooltip-content={texteTooltip}
                       onClick={() => {
                         handlePopin('add', 1);
@@ -148,7 +147,6 @@ const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreCon
                     <button className="fr-btn fr-btn--secondary"
                       disabled={isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}
                       data-tooltip-id="tooltip-bouton-rendre-poste"
-                      data-tooltip-float="true"
                       data-tooltip-content={texteTooltip}
                       onClick={() => {
                         handlePopin('remove', 1);

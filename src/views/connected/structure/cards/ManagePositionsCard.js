@@ -144,7 +144,6 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                       <button className="fr-btn fr-btn--secondary"
                         disabled={isButtonDisabled(structure)}
                         data-tooltip-id="tooltip-bouton-ajout-poste"
-                        data-tooltip-float="true"
                         data-tooltip-content={texteTooltip}
                         onClick={() => {
                           handlePopin('add', 1);
@@ -160,7 +159,6 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                     <button className="fr-btn fr-btn--secondary"
                       disabled={isButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}
                       data-tooltip-id="tooltip-bouton-rendre-poste"
-                      data-tooltip-float="true"
                       data-tooltip-content={texteTooltip}
                       onClick={() => {
                         handlePopin('remove', 1);
