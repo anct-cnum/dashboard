@@ -3,6 +3,7 @@ const initialState = {
   dateDebut: new Date(anneeEnCours + '/01/01'),
   dateFin: new Date(),
   error: false,
+  successDeleteCandidat: false,
   errorRelanceInvitation: false,
   miseEnRelation: undefined,
   currentPage: undefined,
@@ -14,6 +15,7 @@ export default function conseiller(state = initialState, action) {
     case 'GET_CANDIDAT_REQUEST':
       return {
         ...state,
+        successDeleteCandidat: false,
         loading: true,
         error: false
       };
@@ -211,6 +213,7 @@ export default function conseiller(state = initialState, action) {
     case 'GETALL_CANDIDATS_ADMIN_REQUEST':
       return {
         ...state,
+        successDeleteCandidat: false,
         error: false,
         loading: true
       };
