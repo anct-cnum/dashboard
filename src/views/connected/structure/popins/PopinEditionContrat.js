@@ -261,7 +261,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     type="text"
                     name="salaire"
                     onChange={handleChangeSalaire}
-                    min={salaireMinimum}
+                    min={!isNaN(salaireMinimum) ? salaireMinimum : 0}
                     value={salaire}
                   />
                   {errorSalaire() &&

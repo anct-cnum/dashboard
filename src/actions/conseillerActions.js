@@ -390,8 +390,9 @@ function preSelectionner(conseillerId) {
 
     conseillerService.preSelectionner(conseillerId)
     .then(
-      response => {
-        dispatch(success(response.message));
+      miseEnRelation => {
+        dispatch(success());
+        dispatch(updateMiseEnRelation(miseEnRelation));
       },
       error => {
         dispatch(failure(error));
@@ -402,13 +403,15 @@ function preSelectionner(conseillerId) {
   function request() {
     return { type: 'PRESELECTIONNER_CONSEILLER_REQUEST' };
   }
-  function success(message) {
-    return { type: 'PRESELECTIONNER_CONSEILLER_SUCCESS', message };
+  function success() {
+    return { type: 'PRESELECTIONNER_CONSEILLER_SUCCESS' };
   }
   function failure(error) {
     return { type: 'PRESELECTIONNER_CONSEILLER_FAILURE', error };
   }
-
+  function updateMiseEnRelation(miseEnRelation) {
+    return { type: 'UPDATE_STATUS_SUCCESS', miseEnRelation };
+  }
 }
 
 function getCurriculumVitae(id, candidat) {

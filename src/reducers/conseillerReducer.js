@@ -121,7 +121,6 @@ export default function conseiller(state = initialState, action) {
     case 'PRESELECTIONNER_CONSEILLER_SUCCESS':
       return {
         ...state,
-        message: action.message,
         loading: false,
         successPreselection: true,
       };
@@ -233,7 +232,8 @@ export default function conseiller(state = initialState, action) {
       return {
         ...state,
         error: false,
-        loading: true
+        loading: true,
+        successPreselection: false
       };
     case 'GETALL_CANDIDATS_SUCCESS':
       return {

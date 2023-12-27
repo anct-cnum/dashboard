@@ -148,6 +148,7 @@ function CandidatureConseillerDetails() {
             miseEnRelation={conseiller?.miseEnRelation}
             updateStatut={updateStatut}
             setDisplayModal={setDisplayModal}
+            idConseiller={conseiller?._id}
           />
         </div>
       }
