@@ -28,11 +28,13 @@ function CandidatDetails() {
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const loading = useSelector(state => state?.conseiller?.loading);
   const [displayModal, setDisplayModal] = useState(true);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     if (!errorConseiller) {
-      if (conseiller?._id !== id) {
+      if (conseiller?._id !== id || reload) {
         dispatch(conseillerActions.getCandidatStructure(id));
+        setReload(false);
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -41,7 +43,7 @@ function CandidatDetails() {
         status: null, description: null
       }));
     }
-  }, [errorConseiller]);
+  }, [errorConseiller, reload]);
 
   const updateStatut = statut => {
     dispatch(conseillerActions.updateStatus(conseiller.miseEnRelation?._id, statut));
@@ -130,6 +132,7 @@ function CandidatDetails() {
             miseEnRelation={conseiller?.miseEnRelation}
             updateStatut={updateStatut}
             setDisplayModal={setDisplayModal}
+            setReload={setReload}
           />
         </div>
       </div>

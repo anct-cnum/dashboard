@@ -5,7 +5,7 @@ import PopinConfirmationAnnulation from '../popins/PopinConfirmationAnnulation';
 import PopinEditionContrat from '../popins/PopinEditionContrat';
 import { contratActions } from '../../../../actions';
 
-function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal }) {
+function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal, setReload }) {
   const dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
@@ -55,6 +55,7 @@ function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal }) {
               Annuler la pr&eacute;s&eacute;lection
             </button>
             <button onClick={() => {
+              setReload(true);
               setOpenModalContrat(true);
             }}
             className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0"
@@ -104,6 +105,7 @@ ButtonsAction.propTypes = {
   updateStatut: PropTypes.func,
   miseEnRelation: PropTypes.object,
   setDisplayModal: PropTypes.func,
+  setReload: PropTypes.func,
 };
 
 export default ButtonsAction;
