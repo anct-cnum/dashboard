@@ -16,7 +16,7 @@ export const statistiquesService = {
   getStatistiquesNationale,
   getStatistiquesNationaleGrandReseau,
   getCodesPostauxCrasConseillerStructure,
-  getCodesPostauxCrasConseiller
+  getFiltresCrasConseiller
 };
 
 function getTerritoire(typeTerritoire, idTerritoire, dateFin) {
@@ -54,10 +54,10 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, c
   .catch(handleApiError);
 }
 
-function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, codeCommune) {
-  const { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune } = statsQueryStringParameters(dateDebut, dateFin, codePostal, codeCommune);
+function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, codeCommune, idStructure) {
+  const { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune, filterByIdStructure } = statsQueryStringParameters(dateDebut, dateFin, codePostal, codeCommune, idStructure);
   return API.get(
-    `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}&idConseiller=${idConseiller}`)
+    `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}${filterByIdStructure}&idConseiller=${idConseiller}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
@@ -105,8 +105,8 @@ function getCodesPostauxCrasConseillerStructure(idStructure) {
   .catch(handleApiError);
 }
 
-function getCodesPostauxCrasConseiller(idConseiller) {
-  return API.get(`${apiUrlRoot}/cras/codesPostaux/conseiller?role=${roleActivated()}&id=${idConseiller}`)
+function getFiltresCrasConseiller(idConseiller) {
+  return API.get(`${apiUrlRoot}/cras/filtres/conseiller?role=${roleActivated()}&id=${idConseiller}`)
   .then(response => response.data)
   .catch(handleApiError);
 }

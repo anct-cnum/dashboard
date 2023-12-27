@@ -6,15 +6,19 @@ import StatistiquesBanniere from '../../views/connected/commun/statistiques/Comp
 import BottomPage from '../../views/connected/commun/statistiques/Components/graphiques/BottomPage';
 import RightPage from '../../views/connected/commun/statistiques/Components/graphiques/RightPage';
 import LeftPage from '../../views/connected/commun/statistiques/Components/graphiques/LeftPage';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import SelectOptions from '../SelectOptions';
+import { statistiquesActions } from '../../actions';
 
 function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
+  const dispatch = useDispatch();
   const codeCommuneStats = useSelector(state => state.statistiques?.codeCommuneStats);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const villeStats = useSelector(state => state.statistiques?.villeStats);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
+  const listeStructures = useSelector(state => state.statistiques?.listeStructures);
 
   const formatNomStatistiques = () => {
     const formatNom = conseiller?.nom?.charAt(0)?.toUpperCase() + conseiller?.nom?.slice(1);
@@ -23,6 +27,10 @@ function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
       return `${formatNom} ${formatPrenom}`;
     }
     return '';
+  };
+
+  const selectFiltreStructure = e => {
+    dispatch(statistiquesActions.changeStructureStats(e.target?.value));
   };
 
   return (
@@ -40,7 +48,18 @@ function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
           }
         </div>
         <div className="fr-col-12 fr-col-offset-lg-1 fr-col-lg-4">
-          <hr className="fr-hr fr-mt-3v" />
+          {listeStructures?.length > 1 ?
+            <select className="fr-select" onChange={selectFiltreStructure}>
+              <SelectOptions
+                options={listeStructures}
+                valueName="structureId"
+                labelName="nom"
+                subLabelName="codePostal"
+                title="Toutes les structures"
+                defaultValue={''}
+              />
+            </select> : <hr className="fr-hr fr-mt-3v" />
+          }
         </div>
       </div>
       {statistiquesLoading &&

@@ -18,7 +18,7 @@ export const statistiquesActions = {
   getStatistiquesNationale,
   getStatistiquesNationaleGrandReseau,
   getCodesPostauxCrasConseillerStructure,
-  getCodesPostauxCrasConseiller,
+  getFiltresCrasConseiller,
   resetFiltre,
 };
 
@@ -224,10 +224,10 @@ function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal = 
   }
 }
 
-function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal = null, codeCommune = null) {
+function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal = null, codeCommune = null, idStructure) {
   return dispatch => {
     dispatch(request());
-    statistiquesService.getStatistiquesConseiller(formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, codeCommune)
+    statistiquesService.getStatistiquesConseiller(formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, codeCommune, idStructure)
     .then(
       statsConseiller => {
         dispatch(success(statsConseiller));
@@ -300,14 +300,14 @@ function getCodesPostauxCrasConseillerStructure(idStructure) {
   }
 }
 
-function getCodesPostauxCrasConseiller(idConseiller) {
+function getFiltresCrasConseiller(idConseiller) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getCodesPostauxCrasConseiller(idConseiller)
+    statistiquesService.getFiltresCrasConseiller(idConseiller)
     .then(
-      listeCodesPostaux => {
-        dispatch(success(listeCodesPostaux));
+      response => {
+        dispatch(success(response));
       },
       error => {
         dispatch(failure(error));
@@ -316,13 +316,13 @@ function getCodesPostauxCrasConseiller(idConseiller) {
   };
 
   function request() {
-    return { type: 'GET_CODES_POSTAUX_CRA_REQUEST' };
+    return { type: 'GET_FILTRES_CONSEILLER_CRA_REQUEST' };
   }
-  function success(listeCodesPostaux) {
-    return { type: 'GET_CODES_POSTAUX_CRA_SUCCESS', listeCodesPostaux };
+  function success(response) {
+    return { type: 'GET_FILTRES_CONSEILLER_CRA_SUCCESS', response };
   }
   function failure(error) {
-    return { type: 'GET_CODES_POSTAUX_CRA_FAILURE', error };
+    return { type: 'GET_FILTRES_CONSEILLER_CRA_FAILURE', error };
   }
 }
 

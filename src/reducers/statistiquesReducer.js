@@ -61,6 +61,25 @@ export default function statistiques(state = initialState, action) {
         loadingCodesPostaux: false,
         error: true,
       };
+    case 'GET_FILTRES_CONSEILLER_CRA_REQUEST':
+      return {
+        ...state,
+        loadingFiltresConseiller: true,
+        error: false,
+      };
+    case 'GET_FILTRES_CONSEILLER_CRA_SUCCESS':
+      return {
+        ...state,
+        loadingFiltresConseiller: false,
+        listeCodesPostaux: action.response.listeCodesPostaux,
+        listeStructures: action.response.listeStructures,
+      };
+    case 'GET_FILTRES_CONSEILLER_CRA_FAILURE':
+      return {
+        ...state,
+        loadingFiltresConseiller: false,
+        error: true,
+      };
     case 'GET_STATS_CRA_NATIONALES_REQUEST':
       return {
         ...state,
