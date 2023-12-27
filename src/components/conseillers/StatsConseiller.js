@@ -19,6 +19,7 @@ function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
   const listeStructures = useSelector(state => state.statistiques?.listeStructures);
+  const idStructure = useSelector(state => state.statistiques?.structureStats);
 
   const formatNomStatistiques = () => {
     const formatNom = conseiller?.nom?.charAt(0)?.toUpperCase() + conseiller?.nom?.slice(1);
@@ -81,6 +82,7 @@ function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
             codePostal={codePostal}
             ville={villeStats}
             codeCommune={codeCommuneStats}
+            structureIds={idStructure}
             nom={conseiller?.nom}
             prenom={conseiller?.prenom}
           />

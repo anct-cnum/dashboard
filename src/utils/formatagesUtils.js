@@ -11,7 +11,7 @@ const removeCodePrefix = type =>
 
 export function formatFileName(dateDebut, dateFin, type, idType, codePostal, ville) {
   // eslint-disable-next-line max-len
-  return `Statistiques_${removeCodePrefix(type)}${codePostal ? `_${codePostal}` : ''}${ville ? `_${ville}` : ''}${idType ? `_${idType}` : ''}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+  return `Statistiques_${removeCodePrefix(type)}${codePostal ? `_${codePostal}` : ''}${ville ? `_${ville}` : ''}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
 }
 
 export function pluralize(zero, singulier, pluriel, count, showCount = false) {
