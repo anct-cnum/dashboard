@@ -49,7 +49,7 @@ function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
         </div>
         <div className="fr-col-12 fr-col-offset-lg-1 fr-col-lg-4">
           {listeStructures?.length > 1 ?
-            <select className="fr-select" onChange={selectFiltreStructure}>
+            <select className="fr-select filtre-structure" onChange={selectFiltreStructure}>
               <SelectOptions
                 options={listeStructures}
                 valueName="structureId"
