@@ -26,6 +26,7 @@ function CandidatDetails() {
   const downloadError = useSelector(state => state.conseiller?.downloadError);
   const downloading = useSelector(state => state.conseiller?.downloading);
   const currentPage = useSelector(state => state.pagination?.currentPage);
+  const errorPreselection = useSelector(state => state.conseiller?.errorPreselection);
   const loading = useSelector(state => state?.conseiller?.loading);
   const [displayModal, setDisplayModal] = useState(true);
 
@@ -85,6 +86,11 @@ function CandidatDetails() {
         <div className="fr-alert fr-alert--error fr-mt-3w">
           <p>{errorContrat}</p>
         </div>
+      }
+      {(errorPreselection !== undefined && errorPreselection !== false) &&
+      <div className="fr-alert fr-alert--error fr-mt-3w">
+        <p>{errorPreselection}</p>
+      </div>
       }
       <div className="fr-col-12 fr-pt-6w">
         {conseiller?.coselec?.nombreConseillersCoselec &&
