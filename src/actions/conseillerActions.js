@@ -168,7 +168,6 @@ function getCandidatureConseillerStructure(id) {
 }
 
 function getAllCandidats({
-  structureId = null,
   misesEnRelation,
   search = '',
   page = 0,
@@ -180,13 +179,13 @@ function getAllCandidats({
     dispatch(request());
     let promises = [];
     if (misesEnRelation) {
-      let promise = conseillerService.getAllMisesEnRelation(structureId, search, page, filter, ordreNom, ordre, persoFilters);
+      let promise = conseillerService.getAllMisesEnRelation(search, page, filter, ordreNom, ordre, persoFilters);
       promises.push(promise);
     }
 
     let isSearch = search.length > 0;
     if (!misesEnRelation || isSearch) {
-      let promise = conseillerService.getAllCandidats(structureId, search, page, ordreNom, ordre, persoFilters);
+      let promise = conseillerService.getAllCandidats(search, page, ordreNom, ordre, persoFilters);
       promises.push(promise);
     }
     let conseillers = null;
