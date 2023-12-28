@@ -90,3 +90,5 @@ export const checkStructurePhase2 = statut => {
   return false;
 };
 
+export const checkIsConseiller = statut => ['RECRUTE', 'RUPTURE', 'TERMINE'].includes(statut);
+
