@@ -19,7 +19,6 @@ function TableauCandidatures() {
   const dispatch = useDispatch();
 
   const conseillers = useSelector(state => state.conseiller);
-  console.log('conseillers:', conseillers);
   const error = useSelector(state => state.conseiller?.error);
   const message = useSelector(state => state.conseiller?.message);
 
