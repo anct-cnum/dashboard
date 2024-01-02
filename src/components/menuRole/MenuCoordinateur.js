@@ -70,7 +70,7 @@ function MenuCoordinateur({ onClickMenu, activeMenu, trackEvent }) {
           target="_blank"
           rel="noopener noreferrer"
           to={`${process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR}`}>
-          Compte-rendu d’activité
+          Compte-rendu d’activit&eacute;
         </Link>
       </li>
     </>
