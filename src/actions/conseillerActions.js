@@ -390,9 +390,9 @@ function preSelectionner(conseillerId) {
 
     conseillerService.preSelectionner(conseillerId)
     .then(
-      miseEnRelation => {
-        dispatch(success());
-        dispatch(updateMiseEnRelation(miseEnRelation));
+      response => {
+        dispatch(success(response.success));
+        dispatch(updateMiseEnRelation(response.miseEnRelation));
       },
       error => {
         dispatch(failure(error));
@@ -403,8 +403,8 @@ function preSelectionner(conseillerId) {
   function request() {
     return { type: 'PRESELECTIONNER_CONSEILLER_REQUEST' };
   }
-  function success() {
-    return { type: 'PRESELECTIONNER_CONSEILLER_SUCCESS' };
+  function success(success) {
+    return { type: 'PRESELECTIONNER_CONSEILLER_SUCCESS', success };
   }
   function failure(error) {
     return { type: 'PRESELECTIONNER_CONSEILLER_FAILURE', error };
