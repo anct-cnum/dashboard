@@ -21,6 +21,7 @@ export const conseillerActions = {
   getCandidatStructure,
   getCandidatureConseillerStructure,
   resendInvitConseiller,
+  resetSuccessPreselection
 };
 
 function get(id) {
@@ -411,6 +412,10 @@ function preSelectionner(conseillerId) {
   function updateMiseEnRelation(miseEnRelation) {
     return { type: 'UPDATE_STATUS_SUCCESS', miseEnRelation };
   }
+}
+
+function resetSuccessPreselection() {
+  return { type: 'RESET_SUCCESS_PRESELECTION' };
 }
 
 function getCurriculumVitae(id, candidat) {

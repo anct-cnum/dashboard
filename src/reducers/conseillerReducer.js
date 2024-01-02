@@ -130,6 +130,11 @@ export default function conseiller(state = initialState, action) {
         errorPreselection: action.error,
         loading: false
       };
+    case 'RESET_SUCCESS_PRESELECTION':
+      return {
+        ...state,
+        successPreselection: false
+      };
     case 'GET_CURRICULUM_VITAE_REQUEST':
       return {
         ...state,
@@ -233,7 +238,6 @@ export default function conseiller(state = initialState, action) {
         ...state,
         error: false,
         loading: true,
-        successPreselection: false
       };
     case 'GETALL_CANDIDATS_SUCCESS':
       return {
