@@ -136,7 +136,7 @@ function exportStatistiquesCSV(dateDebut, dateFin, type, idType, codePostal, vil
     return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
   }
   function success(data) {
-    const nameFile = `${formatFileName(dateDebut, dateFin, type, idType, codePostal, ville)}`;
+    const nameFile = `${formatFileName(dateDebut, dateFin, type, nom, prenom, codePostal, ville)}`;
     return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
   }
   function failure(error) {

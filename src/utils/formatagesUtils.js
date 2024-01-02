@@ -2,6 +2,8 @@ import dayjs from 'dayjs';
 import React from 'react';
 import StatutCandidat from '../datas/statut-candidat.json';
 
+const slugify = require('slugify');
+
 export function formatDate(date) {
   return dayjs(date).format('YYYY-MM-DD');
 }
@@ -9,9 +11,26 @@ export function formatDate(date) {
 const removeCodePrefix = type =>
   type.startsWith('code') ? type.substring('code'.length) : type;
 
-export function formatFileName(dateDebut, dateFin, type, idType, codePostal, ville) {
+const formatNomConseillerExport = (nom, prenom) => {
+  if (nom && prenom) {
+    const nomFormat = slugify(nom, {
+      replacement: '-',
+      lower: true,
+      strict: true,
+    });
+    const prenomFormat = slugify(prenom, {
+      replacement: '-',
+      lower: true,
+      strict: true,
+    });
+    return `_${nomFormat}_${prenomFormat}`;
+  }
+  return '';
+};
+
+export function formatFileName(dateDebut, dateFin, type, nom, prenom, codePostal, ville) {
   // eslint-disable-next-line max-len
-  return `Statistiques_${removeCodePrefix(type)}${codePostal ? `_${codePostal}` : ''}${ville ? `_${ville}` : ''}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+  return `Statistiques_${removeCodePrefix(type)}${formatNomConseillerExport(nom, prenom)}${codePostal ? `_${codePostal}` : ''}${ville ? `_${ville}` : ''}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
 }
 
 export function pluralize(zero, singulier, pluriel, count, showCount = false) {
