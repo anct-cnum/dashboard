@@ -91,7 +91,7 @@ function filtersAndSorts() {
             <label className="fr-label" htmlFor="fr-search-input">Recherche</label>
             <input
               className="fr-input"
-              placeholder="Rechercher par nom du candidat ou par id"
+              placeholder="Rechercher par nom du candidat, par email de candidature ou par id..."
               type="search"
               id="fr-search-input"
               value={searchInputValue}
