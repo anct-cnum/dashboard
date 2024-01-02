@@ -150,7 +150,7 @@ export function statsQueryStringParameters(dateDebut, dateFin, codePostal, codeC
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const filterByCodePostal = codePostal !== 'tous' && codePostal !== undefined ? `&codePostal=${codePostal}` : '';
   const filterByCodeCommune = codeCommune !== '' && codeCommune !== undefined ? `&codeCommune=${codeCommune}` : '';
-  const filterByIdStructure = idStructure.length > 0 ? `&idStructure=${idStructure[0]}` : '';
+  const filterByIdStructure = idStructure?.length > 0 ? `&idStructure=${idStructure[0]}` : '';
 
   return { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune, filterByIdStructure };
 }

@@ -23,6 +23,7 @@ export default function GraphiqueConseiller() {
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
 
   const loadingExport = useSelector(state => state.exports?.loading);
+  const loadingFiltresConseiller = useSelector(state => state.statistiques?.loadingFiltresConseiller);
 
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
@@ -31,9 +32,9 @@ export default function GraphiqueConseiller() {
     if (!errorConseiller) {
       if (!conseiller) {
         dispatch(conseillerActions.getCandidat(idConseiller));
-        dispatch(statistiquesActions.getCodesPostauxCrasConseiller(idConseiller));
+        dispatch(statistiquesActions.getFiltresCrasConseiller(idConseiller));
       } else {
-        dispatch(statistiquesActions.getCodesPostauxCrasConseiller(idConseiller));
+        dispatch(statistiquesActions.getFiltresCrasConseiller(idConseiller));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -66,7 +67,7 @@ export default function GraphiqueConseiller() {
 
   return (
     <div className="statistiques">
-      <Spinner loading={statistiquesLoading || loadingExport || loadingConseiller} />
+      <Spinner loading={statistiquesLoading || loadingExport || loadingConseiller || loadingFiltresConseiller} />
       <StatsConseiller conseiller={conseiller} idConseiller={idConseiller} statistiquesLoading={statistiquesLoading} />
     </div>
   );
