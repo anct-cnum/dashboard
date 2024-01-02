@@ -10,6 +10,7 @@ import MenuStructure from './menuRole/MenuStructure';
 import MenuPrefet from './menuRole/MenuPrefet';
 import MenuGrandReseau from './menuRole/MenuGrandReseau';
 import MenuHub from './menuRole/MenuHub';
+import MenuCoordinateur from './menuRole/MenuCoordinateur';
 
 function Menu(
   {
@@ -90,6 +91,9 @@ function Menu(
             }
             {roleActivated === 'hub_coop' &&
               <MenuHub onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} />
+            }
+            {roleActivated === 'coordinateur_coop' &&
+              <MenuCoordinateur onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} />
             }
             <li className="fr-nav__item">
               <Link
