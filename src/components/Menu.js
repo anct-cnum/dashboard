@@ -92,7 +92,7 @@ function Menu(
             {roleActivated === 'hub_coop' &&
               <MenuHub onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} />
             }
-            {roleActivated === 'coordinateur_coop' &&
+            {roleActivated === 'coordinateur' &&
               <MenuCoordinateur onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} />
             }
             <li className="fr-nav__item">

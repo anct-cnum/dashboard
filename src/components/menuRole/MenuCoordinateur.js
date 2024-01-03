@@ -15,7 +15,7 @@ function MenuCoordinateur({ onClickMenu, activeMenu, trackEvent }) {
           aria-expanded={activeMenu === 'listes'}
           aria-controls="menu-listes"
           // eslint-disable-next-line max-len
-          {...(location.pathname.startsWith(`/${roleActivated}/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/candidats/nouvelle`) || location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
+          {...(location.pathname.startsWith(`/${roleActivated}/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
           Suivis
         </button>
@@ -39,7 +39,7 @@ function MenuCoordinateur({ onClickMenu, activeMenu, trackEvent }) {
           aria-expanded={activeMenu === 'statistiques'}
           aria-controls="menu-statistiques"
           // eslint-disable-next-line max-len
-          {...(location.pathname.startsWith(`/statistiques-pilotage`) || location.pathname.startsWith(`/statistiques-nationales`) || location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
+          {...(location.pathname.startsWith(`/statistiques-nationales`) || location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
           Statistiques
         </button>
@@ -70,7 +70,7 @@ function MenuCoordinateur({ onClickMenu, activeMenu, trackEvent }) {
           target="_blank"
           rel="noopener noreferrer"
           to={`${process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR}`}>
-          Compte-rendu d’activit&eacute;
+          Compte-rendu d&rsquo;activit&eacute;
         </Link>
       </li>
     </>

@@ -24,12 +24,12 @@ export default function Coordinateur() {
         </div>
       }
       <Routes>
-        <Route path="/coordinateur_coop/informations" element={<MesInformations />} />
-        <Route path="/coordinateur_coop/liste-structures" element={<TableauStructures />} />
-        <Route path="/coordinateur_coop/structure/:idStructure" element={<StructureDetails />} />
-        <Route path="/coordinateur_coop/liste-conseillers" element={<TableauConseillers />} />
-        <Route path="/coordinateur_coop/conseiller/:idConseiller" element={<ConseillerDetails />} />
-        <Route path="/coordinateur_coop/exports" element={<Exports />} />
+        <Route path="/coordinateur/informations" element={<MesInformations />} />
+        <Route path="/coordinateur/liste-structures" element={<TableauStructures />} />
+        <Route path="/coordinateur/structure/:idStructure" element={<StructureDetails />} />
+        <Route path="/coordinateur/liste-conseillers" element={<TableauConseillers />} />
+        <Route path="/coordinateur/conseiller/:idConseiller" element={<ConseillerDetails />} />
+        <Route path="/coordinateur/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </>
