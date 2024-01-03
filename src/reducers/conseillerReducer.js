@@ -237,7 +237,7 @@ export default function conseiller(state = initialState, action) {
       return {
         ...state,
         error: false,
-        loading: true,
+        loading: true
       };
     case 'GETALL_CANDIDATS_SUCCESS':
       return {
