@@ -83,7 +83,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   const handleChangeSalaire = e => {
     const regexFloatNumber = /^(\d+(?:[\\.\\,]\d*)?)$/;
     if (e.target.value === '' || regexFloatNumber.test(e.target.value)) {
-      setSalaire(e.target.value);
+      setSalaire(e.target.value.replace(',', '.'));
     }
   };
 
@@ -262,7 +262,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     name="salaire"
                     onChange={handleChangeSalaire}
                     min={salaireMinimum}
-                    value={salaire.replace(',', '.')}
+                    value={salaire}
                   />
                   {errorSalaire() &&
                     <p id="text-input-error-desc-error" className="fr-error-text">
