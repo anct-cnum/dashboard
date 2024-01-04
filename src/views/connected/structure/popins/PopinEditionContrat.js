@@ -262,7 +262,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     name="salaire"
                     onChange={handleChangeSalaire}
                     min={salaireMinimum}
-                    value={salaire}
+                    value={salaire.replace(',', '.')}
                   />
                   {errorSalaire() &&
                     <p id="text-input-error-desc-error" className="fr-error-text">
