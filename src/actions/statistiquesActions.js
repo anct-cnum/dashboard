@@ -19,6 +19,7 @@ export const statistiquesActions = {
   getStatistiquesNationaleGrandReseau,
   getCodesPostauxCrasConseillerStructure,
   getFiltresCrasConseiller,
+  getFiltresCrasConseillerParcoursRecrutement,
   resetFiltre,
 };
 
@@ -249,10 +250,11 @@ function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal 
   }
 }
 
-function getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idConseiller, codePostal = null, codeCommune = null) {
+function getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idConseiller, codePostal = null, codeCommune = null, idStructure) {
   return dispatch => {
     dispatch(request());
-    statistiquesService.getStatistiquesConseillerParcoursRecrutement(formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, codeCommune)
+    // eslint-disable-next-line max-len
+    statistiquesService.getStatistiquesConseillerParcoursRecrutement(formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, codeCommune, idStructure)
     .then(
       statsConseiller => {
         dispatch(success(statsConseiller));
@@ -305,6 +307,32 @@ function getFiltresCrasConseiller(idConseiller) {
     dispatch(request());
 
     statistiquesService.getFiltresCrasConseiller(idConseiller)
+    .then(
+      response => {
+        dispatch(success(response));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_FILTRES_CONSEILLER_CRA_REQUEST' };
+  }
+  function success(response) {
+    return { type: 'GET_FILTRES_CONSEILLER_CRA_SUCCESS', response };
+  }
+  function failure(error) {
+    return { type: 'GET_FILTRES_CONSEILLER_CRA_FAILURE', error };
+  }
+}
+
+function getFiltresCrasConseillerParcoursRecrutement(idConseiller) {
+  return dispatch => {
+    dispatch(request());
+
+    statistiquesService.getFiltresCrasConseillerParcoursRecrutement(idConseiller)
     .then(
       response => {
         dispatch(success(response));

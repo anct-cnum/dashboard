@@ -16,7 +16,8 @@ export const statistiquesService = {
   getStatistiquesNationale,
   getStatistiquesNationaleGrandReseau,
   getCodesPostauxCrasConseillerStructure,
-  getFiltresCrasConseiller
+  getFiltresCrasConseiller,
+  getFiltresCrasConseillerParcoursRecrutement
 };
 
 function getTerritoire(typeTerritoire, idTerritoire, dateFin) {
@@ -62,10 +63,10 @@ function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal,
   .catch(handleApiError);
 }
 
-function getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idConseiller, codePostal, codeCommune) {
-  const { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune } = statsQueryStringParameters(dateDebut, dateFin, codePostal, codeCommune);
+function getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idConseiller, codePostal, codeCommune, idStructure) {
+  const { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune, filterByIdStructure } = statsQueryStringParameters(dateDebut, dateFin, codePostal, codeCommune, idStructure);
   return API.get(
-    `${apiUrlRoot}/stats/recrutement/conseiller/cras?role=anonyme${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}&idConseiller=${idConseiller}`)
+    `${apiUrlRoot}/stats/recrutement/conseiller/cras?role=anonyme${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}${filterByIdStructure}&idConseiller=${idConseiller}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
@@ -107,6 +108,12 @@ function getCodesPostauxCrasConseillerStructure(idStructure) {
 
 function getFiltresCrasConseiller(idConseiller) {
   return API.get(`${apiUrlRoot}/cras/filtres/conseiller?role=${roleActivated()}&id=${idConseiller}`)
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function getFiltresCrasConseillerParcoursRecrutement(idConseiller) {
+  return API.get(`${apiUrlRoot}/cras/recrutement/filtres/conseiller?role=anonyme&id=${idConseiller}`)
   .then(response => response.data)
   .catch(handleApiError);
 }

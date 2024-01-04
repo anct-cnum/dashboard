@@ -19,8 +19,8 @@ export default function statistiques(state = initialState, action) {
     case 'CHANGE_CODE_POSTAL_STATS':
       return {
         ...state,
-        codePostalStats: action.codePostal,
-        villeStats: action.ville,
+        codePostalStats: action.codePostal ?? 'tous',
+        villeStats: action.ville ?? 'tous',
         codeCommuneStats: action.codeCommune,
       };
     case 'CHANGE_STRUCTURE_STATS':
