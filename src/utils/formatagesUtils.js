@@ -40,14 +40,16 @@ export const formatCodePostalVille = (codePostal, ville) => {
   return '';
 };
 
-export function formatFileNameStatsConseiller(dateDebut, dateFin, nom, prenom, codePostal, ville) {
+const slugifyAttribut = attribut => slugify(attribut, { replacement: '-', lower: true, strict: true });
+
+export function formatFileNameStatsConseiller(dateDebut, dateFin, nom, prenom, codePostal, ville, nomStructure) {
   // eslint-disable-next-line max-len
-  return `Statistiques_conseiller_${formatNomConseillerExport(nom, prenom)}${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+  return `Statistiques_conseiller_${formatNomConseillerExport(nom, prenom)}${nomStructure ? `_${slugifyAttribut(nomStructure)}` : ''}${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
 }
 
 export function formatFileNameStatsStructure(dateDebut, dateFin, nom, codePostal, ville) {
   // eslint-disable-next-line max-len
-  return `Statistiques_structure_${slugify(nom, { replacement: '-', lower: true, strict: true })}${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+  return `Statistiques_structure_${slugifyAttribut(nom)}${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
 }
 
 export function formatFileNameStatsTerritoriales(dateDebut, dateFin, typeTerritoire, id) {
