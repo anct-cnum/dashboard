@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import PopinConfirmationAnnulation from '../popins/PopinConfirmationAnnulation';
 import PopinEditionContrat from '../popins/PopinEditionContrat';
-import { contratActions } from '../../../../actions';
+import { conseillerActions, contratActions } from '../../../../actions';
 
-function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal }) {
+function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal, idConseiller }) {
   const dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
@@ -18,6 +18,10 @@ function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal }) {
     if ((miseEnRelation?.contratCoordinateur && miseEnRelation?.contratCoordinateur !== isRecrutementCoordinateur) || (!miseEnRelation?.contratCoordinateur && isRecrutementCoordinateur)) {
       setDisplayModal(true);
     }
+  };
+
+  const preSelectionnerCandidat = () => {
+    dispatch(conseillerActions.preSelectionner(idConseiller));
   };
 
   return (
@@ -40,7 +44,7 @@ function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal }) {
               Ce profil ne correspond pas
             </button>
             <button
-              onClick={() => updateStatut('interessee')}
+              onClick={preSelectionnerCandidat}
               className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0"
               title="Pr&eacute;s&eacute;lectionner ce candidat">
               Pr&eacute;s&eacute;lectionner ce candidat
@@ -104,6 +108,7 @@ ButtonsAction.propTypes = {
   updateStatut: PropTypes.func,
   miseEnRelation: PropTypes.object,
   setDisplayModal: PropTypes.func,
+  idConseiller: PropTypes.string,
 };
 
 export default ButtonsAction;
