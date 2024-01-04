@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,7 +7,6 @@ import dayjs from 'dayjs';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
-// eslint-disable-next-line max-len
 function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds }) {
 
   const dispatch = useDispatch();
@@ -16,28 +16,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
   const typeTerritoire = useSelector(state => state.filtresEtTris?.territoire);
   const territoire = useSelector(state => state.statistiques?.territoire);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-
-  function getTypeStatistique(type) {
-    let typeTarget = '';
-    switch (type) {
-      case 'nationales':
-        typeTarget = type;
-        break;
-      case 'structure':
-        typeTarget = type;
-        break;
-      case 'conseiller':
-        typeTarget = type;
-        break;
-      case 'grandReseau':
-        typeTarget = type;
-        break;
-      default:
-        typeTarget = typeTerritoire;
-        break;
-    }
-    return typeTarget;
-  }
+  const listeStructures = useSelector(state => state.statistiques?.listeStructures);
 
   function getTitlePDF() {
     const datesPDF = '_' + dayjs(dateDebut).format('DD/MM/YYYY') + '_' + dayjs(dateFin).format('DD/MM/YYYY');
@@ -56,13 +35,27 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
 
   function save(extension) {
     scrollTopWindow();
-    const type = getTypeStatistique(typeStats);
     if (extension === 'pdf') {
       document.title = getTitlePDF();
       window.print();
     } else if (extension === 'csv') {
-      // eslint-disable-next-line max-len
-      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds, typeStats));
+      switch (typeStats) {
+        case 'nationales':
+          dispatch(exportsActions.exportStatistiquesNationalesCSV(dateDebut, dateFin));
+          break;
+        case 'structure':
+          dispatch(exportsActions.exportStatistiquesStructureCSV(dateDebut, dateFin, id, codePostal, ville, codeCommune, nom));
+          break;
+        case 'conseiller':
+          const nomStructure = listeStructures?.find(structure => structure?.structureId === structureIds[0])?.nom;
+          dispatch(exportsActions.exportStatistiquesConseillerCSV(dateDebut, dateFin, id, codePostal, ville, codeCommune, nom, prenom, structureIds, nomStructure));
+          break;
+        case 'grandReseau':
+          dispatch(exportsActions.exportStatistiquesGrandReseauCSV(dateDebut, dateFin, codePostal, ville, codeCommune, structureIds, conseillerIds, region, departement));
+          break;
+        default:
+          dispatch(exportsActions.exportStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeStats));
+      }
     }
   }
 

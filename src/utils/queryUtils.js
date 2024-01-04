@@ -124,6 +124,49 @@ export function statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, 
   return { filterDateStart, filterDateEnd, filterIdType, filterByType, filterByVille, filterByCodeCommune, filterByRegion, filterByCodePostal, filterByDepartement, filterByLastName, filterByFirstName, filterByStructureIds, filterByConseillerIds };
 }
 
+export function statsCsvConseillerQueryStringParameters(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureIds) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const filterIdType = idType ? `&idType=${idType}` : '';
+  const filterByLastName = nom ? `&nom=${nom}` : '';
+  const filterByFirstName = prenom ? `&prenom=${prenom}` : '';
+  const filterByCodePostal = codePostal !== 'tous' && codePostal !== undefined ? `&codePostal=${codePostal}` : '';
+  const filterByVille = ville !== 'tous' && ville !== undefined ? `&ville=${ville}` : '';
+  const filterByCodeCommune = codeCommune !== 'tous' && codeCommune !== undefined ? `&codeCommune=${codeCommune}` : '';
+  const filterByStructureIds = structureIds?.length > 0 ? `&structureIds=${JSON.stringify(structureIds)}` : '';
+
+  // eslint-disable-next-line max-len
+  return { filterDateStart, filterDateEnd, filterIdType, filterByVille, filterByCodeCommune, filterByCodePostal, filterByLastName, filterByFirstName, filterByStructureIds };
+}
+
+export function statsCsvStructureQueryStringParameters(dateDebut, dateFin, idType, codePostal, ville, codeCommune) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const filterIdType = idType ? `&idType=${idType}` : '';
+  const filterByCodePostal = codePostal !== 'tous' && codePostal !== undefined ? `&codePostal=${codePostal}` : '';
+  const filterByVille = ville !== 'tous' && ville !== undefined ? `&ville=${ville}` : '';
+  const filterByCodeCommune = codeCommune !== 'tous' && codeCommune !== undefined ? `&codeCommune=${codeCommune}` : '';
+
+  // eslint-disable-next-line max-len
+  return { filterDateStart, filterDateEnd, filterIdType, filterByVille, filterByCodeCommune, filterByCodePostal };
+}
+
+// eslint-disable-next-line max-len
+export function statsCsvGrandReseauQueryStringParameters(dateDebut, dateFin, codePostal, ville, codeCommune, structureIds, conseillerIds, region, departement) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const filterByRegion = region !== 'tous' && region !== undefined ? `&codeRegion=${region}` : '';
+  const filterByDepartement = departement !== 'tous' && departement !== undefined ? `&numeroDepartement=${departement}` : '';
+  const filterByCodePostal = codePostal !== 'tous' && codePostal !== undefined ? `&codePostal=${codePostal}` : '';
+  const filterByVille = ville !== 'tous' && ville !== undefined ? `&ville=${ville}` : '';
+  const filterByCodeCommune = codeCommune !== 'tous' && codeCommune !== undefined ? `&codeCommune=${codeCommune}` : '';
+  const filterByConseillerIds = conseillerIds?.length > 0 ? `&conseillerIds=${JSON.stringify(conseillerIds)}` : '';
+  const filterByStructureIds = structureIds?.length > 0 ? `&structureIds=${JSON.stringify(structureIds)}` : '';
+
+  // eslint-disable-next-line max-len
+  return { filterDateStart, filterDateEnd, filterByVille, filterByCodeCommune, filterByCodePostal, filterByRegion, filterByDepartement, filterByStructureIds, filterByConseillerIds };
+}
+
 export function gestionnairesQueryStringParameters(nomOrdre, ordre, filtreParRole, filtreParNom) {
   const filterByName = filtreParNom ? `&searchByNom=${filtreParNom}` : '';
   const filterByRole = filtreParRole !== 'tous' && filtreParRole !== undefined ? `&searchRole=${filtreParRole}` : '';

@@ -23,10 +23,32 @@ const formatNomConseillerExport = (nom, prenom) => {
       lower: true,
       strict: true,
     });
-    return `_${nomFormat}_${prenomFormat}`;
+    return `${nomFormat}_${prenomFormat}`;
   }
   return '';
 };
+
+export const formatCodePostalVille = (codePostal, ville) => {
+  if (codePostal !== 'tous' && ville !== 'tous') {
+    const villeFormat = slugify(ville, {
+      replacement: '-',
+      lower: true,
+      strict: true,
+    });
+    return `_${codePostal}_${villeFormat}`;
+  }
+  return '';
+};
+
+export function formatFileNameStatsConseiller(dateDebut, dateFin, nom, prenom, codePostal, ville) {
+  // eslint-disable-next-line max-len
+  return `Statistiques_conseiller_${formatNomConseillerExport(nom, prenom)}${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+}
+
+export function formatFileNameStatsStructure(dateDebut, dateFin, nom, codePostal, ville) {
+  // eslint-disable-next-line max-len
+  return `Statistiques_structure_${slugify(nom, { replacement: '-', lower: true, strict: true })}${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+}
 
 export function formatFileName(dateDebut, dateFin, type, nom, prenom, codePostal, ville) {
   // eslint-disable-next-line max-len

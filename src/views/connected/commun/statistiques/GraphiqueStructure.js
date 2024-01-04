@@ -109,6 +109,7 @@ export default function GraphiqueStructure() {
               id={idStructure}
               codePostal={codePostal}
               ville={villeStats}
+              nom={structure?.nom}
               codeCommune={codeCommuneStats}
             />
           </div>
