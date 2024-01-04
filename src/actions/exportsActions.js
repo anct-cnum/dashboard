@@ -5,7 +5,8 @@ import {
   formatCodePostalVille,
   formatDate,
   formatFileNameStatsConseiller,
-  formatFileNameStatsStructure
+  formatFileNameStatsStructure,
+  formatFileNameStatsTerritoriales
 } from '../utils/formatagesUtils';
 
 export const exportsActions = {
@@ -219,10 +220,10 @@ function exportStatistiquesNationalesCSV(dateDebut, dateFin) {
   }
 }
 
-function exportStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeStats) {
+function exportStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeTerritoire) {
   return dispatch => {
     dispatch(request());
-    exportsService.getStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeStats)
+    exportsService.getStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeTerritoire)
     .then(
       data => dispatch(success(data)),
       error => dispatch(failure(error))
@@ -233,7 +234,7 @@ function exportStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeStats) {
     return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
   }
   function success(data) {
-    const nameFile = `Statistiques_${typeStats}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+    const nameFile = formatFileNameStatsTerritoriales(dateDebut, dateFin, typeTerritoire, id);
     return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
   }
   function failure(error) {

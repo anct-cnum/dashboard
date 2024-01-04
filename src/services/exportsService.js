@@ -2,7 +2,18 @@
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { conseillerQueryStringParameters, territoireQueryString, structureQueryStringParameters, gestionnairesQueryStringParameters, statsCsvQueryStringParameters, conventionQueryStringParameters, contratQueryStringParameters, demandesCoordinateurQueryStringParameters, statsCsvConseillerQueryStringParameters, statsCsvStructureQueryStringParameters, statsCsvGrandReseauQueryStringParameters } from '../utils/queryUtils';
+import {
+  conseillerQueryStringParameters,
+  territoireQueryString,
+  structureQueryStringParameters,
+  gestionnairesQueryStringParameters,
+  conventionQueryStringParameters,
+  contratQueryStringParameters,
+  demandesCoordinateurQueryStringParameters,
+  statsCsvConseillerQueryStringParameters,
+  statsCsvStructureQueryStringParameters,
+  statsCsvGrandReseauQueryStringParameters
+} from '../utils/queryUtils';
 
 export const exportsService = {
   getFile,
@@ -129,11 +140,11 @@ function getStatistiquesNationalesCSV(dateDebut, dateFin) {
   .catch(handleApiError);
 }
 
-function getStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeStats) {
+function getStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeTerritoire) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const filterIdType = id ? `&idType=${id}` : '';
-  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=anonyme&type=${typeStats}${filterDateStart}${filterDateEnd}${filterIdType}`)
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=anonyme&type=${typeTerritoire}${filterDateStart}${filterDateEnd}${filterIdType}`)
   .then(response => response.data)
   .catch(handleApiError);
 }

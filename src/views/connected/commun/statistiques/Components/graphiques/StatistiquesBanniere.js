@@ -54,7 +54,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
           dispatch(exportsActions.exportStatistiquesGrandReseauCSV(dateDebut, dateFin, codePostal, ville, codeCommune, structureIds, conseillerIds, region, departement));
           break;
         default:
-          dispatch(exportsActions.exportStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeStats));
+          dispatch(exportsActions.exportStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeTerritoire));
       }
     }
   }

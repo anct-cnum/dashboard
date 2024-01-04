@@ -50,9 +50,8 @@ export function formatFileNameStatsStructure(dateDebut, dateFin, nom, codePostal
   return `Statistiques_structure_${slugify(nom, { replacement: '-', lower: true, strict: true })}${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
 }
 
-export function formatFileName(dateDebut, dateFin, type, nom, prenom, codePostal, ville) {
-  // eslint-disable-next-line max-len
-  return `Statistiques_${removeCodePrefix(type)}${formatNomConseillerExport(nom, prenom)}${codePostal ? `_${codePostal}` : ''}${ville ? `_${ville}` : ''}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+export function formatFileNameStatsTerritoriales(dateDebut, dateFin, typeTerritoire, id) {
+  return `Statistiques_${removeCodePrefix(typeTerritoire)}_${id}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
 }
 
 export function pluralize(zero, singulier, pluriel, count, showCount = false) {
