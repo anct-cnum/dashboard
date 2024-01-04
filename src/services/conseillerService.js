@@ -119,7 +119,7 @@ function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, fil
   .catch(handleApiError);
 }
 
-function getAllCandidats(structureId, search, page, nomOrdre, ordre, persoFilters) {
+function getAllCandidats(search, page, nomOrdre, ordre, persoFilters) {
   const filterSearch = search !== '' ? `&search=${search}` : '';
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
 
@@ -146,7 +146,7 @@ function getAllCandidats(structureId, search, page, nomOrdre, ordre, persoFilter
   .catch(handleApiError);
 }
 
-function getAllMisesEnRelation(structureId, search, page, filter, nomOrdre, ordre, persoFilters) {
+function getAllMisesEnRelation(search, page, filter, nomOrdre, ordre, persoFilters) {
   const filterSearch = search !== '' ? `&search=${search}` : '';
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
 
