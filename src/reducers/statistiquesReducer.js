@@ -78,7 +78,7 @@ export default function statistiques(state = initialState, action) {
       return {
         ...state,
         loadingFiltresConseiller: false,
-        error: true,
+        error: action.error,
       };
     case 'GET_STATS_CRA_NATIONALES_REQUEST':
       return {
