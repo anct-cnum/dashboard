@@ -83,7 +83,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   const handleChangeSalaire = e => {
     const regexFloatNumber = /^(\d+(?:[\\.\\,]\d*)?)$/;
     if (e.target.value === '' || regexFloatNumber.test(e.target.value)) {
-      setSalaire(e.target.value);
+      setSalaire(e.target.value.replace(',', '.'));
     }
   };
 
