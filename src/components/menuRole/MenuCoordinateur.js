@@ -15,7 +15,7 @@ function MenuCoordinateur({ onClickMenu, activeMenu, trackEvent }) {
           aria-expanded={activeMenu === 'listes'}
           aria-controls="menu-listes"
           // eslint-disable-next-line max-len
-          {...(location.pathname.startsWith(`/${roleActivated}/liste-conseillers`) || location.pathname.startsWith(`/${roleActivated}/liste-structures`) ? { 'aria-current': 'page' } : {})}
+          {...(location.pathname.startsWith(`/${roleActivated}/liste-conseillers`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
           Suivis
         </button>
@@ -69,7 +69,7 @@ function MenuCoordinateur({ onClickMenu, activeMenu, trackEvent }) {
           className="fr-nav__link"
           target="_blank"
           rel="noopener noreferrer"
-          to={`${process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR}`}>
+          to={process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR}>
           Compte-rendu d&rsquo;activit&eacute;
         </Link>
       </li>
