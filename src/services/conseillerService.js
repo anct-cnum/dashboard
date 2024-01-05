@@ -103,16 +103,16 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
   .catch(handleApiError);
 }
 
-function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParDepartement) {
+function getAllCandidatsByAdmin(page, filtreSearch, filtreParRegion, filtreParDepartement) {
   let {
-    filterByNameCandidat,
+    filterByNameAndEmailCandidat,
     filterByRegion,
     filterByDepartement,
   // eslint-disable-next-line max-len
-  } = candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParDepartement);
+  } = candidatQueryStringParameters(filtreSearch, filtreParRegion, filtreParDepartement);
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/candidats?skip=${page}${filterByNameCandidat}${filterByDepartement}${filterByRegion}&role=${roleActivated()}`;
+  let uri = `${apiUrlRoot}/candidats?skip=${page}${filterByNameAndEmailCandidat}${filterByDepartement}${filterByRegion}&role=${roleActivated()}`;
 
   return API.get(uri)
   .then(response => response.data)
