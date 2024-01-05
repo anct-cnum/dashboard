@@ -179,8 +179,8 @@ export default function TableauHistoriqueConvention() {
                     <table>
                       <thead>
                         <tr>
-                          <th style={{ width: '9rem' }}>ID Structure</th>
-                          <th style={{ width: '30rem' }}>Nom de la structure</th>
+                          <th style={{ width: '9rem' }}>ID</th>
+                          <th style={{ width: '15rem' }}>Siret plateforme</th>
                           <th style={{ width: '14rem' }}>
                             <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
                               <span>Date de la demande
@@ -193,8 +193,15 @@ export default function TableauHistoriqueConvention() {
                               </span>
                             </button>
                           </th>
-                          <th style={{ width: '12rem' }}>Nombre de postes</th>
+                          <th style={{ width: '12rem' }}>Postes avant COSELEC</th>
+                          <th style={{ width: '12rem' }}>Postes apr&egrave;s COSELEC</th>
+                          <th style={{ width: '12rem' }}>Variation</th>
                           <th style={{ width: '15rem' }}>Type de demande</th>
+                          <th style={{ width: '12rem' }}>N&deg; DS</th>
+                          <th style={{ width: '12rem' }}>Code d&eacute;partement</th>
+                          <th style={{ width: '15rem' }}>D&eacute;partement</th>
+                          <th style={{ width: '15rem' }}>R&eacute;gion</th>
+                          <th style={{ width: '15rem' }}>Type de conventionnement</th>
                           <th></th>
                         </tr>
                       </thead>
