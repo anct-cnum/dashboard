@@ -17,6 +17,7 @@
     },
     {
       "message": "🤔 Aurais-tu oublié de finir des développement ?",
+      "nonBlocking": "true",
       "regex": "(?:FIXME|TODO)"
     },
     {
@@ -51,6 +52,11 @@
     {
       "message": "🚨 Un mot de passe est détecté",
       "regex": "(?:pwd|secret|token|api_key|api-key|api_token|api-token|xkeysib)"
+    },
+    {
+      "message": "📧 Une adresse email est détecté",
+      "nonBlocking": "true",
+      "regex": "[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
     }
   ]
 }
