@@ -9,15 +9,22 @@ function HistoriqueAvenantAjoutPoste({ avenant }) {
   return (
     <>
       <td>{avenant?.idPG}</td>
-      <td>{avenant?.nom}</td>
+      <td>{avenant?.siret}</td>
       <td>
         {avenant?.emetteurAvenant?.date ?
           <span>{dayjs(avenant.emetteurAvenant.date).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>
-      <td>{avenant?.nombreDePostesAccordes ?? '-'}</td>
-      <td style={{ width: '13rem' }}>Avenant · ajout de poste</td>
+      <td>{avenant?.nbPostesAvantDemande ?? '-'}</td>
+      <td>{avenant?.nbPostesApresDemande ?? '-'}</td>
+      <td>{avenant?.variation ?? '-'}</td>
+      <td style={{ width: '13rem' }}>Ajout</td>
+      <td>{avenant?.numero ?? '-'}</td>
+      <td>{avenant?.codeDepartement ?? '-'}</td>
+      <td>{avenant?.departement ?? '-'}</td>
+      <td>{avenant?.region ?? '-'}</td>
+      <td>{avenant?.phaseConventionnement ?? '-'}</td>
       <td>
         <button
           className="fr-btn fr-btn fr-icon-eye-line fr-ml-auto"
