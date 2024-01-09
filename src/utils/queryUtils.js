@@ -28,8 +28,8 @@ export function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, date
     case 'tous':
       rupture = '';
       break;
-    case 'rupture-et-fin-naturelle':
-      rupture = `&rupture=[finalisee_rupture,terminee_naturelle]`;
+    case 'sans-mission':
+      rupture = `&rupture=sans-mission`;
       break;
     case 'en-cours':
       rupture = `&rupture=nouvelle_rupture`;
