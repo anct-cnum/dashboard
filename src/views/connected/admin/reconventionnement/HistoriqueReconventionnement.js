@@ -9,22 +9,15 @@ function HistoriqueReconventionnement({ reconventionnement }) {
   return (
     <>
       <td>{reconventionnement?.idPG}</td>
-      <td>{reconventionnement?.siret}</td>
+      <td>{reconventionnement?.nom}</td>
       <td>
         {reconventionnement?.dateDeCreation ?
           <span>{dayjs(reconventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>
-      <td>{reconventionnement?.nbPostesAvantDemande ?? '-'}</td>
       <td>{reconventionnement?.nbPostesAttribuees ?? '-'}</td>
-      <td>{reconventionnement?.variation ?? '-'}</td>
       <td>Reconventionnement</td>
-      <td>{reconventionnement?.numero ?? '-'}</td>
-      <td>{reconventionnement?.codeDepartement ?? '-'}</td>
-      <td>{reconventionnement?.departement ?? '-'}</td>
-      <td>{reconventionnement?.region ?? '-'}</td>
-      <td>{reconventionnement?.phaseConventionnement ?? '-'}</td>
       <td>
         <button
           className="fr-btn fr-icon-eye-line"
