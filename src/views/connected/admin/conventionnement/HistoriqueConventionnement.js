@@ -9,15 +9,22 @@ function HistoriqueConventionnement({ conventionnement }) {
   return (
     <>
       <td>{conventionnement?.idPG}</td>
-      <td>{conventionnement?.nom}</td>
+      <td>{conventionnement?.siret}</td>
       <td>
         {conventionnement?.dateDeCreation ?
           <span>{dayjs(conventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>
+      <td>{conventionnement?.nbPostesAvantDemande ?? '-'}</td>
       <td>{conventionnement?.nombreConseillersCoselec ?? '-'}</td>
+      <td>{conventionnement?.variation ?? '-'}</td>
       <td>Conventionnement initial</td>
+      <td>{conventionnement?.numero ?? '-'}</td>
+      <td>{conventionnement?.codeDepartement ?? '-'}</td>
+      <td>{conventionnement?.departement ?? '-'}</td>
+      <td>{conventionnement?.region ?? '-'}</td>
+      <td>{conventionnement?.phaseConventionnement ?? '-'}</td>
       <td style={{ textAlign: 'right' }}>
         <button
           className="fr-btn fr-icon-eye-line fr-ml-auto"
