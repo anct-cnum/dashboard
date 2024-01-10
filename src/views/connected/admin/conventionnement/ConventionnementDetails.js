@@ -1,62 +1,79 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { badgeStatutDossierDS, pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
-import { StatutConventionnement } from '../../../../utils/enumUtils';
 
 function ConventionnementDetails({ conventionnement }) {
-  const dossierConventionnement = conventionnement?.conventionnement?.dossierConventionnement;
+  const dossierReconventionnement = conventionnement?.conventionnement?.dossierReconventionnement;
   return (
-    <div className="fr-card fr-card--no-border" style={{ backgroundColor: '#E8EDFF' }}>
-      <div className="fr-card__body">
-        <div className="fr-card__content">
-          <h3 className="fr-card__title fr-h3">
-            Conventionnement phase 1
-          </h3>
-          <p className="fr-card__desc fr-text--lg fr-text--regular">
-            Demande initi&eacute;e&nbsp;
-            {dossierConventionnement?.dateDeCreation ?
-              <span>le&nbsp;{dayjs(dossierConventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
-              <span>&agrave; une date inconnue</span>
+    <>
+      <h2>Candidature</h2>
+      <div className="fr-card">
+        <div className="fr-card__body">
+          <div className="fr-card__header fr-mt-4w">
+            <h3 className="fr-card__title fr-h3">
+              Recrutement conseiller
+            </h3>
+            {conventionnement?.prefet?.avisPrefet === 'POSITIF' &&
+              <p className="fr-badge fr-badge--success badge-avis-prefet">Avis pr&eacute;fet favorable</p>
             }
-          </p>
-          <p className="fr-card__desc fr-text--lg fr-text--bold" style={{ color: '#000091' }}>
-            {pluralize(
-              'Nombre de poste total demandé : ',
-              'Nombre de poste total demandé : ',
-              'Nombre de postes total demandés : ',
-              conventionnement?.nombreConseillersCoselecConventionnement
-            )}
-            {conventionnement?.nombreConseillersCoselecConventionnement}
-          </p>
-          <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-            {conventionnement?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_VALIDÉ ?
-              <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
-              <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
+            {conventionnement?.prefet?.avisPrefet === 'NEGATIF' &&
+              <p className="fr-badge fr-badge--error badge-avis-prefet">Avis pr&eacute;fet d&eacute;favorable</p>
             }
+            {!conventionnement?.prefet?.avisPrefet &&
+              <p className="fr-badge fr-badge--new badge-avis-prefet">Avis pr&eacute;fet non renseign&eacute;</p>
+            }
+            <p className="fr-card__desc fr-text--lg fr-text--regular">
+              Date de candidature&nbsp;:&nbsp;
+              {dossierReconventionnement?.dateDeCreation ?
+                <span>le&nbsp;{dayjs(dossierReconventionnement.dateDeCreation).format('DD/MM/YYYY')}</span> :
+                <span>Non renseign&eacute;e</span>
+              }
+            </p>
           </div>
-        </div>
-        <div className="fr-card__footer">
-          <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
-            {conventionnement?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_EN_COURS &&
-            <li>
-              <button className="fr-btn" disabled>
-                Valider la demande
-              </button>
-            </li>
-            }
-            <li className="fr-ml-auto">
-              <div className="fr-grid-row" style={{ alignItems: 'baseline' }}>
-                {badgeStatutDossierDS(dossierConventionnement?.statut)}
-                <a className="fr-btn fr-btn--secondary" href={conventionnement?.url} target="_blank" rel="noopener noreferrer">
-                    Voir le dossier D&eacute;marche Simplifi&eacute;e
-                </a>
-              </div>
-            </li>
-          </ul>
+          <div className="fr-card__content">
+            <div className="commentaire-prefet">
+              <span><strong>Commentaire pr&eacute;fet&nbsp;:&nbsp;</strong></span>
+              <p className="fr-mt-2w fr-mb-0">{conventionnement?.prefet?.commentaire ?? 'Non renseigné'}</p>
+            </div>
+            <div className="fr-container questionnaire">
+              <h6 className="fr-text--bold fr-mb-4w">R&eacute;ponses au questionnaire D&eacute;marches-Simplifi&eacute;es</h6>
+              {conventionnement?.questionnaire?.map((question, idx) =>
+                <div key={idx}>
+                  <p className="fr-text--bold">{question.enoncer}</p>
+                  {question.files?.length > 0 ?
+                    question.files?.map((file, idx) =>
+                      <div key={idx} className="fr-mb-4w">
+                        <a href={file?.url} target="_blank" rel="noopener noreferrer">{file?.filename}</a>
+                      </div>
+                    ) :
+                    <p>{question.reponse}</p>
+                  }
+                  {idx + 1 < conventionnement?.questionnaire?.length &&
+                    <hr />
+                  }
+                </div>
+              )}
+            </div>
+          </div>
+          {conventionnement?.statut === 'CREEE' &&
+            <div className="fr-card__footer">
+              <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
+                <li>
+                  <button className="fr-btn fr-btn--secondary">
+                    Refuser la candidature
+                  </button>
+                </li>
+                <li>
+                  <button className="fr-btn">
+                    Valider la candidature
+                  </button>
+                </li>
+              </ul>
+            </div>
+          }
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

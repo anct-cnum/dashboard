@@ -11,16 +11,17 @@ export const conventionService = {
   updateAvenantRenduPoste,
 };
 
-function getAll(page, typeConvention, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
+function getAll(page, typeConvention, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
   const {
     ordreColonne,
     filterByName,
     filterByRegion,
     filterByDepartement,
-  } = conventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre);
+    filterByAvisPrefet
+  } = conventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
 
   // eslint-disable-next-line max-len
-  return API.get(`${apiUrlRoot}/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
+  return API.get(`${apiUrlRoot}/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
   .then(response => response.data)
   .catch(handleApiError);
 }

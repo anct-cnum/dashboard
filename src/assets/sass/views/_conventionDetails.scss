@@ -19,13 +19,31 @@
         width: 10.2%;
         text-align: end;
     }
+    .questionnaire {
+      color: $black;
+      background-color: #E8EDFF;
+      padding: 5rem;
+    }
+    .commentaire-prefet {
+      color: $purple-glycine-sun-319;
+      background: $purple-glycine-950;
+      padding: 1.5rem;
+      width: 50%;
+      margin-bottom: 1.5rem;
+      margin-left: auto;
+    }
+    .badge-avis-prefet {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
     @media (max-width: 1240px) {
         .fin-contrat {
             max-width: 33.33333%;
         }
         .margin-top {
             margin-top: 1rem;
-        }    
+        }
         .btn-actions-conseiller {
             flex: 0 0 16.2%;
             max-width: 16.2%;
