@@ -16,15 +16,8 @@ function HistoriqueAvenantRenduPoste({ avenant }) {
           <span>Non renseign&eacute;e</span>
         }
       </td>
-      <td>{avenant?.nbPostesAvantDemande ?? '-'}</td>
-      <td>{avenant?.nbPostesApresDemande ?? '-'}</td>
-      <td>{avenant?.variation ?? '-'}</td>
-      <td style={{ width: '13rem' }}>Retrait</td>
-      <td>{avenant?.numero ?? '-'}</td>
-      <td>{avenant?.codeDepartement ?? '-'}</td>
-      <td>{avenant?.departement ?? '-'}</td>
-      <td>{avenant?.region ?? '-'}</td>
-      <td>{avenant?.phaseConventionnement ?? '-'}</td>
+      <td>{avenant?.nombreDePostesRendus ?? '-'}</td>
+      <td style={{ width: '13rem' }}>Avenant · poste rendu</td>
       <td>
         <button
           className="fr-btn fr-btn fr-icon-eye-line fr-ml-auto"
