@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, paginationActions, conseillerActions, statistiquesActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
-import FiltresEtTrisConseillersPrefet from './FiltresEtTrisConseillers';
+import FiltresEtTrisConseillers from './FiltresEtTrisConseillers';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import TableConseillers from '../../../../components/conseillers/TableConseillers';
@@ -73,7 +73,7 @@ export default function TableauConseillers() {
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row">
           <div className="fr-col-12">
-            <FiltresEtTrisConseillersPrefet />
+            <FiltresEtTrisConseillers />
             <div className="fr-container--fluid">
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
