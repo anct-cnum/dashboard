@@ -6,7 +6,7 @@
   },
   "rules": [
     {
-      "filter": "\\.ts$",
+      "filter": "\\.js$",
       "nonBlocking": "true",
       "message": "🤫 Oula, aurais-tu oublié des `console.log` inopportuns ?",
       "regex": "console\\.log"
