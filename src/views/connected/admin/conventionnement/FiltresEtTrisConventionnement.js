@@ -53,8 +53,8 @@ function FiltresEtTrisConventionnement() {
     <>
       <div className="fr-search-bar fr-search-bar fr-col-12 fr-mb-3w" role="search" >
         <input onKeyDown={rechercheParStructureToucheEnter} className="fr-input" defaultValue={''}
-          placeholder="Rechercher par nom, par id, par siret de la structure" type="search" id="search-input" name="search-input" />
-        <button className="fr-btn" onClick={rechercheParStructure} title="Rechercher par nom, par id, par siret de la structure">
+          placeholder="Rechercher par nom, par id, par siret ou par email" type="search" id="search-input" name="search-input" />
+        <button className="fr-btn" onClick={rechercheParStructure} title="Rechercher par nom, par id, par siret ou par email">
           Rechercher
         </button>
       </div>
@@ -79,8 +79,8 @@ function FiltresEtTrisConventionnement() {
           <select className="fr-select" value={filtreAvisPrefet} onChange={selectFiltreAvisPrefet}>
             <option value={'tous'}>S&eacute;lectionner l&rsquo;avis pr&eacute;fecture</option>
             <option value={'sans-avis'}>Sans avis</option>
-            <option value={'favorable'}>Favorable</option>
-            <option value={'défavorable'}>D&eacute;favorable</option>
+            <option value={'POSITIF'}>Favorable</option>
+            <option value={'NÉGATIF'}>D&eacute;favorable</option>
           </select>
         </div>
       </div>

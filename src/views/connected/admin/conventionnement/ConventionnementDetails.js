@@ -16,10 +16,10 @@ function ConventionnementDetails({ conventionnement }) {
             {conventionnement?.prefet?.avisPrefet === 'POSITIF' &&
               <p className="fr-badge fr-badge--success badge-avis-prefet">Avis pr&eacute;fet favorable</p>
             }
-            {conventionnement?.prefet?.avisPrefet === 'NEGATIF' &&
+            {conventionnement?.prefet?.avisPrefet === 'NÉGATIF' &&
               <p className="fr-badge fr-badge--error badge-avis-prefet">Avis pr&eacute;fet d&eacute;favorable</p>
             }
-            {!conventionnement?.prefet?.avisPrefet &&
+            {!['POSITIF', 'NÉGATIF'].includes(conventionnement?.prefet?.avisPrefet) &&
               <p className="fr-badge fr-badge--new badge-avis-prefet">Avis pr&eacute;fet non renseign&eacute;</p>
             }
             <p className="fr-card__desc fr-text--lg fr-text--regular">
@@ -33,19 +33,27 @@ function ConventionnementDetails({ conventionnement }) {
           <div className="fr-card__content">
             <div className="commentaire-prefet">
               <span><strong>Commentaire pr&eacute;fet&nbsp;:&nbsp;</strong></span>
-              <p className="fr-mt-2w fr-mb-0">{conventionnement?.prefet?.commentaire ?? 'Non renseigné'}</p>
+              {conventionnement?.prefet?.commentairePrefet ?
+                <p className="fr-mt-2w fr-mb-0">{conventionnement?.prefet?.commentairePrefet}</p> :
+                <p className="fr-mt-2w fr-mb-0">Non renseign&eacute;</p>
+              }
             </div>
             <div className="fr-container questionnaire">
               <h6 className="fr-text--bold fr-mb-4w">R&eacute;ponses au questionnaire D&eacute;marches-Simplifi&eacute;es</h6>
               {conventionnement?.questionnaire?.map((question, idx) =>
                 <div key={idx}>
+                  {question.titre &&
+                    <p className="fr-text--bold fr-text--xl">{question.titre}</p>
+                  }
                   <p className="fr-text--bold">{question.enoncer}</p>
-                  {question.files?.length > 0 ?
+                  {question.files?.length > 0 &&
                     question.files?.map((file, idx) =>
                       <div key={idx} className="fr-mb-4w">
                         <a href={file?.url} target="_blank" rel="noopener noreferrer">{file?.filename}</a>
                       </div>
-                    ) :
+                    )
+                  }
+                  {question.reponse &&
                     <p>{question.reponse}</p>
                   }
                   {idx + 1 < conventionnement?.questionnaire?.length &&

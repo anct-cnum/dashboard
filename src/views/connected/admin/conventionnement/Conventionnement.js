@@ -10,7 +10,7 @@ function Conventionnement({ conventionnement, typeConvention }) {
     switch (avisPrefet) {
       case 'POSITIF':
         return <div className="square-icone-checkbox"><span className="fr-icon-checkbox-circle-fill" aria-hidden="true" /></div>;
-      case 'NEGATIF':
+      case 'NÉGATIF':
         return <div className="square-icone-close"><span className="fr-icon-close-circle-fill" aria-hidden="true" /></div>;
       default:
         return '';
