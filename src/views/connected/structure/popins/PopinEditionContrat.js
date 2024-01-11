@@ -12,7 +12,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   const [typeDeContrat, setTypeDeContrat] = useState(null);
   const [isRecrutementCoordinateur, setIsRecrutementCoordinateur] = useState(false);
   const [salaire, setSalaire] = useState('');
-  const salaireMinimum = 1709.28;
+  const salaireMinimum = Number(process.env.REACT_APP_CONTRAT_SMIC);
 
   const handleSubmit = () => {
     if (isRecrutementCoordinateur) {
@@ -83,7 +83,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   const handleChangeSalaire = e => {
     const regexFloatNumber = /^(\d+(?:[\\.\\,]\d*)?)$/;
     if (e.target.value === '' || regexFloatNumber.test(e.target.value)) {
-      setSalaire(e.target.value);
+      setSalaire(e.target.value.replace(',', '.'));
     }
   };
 

@@ -55,6 +55,7 @@ function PreselectionConseillerDetails() {
   useEffect(() => {
     if (successPreselection !== undefined && successPreselection !== false) {
       window.location.href = '/structure/candidats/interessee';
+      dispatch(conseillerActions.resetSuccessPreselection());
     }
   }, [successPreselection]);
 

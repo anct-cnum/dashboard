@@ -7,6 +7,7 @@ import InProgressAvenantBanner from './InProgressAvenantBanner';
 import DeniedAvenantBanner from './DeniedAvenantBanner';
 import ValidatedNewPosteCoordinateurBanner from './ValidedNewPosteCoordinateurBanner';
 import DeniedNewPosteCoordinateurBanner from './DeniedNewPosteCoordinateurBanner';
+import RefusRecrutementBanner from './RefusRecrutementBanner';
 
 export {
   CompleteRequestBanner,
@@ -17,5 +18,6 @@ export {
   InProgressAvenantBanner,
   DeniedAvenantBanner,
   ValidatedNewPosteCoordinateurBanner,
-  DeniedNewPosteCoordinateurBanner
+  DeniedNewPosteCoordinateurBanner,
+  RefusRecrutementBanner
 };

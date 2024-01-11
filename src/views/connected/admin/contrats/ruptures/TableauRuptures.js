@@ -56,11 +56,14 @@ export function TableauRuptures({ contrats, loading, error, ordreNom, ordre }) {
 }
 
 TableauRuptures.propTypes = {
-  contrats: PropTypes.array,
+  contrats: PropTypes.object,
   loading: PropTypes.bool,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
   ordreNom: PropTypes.string,
-  ordre: PropTypes.number,
+  ordre: PropTypes.bool,
 };
 
 export default TableauRuptures;
