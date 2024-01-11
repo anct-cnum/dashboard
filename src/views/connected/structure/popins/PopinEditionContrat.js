@@ -6,13 +6,13 @@ import fr from 'date-fns/locale/fr';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 
 registerLocale('fr', fr);
-function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, editMode, createContract }) {
+function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, editMode, createContract }) {
   const [dateDebut, setDateDebut] = useState(null);
   const [dateFin, setDateFin] = useState(null);
   const [typeDeContrat, setTypeDeContrat] = useState(null);
   const [isRecrutementCoordinateur, setIsRecrutementCoordinateur] = useState(false);
   const [salaire, setSalaire] = useState('');
-  const salaireMinimum = 1709.28;
+  const salaireMinimum = Number(process.env.REACT_APP_CONTRAT_SMIC);
 
   const handleSubmit = () => {
     if (isRecrutementCoordinateur) {
@@ -83,7 +83,7 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   const handleChangeSalaire = e => {
     const regexFloatNumber = /^(\d+(?:[\\.\\,]\d*)?)$/;
     if (e.target.value === '' || regexFloatNumber.test(e.target.value)) {
-      setSalaire(e.target.value);
+      setSalaire(e.target.value.replace(',', '.'));
     }
   };
 
@@ -298,12 +298,12 @@ function popinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   );
 }
 
-popinEditionContrat.propTypes = {
-  updateContrat: PropTypes.func,
+PopinEditionContrat.propTypes = {
+  updateContract: PropTypes.func,
   conseiller: PropTypes.object,
   setOpenModalContrat: PropTypes.func,
   editMode: PropTypes.bool,
   createContract: PropTypes.func,
 };
 
-export default popinEditionContrat;
+export default PopinEditionContrat;

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 //Print datePicker calendar in FR
 registerLocale('fr', fr);
-function popinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
+function PopinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const miseEnRelation = conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee')[0];
   const [dateRuptureValidee, setDateRuptureValidee] = useState(null);
@@ -132,9 +132,9 @@ function popinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
   );
 }
 
-popinCreationNouvelleRupture.propTypes = {
+PopinCreationNouvelleRupture.propTypes = {
   updateStatut: PropTypes.func,
   setOpenModal: PropTypes.func,
 };
 
-export default popinCreationNouvelleRupture;
+export default PopinCreationNouvelleRupture;

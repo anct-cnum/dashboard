@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { contratActions } from '../../../../actions';
+import { useDispatch } from 'react-redux';
 
-function popinConfirmationAnnulation({ setOpenModal, updateStatut }) {
-
+function PopinConfirmationAnnulation({ setOpenModal, idMiseEnRelation }) {
+  const dispatch = useDispatch();
+  const annulationRecrutement = () => {
+    dispatch(contratActions.annulationRecrutement(idMiseEnRelation));
+    setOpenModal(false);
+  };
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
@@ -31,10 +37,7 @@ function popinConfirmationAnnulation({ setOpenModal, updateStatut }) {
                     </button>
                   </li>
                   <li>
-                    <button onClick={() => {
-                      updateStatut('interessee');
-                      setOpenModal(false);
-                    }} className="fr-btn">
+                    <button onClick={annulationRecrutement} className="fr-btn">
                       Je valide l&rsquo;annulation du recrutement
                     </button>
                   </li>
@@ -48,9 +51,9 @@ function popinConfirmationAnnulation({ setOpenModal, updateStatut }) {
   );
 }
 
-popinConfirmationAnnulation.propTypes = {
-  updateStatut: PropTypes.func,
+PopinConfirmationAnnulation.propTypes = {
+  idMiseEnRelation: PropTypes.string,
   setOpenModal: PropTypes.func,
 };
 
-export default popinConfirmationAnnulation;
+export default PopinConfirmationAnnulation;

@@ -5,7 +5,7 @@ import { conseillerActions, alerteEtSpinnerActions } from '../../../../actions';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import PopinCreationNouvelleRupture from '../popins/popinCreationNouvelleRupture';
+import PopinCreationNouvelleRupture from '../popins/PopinCreationNouvelleRupture';
 import InformationConseiller from '../../../../components/InformationConseiller';
 import iconeCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 

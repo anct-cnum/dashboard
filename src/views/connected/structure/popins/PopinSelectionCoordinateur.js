@@ -5,7 +5,7 @@ import { structureActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 
-function popinSelectionCoordinateur({
+function PopinSelectionCoordinateur({
   setOpenModal,
   conseillersActifs,
   structure
@@ -94,10 +94,10 @@ function popinSelectionCoordinateur({
   );
 }
 
-popinSelectionCoordinateur.propTypes = {
+PopinSelectionCoordinateur.propTypes = {
   setOpenModal: PropTypes.func.isRequired,
   conseillersActifs: PropTypes.array.isRequired,
   structure: PropTypes.object.isRequired,
 };
 
-export default popinSelectionCoordinateur;
+export default PopinSelectionCoordinateur;

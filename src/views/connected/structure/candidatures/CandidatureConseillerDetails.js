@@ -7,9 +7,9 @@ import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
 import { Tooltip } from 'react-tooltip';
-import PopinInteressee from '../popins/popinInteressee';
-import PopinRecrutee from '../popins/popinRecrutee';
-import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
+import PopinInteressee from '../popins/PopinInteressee';
+import PopinRecrutee from '../popins/PopinRecrutee';
+import PopinNouvelleRupture from '../popins/PopinNouvelleRupture';
 import ButtonsAction from './ButtonsAction';
 import InformationConseiller from '../../../../components/InformationConseiller';
 
@@ -24,6 +24,7 @@ function CandidatureConseillerDetails() {
   const loadingContrat = useSelector(state => state.contrat?.loading);
   const errorContrat = useSelector(state => state.contrat?.error);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const errorPreselection = useSelector(state => state.conseiller?.errorPreselection);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [displayModal, setDisplayModal] = useState(true);
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
@@ -81,6 +82,11 @@ function CandidatureConseillerDetails() {
         <div className="fr-alert fr-alert--error fr-mt-3w">
           <p>{errorContrat}</p>
         </div>
+      }
+      {(errorPreselection !== undefined && errorPreselection !== false) &&
+      <div className="fr-alert fr-alert--error fr-mt-3w">
+        <p>{errorPreselection}</p>
+      </div>
       }
       <div className="fr-col-12 fr-pt-6w">
         {conseiller?.coselec?.nombreConseillersCoselec &&
@@ -151,6 +157,7 @@ function CandidatureConseillerDetails() {
             miseEnRelation={conseiller?.miseEnRelation}
             updateStatut={updateStatut}
             setDisplayModal={setDisplayModal}
+            idConseiller={conseiller?._id}
           />
         </div>
       }

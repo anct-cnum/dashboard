@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import PopinGestionPostesRecap from './popinGestionPostesRecap';
-import PopinGestionPostesMotif from './popinGestionPostesMotif';
-import PopinGestionPostesNombre from './popinGestionPostesNombre';
+import PopinGestionPostesRecap from './PopinGestionPostesRecap';
+import PopinGestionPostesMotif from './PopinGestionPostesMotif';
+import PopinGestionPostesNombre from './PopinGestionPostesNombre';
 
-const popinGestionPostes = ({ step, actionType, setStep, setDernierAvenantValide }) => {
+const PopinGestionPostes = ({ step, actionType, setStep, setDernierAvenantValide }) => {
   const [nombreDePostes, setNombreDePostes] = useState(1);
   const [motif, setMotif] = useState('');
   const [autreMotif, setAutreMotif] = useState('');
@@ -31,11 +31,11 @@ const popinGestionPostes = ({ step, actionType, setStep, setDernierAvenantValide
   }
 };
 
-popinGestionPostes.propTypes = {
+PopinGestionPostes.propTypes = {
   actionType: PropTypes.string,
   setDernierAvenantValide: PropTypes.number,
   step: PropTypes.number,
   setStep: PropTypes.func,
 };
 
-export default popinGestionPostes;
+export default PopinGestionPostes;

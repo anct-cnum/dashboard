@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, conseillerActions } from '../../../../actions';
 import PropTypes from 'prop-types';
 import ButtonsAction from './ButtonsAction';
-import PopinInteressee from '../popins/popinInteressee';
-import PopinRecrutee from '../popins/popinRecrutee';
-import PopinNouvelleRupture from '../popins/popinNouvelleRupture';
+import PopinInteressee from '../popins/PopinInteressee';
+import PopinRecrutee from '../popins/PopinRecrutee';
+import PopinNouvelleRupture from '../popins/PopinNouvelleRupture';
 import Spinner from '../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { displayBadgeStatutCandidat, formatNomConseiller, pluralize } from '../../../../utils/formatagesUtils';
@@ -26,6 +26,7 @@ function CandidatDetails() {
   const downloadError = useSelector(state => state.conseiller?.downloadError);
   const downloading = useSelector(state => state.conseiller?.downloading);
   const currentPage = useSelector(state => state.pagination?.currentPage);
+  const errorPreselection = useSelector(state => state.conseiller?.errorPreselection);
   const loading = useSelector(state => state?.conseiller?.loading);
   const [displayModal, setDisplayModal] = useState(true);
 
@@ -86,6 +87,11 @@ function CandidatDetails() {
           <p>{errorContrat}</p>
         </div>
       }
+      {(errorPreselection !== undefined && errorPreselection !== false) &&
+      <div className="fr-alert fr-alert--error fr-mt-3w">
+        <p>{errorPreselection}</p>
+      </div>
+      }
       <div className="fr-col-12 fr-pt-6w">
         {conseiller?.coselec?.nombreConseillersCoselec &&
           <div className="fr-mb-3w">
@@ -128,6 +134,7 @@ function CandidatDetails() {
           }
           <ButtonsAction
             miseEnRelation={conseiller?.miseEnRelation}
+            idConseiller={conseiller?._id}
             updateStatut={updateStatut}
             setDisplayModal={setDisplayModal}
           />

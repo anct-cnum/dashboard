@@ -36,7 +36,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src --fix"
+    "lint": "eslint src --fix",
+    "husky:install": "husky install",
+    "husky:init": "husky add .husky/pre-commit 'npx --no-install git-precommit-checks'",
+    "husky:uninstall": "git config --unset core.hooksPath"
   },
   "eslintConfig": {
     "extends": [
@@ -62,6 +65,8 @@
     "@testing-library/user-event": "^14.4.3",
     "eslint": "^8.43.0",
     "eslint-plugin-react": "^7.32.2",
+    "git-precommit-checks": "^3.1.0",
+    "husky": "^8.0.3",
     "sass": "^1.63.4"
   }
 }
