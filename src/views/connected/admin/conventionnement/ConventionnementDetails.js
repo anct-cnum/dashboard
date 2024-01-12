@@ -1,9 +1,9 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
+import { pluralize } from '../../../../utils/formatagesUtils';
 
 function ConventionnementDetails({ conventionnement }) {
-  const dossierReconventionnement = conventionnement?.conventionnement?.dossierReconventionnement;
   return (
     <>
       <h2>Candidature</h2>
@@ -11,7 +11,7 @@ function ConventionnementDetails({ conventionnement }) {
         <div className="fr-card__body">
           <div className="fr-card__header fr-mt-4w">
             <h3 className="fr-card__title fr-h3">
-              Recrutement conseiller
+              Demande de Conseillers
             </h3>
             {conventionnement?.prefet?.avisPrefet === 'POSITIF' &&
               <p className="fr-badge fr-badge--success badge-avis-prefet">Avis pr&eacute;fet favorable</p>
@@ -24,11 +24,31 @@ function ConventionnementDetails({ conventionnement }) {
             }
             <p className="fr-card__desc fr-text--lg fr-text--regular">
               Date de candidature&nbsp;:&nbsp;
-              {dossierReconventionnement?.dateDeCreation ?
-                <span>le&nbsp;{dayjs(dossierReconventionnement.dateDeCreation).format('DD/MM/YYYY')}</span> :
+              {conventionnement?.createdAt ?
+                <span>le&nbsp;{dayjs(conventionnement.createdAt).format('DD/MM/YYYY')}</span> :
                 <span>Non renseign&eacute;e</span>
               }
             </p>
+            {conventionnement?.nombreConseillersSouhaites ?
+              <>
+                <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
+                  <strong className="fr-text--bold" style={{ color: '#000091' }}>
+                    {conventionnement?.nombreConseillersSouhaites}{pluralize(
+                      ' poste de conseiller demandé ',
+                      ' poste de conseiller demandé ',
+                      ' postes de conseillers demandés ',
+                      conventionnement?.nombreConseillersSouhaites
+                    )}
+                  </strong>
+                  pour ce conventionnement
+                </p>
+              </> :
+              <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
+                <strong className="fr-text--bold" style={{ color: '#000091' }}>
+                  Nombre de poste de conseiller demand&eacute; non renseign&eacute; pour ce conventionnement
+                </strong>
+              </p>
+            }
           </div>
           <div className="fr-card__content">
             <div className="commentaire-prefet">
@@ -37,30 +57,6 @@ function ConventionnementDetails({ conventionnement }) {
                 <p className="fr-mt-2w fr-mb-0">{conventionnement?.prefet?.commentairePrefet}</p> :
                 <p className="fr-mt-2w fr-mb-0">Non renseign&eacute;</p>
               }
-            </div>
-            <div className="fr-container questionnaire">
-              <h6 className="fr-text--bold fr-mb-4w">R&eacute;ponses au questionnaire D&eacute;marches-Simplifi&eacute;es</h6>
-              {conventionnement?.questionnaire?.map((question, idx) =>
-                <div key={idx}>
-                  {question.titre &&
-                    <p className="fr-text--bold fr-text--xl">{question.titre}</p>
-                  }
-                  <p className="fr-text--bold">{question.enoncer}</p>
-                  {question.files?.length > 0 &&
-                    question.files?.map((file, idx) =>
-                      <div key={idx} className="fr-mb-4w">
-                        <a href={file?.url} target="_blank" rel="noopener noreferrer">{file?.filename}</a>
-                      </div>
-                    )
-                  }
-                  {question.reponse &&
-                    <p>{question.reponse}</p>
-                  }
-                  {idx + 1 < conventionnement?.questionnaire?.length &&
-                    <hr />
-                  }
-                </div>
-              )}
             </div>
           </div>
           {conventionnement?.statut === 'CREEE' &&

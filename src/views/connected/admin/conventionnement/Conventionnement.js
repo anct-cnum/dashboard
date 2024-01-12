@@ -24,12 +24,12 @@ function Conventionnement({ conventionnement, typeConvention }) {
         <span>ID {conventionnement?.idPG}</span>
       </td>
       <td>
-        {conventionnement?.dateDeCreation ?
-          <span>{dayjs(conventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
+        {conventionnement?.createdAt ?
+          <span>{dayjs(conventionnement.createdAt).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>
-      <td>{conventionnement?.nombreConseillersCoselec ?? '-'}</td>
+      <td>{conventionnement?.nombreConseillersSouhaites ? conventionnement?.nombreConseillersSouhaites : '-'}</td>
       {typeConvention === 'conventionnement' &&
         <td>{formatAvisPrefet(conventionnement?.prefet?.avisPrefet)}</td>
       }
