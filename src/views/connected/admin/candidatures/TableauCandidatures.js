@@ -18,7 +18,7 @@ export default function TableauCandidatures() {
   const downloading = useSelector(state => state.conseiller?.downloading);
   const error = useSelector(state => state.conseiller?.error);
   const conseillers = useSelector(state => state.conseiller);
-  const filtreParNomCandidat = useSelector(state => state.filtresCandidatures?.nomCandidat);
+  const filtreSearch = useSelector(state => state.filtresCandidatures?.nomCandidat);
   const filtreRegion = useSelector(state => state.filtresCandidatures?.region);
   const filterDepartement = useSelector(state => state.filtresCandidatures?.departement);
   const currentPage = useSelector(state => state.pagination?.currentPage);
@@ -33,9 +33,9 @@ export default function TableauCandidatures() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(conseillerActions.getAllCandidatsByAdmin(currentPage, filtreParNomCandidat, filtreRegion, filterDepartement));
+      dispatch(conseillerActions.getAllCandidatsByAdmin(currentPage, filtreSearch, filtreRegion, filterDepartement));
     }
-  }, [currentPage, filterDepartement, filtreParNomCandidat, filtreRegion]);
+  }, [currentPage, filterDepartement, filtreSearch, filtreRegion]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -45,7 +45,7 @@ export default function TableauCandidatures() {
     }
     if (!error) {
       if (initConseiller === false && page !== undefined) {
-        dispatch(conseillerActions.getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreRegion, filterDepartement));
+        dispatch(conseillerActions.getAllCandidatsByAdmin(page, filtreSearch, filtreRegion, filterDepartement));
         setInitConseiller(true);
       }
     } else {

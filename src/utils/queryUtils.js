@@ -155,10 +155,10 @@ export function statsQueryStringParameters(dateDebut, dateFin, codePostal, codeC
   return { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune };
 }
 
-export function candidatQueryStringParameters(filtreParNomCandidat, filtreParRegion, filtreParDepartement) {
-  const filterByNameCandidat = filtreParNomCandidat ? `&searchByNomCandidat=${filtreParNomCandidat}` : '';
+export function candidatQueryStringParameters(filtreSearch, filtreParRegion, filtreParDepartement) {
+  const filterByNameAndEmailCandidat = filtreSearch ? `&search=${filtreSearch}` : '';
   const filterByRegion = filtreParRegion !== 'tous' && filtreParRegion !== undefined ? `&region=${filtreParRegion}` : '';
   const filterByDepartement = filtreParDepartement !== 'tous' && filtreParDepartement !== undefined ? `&departement=${filtreParDepartement}` : '';
 
-  return { filterByNameCandidat, filterByRegion, filterByDepartement };
+  return { filterByNameAndEmailCandidat, filterByRegion, filterByDepartement };
 }
