@@ -20,7 +20,6 @@ function ConventionDetails() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const convention = useSelector(state => state.convention?.convention);
   const loading = useSelector(state => state.convention?.loading);
-  const loadingValidationReconventionnement = useSelector(state => state.reconventionnement?.loading);
   const errorConvention = useSelector(state => state.convention?.error);
   const currentPage = useSelector(state => state.pagination?.currentPage);
 
@@ -60,7 +59,7 @@ function ConventionDetails() {
 
   return (
     <div className="conventionDetails">
-      <Spinner loading={loading || loadingValidationReconventionnement} />
+      <Spinner loading={loading} />
       <Link
         to={location?.state?.origin}
         state={{ currentPage, typeConvention: location?.state?.typeConvention ?? 'toutes' }}
