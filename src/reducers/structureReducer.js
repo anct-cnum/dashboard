@@ -192,6 +192,24 @@ export default function structure(state = initialState, action) {
         loading: false,
         error: action.error,
       };
+    case 'GET_DEMANDE_CONSEILLER_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+    case 'GET_DEMANDE_CONSEILLER_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        structure: action.structure,
+      };
+    case 'GET_DEMANDE_CONSEILLER_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
     default:
       return state;
   }

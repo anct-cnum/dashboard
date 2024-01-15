@@ -13,6 +13,8 @@ export const structureActions = {
   createAvenant,
   closeBanner,
   addRoleCoordinateur,
+  getAllCandidaturesStructures,
+  getDemandeConseiller,
 };
 
 // eslint-disable-next-line max-len
@@ -271,5 +273,54 @@ function addRoleCoordinateur(structureId, conseillerId) {
   }
   function failure(error) {
     return { type: 'ADD_ROLE_COORDINATEUR_FAILURE', error };
+  }
+}
+
+// eslint-disable-next-line max-len
+function getAllCandidaturesStructures(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'codePostal', ordre) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.getAllCandidaturesStructures(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre)
+    .then(
+      demandesCoordinateur => dispatch(success(demandesCoordinateur)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GETALL_DEMANDES_COORDINATEUR_REQUEST' };
+  }
+  function success(demandesCoordinateur) {
+    return { type: 'GETALL_DEMANDES_COORDINATEUR_SUCCESS', demandesCoordinateur };
+  }
+  function failure(error) {
+    return { type: 'GETALL_DEMANDES_COORDINATEUR_FAILURE', error };
+  }
+}
+
+function getDemandeConseiller(idStructure) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.getDemandeConseiller(idStructure)
+    .then(
+      structure => dispatch(success(structure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_DEMANDE_CONSEILLER_REQUEST' };
+  }
+  function success(structure) {
+    return { type: 'GET_DEMANDE_CONSEILLER_SUCCESS', structure };
+  }
+  function failure(error) {
+    return { type: 'GET_DEMANDE_CONSEILLER_FAILURE', error };
   }
 }
