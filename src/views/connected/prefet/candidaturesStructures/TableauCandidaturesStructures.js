@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions, filtresDemandesCoordinateurActions, structureActions } from '../../../../actions';
+import { alerteEtSpinnerActions, paginationActions, filtresDemandesActions, structureActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
@@ -14,29 +14,29 @@ export default function TableauCandidaturesStructures() {
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
 
-  const loading = useSelector(state => state.coordinateur?.loading);
-  const error = useSelector(state => state.coordinateur?.error);
-  const coordinateurs = useSelector(state => state.coordinateur);
-  const ordre = useSelector(state => state.filtresDemandesCoordinateur?.ordre);
-  const ordreNom = useSelector(state => state.filtresDemandesCoordinateur?.ordreNom);
-  const filtreSearchBar = useSelector(state => state.filtresDemandesCoordinateur?.nom);
-  const filtreDepartement = useSelector(state => state.filtresDemandesCoordinateur?.departement);
-  const filtreRegion = useSelector(state => state.filtresDemandesCoordinateur?.region);
-  const filtreAvisPrefet = useSelector(state => state.filtresDemandesCoordinateur?.avisPrefet);
+  const loading = useSelector(state => state.structure?.loading);
+  const error = useSelector(state => state.structure?.error);
+  const structures = useSelector(state => state.structure);
+  const ordre = useSelector(state => state.filtresDemandes?.ordre);
+  const ordreNom = useSelector(state => state.filtresDemandes?.ordreNom);
+  const filtreSearchBar = useSelector(state => state.filtresDemandes?.nom);
+  const filtreDepartement = useSelector(state => state.filtresDemandes?.departement);
+  const filtreRegion = useSelector(state => state.filtresDemandes?.region);
+  const filtreAvisPrefet = useSelector(state => state.filtresDemandes?.avisPrefet);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initDemandeCoordinateur, setInitDemandeCoordinateur] = useState(false);
   const [statutDemande, setStatutDemande] = useState('toutes');
 
   useEffect(() => {
-    if (coordinateurs?.items && coordinateurs?.items?.total > 0) {
-      const count = Math.floor(coordinateurs.items.total / coordinateurs.items.limit);
-      dispatch(paginationActions.setPageCount(coordinateurs.items.total % coordinateurs.items.limit === 0 ? count : count + 1));
+    if (structures?.items && structures?.items?.total > 0) {
+      const count = Math.floor(structures.items.total / structures.items.limit);
+      dispatch(paginationActions.setPageCount(structures.items.total % structures.items.limit === 0 ? count : count + 1));
     }
-  }, [coordinateurs]);
+  }, [structures]);
 
   useEffect(() => {
     if (initDemandeCoordinateur === true) {
-      dispatch(structureActions.getAllCandidaturesStructures(
+      dispatch(structureActions.getAllDemandesConseiller(
         currentPage,
         statutDemande,
         filtreSearchBar,
@@ -57,7 +57,7 @@ export default function TableauCandidaturesStructures() {
     }
     if (!error) {
       if (initDemandeCoordinateur === false && page !== undefined) {
-        dispatch(structureActions.getAllCandidaturesStructures(
+        dispatch(structureActions.getAllDemandesConseiller(
           page,
           statutDemande,
           filtreSearchBar,
@@ -72,7 +72,7 @@ export default function TableauCandidaturesStructures() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les demandes de coordinateurs à traiter n\'ont pas pu être chargés !',
+        message: 'Les demandes de candidatures conseillers numériques à traiter n\'ont pas pu être chargés !',
         status: null, description: null
       }));
     }
@@ -80,7 +80,7 @@ export default function TableauCandidaturesStructures() {
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesCoordinateurActions.changeOrdre(e.currentTarget?.id));
+    dispatch(filtresDemandesActions.changeOrdre(e.currentTarget?.id));
   };
 
   return (
@@ -95,22 +95,22 @@ export default function TableauCandidaturesStructures() {
                 dispatch(paginationActions.setPage(1));
                 setStatutDemande('toutes');
               }} className="fr-tag" aria-pressed={statutDemande === 'toutes'}>
-                Afficher toutes les candidatures ({coordinateurs?.items?.totalParDemandesConseiller?.total})
+                Afficher toutes les candidatures ({structures?.items?.totalParDemandesConseiller?.total})
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
                 setStatutDemande('CREEE');
               }} className="fr-tag" aria-pressed={statutDemande === 'CREEE'}>
-                Nouvelles candidatures ({coordinateurs?.items?.totalParDemandesConseiller?.nouvelleCandidature})
+                Nouvelles candidatures ({structures?.items?.totalParDemandesConseiller?.nouvelleCandidature})
               </button>
               <button onClick={() => setStatutDemande('VALIDATION_COSELEC')} className="fr-tag" aria-pressed={statutDemande === 'VALIDATION_COSELEC'}>
-                Candidatures valid&eacute;es par l&rsquo;ANCT ({coordinateurs?.items?.totalParDemandesConseiller?.candidatureValider})
+                Candidatures valid&eacute;es par l&rsquo;ANCT ({structures?.items?.totalParDemandesConseiller?.candidatureValider})
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
                 setStatutDemande('REFUS_COSELEC');
               }} className="fr-tag" aria-pressed={statutDemande === 'REFUS_COSELEC'}>
-                Candidatures refus&eacute;es par l&rsquo;ANCT ({coordinateurs?.items?.totalParDemandesConseiller?.candidatureNonRetenus})
+                Candidatures refus&eacute;es par l&rsquo;ANCT ({structures?.items?.totalParDemandesConseiller?.candidatureNonRetenus})
               </button>
             </ul>
             <div className="fr-col-12 fr-mt-3w">
@@ -119,7 +119,7 @@ export default function TableauCandidaturesStructures() {
             <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
               <div className="fr-col-12">
                 <div className="fr-table">
-                  <table className={coordinateurs?.items?.data?.length < 2 ? 'no-result-table' : ''}>
+                  <table className={structures?.items?.data?.length < 2 ? 'no-result-table' : ''}>
                     <thead>
                       <tr>
                         <th style={{ width: '40rem' }}>Structure</th>
@@ -152,15 +152,15 @@ export default function TableauCandidaturesStructures() {
                       </tr>
                     </thead>
                     <tbody>
-                      {!error && !loading && coordinateurs?.items?.data?.map((coordinateur, idx) => {
-                        return (<CandidatureStructure key={idx} structure={coordinateur} />);
+                      {!error && !loading && structures?.items?.data?.map((structure, idx) => {
+                        return (<CandidatureStructure key={idx} structure={structure} />);
                       })
                       }
-                      {(!coordinateurs?.items || coordinateurs?.items?.total === 0) &&
+                      {(!structures?.items || structures?.items?.total === 0) &&
                         <tr>
                           <td colSpan="12" style={{ width: '60rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                              <span className="not-found pair">Aucunes demandes de coordinateur trouv&eacute;es</span>
+                              <span className="not-found pair">Aucunes candidatures de conseillers num&eacute;riques trouv&eacute;es</span>
                             </div>
                           </td>
                         </tr>
@@ -169,7 +169,7 @@ export default function TableauCandidaturesStructures() {
                   </table>
                 </div>
               </div>
-              {coordinateurs?.items?.data?.length > 0 &&
+              {structures?.items?.data?.length > 0 &&
                 <Pagination />
               }
             </div>

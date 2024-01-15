@@ -192,6 +192,24 @@ export default function structure(state = initialState, action) {
         loading: false,
         error: action.error,
       };
+    case 'GETALL_DEMANDES_CONSEILLER_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'GETALL_DEMANDES_CONSEILLER_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: action.structures,
+      };
+    case 'GETALL_DEMANDES_COORDINATEUR_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
     case 'GET_DEMANDE_CONSEILLER_REQUEST':
       return {
         ...state,

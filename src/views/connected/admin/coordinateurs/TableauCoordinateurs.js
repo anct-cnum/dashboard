@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, exportsActions, paginationActions, coordinateurActions, filtresDemandesCoordinateurActions } from '../../../../actions';
+import { alerteEtSpinnerActions, exportsActions, paginationActions, coordinateurActions, filtresDemandesActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
@@ -18,12 +18,12 @@ export default function TableauCoordinateurs() {
   const loading = useSelector(state => state.coordinateur?.loading);
   const error = useSelector(state => state.coordinateur?.error);
   const coordinateurs = useSelector(state => state.coordinateur);
-  const ordre = useSelector(state => state.filtresDemandesCoordinateur?.ordre);
-  const ordreNom = useSelector(state => state.filtresDemandesCoordinateur?.ordreNom);
-  const filtreSearchBar = useSelector(state => state.filtresDemandesCoordinateur?.nom);
-  const filtreDepartement = useSelector(state => state.filtresDemandesCoordinateur?.departement);
-  const filtreRegion = useSelector(state => state.filtresDemandesCoordinateur?.region);
-  const filtreAvisPrefet = useSelector(state => state.filtresDemandesCoordinateur?.avisPrefet);
+  const ordre = useSelector(state => state.filtresDemandes?.ordre);
+  const ordreNom = useSelector(state => state.filtresDemandes?.ordreNom);
+  const filtreSearchBar = useSelector(state => state.filtresDemandes?.nom);
+  const filtreDepartement = useSelector(state => state.filtresDemandes?.departement);
+  const filtreRegion = useSelector(state => state.filtresDemandes?.region);
+  const filtreAvisPrefet = useSelector(state => state.filtresDemandes?.avisPrefet);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const exportDemandesCoordinateursFileBlob = useSelector(state => state.exports);
   const exportDemandesCoordinateursFileError = useSelector(state => state.exports?.error);
@@ -108,7 +108,7 @@ export default function TableauCoordinateurs() {
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesCoordinateurActions.changeOrdre(e.currentTarget?.id));
+    dispatch(filtresDemandesActions.changeOrdre(e.currentTarget?.id));
   };
 
   const demandesCoordinateurWithBanner = coordinateurs?.items?.data?.filter(demande => demande?.banniereValidationAvisAdmin === true);

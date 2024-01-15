@@ -93,7 +93,7 @@ export function contratQueryStringParameters(filtreSearchBar, filtreDepartement,
 
 }
 
-export function demandesCoordinateurQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
+export function demandesQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
   const filterByName = filtreSearchBar ? `&search=${filtreSearchBar}` : '';
   const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
   const filterByDepartement = filtreDepartement !== 'tous' && filtreDepartement !== undefined ? `&departement=${filtreDepartement}` : '';
@@ -101,7 +101,6 @@ export function demandesCoordinateurQueryStringParameters(filtreSearchBar, filtr
   const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
 
   return { ordreColonne, filterByName, filterByRegion, filterByDepartement, filterByAvisPrefet };
-
 }
 
 // eslint-disable-next-line max-len

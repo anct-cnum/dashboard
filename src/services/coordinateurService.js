@@ -1,7 +1,7 @@
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { demandesCoordinateurQueryStringParameters } from '../utils/queryUtils';
+import { demandesQueryStringParameters } from '../utils/queryUtils';
 
 export const coordinateurService = {
   getAllDemandesCoordinateur,
@@ -19,7 +19,7 @@ function getAllDemandesCoordinateur(page, statutDemande, filtreSearchBar, filtre
     filterByRegion,
     filterByDepartement,
     filterByAvisPrefet,
-  } = demandesCoordinateurQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
+  } = demandesQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
 
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/demandes/coordinateurs?role=${roleActivated()}&page=${page}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)

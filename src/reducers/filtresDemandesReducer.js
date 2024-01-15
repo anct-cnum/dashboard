@@ -7,7 +7,7 @@ const initialState = {
   avisPrefet: 'tous',
 };
 
-export default function filtresDemandesCoordinateur(state = initialState, action) {
+export default function filtresDemandes(state = initialState, action) {
   switch (action.type) {
     case 'CHANGE_NOM':
       return {

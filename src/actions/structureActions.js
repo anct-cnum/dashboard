@@ -13,7 +13,7 @@ export const structureActions = {
   createAvenant,
   closeBanner,
   addRoleCoordinateur,
-  getAllCandidaturesStructures,
+  getAllDemandesConseiller,
   getDemandeConseiller,
 };
 
@@ -276,14 +276,13 @@ function addRoleCoordinateur(structureId, conseillerId) {
   }
 }
 
-// eslint-disable-next-line max-len
-function getAllCandidaturesStructures(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'codePostal', ordre) {
+function getAllDemandesConseiller(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'codePostal', ordre) {
   return dispatch => {
     dispatch(request());
 
-    structureService.getAllCandidaturesStructures(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre)
+    structureService.getAllDemandesConseiller(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre)
     .then(
-      demandesCoordinateur => dispatch(success(demandesCoordinateur)),
+      structures => dispatch(success(structures)),
       error => {
         dispatch(failure(error));
       }
@@ -291,13 +290,13 @@ function getAllCandidaturesStructures(page, statutDemande, filtreSearchBar, filt
   };
 
   function request() {
-    return { type: 'GETALL_DEMANDES_COORDINATEUR_REQUEST' };
+    return { type: 'GETALL_DEMANDES_CONSEILLER_REQUEST' };
   }
-  function success(demandesCoordinateur) {
-    return { type: 'GETALL_DEMANDES_COORDINATEUR_SUCCESS', demandesCoordinateur };
+  function success(structures) {
+    return { type: 'GETALL_DEMANDES_CONSEILLER_SUCCESS', structures };
   }
   function failure(error) {
-    return { type: 'GETALL_DEMANDES_COORDINATEUR_FAILURE', error };
+    return { type: 'GETALL_DEMANDES_CONSEILLER_FAILURE', error };
   }
 }
 
