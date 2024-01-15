@@ -105,7 +105,6 @@ export function demandesCoordinateurQueryStringParameters(filtreSearchBar, filtr
 }
 
 export function statsCsvConseillerQueryStringParameters(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, idStructure) {
-  console.log(idStructure);
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const filterIdType = idType ? `&idType=${idType}` : '';
