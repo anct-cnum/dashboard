@@ -6,8 +6,8 @@ const initialState = {
   error: false,
   errorTerritoire: false,
   loading: false,
-  conseillerStats: [],
-  structureStats: [],
+  conseillerStats: 'tous',
+  structureStats: 'tous',
   codeRegionStats: 'tous',
   numeroDepartementStats: 'tous',
   dateDebut: new Date('2020-11-17').toISOString(),
@@ -26,12 +26,12 @@ export default function statistiques(state = initialState, action) {
     case 'CHANGE_STRUCTURE_STATS':
       return {
         ...state,
-        structureStats: action.structureId !== '' ? [action.structureId] : [],
+        structureStats: action.structureId,
       };
     case 'CHANGE_CONSEILLER_STATS':
       return {
         ...state,
-        conseillerStats: action.conseillerId !== '' ? [action.conseillerId] : [],
+        conseillerStats: action.conseillerId,
       };
     case 'CHANGE_REGION_STATS':
       return {

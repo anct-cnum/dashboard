@@ -132,10 +132,10 @@ function resetExportDonneesTerritoire() {
   return { type: 'EXPORT_TERRITOIRE_RESET' };
 }
 
-function exportStatistiquesConseillerCSV(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureIds, nomStructure) {
+function exportStatistiquesConseillerCSV(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureId, nomStructure) {
   return dispatch => {
     dispatch(request());
-    exportsService.getStatistiquesConseillerCSV(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureIds)
+    exportsService.getStatistiquesConseillerCSV(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureId)
     .then(
       data => dispatch(success(data)),
       error => dispatch(failure(error))

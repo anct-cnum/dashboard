@@ -7,7 +7,7 @@ import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUt
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
 // eslint-disable-next-line max-len
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds }) {
+function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerId, structureId }) {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -47,7 +47,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
           dispatch(exportsActions.exportStatistiquesStructureCSV(dateDebut, dateFin, id, codePostal, ville, codeCommune, nom));
           break;
         case 'conseiller':
-          const nomStructure = listeStructures?.find(structure => structure?.structureId === structureIds[0])?.nom;
+          const nomStructure = listeStructures?.find(structure => structure?.structureId === structureId)?.nom;
           dispatch(exportsActions.exportStatistiquesConseillerCSV(
             dateDebut,
             dateFin,
@@ -57,7 +57,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
             codeCommune,
             nom,
             prenom,
-            structureIds,
+            structureId,
             nomStructure
           ));
           break;
@@ -68,8 +68,8 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
             codePostal,
             ville,
             codeCommune,
-            structureIds,
-            conseillerIds,
+            structureId,
+            conseillerId,
             region,
             departement
           ));
@@ -145,8 +145,8 @@ StatistiquesBanniere.propTypes = {
   prenom: PropTypes.string,
   typeStats: PropTypes.string,
   id: PropTypes.string,
-  conseillerIds: PropTypes.array,
-  structureIds: PropTypes.array,
+  conseillerId: PropTypes.string,
+  structureId: PropTypes.string,
 };
 
 export default StatistiquesBanniere;

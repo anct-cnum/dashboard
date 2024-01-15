@@ -84,7 +84,7 @@ function getStatistiquesNationale(dateDebut, dateFin) {
   });
 }
 
-function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, codePostal, region, departement, structureIds, conseillerIds) {
+function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, codePostal, region, departement, structureId, conseillerId) {
   const {
     filterDateStart,
     filterDateEnd,
@@ -92,10 +92,10 @@ function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, co
     filterByRegion,
     filterByCodePostal,
     filterByDepartement,
-    filterByConseillerIds,
-    filterByStructureIds
-  } = statsGrandReseauQueryStringParameters(dateDebut, dateFin, conseillerIds, codePostal, codeCommune, region, departement, structureIds);
-  return API.get(`stats/nationales/cras/grand-reseau?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}${filterByRegion}${filterByDepartement}${filterByStructureIds}${filterByConseillerIds}`)
+    filterByIdConseiller,
+    filterByIdStructure
+  } = statsGrandReseauQueryStringParameters(dateDebut, dateFin, conseillerId, codePostal, codeCommune, region, departement, structureId);
+  return API.get(`stats/nationales/cras/grand-reseau?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}${filterByRegion}${filterByDepartement}${filterByIdStructure}${filterByIdConseiller}`)
   .then(response => response.data)
   .catch(handleApiError);
 }

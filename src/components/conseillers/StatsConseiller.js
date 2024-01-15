@@ -57,7 +57,7 @@ function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
                 labelName="nom"
                 subLabelName="codePostal"
                 title="Toutes les structures"
-                defaultValue={''}
+                defaultValue={'tous'}
               />
             </select> : <hr className="fr-hr fr-mt-3v" />
           }
@@ -82,7 +82,7 @@ function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
             codePostal={codePostal}
             ville={villeStats}
             codeCommune={codeCommuneStats}
-            structureIds={idStructure}
+            structureId={idStructure}
             nom={conseiller?.nom}
             prenom={conseiller?.prenom}
           />

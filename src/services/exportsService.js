@@ -84,7 +84,7 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
   .catch(handleApiError);
 }
 
-function getStatistiquesConseillerCSV(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureIds) {
+function getStatistiquesConseillerCSV(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureId) {
   const {
     filterDateStart,
     filterDateEnd,
@@ -94,9 +94,9 @@ function getStatistiquesConseillerCSV(dateDebut, dateFin, idType, codePostal, vi
     filterByCodePostal,
     filterByLastName,
     filterByFirstName,
-    filterByStructureIds,
-  } = statsCsvConseillerQueryStringParameters(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureIds);
-  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${roleActivated()}&type=conseiller${filterDateStart}${filterDateEnd}${filterIdType}${filterByVille}${filterByCodeCommune}${filterByCodePostal}${filterByLastName}${filterByFirstName}${filterByStructureIds}`)
+    filterByIdStructure,
+  } = statsCsvConseillerQueryStringParameters(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureId);
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${roleActivated()}&type=conseiller${filterDateStart}${filterDateEnd}${filterIdType}${filterByVille}${filterByCodeCommune}${filterByCodePostal}${filterByLastName}${filterByFirstName}${filterByIdStructure}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
@@ -115,7 +115,7 @@ function getStatistiquesStructureCSV(dateDebut, dateFin, idType, codePostal, vil
   .catch(handleApiError);
 }
 
-function getStatistiquesGrandReseauCSV(dateDebut, dateFin, codePostal, ville, codeCommune, structureIds, conseillerIds, region, departement) {
+function getStatistiquesGrandReseauCSV(dateDebut, dateFin, codePostal, ville, codeCommune, structureId, conseillerId, region, departement) {
   const {
     filterDateStart,
     filterDateEnd,
@@ -124,10 +124,10 @@ function getStatistiquesGrandReseauCSV(dateDebut, dateFin, codePostal, ville, co
     filterByCodePostal,
     filterByRegion,
     filterByDepartement,
-    filterByStructureIds,
-    filterByConseillerIds
-  } = statsCsvGrandReseauQueryStringParameters(dateDebut, dateFin, codePostal, ville, codeCommune, structureIds, conseillerIds, region, departement);
-  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${roleActivated()}&type=grandReseau${filterDateStart}${filterDateEnd}${filterByVille}${filterByCodeCommune}${filterByCodePostal}${filterByRegion}${filterByDepartement}${filterByStructureIds}${filterByConseillerIds}`)
+    filterByIdStructure,
+    filterByIdConseiller
+  } = statsCsvGrandReseauQueryStringParameters(dateDebut, dateFin, codePostal, ville, codeCommune, structureId, conseillerId, region, departement);
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${roleActivated()}&type=grandReseau${filterDateStart}${filterDateEnd}${filterByVille}${filterByCodeCommune}${filterByCodePostal}${filterByRegion}${filterByDepartement}${filterByIdStructure}${filterByIdConseiller}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
