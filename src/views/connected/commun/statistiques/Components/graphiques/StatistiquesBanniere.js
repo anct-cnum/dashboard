@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
@@ -7,6 +6,7 @@ import dayjs from 'dayjs';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
+// eslint-disable-next-line max-len
 function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds }) {
 
   const dispatch = useDispatch();
@@ -48,13 +48,41 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
           break;
         case 'conseiller':
           const nomStructure = listeStructures?.find(structure => structure?.structureId === structureIds[0])?.nom;
-          dispatch(exportsActions.exportStatistiquesConseillerCSV(dateDebut, dateFin, id, codePostal, ville, codeCommune, nom, prenom, structureIds, nomStructure));
+          dispatch(exportsActions.exportStatistiquesConseillerCSV(
+            dateDebut,
+            dateFin,
+            id,
+            codePostal,
+            ville,
+            codeCommune,
+            nom,
+            prenom,
+            structureIds,
+            nomStructure
+          ));
           break;
         case 'grandReseau':
-          dispatch(exportsActions.exportStatistiquesGrandReseauCSV(dateDebut, dateFin, codePostal, ville, codeCommune, structureIds, conseillerIds, region, departement));
+          dispatch(exportsActions.exportStatistiquesGrandReseauCSV(
+            dateDebut,
+            dateFin,
+            codePostal,
+            ville,
+            codeCommune,
+            structureIds,
+            conseillerIds,
+            region,
+            departement
+          ));
+          break;
+        case 'territoire':
+          dispatch(exportsActions.exportStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeTerritoire));
           break;
         default:
-          dispatch(exportsActions.exportStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeTerritoire));
+          dispatch(alerteEtSpinnerActions.getMessageAlerte({
+            type: 'error',
+            message: 'L\'export n\'a pas pu être réalisé correctement !',
+            status: null, description: null
+          }));
       }
     }
   }
@@ -83,7 +111,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
           {(typeStats !== 'nationales' && location.state?.origin !== undefined) &&
             <div className="fr-col-12 fr-col-md-3 fr-mt-6w">
               <Link to={location.state?.origin} state={{ currentPage, origin: location?.pathname, origin_parent: location?.state?.origin_parent }}>
-                <i className="fr-fi-arrow-left-line"/> Page pr&eacute;c&eacute;dente
+                <i className="fr-fi-arrow-left-line" /> Page pr&eacute;c&eacute;dente
               </Link>
             </div>
           }
