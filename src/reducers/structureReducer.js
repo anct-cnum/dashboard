@@ -204,7 +204,7 @@ export default function structure(state = initialState, action) {
         loading: false,
         items: action.structures,
       };
-    case 'GETALL_DEMANDES_COORDINATEUR_FAILURE':
+    case 'GETALL_DEMANDES_CONSEILLER_FAILURE':
       return {
         ...state,
         loading: false,
