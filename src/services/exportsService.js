@@ -2,7 +2,7 @@
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { conseillerQueryStringParameters, territoireQueryString, structureQueryStringParameters, gestionnairesQueryStringParameters, statsCsvQueryStringParameters, conventionQueryStringParameters, contratQueryStringParameters, demandesCoordinateurQueryStringParameters } from '../utils/queryUtils';
+import { conseillerQueryStringParameters, territoireQueryString, structureQueryStringParameters, gestionnairesQueryStringParameters, statsCsvQueryStringParameters, contratQueryStringParameters, demandesCoordinateurQueryStringParameters, historiqueConventionQueryStringParameters } from '../utils/queryUtils';
 
 export const exportsService = {
   getFile,
@@ -105,14 +105,14 @@ function getExportDonneesGestionnaires(filtreRole, filtreParNom, nomOrdre, ordre
 }
 
 function getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
-  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
-  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const {
     ordreColonne,
     filterByName,
     filterByRegion,
-    filterByDepartement
-  } = conventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre);
+    filterByDepartement,
+    filterDateStart,
+    filterDateEnd
+  } = historiqueConventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre, dateDebut, dateFin);
   return API.get(`${apiUrlRoot}/exports/historique-dossiers-convention-csv?role=${roleActivated()}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
   .then(response => response.data)
   .catch(handleApiError);

@@ -140,7 +140,7 @@ function ConventionDetails() {
           <ReconventionnementDetails reconventionnement={convention} />
         }
         {typeConvention === 'conventionnement' &&
-          <ConventionnementDetails conventionnement={convention} />
+          <ConventionnementDetails structure={convention} />
         }
         {typeConvention === 'avenant-ajout-poste' && checkIfAvenantCorrect(convention) &&
           <AvenantAjoutPosteDetails avenant={convention} idDemandeCoselec={idDemandeCoselec} />

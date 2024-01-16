@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
 
-function ConventionnementDetails({ conventionnement }) {
+function ConventionnementDetails({ structure }) {
   return (
     <>
       <h2>Candidature</h2>
@@ -11,40 +11,45 @@ function ConventionnementDetails({ conventionnement }) {
         <div className="fr-card__body">
           <div className="fr-card__header fr-mt-4w">
             <h3 className="fr-card__title fr-h3">
-              Demande de Conseillers
+              {pluralize(
+                'Demande de Conseiller',
+                'Demande de Conseiller',
+                'Demandes de Conseillers',
+                structure?.nombreConseillersSouhaites
+              )}
             </h3>
-            {conventionnement?.prefet?.avisPrefet === 'POSITIF' &&
+            {structure?.prefet?.avisPrefet === 'POSITIF' &&
               <p className="fr-badge fr-badge--success badge-avis-prefet">Avis pr&eacute;fet favorable</p>
             }
-            {conventionnement?.prefet?.avisPrefet === 'NÉGATIF' &&
+            {structure?.prefet?.avisPrefet === 'NÉGATIF' &&
               <p className="fr-badge fr-badge--error badge-avis-prefet">Avis pr&eacute;fet d&eacute;favorable</p>
             }
-            {!['POSITIF', 'NÉGATIF'].includes(conventionnement?.prefet?.avisPrefet) &&
+            {!['POSITIF', 'NÉGATIF'].includes(structure?.prefet?.avisPrefet) &&
               <p className="fr-badge fr-badge--new badge-avis-prefet">Avis pr&eacute;fet non renseign&eacute;</p>
             }
             <p className="fr-card__desc fr-text--lg fr-text--regular">
               Date de candidature&nbsp;:&nbsp;
-              {conventionnement?.createdAt ?
-                <span>le&nbsp;{dayjs(conventionnement.createdAt).format('DD/MM/YYYY')}</span> :
+              {structure?.createdAt ?
+                <span>le&nbsp;{dayjs(structure.createdAt).format('DD/MM/YYYY')}</span> :
                 <span>Non renseign&eacute;e</span>
               }
             </p>
-            {conventionnement?.nombreConseillersSouhaites ?
+            {structure?.nombreConseillersSouhaites ?
               <>
                 <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
-                  <strong className="fr-text--bold" style={{ color: '#000091' }}>
-                    {conventionnement?.nombreConseillersSouhaites}{pluralize(
+                  <strong className="fr-text--bold">
+                    {structure?.nombreConseillersSouhaites}{pluralize(
                       ' poste de conseiller demandé ',
                       ' poste de conseiller demandé ',
                       ' postes de conseillers demandés ',
-                      conventionnement?.nombreConseillersSouhaites
+                      structure?.nombreConseillersSouhaites
                     )}
                   </strong>
                   pour ce conventionnement
                 </p>
               </> :
               <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
-                <strong className="fr-text--bold" style={{ color: '#000091' }}>
+                <strong className="fr-text--bold">
                   Nombre de poste de conseiller demand&eacute; non renseign&eacute; pour ce conventionnement
                 </strong>
               </p>
@@ -53,13 +58,13 @@ function ConventionnementDetails({ conventionnement }) {
           <div className="fr-card__content">
             <div className="commentaire-prefet">
               <span><strong>Commentaire pr&eacute;fet&nbsp;:&nbsp;</strong></span>
-              {conventionnement?.prefet?.commentairePrefet ?
-                <p className="fr-mt-2w fr-mb-0">{conventionnement?.prefet?.commentairePrefet}</p> :
+              {structure?.prefet?.commentairePrefet ?
+                <p className="fr-mt-2w fr-mb-0">{structure?.prefet?.commentairePrefet}</p> :
                 <p className="fr-mt-2w fr-mb-0">Non renseign&eacute;</p>
               }
             </div>
           </div>
-          {conventionnement?.statut === 'CREEE' &&
+          {structure?.statut === 'CREEE' &&
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
@@ -82,7 +87,7 @@ function ConventionnementDetails({ conventionnement }) {
 }
 
 ConventionnementDetails.propTypes = {
-  conventionnement: PropTypes.object,
+  structure: PropTypes.object,
 };
 
 export default ConventionnementDetails;

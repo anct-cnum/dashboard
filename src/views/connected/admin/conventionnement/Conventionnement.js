@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 
-function Conventionnement({ conventionnement, typeConvention }) {
+function Conventionnement({ structure, typeConvention }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const formatAvisPrefet = avisPrefet => {
     switch (avisPrefet) {
@@ -20,23 +20,23 @@ function Conventionnement({ conventionnement, typeConvention }) {
   return (
     <>
       <td className="uppercase-letter">
-        <span className="fr-text--bold">{conventionnement?.nom}</span><br />
-        <span>ID {conventionnement?.idPG}</span>
+        <span className="fr-text--bold">{structure?.nom}</span><br />
+        <span>ID {structure?.idPG}</span>
       </td>
       <td>
-        {conventionnement?.createdAt ?
-          <span>{dayjs(conventionnement.createdAt).format('DD/MM/YYYY')}</span> :
+        {structure?.createdAt ?
+          <span>{dayjs(structure.createdAt).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>
-      <td>{conventionnement?.nombreConseillersSouhaites ? conventionnement?.nombreConseillersSouhaites : '-'}</td>
+      <td>{structure?.nombreConseillersSouhaites ? structure?.nombreConseillersSouhaites : '-'}</td>
       {typeConvention === 'conventionnement' &&
-        <td>{formatAvisPrefet(conventionnement?.prefet?.avisPrefet)}</td>
+        <td>{formatAvisPrefet(structure?.prefet?.avisPrefet)}</td>
       }
       <td>Conventionnement initial</td>
       <td>
         <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={{
-          pathname: `/${roleActivated}/demandes/convention/${conventionnement?._id}`,
+          pathname: `/${roleActivated}/demandes/convention/${structure?._id}`,
           search: `?type=conventionnement`,
         }}
         state={{ 'origin': `/${roleActivated}/demandes/conventions`, typeConvention }}>
@@ -48,7 +48,7 @@ function Conventionnement({ conventionnement, typeConvention }) {
 }
 
 Conventionnement.propTypes = {
-  conventionnement: PropTypes.object,
+  structure: PropTypes.object,
   typeConvention: PropTypes.string,
 };
 

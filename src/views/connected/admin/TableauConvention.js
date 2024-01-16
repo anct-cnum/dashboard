@@ -163,7 +163,7 @@ export default function TableauConvention() {
                         {!error && !loading && conventions?.items?.data?.map((convention, idx) =>
                           <tr key={idx}>
                             {convention?.typeConvention === 'conventionnement' &&
-                              <Conventionnement conventionnement={convention} typeConvention={typeConvention} />
+                              <Conventionnement structure={convention} typeConvention={typeConvention} />
                             }
                             {convention?.typeConvention === 'avenantAjoutPoste' &&
                               <AvenantAjoutPoste avenant={convention} typeConvention={typeConvention} />
@@ -177,7 +177,7 @@ export default function TableauConvention() {
                           <tr>
                             <td colSpan="12" style={{ width: '60rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <span className="not-found pair">Aucune demande de convention trouv&eacute;</span>
+                                <span className="not-found">Aucune demande de convention trouv&eacute;</span>
                               </div>
                             </td>
                           </tr>

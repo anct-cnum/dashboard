@@ -84,6 +84,17 @@ export function conventionQueryStringParameters(filtreParNomStructure, filterDep
   return { ordreColonne, filterByName, filterByRegion, filterByDepartement, filterByAvisPrefet };
 }
 
+export function historiqueConventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre, dateDebut, dateFin) {
+  const filterByName = filtreParNomStructure ? `&searchByNomStructure=${filtreParNomStructure}` : '';
+  const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
+  const filterByDepartement = filterDepartement !== 'tous' && filterDepartement !== undefined ? `&departement=${filterDepartement}` : '';
+  const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+
+  return { ordreColonne, filterByName, filterByRegion, filterByDepartement, filterDateStart, filterDateEnd };
+}
+
 export function contratQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, ordreNom, ordre) {
   const filterByName = filtreSearchBar ? `&search=${filtreSearchBar}` : '';
   const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';

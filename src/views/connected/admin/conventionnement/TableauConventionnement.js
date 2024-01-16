@@ -39,7 +39,7 @@ export function TableauConventionnement({ conventions, loading, error, ordreNom,
         {!error && !loading && conventions?.items?.data?.map((convention, idx) => {
           return (
             <tr key={idx}>
-              <Conventionnement conventionnement={convention} typeConvention="conventionnement" />
+              <Conventionnement structure={convention} typeConvention="conventionnement" />
             </tr>
           );
         })
