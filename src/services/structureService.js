@@ -16,6 +16,8 @@ export const structureService = {
   addRoleCoordinateur,
   getAllDemandesConseiller,
   getDemandeConseiller,
+  confirmationAvisPrefet,
+  closeBannerAvisPrefet,
 };
 
 function get(id) {
@@ -108,6 +110,18 @@ function getAllDemandesConseiller(page, statutDemande, filtreSearchBar, filtreDe
 
 function getDemandeConseiller(idStructure) {
   return API.get(`${apiUrlRoot}/demandes/conseiller/${idStructure}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function confirmationAvisPrefet(idStructure, avisPrefet, commentaire) {
+  return API.patch(`${apiUrlRoot}/avis/prefet/conseiller/${idStructure}?role=${roleActivated()}`, { avisPrefet, commentaire })
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function closeBannerAvisPrefet(idStructure) {
+  return API.patch(`${apiUrlRoot}/banner/prefet/conseiller/${idStructure}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(handleApiError);
 }

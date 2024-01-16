@@ -23,6 +23,7 @@ function CoordinateurDetails() {
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [openModalAvis, setOpenModalAvis] = useState(false);
   const [avisPrefet, setAvisPrefet] = useState('');
+  const [commentaire, setCommentaire] = useState('');
 
   useEffect(() => {
     if (!errorCoordinateur && validQueryParamsObjectId(idDemandeCoordinateur)) {
@@ -43,6 +44,12 @@ function CoordinateurDetails() {
     }
   }, [successAvisPrefet]);
 
+  const confirmationAvisPrefet = () => {
+    dispatch(coordinateurActions.confirmationAvisPrefet(structure?._id, avisPrefet, structure?.demandesCoordinateur[0]?.id, commentaire));
+    setOpenModalAvis(false);
+    setCommentaire('');
+  };
+
   return (
     <div className="coordinateurDetails">
       <Spinner loading={loading} />
@@ -52,7 +59,14 @@ function CoordinateurDetails() {
         Retour &agrave; la liste
       </Link>
       {openModalAvis &&
-        <ModalConfirmationAvis setOpenModal={setOpenModalAvis} structure={structure} avisPrefet={avisPrefet} />
+        <ModalConfirmationAvis
+          setOpenModal={setOpenModalAvis}
+          structure={structure}
+          avisPrefet={avisPrefet}
+          confirmationAvisPrefet={confirmationAvisPrefet}
+          setCommentaire={setCommentaire}
+          commentaire={commentaire}
+        />
       }
       <div className="fr-col-12 fr-pt-6w">
         <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
@@ -116,7 +130,7 @@ function CoordinateurDetails() {
                     setAvisPrefet('défavorable');
                     setOpenModalAvis(true);
                   }}
-                  className="fr-btn fr-btn--secondary"
+                    className="fr-btn fr-btn--secondary"
                   >
                     Avis D&eacute;favorable
                   </button>

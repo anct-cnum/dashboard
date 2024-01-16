@@ -15,6 +15,8 @@ export const structureActions = {
   addRoleCoordinateur,
   getAllDemandesConseiller,
   getDemandeConseiller,
+  confirmationAvisPrefet,
+  closeBannerAvisPrefet,
 };
 
 // eslint-disable-next-line max-len
@@ -320,5 +322,53 @@ function getDemandeConseiller(idStructure) {
   }
   function failure(error) {
     return { type: 'GET_DEMANDE_CONSEILLER_FAILURE', error };
+  }
+}
+
+function confirmationAvisPrefet(idStructure, avisPrefet, commentaire) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.confirmationAvisPrefet(idStructure, avisPrefet, commentaire)
+    .then(
+      response => dispatch(success(response.success)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_AVIS_PREFET_REQUEST' };
+  }
+  function success(success) {
+    return { type: 'UPDATE_AVIS_PREFET_SUCCESS', success };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVIS_PREFET_FAILURE', error };
+  }
+}
+
+function closeBannerAvisPrefet(idStructure) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.closeBannerAvisPrefet(idStructure)
+    .then(
+      idStructure => dispatch(success(idStructure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_BANNER_PREFET_REQUEST' };
+  }
+  function success(idStructure) {
+    return { type: 'UPDATE_BANNER_PREFET_SUCCESS', idStructure };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_BANNER_PREFET_FAILURE', error };
   }
 }

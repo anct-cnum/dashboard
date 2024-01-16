@@ -1,17 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { coordinateurActions } from '../../../../actions';
 
-function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
-  const dispatch = useDispatch();
-  const [commentaire, setCommentaire] = useState('');
-
-  const confirmationAvisPrefet = () => {
-    dispatch(coordinateurActions.confirmationAvisPrefet(structure?._id, avisPrefet, structure?.demandesCoordinateur[0]?.id, commentaire));
-    setOpenModal(false);
-    setCommentaire('');
-  };
+function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, commentaire, setCommentaire, confirmationAvisPrefet }) {
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
@@ -82,6 +72,9 @@ ModalConfirmationAvis.propTypes = {
   setOpenModal: PropTypes.func,
   structure: PropTypes.object,
   avisPrefet: PropTypes.string,
+  commentaire: PropTypes.string,
+  setCommentaire: PropTypes.func,
+  confirmationAvisPrefet: PropTypes.func,
 };
 
 export default ModalConfirmationAvis;
