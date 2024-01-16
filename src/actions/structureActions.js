@@ -279,7 +279,6 @@ function addRoleCoordinateur(structureId, conseillerId) {
 function getAllDemandesConseiller(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'codePostal', ordre) {
   return dispatch => {
     dispatch(request());
-
     structureService.getAllDemandesConseiller(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre)
     .then(
       structures => dispatch(success(structures)),

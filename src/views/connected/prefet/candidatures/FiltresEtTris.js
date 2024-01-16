@@ -5,7 +5,7 @@ import departementsRegionRaw from '../../../../datas/departements-region.json';
 import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
 import codeRegionsRaw from '../../../../datas/code_region.json';
 
-function FiltresEtTrisCandidatureStructure() {
+function FiltresEtTris() {
   const dispatch = useDispatch();
   const departementsRegionArray = Array.from(departementsRegionRaw);
   const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
@@ -92,8 +92,8 @@ function FiltresEtTrisCandidatureStructure() {
           <select className="fr-select" value={filtreAvisPrefet} onChange={selectFiltreAvisPrefet}>
             <option value={'tous'}>S&eacute;lectionner l&rsquo;avis</option>
             <option value={'sans-avis'}>Sans avis</option>
-            <option value={'POSITIF'}>Favorable</option>
-            <option value={'NÉGATIF'}>D&eacute;favorable</option>
+            <option value={'favorable'}>Favorable</option>
+            <option value={'défavorable'}>D&eacute;favorable</option>
           </select>
         </div>
       </div>
@@ -101,4 +101,4 @@ function FiltresEtTrisCandidatureStructure() {
   );
 }
 
-export default FiltresEtTrisCandidatureStructure;
+export default FiltresEtTris;

@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-function CandidatureStructure({ structure }) {
+function CandidatureConseiller({ structure }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const formatAvisPrefet = avisPrefet => {
@@ -37,8 +37,8 @@ function CandidatureStructure({ structure }) {
   );
 }
 
-CandidatureStructure.propTypes = {
+CandidatureConseiller.propTypes = {
   structure: PropTypes.object,
 };
 
-export default CandidatureStructure;
+export default CandidatureConseiller;

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions, coordinateurActions, filtresDemandesActions } from '../../../../actions';
-import Spinner from '../../../../components/Spinner';
-import Pagination from '../../../../components/Pagination';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import Spinner from '../../../../../components/Spinner';
+import Pagination from '../../../../../components/Pagination';
+import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import FiltresEtTrisCoordinateur from './FiltresEtTrisCoordinateur';
 import Coordinateur from './Coordinateur';
-import BannerConfirmationAvisPrefet from './BannerConfirmationAvisPrefet';
+import FiltresEtTris from '../FiltresEtTris';
+import BannerConfirmationAvisPrefet from '../BannerConfirmationAvisPrefet';
+import { alerteEtSpinnerActions, coordinateurActions, filtresDemandesActions, paginationActions } from '../../../../../actions';
 
 export default function TableauCoordinateurs() {
 
@@ -121,7 +121,7 @@ export default function TableauCoordinateurs() {
               </button>
             </ul>
             <div className="fr-col-12 fr-mt-3w">
-              <FiltresEtTrisCoordinateur />
+              <FiltresEtTris />
             </div>
             <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
               <div className="fr-col-12">

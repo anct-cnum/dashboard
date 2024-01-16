@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Spinner from '../../../../components/Spinner';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import { alerteEtSpinnerActions, structureActions } from '../../../../actions';
+import Spinner from '../../../../../components/Spinner';
+import { scrollTopWindow } from '../../../../../utils/exportsUtils';
+import { alerteEtSpinnerActions, structureActions } from '../../../../../actions';
 import dayjs from 'dayjs';
-import StructureContactCards from '../../../../components/cards/StructureContactCards';
-import { pluralize } from '../../../../utils/formatagesUtils';
+import StructureContactCards from '../../../../../components/cards/StructureContactCards';
+import { pluralize } from '../../../../../utils/formatagesUtils';
 
-function CandidatureStructureDetail() {
+function CandidatureConseillerDetail() {
   const dispatch = useDispatch();
   const location = useLocation();
   const { idStructure } = useParams();
@@ -119,4 +119,4 @@ function CandidatureStructureDetail() {
   );
 }
 
-export default CandidatureStructureDetail;
+export default CandidatureConseillerDetail;

@@ -8,10 +8,10 @@ import Page404 from '../Page404';
 import TableauTerritoires from './../commun/statistiques/TableauTerritoires';
 import TableauStructures from './structures/TableauStructures';
 import TableauConseillers from './conseillers/TableauConseillers';
-import CoordinateurDetails from './coordinateurs/CoordinateurDetail';
-import TableauCoordinateurs from './coordinateurs/TableauCoordinateurs';
-import TableauCandidaturesStructures from './candidaturesStructures/TableauCandidaturesStructures';
-import CandidatureStructureDetail from './candidaturesStructures/CandidatureStructureDetail';
+import TableauCandidaturesConseillers from './candidatures/conseillers/TableauCandidaturesConseillers';
+import CandidatureConseillerDetail from './candidatures/conseillers/CandidatureConseillerDetail';
+import CoordinateurDetails from './candidatures/coordinateurs/CoordinateurDetail';
+import TableauCoordinateurs from './candidatures/coordinateurs/TableauCoordinateurs';
 
 export default function Prefet() {
 
@@ -48,8 +48,8 @@ export default function Prefet() {
         <Route path="/prefet/informations" element={<MesInformations />} />
         <Route path="/prefet/demandes/coordinateur/:idStructure" element={<CoordinateurDetails />} />
         <Route path="/prefet/demandes/coordinateurs" element={<TableauCoordinateurs />} />
-        <Route path="/prefet/demandes/conseillers" element={<TableauCandidaturesStructures />} />
-        <Route path="/prefet/demandes/conseiller/:idStructure" element={<CandidatureStructureDetail />} />
+        <Route path="/prefet/demandes/conseillers" element={<TableauCandidaturesConseillers />} />
+        <Route path="/prefet/demandes/conseiller/:idStructure" element={<CandidatureConseillerDetail />} />
         <Route path="/prefet/liste-structures" element={<TableauStructures />} />
         <Route path="/prefet/structure/:idStructure" element={<StructureDetails />} />
         <Route path="/prefet/liste-conseillers" element={<TableauConseillers />} />

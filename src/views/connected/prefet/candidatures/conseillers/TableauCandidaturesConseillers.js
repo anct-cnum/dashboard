@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions, filtresDemandesActions, structureActions } from '../../../../actions';
-import Spinner from '../../../../components/Spinner';
-import Pagination from '../../../../components/Pagination';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import { alerteEtSpinnerActions, paginationActions, filtresDemandesActions, structureActions } from '../../../../../actions';
+import Spinner from '../../../../../components/Spinner';
+import Pagination from '../../../../../components/Pagination';
+import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import FiltresEtTrisCandidatureStructure from './FiltresEtTrisCandidatureStructure';
-import CandidatureStructure from './CandidatureStructure';
+import FiltresEtTris from '../FiltresEtTris';
+import CandidatureConseiller from './CandidatureConseiller';
 
-export default function TableauCandidaturesStructures() {
+export default function TableauCandidaturesConseillers() {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -114,7 +114,7 @@ export default function TableauCandidaturesStructures() {
               </button>
             </ul>
             <div className="fr-col-12 fr-mt-3w">
-              <FiltresEtTrisCandidatureStructure />
+              <FiltresEtTris />
             </div>
             <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
               <div className="fr-col-12">
@@ -153,7 +153,7 @@ export default function TableauCandidaturesStructures() {
                     </thead>
                     <tbody>
                       {!error && !loading && structures?.items?.data?.map((structure, idx) => {
-                        return (<CandidatureStructure key={idx} structure={structure} />);
+                        return (<CandidatureConseiller key={idx} structure={structure} />);
                       })
                       }
                       {(!structures?.items || structures?.items?.total === 0) &&
