@@ -79,8 +79,8 @@ function FiltresEtTrisConventionnement() {
           <select className="fr-select" value={filtreAvisPrefet} onChange={selectFiltreAvisPrefet}>
             <option value={'tous'}>S&eacute;lectionner l&rsquo;avis pr&eacute;fecture</option>
             <option value={'sans-avis'}>Sans avis</option>
-            <option value={'POSITIF'}>Favorable</option>
-            <option value={'NÉGATIF'}>D&eacute;favorable</option>
+            <option value={'favorable'}>Favorable</option>
+            <option value={'défavorable'}>D&eacute;favorable</option>
           </select>
         </div>
       </div>
