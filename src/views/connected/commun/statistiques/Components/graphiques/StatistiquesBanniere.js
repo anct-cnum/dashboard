@@ -7,7 +7,7 @@ import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUt
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
 // eslint-disable-next-line max-len
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds }) {
+function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerId, structureId }) {
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -16,28 +16,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
   const typeTerritoire = useSelector(state => state.filtresEtTris?.territoire);
   const territoire = useSelector(state => state.statistiques?.territoire);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-
-  function getTypeStatistique(type) {
-    let typeTarget = '';
-    switch (type) {
-      case 'nationales':
-        typeTarget = type;
-        break;
-      case 'structure':
-        typeTarget = type;
-        break;
-      case 'conseiller':
-        typeTarget = type;
-        break;
-      case 'grandReseau':
-        typeTarget = type;
-        break;
-      default:
-        typeTarget = typeTerritoire;
-        break;
-    }
-    return typeTarget;
-  }
+  const listeStructures = useSelector(state => state.statistiques?.listeStructures);
 
   function getTitlePDF() {
     const datesPDF = '_' + dayjs(dateDebut).format('DD/MM/YYYY') + '_' + dayjs(dateFin).format('DD/MM/YYYY');
@@ -56,13 +35,55 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
 
   function save(extension) {
     scrollTopWindow();
-    const type = getTypeStatistique(typeStats);
     if (extension === 'pdf') {
       document.title = getTitlePDF();
       window.print();
     } else if (extension === 'csv') {
-      // eslint-disable-next-line max-len
-      dispatch(exportsActions.exportStatistiquesCSV(dateDebut, dateFin, type, id, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds, typeStats));
+      switch (typeStats) {
+        case 'nationales':
+          dispatch(exportsActions.exportStatistiquesNationalesCSV(dateDebut, dateFin));
+          break;
+        case 'structure':
+          dispatch(exportsActions.exportStatistiquesStructureCSV(dateDebut, dateFin, id, codePostal, ville, codeCommune, nom));
+          break;
+        case 'conseiller':
+          const nomStructure = listeStructures?.find(structure => structure?.structureId === structureId)?.nom;
+          dispatch(exportsActions.exportStatistiquesConseillerCSV(
+            dateDebut,
+            dateFin,
+            id,
+            codePostal,
+            ville,
+            codeCommune,
+            nom,
+            prenom,
+            structureId,
+            nomStructure
+          ));
+          break;
+        case 'grandReseau':
+          dispatch(exportsActions.exportStatistiquesGrandReseauCSV(
+            dateDebut,
+            dateFin,
+            codePostal,
+            ville,
+            codeCommune,
+            structureId,
+            conseillerId,
+            region,
+            departement
+          ));
+          break;
+        case 'territoire':
+          dispatch(exportsActions.exportStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeTerritoire));
+          break;
+        default:
+          dispatch(alerteEtSpinnerActions.getMessageAlerte({
+            type: 'error',
+            message: 'L\'export n\'a pas pu être réalisé correctement !',
+            status: null, description: null
+          }));
+      }
     }
   }
 
@@ -90,7 +111,7 @@ function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, v
           {(typeStats !== 'nationales' && location.state?.origin !== undefined) &&
             <div className="fr-col-12 fr-col-md-3 fr-mt-6w">
               <Link to={location.state?.origin} state={{ currentPage, origin: location?.pathname, origin_parent: location?.state?.origin_parent }}>
-                <i className="fr-fi-arrow-left-line"/> Page pr&eacute;c&eacute;dente
+                <i className="fr-fi-arrow-left-line" /> Page pr&eacute;c&eacute;dente
               </Link>
             </div>
           }
@@ -124,8 +145,8 @@ StatistiquesBanniere.propTypes = {
   prenom: PropTypes.string,
   typeStats: PropTypes.string,
   id: PropTypes.string,
-  conseillerIds: PropTypes.array,
-  structureIds: PropTypes.array,
+  conseillerId: PropTypes.string,
+  structureId: PropTypes.string,
 };
 
 export default StatistiquesBanniere;

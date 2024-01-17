@@ -1,14 +1,24 @@
 /* eslint-disable max-len */
 import { exportsService } from '../services/exportsService';
 import dayjs from 'dayjs';
-import { formatDate, formatFileName } from '../utils/formatagesUtils';
+import {
+  formatCodePostalVille,
+  formatDate,
+  formatFileNameStatsConseiller,
+  formatFileNameStatsStructure,
+  formatFileNameStatsTerritoriales
+} from '../utils/formatagesUtils';
 
 export const exportsActions = {
   exportFile,
   resetFile,
   exportDonneesTerritoire,
   resetExportDonneesTerritoire,
-  exportStatistiquesCSV,
+  exportStatistiquesConseillerCSV,
+  exportStatistiquesStructureCSV,
+  exportStatistiquesGrandReseauCSV,
+  exportStatistiquesNationalesCSV,
+  exportStatistiquesTerritorialesCSV,
   exportDonneesConseiller,
   exportDonneesStructure,
   exportDonneesGestionnaires,
@@ -122,10 +132,10 @@ function resetExportDonneesTerritoire() {
   return { type: 'EXPORT_TERRITOIRE_RESET' };
 }
 
-function exportStatistiquesCSV(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds, typeStats) {
+function exportStatistiquesConseillerCSV(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureId, nomStructure) {
   return dispatch => {
     dispatch(request());
-    exportsService.getStatistiquesCSV(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds, typeStats)
+    exportsService.getStatistiquesConseillerCSV(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureId)
     .then(
       data => dispatch(success(data)),
       error => dispatch(failure(error))
@@ -136,7 +146,95 @@ function exportStatistiquesCSV(dateDebut, dateFin, type, idType, codePostal, vil
     return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
   }
   function success(data) {
-    const nameFile = `${formatFileName(dateDebut, dateFin, type, idType, codePostal, ville)}`;
+    const nameFile = formatFileNameStatsConseiller(dateDebut, dateFin, nom, prenom, codePostal, ville, nomStructure);
+    return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
+  }
+  function failure(error) {
+    return { type: 'EXPORT_STATISTIQUES_CSV_FAILURE', error };
+  }
+}
+
+function exportStatistiquesStructureCSV(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom) {
+  return dispatch => {
+    dispatch(request());
+    exportsService.getStatistiquesStructureCSV(dateDebut, dateFin, idType, codePostal, ville, codeCommune)
+    .then(
+      data => dispatch(success(data)),
+      error => dispatch(failure(error))
+    );
+  };
+
+  function request() {
+    return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
+  }
+  function success(data) {
+    const nameFile = formatFileNameStatsStructure(dateDebut, dateFin, nom, codePostal, ville);
+    return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
+  }
+  function failure(error) {
+    return { type: 'EXPORT_STATISTIQUES_CSV_FAILURE', error };
+  }
+}
+
+function exportStatistiquesGrandReseauCSV(dateDebut, dateFin, codePostal, ville, codeCommune, structureIds, conseillerIds, region, departement) {
+  return dispatch => {
+    dispatch(request());
+    exportsService.getStatistiquesGrandReseauCSV(dateDebut, dateFin, codePostal, ville, codeCommune, structureIds, conseillerIds, region, departement)
+    .then(
+      data => dispatch(success(data)),
+      error => dispatch(failure(error))
+    );
+  };
+
+  function request() {
+    return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
+  }
+  function success(data) {
+    const nameFile = `Statistiques_grandReseau${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+    return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
+  }
+  function failure(error) {
+    return { type: 'EXPORT_STATISTIQUES_CSV_FAILURE', error };
+  }
+}
+
+function exportStatistiquesNationalesCSV(dateDebut, dateFin) {
+  return dispatch => {
+    dispatch(request());
+    exportsService.getStatistiquesNationalesCSV(dateDebut, dateFin)
+    .then(
+      data => dispatch(success(data)),
+      error => dispatch(failure(error))
+    );
+  };
+
+  function request() {
+    return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
+  }
+  function success(data) {
+    const nameFile = `Statistiques_nationales_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+    return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
+  }
+  function failure(error) {
+    return { type: 'EXPORT_STATISTIQUES_CSV_FAILURE', error };
+  }
+}
+
+function exportStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeTerritoire) {
+  return dispatch => {
+    dispatch(request());
+    exportsService.getStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeTerritoire)
+    .then(
+      data => dispatch(success(data)),
+      error => dispatch(failure(error))
+    );
+  };
+
+  function request() {
+    return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
+  }
+  function success(data) {
+    const nameFile = formatFileNameStatsTerritoriales(dateDebut, dateFin, typeTerritoire, id);
     return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
   }
   function failure(error) {

@@ -21,6 +21,10 @@
         font-size: 16px;
         font-weight: 600;
     }
+    .truncated-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
 
     @media (max-width: 1200px) {
         .date-picker {
