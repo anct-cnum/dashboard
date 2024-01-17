@@ -21,6 +21,8 @@ export default function GraphiqueConseiller() {
   const statistiquesError = useSelector(state => state.statistiques?.error);
   const codeCommuneStats = useSelector(state => state.statistiques?.codeCommuneStats);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
+  const idStructure = useSelector(state => state.statistiques?.structureStats);
+  const loadingFiltresConseiller = useSelector(state => state.statistiques?.loadingFiltresConseiller);
 
   const loadingExport = useSelector(state => state.exports?.loading);
 
@@ -31,9 +33,9 @@ export default function GraphiqueConseiller() {
     if (!errorConseiller) {
       if (!conseiller) {
         dispatch(conseillerActions.getCandidat(idConseiller));
-        dispatch(statistiquesActions.getCodesPostauxCrasConseiller(idConseiller));
+        dispatch(statistiquesActions.getFiltresCrasConseiller(idConseiller));
       } else {
-        dispatch(statistiquesActions.getCodesPostauxCrasConseiller(idConseiller));
+        dispatch(statistiquesActions.getFiltresCrasConseiller(idConseiller));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -53,7 +55,7 @@ export default function GraphiqueConseiller() {
   useEffect(() => {
     if (!statistiquesError) {
       if (idConseiller && !!conseiller) {
-        dispatch(statistiquesActions.getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, codeCommuneStats));
+        dispatch(statistiquesActions.getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, codeCommuneStats, idStructure));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -62,11 +64,11 @@ export default function GraphiqueConseiller() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, statistiquesError, conseiller, codePostal, codeCommuneStats]);
+  }, [dateDebut, dateFin, statistiquesError, conseiller, codePostal, codeCommuneStats, idStructure]);
 
   return (
     <div className="statistiques">
-      <Spinner loading={statistiquesLoading || loadingExport || loadingConseiller} />
+      <Spinner loading={statistiquesLoading || loadingExport || loadingConseiller || loadingFiltresConseiller} />
       <StatsConseiller conseiller={conseiller} idConseiller={idConseiller} statistiquesLoading={statistiquesLoading} />
     </div>
   );
