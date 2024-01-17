@@ -14,6 +14,7 @@ export const structureService = {
   createAvenant,
   closeBanner,
   addRoleCoordinateur,
+  confirmationValidAvisAdmin,
 };
 
 function get(id) {
@@ -85,6 +86,12 @@ function closeBanner(type, id, conseillerId) {
 
 function addRoleCoordinateur(structureId, conseillerId) {
   return API.patch(`${apiUrlRoot}/structure/add-role-coordinateur/${structureId}?role=${roleActivated()}`, { conseillerId })
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec) {
+  return API.patch(`${apiUrlRoot}/avis/admin/valid/conseiller/${idStructure}?role=${roleActivated()}`, { nombreConseillersCoselec })
   .then(response => response.data)
   .catch(handleApiError);
 }

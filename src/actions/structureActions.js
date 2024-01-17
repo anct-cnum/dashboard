@@ -13,6 +13,8 @@ export const structureActions = {
   createAvenant,
   closeBanner,
   addRoleCoordinateur,
+  confirmationValidAvisAdmin,
+  resetConfirmationAvisAdmin,
 };
 
 // eslint-disable-next-line max-len
@@ -272,4 +274,38 @@ function addRoleCoordinateur(structureId, conseillerId) {
   function failure(error) {
     return { type: 'ADD_ROLE_COORDINATEUR_FAILURE', error };
   }
+}
+
+function confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec)
+    .then(
+      statutStructure => {
+        dispatch(success());
+        dispatch(candidatureValider(statutStructure));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_AVIS_ADMIN_REQUEST' };
+  }
+  function success() {
+    return { type: 'UPDATE_AVIS_ADMIN_SUCCESS' };
+  }
+  function candidatureValider(statutStructure) {
+    return { type: 'VALIDATION_CONVENTIONNEMENT', statutStructure };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVIS_ADMIN_FAILURE', error };
+  }
+}
+
+function resetConfirmationAvisAdmin() {
+  return { type: 'RESET_CONFIRMATION_AVIS_ADMIN' };
 }

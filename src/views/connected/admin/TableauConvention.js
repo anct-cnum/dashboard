@@ -18,6 +18,7 @@ export default function TableauConvention() {
   const dispatch = useDispatch();
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
+  const [annulationRecrutement, setAnnulationRecrutement] = useState(location.state?.structure || null);
 
   const loading = useSelector(state => state.convention?.loading);
   const error = useSelector(state => state.convention?.error);
@@ -89,9 +90,26 @@ export default function TableauConvention() {
     dispatch(filtresConventionsActions.changeOrdre(e.currentTarget?.id));
   };
 
+  useEffect(() => {
+    if (annulationRecrutement) {
+      setTimeout(() => {
+        setAnnulationRecrutement(null);
+      }, 5000);
+    }
+  }, [annulationRecrutement]);
+
   return (
     <div className="conventions">
       <Spinner loading={loading} />
+      {annulationRecrutement?.statut === 'VALIDATION_COSELEC' &&
+        <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
+          <h3 className="fr-alert__title">
+            L&rsquo;attribution d&rsquo;un poste de conseiller a &eacute;t&eacute; valid&eacute; par
+            le comit&eacute; de s&eacute;lection pour la structure {annulationRecrutement?.nom}.
+          </h3>
+          <p>La structure sera notifi&eacute;e sur son espace.</p>
+        </div>
+      }
       <div className="fr-grid-row">
         <div className="fr-col-12">
           <h1 className="fr-h1 title">Demandes de conventions</h1>

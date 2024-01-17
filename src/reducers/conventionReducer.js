@@ -118,6 +118,14 @@ export default function convention(state = initialState, action) {
         error: action.error,
         loading: false
       };
+    case 'VALIDATION_CONVENTIONNEMENT':
+      return {
+        ...state,
+        convention: {
+          ...state.convention,
+          statut: action.statutStructure
+        }
+      };
     default:
       return state;
   }
