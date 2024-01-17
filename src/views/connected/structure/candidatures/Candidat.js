@@ -9,6 +9,7 @@ import iconeTelechargement from '../../../../assets/icons/icone-telecharger.svg'
 import pinCNFS from '../../../../assets/icons/pin-cnfs.svg';
 import logoPix from '../../../../assets/icons/logo-pix.svg';
 import { Tooltip } from 'react-tooltip';
+import { checkIsConseiller } from '../utils/functionUtils';
 
 function Candidat({ miseEnRelation, currentFilter, search }) {
 
@@ -34,7 +35,7 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
         dayjs(miseEnRelation?.conseillerObj.dateDisponibilite).format('DD/MM/YYYY') : 'Non renseignée'}</td>
       <td>{miseEnRelation?.conseillerObj?.codePostal}</td>
       <td style={{ display: 'flex', justifyContent: 'center' }}>
-        {['RECRUTE', 'RUPTURE', 'TERMINE'].includes(miseEnRelation?.conseillerObj?.statut) &&
+        {checkIsConseiller(miseEnRelation?.conseillerObj?.statut) &&
           <>
             <div
               data-tooltip-content="Cette personne a une exp&eacute;rience de conseiller-&egrave;re num&eacute;rique"
@@ -74,7 +75,7 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
       <td>
         {miseEnRelation?.statut !== 'finalisee_non_disponible' ?
           <>
-            {(miseEnRelation?.conseillerObj?.statut === 'RECRUTE' || miseEnRelation?.conseillerObj?.statut === 'RUPTURE') ?
+            {checkIsConseiller(miseEnRelation?.conseillerObj?.statut) ?
               <Link className={`fr-btn fr-icon-eye-line fr-btn--icon-left ${search !== '' ? 'fr-ml-1w' : ''}`} style={{ boxShadow: 'none' }} to={{
                 pathname: `/structure/candidature/conseiller/${miseEnRelation?._id}`
               }}

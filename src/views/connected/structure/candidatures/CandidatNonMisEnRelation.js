@@ -9,6 +9,7 @@ import logoPix from '../../../../assets/icons/logo-pix.svg';
 import { Link } from 'react-router-dom';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 import { Tooltip } from 'react-tooltip';
+import { checkIsConseiller } from '../utils/functionUtils';
 
 function CandidatNonMisEnRelation({ conseiller, currentFilter }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -73,7 +74,7 @@ function CandidatNonMisEnRelation({ conseiller, currentFilter }) {
         <p className="fr-badge fr-badge--new">nouvelle candidature</p>
       </td>
       <td className="td-preselection">
-        {(conseiller?.statut === 'RECRUTE' || conseiller?.statut === 'RUPTURE') ?
+        {checkIsConseiller(conseiller?.statut) ?
           <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left fr-ml-1w" to={{
             pathname: `/structure/preselection/conseiller/${conseiller?._id}`
           }}

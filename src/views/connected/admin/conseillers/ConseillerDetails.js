@@ -12,7 +12,7 @@ import iconeCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 function ConseillerDetails() {
 
   const dispatch = useDispatch();
-  const { idConseiller, idMiseEnRelation } = useParams();
+  const { idConseiller } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const structure = useSelector(state => state.structure?.structure);
   const errorStructure = useSelector(state => state.structure?.error);
@@ -24,7 +24,7 @@ function ConseillerDetails() {
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
-  const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const [misesEnRelationSansMission, setMisesEnRelationSansMission] = useState([]);
 
   const resendInvitationEspaceCoop = conseillerId => {
     dispatch(conseillerActions.resendInvitConseiller(conseillerId));
@@ -33,7 +33,7 @@ function ConseillerDetails() {
   useEffect(() => {
     if (!errorConseiller) {
       if (conseiller?._id !== idConseiller) {
-        dispatch(conseillerActions.get(idConseiller, idMiseEnRelation));
+        dispatch(conseillerActions.get(idConseiller));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -49,8 +49,11 @@ function ConseillerDetails() {
       if (conseiller !== undefined) {
         setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
         setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
-        setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
-        if (conseiller?.statut !== 'RUPTURE') {
+        setMisesEnRelationSansMission(conseiller.misesEnRelation?.filter(
+          miseEnRelation =>
+            miseEnRelation.statut === 'finalisee_rupture' || miseEnRelation.statut === 'terminee_naturelle'
+        ));
+        if (conseiller?.statut === 'RECRUTE') {
           dispatch(structureActions.get(conseiller?.structureId));
         }
       }
@@ -115,12 +118,12 @@ function ConseillerDetails() {
         <div className={`fr-col-12 ${conseiller?.statut !== 'RECRUTE' ? 'fr-pt-6w' : ''}`}>
           <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
             {conseiller ? formatNomConseiller(conseiller) : ''}
-            { conseiller?.statut === 'RECRUTE' &&
+            {conseiller?.statut === 'RECRUTE' &&
               conseiller?.estCoordinateur === true &&
-                <span>
-                  <img alt="ic&ocirc;ne Conseiller num&eacute;rique coordinateur" src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
-                  <span className="icone-text-coordinateur-details">Coordinateur</span>
-                </span>
+              <span>
+                <img alt="ic&ocirc;ne Conseiller num&eacute;rique coordinateur" src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
+                <span className="icone-text-coordinateur-details">Coordinateur</span>
+              </span>
             }
           </h1>
         </div>
@@ -135,21 +138,21 @@ function ConseillerDetails() {
             {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
               <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
             }
-            {conseiller?.statut === 'RUPTURE' &&
+            {(conseiller?.statut === 'RUPTURE' || conseiller?.statut === 'TERMINE') &&
               <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
             }
             {misesEnRelationNouvelleRupture &&
-            <>
-              {misesEnRelationNouvelleRupture?.dossierIncompletRupture === true &&
-                <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p>
-              }
-              {misesEnRelationNouvelleRupture?.dossierIncompletRupture === false &&
-                <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>En attente de traitement</p>
-              }
-              {misesEnRelationNouvelleRupture?.dossierIncompletRupture === undefined &&
-                <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
-              }
-            </>
+              <>
+                {misesEnRelationNouvelleRupture?.dossierIncompletRupture === true &&
+                  <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Dossier incomplet</p>
+                }
+                {misesEnRelationNouvelleRupture?.dossierIncompletRupture === false &&
+                  <p className="fr-badge fr-badge--new fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>En attente de traitement</p>
+                }
+                {misesEnRelationNouvelleRupture?.dossierIncompletRupture === undefined &&
+                  <p className="fr-badge fr-badge--warning fr-mt-2w fr-mt-md-0" style={{ height: '20%' }}>Rupture en cours</p>
+                }
+              </>
             }
           </div>
         }
@@ -171,7 +174,7 @@ function ConseillerDetails() {
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
-        misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        misesEnRelationSansMission={misesEnRelationSansMission}
         roleActivated={roleActivated}
       />
     </div>

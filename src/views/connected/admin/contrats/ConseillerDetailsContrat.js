@@ -31,7 +31,8 @@ function ConseillerDetailsContrat() {
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
-  const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const [misesEnRelationSansMission, setMisesEnRelationSansMission] = useState([]);
+
   const [dateFinDeContratInitiale, setDateFinDeContratInitiale] = useState(new Date());
   const [dateFinDeContrat, setDateFinDeContrat] = useState(null);
   const [openModal, setOpenModal] = useState(false);
@@ -58,12 +59,16 @@ function ConseillerDetailsContrat() {
         const miseEnRelation = conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0];
         setMisesEnRelationFinalisee(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
         setMisesEnRelationNouvelleRupture(miseEnRelation);
-        setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
+        setMisesEnRelationSansMission(conseiller.misesEnRelation?.filter(
+          miseEnRelation =>
+            miseEnRelation.statut === 'finalisee_rupture' || miseEnRelation.statut === 'terminee_naturelle'
+        ));
+
         setDateFinDeContrat(miseEnRelation?.dateRupture ? new Date(miseEnRelation.dateRupture) : null);
         setDateFinDeContratInitiale(miseEnRelation?.dateFinDeContrat ?
           new Date(miseEnRelation.dateFinDeContrat) :
           new Date(new Date().setMonth(new Date().getMonth() + 2)));
-        if (conseiller?.statut !== 'RUPTURE') {
+        if (conseiller?.statut === 'RECRUTE') {
           dispatch(structureActions.get(conseiller?.structureId));
         }
       }
@@ -142,7 +147,7 @@ function ConseillerDetailsContrat() {
             {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
               <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
             }
-            {conseiller?.statut === 'RUPTURE' &&
+            {(conseiller?.statut === 'RUPTURE' || conseiller?.statut === 'TERMINE') &&
               <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
             }
             {misesEnRelationNouvelleRupture &&
@@ -194,7 +199,7 @@ function ConseillerDetailsContrat() {
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
-        misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        misesEnRelationSansMission={misesEnRelationSansMission}
         roleActivated={roleActivated}
       />
     </div>
