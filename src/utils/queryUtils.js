@@ -22,13 +22,14 @@ export function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, date
     default:
       break;
   }
+
   let rupture = '';
   switch (filtreRupture) {
     case 'tous':
       rupture = '';
       break;
-    case 'rupture':
-      rupture = `&rupture=finalisee_rupture`;
+    case 'sans-mission':
+      rupture = `&rupture=sans-mission`;
       break;
     case 'en-cours':
       rupture = `&rupture=nouvelle_rupture`;
