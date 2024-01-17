@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { formatMotifRupture, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../utils/formatagesUtils';
 import dayjs from 'dayjs';
 
-function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, conseiller }) {
-  const checkMotifRupture = motif => !!(motif === 'licenciement' || motif === 'demission');
-
+function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationSansMission, misesEnRelationFinalisee, conseiller }) {
   return (
     <>
       <div className="fr-grid-row fr-col-12 display-desktop color-text color-title-subpart">
         {misesEnRelationNouvelleRupture &&
-          <div className="fr-card fr-col-12 fr-p-4w">
+          <div className="fr-card fr-col-12 fr-p-4w fr-mb-3w">
             <div className="fr-card__body" style={{ padding: '0 0' }}>
               <div>
                 <div className="fr-grid-row fr-grid-row--middle">
@@ -21,7 +19,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                     <div>
                       <strong className="fr-text--md">Rupture initi&eacute;e</strong><br />
                       {misesEnRelationNouvelleRupture?.emetteurRupture?.date ?
-                        <span className="fr-text--regular fr-text--md">
+                        <span>
                           {dayjs(misesEnRelationNouvelleRupture?.emetteurRupture?.date).format('DD/MM/YYYY')}
                         </span> : <span>-</span>
                       }
@@ -30,7 +28,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                   <div className="fr-col-3">
                     <div>
                       <strong className="fr-text--md">Motif</strong><br />
-                      <span className="fr-text--regular fr-text--md">
+                      <span>
                         {formatMotifRupture(misesEnRelationNouvelleRupture?.motifRupture)}
                       </span>
                     </div>
@@ -38,7 +36,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                   <div className="fr-col-3">
                     <div>
                       <strong className="fr-text--md">&Eacute;tat du dossier</strong><br />
-                      <span className="fr-text--regular fr-text--md">
+                      <span>
                         {misesEnRelationNouvelleRupture?.dossierIncompletRupture === true && <>Incomplet</>}
                         {misesEnRelationNouvelleRupture?.dossierIncompletRupture === false && <>Nouvelle demande</>}
                         {misesEnRelationNouvelleRupture?.dossierIncompletRupture === undefined && <>Complet</>}
@@ -51,7 +49,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
           </div>
         }
         {(misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture) &&
-          <div className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}>
+          <div className="fr-card fr-col-12 fr-p-4w fr-mb-3w">
             <div className="fr-card__body" style={{ padding: '0 0' }}>
               <div>
                 <div className="fr-grid-row fr-grid-row--middle">
@@ -62,11 +60,11 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                     <div>
                       <strong className="fr-text--md">Type de contrat</strong><br />
                       {(!misesEnRelationFinalisee[0]?.typeDeContrat && !misesEnRelationNouvelleRupture?.typeDeContrat) &&
-                        <span className="fr-text--regular fr-text--md">-</span>
+                        <span>-</span>
                       }
                       {misesEnRelationFinalisee[0]?.typeDeContrat ?
-                        <span className="fr-text--regular fr-text--md">{formatTypeDeContrat(misesEnRelationFinalisee[0].typeDeContrat)}</span> :
-                        <span className="fr-text--regular fr-text--md">{formatTypeDeContrat(misesEnRelationNouvelleRupture?.typeDeContrat)}</span>
+                        <span>{formatTypeDeContrat(misesEnRelationFinalisee[0].typeDeContrat)}</span> :
+                        <span>{formatTypeDeContrat(misesEnRelationNouvelleRupture?.typeDeContrat)}</span>
                       }
                     </div>
                   </div>
@@ -74,15 +72,15 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                     <div>
                       <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
                       {(!misesEnRelationFinalisee[0]?.dateDebutDeContrat && !misesEnRelationNouvelleRupture?.dateDebutDeContrat) &&
-                        <span className="fr-text--regular fr-text--md">En attente de pi&egrave;ces justificatives</span>
+                        <span>En attente de pi&egrave;ces justificatives</span>
                       }
                       {misesEnRelationFinalisee[0]?.dateDebutDeContrat &&
-                        <span className="fr-text--regular fr-text--md">
+                        <span>
                           {dayjs(misesEnRelationFinalisee[0].dateDebutDeContrat).format('DD/MM/YYYY')}
                         </span>
                       }
                       {misesEnRelationNouvelleRupture?.dateDebutDeContrat &&
-                        <span className="fr-text--regular fr-text--md">
+                        <span>
                           {dayjs(misesEnRelationNouvelleRupture.dateDebutDeContrat).format('DD/MM/YYYY')}
                         </span>
                       }
@@ -95,8 +93,8 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                         <>
                           {(validTypeDeContratWithoutEndDate(misesEnRelationNouvelleRupture?.typeDeContrat) ||
                             validTypeDeContratWithoutEndDate(misesEnRelationFinalisee[0]?.typeDeContrat)) ?
-                            <span className="fr-text--regular fr-text--md">-</span> :
-                            <span className="fr-text--regular fr-text--md">En attente de pi&egrave;ces justificatives</span>
+                            <span>-</span> :
+                            <span>En attente de pi&egrave;ces justificatives</span>
                           }
                         </>
                       }
@@ -104,8 +102,8 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                         <>
                           {(
                             validTypeDeContratWithoutEndDate(misesEnRelationFinalisee[0]?.typeDeContrat)) ?
-                            <span className="fr-text--regular fr-text--md">-</span> :
-                            <span className="fr-text--regular fr-text--md">{dayjs(misesEnRelationFinalisee[0].dateFinDeContrat).format('DD/MM/YYYY')}</span>
+                            <span>-</span> :
+                            <span>{dayjs(misesEnRelationFinalisee[0].dateFinDeContrat).format('DD/MM/YYYY')}</span>
                           }
                         </>
                       }
@@ -113,8 +111,8 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                         <>
                           {(
                             validTypeDeContratWithoutEndDate(misesEnRelationNouvelleRupture.dateFinDeContrat)) ?
-                            <span className="fr-text--regular fr-text--md">-</span> :
-                            <span className="fr-text--regular fr-text--md">{dayjs(misesEnRelationNouvelleRupture.dateFinDeContrat).format('DD/MM/YYYY')}</span>
+                            <span>-</span> :
+                            <span>{dayjs(misesEnRelationNouvelleRupture.dateFinDeContrat).format('DD/MM/YYYY')}</span>
                           }
                         </>
                       }
@@ -125,10 +123,9 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
             </div>
           </div>
         }
-        {misesEnRelationFinaliseeRupture?.map(miseEnRelation =>
+        {misesEnRelationSansMission?.map(miseEnRelation =>
           <div
-            // eslint-disable-next-line max-len
-            className={`fr-card fr-col-12 fr-p-4w contrat-terminer ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}
+            className="fr-card fr-col-12 fr-p-4w contrat-terminer fr-mb-3w"
             key={miseEnRelation?._id}
             style={{ paddingLeft: '1rem' }}
           >
@@ -138,63 +135,57 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                   <div className="badge">
                     <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
                   </div>
-                  <div className={`${checkMotifRupture(miseEnRelation?.motifRupture) ? 'structure-long' : 'structure-court'}`}>
+                  <div className="structure">
                     <strong className="fr-text--md" title={miseEnRelation?.structureObj?.nom}>
-                      {miseEnRelation?.structureObj?.nom?.length > 15 ?
-                        `${miseEnRelation?.structureObj?.nom.substring(0, 15)}...` : miseEnRelation?.structureObj?.nom
-                      }
-                    </strong><br />
+                      {miseEnRelation?.structureObj?.nom}
+                    </strong>
                     <span className="fr-text--md">ID - {miseEnRelation?.structureObj?.idPG}</span>
                   </div>
-                  <div className={`${checkMotifRupture(miseEnRelation?.motifRupture) ? 'fr-col-2' : 'type-contrat'}`}>
+                  <div className="type-contrat">
                     <div>
                       <strong className="fr-text--md">Type de contrat</strong><br />
-                      <span
-                        className="fr-text--regular fr-text--md"
-                        title={miseEnRelation?.typeDeContrat ? formatTypeDeContrat(miseEnRelation?.typeDeContrat) : ''}
-                      >
-                        {miseEnRelation?.typeDeContrat ?
-                          <>
-                            {miseEnRelation?.typeDeContrat?.length > 15 ?
-                              `${formatTypeDeContrat(miseEnRelation?.typeDeContrat)?.substring(0, 15)}...` :
-                              formatTypeDeContrat(miseEnRelation?.typeDeContrat)
-                            }
-                          </> : '-'
-                        }
+                      <span title={miseEnRelation?.typeDeContrat}>
+                        {miseEnRelation?.typeDeContrat ?? '-'}
                       </span>
                     </div>
                   </div>
-                  <div className="fr-col-2">
+                  <div className="debut-contrat">
                     <div>
                       <strong className="fr-text--md">D&eacute;but de contrat</strong><br />
                       {miseEnRelation?.dateDebutDeContrat ?
-                        <span className="fr-text--regular fr-text--md">
+                        <span>
                           {dayjs(miseEnRelation?.dateDebutDeContrat).format('DD/MM/YYYY')}
                         </span> :
-                        <span className="fr-text--regular fr-text--md" title="En attente de pi&egrave;ces justificatives">
-                          En attente de pi&egrave;ces...
+                        <span title="En attente de pi&egrave;ces justificatives">
+                          En attente de pi&egrave;ces justificatives
                         </span>
                       }
                     </div>
                   </div>
-                  <div className={`${checkMotifRupture(miseEnRelation?.motifRupture) ? 'fr-col-2' : 'fin-contrat'}`}>
+                  <div className="fin-contrat">
                     <div>
                       <strong className="fr-text--md">Fin de contrat</strong><br />
                       {miseEnRelation?.dateRupture ?
-                        <span className="fr-text--regular fr-text--md">
+                        <span>
                           {dayjs(miseEnRelation?.dateRupture).format('DD/MM/YYYY')}
-                        </span> : <span>-</span>
+                        </span> :
+                        <span>
+                          {dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}
+                        </span>
                       }
                     </div>
                   </div>
-                  <div className={`${checkMotifRupture(miseEnRelation?.motifRupture) ? 'motif-court' : 'motif-long'}`}>
+                  <div className="motif">
                     <div>
                       <strong className="fr-text--md">Motif</strong><br />
-                      <span className="fr-text--regular fr-text--md" title={miseEnRelation?.motifRupture}>
-                        {miseEnRelation?.motifRupture?.length > 27 ?
-                          `${miseEnRelation?.motifRupture.substring(0, 27)}...` : formatMotifRupture(miseEnRelation?.motifRupture)
-                        }
-                      </span>
+                      {miseEnRelation?.motifRupture ?
+                        <span title={formatMotifRupture(miseEnRelation?.motifRupture)}>
+                          {formatMotifRupture(miseEnRelation?.motifRupture)}
+                        </span> :
+                        <span title="Non reconduction de contrat">
+                          Non reconduction de contrat
+                        </span>
+                      }
                     </div>
                   </div>
                 </div>
@@ -202,7 +193,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
             </div>
           </div>
         )}
-        <div className="fr-card fr-col-12 fr-mt-3w fr-p-4w">
+        <div className="fr-card fr-col-12 fr-p-4w">
           <div className="fr-card__body" style={{ padding: '0 0' }}>
             <div>
               <div className="fr-grid-row fr-grid-row--middle">
@@ -212,14 +203,14 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                 <div className="fr-col-3">
                   <div>
                     <strong className="fr-text--md">Formation certifi&eacute;(e)</strong><br />
-                    <span className="fr-text--regular fr-text--md">{conseiller?.certifie ? 'Oui' : 'Non'}</span>
+                    <span>{conseiller?.certifie ? 'Oui' : 'Non'}</span>
                   </div>
                 </div>
                 <div className="fr-col-3">
                   <div>
                     <strong className="fr-text--md">D&eacute;but de formation</strong><br />
                     {conseiller?.datePrisePoste ?
-                      <span className="fr-text--regular fr-text--md">
+                      <span>
                         {dayjs(conseiller?.datePrisePoste).format('DD/MM/YYYY')}
                       </span> : <span>-</span>
                     }
@@ -229,7 +220,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
                   <div>
                     <strong className="fr-text--md">Fin de formation</strong><br />
                     {conseiller?.dateFinFormation ?
-                      <span className="fr-text--regular fr-text--md">
+                      <span>
                         {dayjs(conseiller?.dateFinFormation).format('DD/MM/YYYY')}
                       </span> : <span>-</span>
                     }
@@ -246,7 +237,7 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
 
 ContratsCards.propTypes = {
   misesEnRelationNouvelleRupture: PropTypes.object,
-  misesEnRelationFinaliseeRupture: PropTypes.array,
+  misesEnRelationSansMission: PropTypes.array,
   misesEnRelationFinalisee: PropTypes.array,
   conseiller: PropTypes.object,
 };

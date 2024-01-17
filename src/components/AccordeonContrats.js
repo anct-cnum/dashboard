@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { formatMotifRupture, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../utils/formatagesUtils';
 import dayjs from 'dayjs';
 
-function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFinaliseeRupture, misesEnRelationFinalisee, conseiller }) {
+function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationSansMission, misesEnRelationFinalisee, conseiller }) {
 
   return (
     <section className="fr-accordion display-mobile fr-mb-2w">
@@ -13,7 +13,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
       <div className="fr-collapse color-text color-title-subpart" id="accordion-activiter">
         <div className="fr-grid-row fr-col-12">
           {misesEnRelationNouvelleRupture &&
-            <div className="fr-card fr-col-12 fr-p-4w">
+            <div className="fr-card fr-col-12 fr-p-4w fr-mb-3w">
               <div className="fr-card__body" style={{ padding: '0 0' }}>
                 <div>
                   <div className="fr-grid-row fr-grid-row--middle">
@@ -54,7 +54,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
             </div>
           }
           {(misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture) &&
-            <div className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}>
+            <div className="fr-card fr-col-12 fr-p-4w fr-mb-3w">
               <div className="fr-card__body" style={{ padding: '0 0' }}>
                 <div>
                   <div className="fr-grid-row fr-grid-row--middle">
@@ -130,9 +130,9 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
               </div>
             </div>
           }
-          {misesEnRelationFinaliseeRupture?.map(miseEnRelation =>
+          {misesEnRelationSansMission?.map(miseEnRelation =>
             <div
-              className={`fr-card fr-col-12 fr-p-4w ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}
+              className="fr-card fr-col-12 fr-p-4w fr-mb-3w"
               key={miseEnRelation?._id}
               style={{ paddingLeft: '1rem' }}
             >
@@ -140,7 +140,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                 <div>
                   <div className="fr-grid-row fr-grid-row--middle">
                     <div className="fr-col-12 fr-mb-2w">
-                      <p className="fr-badge fr-badge--error">Contrat Termin&eacute;</p>
+                      <p className="fr-badge fr-badge--error">Contrat termin&eacute;</p>
                     </div>
                     <div className="fr-col-12 fr-mb-2w">
                       <strong className="fr-text--md fr-col-12 fr-mb-0">
@@ -179,9 +179,14 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
                     <div className="fr-col-12 fr-mt-2w">
                       <div>
                         <strong className="fr-text--md" style={{ fontWeight: '500' }}>Motif</strong><br />
-                        <span className="fr-text--regular fr-text--md" title={miseEnRelation?.motifRupture}>
-                          {formatMotifRupture(miseEnRelation?.motifRupture)}
-                        </span>
+                        {miseEnRelation?.motifRupture ?
+                          <span title={formatMotifRupture(miseEnRelation?.motifRupture)}>
+                            {formatMotifRupture(miseEnRelation?.motifRupture)}
+                          </span> :
+                          <span title="Non reconduction de contrat">
+                            Non reconduction de contrat
+                          </span>
+                        }
                       </div>
                     </div>
                   </div>
@@ -189,7 +194,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
               </div>
             </div>
           )}
-          <div className="fr-card fr-col-12 fr-mt-3w fr-p-4w">
+          <div className="fr-card fr-col-12 fr-p-4w">
             <div className="fr-card__body" style={{ padding: '0 0' }}>
               <div>
                 <div className="fr-grid-row fr-grid-row--middle">
@@ -234,7 +239,7 @@ function AccordeonContrats({ misesEnRelationNouvelleRupture, misesEnRelationFina
 
 AccordeonContrats.propTypes = {
   misesEnRelationNouvelleRupture: PropTypes.object,
-  misesEnRelationFinaliseeRupture: PropTypes.array,
+  misesEnRelationSansMission: PropTypes.array,
   misesEnRelationFinalisee: PropTypes.array,
   conseiller: PropTypes.object,
 };

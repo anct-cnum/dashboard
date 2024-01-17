@@ -21,7 +21,7 @@ function ConseillerDetails() {
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
-  const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const [misesEnRelationSansMission, setMisesEnRelationSansMission] = useState([]);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -42,8 +42,11 @@ function ConseillerDetails() {
       if (conseiller !== undefined) {
         setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
         setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
-        setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
-        if (conseiller?.statut !== 'RUPTURE') {
+        setMisesEnRelationSansMission(conseiller.misesEnRelation?.filter(
+          miseEnRelation =>
+            miseEnRelation.statut === 'finalisee_rupture' || miseEnRelation.statut === 'terminee_naturelle'
+        ));
+        if (conseiller?.statut === 'RECRUTE') {
           dispatch(structureActions.get(conseiller?.structureId));
         }
       }
@@ -109,7 +112,7 @@ function ConseillerDetails() {
             {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
               <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
             }
-            {conseiller?.statut === 'RUPTURE' &&
+            {(conseiller?.statut === 'RUPTURE' || conseiller?.statut === 'TERMINE') &&
               <p className="fr-badge fr-badge--error" style={{ height: '20%' }}>Contrat termin&eacute;</p>
             }
             {misesEnRelationNouvelleRupture &&
@@ -127,7 +130,7 @@ function ConseillerDetails() {
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
-        misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        misesEnRelationSansMission={misesEnRelationSansMission}
         roleActivated={roleActivated}
       />
     </div>
