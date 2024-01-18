@@ -6,8 +6,8 @@ const initialState = {
   error: false,
   errorTerritoire: false,
   loading: false,
-  conseillerStats: [],
-  structureStats: [],
+  conseillerStats: 'tous',
+  structureStats: 'tous',
   codeRegionStats: 'tous',
   numeroDepartementStats: 'tous',
   dateDebut: new Date('2020-11-17').toISOString(),
@@ -19,19 +19,19 @@ export default function statistiques(state = initialState, action) {
     case 'CHANGE_CODE_POSTAL_STATS':
       return {
         ...state,
-        codePostalStats: action.codePostal,
-        villeStats: action.ville,
+        codePostalStats: action.codePostal ?? 'tous',
+        villeStats: action.ville ?? 'tous',
         codeCommuneStats: action.codeCommune,
       };
     case 'CHANGE_STRUCTURE_STATS':
       return {
         ...state,
-        structureStats: action.structureId !== '' ? [action.structureId] : [],
+        structureStats: action.structureId,
       };
     case 'CHANGE_CONSEILLER_STATS':
       return {
         ...state,
-        conseillerStats: action.conseillerId !== '' ? [action.conseillerId] : [],
+        conseillerStats: action.conseillerId,
       };
     case 'CHANGE_REGION_STATS':
       return {
@@ -60,6 +60,25 @@ export default function statistiques(state = initialState, action) {
         ...state,
         loadingCodesPostaux: false,
         error: true,
+      };
+    case 'GET_FILTRES_CONSEILLER_CRA_REQUEST':
+      return {
+        ...state,
+        loadingFiltresConseiller: true,
+        error: false,
+      };
+    case 'GET_FILTRES_CONSEILLER_CRA_SUCCESS':
+      return {
+        ...state,
+        loadingFiltresConseiller: false,
+        listeCodesPostaux: action.response.listeCodesPostaux,
+        listeStructures: action.response.listeStructures,
+      };
+    case 'GET_FILTRES_CONSEILLER_CRA_FAILURE':
+      return {
+        ...state,
+        loadingFiltresConseiller: false,
+        error: action.error,
       };
     case 'GET_STATS_CRA_NATIONALES_REQUEST':
       return {
