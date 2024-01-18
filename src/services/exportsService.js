@@ -11,7 +11,8 @@ import {
   contratQueryStringParameters,
   statsCsvConseillerQueryStringParameters,
   statsCsvStructureQueryStringParameters,
-  statsCsvGrandReseauQueryStringParameters
+  statsCsvGrandReseauQueryStringParameters,
+  demandesQueryStringParameters
 } from '../utils/queryUtils';
 
 export const exportsService = {
