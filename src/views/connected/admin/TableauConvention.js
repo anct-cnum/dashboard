@@ -12,6 +12,7 @@ import { filtresConventionsActions } from '../../../actions/filtresConventionsAc
 import FiltresEtTrisConvention from './FiltresEtTrisConvention';
 import TableauConventionnement from './conventionnement/TableauConventionnement';
 import FiltresEtTrisConventionnement from './conventionnement/FiltresEtTrisConventionnement';
+import BannerConfirmationRefusCandidature from './conventionnement/BannerConfirmationRefusCandidature';
 
 export default function TableauConvention() {
 
@@ -88,10 +89,14 @@ export default function TableauConvention() {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresConventionsActions.changeOrdre(e.currentTarget?.id));
   };
-
+console.log(conventions);
   return (
     <div className="conventions">
       <Spinner loading={loading} />
+      {conventions?.length > 0 && conventions?.map((structure, idx) => {
+        return (<BannerConfirmationRefusCandidature key={idx} structure={structure} />);
+      })
+      }
       <div className="fr-grid-row">
         <div className="fr-col-12">
           <h1 className="fr-h1 title">Demandes de conventions</h1>

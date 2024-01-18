@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
+import ModalConfirmationRefusStructure from './ModalConfirmationRefusStructure';
+import { useSelector } from 'react-redux';
 
 function ConventionnementDetails({ structure }) {
+  
+  const successRefusCandidature = useSelector(state => state.convention.successRefusCandidature);
+  const [openModalConfirmationRefus, setOpenModalConfirmation] = useState(false);
+  const [typeAttribution, setTypeAttribution] = useState('');
+  useEffect(() => {
+    if (successRefusCandidature) {
+      window.location.href = '/admin/demandes/conventions';
+    }
+  }, [successRefusCandidature]);
+
   return (
     <>
+      {openModalConfirmationRefus &&
+        <ModalConfirmationRefusStructure setOpenModal={setOpenModalConfirmation} structure={structure} typeAttribution={typeAttribution}/>
+      }
       <h2>Candidature</h2>
       <div className="fr-card">
         <div className="fr-card__body">
@@ -68,7 +83,10 @@ function ConventionnementDetails({ structure }) {
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
-                  <button className="fr-btn fr-btn--secondary">
+                  <button className="fr-btn fr-btn--secondary" onClick={() => {
+                    setOpenModalConfirmation(true);
+                    setTypeAttribution('refuser');
+                  }}>
                     Refuser la candidature
                   </button>
                 </li>

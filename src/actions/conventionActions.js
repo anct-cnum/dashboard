@@ -6,6 +6,8 @@ export const conventionActions = {
   get,
   updateAvenantAjoutPoste,
   updateAvenantRenduPoste,
+  confirmationRefusCoselecAdmin,
+  closeBanner,
 };
 
 function getAll(page, typeConvention, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'dateDemande', ordre = 1) {
@@ -126,5 +128,55 @@ function updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec) {
   }
   function failure(error) {
     return { type: 'UPDATE_AVENANT_RENDU_POSTE_FAILURE', error };
+  }
+}
+
+function confirmationRefusCoselecAdmin(id) {
+  return dispatch => {
+    dispatch(request());
+
+    conventionService.confirmationRefusCoselecAdmin(id)
+    .then(
+      response => dispatch(success(response)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_REFUS_COSELEC_ADMIN_REQUEST' };
+  }
+  function success(response) {
+    return { type: 'UPDATE_REFUS_COSELEC_ADMIN_SUCCESS', response };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_REFUS_COSELEC_ADMIN_FAILURE', error };
+  }
+}
+
+function closeBanner(idStructure, typeBanner) {
+  return dispatch => {
+    dispatch(request());
+
+    conventionService.closeBanner(idStructure, typeBanner)
+    .then(
+      idStructure => {
+        dispatch(success(idStructure));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+  
+  function request() {
+    return { type: 'UPDATE_BANNER_REQUEST' };
+  }
+  function success(idStructure) {
+    return { type: 'UPDATE_BANNER_COSELEC_SUCCESS', idStructure };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_BANNER_FAILURE', error };
   }
 }
