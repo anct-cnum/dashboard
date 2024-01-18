@@ -6,10 +6,12 @@ import { structureActions } from '../../../../actions';
 function ModalValidationAttributionPoste({ setOpenModal, structure }) {
   const dispatch = useDispatch();
   const [nombreConseillersCoselec, setNombreConseillersCoselec] = useState(structure?.nombreConseillersSouhaites || 1);
+
   const confirmationAttributionPoste = () => {
     dispatch(structureActions.confirmationValidAvisAdmin(structure?._id, nombreConseillersCoselec));
     setOpenModal(false);
   };
+
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">

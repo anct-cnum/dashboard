@@ -12,13 +12,14 @@ import { filtresConventionsActions } from '../../../actions/filtresConventionsAc
 import FiltresEtTrisConvention from './FiltresEtTrisConvention';
 import TableauConventionnement from './conventionnement/TableauConventionnement';
 import FiltresEtTrisConventionnement from './conventionnement/FiltresEtTrisConventionnement';
+import { statutStructure } from '../../../utils/enumUtils';
 
 export default function TableauConvention() {
 
   const dispatch = useDispatch();
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
-  const [annulationRecrutement, setAnnulationRecrutement] = useState(location.state?.structure || null);
+  const [candidatureStructure, setCandidatureStructure] = useState(location.state?.structure || null);
 
   const loading = useSelector(state => state.convention?.loading);
   const error = useSelector(state => state.convention?.error);
@@ -91,21 +92,21 @@ export default function TableauConvention() {
   };
 
   useEffect(() => {
-    if (annulationRecrutement) {
+    if (candidatureStructure) {
       setTimeout(() => {
-        setAnnulationRecrutement(null);
+        setCandidatureStructure(null);
       }, 5000);
     }
-  }, [annulationRecrutement]);
+  }, [candidatureStructure]);
 
   return (
     <div className="conventions">
       <Spinner loading={loading} />
-      {annulationRecrutement?.statut === 'VALIDATION_COSELEC' &&
+      {candidatureStructure?.statut === statutStructure.VALIDATION_COSELEC &&
         <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
           <h3 className="fr-alert__title">
             L&rsquo;attribution d&rsquo;un poste de conseiller a &eacute;t&eacute; valid&eacute; par
-            le comit&eacute; de s&eacute;lection pour la structure {annulationRecrutement?.nom}.
+            le comit&eacute; de s&eacute;lection pour la structure {candidatureStructure?.nom}.
           </h3>
           <p>La structure sera notifi&eacute;e sur son espace.</p>
         </div>
