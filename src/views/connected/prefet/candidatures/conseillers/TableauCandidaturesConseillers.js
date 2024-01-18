@@ -84,7 +84,7 @@ export default function TableauCandidaturesConseillers() {
     dispatch(filtresDemandesActions.changeOrdre(e.currentTarget?.id));
   };
 
-  const closeBanner = (idDemande) => dispatch(structureActions.closeBannerAvisPrefet(idDemande));
+  const closeBanner = idDemande => dispatch(structureActions.closeBannerAvisPrefet(idDemande));
 
   const demandesConseillerWithBanner = structures?.items?.data?.filter(structure => structure?.prefet?.banniereValidationAvisPrefet === true);
 

@@ -84,10 +84,17 @@ export default function TableauCoordinateurs() {
     dispatch(filtresDemandesActions.changeOrdre(e.currentTarget?.id));
   };
 
-  const closeBanner = (idDemande) => {
+  const closeBanner = idDemande => {
     const demandeCoordinateur = coordinateurs?.items?.data?.find(demande => demande?.id === idDemande);
-    console.log(demandeCoordinateur);
-    dispatch(coordinateurActions.closeBanner(demandeCoordinateur?.id, demandeCoordinateur?.idStructure, 'banniereValidationAvisPrefet'));
+    if (demandeCoordinateur?.banniereValidationAvisPrefet === true) {
+      dispatch(coordinateurActions.closeBanner(demandeCoordinateur?.id, demandeCoordinateur?.idStructure, 'banniereValidationAvisPrefet'));
+      return;
+    }
+    dispatch(alerteEtSpinnerActions.getMessageAlerte({
+      type: 'error',
+      message: 'La banniére n\'a pas pu être fermée !',
+      status: null, description: null
+    }));
   };
 
   const demandesCoordinateurWithBanner = coordinateurs?.items?.data?.filter(demande => demande?.banniereValidationAvisPrefet === true);
