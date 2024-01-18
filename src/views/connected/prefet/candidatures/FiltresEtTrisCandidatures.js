@@ -5,7 +5,7 @@ import departementsRegionRaw from '../../../../datas/departements-region.json';
 import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
 import codeRegionsRaw from '../../../../datas/code_region.json';
 
-function FiltresEtTris() {
+function FiltresEtTrisCandidatures() {
   const dispatch = useDispatch();
   const departementsRegionArray = Array.from(departementsRegionRaw);
   const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
@@ -101,4 +101,4 @@ function FiltresEtTris() {
   );
 }
 
-export default FiltresEtTris;
+export default FiltresEtTrisCandidatures;

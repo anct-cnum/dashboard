@@ -5,9 +5,9 @@ import Spinner from '../../../../../components/Spinner';
 import Pagination from '../../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import FiltresEtTris from '../FiltresEtTris';
 import CandidatureConseiller from './CandidatureConseiller';
 import BannerConfirmationAvisPrefet from '../BannerConfirmationAvisPrefet';
+import FiltresEtTrisCandidatures from '../FiltresEtTrisCandidatures';
 
 export default function TableauCandidaturesConseillers() {
 
@@ -73,7 +73,7 @@ export default function TableauCandidaturesConseillers() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les demandes de candidatures conseillers numériques à traiter n\'ont pas pu être chargés !',
+        message: 'Les demandes de candidatures conseillers numériques à traiter n\'ont pas pu être chargées !',
         status: null, description: null
       }));
     }
@@ -131,7 +131,7 @@ export default function TableauCandidaturesConseillers() {
               </button>
             </ul>
             <div className="fr-col-12 fr-mt-3w">
-              <FiltresEtTris />
+              <FiltresEtTrisCandidatures />
             </div>
             <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
               <div className="fr-col-12">
@@ -177,7 +177,7 @@ export default function TableauCandidaturesConseillers() {
                         <tr>
                           <td colSpan="12" style={{ width: '60rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                              <span className="not-found">Aucunes candidatures de conseillers num&eacute;riques trouv&eacute;es</span>
+                              <span className="not-found pair">Aucune candidature de conseillers num&eacute;riques trouv&eacute;es</span>
                             </div>
                           </td>
                         </tr>

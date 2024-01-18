@@ -1,7 +1,7 @@
 const initialState = {
   nom: undefined,
   ordre: true,
-  ordreNom: undefined,
+  ordreNom: 'codePostal',
   region: 'tous',
   departement: 'tous',
   avisPrefet: 'tous',
