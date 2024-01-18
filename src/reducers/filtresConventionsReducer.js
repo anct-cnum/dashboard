@@ -35,6 +35,11 @@ export default function filtresConventions(state = initialState, action) {
         ...state,
         statutDossierRupture: action.statutDossierRupture
       };
+    case 'CHANGE_AVIS_ANCT_CANDIDATURE':
+      return {
+        ...state,
+        avisANCT: action.avisANCT
+      };
     case 'RESET_FILTER_AND_SORTS':
       return initialState;
     default:

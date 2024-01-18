@@ -11,6 +11,8 @@ import HistoriqueConventionnement from './conventionnement/HistoriqueConventionn
 import HistoriqueAvenantAjoutPoste from './avenantAjoutPoste/HistoriqueAvenantAjoutPoste';
 import HistoriqueAvenantRenduPoste from './avenantRenduPoste/HistoriqueAvenantRenduPoste';
 import FiltresEtTrisConvention from './FiltresEtTrisConvention';
+import TableauHistoriqueConventionnement from './conventionnement/TableauHistoriqueConventionnement';
+import FiltresEtTrisHistoriqueConventionnement from './conventionnement/FiltresEtTrisHistoriqueConventionnement';
 
 export default function TableauHistoriqueConvention() {
 
@@ -29,6 +31,7 @@ export default function TableauHistoriqueConvention() {
   const filtreParNomStructure = useSelector(state => state.filtresConventions?.nom);
   const filterDepartement = useSelector(state => state.filtresConventions?.departement);
   const filtreRegion = useSelector(state => state.filtresConventions?.region);
+  const filtreAvisANCT = useSelector(state => state.filtresConventions?.avisANCT);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
   const [typeConvention, setTypeConvention] = useState('toutes');
@@ -54,11 +57,12 @@ export default function TableauHistoriqueConvention() {
         filtreParNomStructure,
         filterDepartement,
         filtreRegion,
+        filtreAvisANCT,
         ordreNom,
         ordre ? -1 : 1
       ));
     }
-  }, [currentPage, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordre, ordreNom]);
+  }, [currentPage, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisANCT, ordre, ordreNom]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -76,6 +80,7 @@ export default function TableauHistoriqueConvention() {
           filtreParNomStructure,
           filterDepartement,
           filtreRegion,
+          filtreAvisANCT,
           ordreNom,
           ordre ? -1 : 1
         ));
@@ -107,6 +112,7 @@ export default function TableauHistoriqueConvention() {
       filtreParNomStructure,
       filterDepartement,
       filtreRegion,
+      filtreAvisANCT,
       ordreNom,
       ordre ? -1 : 1
     ));
@@ -159,7 +165,9 @@ export default function TableauHistoriqueConvention() {
                 </button>
               </ul>
               <div className="fr-col-12 fr-mb-2w fr-mt-3w">
-                <FiltresEtTrisConvention />
+                {typeConvention === 'conventionnement' ?
+                  <FiltresEtTrisHistoriqueConventionnement /> : <FiltresEtTrisConvention />
+                }
               </div>
               <div className="fr-container--fluid fr-mt-4w">
                 <div className="fr-grid-row fr-grid-row--end">
@@ -176,57 +184,66 @@ export default function TableauHistoriqueConvention() {
               <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
                 <div className="fr-col-12">
                   <div className="fr-table">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th style={{ width: '9rem' }}>ID Structure</th>
-                          <th style={{ width: '30rem' }}>Nom de la structure</th>
-                          <th style={{ width: '14rem' }}>
-                            <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
-                              <span>Date de la demande
-                                {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
-                                  <i className="ri-arrow-down-s-line chevron icone"></i>
-                                }
-                                {(ordreNom === 'dateDemande' && !ordre) &&
-                                  <i className="ri-arrow-up-s-line chevron icone"></i>
-                                }
-                              </span>
-                            </button>
-                          </th>
-                          <th style={{ width: '12rem' }}>Nombre de postes</th>
-                          <th style={{ width: '15rem' }}>Type de demande</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {!error && !loading && conventions?.items?.data?.map((convention, idx) =>
-                          <tr key={idx}>
-                            {convention?.typeConvention === 'conventionnement' &&
-                              <HistoriqueConventionnement conventionnement={convention} />
-                            }
-                            {convention?.typeConvention === 'reconventionnement' &&
-                              <HistoriqueReconventionnement reconventionnement={convention} />
-                            }
-                            {convention?.typeConvention === 'avenantAjoutPoste' &&
-                              <HistoriqueAvenantAjoutPoste avenant={convention} />
-                            }
-                            {convention?.typeConvention === 'avenantRenduPoste' &&
-                              <HistoriqueAvenantRenduPoste avenant={convention} />
-                            }
-                          </tr>
-                        )
-                        }
-                        {(!conventions?.items || conventions?.items?.data?.length === 0) &&
+                    {typeConvention === 'conventionnement' ?
+                      <TableauHistoriqueConventionnement
+                        ordreNom={ordreNom}
+                        ordre={ordre}
+                        conventions={conventions}
+                        error={error}
+                        loading={loading}
+                      /> :
+                      <table>
+                        <thead>
                           <tr>
-                            <td colSpan="12" style={{ width: '60rem' }}>
-                              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <span className="not-found pair">Aucune demande de convention trouv&eacute;e</span>
-                              </div>
-                            </td>
+                            <th style={{ width: '9rem' }}>ID Structure</th>
+                            <th style={{ width: '30rem' }}>Nom de la structure</th>
+                            <th style={{ width: '14rem' }}>
+                              <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
+                                <span>Date de la demande
+                                  {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
+                                    <i className="ri-arrow-down-s-line chevron icone"></i>
+                                  }
+                                  {(ordreNom === 'dateDemande' && !ordre) &&
+                                    <i className="ri-arrow-up-s-line chevron icone"></i>
+                                  }
+                                </span>
+                              </button>
+                            </th>
+                            <th style={{ width: '12rem' }}>Nombre de postes</th>
+                            <th style={{ width: '15rem' }}>Type de demande</th>
+                            <th></th>
                           </tr>
-                        }
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {!error && !loading && conventions?.items?.data?.map((convention, idx) =>
+                            <tr key={idx}>
+                              {convention?.typeConvention === 'conventionnement' &&
+                                <HistoriqueConventionnement conventionnement={convention} />
+                              }
+                              {convention?.typeConvention === 'reconventionnement' &&
+                                <HistoriqueReconventionnement reconventionnement={convention} />
+                              }
+                              {convention?.typeConvention === 'avenantAjoutPoste' &&
+                                <HistoriqueAvenantAjoutPoste avenant={convention} />
+                              }
+                              {convention?.typeConvention === 'avenantRenduPoste' &&
+                                <HistoriqueAvenantRenduPoste avenant={convention} />
+                              }
+                            </tr>
+                          )
+                          }
+                          {(!conventions?.items || conventions?.items?.data?.length === 0) &&
+                            <tr>
+                              <td colSpan="12" style={{ width: '60rem' }}>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                  <span className="not-found pair">Aucune demande de convention trouv&eacute;e</span>
+                                </div>
+                              </td>
+                            </tr>
+                          }
+                        </tbody>
+                      </table>
+                    }
                   </div>
                 </div>
                 {conventions?.items?.data.length > 0 &&
