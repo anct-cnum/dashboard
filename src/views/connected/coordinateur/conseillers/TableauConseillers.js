@@ -6,7 +6,7 @@ import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import FiltresEtTrisConseillers from '../../../../components/conseillers/FiltresEtTrisConseillers';
-import TableConseillersCoordonnes from '../../../../components/conseillers/TableConseillersCoordonnes';
+import TableConseillers from './TableConseillers';
 
 export default function TableauConseillers() {
 
@@ -75,7 +75,7 @@ export default function TableauConseillers() {
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
                   <div className="fr-table">
-                    <TableConseillersCoordonnes
+                    <TableConseillers
                       conseillers={conseillers}
                       error={error}
                       loading={loading}

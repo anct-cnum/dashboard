@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { filtresStructuresActions, paginationActions } from '../../actions';
+import { filtresStructuresActions, paginationActions } from '../../../../actions';
 import PropTypes from 'prop-types';
-import ConseillerCoordonnes from './ConseillerCoordonnes';
+import Conseiller from './Conseiller';
 
-export function TableConseillersCoordonnes({ conseillers, loading, error }) {
+export function TableConseillers({ conseillers, loading, error }) {
   const dispatch = useDispatch();
 
 
@@ -34,7 +34,7 @@ export function TableConseillersCoordonnes({ conseillers, loading, error }) {
           </th>
           <th>Structure</th>
           <th>CD</th>
-          <th>Début de contrat</th>
+          <th>D&eacute;but de contrat</th>
           <th>Fin de contrat</th>
           <th>Activ&eacute;</th>
           <th>CRA saisis</th>
@@ -44,7 +44,7 @@ export function TableConseillersCoordonnes({ conseillers, loading, error }) {
       </thead>
       <tbody>
         {!error && !loading && conseillers?.items?.data?.map((conseiller, idx) => {
-          return (<ConseillerCoordonnes key={idx} conseiller={conseiller} />);
+          return (<Conseiller key={idx} conseiller={conseiller} />);
         })
         }
         {(!conseillers?.items || conseillers?.items?.total === 0) &&
@@ -61,7 +61,7 @@ export function TableConseillersCoordonnes({ conseillers, loading, error }) {
   );
 }
 
-TableConseillersCoordonnes.propTypes = {
+TableConseillers.propTypes = {
   conseillers: PropTypes.object,
   loading: PropTypes.bool,
   error: PropTypes.bool || PropTypes.string,
@@ -69,4 +69,4 @@ TableConseillersCoordonnes.propTypes = {
   filtreCoordinateur: PropTypes.string,
 };
 
-export default TableConseillersCoordonnes;
+export default TableConseillers;

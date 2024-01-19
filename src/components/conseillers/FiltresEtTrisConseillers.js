@@ -24,6 +24,7 @@ function FiltresEtTrisConseillers() {
   const filterDepartement = useSelector(state => state.filtresConseillers?.departement);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresConseillers?.ordre);
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const exportConseillerFileBlob = useSelector(state => state.exports);
   const exportConseillerFileError = useSelector(state => state.exports?.error);
@@ -45,6 +46,10 @@ function FiltresEtTrisConseillers() {
 
   const exportDonneesConseiller = () => {
     dispatch(exportsActions.exportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
+      filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
+  };
+  const exportDonneesConseillerCoordonees = () => {
+    dispatch(exportsActions.exportDonneesConseillerCoordonees(dateDebut, dateFin, filtreParNomConseiller, filtreRegion,
       filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
   };
 
@@ -143,7 +148,11 @@ function FiltresEtTrisConseillers() {
             </select>
           </div>
           <div className="fr-ml-auto">
-            <button className="fr-btn fr-btn--secondary" onClick={exportDonneesConseiller}>Exporter les donn&eacute;es</button>
+            <button className="fr-btn fr-btn--secondary" onClick={roleActivated === 'coordinateur' ?
+              exportDonneesConseillerCoordonees :
+              exportDonneesConseiller}>
+                Exporter les donn&eacute;es
+            </button>
           </div>
         </div>
       </div>

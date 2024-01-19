@@ -9,6 +9,7 @@ export const exportsService = {
   getExportDonneesTerritoire,
   getStatistiquesCSV,
   getExportDonneesConseiller,
+  getExportDonneesConseillerCoordonnes,
   getExportDonneesStructure,
   getExportDonneesGestionnaires,
   getExportDonneesHistoriqueDossiersConvention,
@@ -45,6 +46,23 @@ function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoo
     filterByNameStructure,
   } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement, filtreParNomStructure);
   return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}${filterByNameStructure}`)
+  .then(response => response.data)
+  .catch(handleApiError);
+
+}
+function getExportDonneesConseillerCoordonnes(dateDebut, dateFin, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre) {
+
+  const exportConseillersRoute = '/conseillers-coordonnes-csv';
+  let {
+    ordreColonne,
+    filterDateStart,
+    filterDateEnd,
+    filterByNameConseiller,
+    filterByRegion,
+    filterByDepartement,
+    filterByNameStructure,
+  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure);
+  return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByRegion}${filterByDepartement}${filterByNameStructure}`)
   .then(response => response.data)
   .catch(handleApiError);
 

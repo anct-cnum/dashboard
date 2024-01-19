@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import dayjs from 'dayjs';
 
-function ConseillerCoordonnes({ conseiller }) {
+function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const { trackEvent } = useMatomo();
 
@@ -44,8 +44,8 @@ function ConseillerCoordonnes({ conseiller }) {
   );
 }
 
-ConseillerCoordonnes.propTypes = {
+Conseiller.propTypes = {
   conseiller: PropTypes.object,
 };
 
-export default ConseillerCoordonnes;
+export default Conseiller;
