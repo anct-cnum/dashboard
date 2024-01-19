@@ -1,10 +1,11 @@
 const initialState = {
   nom: undefined,
   ordre: true,
-  ordreNom: undefined,
+  ordreNom: 'dateDemande',
   region: 'tous',
   departement: 'tous',
   statutDossierRupture: 'tous',
+  avisANCT: 'tous',
 };
 
 export default function filtresConventions(state = initialState, action) {

@@ -1,6 +1,6 @@
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
-import { conventionQueryStringParameters } from '../utils/queryUtils';
+import { conventionQueryStringParameters, historiqueConventionQueryStringParameters } from '../utils/queryUtils';
 import { API } from './api';
 
 export const conventionService = {
@@ -25,18 +25,19 @@ function getAll(page, typeConvention, filtreParNomStructure, filterDepartement, 
   .catch(handleApiError);
 }
 
-function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
-  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
-  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisANCT, ordreNom, ordre) {
   const {
     ordreColonne,
     filterByName,
     filterByRegion,
-    filterByDepartement
-  } = conventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre);
+    filterByDepartement,
+    filterByAvisANCT,
+    filterDateStart,
+    filterDateEnd,
+  } = historiqueConventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisANCT, ordreNom, ordre, dateDebut, dateFin);
 
   // eslint-disable-next-line max-len
-  return API.get(`${apiUrlRoot}/historique/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
+  return API.get(`${apiUrlRoot}/historique/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisANCT}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
