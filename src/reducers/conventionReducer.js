@@ -118,23 +118,6 @@ export default function convention(state = initialState, action) {
         error: action.error,
         loading: false
       };
-    case 'UPDATE_REFUS_COSELEC_ADMIN_REQUEST':
-      return {
-        ...state,
-        error: false,
-        loading: true
-      };
-    case 'UPDATE_REFUS_COSELEC_ADMIN_SUCCESS':
-      return {
-        ...state,
-        successRefusCandidature: action.response.success,
-        loading: false
-      };
-    case 'UPDATE_REFUS_COSELEC_ADMIN_FAILURE':
-      return {
-        loading: false,
-        error: action.error
-      };
     default:
       return state;
   }

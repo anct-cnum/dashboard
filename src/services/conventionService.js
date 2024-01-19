@@ -9,8 +9,6 @@ export const conventionService = {
   get,
   updateAvenantAjoutPoste,
   updateAvenantRenduPoste,
-  confirmationRefusCoselecAdmin,
-  closeBanner,
 };
 
 function getAll(page, typeConvention, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
@@ -62,14 +60,3 @@ function updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec) {
   .catch(handleApiError);
 }
 
-function confirmationRefusCoselecAdmin(id) {
-  return API.patch(`${apiUrlRoot}/conventions/admin/refus/${id}?role=${roleActivated()}`)
-  .then(response => response.data)
-  .catch(handleApiError);
-}
-
-function closeBanner(type, id) {
-  return API.patch(`${apiUrlRoot}/banniere/${id}?type=${type}&role=${roleActivated()}`)
-  .then(response => response.data)
-  .catch(handleApiError);
-}

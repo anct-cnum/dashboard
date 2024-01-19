@@ -14,6 +14,7 @@ export const structureService = {
   createAvenant,
   closeBanner,
   addRoleCoordinateur,
+  confirmationRefusAvisAdmin,
 };
 
 function get(id) {
@@ -85,6 +86,12 @@ function closeBanner(type, id, conseillerId) {
 
 function addRoleCoordinateur(structureId, conseillerId) {
   return API.patch(`${apiUrlRoot}/structure/add-role-coordinateur/${structureId}?role=${roleActivated()}`, { conseillerId })
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function confirmationRefusAvisAdmin(id) {
+  return API.patch(`${apiUrlRoot}/conventions/admin/refus/${id}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(handleApiError);
 }

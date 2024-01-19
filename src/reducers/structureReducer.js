@@ -192,6 +192,32 @@ export default function structure(state = initialState, action) {
         loading: false,
         error: action.error,
       };
+    case 'UPDATE_AVIS_ADMIN_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'UPDATE_AVIS_ADMIN_SUCCESS':
+      return {
+        ...state,
+        loading: false
+      };
+    case 'REFUS_CONVENTIONNEMENT':
+      return {
+        successRefusAvisAdmin: action.statutStructure.success,
+      };
+    case 'UPDATE_AVIS_ADMIN_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
+    case 'RESET_CONFIRMATION_AVIS_ADMIN':
+      return {
+        ...state,
+        successAvisAdmin: false,
+        successRefusAvisAdmin: false,
+      };
     default:
       return state;
   }

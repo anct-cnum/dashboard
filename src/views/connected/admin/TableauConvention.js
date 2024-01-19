@@ -4,6 +4,7 @@ import { alerteEtSpinnerActions, paginationActions, conventionActions } from '..
 import Spinner from '../../../components/Spinner';
 import Pagination from '../../../components/Pagination';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
+import { statutStructure } from '../../../utils/enumUtils';
 import { useLocation } from 'react-router-dom';
 import Conventionnement from './conventionnement/Conventionnement';
 import AvenantAjoutPoste from './avenantAjoutPoste/AvenantAjoutPoste';
@@ -12,13 +13,11 @@ import { filtresConventionsActions } from '../../../actions/filtresConventionsAc
 import FiltresEtTrisConvention from './FiltresEtTrisConvention';
 import TableauConventionnement from './conventionnement/TableauConventionnement';
 import FiltresEtTrisConventionnement from './conventionnement/FiltresEtTrisConventionnement';
-import BannerConfirmationRefusCandidature from './conventionnement/BannerConfirmationRefusCandidature';
 
 export default function TableauConvention() {
 
   const dispatch = useDispatch();
   const location = useLocation();
-  const [page, setPage] = useState(location.state?.currentPage);
 
   const loading = useSelector(state => state.convention?.loading);
   const error = useSelector(state => state.convention?.error);
@@ -30,8 +29,11 @@ export default function TableauConvention() {
   const filterDepartement = useSelector(state => state.filtresConventions?.departement);
   const filtreRegion = useSelector(state => state.filtresConventions?.region);
   const filtreAvisPrefet = useSelector(state => state.filtresConventions?.avisPrefet);
+
+  const [page, setPage] = useState(location.state?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
   const [typeConvention, setTypeConvention] = useState(location.state?.typeConvention || 'toutes');
+  const [candidatureStructure, setCandidatureStructure] = useState(location.state?.structure || null);
 
   useEffect(() => {
     if (conventions?.items && conventions?.items.limit !== 0) {
@@ -89,13 +91,26 @@ export default function TableauConvention() {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresConventionsActions.changeOrdre(e.currentTarget?.id));
   };
-console.log(conventions);
+
+  useEffect(() => {
+    if (candidatureStructure) {
+      setTimeout(() => {
+        setCandidatureStructure(null);
+      }, 20000);
+    }
+  }, [candidatureStructure]);
+  
   return (
     <div className="conventions">
       <Spinner loading={loading} />
-      {conventions?.length > 0 && conventions?.map((structure, idx) => {
-        return (<BannerConfirmationRefusCandidature key={idx} structure={structure} />);
-      })
+      {candidatureStructure?.statut === statutStructure.REFUS_COSELEC &&
+        <div className="fr-alert fr-alert--error" style={{ marginBottom: '2rem' }} >
+          <h3 className="fr-alert__title">
+            L&rsquo;attribution d&rsquo;un poste de conseiller a &eacute;t&eacute; refus&eacute; par
+            le comit&eacute; de s&eacute;lection pour la structure {candidatureStructure?.nom}.
+          </h3>
+          <p>La structure sera notifi&eacute;e sur son espace.</p>
+        </div>
       }
       <div className="fr-grid-row">
         <div className="fr-col-12">

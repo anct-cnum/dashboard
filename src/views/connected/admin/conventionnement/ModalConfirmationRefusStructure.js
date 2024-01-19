@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { conventionActions } from '../../../../actions';
+import { structureActions } from '../../../../actions';
 
 function ModalConfirmationRefusStructure({ setOpenModal, typeAttribution, structure }) {
   const dispatch = useDispatch();
   const confirmationAttributionPoste = () => {
     if (typeAttribution === 'refuser') {
-      dispatch(conventionActions.confirmationRefusCoselecAdmin(structure?._id,));
+      dispatch(structureActions.confirmationRefusAvisAdmin(structure?._id,));
     }
     setOpenModal(false);
   };

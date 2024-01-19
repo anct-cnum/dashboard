@@ -3,18 +3,55 @@ import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import ModalConfirmationRefusStructure from './ModalConfirmationRefusStructure';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { structureActions } from '../../../../actions';
+import { useNavigate } from 'react-router-dom';
+import { statutStructure } from '../../../../utils/enumUtils';
 
 function ConventionnementDetails({ structure }) {
-  
-  const successRefusCandidature = useSelector(state => state.convention.successRefusCandidature);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const successRefusAvisAdmin = useSelector(state => state.structure?.successRefusAvisAdmin);
+  const successAvisAdmin = useSelector(state => state.structure?.successAvisAdmin);
   const [openModalConfirmationRefus, setOpenModalConfirmation] = useState(false);
   const [typeAttribution, setTypeAttribution] = useState('');
+
   useEffect(() => {
-    if (successRefusCandidature) {
-      window.location.href = '/admin/demandes/conventions';
+    if (successAvisAdmin) {
+      navigate('/admin/demandes/conventions',
+        {
+          state: {
+            typeConvention: 'conventionnement',
+            structure: {
+              nom: structure?.nom,
+              statut: structure?.statut,
+            },
+          }
+        },
+        {
+          replace: true
+        }
+      );
+      dispatch(structureActions.resetConfirmationAvisAdmin());
     }
-  }, [successRefusCandidature]);
+    if (successRefusAvisAdmin) {
+      navigate('/admin/demandes/conventions',
+        {
+          state: {
+            typeConvention: 'conventionnement',
+            structure: {
+              nom: structure?.nom,
+              statut: statutStructure.REFUS_COSELEC,
+            },
+          }
+        },
+        {
+          replace: true
+        }
+      );
+      dispatch(structureActions.resetConfirmationAvisAdmin());
+    }
+  }, [successAvisAdmin, successRefusAvisAdmin]);
 
   return (
     <>
