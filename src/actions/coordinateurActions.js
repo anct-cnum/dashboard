@@ -10,7 +10,7 @@ export const coordinateurActions = {
 };
 
 // eslint-disable-next-line max-len
-function getAllDemandesCoordinateur(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom = 'codePostal', ordre) {
+function getAllDemandesCoordinateur(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
   return dispatch => {
     dispatch(request());
 

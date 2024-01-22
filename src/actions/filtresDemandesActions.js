@@ -1,4 +1,4 @@
-export const filtresDemandesCoordinateurActions = {
+export const filtresDemandesActions = {
   changeOrdre,
   changeNom,
   changeFiltreDepartement,
