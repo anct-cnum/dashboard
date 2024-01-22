@@ -42,11 +42,11 @@ function ConventionnementDetails({ structure }) {
             {structure?.nombreConseillersSouhaites ?
               <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
                 <strong className="fr-text--bold">
-                  {structure?.nombreConseillersSouhaites}{pluralize(
+                  {structure.nombreConseillersSouhaites}{pluralize(
                     ' poste de conseiller demandé ',
                     ' poste de conseiller demandé ',
                     ' postes de conseillers demandés ',
-                    structure?.nombreConseillersSouhaites
+                    structure.nombreConseillersSouhaites
                   )}
                 </strong>
                 pour ce conventionnement
