@@ -216,7 +216,6 @@ export default function structure(state = initialState, action) {
       return {
         ...state,
         successAvisAdmin: false,
-        successRefusAvisAdmin: false,
       };
     default:
       return state;
