@@ -60,6 +60,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                     value={commentaire}
                     id="commentaire-input"
                     maxLength={1000}
+                    minLength={10}
                     onChange={e => setCommentaire(e?.target?.value)}
                     style={{ height: '6rem' }}
                     className="fr-input"
@@ -81,7 +82,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                   </li>
                   <li>
                     <button
-                      disabled={commentaire.length === 0}
+                      disabled={commentaire.trim().length < 10}
                       onClick={confirmationAvisPrefet}
                       className="fr-btn"
                     >

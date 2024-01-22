@@ -92,7 +92,7 @@ export default function TableauCoordinateurs() {
     }
     dispatch(alerteEtSpinnerActions.getMessageAlerte({
       type: 'error',
-      message: 'La banniére n\'a pas pu être fermée !',
+      message: 'La bannière n\'a pas pu être fermée !',
       status: null, description: null
     }));
   };

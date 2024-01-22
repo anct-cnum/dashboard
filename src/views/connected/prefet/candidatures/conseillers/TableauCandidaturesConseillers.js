@@ -96,9 +96,9 @@ export default function TableauCandidaturesConseillers() {
           <BannerConfirmationAvisPrefet
             key={idx}
             closeBanner={closeBanner}
-            nomStructure={structure?.nom}
-            avisPrefet={structure?.prefet?.avisPrefet === 'POSITIF' ? 'favorable' : 'défavorable'}
-            idDemande={structure?._id}
+            nomStructure={structure.nom}
+            avisPrefet={structure.prefet.avisPrefet === 'POSITIF' ? 'favorable' : 'défavorable'}
+            idDemande={structure._id}
           />
         );
       })
