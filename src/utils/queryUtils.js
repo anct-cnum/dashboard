@@ -81,10 +81,10 @@ export function conventionQueryStringParameters(filtreParNomStructure, filterDep
   const filterByAvisPrefet = filtreAvisPrefet !== 'tous' && filtreAvisPrefet !== undefined ? `&avisPrefet=${filtreAvisPrefet}` : '';
   const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
 
-  return { ordreColonne, filterByName, filterByRegion, filterByDepartement, filterByAvisPrefet };
+  return { filterByName, filterByDepartement, filterByRegion, filterByAvisPrefet, ordreColonne };
 }
 
-export function historiqueConventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre, dateDebut, dateFin) {
+export function historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
   const filterByName = filtreParNomStructure ? `&searchByNomStructure=${filtreParNomStructure}` : '';
   const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
   const filterByDepartement = filterDepartement !== 'tous' && filterDepartement !== undefined ? `&departement=${filterDepartement}` : '';
@@ -92,7 +92,7 @@ export function historiqueConventionQueryStringParameters(filtreParNomStructure,
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
 
-  return { ordreColonne, filterByName, filterByRegion, filterByDepartement, filterDateStart, filterDateEnd };
+  return { filterDateStart, filterDateEnd, filterByName, filterByDepartement, filterByRegion, ordreColonne };
 }
 
 export function contratQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, ordreNom, ordre) {

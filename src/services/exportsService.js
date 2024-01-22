@@ -163,13 +163,13 @@ function getExportDonneesGestionnaires(filtreRole, filtreParNom, nomOrdre, ordre
 
 function getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
   const {
-    ordreColonne,
-    filterByName,
-    filterByRegion,
-    filterByDepartement,
     filterDateStart,
-    filterDateEnd
-  } = historiqueConventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre, dateDebut, dateFin);
+    filterDateEnd,
+    filterByName,
+    filterByDepartement,
+    filterByRegion,
+    ordreColonne,
+  } = historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre);
   return API.get(`${apiUrlRoot}/exports/historique-dossiers-convention-csv?role=${roleActivated()}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
   .then(response => response.data)
   .catch(handleApiError);
