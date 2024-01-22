@@ -84,19 +84,8 @@ export function conventionQueryStringParameters(filtreParNomStructure, filterDep
   return { filterByName, filterByDepartement, filterByRegion, filterByAvisPrefet, ordreColonne };
 }
 
-export function historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
-  const filterByName = filtreParNomStructure ? `&searchByNomStructure=${filtreParNomStructure}` : '';
-  const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
-  const filterByDepartement = filterDepartement !== 'tous' && filterDepartement !== undefined ? `&departement=${filterDepartement}` : '';
-  const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
-  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
-  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
-
-  return { filterDateStart, filterDateEnd, filterByName, filterByDepartement, filterByRegion, ordreColonne };
-}
-
 // eslint-disable-next-line max-len
-export function historiqueConventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisANCT, ordreNom, ordre, dateDebut, dateFin) {
+export function historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisANCT, ordreNom, ordre) {
   const filterByName = filtreParNomStructure ? `&searchByNomStructure=${filtreParNomStructure}` : '';
   const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
   const filterByDepartement = filterDepartement !== 'tous' && filterDepartement !== undefined ? `&departement=${filterDepartement}` : '';
@@ -105,7 +94,7 @@ export function historiqueConventionQueryStringParameters(filtreParNomStructure,
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const filterByAvisANCT = filtreAvisANCT !== 'tous' && filtreAvisANCT !== undefined ? `&avisANCT=${filtreAvisANCT}` : '';
 
-  return { ordreColonne, filterByName, filterByRegion, filterByDepartement, filterByAvisANCT, filterDateStart, filterDateEnd };
+  return { filterDateStart, filterDateEnd, filterByName, filterByDepartement, filterByRegion, filterByAvisANCT, ordreColonne };
 }
 
 export function contratQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, ordreNom, ordre) {
