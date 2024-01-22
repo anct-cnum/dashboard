@@ -63,9 +63,9 @@ function CandidatureConseillerDetail() {
           <div className="fr-card__header fr-mt-4w">
             <h3 className="fr-card__title fr-h3">
               {pluralize(
-                'Demande de Conseiller',
-                'Demande de Conseiller',
-                'Demandes de Conseillers',
+                'Demande de conseiller',
+                'Demande de conseiller',
+                'Demandes de conseillers',
                 structure?.nombreConseillersSouhaites
               )}
             </h3>

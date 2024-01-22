@@ -12,9 +12,9 @@ function ConventionnementDetails({ structure }) {
           <div className="fr-card__header fr-mt-4w">
             <h3 className="fr-card__title fr-h3">
               {pluralize(
-                'Demande de Conseiller',
-                'Demande de Conseiller',
-                'Demandes de Conseillers',
+                'Demande de conseiller',
+                'Demande de conseiller',
+                'Demandes de conseillers',
                 structure?.nombreConseillersSouhaites
               )}
             </h3>
@@ -62,7 +62,7 @@ function ConventionnementDetails({ structure }) {
             <div className="commentaire-prefet">
               <span><strong>Commentaire pr&eacute;fet&nbsp;:&nbsp;</strong></span>
               {structure?.prefet?.commentairePrefet ?
-                <p className="fr-mt-2w fr-mb-0">{structure?.prefet?.commentairePrefet}</p> :
+                <p className="fr-mt-2w fr-mb-0">{structure.prefet.commentairePrefet}</p> :
                 <p className="fr-mt-2w fr-mb-0">Non renseign&eacute;</p>
               }
             </div>
