@@ -11,7 +11,7 @@ import { statutStructure } from '../../../../utils/enumUtils';
 function ConventionnementDetails({ structure }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const successRefusAvisAdmin = useSelector(state => state.structure?.successRefusAvisAdmin);
+  const successAvisAdmin = useSelector(state => state.structure?.successAvisAdmin);
   const successAvisAdmin = useSelector(state => state.structure?.successAvisAdmin);
   const [openModalConfirmationRefus, setOpenModalConfirmation] = useState(false);
   const [typeAttribution, setTypeAttribution] = useState('');
