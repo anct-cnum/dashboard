@@ -221,7 +221,7 @@ export default function structure(state = initialState, action) {
         ...state,
         loading: false,
         structure: action.response.structure,
-        listeStructure: action.response.listeStructure,
+        listeStructure: action.response?.listeStructure,
       };
     case 'GET_DEMANDE_CONSEILLER_FAILURE':
       return {
