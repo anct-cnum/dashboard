@@ -205,7 +205,7 @@ export default function structure(state = initialState, action) {
       };
     case 'REFUS_CONVENTIONNEMENT':
       return {
-        successRefusAvisAdmin: action.statutStructure.success,
+        successAvisAdmin: action.statutStructure.success,
       };
     case 'UPDATE_AVIS_ADMIN_FAILURE':
       return {
