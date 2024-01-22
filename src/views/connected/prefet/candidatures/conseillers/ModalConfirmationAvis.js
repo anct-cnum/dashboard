@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
 import { structureActions } from '../../../../../actions';
 import { useDispatch } from 'react-redux';
+import FilterSelect from '../../../../../components/FilterSelect';
 
 function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStructure }) {
   const dispatch = useDispatch();
@@ -42,36 +42,13 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                     <label className="fr-label fr-mb-1w" htmlFor="select">
                       Cette candidature concerne un transfert de poste
                     </label>
-                    <Select options={listeStructure}
-                      getOptionLabel={option => option.nom}
-                      getOptionValue={option => option._id}
+                    <FilterSelect
+                      options={listeStructure}
                       onChange={option => setIdStructureTransfert(option._id)}
                       placeholder="Sélectionner une structure"
                       noOptionsMessage={() => 'Aucune structure trouvée'}
-                      isClearable
-                      styles={{
-                        menuList: baseStyles => ({
-                          ...baseStyles,
-                          maxHeight: '14.2rem',
-                        }),
-                        control: baseStyles => ({
-                          ...baseStyles,
-                          borderRadius: '0.25rem 0.25rem 0 0',
-                          borderWidth: '0',
-                          backgroundColor: 'var(--background-contrast-grey)',
-                          fontFamily: 'Marianne, arial, sans-serif',
-                          boxShadow: 'inset 0 -2px 0 0 var(--border-plain-grey)',
-                          paddingTop: '0.2rem',
-                          paddingBottom: '0.2rem',
-                        }),
-                        option: (base, state) => ({
-                          ...base,
-                          height: '100%',
-                          cursor: 'pointer',
-                          backgroundColor: state.isFocused ? 'var(--background-action-high-blue-france)' : '',
-                          color: state.isFocused ? 'var(--text-inverted-blue-france)' : 'var(--text-label-grey)',
-                        }),
-                      }}
+                      getOptionLabel={option => option.nom}
+                      getOptionValue={option => option._id}
                     />
                   </div>
                 }
