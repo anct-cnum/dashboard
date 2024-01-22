@@ -5,9 +5,9 @@ import Spinner from '../../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import dayjs from 'dayjs';
 import StructureContactCards from '../../../../../components/cards/StructureContactCards';
-import ModalConfirmationAvis from './../ModalConfirmationAvis';
 import { validQueryParamsObjectId } from '../../../../../utils/formatagesUtils';
 import { alerteEtSpinnerActions, coordinateurActions } from '../../../../../actions';
+import ModalConfirmationAvis from './ModalConfirmationAvis';
 
 function CoordinateurDetails() {
   const dispatch = useDispatch();
@@ -23,7 +23,6 @@ function CoordinateurDetails() {
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [openModalAvis, setOpenModalAvis] = useState(false);
   const [avisPrefet, setAvisPrefet] = useState('');
-  const [commentaire, setCommentaire] = useState('');
 
   useEffect(() => {
     if (!errorCoordinateur && validQueryParamsObjectId(idDemandeCoordinateur)) {
@@ -44,12 +43,6 @@ function CoordinateurDetails() {
     }
   }, [successAvisPrefet]);
 
-  const confirmationAvisPrefet = () => {
-    dispatch(coordinateurActions.confirmationAvisPrefet(structure?._id, avisPrefet, structure?.demandesCoordinateur[0]?.id, commentaire));
-    setOpenModalAvis(false);
-    setCommentaire('');
-  };
-
   return (
     <div className="coordinateurDetails">
       <Spinner loading={loading} />
@@ -63,9 +56,6 @@ function CoordinateurDetails() {
           setOpenModal={setOpenModalAvis}
           structure={structure}
           avisPrefet={avisPrefet}
-          confirmationAvisPrefet={confirmationAvisPrefet}
-          setCommentaire={setCommentaire}
-          commentaire={commentaire}
         />
       }
       <div className="fr-col-12 fr-pt-6w">
@@ -130,7 +120,7 @@ function CoordinateurDetails() {
                     setAvisPrefet('défavorable');
                     setOpenModalAvis(true);
                   }}
-                    className="fr-btn fr-btn--secondary"
+                  className="fr-btn fr-btn--secondary"
                   >
                     Avis D&eacute;favorable
                   </button>

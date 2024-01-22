@@ -307,7 +307,7 @@ function getDemandeConseiller(idStructure) {
 
     structureService.getDemandeConseiller(idStructure)
     .then(
-      structure => dispatch(success(structure)),
+      response => dispatch(success(response)),
       error => {
         dispatch(failure(error));
       }
@@ -317,19 +317,19 @@ function getDemandeConseiller(idStructure) {
   function request() {
     return { type: 'GET_DEMANDE_CONSEILLER_REQUEST' };
   }
-  function success(structure) {
-    return { type: 'GET_DEMANDE_CONSEILLER_SUCCESS', structure };
+  function success(response) {
+    return { type: 'GET_DEMANDE_CONSEILLER_SUCCESS', response };
   }
   function failure(error) {
     return { type: 'GET_DEMANDE_CONSEILLER_FAILURE', error };
   }
 }
 
-function confirmationAvisPrefet(idStructure, avisPrefet, commentaire) {
+function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert) {
   return dispatch => {
     dispatch(request());
 
-    structureService.confirmationAvisPrefet(idStructure, avisPrefet, commentaire)
+    structureService.confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert)
     .then(
       response => dispatch(success(response.success)),
       error => {

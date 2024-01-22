@@ -114,8 +114,8 @@ function getDemandeConseiller(idStructure) {
   .catch(handleApiError);
 }
 
-function confirmationAvisPrefet(idStructure, avisPrefet, commentaire) {
-  return API.patch(`${apiUrlRoot}/avis/prefet/conseiller/${idStructure}?role=${roleActivated()}`, { avisPrefet, commentaire })
+function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert) {
+  return API.patch(`${apiUrlRoot}/avis/prefet/conseiller/${idStructure}?role=${roleActivated()}`, { avisPrefet, commentaire, idStructureTransfert })
   .then(response => response.data)
   .catch(handleApiError);
 }

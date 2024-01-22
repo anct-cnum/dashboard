@@ -7,7 +7,7 @@ import { alerteEtSpinnerActions, structureActions } from '../../../../../actions
 import dayjs from 'dayjs';
 import StructureContactCards from '../../../../../components/cards/StructureContactCards';
 import { pluralize } from '../../../../../utils/formatagesUtils';
-import ModalConfirmationAvis from '../ModalConfirmationAvis';
+import ModalConfirmationAvis from './ModalConfirmationAvis';
 
 function CandidatureConseillerDetail() {
   const dispatch = useDispatch();
@@ -15,13 +15,13 @@ function CandidatureConseillerDetail() {
   const { idStructure } = useParams();
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const structure = useSelector(state => state.structure?.structure);
+  const listeStructure = useSelector(state => state.structure?.listeStructure);
   const loading = useSelector(state => state.structure?.loading);
   const errorStructure = useSelector(state => state.structure?.error);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  const successAvisPrefet = useSelector(state => state.coordinateur?.successAvisPrefet);
+  const successAvisPrefet = useSelector(state => state.structure?.successAvisPrefet);
   const [openModalAvis, setOpenModalAvis] = useState(false);
   const [avisPrefet, setAvisPrefet] = useState('');
-  const [commentaire, setCommentaire] = useState('');
 
   useEffect(() => {
     if (!errorStructure) {
@@ -42,12 +42,6 @@ function CandidatureConseillerDetail() {
     }
   }, [successAvisPrefet]);
 
-  const confirmationAvisPrefet = () => {
-    dispatch(structureActions.confirmationAvisPrefet(structure?._id, avisPrefet, commentaire));
-    setOpenModalAvis(false);
-    setCommentaire('');
-  };
-
   return (
     <div className="coordinateurDetails">
       <Spinner loading={loading} />
@@ -60,10 +54,8 @@ function CandidatureConseillerDetail() {
         <ModalConfirmationAvis
           setOpenModal={setOpenModalAvis}
           structure={structure}
+          listeStructure={listeStructure}
           avisPrefet={avisPrefet}
-          confirmationAvisPrefet={confirmationAvisPrefet}
-          setCommentaire={setCommentaire}
-          commentaire={commentaire}
         />
       }
       <div className="fr-col-12 fr-pt-6w">
@@ -102,27 +94,25 @@ function CandidatureConseillerDetail() {
                 <span>le&nbsp;{dayjs(structure?.createdAt).format('DD/MM/YYYY')}</span> :
                 <span>Non renseign&eacute;e</span>
               }
-              {structure?.nombreConseillersSouhaites ?
-                <>
-                  <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
-                    <strong className="fr-text--bold" style={{ color: '#000091' }}>
-                      {structure?.nombreConseillersSouhaites}{pluralize(
-                        ' poste de conseiller demandé ',
-                        ' poste de conseiller demandé ',
-                        ' postes de conseillers demandés ',
-                        structure?.nombreConseillersSouhaites
-                      )}
-                    </strong>
-                    pour ce conventionnement
-                  </p>
-                </> :
-                <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
-                  <strong className="fr-text--bold" style={{ color: '#000091' }}>
-                    Nombre de poste de conseiller demand&eacute; non renseign&eacute; pour ce conventionnement
-                  </strong>
-                </p>
-              }
             </p>
+            {structure?.nombreConseillersSouhaites ?
+              <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
+                <strong className="fr-text--bold">
+                  {structure?.nombreConseillersSouhaites}{pluralize(
+                    ' poste de conseiller demandé ',
+                    ' poste de conseiller demandé ',
+                    ' postes de conseillers demandés ',
+                    structure?.nombreConseillersSouhaites
+                  )}
+                </strong>
+                pour ce conventionnement
+              </p> :
+              <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
+                <strong className="fr-text--bold">
+                  Nombre de poste de conseiller demand&eacute; non renseign&eacute; pour ce conventionnement
+                </strong>
+              </p>
+            }
           </div>
           <div className="fr-card__footer">
             {(!['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) && structure?.statut === 'CREEE') &&

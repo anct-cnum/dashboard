@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
+import { structureActions } from '../../../../../actions';
+import { useDispatch } from 'react-redux';
 
-function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, commentaire, setCommentaire, confirmationAvisPrefet }) {
+function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStructure }) {
+  const dispatch = useDispatch();
+  const [commentaire, setCommentaire] = useState('');
+  const [idStructureTransfert, setIdStructureTransfert] = useState(null);
+
+  const confirmationAvisPrefet = () => {
+    dispatch(structureActions.confirmationAvisPrefet(structure?._id, avisPrefet, commentaire, idStructureTransfert));
+    setOpenModal(false);
+    setCommentaire('');
+    setIdStructureTransfert(null);
+  };
+
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
@@ -12,6 +26,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, commentair
                 <button className="fr-btn--close fr-btn" title="Fermer la fen&ecirc;tre modale" aria-controls="fr-modal-2" onClick={() => {
                   setOpenModal(false);
                   setCommentaire('');
+                  setIdStructureTransfert(null);
                 }}>
                   Fermer
                 </button>
@@ -22,6 +37,44 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, commentair
                   Confirmer l&rsquo;avis
                 </h1>
                 <p>Souhaitez-vous confirmer l&rsquo;avis {avisPrefet} pour la structure <strong>{structure?.nom}</strong>&nbsp;?</p>
+                {avisPrefet === 'favorable' &&
+                  <div className="fr-select-group">
+                    <label className="fr-label fr-mb-1w" htmlFor="select">
+                      Cette candidature concerne un transfert de poste
+                    </label>
+                    <Select options={listeStructure}
+                      getOptionLabel={option => option.nom}
+                      getOptionValue={option => option._id}
+                      onChange={option => setIdStructureTransfert(option._id)}
+                      placeholder="Sélectionner une structure"
+                      noOptionsMessage={() => 'Aucune structure trouvée'}
+                      isClearable
+                      styles={{
+                        menuList: baseStyles => ({
+                          ...baseStyles,
+                          maxHeight: '14.2rem',
+                        }),
+                        control: baseStyles => ({
+                          ...baseStyles,
+                          borderRadius: '0.25rem 0.25rem 0 0',
+                          borderWidth: '0',
+                          backgroundColor: 'var(--background-contrast-grey)',
+                          fontFamily: 'Marianne, arial, sans-serif',
+                          boxShadow: 'inset 0 -2px 0 0 var(--border-plain-grey)',
+                          paddingTop: '0.2rem',
+                          paddingBottom: '0.2rem',
+                        }),
+                        option: (base, state) => ({
+                          ...base,
+                          height: '100%',
+                          cursor: 'pointer',
+                          backgroundColor: state.isFocused ? 'var(--background-action-high-blue-france)' : '',
+                          color: state.isFocused ? 'var(--text-inverted-blue-france)' : 'var(--text-label-grey)',
+                        }),
+                      }}
+                    />
+                  </div>
+                }
                 <div className="fr-input-group">
                   <label className="fr-label" htmlFor="commentaire-input">
                     Commentaire (obligatoire, max 1000 caract&egrave;res)&nbsp;:
@@ -44,6 +97,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, commentair
                     <button onClick={() => {
                       setOpenModal(false);
                       setCommentaire('');
+                      setIdStructureTransfert(null);
                     }} className="fr-btn fr-btn--secondary">
                       Annuler
                     </button>
@@ -58,7 +112,6 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, commentair
                     </button>
                   </li>
                 </ul>
-
               </div>
             </div>
           </div>
@@ -72,9 +125,7 @@ ModalConfirmationAvis.propTypes = {
   setOpenModal: PropTypes.func,
   structure: PropTypes.object,
   avisPrefet: PropTypes.string,
-  commentaire: PropTypes.string,
-  setCommentaire: PropTypes.func,
-  confirmationAvisPrefet: PropTypes.func,
+  listeStructure: PropTypes.array,
 };
 
 export default ModalConfirmationAvis;
