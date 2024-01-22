@@ -1,7 +1,7 @@
 const initialState = {
   nom: undefined,
   ordre: true,
-  ordreNom: undefined,
+  ordreNom: 'dateDemande',
   region: 'tous',
   departement: 'tous',
   statutDossierRupture: 'tous',
