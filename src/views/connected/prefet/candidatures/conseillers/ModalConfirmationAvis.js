@@ -40,12 +40,12 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                 {avisPrefet === 'favorable' &&
                   <div className="fr-select-group">
                     <label className="fr-label fr-mb-1w" htmlFor="select">
-                      Cette candidature concerne un transfert de poste
+                    Si ce poste est attribu&eacute; au titre d&rsquo;un transfert
                     </label>
                     <FilterSelect
                       options={listeStructure}
                       onChange={option => setIdStructureTransfert(option._id)}
-                      placeholder="Sélectionner une structure"
+                      placeholder="Veuillez s&eacute;lectionner la structure concern&eacute;e"
                       noOptionsMessage={() => 'Aucune structure trouvée'}
                       getOptionLabel={option => option.nom}
                       getOptionValue={option => option._id}
