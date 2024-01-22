@@ -155,7 +155,7 @@ export default function TableauConvention() {
                             </button>
                           </th>
                           <th style={{ width: '20rem' }}>Nb. de postes demand&eacute;s</th>
-                          <th style={{ width: '18rem' }}>Type de demande</th>
+                          <th style={{ width: '22rem' }}>Type de demande</th>
                           <th style={{ width: '8rem' }}></th>
                         </tr>
                       </thead>
