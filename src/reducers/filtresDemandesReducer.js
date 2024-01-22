@@ -1,13 +1,13 @@
 const initialState = {
   nom: undefined,
   ordre: true,
-  ordreNom: undefined,
+  ordreNom: 'codePostal',
   region: 'tous',
   departement: 'tous',
   avisPrefet: 'tous',
 };
 
-export default function filtresDemandesCoordinateur(state = initialState, action) {
+export default function filtresDemandes(state = initialState, action) {
   switch (action.type) {
     case 'CHANGE_NOM':
       return {

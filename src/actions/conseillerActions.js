@@ -392,7 +392,9 @@ function preSelectionner(conseillerId) {
     .then(
       response => {
         dispatch(success(response.success));
-        dispatch(updateMiseEnRelation(response.miseEnRelation));
+        if (response?.miseEnRelation) {
+          dispatch(updateMiseEnRelation(response.miseEnRelation));
+        }
       },
       error => {
         dispatch(failure(error));
