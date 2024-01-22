@@ -201,21 +201,13 @@ export default function structure(state = initialState, action) {
     case 'UPDATE_AVIS_ADMIN_SUCCESS':
       return {
         ...state,
-        loading: false
-      };
-    case 'REFUS_CONVENTIONNEMENT':
-      return {
+        loading: false,
         successAvisAdmin: action.statutStructure.success,
       };
     case 'UPDATE_AVIS_ADMIN_FAILURE':
       return {
         loading: false,
         error: action.error
-      };
-    case 'RESET_CONFIRMATION_AVIS_ADMIN':
-      return {
-        ...state,
-        successAvisAdmin: false,
       };
     default:
       return state;

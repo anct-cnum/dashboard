@@ -14,7 +14,6 @@ export const structureActions = {
   closeBanner,
   addRoleCoordinateur,
   confirmationRefusAvisAdmin,
-  resetConfirmationAvisAdmin,
 };
 
 // eslint-disable-next-line max-len
@@ -282,8 +281,7 @@ function confirmationRefusAvisAdmin(id) {
     structureService.confirmationRefusAvisAdmin(id)
     .then(
       statutStructure => {
-        dispatch(success());
-        dispatch(candidatureRefuser(statutStructure));
+        dispatch(success(statutStructure));
       },
       error => {
         dispatch(failure(error));
@@ -294,17 +292,10 @@ function confirmationRefusAvisAdmin(id) {
   function request() {
     return { type: 'UPDATE_AVIS_ADMIN_REQUEST' };
   }
-  function success() {
-    return { type: 'UPDATE_AVIS_ADMIN_SUCCESS' };
-  }
-  function candidatureRefuser(statutStructure) {
-    return { type: 'REFUS_CONVENTIONNEMENT', statutStructure };
+  function success(statutStructure) {
+    return { type: 'UPDATE_AVIS_ADMIN_SUCCESS', statutStructure };
   }
   function failure(error) {
     return { type: 'UPDATE_AVIS_ADMIN_FAILURE', error };
   }
-}
-
-function resetConfirmationAvisAdmin() {
-  return { type: 'RESET_CONFIRMATION_AVIS_ADMIN' };
 }

@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { structureActions } from '../../../../actions';
 
-function ModalConfirmationRefusStructure({ setOpenModal, typeAttribution, structure }) {
+function ModalConfirmationRefusStructure({ setOpenModal, structure }) {
   const dispatch = useDispatch();
   const confirmationAttributionPoste = () => {
-    if (typeAttribution === 'refuser') {
-      dispatch(structureActions.confirmationRefusAvisAdmin(structure?._id,));
-    }
+    dispatch(structureActions.confirmationRefusAvisAdmin(structure?._id));
     setOpenModal(false);
   };
 
@@ -25,16 +23,14 @@ function ModalConfirmationRefusStructure({ setOpenModal, typeAttribution, struct
               </div>
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title" style={{ textAlign: 'center' }} >
-                  <span className="">{typeAttribution.charAt(0).toUpperCase() + typeAttribution.slice(1)} l&rsquo;attribution</span>
+                  <span className="">Refuser l&rsquo;attribution</span>
                 </h1>
-                {typeAttribution === 'refuser' &&
                 <>
                   <p>
-                    Souhaitez-vous {typeAttribution} l&rsquo;attribution d&rsquo;un poste
+                    Souhaitez-vous refuser l&rsquo;attribution d&rsquo;un poste
                     &agrave; la structure&nbsp;<strong>{structure?.nom}</strong>&nbsp;?
                   </p>
                 </>
-                }
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
@@ -52,7 +48,6 @@ function ModalConfirmationRefusStructure({ setOpenModal, typeAttribution, struct
                     </button>
                   </li>
                 </ul>
-
               </div>
             </div>
           </div>
@@ -64,7 +59,6 @@ function ModalConfirmationRefusStructure({ setOpenModal, typeAttribution, struct
 
 ModalConfirmationRefusStructure.propTypes = {
   setOpenModal: PropTypes.func,
-  typeAttribution: PropTypes.string,
   structure: PropTypes.object,
 };
 

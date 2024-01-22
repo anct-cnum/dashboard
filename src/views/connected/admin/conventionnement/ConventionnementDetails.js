@@ -3,15 +3,11 @@ import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import ModalConfirmationRefusStructure from './ModalConfirmationRefusStructure';
-import { useDispatch, useSelector } from 'react-redux';
-import { structureActions } from '../../../../actions';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { statutStructure } from '../../../../utils/enumUtils';
 
 function ConventionnementDetails({ structure }) {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const successAvisAdmin = useSelector(state => state.structure?.successAvisAdmin);
   const successAvisAdmin = useSelector(state => state.structure?.successAvisAdmin);
   const [openModalConfirmationRefus, setOpenModalConfirmation] = useState(false);
   const [typeAttribution, setTypeAttribution] = useState('');
@@ -32,24 +28,6 @@ function ConventionnementDetails({ structure }) {
           replace: true
         }
       );
-      dispatch(structureActions.resetConfirmationAvisAdmin());
-    }
-    if (successRefusAvisAdmin) {
-      navigate('/admin/demandes/conventions',
-        {
-          state: {
-            typeConvention: 'conventionnement',
-            structure: {
-              nom: structure?.nom,
-              statut: statutStructure.REFUS_COSELEC,
-            },
-          }
-        },
-        {
-          replace: true
-        }
-      );
-      dispatch(structureActions.resetConfirmationAvisAdmin());
     }
   }, [successAvisAdmin]);
 

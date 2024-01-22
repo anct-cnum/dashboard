@@ -59,4 +59,3 @@ function updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec) {
   .then(response => response.data)
   .catch(handleApiError);
 }
-

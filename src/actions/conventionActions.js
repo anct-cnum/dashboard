@@ -128,5 +128,3 @@ function updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec) {
     return { type: 'UPDATE_AVENANT_RENDU_POSTE_FAILURE', error };
   }
 }
-
-
