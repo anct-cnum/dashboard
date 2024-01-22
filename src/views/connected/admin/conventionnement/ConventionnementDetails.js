@@ -51,7 +51,7 @@ function ConventionnementDetails({ structure }) {
       );
       dispatch(structureActions.resetConfirmationAvisAdmin());
     }
-  }, [successAvisAdmin, successRefusAvisAdmin]);
+  }, [successAvisAdmin]);
 
   return (
     <>
