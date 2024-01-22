@@ -14,11 +14,11 @@ export const coordinateurService = {
 
 function getAllDemandesCoordinateur(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
   const {
-    ordreColonne,
     filterByName,
-    filterByRegion,
     filterByDepartement,
+    filterByRegion,
     filterByAvisPrefet,
+    ordreColonne,
   } = demandesQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
 
   // eslint-disable-next-line max-len
