@@ -9,10 +9,10 @@ import {
   gestionnairesQueryStringParameters,
   conventionQueryStringParameters,
   contratQueryStringParameters,
-  demandesCoordinateurQueryStringParameters,
   statsCsvConseillerQueryStringParameters,
   statsCsvStructureQueryStringParameters,
-  statsCsvGrandReseauQueryStringParameters
+  statsCsvGrandReseauQueryStringParameters,
+  demandesQueryStringParameters
 } from '../utils/queryUtils';
 
 export const exportsService = {
@@ -191,12 +191,12 @@ function getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, fi
 
 function getExportDemandesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
   const {
-    ordreColonne,
     filterByName,
-    filterByRegion,
     filterByDepartement,
+    filterByRegion,
     filterByAvisPrefet,
-  } = demandesCoordinateurQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
+    ordreColonne,
+  } = demandesQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
   return API.get(`${apiUrlRoot}/exports/demandes-coordinateurs-csv?role=${roleActivated()}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
   .then(response => response.data)
   .catch(handleApiError);
