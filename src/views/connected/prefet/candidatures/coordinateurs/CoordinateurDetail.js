@@ -52,11 +52,7 @@ function CoordinateurDetails() {
         Retour &agrave; la liste
       </Link>
       {openModalAvis &&
-        <ModalConfirmationAvis
-          setOpenModal={setOpenModalAvis}
-          structure={structure}
-          avisPrefet={avisPrefet}
-        />
+        <ModalConfirmationAvis setOpenModal={setOpenModalAvis} structure={structure} avisPrefet={avisPrefet} />
       }
       <div className="fr-col-12 fr-pt-6w">
         <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{structure?.nom ?? '-'}</h1>
