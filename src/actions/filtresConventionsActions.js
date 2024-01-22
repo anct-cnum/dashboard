@@ -5,6 +5,7 @@ export const filtresConventionsActions = {
   changeFiltreRegion,
   changeFiltreStatut,
   changeFiltreAvisANCT,
+  changeFiltreAvisPrefet,
   resetFiltre,
 };
 
@@ -30,6 +31,10 @@ function changeFiltreStatut(statutDossierRupture) {
 
 function changeFiltreAvisANCT(avisANCT) {
   return { type: 'CHANGE_AVIS_ANCT_CANDIDATURE', avisANCT };
+}
+
+function changeFiltreAvisPrefet(avisPrefet) {
+  return { type: 'CHANGE_AVIS_PREFET', avisPrefet };
 }
 
 function resetFiltre() {

@@ -6,6 +6,7 @@ const initialState = {
   departement: 'tous',
   statutDossierRupture: 'tous',
   avisANCT: 'tous',
+  avisPrefet: 'tous',
 };
 
 export default function filtresConventions(state = initialState, action) {
@@ -40,6 +41,11 @@ export default function filtresConventions(state = initialState, action) {
       return {
         ...state,
         avisANCT: action.avisANCT
+      };
+    case 'CHANGE_AVIS_PREFET':
+      return {
+        ...state,
+        avisPrefet: action.avisPrefet
       };
     case 'RESET_FILTER_AND_SORTS':
       return initialState;
