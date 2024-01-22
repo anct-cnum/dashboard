@@ -75,27 +75,25 @@ function CandidatureConseillerDetail() {
                 <span>le&nbsp;{dayjs(structure?.createdAt).format('DD/MM/YYYY')}</span> :
                 <span>Non renseign&eacute;e</span>
               }
-              {structure?.nombreConseillersSouhaites ?
-                <>
-                  <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
-                    <strong className="fr-text--bold" style={{ color: '#000091' }}>
-                      {structure?.nombreConseillersSouhaites}{pluralize(
-                        ' poste de conseiller demandé ',
-                        ' poste de conseiller demandé ',
-                        ' postes de conseillers demandés ',
-                        structure?.nombreConseillersSouhaites
-                      )}
-                    </strong>
-                    pour ce conventionnement
-                  </p>
-                </> :
-                <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
-                  <strong className="fr-text--bold" style={{ color: '#000091' }}>
-                    Nombre de poste de conseiller demand&eacute; non renseign&eacute; pour ce conventionnement
-                  </strong>
-                </p>
-              }
             </p>
+            {structure?.nombreConseillersSouhaites ?
+              <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
+                <strong className="fr-text--bold">
+                  {structure?.nombreConseillersSouhaites}{pluralize(
+                    ' poste de conseiller demandé ',
+                    ' poste de conseiller demandé ',
+                    ' postes de conseillers demandés ',
+                    structure?.nombreConseillersSouhaites
+                  )}
+                </strong>
+                pour ce conventionnement
+              </p> :
+              <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
+                <strong className="fr-text--bold">
+                  Nombre de poste de conseiller demand&eacute; non renseign&eacute; pour ce conventionnement
+                </strong>
+              </p>
+            }
           </div>
           <div className="fr-card__footer">
             {(!['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) && structure?.statut === 'CREEE') &&
