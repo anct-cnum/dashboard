@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Spinner from '../../../../components/Spinner';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
-import { coordinateurActions, alerteEtSpinnerActions } from '../../../../actions';
+import Spinner from '../../../../../components/Spinner';
+import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import dayjs from 'dayjs';
-import StructureContactCards from '../../../../components/cards/StructureContactCards';
-import ModalConfirmationAvis from './ModalConfirmationAvis';
-import { validQueryParamsObjectId } from '../../../../utils/formatagesUtils';
+import StructureContactCards from '../../../../../components/cards/StructureContactCards';
+import ModalConfirmationAvis from './../ModalConfirmationAvis';
+import { validQueryParamsObjectId } from '../../../../../utils/formatagesUtils';
+import { alerteEtSpinnerActions, coordinateurActions } from '../../../../../actions';
 
 function CoordinateurDetails() {
   const dispatch = useDispatch();

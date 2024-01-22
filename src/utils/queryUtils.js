@@ -106,15 +106,14 @@ export function contratQueryStringParameters(filtreSearchBar, filtreDepartement,
 
 }
 
-export function demandesCoordinateurQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
+export function demandesQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
   const filterByName = filtreSearchBar ? `&search=${filtreSearchBar}` : '';
   const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
   const filterByDepartement = filtreDepartement !== 'tous' && filtreDepartement !== undefined ? `&departement=${filtreDepartement}` : '';
   const filterByAvisPrefet = filtreAvisPrefet !== 'tous' && filtreAvisPrefet !== undefined ? `&avisPrefet=${filtreAvisPrefet}` : '';
   const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
 
-  return { ordreColonne, filterByName, filterByRegion, filterByDepartement, filterByAvisPrefet };
-
+  return { filterByName, filterByDepartement, filterByRegion, filterByAvisPrefet, ordreColonne };
 }
 
 export function statsCsvConseillerQueryStringParameters(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, idStructure) {

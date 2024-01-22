@@ -1,7 +1,7 @@
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { structureQueryStringParameters } from '../utils/queryUtils';
+import { demandesQueryStringParameters, structureQueryStringParameters } from '../utils/queryUtils';
 
 export const structureService = {
   get,
@@ -14,6 +14,8 @@ export const structureService = {
   createAvenant,
   closeBanner,
   addRoleCoordinateur,
+  getAllDemandesConseiller,
+  getDemandeConseiller,
 };
 
 function get(id) {
@@ -85,6 +87,27 @@ function closeBanner(type, id, conseillerId) {
 
 function addRoleCoordinateur(structureId, conseillerId) {
   return API.patch(`${apiUrlRoot}/structure/add-role-coordinateur/${structureId}?role=${roleActivated()}`, { conseillerId })
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function getAllDemandesConseiller(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
+  const {
+    filterByName,
+    filterByDepartement,
+    filterByRegion,
+    filterByAvisPrefet,
+    ordreColonne,
+  } = demandesQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
+
+  // eslint-disable-next-line max-len
+  return API.get(`${apiUrlRoot}/demandes/conseillers?role=${roleActivated()}&page=${page}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function getDemandeConseiller(idStructure) {
+  return API.get(`${apiUrlRoot}/demandes/conseiller/${idStructure}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
