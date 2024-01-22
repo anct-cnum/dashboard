@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom';
 function ConventionnementDetails({ structure }) {
   const navigate = useNavigate();
   const successAvisAdmin = useSelector(state => state.structure?.successAvisAdmin);
+  const refreshStructure = useSelector(state => state.structure?.structure);
   const [openModalConfirmationRefus, setOpenModalConfirmation] = useState(false);
-  const [typeAttribution, setTypeAttribution] = useState('');
 
   useEffect(() => {
     if (successAvisAdmin) {
@@ -20,7 +20,7 @@ function ConventionnementDetails({ structure }) {
             typeConvention: 'conventionnement',
             structure: {
               nom: structure?.nom,
-              statut: structure?.statut,
+              statut: refreshStructure?.statut,
             },
           }
         },
@@ -34,7 +34,7 @@ function ConventionnementDetails({ structure }) {
   return (
     <>
       {openModalConfirmationRefus &&
-        <ModalConfirmationRefusStructure setOpenModal={setOpenModalConfirmation} structure={structure} typeAttribution={typeAttribution}/>
+        <ModalConfirmationRefusStructure setOpenModal={setOpenModalConfirmation} structure={structure}/>
       }
       <h2>Candidature</h2>
       <div className="fr-card">
@@ -100,7 +100,6 @@ function ConventionnementDetails({ structure }) {
                 <li>
                   <button className="fr-btn fr-btn--secondary" onClick={() => {
                     setOpenModalConfirmation(true);
-                    setTypeAttribution('refuser');
                   }}>
                     Refuser la candidature
                   </button>

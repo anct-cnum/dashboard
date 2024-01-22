@@ -203,6 +203,7 @@ export default function structure(state = initialState, action) {
         ...state,
         loading: false,
         successAvisAdmin: action.statutStructure.success,
+        structure: action.statutStructure.structure,
       };
     case 'UPDATE_AVIS_ADMIN_FAILURE':
       return {
