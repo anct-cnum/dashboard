@@ -34,7 +34,7 @@ export default function TableauHistoriqueConvention() {
   const filtreAvisANCT = useSelector(state => state.filtresConventions?.avisANCT);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
-  const [typeConvention, setTypeConvention] = useState('toutes');
+  const [typeConvention, setTypeConvention] = useState(location.state?.typeConvention || 'toutes');
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
 
@@ -195,9 +195,8 @@ export default function TableauHistoriqueConvention() {
                       <table>
                         <thead>
                           <tr>
-                            <th style={{ width: '9rem' }}>ID Structure</th>
-                            <th style={{ width: '30rem' }}>Nom de la structure</th>
-                            <th style={{ width: '14rem' }}>
+                            <th style={{ width: '40rem' }}>Structure</th>
+                            <th style={{ width: '18rem' }}>
                               <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
                                 <span>Date de la demande
                                   {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
@@ -209,25 +208,25 @@ export default function TableauHistoriqueConvention() {
                                 </span>
                               </button>
                             </th>
-                            <th style={{ width: '12rem' }}>Nombre de postes</th>
-                            <th style={{ width: '15rem' }}>Type de demande</th>
-                            <th></th>
+                            <th style={{ width: '20rem' }}>Nb. de postes accord&eacute;s</th>
+                            <th style={{ width: '22rem' }}>Type de demande</th>
+                            <th style={{ width: '8rem' }}></th>
                           </tr>
                         </thead>
                         <tbody>
                           {!error && !loading && conventions?.items?.data?.map((convention, idx) =>
                             <tr key={idx}>
                               {convention?.typeConvention === 'conventionnement' &&
-                                <HistoriqueConventionnement conventionnement={convention} />
+                                <HistoriqueConventionnement structure={convention} typeConvention={typeConvention} />
                               }
                               {convention?.typeConvention === 'reconventionnement' &&
-                                <HistoriqueReconventionnement reconventionnement={convention} />
+                                <HistoriqueReconventionnement reconventionnement={convention} typeConvention={typeConvention} />
                               }
                               {convention?.typeConvention === 'avenantAjoutPoste' &&
-                                <HistoriqueAvenantAjoutPoste avenant={convention} />
+                                <HistoriqueAvenantAjoutPoste avenant={convention} typeConvention={typeConvention} />
                               }
                               {convention?.typeConvention === 'avenantRenduPoste' &&
-                                <HistoriqueAvenantRenduPoste avenant={convention} />
+                                <HistoriqueAvenantRenduPoste avenant={convention} typeConvention={typeConvention} />
                               }
                             </tr>
                           )

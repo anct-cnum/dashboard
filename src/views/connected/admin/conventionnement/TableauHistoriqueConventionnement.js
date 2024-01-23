@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import Conventionnement from './Conventionnement';
 import { filtresConventionsActions, paginationActions } from '../../../../actions';
+import HistoriqueConventionnement from './HistoriqueConventionnement';
 
 export function TableauHistoriqueConventionnement({ conventions, loading, error, ordreNom, ordre }) {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export function TableauHistoriqueConventionnement({ conventions, loading, error,
     <table>
       <thead>
         <tr>
-          <th style={{ width: '38rem' }}>Structure</th>
+          <th style={{ width: '34rem' }}>Structure</th>
           <th style={{ width: '22rem' }}>
             <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
               <span>Date de la demande
@@ -29,9 +29,9 @@ export function TableauHistoriqueConventionnement({ conventions, loading, error,
               </span>
             </button>
           </th>
-          <th style={{ width: '25rem' }}>Nb. de postes demand&eacute;s</th>
+          <th style={{ width: '25rem' }}>Nb. de postes accord&eacute;s</th>
           <th style={{ width: '13rem' }}>Avis pr&eacute;fet</th>
-          <th style={{ width: '18rem' }}>Type de demande</th>
+          <th style={{ width: '24.5rem' }}>Type de demande</th>
           <th style={{ width: '8rem' }}></th>
         </tr>
       </thead>
@@ -39,7 +39,7 @@ export function TableauHistoriqueConventionnement({ conventions, loading, error,
         {!error && !loading && conventions?.items?.data?.map((convention, idx) => {
           return (
             <tr key={idx}>
-              <Conventionnement structure={convention} typeConvention="conventionnement" />
+              <HistoriqueConventionnement structure={convention} typeConvention="conventionnement" />
             </tr>
           );
         })
