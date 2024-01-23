@@ -64,15 +64,6 @@ function MenuCoordinateur({ onClickMenu, activeMenu, trackEvent }) {
           </ul>
         </div>
       </li>
-      <li className="fr-nav__item">
-        <Link
-          className="fr-nav__link"
-          target="_blank"
-          rel="noopener noreferrer"
-          to={process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR}>
-          Compte-rendu d&rsquo;activit&eacute;
-        </Link>
-      </li>
     </>
   );
 }
