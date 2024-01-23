@@ -88,7 +88,7 @@ export const validInputSiret = siret => {
 };
 
 export const validQueryParamsObjectId = id => {
-  const regexValidId = new RegExp(/^[0-9a-fA-f]{24}$/g);
+  const regexValidId = new RegExp(/^[0-9a-f]{24}$/g);
 
   return regexValidId.test(id);
 };
