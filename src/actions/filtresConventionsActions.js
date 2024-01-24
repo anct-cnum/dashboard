@@ -4,6 +4,7 @@ export const filtresConventionsActions = {
   changeFiltreDepartement,
   changeFiltreRegion,
   changeFiltreStatut,
+  changeFiltreAvisPrefet,
   resetFiltre,
 };
 
@@ -25,6 +26,10 @@ function changeFiltreRegion(region) {
 
 function changeFiltreStatut(statutDossierRupture) {
   return { type: 'CHANGE_STATUT_DOSSIER_RUPTURE', statutDossierRupture };
+}
+
+function changeFiltreAvisPrefet(avisPrefet) {
+  return { type: 'CHANGE_AVIS_PREFET', avisPrefet };
 }
 
 function resetFiltre() {
