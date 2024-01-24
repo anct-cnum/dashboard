@@ -14,10 +14,12 @@ export const structureService = {
   createAvenant,
   closeBanner,
   addRoleCoordinateur,
-  confirmationValidAvisAdmin,
-  confirmationRefusAvisAdmin,
   getAllDemandesConseiller,
   getDemandeConseiller,
+  confirmationAvisPrefet,
+  closeBannerAvisPrefet,
+  confirmationValidAvisAdmin,
+  confirmationRefusAvisAdmin,
 };
 
 function get(id) {
@@ -110,6 +112,18 @@ function getAllDemandesConseiller(page, statutDemande, filtreSearchBar, filtreDe
 
 function getDemandeConseiller(idStructure) {
   return API.get(`${apiUrlRoot}/demandes/conseiller/${idStructure}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert) {
+  return API.patch(`${apiUrlRoot}/avis/prefet/conseiller/${idStructure}?role=${roleActivated()}`, { avisPrefet, commentaire, idStructureTransfert })
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function closeBannerAvisPrefet(idStructure) {
+  return API.patch(`${apiUrlRoot}/banner/prefet/conseiller/${idStructure}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
