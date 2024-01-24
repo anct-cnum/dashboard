@@ -16,7 +16,7 @@ export function TableauConventionnement({ conventions, loading, error, ordreNom,
     <table>
       <thead>
         <tr>
-          <th style={{ width: '33rem' }}>Structure</th>
+          <th style={{ width: '31rem' }}>Structure</th>
           <th style={{ width: '22rem' }}>
             <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
               <span>Date de la demande
