@@ -2,8 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-function HistoriqueContrat({ contrat }) {
+function HistoriqueContrat({ contrat, statutContrat }) {
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
+
   const dateDeLaDemande = contrat => {
     if (contrat?.statut === 'finalisee_rupture' && contrat?.emetteurRupture?.date) {
       return dayjs(contrat.emetteurRupture.date).format('DD/MM/YYYY');
@@ -60,15 +64,18 @@ function HistoriqueContrat({ contrat }) {
         <td>{dateFinDeContrat(contrat)}</td>
         <td>
           {contrat?.statut === 'finalisee' ?
-            <button
+            <Link
               className="fr-btn fr-icon-eye-line"
-              title="D&eacute;tail"
-              onClick={() => window.open(`/admin/demandes/contrat/candidat/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
-            </button> : <button
+              state={{ 'origin': `/${roleActivated}/historique/demandes/contrats`, statutContrat }}
+              to={`/${roleActivated}/demandes/contrat/candidat/${contrat?.conseillerObj?._id}/${contrat?._id}`}
+            >
+            </Link> :
+            <Link
               className="fr-btn fr-icon-eye-line"
-              title="D&eacute;tail"
-              onClick={() => window.open(`/admin/demandes/contrat/conseiller/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
-            </button>
+              state={{ 'origin': `/${roleActivated}/historique/demandes/contrats`, statutContrat }}
+              to={`/${roleActivated}/demandes/contrat/conseiller/${contrat?.conseillerObj?._id}/${contrat?._id}`}
+            >
+            </Link>
           }
         </td>
       </tr>
@@ -78,6 +85,7 @@ function HistoriqueContrat({ contrat }) {
 
 HistoriqueContrat.propTypes = {
   contrat: PropTypes.object,
+  statutContrat: PropTypes.string,
 };
 
 export default HistoriqueContrat;
