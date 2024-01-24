@@ -25,7 +25,7 @@ function CustomDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin }) {
   };
 
   useEffect(() => {
-    if (!state?.origin.includes('/statistiques') && !location?.pathname.startsWith('/statistiques')) {
+    if (!state?.origin?.includes('/statistiques') && !location?.pathname?.startsWith('/statistiques')) {
       dispatch(datePickerActions.resetDatePicker());
     }
   }, [location]);
