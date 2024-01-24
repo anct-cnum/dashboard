@@ -27,7 +27,7 @@ export default function TableauHistoriqueContrat() {
   const filtreRegion = useSelector(state => state.filtresConventions?.region);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initContrat, setInitContrat] = useState(false);
-  const [statutContrat, setStatutContrat] = useState('toutes');
+  const [statutContrat, setStatutContrat] = useState(location.state?.statutContrat || 'toutes');
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
   const exportHistoriqueContratFileBlob = useSelector(state => state.exports);
@@ -195,7 +195,7 @@ export default function TableauHistoriqueContrat() {
                     </thead>
                     <tbody>
                       {!error && !loading && contrats?.items?.data?.map((contrat, idx) => {
-                        return (<HistoriqueContrat key={idx} contrat={contrat} />);
+                        return (<HistoriqueContrat key={idx} contrat={contrat} statutContrat={statutContrat} />);
                       })
                       }
                       {(!contrats?.items || contrats?.items?.total === 0) &&
