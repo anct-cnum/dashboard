@@ -63,27 +63,27 @@ function CandidatureConseillerDetail() {
           <div className="fr-card__header fr-mt-4w">
             <h3 className="fr-card__title fr-h3">
               {pluralize(
-                'Demande de Conseiller',
-                'Demande de Conseiller',
-                'Demandes de Conseillers',
+                'Demande de conseiller',
+                'Demande de conseiller',
+                'Demandes de conseillers',
                 structure?.nombreConseillersSouhaites
               )}
             </h3>
             <p className="fr-card__desc fr-text--lg fr-text--regular">
               Date de candidature&nbsp;:&nbsp;
               {structure?.createdAt ?
-                <span>le&nbsp;{dayjs(structure?.createdAt).format('DD/MM/YYYY')}</span> :
+                <span>le&nbsp;{dayjs(structure.createdAt).format('DD/MM/YYYY')}</span> :
                 <span>Non renseign&eacute;e</span>
               }
             </p>
             {structure?.nombreConseillersSouhaites ?
               <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
                 <strong className="fr-text--bold">
-                  {structure?.nombreConseillersSouhaites}{pluralize(
+                  {structure.nombreConseillersSouhaites}{pluralize(
                     ' poste de conseiller demandé ',
                     ' poste de conseiller demandé ',
                     ' postes de conseillers demandés ',
-                    structure?.nombreConseillersSouhaites
+                    structure.nombreConseillersSouhaites
                   )}
                 </strong>
                 pour ce conventionnement
