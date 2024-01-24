@@ -188,7 +188,7 @@ export default function TableauCoordinateurs() {
                         <tr>
                           <td colSpan="12" style={{ width: '60rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                              <span className="not-found">Aucunes demandes de coordinateur trouv&eacute;es</span>
+                              <span className="not-found">Aucune demande de coordinateur trouv&eacute;e</span>
                             </div>
                           </td>
                         </tr>
