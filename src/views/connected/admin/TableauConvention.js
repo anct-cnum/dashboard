@@ -4,7 +4,7 @@ import { alerteEtSpinnerActions, paginationActions, conventionActions } from '..
 import Spinner from '../../../components/Spinner';
 import Pagination from '../../../components/Pagination';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Conventionnement from './conventionnement/Conventionnement';
 import AvenantAjoutPoste from './avenantAjoutPoste/AvenantAjoutPoste';
 import AvenantRenduPoste from './avenantRenduPoste/AvenantRenduPoste';
@@ -13,10 +13,12 @@ import FiltresEtTrisConvention from './FiltresEtTrisConvention';
 import TableauConventionnement from './conventionnement/TableauConventionnement';
 import FiltresEtTrisConventionnement from './conventionnement/FiltresEtTrisConventionnement';
 import { statutStructure } from '../../../utils/enumUtils';
+import { pluralize } from '../../../utils/formatagesUtils';
 
 export default function TableauConvention() {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
   const [candidatureStructure, setCandidatureStructure] = useState(location.state?.structure || null);
@@ -75,6 +77,7 @@ export default function TableauConvention() {
           ordreNom,
           ordre ? -1 : 1
         ));
+        navigate(location.pathname, { replace: true });
         setInitConseiller(true);
       }
     } else {
@@ -95,7 +98,7 @@ export default function TableauConvention() {
     if (candidatureStructure) {
       setTimeout(() => {
         setCandidatureStructure(null);
-      }, 5000);
+      }, 6000);
     }
   }, [candidatureStructure]);
 
@@ -105,7 +108,14 @@ export default function TableauConvention() {
       {candidatureStructure?.statut === statutStructure.VALIDATION_COSELEC &&
         <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
           <h3 className="fr-alert__title">
-            L&rsquo;attribution d&rsquo;un poste de conseiller a &eacute;t&eacute; valid&eacute; par
+            L&rsquo;attribution&nbsp;
+            {pluralize(
+              'd\'un poste de conseiller numérique',
+              'd\'un poste de conseiller numérique',
+              'des postes de conseillers numériques',
+              candidatureStructure?.nombreConseillersCoselec
+            )}
+            &nbsp;a &eacute;t&eacute; valid&eacute;e par
             le comit&eacute; de s&eacute;lection pour la structure {candidatureStructure?.nom}.
           </h3>
           <p>La structure sera notifi&eacute;e sur son espace.</p>

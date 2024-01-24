@@ -23,6 +23,7 @@ function ConventionnementDetails({ structure }) {
             structure: {
               nom: structure?.nom,
               statut: structure?.statut,
+              nombreConseillersCoselec: structure?.coselec[0]?.nombreConseillersCoselec,
             },
           }
         },

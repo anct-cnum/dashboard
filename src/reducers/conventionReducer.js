@@ -121,10 +121,7 @@ export default function convention(state = initialState, action) {
     case 'VALIDATION_CONVENTIONNEMENT':
       return {
         ...state,
-        convention: {
-          ...state.convention,
-          statut: action.statutStructure
-        }
+        convention: action.structureUpdated,
       };
     default:
       return state;

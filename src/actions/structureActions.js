@@ -331,9 +331,9 @@ function confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec) {
 
     structureService.confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec)
     .then(
-      statutStructure => {
+      structureUpdated => {
         dispatch(success());
-        dispatch(candidatureValider(statutStructure));
+        dispatch(candidatureValider(structureUpdated));
       },
       error => {
         dispatch(failure(error));
@@ -347,8 +347,8 @@ function confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec) {
   function success() {
     return { type: 'UPDATE_AVIS_ADMIN_SUCCESS' };
   }
-  function candidatureValider(statutStructure) {
-    return { type: 'VALIDATION_CONVENTIONNEMENT', statutStructure };
+  function candidatureValider(structureUpdated) {
+    return { type: 'VALIDATION_CONVENTIONNEMENT', structureUpdated };
   }
   function failure(error) {
     return { type: 'UPDATE_AVIS_ADMIN_FAILURE', error };
