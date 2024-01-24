@@ -15,6 +15,8 @@ export const structureActions = {
   addRoleCoordinateur,
   getAllDemandesConseiller,
   getDemandeConseiller,
+  confirmationAvisPrefet,
+  closeBannerAvisPrefet,
 };
 
 // eslint-disable-next-line max-len
@@ -305,7 +307,7 @@ function getDemandeConseiller(idStructure) {
 
     structureService.getDemandeConseiller(idStructure)
     .then(
-      structure => dispatch(success(structure)),
+      response => dispatch(success(response)),
       error => {
         dispatch(failure(error));
       }
@@ -315,10 +317,58 @@ function getDemandeConseiller(idStructure) {
   function request() {
     return { type: 'GET_DEMANDE_CONSEILLER_REQUEST' };
   }
-  function success(structure) {
-    return { type: 'GET_DEMANDE_CONSEILLER_SUCCESS', structure };
+  function success(response) {
+    return { type: 'GET_DEMANDE_CONSEILLER_SUCCESS', response };
   }
   function failure(error) {
     return { type: 'GET_DEMANDE_CONSEILLER_FAILURE', error };
+  }
+}
+
+function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert)
+    .then(
+      response => dispatch(success(response.success)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_AVIS_PREFET_REQUEST' };
+  }
+  function success(success) {
+    return { type: 'UPDATE_AVIS_PREFET_SUCCESS', success };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVIS_PREFET_FAILURE', error };
+  }
+}
+
+function closeBannerAvisPrefet(idStructure) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.closeBannerAvisPrefet(idStructure)
+    .then(
+      idStructure => dispatch(success(idStructure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_BANNER_PREFET_REQUEST' };
+  }
+  function success(idStructure) {
+    return { type: 'UPDATE_BANNER_PREFET_SUCCESS', idStructure };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_BANNER_PREFET_FAILURE', error };
   }
 }
