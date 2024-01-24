@@ -1,17 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { coordinateurActions } from '../../../../actions';
 
-const BannerConfirmationAvisPrefet = ({ coordinateur }) => {
-  const dispatch = useDispatch();
-
-  const closeBanner = () => {
-    dispatch(coordinateurActions.closeBanner(coordinateur?.id, coordinateur?.idStructure, 'banniereValidationAvisPrefet'));
-  };
+const BannerConfirmationAvisPrefet = ({ nomStructure, avisPrefet, closeBanner, idDemande }) => {
 
   const checkTypeAvisFavorable = () => {
-    if (coordinateur?.avisPrefet === 'favorable') {
+    if (avisPrefet === 'favorable') {
       return true;
     }
     return false;
@@ -24,7 +17,7 @@ const BannerConfirmationAvisPrefet = ({ coordinateur }) => {
           <span className="fr-icon-checkbox-fill icon__color fr-mr-2w" aria-hidden="true"></span>
           <div>
             <p className="fr-notice__title title__color">
-              Un avis {coordinateur?.avisPrefet} a &eacute;t&eacute; attribu&eacute; &agrave; {coordinateur?.nomStructure}.
+              Un avis {avisPrefet} a &eacute;t&eacute; attribu&eacute; &agrave; {nomStructure}.
             </p>
             <p className="fr-text fr-text--sm">
               La structure sera notifi&eacute;e apr&egrave;s d&eacute;cision du comit&eacute; de s&eacute;lection.
@@ -34,7 +27,7 @@ const BannerConfirmationAvisPrefet = ({ coordinateur }) => {
             title="Masquer le message"
             style={{ marginLeft: 'auto' }}
             className="fr-icon-close-line icon__color"
-            onClick={closeBanner}></button>
+            onClick={() => closeBanner(idDemande)}></button>
         </div>
       </div>
     </div>
@@ -42,7 +35,10 @@ const BannerConfirmationAvisPrefet = ({ coordinateur }) => {
 };
 
 BannerConfirmationAvisPrefet.propTypes = {
-  coordinateur: PropTypes.object,
+  nomStructure: PropTypes.string,
+  avisPrefet: PropTypes.string,
+  closeBanner: PropTypes.func,
+  idDemande: PropTypes.string,
 };
 
 export default BannerConfirmationAvisPrefet;
