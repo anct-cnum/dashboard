@@ -40,6 +40,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                   <textarea
                     value={commentaire}
                     id="commentaire-input"
+                    minLength={10}
                     maxLength={1000}
                     onChange={e => setCommentaire(e?.target?.value)}
                     style={{ height: '6rem' }}
@@ -61,7 +62,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                   </li>
                   <li>
                     <button
-                      disabled={commentaire.length === 0}
+                      disabled={commentaire.trim().length < 10}
                       onClick={confirmationAvisPrefet}
                       className="fr-btn"
                     >
