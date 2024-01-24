@@ -13,7 +13,7 @@ function ModalValidationAttributionPoste({ setOpenModal, structure }) {
   };
 
   return (
-    <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
+    <dialog aria-labelledby="fr-modal-validation-attribution-poste" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
         <div className="fr-grid-row fr-grid-row--center">
           <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
@@ -24,7 +24,7 @@ function ModalValidationAttributionPoste({ setOpenModal, structure }) {
                 </button>
               </div>
               <div className="fr-modal__content">
-                <h1 id="fr-modal-2-title" className="fr-modal__title">
+                <h1 id="fr-modal-validation-attribution-poste" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg"></span>
                   <span className="title-modal-confirmation-poste">Confirmer l&rsquo;attribution</span>
                 </h1>
@@ -33,10 +33,11 @@ function ModalValidationAttributionPoste({ setOpenModal, structure }) {
                   className="fr-input"
                   type="number"
                   min="1"
-                  max={structure?.nombreConseillersSouhaites}
+                  max={structure?.nombreConseillersSouhaites || undefined}
                   onChange={e => setNombreConseillersCoselec(e.target.value)}
                   value={nombreConseillersCoselec}
-                  id="text-input-text" name="text-input-text"
+                  id="input-nombre-conseillers-coselec"
+                  name="input-nombre-conseillers-coselec"
                 />
               </div>
               <div className="fr-modal__footer">
