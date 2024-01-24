@@ -277,11 +277,11 @@ function addRoleCoordinateur(structureId, conseillerId) {
   }
 }
 
-function confirmationRefusAvisAdmin(id) {
+function confirmationRefusAvisAdmin(id, date) {
   return dispatch => {
     dispatch(request());
 
-    structureService.confirmationRefusAvisAdmin(id)
+    structureService.confirmationRefusAvisAdmin(id, date)
     .then(
       statutStructure => {
         dispatch(success(statutStructure));

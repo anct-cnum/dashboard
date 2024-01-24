@@ -6,7 +6,7 @@ import { structureActions } from '../../../../actions';
 function ModalConfirmationRefusStructure({ setOpenModal, structure }) {
   const dispatch = useDispatch();
   const confirmationAttributionPoste = () => {
-    dispatch(structureActions.confirmationRefusAvisAdmin(structure?._id));
+    dispatch(structureActions.confirmationRefusAvisAdmin(structure?._id, structure?.createdAt));
     setOpenModal(false);
   };
 

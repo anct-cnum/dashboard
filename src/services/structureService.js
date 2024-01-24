@@ -92,8 +92,8 @@ function addRoleCoordinateur(structureId, conseillerId) {
   .catch(handleApiError);
 }
 
-function confirmationRefusAvisAdmin(id) {
-  return API.patch(`${apiUrlRoot}/conventions/admin/refus/${id}?role=${roleActivated()}`)  
+function confirmationRefusAvisAdmin(id, date) {
+  return API.patch(`${apiUrlRoot}/conventions/admin/refus/${id}/${date}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
