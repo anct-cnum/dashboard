@@ -19,8 +19,8 @@ export default function GraphiquePilotage() {
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const ville = useSelector(state => state.statistiques?.villeStats);
   const codeCommune = useSelector(state => state.statistiques?.codeCommuneStats);
-  const structureIds = useSelector(state => state.statistiques?.structureStats);
-  const conseillerIds = useSelector(state => state.statistiques?.conseillerStats);
+  const structureId = useSelector(state => state.statistiques?.structureStats);
+  const conseillerId = useSelector(state => state.statistiques?.conseillerStats);
   const region = useSelector(state => state.statistiques?.codeRegionStats);
   const departement = useSelector(state => state.statistiques?.numeroDepartementStats);
 
@@ -29,7 +29,7 @@ export default function GraphiquePilotage() {
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const loadingExport = useSelector(state => state.exports?.loading);
   const [initStats, setInitStats] = useState(false);
-  
+
   useEffect(() => {
     if (!error) {
       if (!initStats) {
@@ -37,7 +37,7 @@ export default function GraphiquePilotage() {
         dispatch(statistiquesActions.resetFiltre());
       } else {
         // eslint-disable-next-line max-len
-        dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, codePostal, region, departement, structureIds, conseillerIds));
+        dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, codePostal, region, departement, structureId, conseillerId));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -46,7 +46,7 @@ export default function GraphiquePilotage() {
         status: null, description: null
       }));
     }
-  }, [initStats, dateDebut, dateFin, codePostal, region, departement, structureIds, conseillerIds, codeCommune, error]);
+  }, [initStats, dateDebut, dateFin, codePostal, region, departement, structureId, conseillerId, codeCommune, error]);
 
   return (
     <div className="statistiques">
@@ -77,8 +77,8 @@ export default function GraphiquePilotage() {
             <StatistiquesBanniere
               dateDebut={dateDebut}
               dateFin={dateFin}
-              structureIds={structureIds}
-              conseillerIds={conseillerIds}
+              structureId={structureId}
+              conseillerId={conseillerId}
               region={region}
               departement={departement}
               codePostal={codePostal}

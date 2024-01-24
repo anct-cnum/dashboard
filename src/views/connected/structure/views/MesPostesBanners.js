@@ -11,7 +11,7 @@ import propTypes from 'prop-types';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
 import ValidatedRoleCoordoBanner from '../banners/ValidatedRoleCoordoBanner';
 
-const Banners = ({
+const MesPostesBanners = ({
   structure,
   roleActivated,
   openModal,
@@ -20,7 +20,6 @@ const Banners = ({
   bannieresAjoutRoleCoordinateur,
   setBannieresAjoutRoleCoordinateur,
   setBannieresRenouvellementValide,
-  
 }) => {
   let reconventionnementBannerComponent = null;
   switch (structure?.conventionnement?.statut) {
@@ -91,7 +90,7 @@ const Banners = ({
 };
 
 
-Banners.propTypes = {
+MesPostesBanners.propTypes = {
   structure: propTypes.object,
   openModal: propTypes.bool,
   setOpenModal: propTypes.func,
@@ -101,4 +100,4 @@ Banners.propTypes = {
   bannieresAjoutRoleCoordinateur: propTypes.array,
   setBannieresAjoutRoleCoordinateur: propTypes.func,
 };
-export default Banners;
+export default MesPostesBanners;

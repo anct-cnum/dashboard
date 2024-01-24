@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, conseillerActions, contratActions } from '../../../../../actions';
 import { formatNomConseiller } from '../../../../../utils/formatagesUtils';
@@ -9,21 +9,27 @@ import CardsRecrutement from './CardsRecrutement';
 import InformationCandidat from '../../../../../components/InformationCandidat';
 import PopinEditionContrat from '../../../structure/popins/PopinEditionContrat';
 import ModalValidationRecrutement from '../../modals/ModalValidationRecrutement';
+import ModalAnnulationRecrutement from '../../modals/ModalAnnulationRecrutement';
 import pinCoordinateur from '../../../../../assets/icons/icone-coordinateur.svg';
 import { Tooltip } from 'react-tooltip';
 
 function CandidatDetailsRecrutement() {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
   const { idCandidat, idMiseEnRelation } = useParams();
 
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const loading = useSelector(state => state.conseiller?.loading);
   const loadingContrat = useSelector(state => state.contrat?.loading);
   const errorConseiller = useSelector(state => state.conseiller?.error);
+  const successAnnulationRecrutement = useSelector(state => state.contrat?.successAnnulationRecrutement);
   const errorContrat = useSelector(state => state.contrat?.error);
   const downloading = useSelector(state => state.conseiller?.downloading);
   const downloadError = useSelector(state => state.conseiller?.downloadError);
+  const currentPage = useSelector(state => state.pagination?.currentPage);
   const [openModal, setOpenModal] = useState(false);
+  const [openModalAnnulation, setOpenModalAnnulation] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
 
   useEffect(() => {
@@ -47,6 +53,27 @@ function CandidatDetailsRecrutement() {
     }
   }, [downloadError]);
 
+  useEffect(() => {
+    if (successAnnulationRecrutement) {
+      navigate('/admin/demandes/contrats',
+        {
+          state: {
+            currentPage,
+            statutContrat: 'recrutee',
+            conseillerRefusRecrutement: {
+              nom: conseiller?.nom,
+              prenom: conseiller?.prenom,
+            },
+          }
+        },
+        {
+          replace: true
+        }
+      );
+      dispatch(contratActions.resetAnnulationRecrutement());
+    }
+  }, [successAnnulationRecrutement]);
+
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur = false) => {
     dispatch(contratActions.updateContractRecrutementAdmin(
       typeDeContrat,
@@ -58,15 +85,15 @@ function CandidatDetailsRecrutement() {
       conseiller?._id,
     ));
   };
-
   return (
     <div className="fr-container candidatDetails">
       <Spinner loading={loading || downloading || loadingContrat} />
-      <button
-        onClick={() => window.close()}
+      <Link
+        to={location?.state?.origin}
+        state={{ currentPage, statutContrat: location?.state?.statutContrat ?? 'toutes' }}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
-      </button>
+      </Link>
       {(downloadError !== undefined && downloadError !== false) &&
         <div className="fr-alert fr-alert--error fr-mt-4w">
           <p>Le CV n&rsquo;a pas pu &ecirc;tre r&eacute;cup&eacute;r&eacute; !</p>
@@ -94,8 +121,11 @@ function CandidatDetailsRecrutement() {
         </h1>
         <Tooltip id="tooltip-coordinateur-candidat" variant="light" className="infobulle" />
       </div>
-      {openModal &&
-        <ModalValidationRecrutement setOpenModal={setOpenModal} idMiseEnRelation={conseiller?.miseEnRelation?._id} />
+      {openModalAnnulation &&
+        <ModalAnnulationRecrutement
+          setOpenModalAnnulation={setOpenModalAnnulation}
+          idMiseEnRelation={conseiller?.miseEnRelation?._id}
+        />
       }
       {openModalContrat &&
         <PopinEditionContrat
@@ -104,6 +134,9 @@ function CandidatDetailsRecrutement() {
           conseiller={conseiller?.miseEnRelation}
           editMode={true}
         />
+      }
+      {openModal &&
+        <ModalValidationRecrutement setOpenModal={setOpenModal} idMiseEnRelation={conseiller?.miseEnRelation?._id} />
       }
       <div className="fr-col-12">
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
@@ -114,6 +147,7 @@ function CandidatDetailsRecrutement() {
         miseEnRelation={conseiller?.miseEnRelation}
         conseiller={conseiller}
         setOpenModalContrat={setOpenModalContrat}
+        setOpenModalAnnulation={setOpenModalAnnulation}
         setOpenModal={setOpenModal}
       />
       <InformationCandidat conseiller={conseiller} />

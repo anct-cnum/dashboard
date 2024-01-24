@@ -105,8 +105,8 @@ function FiltresEtTrisConseillers() {
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
               <input onKeyDown={rechercheParNomOuNomStructureToucheEnter} className="fr-input"
                 defaultValue={(filtreParNomConseiller || filtreParNomStructure) ?? ''}
-                placeholder="Rechercher par nom ou par id" type="search" id="search-input" name="search-input" />
-              <button className="fr-btn" onClick={rechercheParNomOuNomStructure} title="Rechercher par nom ou par id">
+                placeholder="Rechercher par nom, par email de candidature ou par id" type="search" id="search-input" name="search-input" />
+              <button className="fr-btn" onClick={rechercheParNomOuNomStructure} title="Rechercher par nom, par email de candidature ou par id">
                 Rechercher
               </button>
             </div>

@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { coordinateurActions } from '../../../../actions';
+import { contratActions } from '../../../../actions';
+import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 
-const DeniedNewPosteCoordinateurBanner = ({ idDemandeCoordinateur, idStructure }) => {
+const RefusRecrutementBanner = ({ conseiller, idMiseEnRelation }) => {
   const dispatch = useDispatch();
-
   function closeBanner() {
-    dispatch(coordinateurActions.closeBanner(idDemandeCoordinateur, idStructure, 'banniereInformationAvisStructure'));
+    dispatch(contratActions.closeBannerAnnulationRecrutement(idMiseEnRelation));
   }
 
   return (
@@ -17,7 +17,7 @@ const DeniedNewPosteCoordinateurBanner = ({ idDemandeCoordinateur, idStructure }
           <span className="fr-icon-info-fill icon__color fr-mr-2w" aria-hidden="true"></span>
           <div>
             <p className="fr-notice__title title__color">
-              Votre demande de poste de coordinateur a &eacute;t&eacute; refus&eacute;e.
+              Le recrutement de {formatNomConseiller(conseiller)} a &eacute;t&eacute; refus&eacute;.
             </p>
             <p className="fr-text fr-text--sm">
               Pour toutes question, veuillez contacter le&nbsp;
@@ -37,9 +37,9 @@ const DeniedNewPosteCoordinateurBanner = ({ idDemandeCoordinateur, idStructure }
   );
 };
 
-DeniedNewPosteCoordinateurBanner.propTypes = {
-  idDemandeCoordinateur: PropTypes.string,
-  idStructure: PropTypes.string,
+RefusRecrutementBanner.propTypes = {
+  conseiller: PropTypes.object,
+  idMiseEnRelation: PropTypes.string
 };
 
-export default DeniedNewPosteCoordinateurBanner;
+export default RefusRecrutementBanner;

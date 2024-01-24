@@ -120,7 +120,19 @@ export default function Documents() {
             </span>
           </p>
         </div>
-        <h4>3) Pr&eacute;parer le recrutement de votre/vos Conseiller(s) num&eacute;rique(s)</h4>
+        <h4>3) Formation des conseillers num&eacute;riques</h4>
+        <div className="fr-grid-row">
+          <p>
+            <a href="https://cdn.conseiller-numerique.gouv.fr/Slide_presentation_formation_conseillers_numeriques.pdf"
+              className="fr-link" target="blank" title="T&eacute;l&eacute;charger l&rsquo;offre de formation des conseillers num&eacute;riques">
+              T&eacute;l&eacute;charger l&rsquo;offre de formation des conseillers num&eacute;riques (pdf)
+            </a>
+            <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
+              L&rsquo;offre de formation des conseillers num&eacute;riques
+            </span>
+          </p>
+        </div>
+        <h4>4) Pr&eacute;parer le recrutement de votre/vos Conseiller(s) num&eacute;rique(s)</h4>
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/presentation-conseiller-numerique.pdf"
@@ -240,7 +252,7 @@ export default function Documents() {
             </a>
           </p>
         </div>
-        <h4>4) Pr&eacute;parer l&rsquo;arriv&eacute;e de votre conseiller num&eacute;rique</h4>
+        <h4>5) Pr&eacute;parer l&rsquo;arriv&eacute;e de votre conseiller num&eacute;rique</h4>
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/les-conseils-pour-bien-demarrer.pdf"
@@ -276,7 +288,7 @@ export default function Documents() {
             </span>
           </p>
         </div>
-        <h4>5) &Eacute;l&eacute;ments de communication</h4>
+        <h4>6) &Eacute;l&eacute;ments de communication</h4>
         <div className="fr-grid-row">
           <p>
             <a href={`${urlSiteVitrine}/kit-communication`}
@@ -299,7 +311,20 @@ export default function Documents() {
             </span>
           </p>
         </div>
-        <h4>6) Accompagner les Conseillers num&eacute;riques France Services dans leurs missions</h4>
+        <div className="fr-grid-row">
+          <p>
+            <a href="https://cdn.conseiller-numerique.gouv.fr/ANCT_CampagneCNFS.zip"
+              className="fr-link" target="blank" rel="noreferrer noopener" title="Presse Quotidienne R&eacute;gionale (PQR) - campagne d&eacute;cembre 2023">
+              Presse Quotidienne R&eacute;gionale (PQR) - campagne d&eacute;cembre 2023 (zip)
+            </a>
+            <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
+              Retrouvez les articles de valorisation du dispositif Conseiller num&eacute;rique pour chaque d&eacute;partement&nbsp;: 4 pages
+              avec une pr&eacute;sentation du dispositif, la carte des lieux d&rsquo;accompagnement d&eacute;clar&eacute;s dans l&rsquo;Espace coop
+              et un t&eacute;moignage de conseiller num&eacute;rique.
+            </span>
+          </p>
+        </div>
+        <h4>7) Accompagner les Conseillers num&eacute;riques France Services dans leurs missions</h4>
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/guide-d-utilisation-de-l-outil-de-suivi-d-activite.pdf"

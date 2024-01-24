@@ -64,8 +64,9 @@ function RecrutementCoordinateur() {
             style={{ color: '#000091' }}
             href="https://cdn.conseiller-numerique.gouv.fr/Appel_a_candidatures_conseiller_numeriques_coordinateurs.pdf"
             target="_blank"
-            rel="noopener noreferrer">
-            consulter la circulaire
+            rel="noopener noreferrer"
+            title="Consulter l&rsquo;Appel &agrave; Candidature Coordinateur">
+            consulter l&rsquo;Appel &agrave; Candidature Coordinateur
           </a>
         </strong>
       </span>
