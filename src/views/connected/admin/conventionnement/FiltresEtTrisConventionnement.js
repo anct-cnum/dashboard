@@ -10,9 +10,9 @@ function FiltresEtTrisConventionnement() {
   const departementsRegionArray = Array.from(departementsRegionRaw);
   const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
   const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
-  const filterDepartement = useSelector(state => state.filtresDemandesCoordinateur?.departement);
-  const filtreRegion = useSelector(state => state.filtresDemandesCoordinateur?.region);
-  const filtreAvisPrefet = useSelector(state => state.filtresDemandesCoordinateur?.avisPrefet);
+  const filterDepartement = useSelector(state => state.filtresConventions?.departement);
+  const filtreRegion = useSelector(state => state.filtresConventions?.region);
+  const filtreAvisPrefet = useSelector(state => state.filtresConventions?.avisPrefet);
 
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));

@@ -15,6 +15,8 @@ export const structureActions = {
   addRoleCoordinateur,
   confirmationValidAvisAdmin,
   resetConfirmationAvisAdmin,
+  getAllDemandesConseiller,
+  getDemandeConseiller,
 };
 
 // eslint-disable-next-line max-len
@@ -273,6 +275,53 @@ function addRoleCoordinateur(structureId, conseillerId) {
   }
   function failure(error) {
     return { type: 'ADD_ROLE_COORDINATEUR_FAILURE', error };
+  }
+}
+
+function getAllDemandesConseiller(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
+  return dispatch => {
+    dispatch(request());
+    structureService.getAllDemandesConseiller(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre)
+    .then(
+      structures => dispatch(success(structures)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GETALL_DEMANDES_CONSEILLER_REQUEST' };
+  }
+  function success(structures) {
+    return { type: 'GETALL_DEMANDES_CONSEILLER_SUCCESS', structures };
+  }
+  function failure(error) {
+    return { type: 'GETALL_DEMANDES_CONSEILLER_FAILURE', error };
+  }
+}
+
+function getDemandeConseiller(idStructure) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.getDemandeConseiller(idStructure)
+    .then(
+      structure => dispatch(success(structure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_DEMANDE_CONSEILLER_REQUEST' };
+  }
+  function success(structure) {
+    return { type: 'GET_DEMANDE_CONSEILLER_SUCCESS', structure };
+  }
+  function failure(error) {
+    return { type: 'GET_DEMANDE_CONSEILLER_FAILURE', error };
   }
 }
 

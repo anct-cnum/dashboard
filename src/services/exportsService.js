@@ -8,11 +8,11 @@ import {
   structureQueryStringParameters,
   gestionnairesQueryStringParameters,
   contratQueryStringParameters,
-  demandesCoordinateurQueryStringParameters,
   statsCsvConseillerQueryStringParameters,
   statsCsvStructureQueryStringParameters,
   statsCsvGrandReseauQueryStringParameters,
-  historiqueConventionQueryStringParameters
+  historiqueConventionQueryStringParameters,
+  demandesQueryStringParameters
 } from '../utils/queryUtils';
 
 export const exportsService = {
@@ -163,13 +163,13 @@ function getExportDonneesGestionnaires(filtreRole, filtreParNom, nomOrdre, ordre
 
 function getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
   const {
-    ordreColonne,
-    filterByName,
-    filterByRegion,
-    filterByDepartement,
     filterDateStart,
-    filterDateEnd
-  } = historiqueConventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre, dateDebut, dateFin);
+    filterDateEnd,
+    filterByName,
+    filterByDepartement,
+    filterByRegion,
+    ordreColonne,
+  } = historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre);
   return API.get(`${apiUrlRoot}/exports/historique-dossiers-convention-csv?role=${roleActivated()}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
   .then(response => response.data)
   .catch(handleApiError);
@@ -191,12 +191,12 @@ function getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, fi
 
 function getExportDemandesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
   const {
-    ordreColonne,
     filterByName,
-    filterByRegion,
     filterByDepartement,
+    filterByRegion,
     filterByAvisPrefet,
-  } = demandesCoordinateurQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
+    ordreColonne,
+  } = demandesQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
   return API.get(`${apiUrlRoot}/exports/demandes-coordinateurs-csv?role=${roleActivated()}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
   .then(response => response.data)
   .catch(handleApiError);

@@ -174,7 +174,7 @@ export default function TableauConvention() {
                             </button>
                           </th>
                           <th style={{ width: '20rem' }}>Nb. de postes demand&eacute;s</th>
-                          <th style={{ width: '18rem' }}>Type de demande</th>
+                          <th style={{ width: '22rem' }}>Type de demande</th>
                           <th style={{ width: '8rem' }}></th>
                         </tr>
                       </thead>
@@ -196,7 +196,7 @@ export default function TableauConvention() {
                           <tr>
                             <td colSpan="12" style={{ width: '60rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <span className="not-found">Aucune demande de convention trouv&eacute;</span>
+                                <span className="not-found">Aucune demande de convention trouv&eacute;e</span>
                               </div>
                             </td>
                           </tr>

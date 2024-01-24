@@ -13,11 +13,11 @@ export const conventionService = {
 
 function getAll(page, typeConvention, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
   const {
-    ordreColonne,
     filterByName,
-    filterByRegion,
     filterByDepartement,
-    filterByAvisPrefet
+    filterByRegion,
+    filterByAvisPrefet,
+    ordreColonne,
   } = conventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
 
   // eslint-disable-next-line max-len
@@ -28,13 +28,13 @@ function getAll(page, typeConvention, filtreParNomStructure, filterDepartement, 
 
 function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
   const {
-    ordreColonne,
-    filterByName,
-    filterByRegion,
-    filterByDepartement,
     filterDateStart,
-    filterDateEnd
-  } = historiqueConventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre, dateDebut, dateFin);
+    filterDateEnd,
+    filterByName,
+    filterByDepartement,
+    filterByRegion,
+    ordreColonne,
+  } = historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre);
 
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/historique/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)

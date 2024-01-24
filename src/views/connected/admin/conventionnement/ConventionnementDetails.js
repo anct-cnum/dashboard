@@ -48,9 +48,9 @@ function ConventionnementDetails({ structure }) {
           <div className="fr-card__header fr-mt-4w">
             <h3 className="fr-card__title fr-h3">
               {pluralize(
-                'Demande de Conseiller',
-                'Demande de Conseiller',
-                'Demandes de Conseillers',
+                'Demande de conseiller',
+                'Demande de conseiller',
+                'Demandes de conseillers',
                 structure?.nombreConseillersSouhaites
               )}
             </h3>
@@ -70,20 +70,23 @@ function ConventionnementDetails({ structure }) {
                 <span>Non renseign&eacute;e</span>
               }
             </p>
+            {structure?.prefet?.structureTransfert &&
+              <p className="fr-card__desc fr-text--lg fr-text--regular">
+                Cette candidature est une demande de transfert de poste depuis la structure <strong>{structure.prefet.structureTransfert.nom}</strong>
+              </p>
+            }
             {structure?.nombreConseillersSouhaites ?
-              <>
-                <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
-                  <strong className="fr-text--bold">
-                    {structure?.nombreConseillersSouhaites}{pluralize(
-                      ' poste de conseiller demandé ',
-                      ' poste de conseiller demandé ',
-                      ' postes de conseillers demandés ',
-                      structure?.nombreConseillersSouhaites
-                    )}
-                  </strong>
-                  pour ce conventionnement
-                </p>
-              </> :
+              <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
+                <strong className="fr-text--bold">
+                  {structure.nombreConseillersSouhaites}{pluralize(
+                    ' poste de conseiller demandé ',
+                    ' poste de conseiller demandé ',
+                    ' postes de conseillers demandés ',
+                    structure.nombreConseillersSouhaites
+                  )}
+                </strong>
+                pour ce conventionnement
+              </p> :
               <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
                 <strong className="fr-text--bold">
                   Nombre de poste de conseiller demand&eacute; non renseign&eacute; pour ce conventionnement
@@ -95,7 +98,7 @@ function ConventionnementDetails({ structure }) {
             <div className="commentaire-prefet">
               <span><strong>Commentaire pr&eacute;fet&nbsp;:&nbsp;</strong></span>
               {structure?.prefet?.commentairePrefet ?
-                <p className="fr-mt-2w fr-mb-0">{structure?.prefet?.commentairePrefet}</p> :
+                <p className="fr-mt-2w fr-mb-0">{structure.prefet.commentairePrefet}</p> :
                 <p className="fr-mt-2w fr-mb-0">Non renseign&eacute;</p>
               }
             </div>
