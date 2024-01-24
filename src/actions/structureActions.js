@@ -14,6 +14,7 @@ export const structureActions = {
   closeBanner,
   addRoleCoordinateur,
   confirmationValidAvisAdmin,
+  confirmationRefusAvisAdmin,
   resetConfirmationAvisAdmin,
   getAllDemandesConseiller,
   getDemandeConseiller,
@@ -348,6 +349,35 @@ function confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec) {
     return { type: 'UPDATE_AVIS_ADMIN_SUCCESS' };
   }
   function candidatureValider(structureUpdated) {
+    return { type: 'VALIDATION_CONVENTIONNEMENT', structureUpdated };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVIS_ADMIN_FAILURE', error };
+  }
+}
+
+function confirmationRefusAvisAdmin(idStructure) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.confirmationRefusAvisAdmin(idStructure)
+    .then(
+      structureUpdated => {
+        dispatch(success());
+        dispatch(candidatureRefuser(structureUpdated));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+  function request() {
+    return { type: 'UPDATE_AVIS_ADMIN_REQUEST' };
+  }
+  function success() {
+    return { type: 'UPDATE_AVIS_ADMIN_SUCCESS' };
+  }
+  function candidatureRefuser(structureUpdated) {
     return { type: 'VALIDATION_CONVENTIONNEMENT', structureUpdated };
   }
   function failure(error) {

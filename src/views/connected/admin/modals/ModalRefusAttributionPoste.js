@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { structureActions } from '../../../../actions';
 
-function ModalValidationAttributionPoste({ setOpenModal, structure }) {
+function ModalRefusAttributionPoste({ setOpenModal, structure }) {
   const dispatch = useDispatch();
-  const [nombreConseillersCoselec, setNombreConseillersCoselec] = useState(structure?.nombreConseillersSouhaites || 1);
-
   const confirmationAttributionPoste = () => {
-    dispatch(structureActions.confirmationValidAvisAdmin(structure?._id, nombreConseillersCoselec));
+    dispatch(structureActions.confirmationRefusAvisAdmin(structure?._id));
     setOpenModal(false);
   };
 
   return (
-    <dialog aria-labelledby="modal-title-validation-attribution-poste" id="modal-validation-attribution-poste" className="fr-modal modalOpened" role="dialog" >
+    <dialog aria-labelledby="modal-title-refus-attribution-poste" id="modal-refus-attribution-poste" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
         <div className="fr-grid-row fr-grid-row--center">
           <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
@@ -22,28 +20,21 @@ function ModalValidationAttributionPoste({ setOpenModal, structure }) {
                 <button
                   className="fr-btn--close fr-btn"
                   title="Fermer la fen&ecirc;tre modale"
-                  aria-controls="modal-validation-attribution-poste"
+                  aria-controls="modal-refus-attribution-poste"
                   onClick={() => setOpenModal(false)}
                 >
                   Fermer
                 </button>
               </div>
               <div className="fr-modal__content">
-                <h1 id="modal-validation-title-attribution-poste" className="fr-modal__title">
+                <h1 id="modal-title-refus-attribution-poste" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg"></span>
-                  <span className="title-modal-confirmation-poste">Confirmer l&rsquo;attribution</span>
+                  <span className="title-modal-confirmation-poste">Refuser l&rsquo;attribution</span>
                 </h1>
-                <p>Veuillez renseigner le nombre de postes attribu&eacute;s &agrave; la structure <strong>{structure?.nom}</strong></p>
-                <input
-                  className="fr-input"
-                  type="number"
-                  min="1"
-                  max={structure?.nombreConseillersSouhaites || undefined}
-                  onChange={e => setNombreConseillersCoselec(e.target.value)}
-                  value={nombreConseillersCoselec}
-                  id="input-nombre-conseillers-coselec"
-                  name="input-nombre-conseillers-coselec"
-                />
+                <p>
+                  Souhaitez-vous refuser l&rsquo;attribution d&rsquo;un poste
+                  &agrave; la structure&nbsp;<strong>{structure?.nom}</strong>&nbsp;?
+                </p>
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
@@ -70,9 +61,9 @@ function ModalValidationAttributionPoste({ setOpenModal, structure }) {
   );
 }
 
-ModalValidationAttributionPoste.propTypes = {
+ModalRefusAttributionPoste.propTypes = {
   setOpenModal: PropTypes.func,
   structure: PropTypes.object,
 };
 
-export default ModalValidationAttributionPoste;
+export default ModalRefusAttributionPoste;

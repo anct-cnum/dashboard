@@ -15,6 +15,7 @@ export const structureService = {
   closeBanner,
   addRoleCoordinateur,
   confirmationValidAvisAdmin,
+  confirmationRefusAvisAdmin,
   getAllDemandesConseiller,
   getDemandeConseiller,
 };
@@ -115,6 +116,12 @@ function getDemandeConseiller(idStructure) {
 
 function confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec) {
   return API.patch(`${apiUrlRoot}/avis/admin/valid/conseiller/${idStructure}?role=${roleActivated()}`, { nombreConseillersCoselec })
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function confirmationRefusAvisAdmin(idStructure) {
+  return API.patch(`${apiUrlRoot}/avis/admin/refus/conseiller/${idStructure}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(handleApiError);
 }

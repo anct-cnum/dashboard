@@ -6,6 +6,7 @@ import ModalValidationAttributionPoste from '../modals/ModalValidationAttributio
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { structureActions } from '../../../../actions';
+import ModalRefusAttributionPoste from '../modals/ModalRefusAttributionPoste';
 
 function ConventionnementDetails({ structure }) {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function ConventionnementDetails({ structure }) {
   const successAvisAdmin = useSelector(state => state.structure?.successAvisAdmin);
 
   const [openModalValidationAttributionPoste, setOpenModalValidationAttributionPoste] = useState(false);
+  const [openModalRefusAttributionPoste, setOpenModalRefusAttributionPoste] = useState(false);
 
   useEffect(() => {
     if (successAvisAdmin) {
@@ -42,6 +44,9 @@ function ConventionnementDetails({ structure }) {
           setOpenModal={setOpenModalValidationAttributionPoste}
           structure={structure}
         />
+      }
+      {openModalRefusAttributionPoste &&
+        <ModalRefusAttributionPoste setOpenModal={setOpenModalRefusAttributionPoste} structure={structure}/>
       }
       <h2>Candidature</h2>
       <div className="fr-card">
@@ -108,7 +113,7 @@ function ConventionnementDetails({ structure }) {
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
-                  <button className="fr-btn fr-btn--secondary">
+                  <button className="fr-btn fr-btn--secondary" onClick={() => setOpenModalRefusAttributionPoste(true)}>
                     Refuser la candidature
                   </button>
                 </li>
