@@ -14,7 +14,6 @@ import {
   statsCsvGrandReseauQueryStringParameters,
   demandesQueryStringParameters,
   conseillerCoordonnesQueryStringParameters,
-  demandesCoordinateurQueryStringParameters
 } from '../utils/queryUtils';
 
 export const exportsService = {
