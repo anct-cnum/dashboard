@@ -2,7 +2,7 @@
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { conseillerQueryStringParameters, territoireQueryString, structureQueryStringParameters, gestionnairesQueryStringParameters, statsCsvQueryStringParameters, conventionQueryStringParameters, contratQueryStringParameters, demandesCoordinateurQueryStringParameters } from '../utils/queryUtils';
+import { conseillerQueryStringParameters, conseillerCoordonnesQueryStringParameters, territoireQueryString, structureQueryStringParameters, gestionnairesQueryStringParameters, statsCsvQueryStringParameters, conventionQueryStringParameters, contratQueryStringParameters, demandesCoordinateurQueryStringParameters } from '../utils/queryUtils';
 
 export const exportsService = {
   getFile,
@@ -61,7 +61,7 @@ function getExportDonneesConseillerCoordonnes(dateDebut, dateFin, filtreParNomCo
     filterByRegion,
     filterByDepartement,
     filterByNameStructure,
-  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure);
+  } = conseillerCoordonnesQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure);
   return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByRegion}${filterByDepartement}${filterByNameStructure}`)
   .then(response => response.data)
   .catch(handleApiError);

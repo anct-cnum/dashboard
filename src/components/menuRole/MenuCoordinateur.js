@@ -14,7 +14,6 @@ function MenuCoordinateur({ onClickMenu, activeMenu, trackEvent }) {
           className="fr-nav__btn"
           aria-expanded={activeMenu === 'listes'}
           aria-controls="menu-listes"
-          // eslint-disable-next-line max-len
           {...(location.pathname.startsWith(`/${roleActivated}/liste-conseillers`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
           Suivis

@@ -65,8 +65,6 @@ TableConseillers.propTypes = {
   conseillers: PropTypes.object,
   loading: PropTypes.bool,
   error: PropTypes.bool || PropTypes.string,
-  filtreRupture: PropTypes.string,
-  filtreCoordinateur: PropTypes.string,
 };
 
 export default TableConseillers;

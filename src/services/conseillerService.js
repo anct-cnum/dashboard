@@ -1,7 +1,7 @@
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { conseillerQueryStringParameters, candidatQueryStringParameters } from '../utils/queryUtils';
+import { conseillerQueryStringParameters, candidatQueryStringParameters, conseillerCoordonnesQueryStringParameters } from '../utils/queryUtils';
 
 export const conseillerService = {
   get,
@@ -110,16 +110,14 @@ function getConseillersCoordonnes(page, dateDebut, dateFin, filtreParNomConseill
     filterDateStart,
     filterDateEnd,
     filterByNameConseiller,
-    rupture,
-    coordinateur,
     filterByRegion,
     filterByDepartement,
     filterByNameStructure,
   // eslint-disable-next-line max-len
-  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure);
+  } = conseillerCoordonnesQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure);
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/conseillers-coordonnes?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}${filterByNameStructure}&role=${roleActivated()}`;
+  let uri = `${apiUrlRoot}/conseillers-coordonnes?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByRegion}${filterByDepartement}${filterByNameStructure}&role=${roleActivated()}`;
 
   return API.get(uri)
   .then(response => response.data)

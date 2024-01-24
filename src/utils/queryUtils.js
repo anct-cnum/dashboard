@@ -46,6 +46,19 @@ export function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, date
   // eslint-disable-next-line max-len
   return { ordreColonne, filterDateStart, filterDateEnd, filterByNameConseiller, rupture, coordinateur, filterByRegion, filterByDepartement, filterByNameStructure };
 }
+// eslint-disable-next-line max-len
+export function conseillerCoordonnesQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const filterByNameConseiller = filtreParNomConseiller ? `&searchByConseiller=${filtreParNomConseiller}` : '';
+  const filterByRegion = filtreParRegion !== 'tous' && filtreParRegion !== undefined ? `&region=${filtreParRegion}` : '';
+  const filterByDepartement = filtreParDepartement !== 'tous' && filtreParDepartement !== undefined ? `&departement=${filtreParDepartement}` : '';
+  const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
+  const filterByNameStructure = filtreParNomStructure ? `&searchByStructure=${filtreParNomStructure}` : '';
+
+  // eslint-disable-next-line max-len
+  return { ordreColonne, filterDateStart, filterDateEnd, filterByNameConseiller, filterByRegion, filterByDepartement, filterByNameStructure };
+}
 
 export function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, dateFin, page) {
   if (nomOrdre === 'code') {

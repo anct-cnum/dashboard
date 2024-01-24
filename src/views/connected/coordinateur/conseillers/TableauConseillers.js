@@ -63,7 +63,6 @@ export default function TableauConseillers() {
     }
   }, [error, page]);
 
-
   return (
     <div className="conseillers">
       <Spinner loading={loading} />

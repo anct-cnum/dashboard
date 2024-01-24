@@ -11,7 +11,6 @@ import TableauConseillers from './conseillers/TableauConseillers';
 export default function Coordinateur() {
 
   const location = useLocation();
-  
 
   return (
     <>
@@ -21,14 +20,14 @@ export default function Coordinateur() {
             <h3>Bienvenue sur votre tableau de pilotage,</h3>
             <p>Nous sommes ravis de vous accueillir sur votre nouvel espace de pilotage.</p>
             <p>
-            Nous vous proposons une nouvelle interface de suivi et pilotage des Conseillers num&eacute;rique Coordinateur que vous coordonnez.
-            Ce nouvel espace permet de&nbsp;:
+              Nous vous proposons une nouvelle interface de suivi et pilotage des Conseillers num&eacute;rique Coordinateur que vous coordonnez.
+              Ce nouvel espace permet de&nbsp;:
             </p>
             <div>
               <ul>
                 <li>Visualiser le liste des conseillers coordinateurs  que vous coordonnez</li>
                 <li>Consulter les informations des conseillers coordinateurs (activité, statistiques…)</li>
-                <li>Visualiser les statistiques des conseillers coordinateur</li>
+                <li>Consulter les informations des conseillers coordinateurs (activit&eacute;, statistiques…)</li>
                 <li>Suivre les statistiques territoriales et nationales du dispositif</li>
               </ul>
                 Et bien plus encore...
@@ -41,7 +40,7 @@ export default function Coordinateur() {
               <ul>
                 <li>Par t&eacute;l&eacute;phone au num&eacute;ro suivant&nbsp;:
                   <b> 01 58 50 89 42 </b>du <b>lundi</b> au <b>jeudi</b> de <b>09h30 &agrave; 12h00</b> et le <b>mercredi de 14h00 &agrave; 16h00.</b></li>
-                <li>Par email à l&rsquo;adresse&nbsp;: <a
+                <li>Par email &agrave; l&rsquo;adresse&nbsp;: <a
                   className="fr-link"
                   href="mailto:conseiller-numerique@anct.gouv.fr"
                   title="conseiller-numerique@anct.gouv.fr">
