@@ -56,7 +56,6 @@ export function conseillerCoordonnesQueryStringParameters(nomOrdre, ordre, dateD
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
   const filterByNameStructure = filtreParNomStructure ? `&searchByStructure=${filtreParNomStructure}` : '';
 
-  // eslint-disable-next-line max-len
   return { ordreColonne, filterDateStart, filterDateEnd, filterByNameConseiller, filterByRegion, filterByDepartement, filterByNameStructure };
 }
 
