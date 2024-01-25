@@ -382,9 +382,9 @@ function confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec) {
 
     structureService.confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec)
     .then(
-      structureUpdated => {
+      structure => {
         dispatch(success());
-        dispatch(candidatureValider(structureUpdated));
+        dispatch(candidatureValider(structure));
       },
       error => {
         dispatch(failure(error));
@@ -398,8 +398,8 @@ function confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec) {
   function success() {
     return { type: 'UPDATE_AVIS_ADMIN_SUCCESS' };
   }
-  function candidatureValider(structureUpdated) {
-    return { type: 'VALIDATION_CONVENTIONNEMENT', structureUpdated };
+  function candidatureValider(structure) {
+    return { type: 'VALIDATION_CONVENTIONNEMENT', structure };
   }
   function failure(error) {
     return { type: 'UPDATE_AVIS_ADMIN_FAILURE', error };
@@ -412,9 +412,9 @@ function confirmationRefusAvisAdmin(idStructure) {
 
     structureService.confirmationRefusAvisAdmin(idStructure)
     .then(
-      structureUpdated => {
+      structure => {
         dispatch(success());
-        dispatch(candidatureRefuser(structureUpdated));
+        dispatch(candidatureRefuser(structure));
       },
       error => {
         dispatch(failure(error));
@@ -427,8 +427,8 @@ function confirmationRefusAvisAdmin(idStructure) {
   function success() {
     return { type: 'UPDATE_AVIS_ADMIN_SUCCESS' };
   }
-  function candidatureRefuser(structureUpdated) {
-    return { type: 'VALIDATION_CONVENTIONNEMENT', structureUpdated };
+  function candidatureRefuser(structure) {
+    return { type: 'VALIDATION_CONVENTIONNEMENT', structure };
   }
   function failure(error) {
     return { type: 'UPDATE_AVIS_ADMIN_FAILURE', error };
