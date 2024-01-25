@@ -7,11 +7,11 @@ import {
   territoireQueryString,
   structureQueryStringParameters,
   gestionnairesQueryStringParameters,
-  conventionQueryStringParameters,
   contratQueryStringParameters,
   statsCsvConseillerQueryStringParameters,
   statsCsvStructureQueryStringParameters,
   statsCsvGrandReseauQueryStringParameters,
+  historiqueConventionQueryStringParameters,
   demandesQueryStringParameters,
   conseillerCoordonnesQueryStringParameters
 } from '../utils/queryUtils';
@@ -179,14 +179,14 @@ function getExportDonneesGestionnaires(filtreRole, filtreParNom, nomOrdre, ordre
 }
 
 function getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
-  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
-  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const {
-    ordreColonne,
+    filterDateStart,
+    filterDateEnd,
     filterByName,
+    filterByDepartement,
     filterByRegion,
-    filterByDepartement
-  } = conventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre);
+    ordreColonne,
+  } = historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre);
   return API.get(`${apiUrlRoot}/exports/historique-dossiers-convention-csv?role=${roleActivated()}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
   .then(response => response.data)
   .catch(handleApiError);

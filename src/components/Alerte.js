@@ -16,7 +16,7 @@ export default function Alerte() {
     if (alerte?.type) {
       setTimeout(() => {
         dispatch(alerteEtSpinnerActions.resetMessageAlerte());
-      }, alerte?.delay);
+      }, 5000);
     }
   }, [alerte]);
 

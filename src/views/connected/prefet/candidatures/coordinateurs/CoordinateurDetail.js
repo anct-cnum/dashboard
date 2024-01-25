@@ -5,9 +5,9 @@ import Spinner from '../../../../../components/Spinner';
 import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import dayjs from 'dayjs';
 import StructureContactCards from '../../../../../components/cards/StructureContactCards';
-import ModalConfirmationAvis from './../ModalConfirmationAvis';
 import { validQueryParamsObjectId } from '../../../../../utils/formatagesUtils';
 import { alerteEtSpinnerActions, coordinateurActions } from '../../../../../actions';
+import ModalConfirmationAvis from './ModalConfirmationAvis';
 
 function CoordinateurDetails() {
   const dispatch = useDispatch();

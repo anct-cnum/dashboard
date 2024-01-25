@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, conventionActions } from '../../../actions';
 import { formatNomContactStructure, formatNumeroTelephone } from '../../../utils/formatagesUtils';
@@ -12,6 +12,7 @@ import AvenantRenduPosteDetails from './avenantRenduPoste/AvenantRenduPosteDetai
 
 function ConventionDetails() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { idStructure } = useParams();
   const queryParams = new URLSearchParams(window.location.search);
   const typeConvention = queryParams.get('type');
@@ -19,8 +20,8 @@ function ConventionDetails() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const convention = useSelector(state => state.convention?.convention);
   const loading = useSelector(state => state.convention?.loading);
-  const loadingValidationReconventionnement = useSelector(state => state.reconventionnement?.loading);
   const errorConvention = useSelector(state => state.convention?.error);
+  const currentPage = useSelector(state => state.pagination?.currentPage);
 
   useEffect(() => {
     if (!errorConvention) {
@@ -58,12 +59,13 @@ function ConventionDetails() {
 
   return (
     <div className="conventionDetails">
-      <Spinner loading={loading || loadingValidationReconventionnement} />
-      <button
-        onClick={() => window.close()}
+      <Spinner loading={loading} />
+      <Link
+        to={location?.state?.origin}
+        state={{ currentPage, typeConvention: location?.state?.typeConvention ?? 'toutes' }}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
-      </button>
+      </Link>
       <div className="fr-col-12 fr-pt-6w">
         <h1 className="fr-h1 fr-mb-1w" style={{ color: '#000091' }}>{convention?.nom ?? '-'}</h1>
       </div>
@@ -138,7 +140,7 @@ function ConventionDetails() {
           <ReconventionnementDetails reconventionnement={convention} />
         }
         {typeConvention === 'conventionnement' &&
-          <ConventionnementDetails conventionnement={convention} />
+          <ConventionnementDetails structure={convention} />
         }
         {typeConvention === 'avenant-ajout-poste' && checkIfAvenantCorrect(convention) &&
           <AvenantAjoutPosteDetails avenant={convention} idDemandeCoselec={idDemandeCoselec} />

@@ -84,13 +84,34 @@ export default function TableauCoordinateurs() {
     dispatch(filtresDemandesActions.changeOrdre(e.currentTarget?.id));
   };
 
+  const closeBanner = idDemande => {
+    const demandeCoordinateur = coordinateurs?.items?.data?.find(demande => demande?.id === idDemande);
+    if (demandeCoordinateur?.banniereValidationAvisPrefet === true) {
+      dispatch(coordinateurActions.closeBanner(demandeCoordinateur?.id, demandeCoordinateur?.idStructure, 'banniereValidationAvisPrefet'));
+      return;
+    }
+    dispatch(alerteEtSpinnerActions.getMessageAlerte({
+      type: 'error',
+      message: 'La bannière n\'a pas pu être fermée !',
+      status: null, description: null
+    }));
+  };
+
   const demandesCoordinateurWithBanner = coordinateurs?.items?.data?.filter(demande => demande?.banniereValidationAvisPrefet === true);
 
   return (
     <div className="conventions">
       <Spinner loading={loading} />
       {demandesCoordinateurWithBanner?.length > 0 && demandesCoordinateurWithBanner?.map((coordinateur, idx) => {
-        return (<BannerConfirmationAvisPrefet key={idx} coordinateur={coordinateur} />);
+        return (
+          <BannerConfirmationAvisPrefet
+            key={idx}
+            closeBanner={closeBanner}
+            nomStructure={coordinateur?.nomStructure}
+            avisPrefet={coordinateur?.avisPrefet}
+            idDemande={coordinateur?.id}
+          />
+        );
       })
       }
       <div className="fr-grid-row">
@@ -167,7 +188,7 @@ export default function TableauCoordinateurs() {
                         <tr>
                           <td colSpan="12" style={{ width: '60rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                              <span className="not-found pair">Aucunes demandes de coordinateur trouv&eacute;es</span>
+                              <span className="not-found">Aucune demande de coordinateur trouv&eacute;e</span>
                             </div>
                           </td>
                         </tr>

@@ -4,7 +4,7 @@ import { alerteEtSpinnerActions, exportsActions, filtresConventionsActions, pagi
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { contratActions } from '../../../../actions/contratActions';
 import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
 import HistoriqueContrat from './HistoriqueContrat';
@@ -14,6 +14,7 @@ export default function TableauHistoriqueContrat() {
 
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const [page, setPage] = useState(location.state?.currentPage);
 
   const loading = useSelector(state => state.contrat?.loading);
@@ -27,7 +28,7 @@ export default function TableauHistoriqueContrat() {
   const filtreRegion = useSelector(state => state.filtresConventions?.region);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initContrat, setInitContrat] = useState(false);
-  const [statutContrat, setStatutContrat] = useState('toutes');
+  const [statutContrat, setStatutContrat] = useState(location.state?.statutContrat || 'toutes');
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
   const exportHistoriqueContratFileBlob = useSelector(state => state.exports);
@@ -78,6 +79,7 @@ export default function TableauHistoriqueContrat() {
           ordreNom,
           ordre ? -1 : 1
         ));
+        navigate(location.pathname, { replace: true });
         setInitContrat(true);
       }
     } else {
@@ -195,7 +197,7 @@ export default function TableauHistoriqueContrat() {
                     </thead>
                     <tbody>
                       {!error && !loading && contrats?.items?.data?.map((contrat, idx) => {
-                        return (<HistoriqueContrat key={idx} contrat={contrat} />);
+                        return (<HistoriqueContrat key={idx} contrat={contrat} statutContrat={statutContrat} />);
                       })
                       }
                       {(!contrats?.items || contrats?.items?.total === 0) &&
