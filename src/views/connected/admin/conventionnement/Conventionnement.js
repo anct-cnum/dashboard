@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import iconArrowLeftRight from '../../../../assets/icons/arrow-left-right-line.svg';
 
 function Conventionnement({ structure, typeConvention }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -31,7 +30,7 @@ function Conventionnement({ structure, typeConvention }) {
           <span>Non renseign&eacute;e</span>
         }
       </td>
-      <td>{structure?.nombreConseillersSouhaites ? structure?.nombreConseillersSouhaites : '-'}</td>
+      <td>{structure?.nombreConseillersSouhaites ? structure.nombreConseillersSouhaites : '-'}</td>
       {typeConvention === 'conventionnement' &&
         <td>{formatAvisPrefet(structure?.prefet?.avisPrefet)}</td>
       }
@@ -41,11 +40,12 @@ function Conventionnement({ structure, typeConvention }) {
           {structure?.prefet?.idStructureTransfert &&
             <>
               <div
+                className="fr-mt-1w"
                 data-tooltip-content="Transfert de poste"
                 data-tooltip-float="true"
                 data-tooltip-id={`tooltip-conventionnement-${structure?.idPG}`}
               >
-                <img src={iconArrowLeftRight} alt="icône transfert de poste" className="fr-mt-1w" style={{ height: '28px' }} />
+                <i className="ri-arrow-left-right-line" style={{ fontSize: '1.9rem' }}></i>
               </div>
               <Tooltip variant="light" id={`tooltip-conventionnement-${structure?.idPG}`} className="infobulle" />
             </>

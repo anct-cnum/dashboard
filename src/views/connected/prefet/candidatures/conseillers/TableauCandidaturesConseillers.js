@@ -6,6 +6,7 @@ import Pagination from '../../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
 import CandidatureConseiller from './CandidatureConseiller';
+import BannerConfirmationAvisPrefet from '../BannerConfirmationAvisPrefet';
 import FiltresEtTrisCandidatures from '../FiltresEtTrisCandidatures';
 
 export default function TableauCandidaturesConseillers() {
@@ -83,9 +84,25 @@ export default function TableauCandidaturesConseillers() {
     dispatch(filtresDemandesActions.changeOrdre(e.currentTarget?.id));
   };
 
+  const closeBanner = idDemande => dispatch(structureActions.closeBannerAvisPrefet(idDemande));
+
+  const demandesConseillerWithBanner = structures?.items?.data?.filter(structure => structure?.prefet?.banniereValidationAvisPrefet === true);
+
   return (
     <div className="conventions">
       <Spinner loading={loading} />
+      {demandesConseillerWithBanner?.length > 0 && demandesConseillerWithBanner?.map((structure, idx) => {
+        return (
+          <BannerConfirmationAvisPrefet
+            key={idx}
+            closeBanner={closeBanner}
+            nomStructure={structure.nom}
+            avisPrefet={structure.prefet.avisPrefet === 'POSITIF' ? 'favorable' : 'défavorable'}
+            idDemande={structure._id}
+          />
+        );
+      })
+      }
       <div className="fr-grid-row">
         <div className="fr-col-12">
           <h1 className="fr-h1 title">Candidatures de conseillers num&eacute;riques &agrave; traiter</h1>
