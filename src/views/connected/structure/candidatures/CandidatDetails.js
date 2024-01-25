@@ -58,7 +58,7 @@ function CandidatDetails() {
   }, [errorUpdateStatus, downloadError]);
 
   useEffect(() => {
-    if (['interessee', 'recrutee', 'nouvelle_rupture'].includes(conseiller?.miseEnRelation?.statut)) {
+    if (['interessee', 'recrutee'].includes(conseiller?.miseEnRelation?.statut)) {
       setDisplayModal(true);
     }
   }, [conseiller?.miseEnRelation?.statut]);
