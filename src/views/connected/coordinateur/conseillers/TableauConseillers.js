@@ -5,16 +5,14 @@ import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import FiltresEtTrisConseillers from '../../../../components/conseillers/FiltresEtTrisConseillers';
 import TableConseillers from './TableConseillers';
+import FiltresEtTrisConseillers from './FiltresEtTrisConseillers';
 
 export default function TableauConseillers() {
 
   const dispatch = useDispatch();
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
-  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
-  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresConseillers?.ordre);
   const ordreNom = useSelector(state => state.filtresConseillers?.ordreNom);
   const loading = useSelector(state => state.conseiller?.loading);
@@ -36,10 +34,10 @@ export default function TableauConseillers() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(conseillerActions.getConseillersCoordonnes(currentPage, dateDebut, dateFin, filtreParNomConseiller, filtreRegion,
+      dispatch(conseillerActions.getConseillersCoordonnes(currentPage, filtreParNomConseiller, filtreRegion,
         filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
     }
-  }, [dateDebut, dateFin, currentPage, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filterDepartement, filtreParNomStructure]);
+  }, [currentPage, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filterDepartement, filtreParNomStructure]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -50,7 +48,7 @@ export default function TableauConseillers() {
     if (!error) {
       if (initConseiller === false && page !== undefined) {
         dispatch(statistiquesActions.resetFiltre());
-        dispatch(conseillerActions.getConseillersCoordonnes(page, dateDebut, dateFin, filtreParNomConseiller, filtreRegion,
+        dispatch(conseillerActions.getConseillersCoordonnes(page, filtreParNomConseiller, filtreRegion,
           filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }

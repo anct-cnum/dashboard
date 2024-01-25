@@ -242,12 +242,10 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
     return { type: 'GETALL_RECRUTER_FAILURE', error };
   }
 }
-// eslint-disable-next-line max-len
-function getConseillersCoordonnes(page, dateDebut, dateFin, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+function getConseillersCoordonnes(page, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
   return dispatch => {
     dispatch(request());
-    // eslint-disable-next-line max-len
-    conseillerService.getConseillersCoordonnes(page, dateDebut, dateFin, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre)
+    conseillerService.getConseillersCoordonnes(page, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre)
     .then(
       conseillers => {
         dispatch(success(conseillers));
