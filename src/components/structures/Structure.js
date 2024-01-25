@@ -12,7 +12,7 @@ function Structure({ structure }) {
     <>
       <tr>
         <td>{structure?.idPG}</td>
-        <td colSpan="12" style={{ width: '28rem' }}><strong>{structure?.nom}</strong></td>
+        <td colSpan="12" style={{ maxWidth: '15rem' }} className="truncated-text"><strong>{structure?.nom}</strong></td>
         <td>{structure?.siret}</td>
         <td style={{ maxWidth: '8rem', overflowWrap: 'break-word' }}>{structure?.contact?.nom}</td>
         <td>{structure?.contact?.prenom}</td>

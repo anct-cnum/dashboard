@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { structureActions } from '../../../../../actions';
 import { useDispatch } from 'react-redux';
-import { coordinateurActions } from '../../../../actions';
+import FilterSelect from '../../../../../components/FilterSelect';
 
-function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
+function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStructure }) {
   const dispatch = useDispatch();
   const [commentaire, setCommentaire] = useState('');
+  const [idStructureTransfert, setIdStructureTransfert] = useState(null);
 
   const confirmationAvisPrefet = () => {
-    dispatch(coordinateurActions.confirmationAvisPrefet(structure?._id, avisPrefet, structure?.demandesCoordinateur[0]?.id, commentaire));
+    dispatch(structureActions.confirmationAvisPrefet(structure?._id, avisPrefet, commentaire, idStructureTransfert));
     setOpenModal(false);
     setCommentaire('');
+    setIdStructureTransfert(null);
   };
+
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
@@ -22,6 +26,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                 <button className="fr-btn--close fr-btn" title="Fermer la fen&ecirc;tre modale" aria-controls="fr-modal-2" onClick={() => {
                   setOpenModal(false);
                   setCommentaire('');
+                  setIdStructureTransfert(null);
                 }}>
                   Fermer
                 </button>
@@ -32,6 +37,21 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                   Confirmer l&rsquo;avis
                 </h1>
                 <p>Souhaitez-vous confirmer l&rsquo;avis {avisPrefet} pour la structure <strong>{structure?.nom}</strong>&nbsp;?</p>
+                {avisPrefet === 'favorable' &&
+                  <div className="fr-select-group">
+                    <label className="fr-label fr-mb-1w" htmlFor="select">
+                    Si ce poste est attribu&eacute; au titre d&rsquo;un transfert
+                    </label>
+                    <FilterSelect
+                      options={listeStructure}
+                      onChange={option => setIdStructureTransfert(option._id)}
+                      placeholder="Veuillez s&eacute;lectionner la structure concern&eacute;e"
+                      noOptionsMessage={() => 'Aucune structure trouvée'}
+                      getOptionLabel={option => option.nom}
+                      getOptionValue={option => option._id}
+                    />
+                  </div>
+                }
                 <div className="fr-input-group">
                   <label className="fr-label" htmlFor="commentaire-input">
                     Commentaire (obligatoire, max 1000 caract&egrave;res)&nbsp;:
@@ -40,6 +60,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                     value={commentaire}
                     id="commentaire-input"
                     maxLength={1000}
+                    minLength={10}
                     onChange={e => setCommentaire(e?.target?.value)}
                     style={{ height: '6rem' }}
                     className="fr-input"
@@ -54,13 +75,14 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                     <button onClick={() => {
                       setOpenModal(false);
                       setCommentaire('');
+                      setIdStructureTransfert(null);
                     }} className="fr-btn fr-btn--secondary">
                       Annuler
                     </button>
                   </li>
                   <li>
                     <button
-                      disabled={commentaire.length === 0}
+                      disabled={commentaire.trim().length < 10}
                       onClick={confirmationAvisPrefet}
                       className="fr-btn"
                     >
@@ -68,7 +90,6 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                     </button>
                   </li>
                 </ul>
-
               </div>
             </div>
           </div>
@@ -82,6 +103,7 @@ ModalConfirmationAvis.propTypes = {
   setOpenModal: PropTypes.func,
   structure: PropTypes.object,
   avisPrefet: PropTypes.string,
+  listeStructure: PropTypes.array,
 };
 
 export default ModalConfirmationAvis;

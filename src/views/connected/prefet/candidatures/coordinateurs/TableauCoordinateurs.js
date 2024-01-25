@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions, coordinateurActions, filtresDemandesCoordinateurActions } from '../../../../actions';
-import Spinner from '../../../../components/Spinner';
-import Pagination from '../../../../components/Pagination';
-import { scrollTopWindow } from '../../../../utils/exportsUtils';
+import Spinner from '../../../../../components/Spinner';
+import Pagination from '../../../../../components/Pagination';
+import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import FiltresEtTrisCoordinateur from './FiltresEtTrisCoordinateur';
 import Coordinateur from './Coordinateur';
-import BannerConfirmationAvisPrefet from './BannerConfirmationAvisPrefet';
+import BannerConfirmationAvisPrefet from '../BannerConfirmationAvisPrefet';
+import { alerteEtSpinnerActions, coordinateurActions, filtresDemandesActions, paginationActions } from '../../../../../actions';
+import FiltresEtTrisCandidatures from '../FiltresEtTrisCandidatures';
 
 export default function TableauCoordinateurs() {
 
@@ -18,12 +18,12 @@ export default function TableauCoordinateurs() {
   const loading = useSelector(state => state.coordinateur?.loading);
   const error = useSelector(state => state.coordinateur?.error);
   const coordinateurs = useSelector(state => state.coordinateur);
-  const ordre = useSelector(state => state.filtresDemandesCoordinateur?.ordre);
-  const ordreNom = useSelector(state => state.filtresDemandesCoordinateur?.ordreNom);
-  const filtreSearchBar = useSelector(state => state.filtresDemandesCoordinateur?.nom);
-  const filtreDepartement = useSelector(state => state.filtresDemandesCoordinateur?.departement);
-  const filtreRegion = useSelector(state => state.filtresDemandesCoordinateur?.region);
-  const filtreAvisPrefet = useSelector(state => state.filtresDemandesCoordinateur?.avisPrefet);
+  const ordre = useSelector(state => state.filtresDemandes?.ordre);
+  const ordreNom = useSelector(state => state.filtresDemandes?.ordreNom);
+  const filtreSearchBar = useSelector(state => state.filtresDemandes?.nom);
+  const filtreDepartement = useSelector(state => state.filtresDemandes?.departement);
+  const filtreRegion = useSelector(state => state.filtresDemandes?.region);
+  const filtreAvisPrefet = useSelector(state => state.filtresDemandes?.avisPrefet);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initDemandeCoordinateur, setInitDemandeCoordinateur] = useState(false);
   const [statutDemande, setStatutDemande] = useState('toutes');
@@ -81,7 +81,20 @@ export default function TableauCoordinateurs() {
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesCoordinateurActions.changeOrdre(e.currentTarget?.id));
+    dispatch(filtresDemandesActions.changeOrdre(e.currentTarget?.id));
+  };
+
+  const closeBanner = idDemande => {
+    const demandeCoordinateur = coordinateurs?.items?.data?.find(demande => demande?.id === idDemande);
+    if (demandeCoordinateur?.banniereValidationAvisPrefet === true) {
+      dispatch(coordinateurActions.closeBanner(demandeCoordinateur?.id, demandeCoordinateur?.idStructure, 'banniereValidationAvisPrefet'));
+      return;
+    }
+    dispatch(alerteEtSpinnerActions.getMessageAlerte({
+      type: 'error',
+      message: 'La bannière n\'a pas pu être fermée !',
+      status: null, description: null
+    }));
   };
 
   const demandesCoordinateurWithBanner = coordinateurs?.items?.data?.filter(demande => demande?.banniereValidationAvisPrefet === true);
@@ -90,7 +103,15 @@ export default function TableauCoordinateurs() {
     <div className="conventions">
       <Spinner loading={loading} />
       {demandesCoordinateurWithBanner?.length > 0 && demandesCoordinateurWithBanner?.map((coordinateur, idx) => {
-        return (<BannerConfirmationAvisPrefet key={idx} coordinateur={coordinateur} />);
+        return (
+          <BannerConfirmationAvisPrefet
+            key={idx}
+            closeBanner={closeBanner}
+            nomStructure={coordinateur?.nomStructure}
+            avisPrefet={coordinateur?.avisPrefet}
+            idDemande={coordinateur?.id}
+          />
+        );
       })
       }
       <div className="fr-grid-row">
@@ -121,7 +142,7 @@ export default function TableauCoordinateurs() {
               </button>
             </ul>
             <div className="fr-col-12 fr-mt-3w">
-              <FiltresEtTrisCoordinateur />
+              <FiltresEtTrisCandidatures />
             </div>
             <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
               <div className="fr-col-12">
@@ -167,7 +188,7 @@ export default function TableauCoordinateurs() {
                         <tr>
                           <td colSpan="12" style={{ width: '60rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                              <span className="not-found pair">Aucunes demandes de coordinateur trouv&eacute;es</span>
+                              <span className="not-found">Aucune demande de coordinateur trouv&eacute;e</span>
                             </div>
                           </td>
                         </tr>

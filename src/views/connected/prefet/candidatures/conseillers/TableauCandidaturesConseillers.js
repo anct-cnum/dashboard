@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, exportsActions, paginationActions, coordinateurActions, filtresDemandesActions } from '../../../../actions';
-import Spinner from '../../../../components/Spinner';
-import Pagination from '../../../../components/Pagination';
-import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
+import { alerteEtSpinnerActions, paginationActions, filtresDemandesActions, structureActions } from '../../../../../actions';
+import Spinner from '../../../../../components/Spinner';
+import Pagination from '../../../../../components/Pagination';
+import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import FiltresEtTrisCoordinateur from './FiltresEtTrisCoordinateur';
-import Coordinateur from './Coordinateur';
-import BannerConfirmationAttributionPoste from './BannerConfirmationAttributionPoste';
+import CandidatureConseiller from './CandidatureConseiller';
+import BannerConfirmationAvisPrefet from '../BannerConfirmationAvisPrefet';
+import FiltresEtTrisCandidatures from '../FiltresEtTrisCandidatures';
 
-export default function TableauCoordinateurs() {
+export default function TableauCandidaturesConseillers() {
 
   const dispatch = useDispatch();
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
 
-  const loading = useSelector(state => state.coordinateur?.loading);
-  const error = useSelector(state => state.coordinateur?.error);
-  const coordinateurs = useSelector(state => state.coordinateur);
+  const loading = useSelector(state => state.structure?.loading);
+  const error = useSelector(state => state.structure?.error);
+  const structures = useSelector(state => state.structure);
   const ordre = useSelector(state => state.filtresDemandes?.ordre);
   const ordreNom = useSelector(state => state.filtresDemandes?.ordreNom);
   const filtreSearchBar = useSelector(state => state.filtresDemandes?.nom);
@@ -25,25 +25,19 @@ export default function TableauCoordinateurs() {
   const filtreRegion = useSelector(state => state.filtresDemandes?.region);
   const filtreAvisPrefet = useSelector(state => state.filtresDemandes?.avisPrefet);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  const exportDemandesCoordinateursFileBlob = useSelector(state => state.exports);
-  const exportDemandesCoordinateursFileError = useSelector(state => state.exports?.error);
-  const loadingExport = useSelector(state => state.exports?.loading);
-
   const [initDemandeCoordinateur, setInitDemandeCoordinateur] = useState(false);
   const [statutDemande, setStatutDemande] = useState('toutes');
 
-  const has = value => value !== null && value !== undefined;
-
   useEffect(() => {
-    if (coordinateurs?.items && coordinateurs?.items?.total > 0) {
-      const count = Math.floor(coordinateurs.items.total / coordinateurs.items.limit);
-      dispatch(paginationActions.setPageCount(coordinateurs.items.total % coordinateurs.items.limit === 0 ? count : count + 1));
+    if (structures?.items && structures?.items?.total > 0) {
+      const count = Math.floor(structures.items.total / structures.items.limit);
+      dispatch(paginationActions.setPageCount(structures.items.total % structures.items.limit === 0 ? count : count + 1));
     }
-  }, [coordinateurs]);
+  }, [structures]);
 
   useEffect(() => {
     if (initDemandeCoordinateur === true) {
-      dispatch(coordinateurActions.getAllDemandesCoordinateur(
+      dispatch(structureActions.getAllDemandesConseiller(
         currentPage,
         statutDemande,
         filtreSearchBar,
@@ -64,7 +58,7 @@ export default function TableauCoordinateurs() {
     }
     if (!error) {
       if (initDemandeCoordinateur === false && page !== undefined) {
-        dispatch(coordinateurActions.getAllDemandesCoordinateur(
+        dispatch(structureActions.getAllDemandesConseiller(
           page,
           statutDemande,
           filtreSearchBar,
@@ -79,88 +73,70 @@ export default function TableauCoordinateurs() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les demandes de coordinateurs à traiter n\'ont pas pu être chargées !',
+        message: 'Les demandes de candidatures conseillers numériques à traiter n\'ont pas pu être chargées !',
         status: null, description: null
       }));
     }
   }, [error, page]);
-
-  const exportDemandesCoordinateurs = () => {
-    dispatch(exportsActions.exportDemandesCoordinateurs(
-      statutDemande,
-      filtreSearchBar,
-      filtreDepartement,
-      filtreRegion,
-      filtreAvisPrefet,
-      ordreNom,
-      ordre ? 1 : -1
-    ));
-  };
-
-  useEffect(() => {
-    if (has(exportDemandesCoordinateursFileBlob?.blob) && exportDemandesCoordinateursFileError === false) {
-      downloadFile(exportDemandesCoordinateursFileBlob);
-      dispatch(exportsActions.resetFile());
-    } else {
-      scrollTopWindow();
-    }
-  }, [exportDemandesCoordinateursFileBlob, exportDemandesCoordinateursFileError]);
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresDemandesActions.changeOrdre(e.currentTarget?.id));
   };
 
-  const demandesCoordinateurWithBanner = coordinateurs?.items?.data?.filter(demande => demande?.banniereValidationAvisAdmin === true);
+  const closeBanner = idDemande => dispatch(structureActions.closeBannerAvisPrefet(idDemande));
+
+  const demandesConseillerWithBanner = structures?.items?.data?.filter(structure => structure?.prefet?.banniereValidationAvisPrefet === true);
 
   return (
     <div className="conventions">
-      <Spinner loading={loading || loadingExport} />
-      {demandesCoordinateurWithBanner?.length > 0 && demandesCoordinateurWithBanner?.map((coordinateur, idx) => {
-        return (<BannerConfirmationAttributionPoste key={idx} coordinateur={coordinateur} />);
+      <Spinner loading={loading} />
+      {demandesConseillerWithBanner?.length > 0 && demandesConseillerWithBanner?.map((structure, idx) => {
+        return (
+          <BannerConfirmationAvisPrefet
+            key={idx}
+            closeBanner={closeBanner}
+            nomStructure={structure.nom}
+            avisPrefet={structure.prefet.avisPrefet === 'POSITIF' ? 'favorable' : 'défavorable'}
+            idDemande={structure._id}
+          />
+        );
       })
       }
       <div className="fr-grid-row">
         <div className="fr-col-12">
-          <h1 className="fr-h1 title">Demandes de coordinateur &agrave; traiter</h1>
+          <h1 className="fr-h1 title">Candidatures de conseillers num&eacute;riques &agrave; traiter</h1>
           <div className="fr-mt-4w">
             <ul className="tabs fr-tags-group">
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
                 setStatutDemande('toutes');
               }} className="fr-tag" aria-pressed={statutDemande === 'toutes'}>
-                Afficher toutes les candidatures ({coordinateurs?.items?.totalParDemandesCoordinateur?.total})
+                Afficher toutes les candidatures ({structures?.items?.totalParDemandesConseiller?.total})
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
-                setStatutDemande('en_cours');
-              }} className="fr-tag" aria-pressed={statutDemande === 'en_cours'}>
-                Nouvelles candidatures ({coordinateurs?.items?.totalParDemandesCoordinateur?.nouvelleCandidature})
+                setStatutDemande('CREEE');
+              }} className="fr-tag" aria-pressed={statutDemande === 'CREEE'}>
+                Nouvelles candidatures ({structures?.items?.totalParDemandesConseiller?.nouvelleCandidature})
               </button>
-              <button onClick={() => setStatutDemande('validee')} className="fr-tag" aria-pressed={statutDemande === 'validee'}>
-                Candidatures valid&eacute;es par l&rsquo;ANCT ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureValider})
+              <button onClick={() => setStatutDemande('VALIDATION_COSELEC')} className="fr-tag" aria-pressed={statutDemande === 'VALIDATION_COSELEC'}>
+                Candidatures valid&eacute;es par l&rsquo;ANCT ({structures?.items?.totalParDemandesConseiller?.candidatureValider})
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
-                setStatutDemande('refusee');
-              }} className="fr-tag" aria-pressed={statutDemande === 'refusee'}>
-                Candidatures refus&eacute;es par l&rsquo;ANCT ({coordinateurs?.items?.totalParDemandesCoordinateur?.candidatureNonRetenus})
+                setStatutDemande('REFUS_COSELEC');
+              }} className="fr-tag" aria-pressed={statutDemande === 'REFUS_COSELEC'}>
+                Candidatures refus&eacute;es par l&rsquo;ANCT ({structures?.items?.totalParDemandesConseiller?.candidatureNonRetenus})
               </button>
             </ul>
             <div className="fr-col-12 fr-mt-3w">
-              <FiltresEtTrisCoordinateur />
-            </div>
-            <div className="fr-grid-row fr-grid-row--end fr-mt-3w">
-              <div className="fr-ml-auto">
-                <button className="fr-btn fr-btn--secondary fr-icon-download-line fr-btn--icon-left" onClick={exportDemandesCoordinateurs} >
-                  Exporter les donn&eacute;es
-                </button>
-              </div>
+              <FiltresEtTrisCandidatures />
             </div>
             <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
               <div className="fr-col-12">
                 <div className="fr-table">
-                  <table className={coordinateurs?.items?.data?.length < 2 ? 'no-result-table' : ''}>
+                  <table className={structures?.items?.data?.length < 2 ? 'no-result-table' : ''}>
                     <thead>
                       <tr>
                         <th style={{ width: '40rem' }}>Structure</th>
@@ -177,12 +153,12 @@ export default function TableauCoordinateurs() {
                           </button>
                         </th>
                         <th style={{ width: '20rem' }}>
-                          <button id="dateCandidature" className="filtre-btn" onClick={ordreColonne}>
+                          <button id="createdAt" className="filtre-btn" onClick={ordreColonne}>
                             <span>Date de candidature
-                              {(ordreNom !== 'dateCandidature' || ordreNom === 'dateCandidature' && ordre) &&
+                              {(ordreNom !== 'createdAt' || ordreNom === 'createdAt' && ordre) &&
                                 <i className="ri-arrow-down-s-line chevron icone"></i>
                               }
-                              {(ordreNom === 'dateCandidature' && !ordre) &&
+                              {(ordreNom === 'createdAt' && !ordre) &&
                                 <i className="ri-arrow-up-s-line chevron icone"></i>
                               }
                             </span>
@@ -193,15 +169,15 @@ export default function TableauCoordinateurs() {
                       </tr>
                     </thead>
                     <tbody>
-                      {!error && !loading && coordinateurs?.items?.data?.map((coordinateur, idx) => {
-                        return (<Coordinateur key={idx} coordinateur={coordinateur} />);
+                      {!error && !loading && structures?.items?.data?.map((structure, idx) => {
+                        return (<CandidatureConseiller key={idx} structure={structure} />);
                       })
                       }
-                      {(!coordinateurs?.items || coordinateurs?.items?.total === 0) &&
+                      {(!structures?.items || structures?.items?.total === 0) &&
                         <tr>
                           <td colSpan="12" style={{ width: '60rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                              <span className="not-found pair">Aucunes demandes de coordinateur trouv&eacute;es</span>
+                              <span className="not-found pair">Aucune candidature de conseillers num&eacute;riques trouv&eacute;es</span>
                             </div>
                           </td>
                         </tr>
@@ -210,7 +186,7 @@ export default function TableauCoordinateurs() {
                   </table>
                 </div>
               </div>
-              {coordinateurs?.items?.data?.length > 0 &&
+              {structures?.items?.data?.length > 0 &&
                 <Pagination />
               }
             </div>

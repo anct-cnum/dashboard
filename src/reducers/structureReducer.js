@@ -192,6 +192,85 @@ export default function structure(state = initialState, action) {
         loading: false,
         error: action.error,
       };
+    case 'GETALL_DEMANDES_CONSEILLER_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'GETALL_DEMANDES_CONSEILLER_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: action.structures,
+      };
+    case 'GETALL_DEMANDES_CONSEILLER_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
+    case 'GET_DEMANDE_CONSEILLER_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+    case 'GET_DEMANDE_CONSEILLER_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        structure: action.response.structure,
+        listeStructure: action.response?.listeStructure,
+      };
+    case 'GET_DEMANDE_CONSEILLER_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    case 'UPDATE_AVIS_PREFET_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'UPDATE_AVIS_PREFET_SUCCESS':
+      return {
+        ...state,
+        successAvisPrefet: action.success,
+        loading: false
+      };
+    case 'UPDATE_AVIS_PREFET_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
+    case 'UPDATE_BANNER_PREFET_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'UPDATE_BANNER_PREFET_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: {
+          ...state.items, data: state?.items?.data?.map(
+            structure =>
+              structure._id === action.idStructure ? {
+                ...structure,
+                prefet: { ...structure?.prefet, banniereValidationAvisPrefet: false }
+              } : structure
+          )
+        },
+      };
+    case 'UPDATE_BANNER_PREFET_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
     default:
       return state;
   }

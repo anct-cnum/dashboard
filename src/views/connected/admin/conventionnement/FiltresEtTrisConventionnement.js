@@ -1,34 +1,34 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filtresDemandesActions, paginationActions } from '../../../../actions';
 import departementsRegionRaw from '../../../../datas/departements-region.json';
 import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
 import codeRegionsRaw from '../../../../datas/code_region.json';
+import { filtresConventionsActions, paginationActions } from '../../../../actions';
 
-function FiltresEtTrisCoordinateur() {
+function FiltresEtTrisConventionnement() {
   const dispatch = useDispatch();
   const departementsRegionArray = Array.from(departementsRegionRaw);
   const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
   const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
-  const filterDepartement = useSelector(state => state.filtresDemandes?.departement);
-  const filtreRegion = useSelector(state => state.filtresDemandes?.region);
-  const filtreAvisPrefet = useSelector(state => state.filtresDemandes?.avisPrefet);
+  const filterDepartement = useSelector(state => state.filtresConventions?.departement);
+  const filtreRegion = useSelector(state => state.filtresConventions?.region);
+  const filtreAvisPrefet = useSelector(state => state.filtresConventions?.avisPrefet);
 
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesActions.changeFiltreRegion(e.target?.value));
-    dispatch(filtresDemandesActions.changeFiltreDepartement('tous'));
+    dispatch(filtresConventionsActions.changeFiltreRegion(e.target?.value));
+    dispatch(filtresConventionsActions.changeFiltreDepartement('tous'));
   };
 
   const selectFiltreDepartement = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesActions.changeFiltreDepartement(e.target?.value));
+    dispatch(filtresConventionsActions.changeFiltreDepartement(e.target?.value));
   };
 
   const rechercheParStructure = e => {
     dispatch(paginationActions.setPage(1));
     const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
-    dispatch(filtresDemandesActions.changeNom(value));
+    dispatch(filtresConventionsActions.changeNom(value));
   };
 
   const rechercheParStructureToucheEnter = e => {
@@ -46,15 +46,15 @@ function FiltresEtTrisCoordinateur() {
 
   const selectFiltreAvisPrefet = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesActions.changeFiltreAvisPrefet(e.target?.value));
+    dispatch(filtresConventionsActions.changeFiltreAvisPrefet(e.target?.value));
   };
 
   return (
     <>
       <div className="fr-search-bar fr-search-bar fr-col-12 fr-mb-3w" role="search" >
         <input onKeyDown={rechercheParStructureToucheEnter} className="fr-input" defaultValue={''}
-          placeholder="Rechercher par nom, par id, par siret de la structure" type="search" id="search-input" name="search-input" />
-        <button className="fr-btn" onClick={rechercheParStructure} title="Rechercher par nom, par id, par siret de la structure">
+          placeholder="Rechercher par nom, par id, par siret ou par email" type="search" id="search-input" name="search-input" />
+        <button className="fr-btn" onClick={rechercheParStructure} title="Rechercher par nom, par id, par siret ou par email">
           Rechercher
         </button>
       </div>
@@ -88,4 +88,4 @@ function FiltresEtTrisCoordinateur() {
   );
 }
 
-export default FiltresEtTrisCoordinateur;
+export default FiltresEtTrisConventionnement;

@@ -1,11 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { filtresDemandesActions } from '../../actions';
 
 function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const urlSiteVitrine = process.env.REACT_APP_PUBLIC_HOSTNAME;
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -15,7 +17,8 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
           className="fr-nav__btn"
           aria-expanded={activeMenu === 'listes-traitement-demandes'}
           aria-controls="menu-listes-traitement-demandes"
-          {...(location.pathname.startsWith(`/${roleActivated}/demandes/coordinateurs`) ? { 'aria-current': 'page' } : {})}
+          // eslint-disable-next-line max-len
+          {...(location.pathname.startsWith(`/${roleActivated}/demandes/coordinateurs`) || location.pathname.startsWith(`/${roleActivated}/demandes/conseillers`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
           Traiter les demandes
         </button>
@@ -27,11 +30,25 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
             <li>
               <Link className="fr-nav__link" to={`/${roleActivated}/demandes/coordinateurs`}
                 {...(location.pathname.startsWith(`/${roleActivated}/demandes/coordinateurs`) ? { 'aria-current': 'page' } : {})}
-                onClick={() => trackEvent({ category: 'demande-coordinateurs', action: `click-${roleActivated}` })}
+                onClick={() => {
+                  dispatch(filtresDemandesActions.resetFiltre());
+                  trackEvent({ category: 'demande-coordinateurs', action: `click-${roleActivated}` });
+                }}
               >
                 Demandes de coordinateurs &agrave; traiter
               </Link>
             </li>
+            {/* <li>
+              <Link className="fr-nav__link" to={`/${roleActivated}/demandes/conseillers`}
+                {...(location.pathname.startsWith(`/${roleActivated}/demandes/conseillers`) ? { 'aria-current': 'page' } : {})}
+                onClick={() => {
+                  dispatch(filtresDemandesActions.resetFiltre());
+                  trackEvent({ category: 'demande-conseillers', action: `click-${roleActivated}` });
+                }}
+              >
+                Demandes de conseillers &agrave; traiter
+              </Link>
+            </li> */}
           </ul>
         </div>
       </li>

@@ -13,6 +13,10 @@ export const structureActions = {
   createAvenant,
   closeBanner,
   addRoleCoordinateur,
+  getAllDemandesConseiller,
+  getDemandeConseiller,
+  confirmationAvisPrefet,
+  closeBannerAvisPrefet,
 };
 
 // eslint-disable-next-line max-len
@@ -271,5 +275,100 @@ function addRoleCoordinateur(structureId, conseillerId) {
   }
   function failure(error) {
     return { type: 'ADD_ROLE_COORDINATEUR_FAILURE', error };
+  }
+}
+
+function getAllDemandesConseiller(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
+  return dispatch => {
+    dispatch(request());
+    structureService.getAllDemandesConseiller(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre)
+    .then(
+      structures => dispatch(success(structures)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GETALL_DEMANDES_CONSEILLER_REQUEST' };
+  }
+  function success(structures) {
+    return { type: 'GETALL_DEMANDES_CONSEILLER_SUCCESS', structures };
+  }
+  function failure(error) {
+    return { type: 'GETALL_DEMANDES_CONSEILLER_FAILURE', error };
+  }
+}
+
+function getDemandeConseiller(idStructure) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.getDemandeConseiller(idStructure)
+    .then(
+      response => dispatch(success(response)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_DEMANDE_CONSEILLER_REQUEST' };
+  }
+  function success(response) {
+    return { type: 'GET_DEMANDE_CONSEILLER_SUCCESS', response };
+  }
+  function failure(error) {
+    return { type: 'GET_DEMANDE_CONSEILLER_FAILURE', error };
+  }
+}
+
+function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert)
+    .then(
+      response => dispatch(success(response.success)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_AVIS_PREFET_REQUEST' };
+  }
+  function success(success) {
+    return { type: 'UPDATE_AVIS_PREFET_SUCCESS', success };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVIS_PREFET_FAILURE', error };
+  }
+}
+
+function closeBannerAvisPrefet(idStructure) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.closeBannerAvisPrefet(idStructure)
+    .then(
+      idStructure => dispatch(success(idStructure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_BANNER_PREFET_REQUEST' };
+  }
+  function success(idStructure) {
+    return { type: 'UPDATE_BANNER_PREFET_SUCCESS', idStructure };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_BANNER_PREFET_FAILURE', error };
   }
 }

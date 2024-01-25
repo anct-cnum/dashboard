@@ -1,10 +1,11 @@
 const initialState = {
   nom: undefined,
   ordre: true,
-  ordreNom: undefined,
+  ordreNom: 'dateDemande',
   region: 'tous',
   departement: 'tous',
   statutDossierRupture: 'tous',
+  avisPrefet: 'tous',
 };
 
 export default function filtresConventions(state = initialState, action) {
@@ -34,6 +35,11 @@ export default function filtresConventions(state = initialState, action) {
       return {
         ...state,
         statutDossierRupture: action.statutDossierRupture
+      };
+    case 'CHANGE_AVIS_PREFET':
+      return {
+        ...state,
+        avisPrefet: action.avisPrefet
       };
     case 'RESET_FILTER_AND_SORTS':
       return initialState;

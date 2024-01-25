@@ -1,36 +1,36 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filtresDemandesCoordinateurActions, paginationActions } from '../../../../actions';
+import { filtresDemandesActions, paginationActions } from '../../../../actions';
 import departementsRegionRaw from '../../../../datas/departements-region.json';
 import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
 import codeRegionsRaw from '../../../../datas/code_region.json';
 
-function FiltresEtTrisCoordinateur() {
+function FiltresEtTrisCandidatures() {
   const dispatch = useDispatch();
   const departementsRegionArray = Array.from(departementsRegionRaw);
   const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
   const codeRegionArray = Array.from(codeRegionsRaw);
   const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
-  const filterDepartement = useSelector(state => state.filtresDemandesCoordinateur?.departement);
-  const filtreRegion = useSelector(state => state.filtresDemandesCoordinateur?.region);
-  const filtreAvisPrefet = useSelector(state => state.filtresDemandesCoordinateur?.avisPrefet);
+  const filterDepartement = useSelector(state => state.filtresDemandes?.departement);
+  const filtreRegion = useSelector(state => state.filtresDemandes?.region);
+  const filtreAvisPrefet = useSelector(state => state.filtresDemandes?.avisPrefet);
   const userAuth = useSelector(state => state.authentication?.user);
 
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesCoordinateurActions.changeFiltreRegion(e.target?.value));
-    dispatch(filtresDemandesCoordinateurActions.changeFiltreDepartement('tous'));
+    dispatch(filtresDemandesActions.changeFiltreRegion(e.target?.value));
+    dispatch(filtresDemandesActions.changeFiltreDepartement('tous'));
   };
 
   const selectFiltreDepartement = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesCoordinateurActions.changeFiltreDepartement(e.target?.value));
+    dispatch(filtresDemandesActions.changeFiltreDepartement(e.target?.value));
   };
 
   const rechercheParStructure = e => {
     dispatch(paginationActions.setPage(1));
     const value = (e.key === 'Enter' ? e.target?.value : e.target?.previousSibling?.value) ?? '';
-    dispatch(filtresDemandesCoordinateurActions.changeNom(value));
+    dispatch(filtresDemandesActions.changeNom(value));
   };
 
   const rechercheParStructureToucheEnter = e => {
@@ -58,7 +58,7 @@ function FiltresEtTrisCoordinateur() {
 
   const selectFiltreAvisPrefet = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesCoordinateurActions.changeFiltreAvisPrefet(e.target?.value));
+    dispatch(filtresDemandesActions.changeFiltreAvisPrefet(e.target?.value));
   };
 
   return (
@@ -101,4 +101,4 @@ function FiltresEtTrisCoordinateur() {
   );
 }
 
-export default FiltresEtTrisCoordinateur;
+export default FiltresEtTrisCandidatures;
