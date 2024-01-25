@@ -61,6 +61,12 @@ function CandidatureConseillerDetails() {
     }
   }, [conseiller]);
 
+  useEffect(() => {
+    if (['interessee', 'recrutee'].includes(conseiller?.miseEnRelation?.statut)) {
+      setDisplayModal(true);
+    }
+  }, [conseiller?.miseEnRelation?.statut]);
+
   const checkConseillerWithoutBtnAction = statut => !!(statut === 'finalisee' || statut === 'finalisee_rupture');
 
   return (
