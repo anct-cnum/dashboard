@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+import { Tooltip } from 'react-tooltip';
 
 function HistoriqueConventionnement({ structure, typeConvention }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -33,7 +34,24 @@ function HistoriqueConventionnement({ structure, typeConvention }) {
       {typeConvention === 'conventionnement' &&
         <td>{formatAvisPrefet(structure?.prefet?.avisPrefet)}</td>
       }
-      <td>Conventionnement initial</td>
+      <td>
+        <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+          <span className="fr-mr-2w">Conventionnement initial</span>
+          {structure?.prefet?.idStructureTransfert &&
+            <>
+              <div
+                className="fr-mt-1w"
+                data-tooltip-content="Transfert de poste"
+                data-tooltip-float="true"
+                data-tooltip-id={`tooltip-historique-conventionnement-${structure?.idPG}`}
+              >
+                <i className="ri-arrow-left-right-line" style={{ fontSize: '1.9rem' }}></i>
+              </div>
+              <Tooltip variant="light" id={`tooltip-historique-conventionnement-${structure?.idPG}`} className="infobulle" />
+            </>
+          }
+        </div>
+      </td>
       <td>
         <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={{
           pathname: `/${roleActivated}/demandes/convention/${structure?._id}`,
