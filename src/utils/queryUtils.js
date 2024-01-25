@@ -84,13 +84,25 @@ export function structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateF
   return { ordreColonne, filterDateStart, filterDateEnd, filterByName, filterByType, filterByStatut, filterByRegion, filterByDepartement };
 }
 
-export function conventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
+export function conventionQueryStringParameters(filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
+  const filterByName = filtreParNomStructure ? `&searchByNomStructure=${filtreParNomStructure}` : '';
+  const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
+  const filterByDepartement = filterDepartement !== 'tous' && filterDepartement !== undefined ? `&departement=${filterDepartement}` : '';
+  const filterByAvisPrefet = filtreAvisPrefet !== 'tous' && filtreAvisPrefet !== undefined ? `&avisPrefet=${filtreAvisPrefet}` : '';
+  const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
+
+  return { filterByName, filterByDepartement, filterByRegion, filterByAvisPrefet, ordreColonne };
+}
+
+export function historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
   const filterByName = filtreParNomStructure ? `&searchByNomStructure=${filtreParNomStructure}` : '';
   const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
   const filterByDepartement = filterDepartement !== 'tous' && filterDepartement !== undefined ? `&departement=${filterDepartement}` : '';
   const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
 
-  return { ordreColonne, filterByName, filterByRegion, filterByDepartement };
+  return { filterDateStart, filterDateEnd, filterByName, filterByDepartement, filterByRegion, ordreColonne };
 }
 
 export function contratQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, ordreNom, ordre) {
