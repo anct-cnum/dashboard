@@ -8,7 +8,9 @@ function ModalValidationAttributionPoste({ setOpenModal, structure }) {
   const [nombreConseillersCoselec, setNombreConseillersCoselec] = useState(structure?.nombreConseillersSouhaites || 1);
 
   const confirmationAttributionPoste = () => {
-    dispatch(structureActions.confirmationValidAvisAdmin(structure?._id, nombreConseillersCoselec));
+    if (!Number.isNaN(nombreConseillersCoselec) && nombreConseillersCoselec > 0) {
+      dispatch(structureActions.confirmationValidAvisAdmin(structure?._id, nombreConseillersCoselec));
+    }
     setOpenModal(false);
   };
 
