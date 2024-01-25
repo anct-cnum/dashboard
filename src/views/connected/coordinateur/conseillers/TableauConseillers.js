@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions, conseillerActions, statistiquesActions } from '../../../../actions';
+import { alerteEtSpinnerActions, paginationActions, conseillerActions, statistiquesActions, filtresStructuresActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import TableConseillers from './TableConseillers';
 import FiltresEtTrisConseillers from './FiltresEtTrisConseillers';
+import Conseiller from './Conseiller';
 
 export default function TableauConseillers() {
 
@@ -24,6 +24,11 @@ export default function TableauConseillers() {
   const filterDepartement = useSelector(state => state.filtresConseillers?.departement);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
+
+  const ordreColonne = e => {
+    dispatch(paginationActions.setPage(1));
+    dispatch(filtresStructuresActions.changeOrdre(e.currentTarget?.id));
+  };
 
   useEffect(() => {
     if (conseillers?.items) {
@@ -72,11 +77,50 @@ export default function TableauConseillers() {
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
                   <div className="fr-table">
-                    <TableConseillers
-                      conseillers={conseillers}
-                      error={error}
-                      loading={loading}
-                    />
+                    <table className={conseillers?.items?.data?.length < 3 ? 'no-result-table' : ''}>
+                      <thead>
+                        <tr>
+                          <th>
+                            <button id="idPG" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Id</span>
+                            </button>
+                          </th>
+                          <th>
+                            <button id="nom" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Nom</span>
+                            </button>
+                          </th>
+                          <th>
+                            <button id="prenom" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Pr&eacute;nom</span>
+                            </button>
+                          </th>
+                          <th>Structure</th>
+                          <th>CD</th>
+                          <th>D&eacute;but de contrat</th>
+                          <th>Fin de contrat</th>
+                          <th>Activ&eacute;</th>
+                          <th>CRA saisis</th>
+                          <th>Groupe CRA</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {!error && !loading && conseillers?.items?.data?.map((conseiller, idx) => {
+                          return (<Conseiller key={idx} conseiller={conseiller} />);
+                        })
+                        }
+                        {(!conseillers?.items || conseillers?.items?.total === 0) &&
+                          <tr>
+                            <td colSpan="12" style={{ width: '75rem' }}>
+                              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <span className="not-found pair">Aucun conseiller trouv&eacute;</span>
+                              </div>
+                            </td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 {conseillers?.items?.total !== 0 &&
