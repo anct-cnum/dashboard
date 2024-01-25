@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const ValidatedNewPosteCoordinateurBanner = () => {
 
   return (
-    <div className="fr-notice fr-py-4w banner notice background">
+    <div className="fr-notice fr-py-4w banner notice background fr-mt-2w">
       <div className="fr-container notice responsive__banner">
         <div style={{ display: 'flex', alignItems: 'center' }} className="fr-col-12">
           <span className="fr-icon-info-fill icon__color fr-mr-2w" aria-hidden="true"></span>

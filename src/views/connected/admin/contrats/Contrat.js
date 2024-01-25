@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import pinCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 import { Tooltip } from 'react-tooltip';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-function Contrat({ contrat }) {
+function Contrat({ contrat, statutContrat }) {
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
+
   const dateDeLaDemande = contrat => {
     if (contrat?.statut === 'nouvelle_rupture' && contrat?.emetteurRupture?.date) {
       return dayjs(contrat.emetteurRupture.date).format('DD/MM/YYYY');
@@ -64,17 +68,20 @@ function Contrat({ contrat }) {
         </td>
         <td>
           {contrat?.statut === 'recrutee' ?
-            <button
+            <Link
               className="fr-btn"
-              title="D&eacute;tail"
-              onClick={() => window.open(`/admin/demandes/contrat/candidat/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
+              state={{ 'origin': `/${roleActivated}/demandes/contrats`, statutContrat }}
+              to={`/admin/demandes/contrat/candidat/${contrat?.conseillerObj?._id}/${contrat?._id}`}
+            >
               Voir la demande
-            </button> : <button
+            </Link> :
+            <Link
               className="fr-btn"
-              title="D&eacute;tail"
-              onClick={() => window.open(`/admin/demandes/contrat/conseiller/${contrat?.conseillerObj?._id}/${contrat?._id}`)}>
+              state={{ 'origin': `/${roleActivated}/demandes/contrats`, statutContrat }}
+              to={`/admin/demandes/contrat/conseiller/${contrat?.conseillerObj?._id}/${contrat?._id}`}
+            >
               Voir la demande
-            </button>
+            </Link>
           }
         </td>
       </tr>
@@ -84,6 +91,7 @@ function Contrat({ contrat }) {
 
 Contrat.propTypes = {
   contrat: PropTypes.object,
+  statutContrat: PropTypes.string,
 };
 
 export default Contrat;

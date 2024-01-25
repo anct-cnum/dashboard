@@ -2,19 +2,35 @@
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { conseillerQueryStringParameters, conseillerCoordonnesQueryStringParameters, territoireQueryString, structureQueryStringParameters, gestionnairesQueryStringParameters, statsCsvQueryStringParameters, conventionQueryStringParameters, contratQueryStringParameters, demandesCoordinateurQueryStringParameters } from '../utils/queryUtils';
+import {
+  conseillerQueryStringParameters,
+  territoireQueryString,
+  structureQueryStringParameters,
+  gestionnairesQueryStringParameters,
+  conventionQueryStringParameters,
+  contratQueryStringParameters,
+  statsCsvConseillerQueryStringParameters,
+  statsCsvStructureQueryStringParameters,
+  statsCsvGrandReseauQueryStringParameters,
+  demandesQueryStringParameters,
+  conseillerCoordonnesQueryStringParameters,
+} from '../utils/queryUtils';
 
 export const exportsService = {
   getFile,
   getExportDonneesTerritoire,
-  getStatistiquesCSV,
+  getStatistiquesConseillerCSV,
+  getStatistiquesStructureCSV,
+  getStatistiquesGrandReseauCSV,
+  getStatistiquesNationalesCSV,
+  getStatistiquesTerritorialesCSV,
   getExportDonneesConseiller,
   getExportDonneesConseillerCoordonnes,
   getExportDonneesStructure,
   getExportDonneesGestionnaires,
   getExportDonneesHistoriqueDossiersConvention,
   getExportDonneesHistoriqueContrat,
-  getExportCandidaturesCoordinateurs,
+  getExportDemandesCoordinateurs,
 };
 
 function getFile(name, collection) {
@@ -87,25 +103,67 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
   .catch(handleApiError);
 }
 
-function getStatistiquesCSV(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds, typeStats) {
-  const role = (type === 'nationales' || typeStats === 'territoire') ? 'anonyme' : roleActivated();
+function getStatistiquesConseillerCSV(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureId) {
   const {
     filterDateStart,
     filterDateEnd,
     filterIdType,
-    filterByType,
     filterByVille,
     filterByCodeCommune,
-    filterByRegion,
     filterByCodePostal,
-    filterByDepartement,
     filterByLastName,
     filterByFirstName,
-    filterByConseillerIds,
-    filterByStructureIds,
-  } = statsCsvQueryStringParameters(dateDebut, dateFin, type, idType, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerIds, structureIds);
+    filterByIdStructure,
+  } = statsCsvConseillerQueryStringParameters(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureId);
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${roleActivated()}&type=conseiller${filterDateStart}${filterDateEnd}${filterIdType}${filterByVille}${filterByCodeCommune}${filterByCodePostal}${filterByLastName}${filterByFirstName}${filterByIdStructure}`)
+  .then(response => response.data)
+  .catch(handleApiError);
+}
 
-  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${role}${filterDateStart}${filterDateEnd}${filterIdType}${filterByType}${filterByVille}${filterByCodeCommune}${filterByRegion}${filterByCodePostal}${filterByDepartement}${filterByLastName}${filterByFirstName}${filterByStructureIds}${filterByConseillerIds}`)
+function getStatistiquesStructureCSV(dateDebut, dateFin, idType, codePostal, ville, codeCommune) {
+  const {
+    filterDateStart,
+    filterDateEnd,
+    filterIdType,
+    filterByVille,
+    filterByCodeCommune,
+    filterByCodePostal,
+  } = statsCsvStructureQueryStringParameters(dateDebut, dateFin, idType, codePostal, ville, codeCommune);
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${roleActivated()}&type=structure${filterDateStart}${filterDateEnd}${filterIdType}${filterByVille}${filterByCodeCommune}${filterByCodePostal}`)
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function getStatistiquesGrandReseauCSV(dateDebut, dateFin, codePostal, ville, codeCommune, structureId, conseillerId, region, departement) {
+  const {
+    filterDateStart,
+    filterDateEnd,
+    filterByVille,
+    filterByCodeCommune,
+    filterByCodePostal,
+    filterByRegion,
+    filterByDepartement,
+    filterByIdStructure,
+    filterByIdConseiller
+  } = statsCsvGrandReseauQueryStringParameters(dateDebut, dateFin, codePostal, ville, codeCommune, structureId, conseillerId, region, departement);
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${roleActivated()}&type=grandReseau${filterDateStart}${filterDateEnd}${filterByVille}${filterByCodeCommune}${filterByCodePostal}${filterByRegion}${filterByDepartement}${filterByIdStructure}${filterByIdConseiller}`)
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function getStatistiquesNationalesCSV(dateDebut, dateFin) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=anonyme&type=nationales${filterDateStart}${filterDateEnd}`)
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function getStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeTerritoire) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const filterIdType = id ? `&idType=${id}` : '';
+  return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=anonyme&type=${typeTerritoire}${filterDateStart}${filterDateEnd}${filterIdType}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
@@ -150,15 +208,15 @@ function getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, fi
   .catch(handleApiError);
 }
 
-function getExportCandidaturesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
+function getExportDemandesCoordinateurs(statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
   const {
-    ordreColonne,
     filterByName,
-    filterByRegion,
     filterByDepartement,
+    filterByRegion,
     filterByAvisPrefet,
-  } = demandesCoordinateurQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
-  return API.get(`${apiUrlRoot}/exports/candidatures-coordinateurs-csv?role=${roleActivated()}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
+    ordreColonne,
+  } = demandesQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
+  return API.get(`${apiUrlRoot}/exports/demandes-coordinateurs-csv?role=${roleActivated()}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
   .then(response => response.data)
   .catch(handleApiError);
 }

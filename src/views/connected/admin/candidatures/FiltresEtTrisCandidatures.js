@@ -51,8 +51,8 @@ function FiltresEtTrisCandidatures() {
           <div className="fr-col-12 fr-col-xl-10 fr-mb-4w">
             <div className="fr-search-bar fr-search-bar" id="search" role="search" >
               <input className="fr-input" onKeyDown={rechercheParNomCandidatToucheEnter} defaultValue={filtreParNomCandidat ?? ''}
-                placeholder="Rechercher par nom ou par id" type="search" id="search-input" name="search-input" />
-              <button className="fr-btn" onClick={rechercheParNomCandidat} title="Rechercher par nom ou par id">
+                placeholder="Rechercher par nom, par email de candidature ou par id" type="search" id="search-input" name="search-input" />
+              <button className="fr-btn" onClick={rechercheParNomCandidat} title="Rechercher par nom, par email de candidature ou par id">
                 Rechercher
               </button>
             </div>

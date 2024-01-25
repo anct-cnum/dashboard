@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, exportsActions, paginationActions, coordinateurActions, filtresDemandesActions } from '../../../../actions';
-import Spinner from '../../../../components/Spinner';
-import Pagination from '../../../../components/Pagination';
-import { downloadFile, scrollTopWindow } from '../../../../utils/exportsUtils';
+import Spinner from '../../../../../components/Spinner';
+import Pagination from '../../../../../components/Pagination';
+import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import FiltresEtTrisCoordinateur from './FiltresEtTrisCoordinateur';
 import Coordinateur from './Coordinateur';
-import BannerConfirmationAttributionPoste from './BannerConfirmationAttributionPoste';
+import BannerConfirmationAvisPrefet from '../BannerConfirmationAvisPrefet';
+import { alerteEtSpinnerActions, coordinateurActions, filtresDemandesActions, paginationActions } from '../../../../../actions';
+import FiltresEtTrisCandidatures from '../FiltresEtTrisCandidatures';
 
 export default function TableauCoordinateurs() {
 
@@ -25,14 +25,8 @@ export default function TableauCoordinateurs() {
   const filtreRegion = useSelector(state => state.filtresDemandes?.region);
   const filtreAvisPrefet = useSelector(state => state.filtresDemandes?.avisPrefet);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  const exportDemandesCoordinateursFileBlob = useSelector(state => state.exports);
-  const exportDemandesCoordinateursFileError = useSelector(state => state.exports?.error);
-  const loadingExport = useSelector(state => state.exports?.loading);
-
   const [initDemandeCoordinateur, setInitDemandeCoordinateur] = useState(false);
   const [statutDemande, setStatutDemande] = useState('toutes');
-
-  const has = value => value !== null && value !== undefined;
 
   useEffect(() => {
     if (coordinateurs?.items && coordinateurs?.items?.total > 0) {
@@ -79,45 +73,24 @@ export default function TableauCoordinateurs() {
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
-        message: 'Les demandes de coordinateurs à traiter n\'ont pas pu être chargées !',
+        message: 'Les demandes de coordinateurs à traiter n\'ont pas pu être chargés !',
         status: null, description: null
       }));
     }
   }, [error, page]);
-
-  const exportDemandesCoordinateurs = () => {
-    dispatch(exportsActions.exportDemandesCoordinateurs(
-      statutDemande,
-      filtreSearchBar,
-      filtreDepartement,
-      filtreRegion,
-      filtreAvisPrefet,
-      ordreNom,
-      ordre ? 1 : -1
-    ));
-  };
-
-  useEffect(() => {
-    if (has(exportDemandesCoordinateursFileBlob?.blob) && exportDemandesCoordinateursFileError === false) {
-      downloadFile(exportDemandesCoordinateursFileBlob);
-      dispatch(exportsActions.resetFile());
-    } else {
-      scrollTopWindow();
-    }
-  }, [exportDemandesCoordinateursFileBlob, exportDemandesCoordinateursFileError]);
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresDemandesActions.changeOrdre(e.currentTarget?.id));
   };
 
-  const demandesCoordinateurWithBanner = coordinateurs?.items?.data?.filter(demande => demande?.banniereValidationAvisAdmin === true);
+  const demandesCoordinateurWithBanner = coordinateurs?.items?.data?.filter(demande => demande?.banniereValidationAvisPrefet === true);
 
   return (
     <div className="conventions">
-      <Spinner loading={loading || loadingExport} />
+      <Spinner loading={loading} />
       {demandesCoordinateurWithBanner?.length > 0 && demandesCoordinateurWithBanner?.map((coordinateur, idx) => {
-        return (<BannerConfirmationAttributionPoste key={idx} coordinateur={coordinateur} />);
+        return (<BannerConfirmationAvisPrefet key={idx} coordinateur={coordinateur} />);
       })
       }
       <div className="fr-grid-row">
@@ -148,14 +121,7 @@ export default function TableauCoordinateurs() {
               </button>
             </ul>
             <div className="fr-col-12 fr-mt-3w">
-              <FiltresEtTrisCoordinateur />
-            </div>
-            <div className="fr-grid-row fr-grid-row--end fr-mt-3w">
-              <div className="fr-ml-auto">
-                <button className="fr-btn fr-btn--secondary fr-icon-download-line fr-btn--icon-left" onClick={exportDemandesCoordinateurs} >
-                  Exporter les donn&eacute;es
-                </button>
-              </div>
+              <FiltresEtTrisCandidatures />
             </div>
             <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
               <div className="fr-col-12">

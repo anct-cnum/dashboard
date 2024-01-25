@@ -3,7 +3,7 @@ const initialState = {
   error: false,
   blob: null
 };
-  
+
 export default function exports(state = initialState, action) {
   switch (action.type) {
     case 'EXPORT_FILE_REQUEST':
@@ -179,21 +179,21 @@ export default function exports(state = initialState, action) {
         error: action.error,
         loading: false,
       };
-    case 'EXPORT_CANDIDATURES_COORDINATEURS_REQUEST':
+    case 'EXPORT_DEMANDES_COORDINATEURS_REQUEST':
       return {
         ...state,
         blob: null,
         loading: true,
         error: false,
       };
-    case 'EXPORT_CANDIDATURES_COORDINATEURS_SUCCESS':
+    case 'EXPORT_DEMANDES_COORDINATEURS_SUCCESS':
       return {
         ...state,
-        blob: action.exportCandidaturesCoordinateursFileBlob,
+        blob: action.exportDemandesCoordinateursFileBlob,
         nameFile: action.nameFile,
         loading: false,
       };
-    case 'EXPORT_CANDIDATURES_COORDINATEURS_FAILURE':
+    case 'EXPORT_DEMANDES_COORDINATEURS_FAILURE':
       return {
         ...state,
         error: action.error,

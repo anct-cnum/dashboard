@@ -189,7 +189,7 @@ export default function TableauTerritoires() {
                         }
                         { (!territoires?.items || territoires?.items?.total === 0) &&
                           <tr>
-                            <td colSpan="9" className="not-found pair">
+                            <td colSpan="10" className="not-found pair">
                               {filtreTerritoire === 'codeDepartement' ? `Aucun département ` : 'Aucune région ' } trouv&eacute;
                             </td>
                           </tr>

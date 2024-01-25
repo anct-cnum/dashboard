@@ -7,6 +7,7 @@ import usePopinGestionPostes from '../hooks/usePopinGestionPostes';
 import PopinGestionPostes from '../popins/PopinGestionPostes';
 import { PhaseConventionnement, StatutConventionnement } from '../../../../utils/enumUtils';
 import { checkStructurePhase2, displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
+import { Tooltip } from 'react-tooltip';
 
 const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersActifs, nbreConseillersEnCoursDeRecrutement, nbreConseillersRenouveler }) => {
 
@@ -17,6 +18,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
   const urlDossier = isReconventionnement ? structure?.urlDossierReconventionnement : structure?.urlDossierConventionnement;
   const phase = isReconventionnement ? 'Conventionnement phase 2' : 'Conventionnement phase 1';
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
+  const texteTooltip = `Une demande est en cours d'instruction. Vous ne pouvez faire aucune action pendant cette période.`;
 
   function isButtonDisabled(structure) {
     return structure?.demandesCoselec?.length > 0 && structure?.lastDemandeCoselec?.statut === 'en_cours';
@@ -55,15 +57,16 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                 </p>
               }
             </div>
-            <p className="fr-card__desc fr-text--lg fr-text--regular">Date de d&eacute;but : {
-              dossier?.dateDeCreation ?
+            <p className="fr-card__desc fr-text--lg fr-text--regular">
+              {dossier?.dateDeCreation ?
                 <span>
-                  le&nbsp;{dayjs(dossier?.dateDeCreation).format('DD/MM/YYYY')}
+                  Vous avez effectu&eacute; votre demande de conventionnement en date du {dayjs(dossier?.dateDeCreation).format('DD/MM/YYYY')}
                 </span> :
                 <span>
-                  date inconnue
+                  Votre demande de conventionnement n&rsquo;a pas de date connue
                 </span>
-            }</p>
+              }
+            </p>
             {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
               <div className="fr-card__desc">
                 <p className="fr-text--md">
@@ -140,21 +143,31 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                     isReconventionnement && <li>
                       <button className="fr-btn fr-btn--secondary"
                         disabled={isButtonDisabled(structure)}
+                        data-tooltip-id="tooltip-bouton-ajout-poste"
+                        data-tooltip-content={texteTooltip}
                         onClick={() => {
                           handlePopin('add', 1);
                         }}>
                         Ajouter un poste
                       </button>
+                      {isButtonDisabled(structure) &&
+                        <Tooltip variant="light" id="tooltip-bouton-ajout-poste" className="infobulle" />
+                      }
                     </li>
                   }
                   <li>
                     <button className="fr-btn fr-btn--secondary"
                       disabled={isButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}
+                      data-tooltip-id="tooltip-bouton-rendre-poste"
+                      data-tooltip-content={texteTooltip}
                       onClick={() => {
                         handlePopin('remove', 1);
                       }}>
                       Rendre un poste
                     </button>
+                    {(isButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec) &&
+                      <Tooltip variant="light" id="tooltip-bouton-rendre-poste" className="infobulle" />
+                    }
                   </li>
                   {(structure?.conventionnement?.dossierReconventionnement?.numero || !isReconventionnement) &&
                     <li className="fr-ml-auto">

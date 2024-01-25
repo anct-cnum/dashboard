@@ -69,7 +69,7 @@ export function TableStructures({ structures, loading, error, ordreNom, ordre })
 }
 
 TableStructures.propTypes = {
-  structures: PropTypes.array,
+  structures: PropTypes.object,
   loading: PropTypes.bool,
   error: PropTypes.string,
   ordreNom: PropTypes.string,

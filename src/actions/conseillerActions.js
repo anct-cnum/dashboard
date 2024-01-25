@@ -22,6 +22,7 @@ export const conseillerActions = {
   getCandidatStructure,
   getCandidatureConseillerStructure,
   resendInvitConseiller,
+  resetSuccessPreselection
 };
 
 function get(id) {
@@ -62,13 +63,13 @@ function getConseillerContrat(id, idMiseEnRelation) {
   };
 
   function request() {
-    return { type: 'GET_CONSEILLER_REQUEST' };
+    return { type: 'GET_CONSEILLER_CONTRAT_REQUEST' };
   }
   function success(conseiller) {
-    return { type: 'GET_CONSEILLER_SUCCESS', conseiller };
+    return { type: 'GET_CONSEILLER_CONTRAT_SUCCESS', conseiller };
   }
   function failure(error) {
-    return { type: 'GET_CONSEILLER_FAILURE', error };
+    return { type: 'GET_CONSEILLER_CONTRAT_FAILURE', error };
   }
 }
 
@@ -169,7 +170,6 @@ function getCandidatureConseillerStructure(id) {
 }
 
 function getAllCandidats({
-  structureId = null,
   misesEnRelation,
   search = '',
   page = 0,
@@ -181,13 +181,13 @@ function getAllCandidats({
     dispatch(request());
     let promises = [];
     if (misesEnRelation) {
-      let promise = conseillerService.getAllMisesEnRelation(structureId, search, page, filter, ordreNom, ordre, persoFilters);
+      let promise = conseillerService.getAllMisesEnRelation(search, page, filter, ordreNom, ordre, persoFilters);
       promises.push(promise);
     }
 
     let isSearch = search.length > 0;
     if (!misesEnRelation || isSearch) {
-      let promise = conseillerService.getAllCandidats(structureId, search, page, ordreNom, ordre, persoFilters);
+      let promise = conseillerService.getAllCandidats(search, page, ordreNom, ordre, persoFilters);
       promises.push(promise);
     }
     let conseillers = null;
@@ -418,7 +418,10 @@ function preSelectionner(conseillerId) {
     conseillerService.preSelectionner(conseillerId)
     .then(
       response => {
-        dispatch(success(response.message));
+        dispatch(success(response.success));
+        if (response?.miseEnRelation) {
+          dispatch(updateMiseEnRelation(response.miseEnRelation));
+        }
       },
       error => {
         dispatch(failure(error));
@@ -429,13 +432,19 @@ function preSelectionner(conseillerId) {
   function request() {
     return { type: 'PRESELECTIONNER_CONSEILLER_REQUEST' };
   }
-  function success(message) {
-    return { type: 'PRESELECTIONNER_CONSEILLER_SUCCESS', message };
+  function success(success) {
+    return { type: 'PRESELECTIONNER_CONSEILLER_SUCCESS', success };
   }
   function failure(error) {
     return { type: 'PRESELECTIONNER_CONSEILLER_FAILURE', error };
   }
+  function updateMiseEnRelation(miseEnRelation) {
+    return { type: 'UPDATE_STATUS_SUCCESS', miseEnRelation };
+  }
+}
 
+function resetSuccessPreselection() {
+  return { type: 'RESET_SUCCESS_PRESELECTION' };
 }
 
 function getCurriculumVitae(id, candidat) {

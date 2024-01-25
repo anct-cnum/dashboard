@@ -2,6 +2,8 @@ import dayjs from 'dayjs';
 import React from 'react';
 import StatutCandidat from '../datas/statut-candidat.json';
 
+const slugify = require('slugify');
+
 export function formatDate(date) {
   return dayjs(date).format('YYYY-MM-DD');
 }
@@ -9,9 +11,49 @@ export function formatDate(date) {
 const removeCodePrefix = type =>
   type.startsWith('code') ? type.substring('code'.length) : type;
 
-export function formatFileName(dateDebut, dateFin, type, idType, codePostal, ville) {
+const formatNomConseillerExport = (nom, prenom) => {
+  if (nom && prenom) {
+    const nomFormat = slugify(nom, {
+      replacement: '-',
+      lower: true,
+      strict: true,
+    });
+    const prenomFormat = slugify(prenom, {
+      replacement: '-',
+      lower: true,
+      strict: true,
+    });
+    return `${nomFormat}_${prenomFormat}`;
+  }
+  return '';
+};
+
+export const formatCodePostalVille = (codePostal, ville) => {
+  if (codePostal !== 'tous' && ville !== 'tous') {
+    const villeFormat = slugify(ville, {
+      replacement: '-',
+      lower: true,
+      strict: true,
+    });
+    return `_${codePostal}_${villeFormat}`;
+  }
+  return '';
+};
+
+const slugifyAttribut = attribut => slugify(attribut, { replacement: '-', lower: true, strict: true });
+
+export function formatFileNameStatsConseiller(dateDebut, dateFin, nom, prenom, codePostal, ville, nomStructure) {
   // eslint-disable-next-line max-len
-  return `Statistiques_${removeCodePrefix(type)}${codePostal ? `_${codePostal}` : ''}${ville ? `_${ville}` : ''}${idType ? `_${idType}` : ''}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+  return `Statistiques_conseiller_${formatNomConseillerExport(nom, prenom)}${nomStructure ? `_${slugifyAttribut(nomStructure)}` : ''}${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+}
+
+export function formatFileNameStatsStructure(dateDebut, dateFin, nom, codePostal, ville) {
+  // eslint-disable-next-line max-len
+  return `Statistiques_structure_${slugifyAttribut(nom)}${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+}
+
+export function formatFileNameStatsTerritoriales(dateDebut, dateFin, typeTerritoire, id) {
+  return `Statistiques_${removeCodePrefix(typeTerritoire)}_${id}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
 }
 
 export function pluralize(zero, singulier, pluriel, count, showCount = false) {
@@ -46,7 +88,7 @@ export const validInputSiret = siret => {
 };
 
 export const validQueryParamsObjectId = id => {
-  const regexValidId = new RegExp(/^[0-9a-fA-f]{24}$/g);
+  const regexValidId = new RegExp(/^[0-9a-f]{24}$/g);
 
   return regexValidId.test(id);
 };

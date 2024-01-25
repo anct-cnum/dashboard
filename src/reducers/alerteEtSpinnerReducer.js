@@ -4,7 +4,8 @@ const initialState = {
     type: null,
     status: null,
     message: null,
-    description: null
+    description: null,
+    delay: 5000
   }
 };
 export default function alerteEtSpinner(state = initialState, action) {

@@ -3,6 +3,7 @@ const initialState = {
   dateDebut: new Date(anneeEnCours + '/01/01'),
   dateFin: new Date(),
   error: false,
+  successDeleteCandidat: false,
   errorRelanceInvitation: false,
   miseEnRelation: undefined,
   currentPage: undefined,
@@ -13,7 +14,8 @@ export default function conseiller(state = initialState, action) {
   switch (action.type) {
     case 'GET_CANDIDAT_REQUEST':
       return {
-        ...initialState,
+        ...state,
+        successDeleteCandidat: false,
         loading: true,
         error: false
       };
@@ -25,12 +27,13 @@ export default function conseiller(state = initialState, action) {
       };
     case 'GET_CANDIDAT_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };
     case 'GET_CANDIDAT_STRUCTURE_REQUEST':
       return {
-        ...initialState,
+        ...state,
         loading: true,
         error: false
       };
@@ -42,12 +45,13 @@ export default function conseiller(state = initialState, action) {
       };
     case 'GET_CANDIDAT_STRUCTURE_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };
     case 'GET_CONSEILLER_REQUEST':
       return {
-        ...initialState,
+        ...state,
         loading: true,
         error: false
       };
@@ -59,6 +63,25 @@ export default function conseiller(state = initialState, action) {
       };
     case 'GET_CONSEILLER_FAILURE':
       return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
+    case 'GET_CONSEILLER_CONTRAT_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'GET_CONSEILLER_CONTRAT_SUCCESS':
+      return {
+        ...state,
+        conseillerContrat: action.conseiller,
+        loading: false
+      };
+    case 'GET_CONSEILLER_CONTRAT_FAILURE':
+      return {
+        ...state,
         loading: false,
         error: action.error
       };
@@ -77,16 +100,16 @@ export default function conseiller(state = initialState, action) {
         },
         loading: false
       };
-    case 'UPDATE_CONSEILLER_SUCCESS':
-      return {
-        ...state,
-        conseiller: action.conseiller,
-      };
     case 'UPDATE_STATUS_FAILURE':
       return {
         ...state,
         errorUpdateStatus: action.error,
         loading: false
+      };
+    case 'UPDATE_CONSEILLER_SUCCESS':
+      return {
+        ...state,
+        conseiller: action.conseiller,
       };
     case 'PRESELECTIONNER_CONSEILLER_REQUEST':
       return {
@@ -98,15 +121,19 @@ export default function conseiller(state = initialState, action) {
     case 'PRESELECTIONNER_CONSEILLER_SUCCESS':
       return {
         ...state,
-        message: action.message,
         loading: false,
-        successPreselection: true,
+        successPreselection: action.success,
       };
     case 'PRESELECTIONNER_CONSEILLER_FAILURE':
       return {
         ...state,
         errorPreselection: action.error,
         loading: false
+      };
+    case 'RESET_SUCCESS_PRESELECTION':
+      return {
+        ...state,
+        successPreselection: false
       };
     case 'GET_CURRICULUM_VITAE_REQUEST':
       return {
@@ -190,6 +217,7 @@ export default function conseiller(state = initialState, action) {
     case 'GETALL_CANDIDATS_ADMIN_REQUEST':
       return {
         ...state,
+        successDeleteCandidat: false,
         error: false,
         loading: true
       };
@@ -233,15 +261,15 @@ export default function conseiller(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        conseiller: {
-          ...state.conseiller,
+        conseillerContrat: {
+          ...state.conseillerContrat,
           emailCN: '',
           emailPro: '',
           telephonePro: '',
           statut: 'RUPTURE',
           mattermost: '',
           contrat: action.miseEnRelationUpdated,
-          misesEnRelation: state.conseiller.misesEnRelation.map(
+          misesEnRelation: state.conseillerContrat.misesEnRelation.map(
             miseEnRelation => (miseEnRelation._id === action.miseEnRelationUpdated._id) ? action.miseEnRelationUpdated : miseEnRelation
           ),
           permanences: []
@@ -310,10 +338,10 @@ export default function conseiller(state = initialState, action) {
     case 'UPDATE_MISE_EN_RELATION_CONTRAT':
       return {
         ...state,
-        conseiller: {
-          ...state.conseiller,
+        conseillerContrat: {
+          ...state.conseillerContrat,
           contrat: action.miseEnRelationUpdated,
-          misesEnRelation: state.conseiller.misesEnRelation.map(
+          misesEnRelation: state.conseillerContrat.misesEnRelation.map(
             miseEnRelation => (miseEnRelation.statut === action.miseEnRelationUpdated.statut) ? action.miseEnRelationUpdated : miseEnRelation
           )
         },

@@ -5,7 +5,7 @@ const initialState = {
   ordreNom: undefined,
   region: 'tous',
   type: 'tous',
-  statut: 'VALIDATION_COSELEC',
+  statut: 'tous',
 };
   
 export default function filtresStructures(state = initialState, action) {

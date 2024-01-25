@@ -20,13 +20,10 @@ function Exports() {
   }, [exports]);
 
   const exportDonneesConseillers = () => {
-    dispatch(exportsActions.exportDonneesConseiller(new Date('2020-09-01'), new Date(), '', '', '', 'tous',
-      '', 'prenom', 1));
+    dispatch(exportsActions.exportDonneesConseiller());
   };
   const exportDonneesStructures = () => {
-    dispatch(exportsActions.exportDonneesStructure(new Date('2020-09-01'), new Date(), undefined,
-      undefined, undefined, undefined,
-      undefined, undefined, 'nom', 1));
+    dispatch(exportsActions.exportDonneesStructure());
   };
 
   useEffect(() => {
