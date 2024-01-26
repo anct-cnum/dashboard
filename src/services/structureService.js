@@ -18,6 +18,8 @@ export const structureService = {
   getDemandeConseiller,
   confirmationAvisPrefet,
   closeBannerAvisPrefet,
+  confirmationValidAvisAdmin,
+  confirmationRefusAvisAdmin,
 };
 
 function get(id) {
@@ -122,6 +124,18 @@ function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructur
 
 function closeBannerAvisPrefet(idStructure) {
   return API.patch(`${apiUrlRoot}/banner/prefet/conseiller/${idStructure}?role=${roleActivated()}`)
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec) {
+  return API.patch(`${apiUrlRoot}/avis/admin/valid/conseiller/${idStructure}?role=${roleActivated()}`, { nombreConseillersCoselec })
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function confirmationRefusAvisAdmin(idStructure) {
+  return API.patch(`${apiUrlRoot}/avis/admin/refus/conseiller/${idStructure}?role=${roleActivated()}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
