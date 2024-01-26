@@ -17,6 +17,9 @@ export const structureActions = {
   getDemandeConseiller,
   confirmationAvisPrefet,
   closeBannerAvisPrefet,
+  confirmationValidAvisAdmin,
+  confirmationRefusAvisAdmin,
+  resetConfirmationAvisAdmin,
 };
 
 // eslint-disable-next-line max-len
@@ -371,4 +374,67 @@ function closeBannerAvisPrefet(idStructure) {
   function failure(error) {
     return { type: 'UPDATE_BANNER_PREFET_FAILURE', error };
   }
+}
+
+function confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.confirmationValidAvisAdmin(idStructure, nombreConseillersCoselec)
+    .then(
+      structure => {
+        dispatch(success());
+        dispatch(candidatureValider(structure));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_AVIS_ADMIN_REQUEST' };
+  }
+  function success() {
+    return { type: 'UPDATE_AVIS_ADMIN_SUCCESS' };
+  }
+  function candidatureValider(structure) {
+    return { type: 'VALIDATION_CONVENTIONNEMENT', structure };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVIS_ADMIN_FAILURE', error };
+  }
+}
+
+function confirmationRefusAvisAdmin(idStructure) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.confirmationRefusAvisAdmin(idStructure)
+    .then(
+      structure => {
+        dispatch(success());
+        dispatch(candidatureRefuser(structure));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+  function request() {
+    return { type: 'UPDATE_AVIS_ADMIN_REQUEST' };
+  }
+  function success() {
+    return { type: 'UPDATE_AVIS_ADMIN_SUCCESS' };
+  }
+  function candidatureRefuser(structure) {
+    return { type: 'VALIDATION_CONVENTIONNEMENT', structure };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVIS_ADMIN_FAILURE', error };
+  }
+}
+
+function resetConfirmationAvisAdmin() {
+  return { type: 'RESET_CONFIRMATION_AVIS_ADMIN' };
 }
