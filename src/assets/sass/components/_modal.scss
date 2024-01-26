@@ -6,6 +6,10 @@
     visibility: visible;
 }
 
+.fr-modal__content span, .fr-modal__content p {
+    color: $black !important;
+}
+
 .fr-fieldset-contract__content {
   display: flex;
   flex-direction: row;
@@ -13,7 +17,7 @@
 }
 
 .fr-contract-radio-group {
-  flex-basis: 50%; 
+  flex-basis: 50%;
   align-items: center;
   display: flex;
   padding-left: 10px;

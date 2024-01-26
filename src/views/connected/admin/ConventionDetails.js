@@ -20,7 +20,9 @@ function ConventionDetails() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const convention = useSelector(state => state.convention?.convention);
   const loading = useSelector(state => state.convention?.loading);
+  const loadingStructure = useSelector(state => state.structure?.loading);
   const errorConvention = useSelector(state => state.convention?.error);
+  const errorStructure = useSelector(state => state.structure?.error);
   const currentPage = useSelector(state => state.pagination?.currentPage);
 
   useEffect(() => {
@@ -59,7 +61,14 @@ function ConventionDetails() {
 
   return (
     <div className="conventionDetails">
-      <Spinner loading={loading} />
+      {errorStructure &&
+        <div className="fr-alert fr-alert--error" style={{ marginBottom: '2rem' }}>
+          <p className="fr-alert__title">
+            {errorStructure}
+          </p>
+        </div>
+      }
+      <Spinner loading={loading || loadingStructure} />
       <Link
         to={location?.state?.origin}
         state={{ currentPage, typeConvention: location?.state?.typeConvention ?? 'toutes' }}

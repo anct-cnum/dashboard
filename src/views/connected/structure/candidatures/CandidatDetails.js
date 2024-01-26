@@ -57,6 +57,12 @@ function CandidatDetails() {
     }
   }, [errorUpdateStatus, downloadError]);
 
+  useEffect(() => {
+    if (['interessee', 'recrutee'].includes(conseiller?.miseEnRelation?.statut)) {
+      setDisplayModal(true);
+    }
+  }, [conseiller?.miseEnRelation?.statut]);
+
   return (
     <div className="fr-container candidatDetails">
       <Spinner loading={loading || downloading || loadingContrat} />
@@ -88,9 +94,9 @@ function CandidatDetails() {
         </div>
       }
       {(errorPreselection !== undefined && errorPreselection !== false) &&
-      <div className="fr-alert fr-alert--error fr-mt-3w">
-        <p>{errorPreselection}</p>
-      </div>
+        <div className="fr-alert fr-alert--error fr-mt-3w">
+          <p>{errorPreselection}</p>
+        </div>
       }
       <div className="fr-col-12 fr-pt-6w">
         {conseiller?.coselec?.nombreConseillersCoselec &&
