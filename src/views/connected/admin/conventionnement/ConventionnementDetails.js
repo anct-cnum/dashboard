@@ -1,11 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { pluralize } from '../../../../utils/formatagesUtils';
+import ModalValidationAttributionPoste from '../modals/ModalValidationAttributionPoste';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { structureActions } from '../../../../actions';
+import ModalRefusAttributionPoste from '../modals/ModalRefusAttributionPoste';
 
 function ConventionnementDetails({ structure }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const successAvisAdmin = useSelector(state => state.structure?.successAvisAdmin);
+
+  const [openModalValidationAttributionPoste, setOpenModalValidationAttributionPoste] = useState(false);
+  const [openModalRefusAttributionPoste, setOpenModalRefusAttributionPoste] = useState(false);
+
+  useEffect(() => {
+    if (successAvisAdmin) {
+      navigate('/admin/demandes/conventions',
+        {
+          state: {
+            typeConvention: 'conventionnement',
+            structure: {
+              nom: structure?.nom,
+              statut: structure?.statut,
+              nombreConseillersCoselec: structure?.coselec[0]?.nombreConseillersCoselec,
+            },
+          }
+        },
+        {
+          replace: true
+        }
+      );
+      dispatch(structureActions.resetConfirmationAvisAdmin());
+    }
+  }, [successAvisAdmin]);
+
   return (
     <>
+      {openModalValidationAttributionPoste &&
+        <ModalValidationAttributionPoste
+          setOpenModal={setOpenModalValidationAttributionPoste}
+          structure={structure}
+        />
+      }
+      {openModalRefusAttributionPoste &&
+        <ModalRefusAttributionPoste setOpenModal={setOpenModalRefusAttributionPoste} structure={structure}/>
+      }
       <h2>Candidature</h2>
       <div className="fr-card">
         <div className="fr-card__body">
@@ -71,12 +113,12 @@ function ConventionnementDetails({ structure }) {
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
-                  <button className="fr-btn fr-btn--secondary">
+                  <button className="fr-btn fr-btn--secondary" onClick={() => setOpenModalRefusAttributionPoste(true)}>
                     Refuser la candidature
                   </button>
                 </li>
                 <li>
-                  <button className="fr-btn">
+                  <button className="fr-btn" onClick={() => setOpenModalValidationAttributionPoste(true)}>
                     Valider la candidature
                   </button>
                 </li>

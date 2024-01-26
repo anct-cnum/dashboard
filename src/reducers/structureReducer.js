@@ -266,6 +266,28 @@ export default function structure(state = initialState, action) {
         loading: false,
         error: action.error
       };
+    case 'UPDATE_AVIS_ADMIN_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'UPDATE_AVIS_ADMIN_SUCCESS':
+      return {
+        ...state,
+        successAvisAdmin: true,
+        loading: false
+      };
+    case 'UPDATE_AVIS_ADMIN_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
+    case 'RESET_CONFIRMATION_AVIS_ADMIN':
+      return {
+        ...state,
+        successAvisAdmin: false,
+      };
     default:
       return state;
   }
