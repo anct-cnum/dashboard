@@ -4,7 +4,7 @@ import { alerteEtSpinnerActions, exportsActions, paginationActions, conventionAc
 import Spinner from '../../../components/Spinner';
 import Pagination from '../../../components/Pagination';
 import { downloadFile, scrollTopWindow } from '../../../utils/exportsUtils';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import BlockDatePickers from '../../../components/datePicker/BlockDatePickers';
 import HistoriqueReconventionnement from './reconventionnement/HistoriqueReconventionnement';
 import HistoriqueConventionnement from './conventionnement/HistoriqueConventionnement';
@@ -18,6 +18,7 @@ export default function TableauHistoriqueConvention() {
 
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const [page, setPage] = useState(location.state?.currentPage);
 
   const loading = useSelector(state => state.convention?.loading);
@@ -84,6 +85,7 @@ export default function TableauHistoriqueConvention() {
           ordreNom,
           ordre ? -1 : 1
         ));
+        navigate(location.pathname, { replace: true });
         setInitConseiller(true);
       }
     } else {
