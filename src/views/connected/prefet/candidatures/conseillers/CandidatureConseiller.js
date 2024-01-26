@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-function CandidatureConseiller({ structure }) {
+function CandidatureConseiller({ structure, statutDemande }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const formatAvisPrefet = avisPrefet => {
@@ -29,7 +29,7 @@ function CandidatureConseiller({ structure }) {
       <td>{formatAvisPrefet(structure?.prefet?.avisPrefet)}</td>
       <td>
         <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={`/${roleActivated}/demandes/conseiller/${structure?._id}`}
-          state={{ 'origin': `/${roleActivated}/demandes/conseillers` }}>
+          state={{ 'origin': `/${roleActivated}/demandes/conseillers`, statutDemande }}>
           D&eacute;tails
         </Link>
       </td>
@@ -39,6 +39,7 @@ function CandidatureConseiller({ structure }) {
 
 CandidatureConseiller.propTypes = {
   structure: PropTypes.object,
+  statutDemande: PropTypes.string
 };
 
 export default CandidatureConseiller;

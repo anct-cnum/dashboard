@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-function Coordinateur({ coordinateur }) {
+function Coordinateur({ coordinateur, statutDemande }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const formatAvisPrefet = avisPrefet => {
@@ -32,7 +32,7 @@ function Coordinateur({ coordinateur }) {
           pathname: `/${roleActivated}/demandes/coordinateur/${coordinateur?.idStructure}`,
           search: `?demande=${coordinateur?.id}`,
         }}
-        state={{ 'origin': `/${roleActivated}/demandes/coordinateurs` }}>
+        state={{ 'origin': `/${roleActivated}/demandes/coordinateurs`, statutDemande }}>
           D&eacute;tails
         </Link>
       </td>
@@ -42,6 +42,7 @@ function Coordinateur({ coordinateur }) {
 
 Coordinateur.propTypes = {
   coordinateur: PropTypes.object,
+  statutDemande: PropTypes.string
 };
 
 export default Coordinateur;

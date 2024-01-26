@@ -47,7 +47,7 @@ function CoordinateurDetails() {
     <div className="coordinateurDetails">
       <Spinner loading={loading} />
       <Link
-        to={location?.state?.origin} state={{ currentPage }}
+        to={location?.state?.origin} state={{ currentPage, statutDemande: location?.state?.statutDemande ?? 'toutes' }}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </Link>
