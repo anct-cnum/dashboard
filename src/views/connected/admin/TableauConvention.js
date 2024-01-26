@@ -4,7 +4,7 @@ import { alerteEtSpinnerActions, paginationActions, conventionActions } from '..
 import Spinner from '../../../components/Spinner';
 import Pagination from '../../../components/Pagination';
 import { scrollTopWindow } from '../../../utils/exportsUtils';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Conventionnement from './conventionnement/Conventionnement';
 import AvenantAjoutPoste from './avenantAjoutPoste/AvenantAjoutPoste';
 import AvenantRenduPoste from './avenantRenduPoste/AvenantRenduPoste';
@@ -16,7 +16,6 @@ import FiltresEtTrisConventionnement from './conventionnement/FiltresEtTrisConve
 export default function TableauConvention() {
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
 
@@ -74,7 +73,6 @@ export default function TableauConvention() {
           ordreNom,
           ordre ? -1 : 1
         ));
-        navigate(location.pathname, { replace: true });
         setInitConseiller(true);
       }
     } else {
