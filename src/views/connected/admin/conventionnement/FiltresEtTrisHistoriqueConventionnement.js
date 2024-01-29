@@ -12,7 +12,7 @@ function FiltresEtTrisHistoriqueConventionnement() {
   const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
   const filterDepartement = useSelector(state => state.filtresConventions?.departement);
   const filtreRegion = useSelector(state => state.filtresConventions?.region);
-  const filtreAvisANCT = useSelector(state => state.filtresConventions?.avisANCT);
+  const filtreAvisAdmin = useSelector(state => state.filtresConventions?.avisAdmin);
 
   const selectFiltreRegion = e => {
     dispatch(paginationActions.setPage(1));
@@ -44,9 +44,9 @@ function FiltresEtTrisHistoriqueConventionnement() {
     return departementsRegionList;
   };
 
-  const selectFiltreAvisANCT = e => {
+  const selectFiltreAvisAdmin = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresConventionsActions.changeFiltreAvisANCT(e.target?.value));
+    dispatch(filtresConventionsActions.changeFiltreAvisAdmin(e.target?.value));
   };
 
   return (
@@ -76,7 +76,7 @@ function FiltresEtTrisHistoriqueConventionnement() {
           </select>
         </div>
         <div className="fr-select-group fr-col-12" id="filtre-statut">
-          <select className="fr-select" value={filtreAvisANCT} onChange={selectFiltreAvisANCT}>
+          <select className="fr-select" value={filtreAvisAdmin} onChange={selectFiltreAvisAdmin}>
             <option value={'tous'}>S&eacute;lectionner l&rsquo;avis ANCT</option>
             <option value={'VALIDATION_COSELEC'}>Valid&eacute;s ANCT</option>
             <option value={'REFUS_COSELEC'}>Refus&eacute;es ANCT</option>

@@ -26,19 +26,19 @@ function getAll(page, typeConvention, filtreParNomStructure, filterDepartement, 
   .catch(handleApiError);
 }
 
-function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisANCT, ordreNom, ordre) {
+function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre) {
   const {
     filterDateStart,
     filterDateEnd,
     filterByName,
     filterByDepartement,
     filterByRegion,
-    filterByAvisANCT,
+    filterByAvisAdmin,
     ordreColonne,
-  } = historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisANCT, ordreNom, ordre);
+  } = historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre);
 
   // eslint-disable-next-line max-len
-  return API.get(`${apiUrlRoot}/historique/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisANCT}`)
+  return API.get(`${apiUrlRoot}/historique/conventions?role=${roleActivated()}&page=${page}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisAdmin}`)
   .then(response => response.data)
   .catch(handleApiError);
 }

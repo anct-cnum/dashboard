@@ -32,7 +32,7 @@ export default function TableauHistoriqueConvention() {
   const filtreParNomStructure = useSelector(state => state.filtresConventions?.nom);
   const filterDepartement = useSelector(state => state.filtresConventions?.departement);
   const filtreRegion = useSelector(state => state.filtresConventions?.region);
-  const filtreAvisANCT = useSelector(state => state.filtresConventions?.avisANCT);
+  const filtreAvisAdmin = useSelector(state => state.filtresConventions?.avisAdmin);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
   const [typeConvention, setTypeConvention] = useState(location.state?.typeConvention || 'toutes');
@@ -58,12 +58,12 @@ export default function TableauHistoriqueConvention() {
         filtreParNomStructure,
         filterDepartement,
         filtreRegion,
-        filtreAvisANCT,
+        filtreAvisAdmin,
         ordreNom,
         ordre ? -1 : 1
       ));
     }
-  }, [currentPage, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisANCT, ordre, ordreNom]);
+  }, [currentPage, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordre, ordreNom]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -81,7 +81,7 @@ export default function TableauHistoriqueConvention() {
           filtreParNomStructure,
           filterDepartement,
           filtreRegion,
-          filtreAvisANCT,
+          filtreAvisAdmin,
           ordreNom,
           ordre ? -1 : 1
         ));
@@ -114,7 +114,7 @@ export default function TableauHistoriqueConvention() {
       filtreParNomStructure,
       filterDepartement,
       filtreRegion,
-      filtreAvisANCT,
+      filtreAvisAdmin,
       ordreNom,
       ordre ? -1 : 1
     ));

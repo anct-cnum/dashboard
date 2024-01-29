@@ -5,7 +5,7 @@ const initialState = {
   region: 'tous',
   departement: 'tous',
   statutDossierRupture: 'tous',
-  avisANCT: 'tous',
+  avisAdmin: 'tous',
   avisPrefet: 'tous',
 };
 
@@ -37,10 +37,10 @@ export default function filtresConventions(state = initialState, action) {
         ...state,
         statutDossierRupture: action.statutDossierRupture
       };
-    case 'CHANGE_AVIS_ANCT_CANDIDATURE':
+    case 'CHANGE_AVIS_ADMIN_CANDIDATURE':
       return {
         ...state,
-        avisANCT: action.avisANCT
+        avisAdmin: action.avisAdmin
       };
     case 'CHANGE_AVIS_PREFET':
       return {
