@@ -20,6 +20,7 @@ export const exportsActions = {
   exportStatistiquesNationalesCSV,
   exportStatistiquesTerritorialesCSV,
   exportDonneesConseiller,
+  exportDonneesConseillerCoordonees,
   exportDonneesStructure,
   exportDonneesGestionnaires,
   exportDonneesHistoriqueDossiersConvention,
@@ -101,6 +102,25 @@ function exportDonneesConseiller(dateDebut = '2020-11-17', dateFin, filtreRuptur
   }
   function success(exportConseillerFileBlob) {
     const nameFile = `export-conseillers_entre_${dayjs(dateDebut).format('YYYY-MM-DD')}_et_${dayjs(dateFin).format('YYYY-MM-DD')}`;
+    return { type: 'EXPORT_CONSEILLER_SUCCESS', exportConseillerFileBlob, nameFile };
+  }
+  function failure(exportConseillerFileError) {
+    return { type: 'EXPORT_CONSEILLER_FAILURE', exportConseillerFileError };
+  }
+}
+function exportDonneesConseillerCoordonees(filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+  return async dispatch => {
+    dispatch(request());
+    await exportsService.getExportDonneesConseillerCoordonnes(filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre)
+    .then(exportConseillerFileBlob => dispatch(success(exportConseillerFileBlob)))
+    .catch(exportConseillerFileError => dispatch(failure(exportConseillerFileError)));
+  };
+
+  function request() {
+    return { type: 'EXPORT_CONSEILLER_REQUEST' };
+  }
+  function success(exportConseillerFileBlob) {
+    const nameFile = 'export-conseillers';
     return { type: 'EXPORT_CONSEILLER_SUCCESS', exportConseillerFileBlob, nameFile };
   }
   function failure(exportConseillerFileError) {

@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { alerteEtSpinnerActions, paginationActions, conseillerActions, statistiquesActions } from '../../../../actions';
+import { alerteEtSpinnerActions, paginationActions, conseillerActions, statistiquesActions, filtresStructuresActions } from '../../../../actions';
 import Spinner from '../../../../components/Spinner';
 import Pagination from '../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import { useLocation } from 'react-router-dom';
-import TableConseillers from '../../../../components/conseillers/TableConseillers';
-import FiltresEtTrisConseillers from '../../../../components/conseillers/FiltresEtTrisConseillers';
+import FiltresEtTrisConseillers from './FiltresEtTrisConseillers';
+import Conseiller from './Conseiller';
 
 export default function TableauConseillers() {
 
   const dispatch = useDispatch();
   const location = useLocation();
   const [page, setPage] = useState(location.state?.currentPage);
-
-  const dateDebut = useSelector(state => state.datePicker?.dateDebut);
-  const dateFin = useSelector(state => state.datePicker?.dateFin);
   const ordre = useSelector(state => state.filtresConseillers?.ordre);
   const ordreNom = useSelector(state => state.filtresConseillers?.ordreNom);
   const loading = useSelector(state => state.conseiller?.loading);
   const error = useSelector(state => state.conseiller?.error);
   const conseillers = useSelector(state => state.conseiller);
-  const filtreCoordinateur = useSelector(state => state.filtresConseillers?.coordinateur);
-  const filtreRupture = useSelector(state => state.filtresConseillers?.rupture);
   const filtreParNomConseiller = useSelector(state => state.filtresConseillers?.nomConseiller);
   const filtreParNomStructure = useSelector(state => state.filtresConseillers?.nomStructure);
   const filtreRegion = useSelector(state => state.filtresConseillers?.region);
   const filterDepartement = useSelector(state => state.filtresConseillers?.departement);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initConseiller, setInitConseiller] = useState(false);
+
+  const ordreColonne = e => {
+    dispatch(paginationActions.setPage(1));
+    dispatch(filtresStructuresActions.changeOrdre(e.currentTarget?.id));
+  };
 
   useEffect(() => {
     if (conseillers?.items) {
@@ -39,11 +39,10 @@ export default function TableauConseillers() {
 
   useEffect(() => {
     if (initConseiller === true) {
-      dispatch(conseillerActions.getAllRecruter(currentPage, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
+      dispatch(conseillerActions.getConseillersCoordonnes(currentPage, filtreParNomConseiller, filtreRegion,
         filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
     }
-    // eslint-disable-next-line max-len
-  }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filterDepartement, filtreParNomStructure]);
+  }, [currentPage, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filterDepartement, filtreParNomStructure]);
 
   useEffect(() => {
     scrollTopWindow();
@@ -54,7 +53,7 @@ export default function TableauConseillers() {
     if (!error) {
       if (initConseiller === false && page !== undefined) {
         dispatch(statistiquesActions.resetFiltre());
-        dispatch(conseillerActions.getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
+        dispatch(conseillerActions.getConseillersCoordonnes(page, filtreParNomConseiller, filtreRegion,
           filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
         setInitConseiller(true);
       }
@@ -78,13 +77,50 @@ export default function TableauConseillers() {
               <div className="fr-grid-row fr-grid-row--center">
                 <div className="fr-col-12">
                   <div className="fr-table">
-                    <TableConseillers
-                      conseillers={conseillers}
-                      filtreCoordinateur={filtreCoordinateur}
-                      filtreRupture={filtreRupture}
-                      error={error}
-                      loading={loading}
-                    />
+                    <table className={conseillers?.items?.data?.length < 3 ? 'no-result-table' : ''}>
+                      <thead>
+                        <tr>
+                          <th>
+                            <button id="idPG" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Id</span>
+                            </button>
+                          </th>
+                          <th>
+                            <button id="nom" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Nom</span>
+                            </button>
+                          </th>
+                          <th>
+                            <button id="prenom" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Pr&eacute;nom</span>
+                            </button>
+                          </th>
+                          <th>Structure</th>
+                          <th>CD</th>
+                          <th>D&eacute;but de contrat</th>
+                          <th>Fin de contrat</th>
+                          <th>Activ&eacute;</th>
+                          <th>CRA saisis</th>
+                          <th>Groupe CRA</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {!error && !loading && conseillers?.items?.data?.map((conseiller, idx) => {
+                          return (<Conseiller key={idx} conseiller={conseiller} />);
+                        })
+                        }
+                        {(!conseillers?.items || conseillers?.items?.total === 0) &&
+                          <tr>
+                            <td colSpan="12" style={{ width: '75rem' }}>
+                              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <span className="not-found pair">Aucun conseiller trouv&eacute;</span>
+                              </div>
+                            </td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 {conseillers?.items?.total !== 0 &&
