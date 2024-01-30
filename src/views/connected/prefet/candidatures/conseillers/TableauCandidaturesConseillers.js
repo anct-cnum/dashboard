@@ -4,7 +4,7 @@ import { alerteEtSpinnerActions, paginationActions, filtresDemandesActions, stru
 import Spinner from '../../../../../components/Spinner';
 import Pagination from '../../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../../utils/exportsUtils';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CandidatureConseiller from './CandidatureConseiller';
 import BannerConfirmationAvisPrefet from '../BannerConfirmationAvisPrefet';
 import FiltresEtTrisCandidatures from '../FiltresEtTrisCandidatures';
@@ -13,20 +13,21 @@ export default function TableauCandidaturesConseillers() {
 
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const [page, setPage] = useState(location.state?.currentPage);
 
   const loading = useSelector(state => state.structure?.loading);
   const error = useSelector(state => state.structure?.error);
   const structures = useSelector(state => state.structure);
   const ordre = useSelector(state => state.filtresDemandes?.ordre);
-  const ordreNom = useSelector(state => state.filtresDemandes?.ordreNom);
+  const ordreNom = useSelector(state => state.filtresDemandes?.ordreNomConseiller);
   const filtreSearchBar = useSelector(state => state.filtresDemandes?.nom);
   const filtreDepartement = useSelector(state => state.filtresDemandes?.departement);
   const filtreRegion = useSelector(state => state.filtresDemandes?.region);
   const filtreAvisPrefet = useSelector(state => state.filtresDemandes?.avisPrefet);
   const currentPage = useSelector(state => state.pagination?.currentPage);
-  const [initDemandeCoordinateur, setInitDemandeCoordinateur] = useState(false);
-  const [statutDemande, setStatutDemande] = useState('toutes');
+  const [initDemandeConseiller, setInitDemandeConseiller] = useState(false);
+  const [statutDemande, setStatutDemande] = useState(location.state?.statutDemande || 'toutes');
 
   useEffect(() => {
     if (structures?.items && structures?.items?.total > 0) {
@@ -36,7 +37,7 @@ export default function TableauCandidaturesConseillers() {
   }, [structures]);
 
   useEffect(() => {
-    if (initDemandeCoordinateur === true) {
+    if (initDemandeConseiller === true) {
       dispatch(structureActions.getAllDemandesConseiller(
         currentPage,
         statutDemande,
@@ -45,7 +46,7 @@ export default function TableauCandidaturesConseillers() {
         filtreRegion,
         filtreAvisPrefet,
         ordreNom,
-        ordre ? 1 : -1
+        ordre ? -1 : 1
       ));
     }
   }, [currentPage, statutDemande, filtreSearchBar, filtreDepartement, filtreAvisPrefet, filtreRegion, ordre, ordreNom]);
@@ -57,7 +58,7 @@ export default function TableauCandidaturesConseillers() {
       setPage(1);
     }
     if (!error) {
-      if (initDemandeCoordinateur === false && page !== undefined) {
+      if (initDemandeConseiller === false && page !== undefined) {
         dispatch(structureActions.getAllDemandesConseiller(
           page,
           statutDemande,
@@ -66,9 +67,10 @@ export default function TableauCandidaturesConseillers() {
           filtreRegion,
           filtreAvisPrefet,
           ordreNom,
-          ordre ? 1 : -1
+          ordre ? -1 : 1
         ));
-        setInitDemandeCoordinateur(true);
+        navigate(location.pathname, { replace: true });
+        setInitDemandeConseiller(true);
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -81,23 +83,21 @@ export default function TableauCandidaturesConseillers() {
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesActions.changeOrdre(e.currentTarget?.id));
+    dispatch(filtresDemandesActions.changeOrdreConseiller(e.currentTarget?.id));
   };
 
   const closeBanner = idDemande => dispatch(structureActions.closeBannerAvisPrefet(idDemande));
 
-  const demandesConseillerWithBanner = structures?.items?.data?.filter(structure => structure?.prefet?.banniereValidationAvisPrefet === true);
-
   return (
     <div className="conventions">
       <Spinner loading={loading} />
-      {demandesConseillerWithBanner?.length > 0 && demandesConseillerWithBanner?.map((structure, idx) => {
+      {structures?.items?.structureBannerAvisPrefetOpen.length > 0 && structures?.items?.structureBannerAvisPrefetOpen?.map((structure, idx) => {
         return (
           <BannerConfirmationAvisPrefet
             key={idx}
             closeBanner={closeBanner}
             nomStructure={structure.nom}
-            avisPrefet={structure.prefet.avisPrefet === 'POSITIF' ? 'favorable' : 'défavorable'}
+            avisPrefet={structure.prefet[0].avisPrefet === 'POSITIF' ? 'favorable' : 'défavorable'}
             idDemande={structure._id}
           />
         );
@@ -170,7 +170,7 @@ export default function TableauCandidaturesConseillers() {
                     </thead>
                     <tbody>
                       {!error && !loading && structures?.items?.data?.map((structure, idx) => {
-                        return (<CandidatureConseiller key={idx} structure={structure} />);
+                        return (<CandidatureConseiller key={idx} structure={structure} statutDemande={statutDemande} />);
                       })
                       }
                       {(!structures?.items || structures?.items?.total === 0) &&
