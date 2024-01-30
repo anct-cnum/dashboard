@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../../../../../components/Spinner';
 import Pagination from '../../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../../utils/exportsUtils';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Coordinateur from './Coordinateur';
 import BannerConfirmationAvisPrefet from '../BannerConfirmationAvisPrefet';
 import { alerteEtSpinnerActions, coordinateurActions, filtresDemandesActions, paginationActions } from '../../../../../actions';
@@ -13,20 +13,21 @@ export default function TableauCoordinateurs() {
 
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const [page, setPage] = useState(location.state?.currentPage);
 
   const loading = useSelector(state => state.coordinateur?.loading);
   const error = useSelector(state => state.coordinateur?.error);
   const coordinateurs = useSelector(state => state.coordinateur);
   const ordre = useSelector(state => state.filtresDemandes?.ordre);
-  const ordreNom = useSelector(state => state.filtresDemandes?.ordreNom);
+  const ordreNom = useSelector(state => state.filtresDemandes?.ordreNomCoordinateur);
   const filtreSearchBar = useSelector(state => state.filtresDemandes?.nom);
   const filtreDepartement = useSelector(state => state.filtresDemandes?.departement);
   const filtreRegion = useSelector(state => state.filtresDemandes?.region);
   const filtreAvisPrefet = useSelector(state => state.filtresDemandes?.avisPrefet);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initDemandeCoordinateur, setInitDemandeCoordinateur] = useState(false);
-  const [statutDemande, setStatutDemande] = useState('toutes');
+  const [statutDemande, setStatutDemande] = useState(location.state?.statutDemande || 'toutes');
 
   useEffect(() => {
     if (coordinateurs?.items && coordinateurs?.items?.total > 0) {
@@ -68,6 +69,7 @@ export default function TableauCoordinateurs() {
           ordreNom,
           ordre ? 1 : -1
         ));
+        navigate(location.pathname, { replace: true });
         setInitDemandeCoordinateur(true);
       }
     } else {
@@ -81,7 +83,7 @@ export default function TableauCoordinateurs() {
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesActions.changeOrdre(e.currentTarget?.id));
+    dispatch(filtresDemandesActions.changeOrdreCoordinateur(e.currentTarget?.id));
   };
 
   const closeBanner = idDemande => {
@@ -181,7 +183,7 @@ export default function TableauCoordinateurs() {
                     </thead>
                     <tbody>
                       {!error && !loading && coordinateurs?.items?.data?.map((coordinateur, idx) => {
-                        return (<Coordinateur key={idx} coordinateur={coordinateur} />);
+                        return (<Coordinateur key={idx} coordinateur={coordinateur} statutDemande={statutDemande} />);
                       })
                       }
                       {(!coordinateurs?.items || coordinateurs?.items?.total === 0) &&

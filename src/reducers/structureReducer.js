@@ -257,13 +257,8 @@ export default function structure(state = initialState, action) {
         ...state,
         loading: false,
         items: {
-          ...state.items, data: state?.items?.data?.map(
-            structure =>
-              structure._id === action.idStructure ? {
-                ...structure,
-                prefet: { ...structure?.prefet, banniereValidationAvisPrefet: false }
-              } : structure
-          )
+          ...state.items, structureBannerAvisPrefetOpen: state?.items?.structureBannerAvisPrefetOpen?.filter(
+            structure => structure._id !== action.idStructure)
         },
       };
     case 'UPDATE_BANNER_PREFET_FAILURE':

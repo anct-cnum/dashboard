@@ -1,7 +1,8 @@
 const initialState = {
   nom: undefined,
   ordre: true,
-  ordreNom: 'codePostal',
+  ordreNomCoordinateur: 'codePostal',
+  ordreNomConseiller: 'createdAt',
   region: 'tous',
   departement: 'tous',
   avisPrefet: 'tous',
@@ -14,11 +15,17 @@ export default function filtresDemandes(state = initialState, action) {
         ...state,
         nom: action.nom,
       };
-    case 'CHANGE_ORDRE':
+    case 'CHANGE_ORDRE_CONSEILLER':
       return {
         ...state,
         ordre: !state.ordre,
-        ordreNom: action.ordreNom
+        ordreNomConseiller: action.ordreNom
+      };
+    case 'CHANGE_ORDRE_COORDINATEUR':
+      return {
+        ...state,
+        ordre: !state.ordre,
+        ordreNomCoordinateur: action.ordreNom
       };
     case 'CHANGE_REGION':
       return {
