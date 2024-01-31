@@ -44,7 +44,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                     </label>
                     <FilterSelect
                       options={listeStructure}
-                      onChange={option => !option ? setIdStructureTransfert(null) : setIdStructureTransfert(option?._id)}
+                      onChange={option => option ? setIdStructureTransfert(option?._id) : setIdStructureTransfert(null)}
                       placeholder="Veuillez s&eacute;lectionner la structure concern&eacute;e"
                       noOptionsMessage={() => 'Aucune structure trouvée'}
                       getOptionLabel={option => `${option?.idPG} - ${option?.nom}`}
