@@ -22,6 +22,7 @@ export function FilterSelect({ options, getOptionLabel, getOptionValue, onChange
           borderRadius: '0.25rem 0.25rem 0 0',
           borderWidth: '0',
           backgroundColor: 'var(--background-contrast-grey)',
+          cursor: 'pointer',
           fontFamily: 'Marianne, arial, sans-serif',
           boxShadow: 'inset 0 -2px 0 0 var(--border-plain-grey)',
           paddingTop: '0.2rem',
