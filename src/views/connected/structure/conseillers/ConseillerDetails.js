@@ -8,7 +8,6 @@ import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import PopinCreationNouvelleRupture from '../popins/PopinCreationNouvelleRupture';
 import InformationConseiller from '../../../../components/InformationConseiller';
 import iconeCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
-import { Tooltip } from 'react-tooltip';
 
 function ConseillerDetails() {
 
@@ -117,21 +116,9 @@ function ConseillerDetails() {
             <>
               <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
               {misesEnRelationFinalisee[0]?.statut === 'finalisee' &&
-                <>
-                  <button
-                    disabled={misesEnRelationFinalisee[0]?.reconventionnement}
-                    title="Initier une rupture de contrat"
-                    className="fr-btn fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0"
-                    data-tooltip-id="tooltip-bouton-initier-rupture"
-                    data-tooltip-content="Votre conseiller est en cours de renouvellement. Vous ne pouvez pas initier une rupture de contrat."
-                    onClick={() => setOpenModal(true)}
-                  >
-                    Initier une rupture de contrat
-                  </button>
-                  {misesEnRelationFinalisee[0]?.reconventionnement &&
-                    <Tooltip variant="dark" id="tooltip-bouton-initier-rupture" className="infobulle" />
-                  }
-                </>
+                <button className="fr-btn fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0" onClick={() => setOpenModal(true)}>
+                  Initier une rupture de contrat
+                </button>
               }
               {openModal &&
                 <PopinCreationNouvelleRupture setOpenModal={setOpenModal} updateStatut={updateStatut} />
