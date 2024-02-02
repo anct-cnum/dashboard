@@ -54,7 +54,6 @@ function Conseiller({ conseiller }) {
   );
 }
 
-
 Conseiller.propTypes = {
   conseiller: PropTypes.object,
 };
