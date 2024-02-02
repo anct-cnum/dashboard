@@ -35,7 +35,7 @@ function CandidatureConseiller({ structure, statutDemande }) {
             <>
               <div
                 className="fr-mt-1w fr-ml-1w"
-                data-tooltip-content={`Transfert de poste depuis la structure`}
+                data-tooltip-content="Transfert de poste"
                 data-tooltip-float="true"
                 data-tooltip-id={`tooltip-transfert-poste-${structure?.idPG}`}
               >
