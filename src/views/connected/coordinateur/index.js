@@ -20,14 +20,13 @@ export default function Coordinateur() {
             <h3>Bienvenue sur votre tableau de pilotage,</h3>
             <p>Nous sommes ravis de vous accueillir sur votre nouvel espace de pilotage.</p>
             <p>
-              Nous vous proposons une nouvelle interface de suivi et pilotage des Conseillers num&eacute;rique Coordinateur que vous coordonnez.
+              Nous vous proposons une nouvelle interface de suivi et pilotage des Conseillers num&eacute;rique que vous coordonnez.
               Ce nouvel espace permet de&nbsp;:
             </p>
             <div>
               <ul>
-                <li>Visualiser le liste des conseillers coordinateurs  que vous coordonnez</li>
-                <li>Consulter les informations des conseillers coordinateurs (activité, statistiques…)</li>
-                <li>Consulter les informations des conseillers coordinateurs (activit&eacute;, statistiques…)</li>
+                <li>Visualiser le liste des conseillers num&eacute;rique que vous coordonnez</li>
+                <li>Consulter les informations des conseillers num&eacute;rique (activit&eacute;, statistiques…)</li>
                 <li>Suivre les statistiques territoriales et nationales du dispositif</li>
               </ul>
                 Et bien plus encore...
