@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import dayjs from 'dayjs';
+import { Tooltip } from 'react-tooltip';
 
 function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -32,7 +33,10 @@ function Conseiller({ conseiller }) {
         </svg>
       </td>
       <td style={{ width: '4rem' }}>{conseiller?.craCount}</td>
-      <td style={{ width: '4rem' }}>{conseiller?.groupeCRA}</td>
+      <td style={{ width: '4rem' }} data-tooltip-id={`tooltip-groupe-cra${conseiller?.idPG}`} data-tooltip-content="Groupe de CRA">
+        {conseiller?.groupeCRA}
+        <Tooltip variant="light" id={`tooltip-groupe-cra${conseiller?.idPG}`} className="infobulle" />
+      </td>
       <td>
         <button
           className="fr-btn fr-icon-eye-line fr-mb-2w"

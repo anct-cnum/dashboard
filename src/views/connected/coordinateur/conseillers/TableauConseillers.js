@@ -96,7 +96,7 @@ export default function TableauConseillers() {
                             </button>
                           </th>
                           <th>Structure</th>
-                          <th>CD</th>
+                          <th>Code d&eacute;partement</th>
                           <th>D&eacute;but de contrat</th>
                           <th>Fin de contrat</th>
                           <th>Activ&eacute;</th>
