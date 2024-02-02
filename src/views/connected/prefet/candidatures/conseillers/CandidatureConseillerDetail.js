@@ -42,6 +42,8 @@ function CandidatureConseillerDetail() {
     }
   }, [successAvisPrefet]);
 
+  const checkStructureNouvelle = statut => statut === 'CREEE' || statut === 'EXAMEN_COMPLEMENTAIRE_COSELEC';
+
   return (
     <div className="coordinateurDetails">
       <Spinner loading={loading} />
@@ -115,7 +117,7 @@ function CandidatureConseillerDetail() {
             }
           </div>
           <div className="fr-card__footer">
-            {(!['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) && structure?.statut === 'CREEE') &&
+            {(!['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) && checkStructureNouvelle(structure?.statut)) &&
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
                   <button onClick={() => {

@@ -116,8 +116,8 @@ export default function TableauCandidaturesConseillers() {
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
-                setStatutDemande('CREEE');
-              }} className="fr-tag" aria-pressed={statutDemande === 'CREEE'}>
+                setStatutDemande('NOUVELLE');
+              }} className="fr-tag" aria-pressed={statutDemande === 'NOUVELLE'}>
                 Nouvelles candidatures ({structures?.items?.totalParDemandesConseiller?.nouvelleCandidature})
               </button>
               <button onClick={() => setStatutDemande('VALIDATION_COSELEC')} className="fr-tag" aria-pressed={statutDemande === 'VALIDATION_COSELEC'}>
