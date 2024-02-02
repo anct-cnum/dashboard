@@ -48,7 +48,7 @@ FilterSelect.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   noOptionsMessage: PropTypes.func,
-  filterOption: PropTypes.func,
+  filterOption: PropTypes.object,
 };
 
 export default FilterSelect;
