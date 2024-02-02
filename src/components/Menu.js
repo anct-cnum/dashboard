@@ -12,7 +12,8 @@ import MenuGrandReseau from './menuRole/MenuGrandReseau';
 import MenuHub from './menuRole/MenuHub';
 import MenuCoordinateur from './menuRole/MenuCoordinateur';
 import SousMenuCommun from './SousMenuCommun';
-import SousMenuCoordinateur from './coordinateurs/SousMenuCoordinateur';
+import SousMenuCoordinateur from '../views/connected/coordinateur/SousMenuCoordinateur';
+
 
 function Menu(
   {

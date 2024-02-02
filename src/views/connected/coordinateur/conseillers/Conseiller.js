@@ -9,7 +9,7 @@ import { Tooltip } from 'react-tooltip';
 function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const { trackEvent } = useMatomo();
-
+  
   return (
     <tr>
       <td>{conseiller?.idPG}</td>
@@ -33,9 +33,9 @@ function Conseiller({ conseiller }) {
         </svg>
       </td>
       <td style={{ width: '4rem' }}>{conseiller?.craCount}</td>
-      <td style={{ width: '4rem' }} data-tooltip-id="tooltip-groupe-cra" data-tooltip-content="Texte à fournir">
+      <td style={{ width: '4rem' }} data-tooltip-id={`tooltip-groupe-cra${conseiller?.idPG}`} data-tooltip-content="Texte à fournir">
         {conseiller?.groupeCRA}
-        <Tooltip variant="light" id="tooltip-groupe-cra" className="infobulle" />
+        <Tooltip variant="light" id={`tooltip-groupe-cra${conseiller?.idPG}`} className="infobulle" />
       </td>
       <td>
         <button
