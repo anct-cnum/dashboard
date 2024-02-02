@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Tooltip } from 'react-tooltip';
 
 function CandidatureConseiller({ structure, statutDemande }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -26,7 +27,25 @@ function CandidatureConseiller({ structure, statutDemande }) {
       </td>
       <td>{structure?.codePostal}</td>
       <td>{structure?.createdAt ? dayjs(structure.createdAt).format('DD/MM/YYYY') : 'Non renseignée'}</td>
-      <td>{formatAvisPrefet(structure?.prefet?.avisPrefet)}</td>
+      <td>{structure?.nombreConseillersSouhaites ? structure.nombreConseillersSouhaites : '-'}</td>
+      <td>
+        <div className="fr-grid-row" style={{ alignItems: 'center' }}>
+          {formatAvisPrefet(structure?.prefet?.avisPrefet)}
+          {structure?.prefet?.idStructureTransfert &&
+            <>
+              <div
+                className="fr-mt-1w fr-ml-1w"
+                data-tooltip-content={`Transfert de poste depuis la structure`}
+                data-tooltip-float="true"
+                data-tooltip-id={`tooltip-transfert-poste-${structure?.idPG}`}
+              >
+                <i className="ri-arrow-left-right-line" style={{ fontSize: '1.9rem' }}></i>
+              </div>
+              <Tooltip variant="light" id={`tooltip-transfert-poste-${structure?.idPG}`} className="infobulle" />
+            </>
+          }
+        </div>
+      </td>
       <td>
         <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={`/${roleActivated}/demandes/conseiller/${structure?._id}`}
           state={{ 'origin': `/${roleActivated}/demandes/conseillers`, statutDemande }}>

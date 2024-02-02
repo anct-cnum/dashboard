@@ -91,7 +91,7 @@ export default function TableauCandidaturesConseillers() {
   return (
     <div className="conventions">
       <Spinner loading={loading} />
-      {structures?.items?.structureBannerAvisPrefetOpen.length > 0 && structures?.items?.structureBannerAvisPrefetOpen?.map((structure, idx) => {
+      {structures?.items?.structureBannerAvisPrefetOpen?.length > 0 && structures?.items?.structureBannerAvisPrefetOpen?.map((structure, idx) => {
         return (
           <BannerConfirmationAvisPrefet
             key={idx}
@@ -164,6 +164,7 @@ export default function TableauCandidaturesConseillers() {
                             </span>
                           </button>
                         </th>
+                        <th style={{ width: '25rem' }}>Nb. de postes demand&eacute;s</th>
                         <th style={{ width: '15rem' }}>Avis pr&eacute;fet</th>
                         <th style={{ width: '7rem' }}></th>
                       </tr>

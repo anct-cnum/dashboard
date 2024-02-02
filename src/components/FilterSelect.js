@@ -1,8 +1,8 @@
 import React from 'react';
-import Select from 'react-select';
+import Select, { createFilter } from 'react-select';
 import PropTypes from 'prop-types';
 
-export function FilterSelect({ options, getOptionLabel, getOptionValue, onChange, placeholder, noOptionsMessage }) {
+export function FilterSelect({ options, getOptionLabel, getOptionValue, onChange, placeholder, noOptionsMessage, filterOption }) {
 
   return (
     <Select options={options}
@@ -12,6 +12,7 @@ export function FilterSelect({ options, getOptionLabel, getOptionValue, onChange
       placeholder={placeholder}
       noOptionsMessage={noOptionsMessage}
       isClearable
+      filterOption={createFilter(filterOption)}
       styles={{
         menuList: baseStyles => ({
           ...baseStyles,
@@ -47,6 +48,7 @@ FilterSelect.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   noOptionsMessage: PropTypes.func,
+  filterOption: PropTypes.func,
 };
 
 export default FilterSelect;
