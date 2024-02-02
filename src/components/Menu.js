@@ -93,7 +93,6 @@ function Menu(
             }
             {roleActivated === 'prefet' &&
             <>
-            
               <MenuPrefet onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} />
               <SousMenuCommun onClickMenu={onClickMenu} activeMenu={activeMenu} roleActivated={roleActivated} trackEvent={trackEvent} />
             </>

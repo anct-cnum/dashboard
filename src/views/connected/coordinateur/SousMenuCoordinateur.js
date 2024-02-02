@@ -17,7 +17,7 @@ function SousMenuCoordinateur({
           aria-controls="menu-recrutement"
           {...(location.pathname.startsWith(`/certifications`) || location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}
           onClick={onClickMenu}>
-                Formation / Certification
+            Formation / Certification
         </button>
         <div className={`fr-collapse fr-menu ${activeMenu === 'recrutement' ? 'fr-collapse--expanded' : ''}`} id="menu-recrutement">
           <ul className="fr-menu__list">
@@ -34,7 +34,7 @@ function SousMenuCoordinateur({
                 className="fr-nav__link"
                 to="/certifications"
                 {...(location.pathname.startsWith(`/certifications`) ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Certifications
+                  &bull;&nbsp;Certifications
               </Link>
             </li>
           </ul>
@@ -47,18 +47,18 @@ function SousMenuCoordinateur({
           aria-expanded={activeMenu === 'aide'}
           aria-controls="menu-aide"
           onClick={onClickMenu}>
-                Aide
+            Aide
         </button>
         <div className={`fr-collapse fr-menu ${activeMenu === 'aide' ? 'fr-collapse--expanded' : ''}`} id="menu-aide">
           <ul className="fr-menu__list">
             <li>
               <a className="fr-nav__link" href={urlAide} target="blank" rel="noreferrer noopener">
-                      &bull;&nbsp;FAQ
+                &bull;&nbsp;FAQ
               </a>
             </li>
             <li>
               <a className="fr-nav__link" href="mailto:conseiller-numerique@anct.gouv.fr">
-                      &bull;&nbsp;Nous contacter
+                &bull;&nbsp;Nous contacter
               </a>
             </li>
           </ul>
