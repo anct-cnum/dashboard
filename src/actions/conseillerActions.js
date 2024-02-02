@@ -31,7 +31,7 @@ function get(id) {
 
     conseillerService.get(id)
     .then(
-      conseiller => dispatch(success(conseiller)),
+      response => dispatch(success(response)),
       error => {
         dispatch(failure(error));
       }
@@ -41,8 +41,8 @@ function get(id) {
   function request() {
     return { type: 'GET_CONSEILLER_REQUEST' };
   }
-  function success(conseiller) {
-    return { type: 'GET_CONSEILLER_SUCCESS', conseiller };
+  function success(response) {
+    return { type: 'GET_CONSEILLER_SUCCESS', response };
   }
   function failure(error) {
     return { type: 'GET_CONSEILLER_FAILURE', error };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions, structureActions, alerteEtSpinnerActions } from '../../../../actions';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
@@ -12,6 +12,7 @@ import iconeCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 function ConseillerDetails() {
 
   const dispatch = useDispatch();
+  const location = useLocation();
   const { idConseiller, idMiseEnRelation } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const structure = useSelector(state => state.structure?.structure);
@@ -21,6 +22,7 @@ function ConseillerDetails() {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const successSendMail = useSelector(state => state.conseiller?.successRelanceInvitation);
   const errorSendMail = useSelector(state => state.conseiller?.errorRelanceInvitation);
+  const currentPage = useSelector(state => state.pagination?.currentPage);
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
@@ -84,11 +86,12 @@ function ConseillerDetails() {
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
-      <button
-        onClick={() => window.close()}
+      <Link
+        to={location.state?.origin}
+        state={{ currentPage }}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
-      </button>
+      </Link>
       {conseiller?.statut === 'RECRUTE' &&
         <>
           <div className="fr-col-12 fr-pt-6w">
