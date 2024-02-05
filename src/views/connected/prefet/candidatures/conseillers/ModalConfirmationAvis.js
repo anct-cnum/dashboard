@@ -20,7 +20,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
     ignoreAccents: true,
     trim: true,
     matchFrom: 'any',
-    stringify: option => `${option.label}`,
+    stringify: option => option ? `${option?.label}` : undefined,
   };
 
   return (
