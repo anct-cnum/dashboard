@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import dayjs from 'dayjs';
 import { Tooltip } from 'react-tooltip';
+import { getAlertLevel, getGroupText } from '../../structure/utils/functionUtils';
 
 function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -33,7 +34,12 @@ function Conseiller({ conseiller }) {
         </svg>
       </td>
       <td style={{ width: '4rem' }}>{conseiller?.craCount}</td>
-      <td style={{ width: '4rem' }} data-tooltip-id={`tooltip-groupe-cra${conseiller?.idPG}`} data-tooltip-content="Groupe de CRA">
+      <td style={{ width: '4rem' }}
+        data-tooltip-id={`tooltip-groupe-cra${conseiller?.idPG}`}
+        data-tooltip-float="true"
+        data-tooltip-content={getGroupText(conseiller?.groupeCRA)}
+        data-tooltip-variant={getAlertLevel(conseiller?.groupeCRA)}
+      >
         {conseiller?.groupeCRA}
         <Tooltip variant="light" id={`tooltip-groupe-cra${conseiller?.idPG}`} className="infobulle" />
       </td>
