@@ -27,7 +27,12 @@ function CandidatureConseiller({ structure, statutDemande }) {
       </td>
       <td>{structure?.codePostal}</td>
       <td>{structure?.createdAt ? dayjs(structure.createdAt).format('DD/MM/YYYY') : 'Non renseignée'}</td>
-      <td>{structure?.nombreConseillersSouhaites ? structure.nombreConseillersSouhaites : '-'}</td>
+      {statutDemande === 'NOUVELLE' &&
+        <td>{structure?.nombreConseillersSouhaites ? structure.nombreConseillersSouhaites : '-'}</td>
+      }
+      {(statutDemande === 'VALIDATION_COSELEC' || statutDemande === 'REFUS_COSELEC') &&
+        <td>{structure?.nombreConseillersCoselec}</td>
+      }
       <td>
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
           {formatAvisPrefet(structure?.prefet?.avisPrefet)}

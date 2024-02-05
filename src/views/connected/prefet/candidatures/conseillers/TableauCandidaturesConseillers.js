@@ -164,7 +164,12 @@ export default function TableauCandidaturesConseillers() {
                             </span>
                           </button>
                         </th>
-                        <th style={{ width: '25rem' }}>Nb. de postes demand&eacute;s</th>
+                        {statutDemande === 'NOUVELLE' &&
+                          <th style={{ width: '25rem' }}>Nb. de postes demand&eacute;s</th>
+                        }
+                        {(statutDemande === 'VALIDATION_COSELEC' || statutDemande === 'REFUS_COSELEC') &&
+                          <th style={{ width: '25rem' }}>Nb. de postes accord&eacute;s</th>
+                        }
                         <th style={{ width: '15rem' }}>Avis pr&eacute;fet</th>
                         <th style={{ width: '7rem' }}></th>
                       </tr>
