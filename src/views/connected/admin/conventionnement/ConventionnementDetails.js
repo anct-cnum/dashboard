@@ -109,7 +109,7 @@ function ConventionnementDetails({ structure }) {
               }
             </div>
           </div>
-          {structure?.statut === 'CREEE' &&
+          {(structure?.statut === 'CREEE' || structure?.statut === 'EXAMEN_COMPLEMENTAIRE_COSELEC') &&
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
