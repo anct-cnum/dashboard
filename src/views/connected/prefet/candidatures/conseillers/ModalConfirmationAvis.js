@@ -47,7 +47,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                 <p>Souhaitez-vous confirmer l&rsquo;avis {avisPrefet} pour la structure <strong>{structure?.nom}</strong>&nbsp;?</p>
                 {avisPrefet === 'favorable' &&
                   <>
-                    <fieldset className="fr-fieldset" id="radio-hint" aria-labelledby="radio-transfert-structure radio-hint-messages">
+                    <fieldset className="fr-fieldset fr-mb-1w" id="radio-hint" aria-labelledby="radio-transfert-structure radio-hint-messages">
                       <legend className="fr-fieldset__legend--regular fr-fieldset__legend" id="radio-transfert-structure">
                         Cette demande concerne-t-elle un transfert de poste ?
                       </legend>
