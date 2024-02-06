@@ -42,11 +42,13 @@ function CandidatureConseillerDetail() {
     }
   }, [successAvisPrefet]);
 
+  const checkStructureNouvelle = statut => statut === 'CREEE' || statut === 'EXAMEN_COMPLEMENTAIRE_COSELEC';
+
   return (
     <div className="coordinateurDetails">
       <Spinner loading={loading} />
       <Link
-        to={location?.state?.origin} state={{ currentPage }}
+        to={location?.state?.origin} state={{ currentPage, statutDemande: location?.state?.statutDemande ?? 'toutes' }}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
       </Link>
@@ -84,14 +86,14 @@ function CandidatureConseillerDetail() {
               {pluralize(
                 'Demande de conseiller',
                 'Demande de conseiller',
-                'Demandes de conseillers',
+                'Demande de conseillers',
                 structure?.nombreConseillersSouhaites
               )}
             </h3>
             <p className="fr-card__desc fr-text--lg fr-text--regular">
               Date de candidature&nbsp;:&nbsp;
               {structure?.createdAt ?
-                <span>le&nbsp;{dayjs(structure.createdAt).format('DD/MM/YYYY')}</span> :
+                <span>{dayjs(structure.createdAt).format('DD/MM/YYYY')}</span> :
                 <span>Non renseign&eacute;e</span>
               }
             </p>
@@ -115,7 +117,7 @@ function CandidatureConseillerDetail() {
             }
           </div>
           <div className="fr-card__footer">
-            {(!['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) && structure?.statut === 'CREEE') &&
+            {(!['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) && checkStructureNouvelle(structure?.statut)) &&
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>
                   <button onClick={() => {

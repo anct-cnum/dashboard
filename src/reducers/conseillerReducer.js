@@ -58,7 +58,8 @@ export default function conseiller(state = initialState, action) {
     case 'GET_CONSEILLER_SUCCESS':
       return {
         ...state,
-        conseiller: action.conseiller,
+        conseiller: action.response.conseiller,
+        enCoursDeReRecrutement: action.response.enCoursDeReRecrutement,
         loading: false
       };
     case 'GET_CONSEILLER_FAILURE':

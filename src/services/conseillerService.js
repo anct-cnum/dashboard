@@ -1,7 +1,7 @@
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { conseillerQueryStringParameters, candidatQueryStringParameters } from '../utils/queryUtils';
+import { conseillerQueryStringParameters, candidatQueryStringParameters, conseillerCoordonnesQueryStringParameters } from '../utils/queryUtils';
 
 export const conseillerService = {
   get,
@@ -9,6 +9,7 @@ export const conseillerService = {
   getCandidat,
   getCandidatRecrutement,
   getAllRecruter,
+  getConseillersCoordonnes,
   getAllCandidats,
   getAllCandidatsByAdmin,
   getAllMisesEnRelation,
@@ -97,6 +98,24 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
 
   // eslint-disable-next-line max-len
   let uri = `${apiUrlRoot}/conseillers-recruter?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}${filterByNameStructure}&role=${roleActivated()}`;
+
+  return API.get(uri)
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function getConseillersCoordonnes(page, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre) {
+  let {
+    ordreColonne,
+    filterByNameConseiller,
+    filterByRegion,
+    filterByDepartement,
+    filterByNameStructure,
+
+  } = conseillerCoordonnesQueryStringParameters(nomOrdre, ordre, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure);
+
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/conseillers-coordonnes?skip=${page}${filterByNameConseiller}${ordreColonne}${filterByRegion}${filterByDepartement}${filterByNameStructure}&role=${roleActivated()}`;
 
   return API.get(uri)
   .then(response => response.data)

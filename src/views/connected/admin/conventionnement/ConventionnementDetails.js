@@ -46,7 +46,7 @@ function ConventionnementDetails({ structure }) {
         />
       }
       {openModalRefusAttributionPoste &&
-        <ModalRefusAttributionPoste setOpenModal={setOpenModalRefusAttributionPoste} structure={structure}/>
+        <ModalRefusAttributionPoste setOpenModal={setOpenModalRefusAttributionPoste} structure={structure} />
       }
       <h2>Candidature</h2>
       <div className="fr-card">
@@ -56,7 +56,7 @@ function ConventionnementDetails({ structure }) {
               {pluralize(
                 'Demande de conseiller',
                 'Demande de conseiller',
-                'Demandes de conseillers',
+                'Demande de conseillers',
                 structure?.nombreConseillersSouhaites
               )}
             </h3>
@@ -72,7 +72,7 @@ function ConventionnementDetails({ structure }) {
             <p className="fr-card__desc fr-text--lg fr-text--regular">
               Date de candidature&nbsp;:&nbsp;
               {structure?.createdAt ?
-                <span>le&nbsp;{dayjs(structure.createdAt).format('DD/MM/YYYY')}</span> :
+                <span>{dayjs(structure.createdAt).format('DD/MM/YYYY')}</span> :
                 <span>Non renseign&eacute;e</span>
               }
             </p>
@@ -109,7 +109,7 @@ function ConventionnementDetails({ structure }) {
               }
             </div>
           </div>
-          {structure?.statut === 'CREEE' &&
+          {(structure?.statut === 'CREEE' || structure?.statut === 'EXAMEN_COMPLEMENTAIRE_COSELEC') &&
             <div className="fr-card__footer">
               <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                 <li>

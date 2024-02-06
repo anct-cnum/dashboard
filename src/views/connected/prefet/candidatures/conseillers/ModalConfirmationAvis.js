@@ -15,6 +15,13 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
     setCommentaire('');
     setIdStructureTransfert(null);
   };
+  const filterOption = {
+    ignoreCase: true,
+    ignoreAccents: true,
+    trim: true,
+    matchFrom: 'any',
+    stringify: option => option ? `${option?.label}` : undefined,
+  };
 
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
@@ -40,15 +47,16 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                 {avisPrefet === 'favorable' &&
                   <div className="fr-select-group">
                     <label className="fr-label fr-mb-1w" htmlFor="select">
-                    Si ce poste est attribu&eacute; au titre d&rsquo;un transfert
+                      Si ce poste est attribu&eacute; au titre d&rsquo;un transfert
                     </label>
                     <FilterSelect
                       options={listeStructure}
-                      onChange={option => setIdStructureTransfert(option._id)}
+                      onChange={option => option ? setIdStructureTransfert(option?._id) : setIdStructureTransfert(null)}
                       placeholder="Veuillez s&eacute;lectionner la structure concern&eacute;e"
                       noOptionsMessage={() => 'Aucune structure trouvée'}
-                      getOptionLabel={option => option.nom}
-                      getOptionValue={option => option._id}
+                      getOptionLabel={option => `${option?.idPG} - ${option?.nom}`}
+                      getOptionValue={option => option?._id}
+                      filterOption={filterOption}
                     />
                   </div>
                 }

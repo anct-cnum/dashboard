@@ -12,7 +12,8 @@ import {
   statsCsvStructureQueryStringParameters,
   statsCsvGrandReseauQueryStringParameters,
   historiqueConventionQueryStringParameters,
-  demandesQueryStringParameters
+  demandesQueryStringParameters,
+  conseillerCoordonnesQueryStringParameters
 } from '../utils/queryUtils';
 
 export const exportsService = {
@@ -24,6 +25,7 @@ export const exportsService = {
   getStatistiquesNationalesCSV,
   getStatistiquesTerritorialesCSV,
   getExportDonneesConseiller,
+  getExportDonneesConseillerCoordonnes,
   getExportDonneesStructure,
   getExportDonneesGestionnaires,
   getExportDonneesHistoriqueDossiersConvention,
@@ -60,6 +62,21 @@ function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoo
     filterByNameStructure,
   } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement, filtreParNomStructure);
   return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}${filterByNameStructure}`)
+  .then(response => response.data)
+  .catch(handleApiError);
+
+}
+function getExportDonneesConseillerCoordonnes(filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre) {
+
+  const exportConseillersRoute = '/conseillers-coordonnes-csv';
+  let {
+    ordreColonne,
+    filterByNameConseiller,
+    filterByRegion,
+    filterByDepartement,
+    filterByNameStructure,
+  } = conseillerCoordonnesQueryStringParameters(nomOrdre, ordre, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure);
+  return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${ordreColonne}${filterByRegion}${filterByDepartement}${filterByNameStructure}`)
   .then(response => response.data)
   .catch(handleApiError);
 

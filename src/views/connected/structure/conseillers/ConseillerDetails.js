@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { conseillerActions, alerteEtSpinnerActions } from '../../../../actions';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
@@ -12,12 +12,17 @@ import iconeCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 function ConseillerDetails() {
 
   const dispatch = useDispatch();
+  const location = useLocation();
   const { idConseiller } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const errorConseillerStatut = useSelector(state => state.conseiller?.errorUpdateStatus);
+  const errorPreselection = useSelector(state => state.conseiller?.errorPreselection);
+  const successPreselection = useSelector(state => state.conseiller?.successPreselection);
+  const enCoursDeReRecrutement = useSelector(state => state.conseiller?.enCoursDeReRecrutement);
   const loading = useSelector(state => state.conseiller?.loading);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const currentPage = useSelector(state => state.pagination?.currentPage);
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
   const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
@@ -62,14 +67,32 @@ function ConseillerDetails() {
     }
   }, [conseiller]);
 
+  const preSelectionnerCandidat = () => {
+    dispatch(conseillerActions.preSelectionner(conseiller._id));
+    scrollTopWindow();
+  };
+
+  useEffect(() => {
+    if (successPreselection !== undefined && successPreselection !== false) {
+      window.location.href = '/structure/candidats/interessee';
+      dispatch(conseillerActions.resetSuccessPreselection());
+    }
+  }, [successPreselection]);
+
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
-      <button
-        onClick={() => window.close()}
+      <Link
+        to={location.state?.origin}
+        state={{ currentPage }}
         className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
         Retour &agrave; la liste
-      </button>
+      </Link>
+      {(errorPreselection !== undefined && errorPreselection !== false) &&
+        <div className="fr-alert fr-alert--info fr-mt-3w">
+          <p>{errorPreselection}</p>
+        </div>
+      }
       <div className="fr-col-12 fr-pt-6w">
         <h1 className="fr-h1 fr-mb-2v" style={{ color: '#000091' }}>
           {conseiller ? formatNomConseiller(conseiller) : ''}
@@ -103,7 +126,14 @@ function ConseillerDetails() {
             </>
           }
           {conseiller?.statut === 'RUPTURE' &&
-            <p className="fr-badge fr-badge--error fr-badge--no-icon" style={{ height: '20%' }}>Contrat termin&eacute;</p>
+            <>
+              <p className="fr-badge fr-badge--error fr-badge--no-icon" style={{ height: '20%' }}>Contrat termin&eacute;</p>
+              {!enCoursDeReRecrutement &&
+                <button className="fr-btn fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0" onClick={preSelectionnerCandidat}>
+                  Recruter &agrave; nouveau
+                </button>
+              }
+            </>
           }
           {misesEnRelationNouvelleRupture &&
             <>
