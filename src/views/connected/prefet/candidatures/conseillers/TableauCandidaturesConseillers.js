@@ -91,7 +91,7 @@ export default function TableauCandidaturesConseillers() {
   return (
     <div className="conventions">
       <Spinner loading={loading} />
-      {structures?.items?.structureBannerAvisPrefetOpen.length > 0 && structures?.items?.structureBannerAvisPrefetOpen?.map((structure, idx) => {
+      {structures?.items?.structureBannerAvisPrefetOpen?.length > 0 && structures?.items?.structureBannerAvisPrefetOpen?.map((structure, idx) => {
         return (
           <BannerConfirmationAvisPrefet
             key={idx}
@@ -116,8 +116,8 @@ export default function TableauCandidaturesConseillers() {
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
-                setStatutDemande('CREEE');
-              }} className="fr-tag" aria-pressed={statutDemande === 'CREEE'}>
+                setStatutDemande('NOUVELLE');
+              }} className="fr-tag" aria-pressed={statutDemande === 'NOUVELLE'}>
                 Nouvelles candidatures ({structures?.items?.totalParDemandesConseiller?.nouvelleCandidature})
               </button>
               <button onClick={() => setStatutDemande('VALIDATION_COSELEC')} className="fr-tag" aria-pressed={statutDemande === 'VALIDATION_COSELEC'}>
@@ -164,6 +164,12 @@ export default function TableauCandidaturesConseillers() {
                             </span>
                           </button>
                         </th>
+                        {statutDemande === 'NOUVELLE' &&
+                          <th style={{ width: '25rem' }}>Nb. de postes demand&eacute;s</th>
+                        }
+                        {(statutDemande === 'VALIDATION_COSELEC' || statutDemande === 'REFUS_COSELEC') &&
+                          <th style={{ width: '25rem' }}>Nb. de postes accord&eacute;s</th>
+                        }
                         <th style={{ width: '15rem' }}>Avis pr&eacute;fet</th>
                         <th style={{ width: '7rem' }}></th>
                       </tr>

@@ -15,6 +15,13 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
     setCommentaire('');
     setIdStructureTransfert(null);
   };
+  const filterOption = {
+    ignoreCase: true,
+    ignoreAccents: true,
+    trim: true,
+    matchFrom: 'any',
+    stringify: option => option ? `${option?.label}` : undefined,
+  };
 
   return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
@@ -49,6 +56,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                       noOptionsMessage={() => 'Aucune structure trouvée'}
                       getOptionLabel={option => `${option?.idPG} - ${option?.nom}`}
                       getOptionValue={option => option?._id}
+                      filterOption={filterOption}
                     />
                   </div>
                 }
