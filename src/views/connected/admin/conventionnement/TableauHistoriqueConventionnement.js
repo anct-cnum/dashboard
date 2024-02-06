@@ -31,7 +31,7 @@ export function TableauHistoriqueConventionnement({ conventions, loading, error,
           </th>
           <th style={{ width: '25rem' }}>Nb. de postes accord&eacute;s</th>
           <th style={{ width: '13rem' }}>Avis pr&eacute;fet</th>
-          <th style={{ width: '24.5rem' }}>Type de demande</th>
+          <th style={{ width: '25rem' }}>Type de demande</th>
           <th style={{ width: '8rem' }}></th>
         </tr>
       </thead>
