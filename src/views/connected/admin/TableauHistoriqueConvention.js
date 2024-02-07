@@ -125,6 +125,21 @@ export default function TableauHistoriqueConvention() {
     dispatch(filtresConventionsActions.changeOrdre(e.currentTarget?.id));
   };
 
+  const nomColonneParTypeConvention = typeConvention => {
+    switch (typeConvention) {
+      case 'conventionnement':
+        return 'Nb. de postes accordés';
+      case 'reconventionnement':
+        return 'Nb. de postes renouvelés';
+      case 'avenantAjoutPoste':
+        return 'Nb. de postes ajoutés';
+      case 'avenantRenduPoste':
+        return 'Nb. de postes rendus';
+      default:
+        return 'Nb. de postes';
+    }
+  };
+
   return (
     <div className="conventions">
       <Spinner loading={loading || loadingExport} />
@@ -210,7 +225,7 @@ export default function TableauHistoriqueConvention() {
                                 </span>
                               </button>
                             </th>
-                            <th style={{ width: '20rem' }}>Nb. de postes accord&eacute;s</th>
+                            <th style={{ width: '20rem' }}>{nomColonneParTypeConvention(typeConvention)}</th>
                             <th style={{ width: '22rem' }}>Type de demande</th>
                             <th style={{ width: '8rem' }}></th>
                           </tr>
