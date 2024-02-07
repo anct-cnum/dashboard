@@ -57,6 +57,7 @@ jobs:
           envkey_REACT_APP_DEMARCHES_SIMPLIFIEES_HOSTNAME: "https://www.demarches-simplifiees.fr"
           envkey_REACT_APP_PUBLIC_HOSTNAME: "https://beta.www.conseiller-numerique.gouv.fr"
           envkey_REACT_APP_DEMARCHES_SIMPLIFIEES_RECRUTEMENT_COORDINATEUR: "https://www.demarches-simplifiees.fr/commencer/fb113b44-2742-438c-95dd-37b3d6342d88"
+          envkey_REACT_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR: "https://www.demarches-simplifiees.fr/commencer/a1dac784-b6a0-4733-82c9-2c5c660797cf"
           envkey_REACT_APP_MATOMO_URL: "https://stats.data.gouv.fr/"
           envkey_REACT_APP_MATOMO_ID: ${{ secrets.MATOMO_SITE_ID }}
           envkey_REACT_APP_AUTH_CLIENT_ID: ${{ secrets.IC_RECETTE_AUTH_CLIENT_ID }}

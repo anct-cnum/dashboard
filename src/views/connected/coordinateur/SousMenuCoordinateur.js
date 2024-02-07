@@ -1,14 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { conseillerActions, structureActions } from '../../../actions';
 
 function SousMenuCoordinateur({
   onClickMenu,
   activeMenu,
 }) {
+
+  const dispatch = useDispatch();
+  const userAuth = useSelector(state => state.authentication.user);
+  const conseiller = useSelector(state => state.conseiller?.conseiller);
+  const structure = useSelector(state => state.structure?.structure);
+
+  const { nom, prenom, idPG } = conseiller || {};
   const urlAide = `${process.env.REACT_APP_AIDE_HOSTNAME}/category/tableau-de-pilotage-1i6u8in`;
+  const urlCra = `${process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR}?` +
+  `identite_nom=${nom}&` +
+  `identite_prenom=${prenom}&` +
+  `champ_Q2hhbXAtMzU2NjQ5MQ=${nom}&` +
+  `champ_Q2hhbXAtMzU2NjUyMA=${prenom}&` +
+  `champ_Q2hhbXAtMzU2NjUyMw=${idPG}&` +
+  `champ_Q2hhbXAtMzU2NjUyMQ=${structure?.nom}&` +
+  `champ_Q2hhbXAtMzU2NjUyMg=${structure?.idPG}`;
+
+  useEffect(() => {
+    dispatch(conseillerActions.get(userAuth?.entity?.$id));
+  }, []);
+
+  useEffect(() => {
+    if (conseiller?.structureId) {
+      dispatch(structureActions.get(conseiller?.structureId));
+    }
+  }
+  , [conseiller]);
+
   return (
     <>
+      <a className="fr-nav__link" href={`${urlCra}`} target="blank" rel="noreferrer noopener">
+          Compte-rendu d&apos;activit&eacute;
+      </a>
       <li className="fr-nav__item">
         <button
           id="recrutement"
