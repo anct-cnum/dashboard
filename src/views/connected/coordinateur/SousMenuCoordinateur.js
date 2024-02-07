@@ -10,7 +10,7 @@ function SousMenuCoordinateur({
 }) {
 
   const dispatch = useDispatch();
-  const userAuth = useSelector(state => state.authentication.user);
+  const userAuth = useSelector(state => state.authentication?.user);
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const structure = useSelector(state => state.structure?.structure);
 
