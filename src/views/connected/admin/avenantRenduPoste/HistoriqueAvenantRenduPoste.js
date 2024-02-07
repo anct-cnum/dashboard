@@ -7,6 +7,13 @@ import { Link } from 'react-router-dom';
 function HistoriqueAvenantRenduPoste({ avenant, typeConvention }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
+  const formatNombreDePostesRendus = nombreDePostesRendus => {
+    if (nombreDePostesRendus) {
+      return typeConvention === 'toutes' ? `-${nombreDePostesRendus}` : nombreDePostesRendus;
+    }
+    return '-';
+  };
+
   return (
     <>
       <td className="uppercase-letter">
@@ -19,7 +26,7 @@ function HistoriqueAvenantRenduPoste({ avenant, typeConvention }) {
           <span>Non renseign&eacute;e</span>
         }
       </td>
-      <td>{avenant?.nombreDePostesRendus ?? '-'}</td>
+      <td>{formatNombreDePostesRendus(avenant?.nombreDePostesRendus)}</td>
       <td style={{ width: '13rem' }}>Avenant · poste rendu</td>
       <td>
         <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={{
