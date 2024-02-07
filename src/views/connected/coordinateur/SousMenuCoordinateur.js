@@ -38,7 +38,7 @@ function SousMenuCoordinateur({
 
   return (
     <>
-      <a className="fr-nav__link" href={`${urlCra}`} target="blank" rel="noreferrer noopener">
+      <a className="fr-nav__link" href={urlCra} target="blank" rel="noreferrer noopener">
           Compte-rendu d&apos;activit&eacute;
       </a>
       <li className="fr-nav__item">
