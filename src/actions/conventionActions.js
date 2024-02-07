@@ -32,11 +32,11 @@ function getAll(page, typeConvention, filtreParNomStructure, filterDepartement, 
   }
 }
 
-function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
+function getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre) {
   return dispatch => {
     dispatch(request());
-
-    conventionService.getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre)
+    // eslint-disable-next-line max-len
+    conventionService.getAllHistorique(page, typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre)
     .then(
       conventions => dispatch(success(conventions)),
       error => {

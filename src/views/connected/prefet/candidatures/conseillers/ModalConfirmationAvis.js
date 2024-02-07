@@ -7,6 +7,7 @@ import FilterSelect from '../../../../../components/FilterSelect';
 function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStructure }) {
   const dispatch = useDispatch();
   const [commentaire, setCommentaire] = useState('');
+  const [isTransfert, setIsTransfert] = useState(false);
   const [idStructureTransfert, setIdStructureTransfert] = useState(null);
 
   const confirmationAvisPrefet = () => {
@@ -45,20 +46,44 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                 </h1>
                 <p>Souhaitez-vous confirmer l&rsquo;avis {avisPrefet} pour la structure <strong>{structure?.nom}</strong>&nbsp;?</p>
                 {avisPrefet === 'favorable' &&
-                  <div className="fr-select-group">
-                    <label className="fr-label fr-mb-1w" htmlFor="select">
-                      Si ce poste est attribu&eacute; au titre d&rsquo;un transfert
-                    </label>
-                    <FilterSelect
-                      options={listeStructure}
-                      onChange={option => option ? setIdStructureTransfert(option?._id) : setIdStructureTransfert(null)}
-                      placeholder="Veuillez s&eacute;lectionner la structure concern&eacute;e"
-                      noOptionsMessage={() => 'Aucune structure trouvée'}
-                      getOptionLabel={option => `${option?.idPG} - ${option?.nom}`}
-                      getOptionValue={option => option?._id}
-                      filterOption={filterOption}
-                    />
-                  </div>
+                  <>
+                    <fieldset className="fr-fieldset fr-mb-1w" id="radio-hint" aria-labelledby="radio-transfert-structure radio-hint-messages">
+                      <legend className="fr-fieldset__legend--regular fr-fieldset__legend" id="radio-transfert-structure">
+                        Cette demande concerne-t-elle un transfert de poste ?
+                      </legend>
+                      <div className="fr-fieldset__element">
+                        <div className="fr-radio-group" style={{ width: '10%' }}>
+                          <input type="radio" id="radio-structure-transfert-oui" name="radio-hint" onChange={() => setIsTransfert(true)} />
+                          <label className="fr-label" htmlFor="radio-structure-transfert-oui" >
+                            Oui
+                          </label>
+                        </div>
+                      </div>
+                      <div className="fr-fieldset__element">
+                        <div className="fr-radio-group" style={{ width: '10%' }}>
+                          <input type="radio" id="radio-structure-transfert-non" name="radio-hint" onChange={() => setIsTransfert(false)} />
+                          <label className="fr-label" htmlFor="radio-structure-transfert-non">
+                            Non
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                    {isTransfert &&
+                      <div className="fr-select-group">
+                        <label className="fr-label fr-mb-1w" htmlFor="select">
+                          Veuillez s&eacute;lectionner la structure qui transfert son poste
+                        </label>
+                        <FilterSelect
+                          options={listeStructure}
+                          onChange={option => option ? setIdStructureTransfert(option?._id) : setIdStructureTransfert(null)}
+                          placeholder="Recherchez par id ou nom de la structure"
+                          noOptionsMessage={() => 'Aucune structure trouvée'}
+                          getOptionLabel={option => `${option?.idPG} - ${option?.nom}`}
+                          getOptionValue={option => option?._id}
+                          filterOption={filterOption} />
+                      </div>
+                    }
+                  </>
                 }
                 <div className="fr-input-group">
                   <label className="fr-label" htmlFor="commentaire-input">
