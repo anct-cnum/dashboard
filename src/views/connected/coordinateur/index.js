@@ -20,7 +20,7 @@ export default function Coordinateur() {
             <h3>Bienvenue sur votre tableau de pilotage,</h3>
             <p>Nous sommes ravis de vous accueillir sur votre nouvel espace de pilotage.</p>
             <p>
-              Nous vous proposons une nouvelle interface de suivi et pilotage des Conseillers num&eacute;rique que vous coordonnez.
+              Nous vous proposons une nouvelle interface de suivi et pilotage des Conseillers num&eacute;rique que vous coordonnez.<br/>
               Ce nouvel espace permet de&nbsp;:
             </p>
             <div>

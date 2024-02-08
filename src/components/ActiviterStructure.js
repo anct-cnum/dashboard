@@ -6,6 +6,8 @@ import { checkStructurePhase2 } from '../views/connected/structure/utils/functio
 
 function ActiviterStructure({ structure, roleActivated }) {
 
+  const demandesCoordinateurValidees = structure?.demandesCoordinateur?.filter(demande => demande?.statut === 'validee').length;
+
   return (
     <>
       <div className="fr-grid-row fr-mt-6w fr-mb-4w fr-col-12">
@@ -18,13 +20,27 @@ function ActiviterStructure({ structure, roleActivated }) {
           <div className="fr-col-6">
             <h4 className="titre">Conventionnement phase 1</h4>
             <div className="fr-mb-3w">
-              <strong>{pluralize(
-                'Poste validé en comité de sélection',
-                'Poste validé en comité de sélection',
-                'Postes validés en comité de sélection',
+              <strong>Nombre de postes valid&eacute;s en comit&eacute; de s&eacute;lection</strong>
+              <br />
+              {structure?.posteValiderCoselecConventionnement ?? '-'}{' '}
+              {pluralize(
+                'Poste de conseiller',
+                'Poste de conseiller',
+                'Postes de conseillers',
                 structure?.posteValiderCoselecConventionnement
-              )}</strong><br />
-              <span>{structure?.posteValiderCoselecConventionnement ?? '-'}</span>
+              )}<br />
+              {
+                demandesCoordinateurValidees > 0 && <>
+                dont{' '}
+                  {demandesCoordinateurValidees}{' '}
+                  {pluralize(
+                    'poste de coordinateur',
+                    'poste de coordinateur',
+                    'postes de coordinateurs',
+                    demandesCoordinateurValidees
+                  )}
+                </>
+              }
             </div>
             <div className="fr-mb-3w fr-grid-row">
               <strong>{pluralize(
