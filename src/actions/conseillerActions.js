@@ -9,8 +9,6 @@ export const conseillerActions = {
   getAllRecruter,
   getConseillersCoordonnes,
   updateStatus,
-  updateDateRupture,
-  updateMotifRupture,
   preSelectionner,
   getCurriculumVitae,
   getAllCandidats,
@@ -31,7 +29,7 @@ function get(id) {
 
     conseillerService.get(id)
     .then(
-      response => dispatch(success(response)),
+      conseiller => dispatch(success(conseiller)),
       error => {
         dispatch(failure(error));
       }
@@ -41,8 +39,8 @@ function get(id) {
   function request() {
     return { type: 'GET_CONSEILLER_REQUEST' };
   }
-  function success(response) {
-    return { type: 'GET_CONSEILLER_SUCCESS', response };
+  function success(conseiller) {
+    return { type: 'GET_CONSEILLER_SUCCESS', conseiller };
   }
   function failure(error) {
     return { type: 'GET_CONSEILLER_FAILURE', error };
@@ -358,54 +356,6 @@ function updateStatus(id, statut, motifRupture, dateRupture) {
   }
   function failure(error) {
     return { type: 'UPDATE_STATUS_FAILURE', error };
-  }
-}
-
-function updateDateRupture({ id, date }) {
-  return dispatch => {
-    dispatch(request());
-
-    conseillerService.updateDateRupture(id, date)
-    .then(
-      miseEnRelation => dispatch(success(miseEnRelation)),
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
-
-  function request() {
-    return { type: 'UPDATE_DATE_RUPTURE_REQUEST' };
-  }
-  function success(miseEnRelation) {
-    return { type: 'UPDATE_DATE_RUPTURE_SUCCESS', miseEnRelation };
-  }
-  function failure(error) {
-    return { type: 'UPDATE_DATE_RUPTURE_FAILURE', error };
-  }
-}
-
-function updateMotifRupture({ id, motif }) {
-  return dispatch => {
-    dispatch(request());
-
-    conseillerService.updateMotifRupture(id, motif)
-    .then(
-      miseEnRelation => dispatch(success(miseEnRelation)),
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
-
-  function request() {
-    return { type: 'UPDATE_MOTIF_RUPTURE_REQUEST' };
-  }
-  function success(miseEnRelation) {
-    return { type: 'UPDATE_MOTIF_RUPTURE_SUCCESS', miseEnRelation };
-  }
-  function failure(error) {
-    return { type: 'UPDATE_MOTIF_RUPTURE_FAILURE', error };
   }
 }
 

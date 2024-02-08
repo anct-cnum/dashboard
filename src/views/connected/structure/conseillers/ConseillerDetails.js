@@ -18,8 +18,6 @@ function ConseillerDetails() {
   const errorConseiller = useSelector(state => state.conseiller?.error);
   const errorConseillerStatut = useSelector(state => state.conseiller?.errorUpdateStatus);
   const errorPreselection = useSelector(state => state.conseiller?.errorPreselection);
-  const successPreselection = useSelector(state => state.conseiller?.successPreselection);
-  const enCoursDeReRecrutement = useSelector(state => state.conseiller?.enCoursDeReRecrutement);
   const loading = useSelector(state => state.conseiller?.loading);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const currentPage = useSelector(state => state.pagination?.currentPage);
@@ -66,18 +64,6 @@ function ConseillerDetails() {
       setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
     }
   }, [conseiller]);
-
-  const preSelectionnerCandidat = () => {
-    dispatch(conseillerActions.preSelectionner(conseiller._id));
-    scrollTopWindow();
-  };
-
-  useEffect(() => {
-    if (successPreselection !== undefined && successPreselection !== false) {
-      window.location.href = '/structure/candidats/interessee';
-      dispatch(conseillerActions.resetSuccessPreselection());
-    }
-  }, [successPreselection]);
 
   return (
     <div className="fr-container conseillerDetails">
@@ -126,14 +112,7 @@ function ConseillerDetails() {
             </>
           }
           {conseiller?.statut === 'RUPTURE' &&
-            <>
-              <p className="fr-badge fr-badge--error fr-badge--no-icon" style={{ height: '20%' }}>Contrat termin&eacute;</p>
-              {!enCoursDeReRecrutement &&
-                <button className="fr-btn fr-btn--secondary fr-ml-md-auto fr-mt-2w fr-mt-md-0" onClick={preSelectionnerCandidat}>
-                  Recruter &agrave; nouveau
-                </button>
-              }
-            </>
+            <p className="fr-badge fr-badge--error fr-badge--no-icon" style={{ height: '20%' }}>Contrat termin&eacute;</p>
           }
           {misesEnRelationNouvelleRupture &&
             <>
