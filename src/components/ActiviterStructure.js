@@ -6,7 +6,7 @@ import { checkStructurePhase2 } from '../views/connected/structure/utils/functio
 
 function ActiviterStructure({ structure, roleActivated }) {
 
-  const demandesCoordinateurValidees = structure?.demandesCoordinateur?.filter(demande => demande?.statut === 'validee').length ?? 0;
+  const demandesCoordinateurValidees = structure?.demandesCoordinateur?.filter(demande => demande.statut === 'validee').length ?? 0;
 
   return (
     <>
@@ -31,8 +31,8 @@ function ActiviterStructure({ structure, roleActivated }) {
               )}<br />
               {
                 demandesCoordinateurValidees > 0 && <>
-                dont{' '}
-                  {demandesCoordinateurValidees}{' '}
+                dont&nbsp;
+                  {demandesCoordinateurValidees}&nbsp;
                   {pluralize(
                     'poste de coordinateur',
                     'poste de coordinateur',
