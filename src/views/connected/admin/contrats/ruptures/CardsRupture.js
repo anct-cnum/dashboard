@@ -3,7 +3,8 @@ import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../../utils/formatagesUtils';
 
-const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
+const CardsRupture = ({ urlDossierDS, miseEnRelation, renouvellementEnCours, setOpenModal }) => {
+console.log('miseEnRelation:', miseEnRelation);
 
   return (
     <div className="fr-card fr-mt-4w fr-card--no-border background-cards-contrat">
@@ -103,6 +104,7 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
                   className="fr-btn"
                   aria-controls="fr-modal-2"
                   onClick={() => setOpenModal(true)}
+                  disabled={renouvellementEnCours}
                 >
                   Traiter la demande
                 </button>
@@ -134,6 +136,7 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, setOpenModal }) => {
 CardsRupture.propTypes = {
   urlDossierDS: propTypes.string,
   miseEnRelation: propTypes.object,
+  renouvellementEnCours: propTypes.bool,
   setOpenModal: propTypes.func,
 };
 
