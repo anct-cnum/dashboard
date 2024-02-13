@@ -13,7 +13,7 @@ function ConseillerDetails() {
 
   const dispatch = useDispatch();
   const location = useLocation();
-  const { idConseiller, idMiseEnRelation } = useParams();
+  const { idConseiller } = useParams();
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const structure = useSelector(state => state.structure?.structure);
   const errorStructure = useSelector(state => state.structure?.error);
