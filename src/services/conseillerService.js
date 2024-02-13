@@ -14,8 +14,6 @@ export const conseillerService = {
   getAllCandidatsByAdmin,
   getAllMisesEnRelation,
   updateStatus,
-  updateDateRupture,
-  updateMotifRupture,
   preSelectionner,
   getCurriculumVitae,
   validationRupture,
@@ -204,22 +202,6 @@ function updateStatus(id, statut, motifRupture, dateRupture) {
 
 function preSelectionner(conseillerId) {
   return API.patch(`${apiUrlRoot}/structure/pre-selectionner/${conseillerId}?role=${roleActivated()}`)
-  .then(response => response.data)
-  .catch(handleApiError);
-}
-
-function updateDateRupture(id, date) {
-  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
-    dateRupture: date
-  })
-  .then(response => response.data)
-  .catch(handleApiError);
-}
-
-function updateMotifRupture(id, motif) {
-  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
-    motifRupture: motif
-  })
   .then(response => response.data)
   .catch(handleApiError);
 }

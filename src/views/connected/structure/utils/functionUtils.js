@@ -92,3 +92,35 @@ export const checkStructurePhase2 = statut => {
 
 export const checkIsConseiller = statut => ['RECRUTE', 'RUPTURE', 'TERMINE'].includes(statut);
 
+export const getGroupText = group => {
+  switch (group) {
+    case 0:
+    case 1:
+    case 2:
+      return 'Ce conseiller remplit activement ses CRAs';
+    case 3:
+      return 'Ce conseiller n\'a pas rempli de CRA depuis 30 jours';
+    case 4:
+      return 'Ce conseiller n\'a jamais rempli de CRA';
+    case 5:
+      return 'Ce conseiller n\'a pas rempli de CRA cette année';
+    default:
+      return 'non renseigné';
+  }
+};
+
+export const getAlertLevel = group => {
+  switch (group) {
+    case 0:
+    case 1:
+    case 2:
+      return 'success';
+    case 3:
+      return 'warning';
+    case 4:
+    case 5:
+      return 'error';
+    default:
+      return '';
+  }
+};

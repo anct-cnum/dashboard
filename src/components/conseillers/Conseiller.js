@@ -44,10 +44,12 @@ function Conseiller({ conseiller }) {
         </td>
         <td>{conseiller?.craCount}</td>
         <td>
-          <button
+          <Link
+            to={`/${roleActivated}/conseiller/${conseiller?._id}`}
+            state={{ 'origin': `/${roleActivated}/liste-conseillers`, conseiller }}
             className="fr-btn fr-icon-eye-line fr-mb-2w"
             title="D&eacute;tail"
-            onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)} />
+          />
           <Link
             onClick={() => trackEvent({ category: 'statistiques-conseillers', action: `click-${roleActivated}` })}
             className="fr-btn fr-icon-line-chart-line"

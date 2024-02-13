@@ -178,16 +178,18 @@ function getExportDonneesGestionnaires(filtreRole, filtreParNom, nomOrdre, ordre
   .catch(handleApiError);
 }
 
-function getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
+function getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre) {
   const {
     filterDateStart,
     filterDateEnd,
     filterByName,
     filterByDepartement,
     filterByRegion,
+    filterByAvisAdmin,
     ordreColonne,
-  } = historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre);
-  return API.get(`${apiUrlRoot}/exports/historique-dossiers-convention-csv?role=${roleActivated()}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
+  } = historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre);
+
+  return API.get(`${apiUrlRoot}/exports/historique-dossiers-convention-csv?role=${roleActivated()}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisAdmin}`)
   .then(response => response.data)
   .catch(handleApiError);
 }

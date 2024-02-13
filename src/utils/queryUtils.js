@@ -95,15 +95,17 @@ export function conventionQueryStringParameters(filtreParNomStructure, filterDep
   return { filterByName, filterByDepartement, filterByRegion, filterByAvisPrefet, ordreColonne };
 }
 
-export function historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, ordreNom, ordre) {
+// eslint-disable-next-line max-len
+export function historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre) {
   const filterByName = filtreParNomStructure ? `&searchByNomStructure=${filtreParNomStructure}` : '';
   const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
   const filterByDepartement = filterDepartement !== 'tous' && filterDepartement !== undefined ? `&departement=${filterDepartement}` : '';
   const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const filterByAvisAdmin = filtreAvisAdmin !== 'tous' && filtreAvisAdmin !== undefined ? `&avisAdmin=${filtreAvisAdmin}` : '';
 
-  return { filterDateStart, filterDateEnd, filterByName, filterByDepartement, filterByRegion, ordreColonne };
+  return { filterDateStart, filterDateEnd, filterByName, filterByDepartement, filterByRegion, filterByAvisAdmin, ordreColonne };
 }
 
 export function contratQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, ordreNom, ordre) {
