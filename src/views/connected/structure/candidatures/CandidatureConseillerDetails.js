@@ -28,7 +28,7 @@ function CandidatureConseillerDetails() {
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [displayModal, setDisplayModal] = useState(true);
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
-  const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const [misesEnRelationSansMission, setMisesEnRelationSansMission] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
 
   useEffect(() => {
@@ -54,7 +54,10 @@ function CandidatureConseillerDetails() {
     if (conseiller !== undefined) {
       setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
       setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
-      setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
+      setMisesEnRelationSansMission(conseiller.misesEnRelation?.filter(
+        miseEnRelation =>
+          miseEnRelation.statut === 'finalisee_rupture' || miseEnRelation.statut === 'terminee_naturelle'
+      ));
     }
   }, [conseiller]);
 
@@ -145,7 +148,7 @@ function CandidatureConseillerDetails() {
           {Object.keys(misesEnRelationFinalisee || {}).length > 0 &&
             <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
           }
-          {conseiller?.statutCandidat === 'RUPTURE' &&
+          {(conseiller?.statutCandidat === 'RUPTURE' || conseiller?.statutCandidat === 'TERMINE') &&
             <p className="fr-badge fr-badge--error fr-mr-2w" style={{ height: '20%' }}>Contrat termin&eacute;</p>
           }
           {misesEnRelationFinalisee?.statut === 'nouvelle_rupture' &&
@@ -191,7 +194,7 @@ function CandidatureConseillerDetails() {
       <InformationConseiller
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
-        misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        misesEnRelationSansMission={misesEnRelationSansMission}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
         roleActivated={roleActivated}
         recrutement={true}

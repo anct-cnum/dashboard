@@ -90,6 +90,8 @@ export const checkStructurePhase2 = statut => {
   return false;
 };
 
+export const checkIsConseiller = statut => ['RECRUTE', 'RUPTURE', 'TERMINE'].includes(statut);
+
 export const getGroupText = group => {
   switch (group) {
     case 0:
