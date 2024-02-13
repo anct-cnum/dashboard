@@ -4,10 +4,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 import * as Sentry from '@sentry/react';
-import { Integrations } from '@sentry/tracing';
+import { browserTracingIntegration } from '@sentry/browser';
 import { AuthProvider } from 'react-oidc-context';
 import { WebStorageStateStore } from 'oidc-client-ts';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -19,14 +18,17 @@ if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
     environment: process.env.REACT_APP_SENTRY_ENVIRONMENT,
-    integrations: [new Integrations.BrowserTracing()],
+    integrations: [browserTracingIntegration()],
     tracesSampleRate: process.env.REACT_APP_SENTRY_TRACE_RATE,
   });
 }
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: [thunk]
+  middleware: getDefaultMiddleware => getDefaultMiddleware({
+    serializableCheck: false,
+    immutableCheck: false,
+  }),
 });
 
 const oidcConfig = {

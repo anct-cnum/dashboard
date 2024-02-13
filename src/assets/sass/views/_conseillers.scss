@@ -123,9 +123,14 @@
     }
     @media (min-width: 1201px) {
         .date-picker {
-            flex: 0 0 29.3%;
-            max-width: 29.3%;
-            width: 29.3%;
+            flex: 0 0 29.7%;
+            max-width: 29.7%;
+            width: 29.7%;
+        }
+        #filtre-region {
+            flex: 0 0 22.7%;
+            max-width: 22.7%;
+            width: 22.7%;
         }
     }
 }

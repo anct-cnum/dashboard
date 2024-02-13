@@ -1,6 +1,6 @@
 import axios from 'axios';
 import signOut from './logout';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { authenticationActions } from '../../actions/authenticationActions';
 import apiUrlRoot from '../../helpers/apiUrl';
 
