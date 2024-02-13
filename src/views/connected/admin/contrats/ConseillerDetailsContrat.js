@@ -154,7 +154,7 @@ function ConseillerDetailsContrat() {
               <CardsRupture
                 urlDossierDS={conseiller?.url}
                 miseEnRelation={conseiller?.contrat}
-                renouvellementEnCours={conseiller?.renouvellementEnCourss}
+                renouvellementEnCours={conseiller?.renouvellementEnCours}
                 setOpenModal={setOpenModal}
               />
               {openModal &&

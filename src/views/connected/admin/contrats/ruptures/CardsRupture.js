@@ -1,10 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import dayjs from 'dayjs';
+import { Tooltip } from 'react-tooltip';
 import { formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../../utils/formatagesUtils';
 
 const CardsRupture = ({ urlDossierDS, miseEnRelation, renouvellementEnCours, setOpenModal }) => {
-console.log('miseEnRelation:', miseEnRelation);
 
   return (
     <div className="fr-card fr-mt-4w fr-card--no-border background-cards-contrat">
@@ -105,9 +105,14 @@ console.log('miseEnRelation:', miseEnRelation);
                   aria-controls="fr-modal-2"
                   onClick={() => setOpenModal(true)}
                   disabled={renouvellementEnCours}
+                  data-tooltip-id="tooltip-bouton-disabled-rupture"
+                  data-tooltip-content="Une demande de renouvellement de contrat est en cours pour ce conseiller"
                 >
                   Traiter la demande
                 </button>
+                {renouvellementEnCours &&
+                        <Tooltip variant="light" id="tooltip-bouton-disabled-rupture" className="infobulle" />
+                }
               </li>
             }
             <li className="fr-ml-auto">
