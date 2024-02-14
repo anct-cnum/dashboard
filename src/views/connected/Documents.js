@@ -292,8 +292,8 @@ export default function Documents() {
         <div className="fr-grid-row">
           <p>
             <a href={`${urlSiteVitrine}/kit-communication`}
-              className="fr-link" target="blank" rel="noreferrer noopener" title="kit de communication V2">
-              kit de communication V2
+              className="fr-link" target="blank" rel="noreferrer noopener" title="kit de communication V4">
+              kit de communication V4
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
               Acc&eacute;der au kit de communication&nbsp;:&nbsp;logos, charte graphique, gabarits, mod&egrave;le de carte de visite
