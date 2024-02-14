@@ -111,7 +111,7 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, renouvellementEnCours, set
                   Traiter la demande
                 </button>
                 {renouvellementEnCours &&
-                        <Tooltip variant="light" id="tooltip-bouton-disabled-rupture" className="infobulle" />
+                  <Tooltip variant="light" id="tooltip-bouton-disabled-rupture" className="infobulle" />
                 }
               </li>
             }
