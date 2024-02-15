@@ -37,7 +37,7 @@ function RecrutementCoordinateur() {
       <ol>
         <li className="fr-mb-2w" style={{ width: '68%' }}>
           Compl&eacute;ter le formulaire de motivation de votre candidature sur D&eacute;marches simplifi&eacute;es en cliquant
-          sur le bouton &laquo; Compl&eacute;ter le formulaire de motivation &raquo;. Celui-ci permettra au pr&eacute;fet de
+          sur le bouton &laquo;&nbsp;Compl&eacute;ter le formulaire de motivation&nbsp;&raquo;. Celui-ci permettra au pr&eacute;fet de
           donner un avis et &agrave; l&rsquo;ANCT de valider ou refuser votre demande.
         </li>
         <li className="fr-mb-2w">
@@ -55,7 +55,7 @@ function RecrutementCoordinateur() {
       </span>
       <p className="fr-mt-2w" style={{ width: '70%' }}>
         Si votre futur conseiller coordinateur est d&eacute;j&agrave; embauch&eacute; au sein de votre structure, il vous suffira de
-        cliquer sur le bouton &laquo; Attribuer un r&ocirc;le de coordinateur &raquo; en s&eacute;lectionnant le nom et pr&eacute;nom de la
+        cliquer sur le bouton &laquo;&nbsp;Attribuer un r&ocirc;le de coordinateur&nbsp;&raquo; en s&eacute;lectionnant le nom et pr&eacute;nom de la
         personne parmi la liste.
       </p>
       <span>
