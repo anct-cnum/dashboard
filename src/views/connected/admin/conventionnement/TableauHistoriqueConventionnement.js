@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import Conventionnement from './Conventionnement';
 import { filtresConventionsActions, paginationActions } from '../../../../actions';
+import HistoriqueConventionnement from './HistoriqueConventionnement';
 
-export function TableauConventionnement({ conventions, loading, error, ordreNom, ordre }) {
+export function TableauHistoriqueConventionnement({ conventions, loading, error, ordreNom, ordre }) {
   const dispatch = useDispatch();
 
   const ordreColonne = e => {
@@ -29,7 +29,7 @@ export function TableauConventionnement({ conventions, loading, error, ordreNom,
               </span>
             </button>
           </th>
-          <th style={{ width: '25rem' }}>Nb. de postes demand&eacute;s</th>
+          <th style={{ width: '25rem' }}>Nb. de postes accord&eacute;s</th>
           <th style={{ width: '13rem' }}>Avis pr&eacute;fet</th>
           <th style={{ width: '25rem' }}>Type de demande</th>
           <th style={{ width: '8rem' }}></th>
@@ -39,7 +39,7 @@ export function TableauConventionnement({ conventions, loading, error, ordreNom,
         {!error && !loading && conventions?.items?.data?.map((convention, idx) => {
           return (
             <tr key={idx}>
-              <Conventionnement structure={convention} typeConvention="conventionnement" />
+              <HistoriqueConventionnement structure={convention} typeConvention="conventionnement" />
             </tr>
           );
         })
@@ -48,7 +48,7 @@ export function TableauConventionnement({ conventions, loading, error, ordreNom,
           <tr>
             <td colSpan="12" style={{ width: '60rem' }}>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <span className="not-found pair">Aucune demande de convention trouv&eacute;</span>
+                <span className="not-found pair">Aucune demande de convention trouv&eacute;e</span>
               </div>
             </td>
           </tr>
@@ -58,7 +58,7 @@ export function TableauConventionnement({ conventions, loading, error, ordreNom,
   );
 }
 
-TableauConventionnement.propTypes = {
+TableauHistoriqueConventionnement.propTypes = {
   conventions: PropTypes.object,
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([
@@ -69,4 +69,4 @@ TableauConventionnement.propTypes = {
   ordre: PropTypes.bool,
 };
 
-export default TableauConventionnement;
+export default TableauHistoriqueConventionnement;

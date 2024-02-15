@@ -5,6 +5,7 @@ const initialState = {
   region: 'tous',
   departement: 'tous',
   statutDossierRupture: 'tous',
+  avisAdmin: 'tous',
   avisPrefet: 'tous',
 };
 
@@ -35,6 +36,11 @@ export default function filtresConventions(state = initialState, action) {
       return {
         ...state,
         statutDossierRupture: action.statutDossierRupture
+      };
+    case 'CHANGE_AVIS_ADMIN_CANDIDATURE':
+      return {
+        ...state,
+        avisAdmin: action.avisAdmin
       };
     case 'CHANGE_AVIS_PREFET':
       return {

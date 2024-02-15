@@ -1,5 +1,6 @@
 export const filtresDemandesActions = {
-  changeOrdre,
+  changeOrdreConseiller,
+  changeOrdreCoordinateur,
   changeNom,
   changeFiltreDepartement,
   changeFiltreRegion,
@@ -7,8 +8,12 @@ export const filtresDemandesActions = {
   resetFiltre,
 };
 
-function changeOrdre(ordreNom) {
-  return { type: 'CHANGE_ORDRE', ordreNom };
+function changeOrdreConseiller(ordreNom) {
+  return { type: 'CHANGE_ORDRE_CONSEILLER', ordreNom };
+}
+
+function changeOrdreCoordinateur(ordreNom) {
+  return { type: 'CHANGE_ORDRE_COORDINATEUR', ordreNom };
 }
 
 function changeNom(nom) {

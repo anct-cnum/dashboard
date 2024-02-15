@@ -19,7 +19,7 @@ export default function TableauCoordinateurs() {
   const error = useSelector(state => state.coordinateur?.error);
   const coordinateurs = useSelector(state => state.coordinateur);
   const ordre = useSelector(state => state.filtresDemandes?.ordre);
-  const ordreNom = useSelector(state => state.filtresDemandes?.ordreNom);
+  const ordreNom = useSelector(state => state.filtresDemandes?.ordreNomCoordinateur);
   const filtreSearchBar = useSelector(state => state.filtresDemandes?.nom);
   const filtreDepartement = useSelector(state => state.filtresDemandes?.departement);
   const filtreRegion = useSelector(state => state.filtresDemandes?.region);
@@ -108,7 +108,7 @@ export default function TableauCoordinateurs() {
 
   const ordreColonne = e => {
     dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesActions.changeOrdre(e.currentTarget?.id));
+    dispatch(filtresDemandesActions.changeOrdreCoordinateur(e.currentTarget?.id));
   };
 
   const demandesCoordinateurWithBanner = coordinateurs?.items?.data?.filter(demande => demande?.banniereValidationAvisAdmin === true);

@@ -45,6 +45,7 @@ function Gestionnaire({ gestionnaire }) {
           <button
             className="fr-btn fr-icon-delete-line"
             title="Supprimez le gestionnaire"
+            disabled={gestionnaire?.roles?.includes('coordinateur')}
             onClick={() => {
               setConfirmSuppressionGestionnaire(true);
               scrollTopWindow();

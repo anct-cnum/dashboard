@@ -37,7 +37,7 @@ export default function Accueil() {
       { roleActivated === 'structure' &&
         <Structure />
       }
-      { roleActivated === 'coordinateur_coop' &&
+      { roleActivated === 'coordinateur' &&
         <Coordinateur />
       }
       { roleActivated === 'grandReseau' &&

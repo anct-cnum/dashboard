@@ -7,9 +7,8 @@ export const conseillerActions = {
   getCandidat,
   getCandidatRecrutement,
   getAllRecruter,
+  getConseillersCoordonnes,
   updateStatus,
-  updateDateRupture,
-  updateMotifRupture,
   preSelectionner,
   getCurriculumVitae,
   getAllCandidats,
@@ -241,6 +240,30 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
     return { type: 'GETALL_RECRUTER_FAILURE', error };
   }
 }
+function getConseillersCoordonnes(page, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+  return dispatch => {
+    dispatch(request());
+    conseillerService.getConseillersCoordonnes(page, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre)
+    .then(
+      conseillers => {
+        dispatch(success(conseillers));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GETALL_RECRUTER_REQUEST' };
+  }
+  function success(conseillers) {
+    return { type: 'GETALL_RECRUTER_SUCCESS', conseillers };
+  }
+  function failure(error) {
+    return { type: 'GETALL_RECRUTER_FAILURE', error };
+  }
+}
 
 function getAllCandidatsByAdmin(page, filtreParNomCandidat, filtreParRegion, filtreParDepartement) {
   return dispatch => {
@@ -333,54 +356,6 @@ function updateStatus(id, statut, motifRupture, dateRupture) {
   }
   function failure(error) {
     return { type: 'UPDATE_STATUS_FAILURE', error };
-  }
-}
-
-function updateDateRupture({ id, date }) {
-  return dispatch => {
-    dispatch(request());
-
-    conseillerService.updateDateRupture(id, date)
-    .then(
-      miseEnRelation => dispatch(success(miseEnRelation)),
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
-
-  function request() {
-    return { type: 'UPDATE_DATE_RUPTURE_REQUEST' };
-  }
-  function success(miseEnRelation) {
-    return { type: 'UPDATE_DATE_RUPTURE_SUCCESS', miseEnRelation };
-  }
-  function failure(error) {
-    return { type: 'UPDATE_DATE_RUPTURE_FAILURE', error };
-  }
-}
-
-function updateMotifRupture({ id, motif }) {
-  return dispatch => {
-    dispatch(request());
-
-    conseillerService.updateMotifRupture(id, motif)
-    .then(
-      miseEnRelation => dispatch(success(miseEnRelation)),
-      error => {
-        dispatch(failure(error));
-      }
-    );
-  };
-
-  function request() {
-    return { type: 'UPDATE_MOTIF_RUPTURE_REQUEST' };
-  }
-  function success(miseEnRelation) {
-    return { type: 'UPDATE_MOTIF_RUPTURE_SUCCESS', miseEnRelation };
-  }
-  function failure(error) {
-    return { type: 'UPDATE_MOTIF_RUPTURE_FAILURE', error };
   }
 }
 

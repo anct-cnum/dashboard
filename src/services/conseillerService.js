@@ -1,7 +1,7 @@
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { conseillerQueryStringParameters, candidatQueryStringParameters } from '../utils/queryUtils';
+import { conseillerQueryStringParameters, candidatQueryStringParameters, conseillerCoordonnesQueryStringParameters } from '../utils/queryUtils';
 
 export const conseillerService = {
   get,
@@ -9,12 +9,11 @@ export const conseillerService = {
   getCandidat,
   getCandidatRecrutement,
   getAllRecruter,
+  getConseillersCoordonnes,
   getAllCandidats,
   getAllCandidatsByAdmin,
   getAllMisesEnRelation,
   updateStatus,
-  updateDateRupture,
-  updateMotifRupture,
   preSelectionner,
   getCurriculumVitae,
   validationRupture,
@@ -103,6 +102,24 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
   .catch(handleApiError);
 }
 
+function getConseillersCoordonnes(page, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre) {
+  let {
+    ordreColonne,
+    filterByNameConseiller,
+    filterByRegion,
+    filterByDepartement,
+    filterByNameStructure,
+
+  } = conseillerCoordonnesQueryStringParameters(nomOrdre, ordre, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure);
+
+  // eslint-disable-next-line max-len
+  let uri = `${apiUrlRoot}/conseillers-coordonnes?skip=${page}${filterByNameConseiller}${ordreColonne}${filterByRegion}${filterByDepartement}${filterByNameStructure}&role=${roleActivated()}`;
+
+  return API.get(uri)
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
 function getAllCandidatsByAdmin(page, filtreSearch, filtreParRegion, filtreParDepartement) {
   let {
     filterByNameAndEmailCandidat,
@@ -185,22 +202,6 @@ function updateStatus(id, statut, motifRupture, dateRupture) {
 
 function preSelectionner(conseillerId) {
   return API.patch(`${apiUrlRoot}/structure/pre-selectionner/${conseillerId}?role=${roleActivated()}`)
-  .then(response => response.data)
-  .catch(handleApiError);
-}
-
-function updateDateRupture(id, date) {
-  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
-    dateRupture: date
-  })
-  .then(response => response.data)
-  .catch(handleApiError);
-}
-
-function updateMotifRupture(id, motif) {
-  return API.patch(`${apiUrlRoot}/misesEnRelation/${id}?role=${roleActivated()}`, {
-    motifRupture: motif
-  })
   .then(response => response.data)
   .catch(handleApiError);
 }

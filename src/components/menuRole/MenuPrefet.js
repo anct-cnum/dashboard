@@ -38,7 +38,7 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
                 Demandes de coordinateurs &agrave; traiter
               </Link>
             </li>
-            {/* <li>
+            <li>
               <Link className="fr-nav__link" to={`/${roleActivated}/demandes/conseillers`}
                 {...(location.pathname.startsWith(`/${roleActivated}/demandes/conseillers`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => {
@@ -48,7 +48,7 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
               >
                 Demandes de conseillers &agrave; traiter
               </Link>
-            </li> */}
+            </li>
           </ul>
         </div>
       </li>
