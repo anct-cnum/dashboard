@@ -1,5 +1,5 @@
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { authenticationActions } from '../actions/authenticationActions';
 import signOut from '../services/auth/logout';
 import apiUrlRoot from '../helpers/apiUrl';
@@ -26,7 +26,7 @@ const setup = store => {
       req.headers.Authorization = `Bearer ${accessToken}`;
       const decodedToken = jwtDecode(accessToken);
       const isExpired = decodedToken.exp < Date.now().valueOf() / 1000;
-      
+
       if (!isExpired) {
         return req;
       }
