@@ -152,7 +152,7 @@ function updateStructureEmail(email, structureId) {
 
     structureService.updateStructureEmail(email, structureId)
     .then(
-      structure => dispatch(success(structure.emailUpdated)),
+      structure => dispatch(success(structure)),
       error => {
         dispatch(failure(error));
       }
@@ -162,8 +162,8 @@ function updateStructureEmail(email, structureId) {
   function request() {
     return { type: 'UPDATE_STRUCTURE_EMAIL_REQUEST' };
   }
-  function success(emailUpdated) {
-    return { type: 'UPDATE_STRUCTURE_EMAIL_SUCCESS', emailUpdated };
+  function success(structure) {
+    return { type: 'UPDATE_STRUCTURE_EMAIL_SUCCESS', ...structure };
   }
   function failure(error) {
     return { type: 'UPDATE_STRUCTURE_EMAIL_FAILURE', error };

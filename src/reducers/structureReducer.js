@@ -138,6 +138,7 @@ export default function structure(state = initialState, action) {
         loading: false,
         structure: { ...state.structure, contact: { ...state.structure?.contact, email: action.emailUpdated } },
         emailUpdated: true,
+        newUserInvit: action.newUserInvit
       };
     case 'UPDATE_STRUCTURE_EMAIL_FAILURE':
       return {

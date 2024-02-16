@@ -21,6 +21,7 @@ function StructureDetails() {
   const [displayFormEmail, setDisplayFormEmail] = useState(false);
   const error = useSelector(state => state.structure?.error);
   const loadingStructure = useSelector(state => state.structure?.loading);
+  const sucessInvitationChangeContact = useSelector(state => state.structure?.newUserInvit);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const loadingInvitation = useSelector(state => state.invitations?.loading);
   const success = useSelector(state => state.invitations?.success);
@@ -34,6 +35,20 @@ function StructureDetails() {
       dispatch(structureActions.getDetails(idStructure));
     }
   }, [structure]);
+
+  useEffect(() => {
+    if (sucessInvitationChangeContact) {
+      scrollTopWindow();
+      dispatch(
+        alerteEtSpinnerActions.getMessageAlerte({
+          type: 'success',
+          message: 'Email de contact bien mis à jour, un email d\'invitation a bien été envoyé', // Revoir message
+          status: null,
+          description: null,
+        })
+      );
+    }
+  }, [sucessInvitationChangeContact]);
 
   useEffect(() => {
     if (success) {

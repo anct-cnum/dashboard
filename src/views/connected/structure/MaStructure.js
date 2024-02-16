@@ -36,6 +36,7 @@ function MaStructure() {
   const [openModal, setOpenModal] = useState(false);
   const users = useSelector(state => state.user?.users);
   const errorStructure = useSelector(state => state.structure?.error);
+  const sucessInvitationChangeContact = useSelector(state => state.structure?.newUserInvit);
   const errorUsers = useSelector(state => state.user?.error);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const [initStructure, setInitStructure] = useState(false);
@@ -52,6 +53,20 @@ function MaStructure() {
       dispatch(userActions.getUsers());
     }
   }, [structure]);
+
+  useEffect(() => {
+    if (sucessInvitationChangeContact) {
+      scrollTopWindow();
+      dispatch(
+        alerteEtSpinnerActions.getMessageAlerte({
+          type: 'success',
+          message: 'Informations de contact bien mis à jour, un email d\'invitation a bien été envoyé', // Revoir message
+          status: null,
+          description: null,
+        })
+      );
+    }
+  }, [sucessInvitationChangeContact]);
 
   useEffect(() => {
     if (successInvitation) {
