@@ -112,7 +112,7 @@ function ConseillerDetails() {
       {conseiller &&
         <>
           <div className="fr-col-12 fr-grid-row" style={{ alignItems: 'baseline' }}>
-            {(misesEnRelationFinalisee.length > 0 || misesEnRelationNouvelleRupture) &&
+            {(misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture) &&
               <p className="fr-badge fr-mr-2w fr-badge--success" style={{ height: '20%' }}>Contrat en cours</p>
             }
             {(conseiller?.statut === 'RUPTURE' || conseiller?.statut === 'TERMINE') &&
