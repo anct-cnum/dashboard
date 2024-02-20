@@ -46,7 +46,7 @@ function Header() {
             <div className="fr-header__brand fr-enlarge-link">
               <div className="fr-header__brand-top">
                 <div className="fr-header__logo" style={{ paddingRight: '0', marginRight: '0' }}>
-                  <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique France services">
+                  <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique">
                     <p className="fr-logo">
                       R&eacute;publique
                       <br />

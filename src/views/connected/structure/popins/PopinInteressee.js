@@ -21,8 +21,8 @@ function PopinInteressee({ setDisplayModal }) {
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true">
                   </span>Important</h1>
                 <p>
-                    Lorsque vous aurez conduit le ou les entretien(s) avec le ou les candidat(s) et choisi votre ou vos Conseiller(s) Numérique(s)
-                    France Services, merci de nous l&rsquo;indiquer en cliquant sur le bouton &laquo;&nbsp;Valider cette candidature&nbsp;&raquo;.
+                    Lorsque vous aurez conduit le ou les entretien(s) avec le ou les candidat(s) et choisi votre ou vos Conseiller(s) Numérique(s),
+                    merci de nous l&rsquo;indiquer en cliquant sur le bouton &laquo;&nbsp;Valider cette candidature&nbsp;&raquo;.
                   <br/><br/>
                     Cette action est indispensable pour la suite de votre demande de subvention.
                     Elle conditionne la réception du lien vous dirigeant vers la plateforme Démarches Simplifiées.

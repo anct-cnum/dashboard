@@ -24,7 +24,7 @@ function PopinRecrutee({ setDisplayModal, urlDossierDS }) {
                 <p>
                     Vous avez actionn&eacute; le bouton &laquo;&nbsp;Valider cette candidature&nbsp;&raquo;
                   <br/>
-                    Votre choix est donc arr&ecirc;t&eacute; sur un ou plusieurs Conseillers num&eacute;riques France Services.
+                    Votre choix est donc arr&ecirc;t&eacute; sur un ou plusieurs Conseillers num&eacute;riques.
                     Vous allez donc passer à l&rsquo;étape de conventionnement.
                 </p>
                 <p>

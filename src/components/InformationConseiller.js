@@ -66,7 +66,7 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
         <div className="fr-grid-row">
           <div className="fr-col-12 titreCol">
-            <h2 className="fr-h2 fr-mb-1w">Informations CnFS</h2>
+            <h2 className="fr-h2 fr-mb-1w">Informations Conum</h2>
           </div>
         </div>
         <div className="fr-grid-row fr-col-12 color-text color-title-subpart">

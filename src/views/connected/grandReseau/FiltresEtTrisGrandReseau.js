@@ -88,7 +88,7 @@ function FiltresEtTrisGrandReseau() {
               options={listeConseillers}
               valueName="_id"
               labelName="emailCN"
-              title="S&eacute;lection CnFS"
+              title="S&eacute;lection Conum"
               defaultValue={'tous'}
             />
           </select>

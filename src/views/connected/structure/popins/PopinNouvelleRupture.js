@@ -27,7 +27,7 @@ function PopinNouvelleRupture({ setDisplayModal }) {
                     Afin d&rsquo;&ecirc;tre en capacit&eacute; de finaliser celui-ci, et comme indiqu&eacute;
                     dans notre FAQ, nous vous remercions de bien vouloir nous transmettre,
                     via votre dossier sur la plateforme D&eacute;marches Simplifi&eacute;es,&nbsp;
-                  <strong>tous les documents relatifs &agrave; la fin de contrat</strong> de votre Conseiller num&eacute;rique France Services
+                  <strong>tous les documents relatifs &agrave; la fin de contrat</strong> de votre Conseiller num&eacute;rique
                     au sein de votre structure.
                 </p>
                 <p>
