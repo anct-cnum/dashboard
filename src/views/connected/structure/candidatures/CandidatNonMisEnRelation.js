@@ -40,7 +40,7 @@ function CandidatNonMisEnRelation({ conseiller, currentFilter }) {
               data-tooltip-float="true"
               data-tooltip-id={`tooltip-cnfs-candidat-non-mise-en-relation${conseiller?.idPG}`}
             >
-              <img src={pinCNFS} alt="logo CNFS" style={{ height: '36px' }} />
+              <img src={pinCNFS} alt="logo Conum" style={{ height: '36px' }} />
             </div>
             <Tooltip variant="light" id={`tooltip-cnfs-candidat-non-mise-en-relation${conseiller?.idPG}`} className="infobulle" />
           </>

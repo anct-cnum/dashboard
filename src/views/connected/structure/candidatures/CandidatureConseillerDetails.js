@@ -117,7 +117,7 @@ function CandidatureConseillerDetails() {
             data-tooltip-float="true"
             className={`fr-ml-2w ${conseiller ? '' : 'fr-hidden'}`}
             src={pinCNFS}
-            alt="logo CNFS"
+            alt="logo Conum"
             style={{ height: '50px', position: 'absolute' }}
           />
         </h1>

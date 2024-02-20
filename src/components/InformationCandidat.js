@@ -28,7 +28,7 @@ function InformationCandidat({ conseiller }) {
       <div className="fr-grid-row fr-grid-row--bottom fr-pt-1w fr-pb-9w">
         <div className="fr-grid-row fr-mt-3w fr-mb-3w">
           <div className="fr-col-12 titreCol">
-            <h2 className="fr-h2">Informations CnFS</h2>
+            <h2 className="fr-h2">Informations Conum</h2>
           </div>
         </div>
         <div className="fr-grid-row fr-col-12 color-text">

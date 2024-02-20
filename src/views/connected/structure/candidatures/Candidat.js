@@ -42,7 +42,7 @@ function Candidat({ miseEnRelation, currentFilter, search }) {
               data-tooltip-float="true"
               data-tooltip-id={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`}
             >
-              <img src={pinCNFS} alt="logo CNFS" style={{ height: '36px' }} />
+              <img src={pinCNFS} alt="logo Conum" style={{ height: '36px' }} />
             </div>
             <Tooltip variant="light" className="infobulle" id={`tooltip-cnfs-candidat${miseEnRelation?.conseillerObj?.idPG}`} />
           </>
