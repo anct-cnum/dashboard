@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/brands/logo-conseiller-numerique-min.svg';
@@ -7,6 +7,7 @@ import Menu from './Menu';
 import { useAuth } from 'react-oidc-context';
 import UserMenu from './UserMenu';
 import signOut from '../services/auth/logout';
+import Spinner from './Spinner';
 
 function Header() {
 
@@ -18,14 +19,22 @@ function Header() {
   const roles = useSelector(state => state.authentication?.rolesAllowed)?.filter(role => !['admin_coop', 'structure_coop', 'conseiller'].includes(role));
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const user = useSelector(state => state.authentication?.user);
+  const [loading, setLoading] = useState(false);
 
   const clickButtonLogout = async e => {
-    await signOut();
-    if (e?.target?.className.includes('button-disconnect-auth')) {
-      localStorage.setItem('logoutAction', JSON.stringify('Déconnexion en cours...'));
-      await auth.signoutRedirect();
-    } else {
+    setLoading(true);
+    try {
+      await signOut();
+      if (e?.target?.className.includes('button-disconnect-auth')) {
+        localStorage.setItem('logoutAction', JSON.stringify('Déconnexion en cours...'));
+        await auth.signoutRedirect();
+      } else {
+        navigate('/login');
+      }
+    } catch (error) {
       navigate('/login');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,46 +48,48 @@ function Header() {
   };
 
   return (
-    <header role="banner" className="fr-header">
-      <div className="fr-header__body">
-        <div className="fr-container">
-          <div className="fr-header__body-row">
-            <div className="fr-header__brand fr-enlarge-link">
-              <div className="fr-header__brand-top">
-                <div className="fr-header__logo" style={{ paddingRight: '0', marginRight: '0' }}>
-                  <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique">
-                    <p className="fr-logo">
+    <>
+      <Spinner loading={loading} />
+      <header role="banner" className="fr-header">
+        <div className="fr-header__body">
+          <div className="fr-container">
+            <div className="fr-header__body-row">
+              <div className="fr-header__brand fr-enlarge-link">
+                <div className="fr-header__brand-top">
+                  <div className="fr-header__logo" style={{ paddingRight: '0', marginRight: '0' }}>
+                    <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique">
+                      <p className="fr-logo">
                       R&eacute;publique
-                      <br />
+                        <br />
                       Française
+                      </p>
+                    </Link>
+                  </div>
+                  <div className="fr-header__operator" style={{ paddingLeft: '24px' }}>
+                    <img src={logo} className="fr-responsive-img" style={{ height: '70px' }} alt="Logo Conseiller num&eacute;rique" />
+                  </div>
+                  <div className="fr-header__navbar">
+                    <button
+                      className="fr-btn--menu fr-btn"
+                      data-fr-opened="false"
+                      aria-controls="modal-870"
+                      aria-haspopup="menu"
+                      title="Menu"
+                      id="fr-btn-menu-mobile-4"
+                      onClick={toggleBurgerMenu}>
+                    Menu
+                    </button>
+                  </div>
+                </div>
+                <div className="fr-header__service">
+                  <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique">
+                    <p className="fr-header__service-title">
+                    Tableau de pilotage - Conseiller num&eacute;rique
                     </p>
                   </Link>
                 </div>
-                <div className="fr-header__operator" style={{ paddingLeft: '24px' }}>
-                  <img src={logo} className="fr-responsive-img" style={{ height: '70px' }} alt="Logo Conseiller num&eacute;rique" />
-                </div>
-                <div className="fr-header__navbar">
-                  <button
-                    className="fr-btn--menu fr-btn"
-                    data-fr-opened="false"
-                    aria-controls="modal-870"
-                    aria-haspopup="menu"
-                    title="Menu"
-                    id="fr-btn-menu-mobile-4"
-                    onClick={toggleBurgerMenu}>
-                    Menu
-                  </button>
-                </div>
               </div>
-              <div className="fr-header__service">
-                <Link to="/" title="Tableau de bord - Conseiller num&eacute;rique">
-                  <p className="fr-header__service-title">
-                    Tableau de pilotage - Conseiller num&eacute;rique
-                  </p>
-                </Link>
-              </div>
-            </div>
-            {!/Android|iPhone|iPad/i.test(navigator.userAgent) &&
+              {!/Android|iPhone|iPad/i.test(navigator.userAgent) &&
               <>
                 {localStorage.getItem('user') && localStorage.getItem('user') !== '{}' &&
                   !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
@@ -90,11 +101,11 @@ function Header() {
                   </div>
                 }
               </>
-            }
+              }
+            </div>
           </div>
         </div>
-      </div>
-      {localStorage.getItem('user') && localStorage.getItem('user') !== '{}' &&
+        {localStorage.getItem('user') && localStorage.getItem('user') !== '{}' &&
         !location.pathname.startsWith('/login') && !location.pathname.startsWith('/invitation') &&
         <Menu
           user={user}
@@ -104,8 +115,9 @@ function Header() {
           auth={auth}
           clickButtonLogout={clickButtonLogout}
         />
-      }
-    </header>
+        }
+      </header>
+    </>
   );
 }
 
