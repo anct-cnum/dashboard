@@ -56,6 +56,7 @@ function MaStructure() {
 
   useEffect(() => {
     if (sucessInvitationChangeContact) {
+      dispatch(userActions.getUsers());
       scrollTopWindow();
       dispatch(
         alerteEtSpinnerActions.getMessageAlerte({
