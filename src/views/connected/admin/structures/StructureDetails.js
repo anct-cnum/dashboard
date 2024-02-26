@@ -42,7 +42,7 @@ function StructureDetails() {
       dispatch(
         alerteEtSpinnerActions.getMessageAlerte({
           type: 'success',
-          message: 'Email de contact bien mis à jour, un email d\'invitation a bien été envoyé', // Revoir message
+          message: 'Email de contact mis à jour avec succès, un email d\'invitation a été envoyé',
           status: null,
           description: null,
         })
