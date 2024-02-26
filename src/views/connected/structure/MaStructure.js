@@ -61,7 +61,7 @@ function MaStructure() {
       dispatch(
         alerteEtSpinnerActions.getMessageAlerte({
           type: 'success',
-          message: 'Informations de contact bien mis à jour, un email d\'invitation a bien été envoyé', // Revoir message
+          message: 'Informations de contact mises à jour avec succès, un email d\'invitation a été envoyé',
           status: null,
           description: null,
         })
