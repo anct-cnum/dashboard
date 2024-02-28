@@ -6,8 +6,8 @@ export const reconventionnementService = {
   update,
 };
 
-function update(structureId, action, misesEnRelations, nombreDePostes, motif) {
-  return API.patch(`${apiUrlRoot}/reconventionnement?structureId=${structureId}&action=${action}
+function update(structureId, etat, misesEnRelations, nombreDePostes, motif) {
+  return API.patch(`${apiUrlRoot}/reconventionnement?structureId=${structureId}&etat=${etat}
   &nombreDePostes=${nombreDePostes}&motif=${motif}&role=${roleActivated()}`, { misesEnRelations })
   .then(response => response.data)
   .catch(handleApiError);
