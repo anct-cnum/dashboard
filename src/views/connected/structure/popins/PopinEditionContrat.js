@@ -216,7 +216,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     <label className="fr-label">
                       Date de d&eacute;but de contrat
                     </label>
-                    <div className={`fr-col-xl-11 ${(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) ? 'date-debut-contrat-coordinateur' : 'date-debut-contrat'} `}>
+                    <div className="fr-col-xl-11 date-debut-contrat">
                       <DatePicker
                         id="datePickerDebutContrat"
                         name="datePickerDebutContrat"
@@ -235,7 +235,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     <label className="fr-label">
                       Date de fin de contrat
                     </label>
-                    <div className={`fr-col-xl-11 ${(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) ? 'date-fin-contrat-coordinateur' : 'date-fin-contrat'} `}>
+                    <div className="fr-col-xl-11 date-fin-contrat">
                       <DatePicker
                         id="datePickerFinContrat"
                         name="datePickerFinContrat"
