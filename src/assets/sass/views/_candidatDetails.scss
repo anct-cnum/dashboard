@@ -11,10 +11,16 @@
         color: $blue-france
     }
     .date-debut-contrat .react-datepicker-popper {
-      transform: translate3d(35%, 70px, 0px) !important;
+      transform: translate3d(35%, 10px, 0px) !important;
     }
     .date-fin-contrat .react-datepicker-popper {
-      transform: translate3d(122%, 70px, 0px) !important;
+      transform: translate3d(122%, 10px, 0px) !important;
+    }
+    .date-debut-contrat-coordinateur .react-datepicker-popper {
+        transform: translate3d(35%, 70px, 0px) !important;
+    }
+      .date-fin-contrat-coordinateur .react-datepicker-popper {
+        transform: translate3d(122%, 70px, 0px) !important;
     }
     .background-cards-contrat {
         background-color: $light-blue;
