@@ -82,18 +82,16 @@ export function useAdvisors() {
         if (!miseEnRelation) {
           return false;
         }
-        //si la mise en relation à été cochée et à la clé reconventionnement à true
-        const hasReconventionnement = miseEnRelation.reconventionnement;
         // si le mise en relation n'est pas un CDI
         const isNotCDI = !validTypeDeContratWithoutEndDate(miseEnRelation.typeDeContrat);
         // si la mise en relation est en statut renouvellement_initiee
         const isRenouvellementInitie = miseEnRelation.statut === 'renouvellement_initiee';
-        // si la mise en relation est en statut finalisee et n'a pas encore été dédoublonée
+        // si la mise en relation est en statut finalisee et qu'elle a été cochée pour un reconventionnement
         const isFinaliseeWithoutConventionnement =
-            miseEnRelation.statut === 'finalisee' && !miseEnRelation.miseEnRelationConventionnement;
+            miseEnRelation.statut === 'finalisee' && miseEnRelation.reconventionnement;
         //si la mise en relation & été cochée et donc soit le renouvellement a été initié soit la mise en relation est finalisée
         // et n'a pas encore été dédoublonnée et n'est pas un CDI
-        return hasReconventionnement && (isRenouvellementInitie || isFinaliseeWithoutConventionnement && isNotCDI);
+        return (isRenouvellementInitie || isFinaliseeWithoutConventionnement) && isNotCDI;
       })
       .map(createConseiller);
 
