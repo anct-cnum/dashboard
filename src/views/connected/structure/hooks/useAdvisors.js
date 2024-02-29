@@ -86,7 +86,7 @@ export function useAdvisors() {
         const isNotCDI = !validTypeDeContratWithoutEndDate(miseEnRelation.typeDeContrat);
         // si la mise en relation est en statut renouvellement_initiee
         const isRenouvellementInitie = miseEnRelation.statut === 'renouvellement_initiee';
-        // si la mise en relation est en statut finalisee et qu'elle a été cocher pour un reconventionnement
+        // si la mise en relation est en statut finalisee et qu'elle a été cochée pour un reconventionnement
         const isFinaliseeWithoutConventionnement =
             miseEnRelation.statut === 'finalisee' && miseEnRelation.reconventionnement;
         //si la mise en relation & été cochée et donc soit le renouvellement a été initié soit la mise en relation est finalisée
