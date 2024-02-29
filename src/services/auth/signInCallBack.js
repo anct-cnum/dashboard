@@ -26,8 +26,6 @@ const signInCallBack = async store => {
   window.history.replaceState({}, document.title, window.location.pathname);
   const profile = getProfile();
   const verificationToken = getVerificationToken();
-  // eslint-disable-next-line no-console
-  console.log('####VERIFICATIONTOKEN', verificationToken);
   const token = profile?.access_token;
   dispatch({ type: 'LOGIN_REQUEST' });
   await axios
