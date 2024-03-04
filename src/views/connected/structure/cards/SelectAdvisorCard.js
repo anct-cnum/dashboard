@@ -89,7 +89,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                     En attente de pi&egrave;ces...
                   </span>
                 }
-                {(miseEnRelation?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat)) &&
+                {miseEnRelation?.dateFinDeContrat &&
                   <span className="fr-text--regular fr-text--md">
                     {dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}
                   </span>

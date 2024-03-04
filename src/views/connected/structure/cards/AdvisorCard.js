@@ -100,7 +100,7 @@ const AdvisorCard = ({ conseiller }) => {
                     En attente de pi...
                   </span>
                 }
-                {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
+                {conseiller?.dateFinDeContrat &&
                   <span className="fr-text--regular fr-text--md">
                     {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
                   </span>
