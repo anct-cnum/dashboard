@@ -89,7 +89,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                     En attente de pi&egrave;ces...
                   </span>
                 }
-                {(miseEnRelation?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat)) &&
+                {miseEnRelation?.dateFinDeContrat &&
                   <span className="fr-text--regular fr-text--md">
                     {dayjs(miseEnRelation?.dateFinDeContrat).format('DD/MM/YYYY')}
                   </span>
@@ -97,8 +97,7 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
               </div>
             </div>
             <div className="badge-statut-renouvellement card__text">
-              {validTypeDeContratWithoutEndDate(miseEnRelation.typeDeContrat) ||
-                !miseEnRelation.dateFinDeContrat ||
+              {!miseEnRelation.dateFinDeContrat ||
                 calcNbJoursAvantDateFinContrat(miseEnRelation?.dateFinDeContrat) > 0 ? (
                   <p className="fr-badge fr-badge--success">En activit&eacute;</p>
                 ) : (

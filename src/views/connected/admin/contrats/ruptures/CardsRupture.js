@@ -66,12 +66,7 @@ const CardsRupture = ({ urlDossierDS, miseEnRelation, renouvellementEnCours, set
                           </>
                         }
                         {miseEnRelation?.dateFinDeContrat &&
-                          <>
-                            {validTypeDeContratWithoutEndDate(miseEnRelation?.typeDeContrat) ?
-                              <span className="fr-text--regular fr-text--md">-</span> :
-                              <span className="fr-text--regular fr-text--md">{dayjs(miseEnRelation.dateFinDeContrat).format('DD/MM/YYYY')}</span>
-                            }
-                          </>
+                            <span className="fr-text--regular fr-text--md">{dayjs(miseEnRelation.dateFinDeContrat).format('DD/MM/YYYY')}</span>
                         }
                       </div>
                     </div>

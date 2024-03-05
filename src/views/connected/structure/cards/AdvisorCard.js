@@ -13,7 +13,7 @@ const AdvisorCard = ({ conseiller }) => {
   const displayBadge = statut => {
     switch (statut) {
       case 'finalisee':
-        return (conseiller?.typeDeContrat === 'CDI' || !conseiller?.dateFinDeContrat || calcNbJoursAvantDateFinContrat(conseiller?.dateFinDeContrat) > 0) ?
+        return (!conseiller?.dateFinDeContrat || calcNbJoursAvantDateFinContrat(conseiller?.dateFinDeContrat) > 0) ?
           <p className="fr-badge fr-badge--success">En activit&eacute;</p> :
           <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>;
       case 'nouvelle_rupture':
@@ -100,7 +100,7 @@ const AdvisorCard = ({ conseiller }) => {
                     En attente de pi...
                   </span>
                 }
-                {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
+                {conseiller?.dateFinDeContrat &&
                   <span className="fr-text--regular fr-text--md">
                     {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
                   </span>
