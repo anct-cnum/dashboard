@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -28,7 +27,7 @@ function HistoriqueContrat({ contrat, statutContrat }) {
     if (contrat?.dateRupture) {
       return dayjs(contrat.dateRupture).format('DD/MM/YYYY');
     }
-    if (!validTypeDeContratWithoutEndDate(contrat?.typeDeContrat) && contrat?.dateFinDeContrat) {
+    if (contrat?.dateFinDeContrat) {
       return dayjs(contrat.dateFinDeContrat).format('DD/MM/YYYY');
     }
     return '-';

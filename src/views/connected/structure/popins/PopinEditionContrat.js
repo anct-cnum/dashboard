@@ -44,9 +44,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
       setTypeDeContrat(conseiller?.typeDeContrat);
       setIsRecrutementCoordinateur(conseiller?.contratCoordinateur ?? false);
       setDateDebut(conseiller?.dateDebutDeContrat ? new Date(conseiller?.dateDebutDeContrat) : null);
-      if (!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) {
-        setDateFin(conseiller?.dateFinDeContrat ? new Date(conseiller?.dateFinDeContrat) : null);
-      }
+      setDateFin(conseiller?.dateFinDeContrat ? new Date(conseiller?.dateFinDeContrat) : null);
       setSalaire(conseiller?.salaire ? String(conseiller?.salaire) : '');
     }
   }, [editMode, conseiller]);

@@ -99,22 +99,10 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationSansMiss
                         </>
                       }
                       {misesEnRelationFinalisee[0]?.dateFinDeContrat &&
-                        <>
-                          {(
-                            validTypeDeContratWithoutEndDate(misesEnRelationFinalisee[0]?.typeDeContrat)) ?
-                            <span>-</span> :
-                            <span>{dayjs(misesEnRelationFinalisee[0].dateFinDeContrat).format('DD/MM/YYYY')}</span>
-                          }
-                        </>
+                       <span className="fr-text--regular fr-text--md">{dayjs(misesEnRelationFinalisee[0].dateFinDeContrat).format('DD/MM/YYYY')}</span>
                       }
                       {misesEnRelationNouvelleRupture?.dateFinDeContrat &&
-                        <>
-                          {(
-                            validTypeDeContratWithoutEndDate(misesEnRelationNouvelleRupture.dateFinDeContrat)) ?
-                            <span>-</span> :
-                            <span>{dayjs(misesEnRelationNouvelleRupture.dateFinDeContrat).format('DD/MM/YYYY')}</span>
-                          }
-                        </>
+                       <span className="fr-text--regular fr-text--md">{dayjs(misesEnRelationNouvelleRupture.dateFinDeContrat).format('DD/MM/YYYY')}</span>
                       }
                     </div>
                   </div>
