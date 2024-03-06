@@ -4,11 +4,11 @@ export const reconventionnementActions = {
   update,
 };
 
-function update(structureId, action, conseillersIds = [], nombreDePostes = null, motif = null) {
+function update(structureId, etat, conseillersIds = [], nombreDePostes = null, motif = null) {
   return dispatch => {
     dispatch(request());
 
-    reconventionnementService.update(structureId, action, conseillersIds, nombreDePostes, motif)
+    reconventionnementService.update(structureId, etat, conseillersIds, nombreDePostes, motif)
     .then(
       reconventionnement => dispatch(success(reconventionnement)),
       error => {

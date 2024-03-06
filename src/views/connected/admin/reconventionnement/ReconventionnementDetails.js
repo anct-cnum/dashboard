@@ -96,7 +96,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                                 {validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) &&
                                   <span className="fr-text--regular fr-text--md">-</span>
                                 }
-                                {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat)) &&
+                                {conseiller?.dateFinDeContrat &&
                                   <span className="fr-text--regular fr-text--md">
                                     {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
                                   </span>
@@ -231,7 +231,7 @@ function ReconventionnementDetails({ reconventionnement }) {
                               En attente de pi&egrave;...
                             </span>
                           }
-                          {(conseiller?.dateFinDeContrat && !validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && !conseiller?.dateRupture) &&
+                          {(conseiller?.dateFinDeContrat && !conseiller?.dateRupture) &&
                             <span className="fr-text--regular fr-text--md">
                               {dayjs(conseiller?.dateFinDeContrat).format('DD/MM/YYYY')}
                             </span>

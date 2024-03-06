@@ -74,6 +74,11 @@ jobs:
         with:
           source: ".htaccess"
           target: "build/.htaccess"
+      - name: copy robots.txt
+        uses: canastro/copy-file-action@master
+        with:
+          source: "robots-recette.txt"
+          target: "build/robots.txt"
       - name: Upload release bundle as artifact
         uses: actions/upload-artifact@v3
         with:

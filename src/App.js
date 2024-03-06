@@ -55,6 +55,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/passerelle" element={<Passerelle />} />
+        <Route path="/passerelle/:token" element={<Passerelle />} />
         <Route path="/invitation/:verificationToken" element={<Login />} />
         <Route path="/" element={<PrivateRoute/>}>
           {/* routes communes ici */}

@@ -140,7 +140,7 @@ export default function Documents() {
               T&eacute;l&eacute;charger la fiche conseiller num&eacute;rique (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-              Pr&eacute;sentation des activit&eacute;s du Conseiller Num&eacute;rique France Services
+              Pr&eacute;sentation des activit&eacute;s du Conseiller Num&eacute;rique
             </span>
           </p>
         </div>
@@ -151,7 +151,7 @@ export default function Documents() {
               T&eacute;l&eacute;charger le document d&rsquo;articulation des dispositifs (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-              Ce document pr&eacute;sente l&rsquo;articulation des dispositifs Pass num&eacute;riques et Conseillers num&eacute;riques France Services
+              Ce document pr&eacute;sente l&rsquo;articulation des dispositifs Pass num&eacute;riques et Conseillers num&eacute;riques
             </span>
           </p>
         </div>
@@ -247,8 +247,8 @@ export default function Documents() {
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/Aidants_Connect_x_CNFS.pdf"
-              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger la note Aidants Connect &amp; CnFS">
-              T&eacute;l&eacute;charger la note Aidants Connect &amp; CnFS (pdf)
+              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger la note Aidants Connect &amp; Conum">
+              T&eacute;l&eacute;charger la note Aidants Connect &amp; Conum (pdf)
             </a>
           </p>
         </div>
@@ -261,7 +261,7 @@ export default function Documents() {
               T&eacute;l&eacute;charger le kit &laquo;Bien d&eacute;marrer ma mission&raquo; &agrave; remettre au(x) Conseiller(s) (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-              Ce document a pour objet de faciliter l&rsquo;entr&eacute;e en poste des Conseillers num&eacute;riques France Services, <br className="br-lg" />
+              Ce document a pour objet de faciliter l&rsquo;entr&eacute;e en poste des Conseillers num&eacute;riques, <br className="br-lg" />
               et contient de nombreuses informations en lien avec leur d&eacute;but d&rsquo;activit&eacute;&nbsp;:&nbsp;outils, r&eacute;seaux, parcours, etc.
             </span>
           </p>
@@ -270,10 +270,10 @@ export default function Documents() {
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/parcours_et_integration_des_CnFS.pdf"
               className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger le parcours et int&eacute;gration">
-              T&eacute;l&eacute;charger le document sur le parcours des CnFS (pdf)
+              T&eacute;l&eacute;charger le document sur le parcours des Conum (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-              Ce document pr&eacute;sente le parcours, l&rsquo;int&eacute;gration et les missions des Conseillers num&eacute;riques France Services
+              Ce document pr&eacute;sente le parcours, l&rsquo;int&eacute;gration et les missions des Conseillers num&eacute;riques
             </span>
           </p>
         </div>
@@ -281,10 +281,10 @@ export default function Documents() {
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/Les_outils_des_CnFS.pdf"
               className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger la pr&eacute;sentation des outils">
-              T&eacute;l&eacute;charger la pr&eacute;sentation des outils des CnFS (pdf)
+              T&eacute;l&eacute;charger la pr&eacute;sentation des outils des Conum (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-              Ce document pr&eacute;sente l&rsquo;espace COOP et les outils mis &agrave; disposition aux Conseillers num&eacute;riques France Services
+              Ce document pr&eacute;sente l&rsquo;espace COOP et les outils mis &agrave; disposition aux Conseillers num&eacute;riques
             </span>
           </p>
         </div>
@@ -307,7 +307,7 @@ export default function Documents() {
               T&eacute;l&eacute;charger le flyer (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
-              Ce flyer pr&eacute;sente le dispositif Conseiller num&eacute;rique France Services
+              Ce flyer pr&eacute;sente le dispositif Conseiller num&eacute;rique
             </span>
           </p>
         </div>
@@ -324,18 +324,18 @@ export default function Documents() {
             </span>
           </p>
         </div>
-        <h4>7) Accompagner les Conseillers num&eacute;riques France Services dans leurs missions</h4>
+        <h4>7) Accompagner les Conseillers num&eacute;riques dans leurs missions</h4>
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/guide-d-utilisation-de-l-outil-de-suivi-d-activite.pdf"
               // eslint-disable-next-line max-len
               className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger le guide d&rsquo;utilisation de l&rsquo;outil de suivi d&rsquo;activit&eacute;">
               T&eacute;l&eacute;charger le guide d&rsquo;utilisation de l&rsquo;outil de suivi d&rsquo;activit&eacute;
-              des Conseillers num&eacute;riques France Services (pdf)
+              des Conseillers num&eacute;riques (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
               Ce guide est destin&eacute; &agrave; vous accompagner dans l&rsquo;utilisation de l&rsquo;outil de suivi et de pilotage <br className="br-lg" />
-              de l&rsquo;activit&eacute; des Conseillers num&eacute;riques France Services.
+              de l&rsquo;activit&eacute; des Conseillers num&eacute;riques.
             </span>
           </p>
         </div>
@@ -351,7 +351,7 @@ export default function Documents() {
               Cette note propose des pistes aux Conseillers num&eacute;riques et &agrave; leurs employeurs pour accueillir les demandes
               d&rsquo;accompagnement des usagers aux d&eacute;marches en ligne, notamment ceux en situation de rupture
               d&rsquo;acc&egrave;s aux droits, dans le respect de l&rsquo;AMI et en compl&eacute;mentarit&eacute; avec le r&eacute;seau
-              des agents France Services.
+              des agents.
             </span>
           </p>
         </div>

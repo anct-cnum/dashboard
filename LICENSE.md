@@ -1,4 +1,4 @@
-Tableau de bord du projet Conseiller numérique France Services.
+Tableau de bord du projet Conseiller numérique.
 
 Copyright (C) 2022 Conseiller numérique - Agence Nationale de la Cohésion des Territoires
 
