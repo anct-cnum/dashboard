@@ -139,7 +139,7 @@ export default function structure(state = initialState, action) {
         structure: {
           ...state.structure,
           contact: { ...state.structure?.contact, email: action.result.emailUpdated },
-          users: [...(action.result.newUserInvit ? [...state.structure.users, { name: action.result.emailUpdated }] : state.structure.users)]
+          users: [...(action.result.newUserInvit ? [...(state.structure?.users ?? []), { name: action.result.emailUpdated }] : (state.structure?.users ?? []))]
         },
         emailUpdated: true,
         newUserInvit: action.result.newUserInvit

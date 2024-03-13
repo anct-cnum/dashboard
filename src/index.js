@@ -20,6 +20,10 @@ if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
     environment: process.env.REACT_APP_SENTRY_ENVIRONMENT,
     integrations: [browserTracingIntegration()],
     tracesSampleRate: process.env.REACT_APP_SENTRY_TRACE_RATE,
+    ignoreErrors: [
+      //Extension Safari
+      /webkit-masked-url/i,
+    ],
   });
 }
 

@@ -63,7 +63,7 @@ function Menu(
   };
 
   return (
-    <div className={`fr-header__menu ${burgerMenuHidden ? 'fr-modal' : ''}`} id="modal-870" aria-labelledby="fr-btn-menu-mobile-4">
+    <div className={`fr-header__menu fr-modal ${burgerMenuHidden ? '' : 'fr-modal--opened'}`} id="modal-870" aria-labelledby="fr-btn-menu-mobile-4">
       <div className="fr-container">
         <div className="fr-header__menu-links display-desktop"></div>
         <button className="fr-link--close fr-link" aria-controls="modal-870" onClick={toggleBurgerMenu}>Fermer</button>
