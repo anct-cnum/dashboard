@@ -35,7 +35,7 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
                   trackEvent({ category: 'demande-coordinateurs', action: `click-${roleActivated}` });
                 }}
               >
-                Demandes de coordinateurs &agrave; traiter
+                Gestion des postes de coordinateurs
               </Link>
             </li>
             <li>
@@ -46,7 +46,7 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
                   trackEvent({ category: 'demande-conseillers', action: `click-${roleActivated}` });
                 }}
               >
-                Demandes de conseillers &agrave; traiter
+                Gestion des postes de conseillers num&eacute;riques
               </Link>
             </li>
           </ul>
