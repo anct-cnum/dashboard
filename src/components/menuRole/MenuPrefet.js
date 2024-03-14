@@ -26,18 +26,7 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
           className={`fr-collapse fr-menu ${activeMenu === 'listes-traitement-demandes' ? 'fr-collapse--expanded' : ''}`}
           id="menu-listes-traitement-demandes"
         >
-          <ul className="fr-menu__list" style={{ width: '18rem' }}>
-            <li>
-              <Link className="fr-nav__link" to={`/${roleActivated}/demandes/coordinateurs`}
-                {...(location.pathname.startsWith(`/${roleActivated}/demandes/coordinateurs`) ? { 'aria-current': 'page' } : {})}
-                onClick={() => {
-                  dispatch(filtresDemandesActions.resetFiltre());
-                  trackEvent({ category: 'demande-coordinateurs', action: `click-${roleActivated}` });
-                }}
-              >
-                Gestion des postes de coordinateurs
-              </Link>
-            </li>
+          <ul className="fr-menu__list" style={{ width: '22rem' }}>
             <li>
               <Link className="fr-nav__link" to={`/${roleActivated}/demandes/conseillers`}
                 {...(location.pathname.startsWith(`/${roleActivated}/demandes/conseillers`) ? { 'aria-current': 'page' } : {})}
@@ -47,6 +36,17 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
                 }}
               >
                 Gestion des postes de conseillers num&eacute;riques
+              </Link>
+            </li>
+            <li>
+              <Link className="fr-nav__link" to={`/${roleActivated}/demandes/coordinateurs`}
+                {...(location.pathname.startsWith(`/${roleActivated}/demandes/coordinateurs`) ? { 'aria-current': 'page' } : {})}
+                onClick={() => {
+                  dispatch(filtresDemandesActions.resetFiltre());
+                  trackEvent({ category: 'demande-coordinateurs', action: `click-${roleActivated}` });
+                }}
+              >
+                Gestion des postes de coordinateurs
               </Link>
             </li>
           </ul>
