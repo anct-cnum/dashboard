@@ -61,12 +61,18 @@ function ConseillerDetails() {
   return (
     <div className="fr-container conseillerDetails">
       <Spinner loading={loading} />
-      <Link
-        to={location.state?.origin}
-        state={{ currentPage }}
-        className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
-        Retour &agrave; la liste
-      </Link>
+      {location?.state?.origin ?
+        <Link
+          to={location?.state?.origin} state={{ currentPage }}
+          className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
+          Retour &agrave; la liste
+        </Link> :
+        <button
+          onClick={() => window.close()}
+          className="fr-btn fr-btn--sm fr-fi-arrow-left-line fr-btn--icon-left fr-btn--tertiary">
+          Retour &agrave; la liste
+        </button>
+      }
       {conseiller?.statut === 'RECRUTE' &&
         <>
           <div className="fr-col-12 fr-pt-6w">
