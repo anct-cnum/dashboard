@@ -3,6 +3,7 @@ import download from 'downloadjs';
 
 export const conseillerActions = {
   get,
+  getConnectedConseiller,
   getConseillerContrat,
   getCandidat,
   getCandidatRecrutement,
@@ -44,6 +45,31 @@ function get(id) {
   }
   function failure(error) {
     return { type: 'GET_CONSEILLER_FAILURE', error };
+  }
+}
+
+function getConnectedConseiller(id) {
+  return dispatch => {
+    dispatch(request());
+
+    conseillerService.get(id)
+    .then(
+      conseiller => dispatch(success(conseiller)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+
+    return { type: 'GET_CONNECTED_CONSEILLER_REQUEST' };
+  }
+  function success(conseiller) {
+    return { type: 'GET_CONNECTED_CONSEILLER_SUCCESS', conseiller };
+  }
+  function failure(error) {
+    return { type: 'GET_CONNECTED_CONSEILLER_FAILURE', error };
   }
 }
 

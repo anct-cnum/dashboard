@@ -24,6 +24,23 @@ export default function structure(state = initialState, action) {
         error: action.error,
         loading: false
       };
+    case 'GET_CONNECTED_STRUCTURE_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'GET_CONNECTED_STRUCTURE_SUCCESS':
+      return {
+        ...state,
+        connectedStructure: action.structure,
+        loading: false
+      };
+    case 'GET_CONNECTED_STRUCTURE_FAILURE':
+      return {
+        error: action.error,
+        loading: false
+      };
     case 'GET_STRUCTURE_DETAILS_REQUEST':
       return {
         ...state,
