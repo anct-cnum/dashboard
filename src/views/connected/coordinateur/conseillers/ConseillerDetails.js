@@ -37,7 +37,7 @@ function ConseillerDetails() {
         status: null, description: null
       }));
     }
-  }, [errorConseiller]);
+  }, [errorConseiller, conseiller, idConseiller]);
 
   useEffect(() => {
     if (!errorStructure) {

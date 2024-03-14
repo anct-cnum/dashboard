@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { conseillerActions, structureActions } from '../../../actions';
 
 function SousMenuCoordinateur({
   onClickMenu,
   activeMenu,
 }) {
 
-  const dispatch = useDispatch();
-  const userAuth = useSelector(state => state.authentication?.user);
   const conseiller = useSelector(state => state.conseiller?.conseiller);
   const structure = useSelector(state => state.structure?.structure);
 
@@ -24,17 +21,6 @@ function SousMenuCoordinateur({
   `champ_Q2hhbXAtMzU2NjUyMw=${idPG}&` +
   `champ_Q2hhbXAtMzU2NjUyMQ=${structure?.nom}&` +
   `champ_Q2hhbXAtMzU2NjUyMg=${structure?.idPG}`;
-
-  useEffect(() => {
-    dispatch(conseillerActions.get(userAuth?.entity?.$id));
-  }, []);
-
-  useEffect(() => {
-    if (conseiller?.structureId) {
-      dispatch(structureActions.get(conseiller?.structureId));
-    }
-  }
-  , [conseiller]);
 
   return (
     <>
