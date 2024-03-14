@@ -2,6 +2,7 @@ import { structureService } from '../services/structureService.js';
 
 export const structureActions = {
   get,
+  getConnectedStructure,
   getDetails,
   getAll,
   updateContact,
@@ -69,6 +70,30 @@ function get(id) {
   }
   function failure(error) {
     return { type: 'GET_STRUCTURE_FAILURE', error };
+  }
+}
+
+function getConnectedStructure(id) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.get(id)
+    .then(
+      structure => dispatch(success(structure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CONNECTED_STRUCTURE_REQUEST' };
+  }
+  function success(structure) {
+    return { type: 'GET_CONNECTED_STRUCTURE_SUCCESS', structure };
+  }
+  function failure(error) {
+    return { type: 'GET_CONNECTED_STRUCTURE_FAILURE', error };
   }
 }
 

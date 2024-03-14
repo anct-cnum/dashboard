@@ -67,6 +67,24 @@ export default function conseiller(state = initialState, action) {
         loading: false,
         error: action.error
       };
+    case 'GET_CONNECTED_CONSEILLER_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'GET_CONNECTED_CONSEILLER_SUCCESS':
+      return {
+        ...state,
+        connectedConseiller: action.conseiller,
+        loading: false
+      };
+    case 'GET_CONNECTED_CONSEILLER_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
     case 'GET_CONSEILLER_CONTRAT_REQUEST':
       return {
         ...state,

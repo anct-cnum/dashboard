@@ -11,8 +11,8 @@ function SousMenuCoordinateur({
 
   const dispatch = useDispatch();
   const userAuth = useSelector(state => state.authentication?.user);
-  const conseiller = useSelector(state => state.conseiller?.conseiller);
-  const structure = useSelector(state => state.structure?.structure);
+  const conseiller = useSelector(state => state.conseiller?.connectedConseiller);
+  const structure = useSelector(state => state.structure?.connectedStructure);
 
   const { nom, prenom, idPG } = conseiller || {};
   const urlAide = `${process.env.REACT_APP_AIDE_HOSTNAME}/category/tableau-de-pilotage-1i6u8in`;
@@ -26,12 +26,12 @@ function SousMenuCoordinateur({
   `champ_Q2hhbXAtMzU2NjUyMg=${structure?.idPG}`;
 
   useEffect(() => {
-    dispatch(conseillerActions.get(userAuth?.entity?.$id));
+    dispatch(conseillerActions.getConnectedConseiller(userAuth?.entity?.$id));
   }, []);
 
   useEffect(() => {
     if (conseiller?.structureId) {
-      dispatch(structureActions.get(conseiller?.structureId));
+      dispatch(structureActions.getConnectedStructure(conseiller?.structureId));
     }
   }
   , [conseiller]);
