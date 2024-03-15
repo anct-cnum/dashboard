@@ -8,6 +8,8 @@ function SousMenuCommun({
   roleActivated
 }) {
   const urlAide = `${process.env.REACT_APP_AIDE_HOSTNAME}/category/tableau-de-pilotage-1i6u8in`;
+  const mailContact = roleActivated === 'coordinateur' ? 'conum-coordinateur@anct.gouv.fr' : 'conseiller-numerique@anct.gouv.fr';
+
   return (
     <>
       <li className="fr-nav__item">
@@ -74,7 +76,7 @@ function SousMenuCommun({
               </a>
             </li>
             <li>
-              <a className="fr-nav__link" href="mailto:conseiller-numerique@anct.gouv.fr">
+              <a className="fr-nav__link" href={`mailto:${mailContact}`}>
                       &bull;&nbsp;Nous contacter
               </a>
             </li>

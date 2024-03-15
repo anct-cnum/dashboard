@@ -41,9 +41,9 @@ export default function Coordinateur() {
                   <b> 01 58 50 89 42 </b>du <b>lundi</b> au <b>jeudi</b> de <b>09h30 &agrave; 12h00</b> et le <b>mercredi de 14h00 &agrave; 16h00.</b></li>
                 <li>Par email &agrave; l&rsquo;adresse&nbsp;: <a
                   className="fr-link"
-                  href="mailto:conseiller-numerique@anct.gouv.fr"
-                  title="conseiller-numerique@anct.gouv.fr">
-                    conseiller-numerique@anct.gouv.fr</a>
+                  href="mailto:conum-coordinateur@anct.gouv.fr"
+                  title="conum-coordinateur@anct.gouv.fr">
+                    conum-coordinateur@anct.gouv.fr</a>
                 </li>
               </ul>
             </div>
