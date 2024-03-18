@@ -24,6 +24,23 @@ export default function structure(state = initialState, action) {
         error: action.error,
         loading: false
       };
+    case 'GET_CONNECTED_STRUCTURE_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'GET_CONNECTED_STRUCTURE_SUCCESS':
+      return {
+        ...state,
+        connectedStructure: action.structure,
+        loading: false
+      };
+    case 'GET_CONNECTED_STRUCTURE_FAILURE':
+      return {
+        error: action.error,
+        loading: false
+      };
     case 'GET_STRUCTURE_DETAILS_REQUEST':
       return {
         ...state,
@@ -138,8 +155,10 @@ export default function structure(state = initialState, action) {
         loading: false,
         structure: {
           ...state.structure,
-          contact: { ...state.structure?.contact, email: action.result.emailUpdated },
-          users: [...(action.result.newUserInvit ? [...(state.structure?.users ?? []), { name: action.result.emailUpdated }] : (state.structure?.users ?? []))]
+          contact: { ...state?.structure?.contact, email: action.result.emailUpdated },
+          users: [...(action.result.newUserInvit ?
+            [...(state?.structure?.users ?? []), { name: action.result.emailUpdated }] :
+            (state?.structure?.users ?? []))]
         },
         emailUpdated: true,
         newUserInvit: action.result.newUserInvit

@@ -26,7 +26,6 @@ function EmailForm({ setDisplayFormEmail, structureId, structureEmail }) {
           className="fr-input"
           type="text"
           id="text-input-text"
-          defaultValue={structureEmail}
           value={email}
           name="email"
           onChange={handleForm}

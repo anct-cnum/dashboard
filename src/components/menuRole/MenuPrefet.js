@@ -28,17 +28,6 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
         >
           <ul className="fr-menu__list" style={{ width: '22rem' }}>
             <li>
-              <Link className="fr-nav__link" to={`/${roleActivated}/demandes/coordinateurs`}
-                {...(location.pathname.startsWith(`/${roleActivated}/demandes/coordinateurs`) ? { 'aria-current': 'page' } : {})}
-                onClick={() => {
-                  dispatch(filtresDemandesActions.resetFiltre());
-                  trackEvent({ category: 'demande-coordinateurs', action: `click-${roleActivated}` });
-                }}
-              >
-                Gestion des postes de coordinateurs
-              </Link>
-            </li>
-            <li>
               <Link className="fr-nav__link" to={`/${roleActivated}/demandes/conseillers`}
                 {...(location.pathname.startsWith(`/${roleActivated}/demandes/conseillers`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => {
@@ -47,6 +36,17 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
                 }}
               >
                 Gestion des postes de conseillers num&eacute;riques
+              </Link>
+            </li>
+            <li>
+              <Link className="fr-nav__link" to={`/${roleActivated}/demandes/coordinateurs`}
+                {...(location.pathname.startsWith(`/${roleActivated}/demandes/coordinateurs`) ? { 'aria-current': 'page' } : {})}
+                onClick={() => {
+                  dispatch(filtresDemandesActions.resetFiltre());
+                  trackEvent({ category: 'demande-coordinateurs', action: `click-${roleActivated}` });
+                }}
+              >
+                Gestion des postes de coordinateurs
               </Link>
             </li>
           </ul>
