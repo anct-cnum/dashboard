@@ -183,10 +183,10 @@ export default function TableauCandidaturesConseillers() {
                       <tbody>
                         {!error && !loading && structures?.items?.data?.map((structure, idx) =>
                           <tr key={idx}>
-                            {structure?.typeConvention === 'structure' &&
+                            {structure?.statutDemande === 'structurePrimoEntrante' &&
                               <CandidatureConseiller structure={structure} statutDemande={statutDemande} />
                             }
-                            {structure?.typeConvention === 'avenantAjoutPoste' &&
+                            {structure?.statutDemande === 'avenantAjoutPoste' &&
                               <AvenantAjoutPoste avenant={structure} statutDemande={statutDemande} />
                             }
                           </tr>
