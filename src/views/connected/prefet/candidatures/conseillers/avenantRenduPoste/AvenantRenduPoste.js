@@ -33,7 +33,6 @@ function AvenantRenduPoste({ avenant }) {
 
 AvenantRenduPoste.propTypes = {
   avenant: PropTypes.object,
-  statutDemande: PropTypes.string,
 };
 
 export default AvenantRenduPoste;
