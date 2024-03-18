@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
-import { pluralize } from '../../../../../utils/formatagesUtils';
+import { pluralize } from '../../../../../../utils/formatagesUtils';
 
 function AvenantAjoutPoste({ avenant, statutDemande }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
