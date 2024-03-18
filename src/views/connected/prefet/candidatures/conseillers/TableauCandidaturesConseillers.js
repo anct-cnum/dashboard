@@ -8,6 +8,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import CandidatureConseiller from './CandidatureConseiller';
 import BannerConfirmationAvisPrefet from '../BannerConfirmationAvisPrefet';
 import FiltresEtTrisCandidatures from '../FiltresEtTrisCandidatures';
+import AvenantAjoutPoste from './AvenantAjoutPoste';
+import TableauRenduPoste from './avenantRenduPoste/TableauRenduPoste';
+import FiltresEtTrisAvenantRenduPoste from './avenantRenduPoste/FiltresEtTrisAvenantRenduPoste';
 
 export default function TableauCandidaturesConseillers() {
 
@@ -27,7 +30,7 @@ export default function TableauCandidaturesConseillers() {
   const filtreAvisPrefet = useSelector(state => state.filtresDemandes?.avisPrefet);
   const currentPage = useSelector(state => state.pagination?.currentPage);
   const [initDemandeConseiller, setInitDemandeConseiller] = useState(false);
-  const [statutDemande, setStatutDemande] = useState(location.state?.statutDemande || 'toutes');
+  const [statutDemande, setStatutDemande] = useState(location.state?.statutDemande || 'demandePoste');
 
   useEffect(() => {
     if (structures?.items && structures?.items?.total > 0) {
@@ -105,91 +108,101 @@ export default function TableauCandidaturesConseillers() {
       }
       <div className="fr-grid-row">
         <div className="fr-col-12">
-          <h1 className="fr-h1 title">Candidatures de conseillers num&eacute;riques &agrave; traiter</h1>
+          <h1 className="fr-h1 title">Gestion des postes de conseillers num&eacute;riques</h1>
           <div className="fr-mt-4w">
             <ul className="tabs fr-tags-group">
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
-                setStatutDemande('toutes');
-              }} className="fr-tag" aria-pressed={statutDemande === 'toutes'}>
-                Afficher toutes les candidatures ({structures?.items?.totalParDemandesConseiller?.total})
+                setStatutDemande('demandePoste');
+              }} className="fr-tag" aria-pressed={statutDemande === 'demandePoste'}>
+                Demandes de postes ({structures?.items?.totalParDemandesConseiller?.totalDemandePoste})
+              </button>
+              <button onClick={() => setStatutDemande('posteValider')} className="fr-tag" aria-pressed={statutDemande === 'posteValider'}>
+                Postes valid&eacute;es par l&rsquo;ANCT ({structures?.items?.totalParDemandesConseiller?.totalPosteValider})
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
-                setStatutDemande('NOUVELLE');
-              }} className="fr-tag" aria-pressed={statutDemande === 'NOUVELLE'}>
-                Nouvelles candidatures ({structures?.items?.totalParDemandesConseiller?.nouvelleCandidature})
-              </button>
-              <button onClick={() => setStatutDemande('VALIDATION_COSELEC')} className="fr-tag" aria-pressed={statutDemande === 'VALIDATION_COSELEC'}>
-                Candidatures valid&eacute;es par l&rsquo;ANCT ({structures?.items?.totalParDemandesConseiller?.candidatureValider})
+                setStatutDemande('posteRefuser');
+              }} className="fr-tag" aria-pressed={statutDemande === 'posteRefuser'}>
+                Postes refus&eacute;es par l&rsquo;ANCT ({structures?.items?.totalParDemandesConseiller?.totalPosteRefuser})
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
-                setStatutDemande('REFUS_COSELEC');
-              }} className="fr-tag" aria-pressed={statutDemande === 'REFUS_COSELEC'}>
-                Candidatures refus&eacute;es par l&rsquo;ANCT ({structures?.items?.totalParDemandesConseiller?.candidatureNonRetenus})
+                setStatutDemande('posteRendu');
+              }} className="fr-tag" aria-pressed={statutDemande === 'posteRendu'}>
+                Rendu de poste ({structures?.items?.totalParDemandesConseiller?.totalPosteRenduEnCours})
               </button>
             </ul>
             <div className="fr-col-12 fr-mt-3w">
-              <FiltresEtTrisCandidatures />
+              {statutDemande === 'posteRendu' ? <FiltresEtTrisAvenantRenduPoste /> : <FiltresEtTrisCandidatures />}
             </div>
             <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
               <div className="fr-col-12">
                 <div className="fr-table">
-                  <table className={structures?.items?.data?.length < 2 ? 'no-result-table' : ''}>
-                    <thead>
-                      <tr>
-                        <th style={{ width: '40rem' }}>Structure</th>
-                        <th style={{ width: '19rem' }}>
-                          <button id="codePostal" className="filtre-btn" onClick={ordreColonne}>
-                            <span>CP
-                              {(ordreNom !== 'codePostal' || ordreNom === 'codePostal' && ordre) &&
-                                <i className="ri-arrow-down-s-line chevron icone"></i>
-                              }
-                              {(ordreNom === 'codePostal' && !ordre) &&
-                                <i className="ri-arrow-up-s-line chevron icone"></i>
-                              }
-                            </span>
-                          </button>
-                        </th>
-                        <th style={{ width: '20rem' }}>
-                          <button id="createdAt" className="filtre-btn" onClick={ordreColonne}>
-                            <span>Date de candidature
-                              {(ordreNom !== 'createdAt' || ordreNom === 'createdAt' && ordre) &&
-                                <i className="ri-arrow-down-s-line chevron icone"></i>
-                              }
-                              {(ordreNom === 'createdAt' && !ordre) &&
-                                <i className="ri-arrow-up-s-line chevron icone"></i>
-                              }
-                            </span>
-                          </button>
-                        </th>
-                        {statutDemande === 'NOUVELLE' &&
-                          <th style={{ width: '25rem' }}>Nb. de postes demand&eacute;s</th>
-                        }
-                        {(statutDemande === 'VALIDATION_COSELEC' || statutDemande === 'REFUS_COSELEC') &&
-                          <th style={{ width: '25rem' }}>Nb. de postes accord&eacute;s</th>
-                        }
-                        <th style={{ width: '15rem' }}>Avis pr&eacute;fet</th>
-                        <th style={{ width: '7rem' }}></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {!error && !loading && structures?.items?.data?.map((structure, idx) => {
-                        return (<CandidatureConseiller key={idx} structure={structure} statutDemande={statutDemande} />);
-                      })
-                      }
-                      {(!structures?.items || structures?.items?.total === 0) &&
+                  {statutDemande === 'posteRendu' ?
+                    <TableauRenduPoste
+                      structures={structures}
+                      loading={loading}
+                      error={error}
+                      ordreNom={ordreNom}
+                      ordre={ordre}
+                    /> :
+                    <table className={structures?.items?.data?.length < 2 ? 'no-result-table' : ''}>
+                      <thead>
                         <tr>
-                          <td colSpan="12" style={{ width: '60rem' }}>
-                            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                              <span className="not-found pair">Aucune candidature de conseillers num&eacute;riques trouv&eacute;es</span>
-                            </div>
-                          </td>
+                          <th style={{ width: '40rem' }}>Structure</th>
+                          <th style={{ width: '19rem' }}>
+                            <button id="codePostal" className="filtre-btn" onClick={ordreColonne}>
+                              <span>CP
+                                {(ordreNom !== 'codePostal' || ordreNom === 'codePostal' && ordre) &&
+                                  <i className="ri-arrow-down-s-line chevron icone"></i>
+                                }
+                                {(ordreNom === 'codePostal' && !ordre) &&
+                                  <i className="ri-arrow-up-s-line chevron icone"></i>
+                                }
+                              </span>
+                            </button>
+                          </th>
+                          <th style={{ width: '22rem' }}>
+                            <button id="createdAt" className="filtre-btn" onClick={ordreColonne}>
+                              <span>Date de candidature
+                                {(ordreNom !== 'createdAt' || ordreNom === 'createdAt' && ordre) &&
+                                  <i className="ri-arrow-down-s-line chevron icone"></i>
+                                }
+                                {(ordreNom === 'createdAt' && !ordre) &&
+                                  <i className="ri-arrow-up-s-line chevron icone"></i>
+                                }
+                              </span>
+                            </button>
+                          </th>
+                          <th style={{ width: '15rem' }}>Demande</th>
+                          <th style={{ width: '15rem' }}>Avis pr&eacute;fet</th>
+                          <th style={{ width: '25rem' }}></th>
                         </tr>
-                      }
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {!error && !loading && structures?.items?.data?.map((structure, idx) =>
+                          <tr key={idx}>
+                            {structure?.typeConvention === 'structure' &&
+                              <CandidatureConseiller structure={structure} statutDemande={statutDemande} />
+                            }
+                            {structure?.typeConvention === 'avenantAjoutPoste' &&
+                              <AvenantAjoutPoste avenant={structure} statutDemande={statutDemande} />
+                            }
+                          </tr>
+                        )}
+                        {(!structures?.items || structures?.items?.total === 0) &&
+                          <tr>
+                            <td colSpan="12" style={{ width: '60rem' }}>
+                              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <span className="not-found pair">Aucune candidature de conseillers num&eacute;riques trouv&eacute;es</span>
+                              </div>
+                            </td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  }
                 </div>
               </div>
               {structures?.items?.data?.length > 0 &&
