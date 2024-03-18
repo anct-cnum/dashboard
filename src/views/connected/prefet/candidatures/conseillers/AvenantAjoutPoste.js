@@ -9,9 +9,9 @@ function AvenantAjoutPoste({ avenant, statutDemande }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const formatAvisPrefet = avisPrefet => {
     switch (avisPrefet) {
-      case 'POSITIF':
+      case 'favorable':
         return <p className="fr-badge fr-badge--success">favorable</p>;
-      case 'NÉGATIF':
+      case 'défavorable':
         return <p className="fr-badge fr-badge--error">d&eacute;favorable</p>;
       default:
         return '';
