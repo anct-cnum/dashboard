@@ -179,8 +179,8 @@ export default function TableauConvention() {
                     <table>
                       <thead>
                         <tr>
-                          <th style={{ width: '40rem' }}>Structure</th>
-                          <th style={{ width: '18rem' }}>
+                          <th style={{ width: '28rem' }}>Structure</th>
+                          <th style={{ width: '16rem' }}>
                             <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
                               <span>Date de la demande
                                 {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
@@ -192,9 +192,10 @@ export default function TableauConvention() {
                               </span>
                             </button>
                           </th>
-                          <th style={{ width: '20rem' }}>Nb. de postes demand&eacute;s</th>
-                          <th style={{ width: '22rem' }}>Type de demande</th>
-                          <th style={{ width: '8rem' }}></th>
+                          <th style={{ width: '14rem' }}>Nombre de postes</th>
+                          <th style={{ width: '20rem' }}>Type de demande</th>
+                          { typeConvention === 'avenantAjoutPoste' && <th style={{ width: '13rem' }}>Avis pr&eacute;fet</th>}
+                          <th style={{ width: '15rem' }}></th>
                         </tr>
                       </thead>
                       <tbody>

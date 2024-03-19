@@ -4,19 +4,10 @@ import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
+import { formatAvisPrefet } from '../../../../utils/formatagesUtils';
 
 function Conventionnement({ structure, typeConvention }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const formatAvisPrefet = avisPrefet => {
-    switch (avisPrefet) {
-      case 'POSITIF':
-        return <div className="square-icone-checkbox"><span className="fr-icon-checkbox-circle-fill" aria-hidden="true" /></div>;
-      case 'NÉGATIF':
-        return <div className="square-icone-close"><span className="fr-icon-close-circle-fill" aria-hidden="true" /></div>;
-      default:
-        return '';
-    }
-  };
 
   return (
     <>
@@ -31,9 +22,6 @@ function Conventionnement({ structure, typeConvention }) {
         }
       </td>
       <td>{structure?.nombreConseillersSouhaites ? structure.nombreConseillersSouhaites : '-'}</td>
-      {typeConvention === 'conventionnement' &&
-        <td>{formatAvisPrefet(structure?.prefet?.avisPrefet)}</td>
-      }
       <td>
         <div className="fr-grid-row" style={{ alignItems: 'center' }}>
           <span className="fr-mr-2w">Conventionnement initial</span>
@@ -52,6 +40,9 @@ function Conventionnement({ structure, typeConvention }) {
           }
         </div>
       </td>
+      {typeConvention === 'conventionnement' &&
+            <td>{formatAvisPrefet(structure?.prefet?.avisPrefet)}</td>
+      }
       <td>
         <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={{
           pathname: `/${roleActivated}/demandes/convention/${structure?._id}`,

@@ -225,8 +225,9 @@ export default function TableauHistoriqueConvention() {
                                 </span>
                               </button>
                             </th>
-                            <th style={{ width: '20rem' }}>{nomColonneParTypeConvention(typeConvention)}</th>
+                            <th style={{ width: '20rem' }}>Nombre de postes</th>
                             <th style={{ width: '22rem' }}>Type de demande</th>
+                            { typeConvention === 'avenantAjoutPoste' && <th style={{ width: '13rem' }}>Avis pr&eacute;fet</th>}
                             <th style={{ width: '8rem' }}></th>
                           </tr>
                         </thead>
