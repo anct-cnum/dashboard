@@ -41,16 +41,16 @@ function StructurePrimoEntranteDetail({ structure, listeStructure }) {
               {structure?.nombreConseillersSouhaites ?
                 <h3 className="fr-card__title fr-h3">
                   Demande de&nbsp;{pluralize(
-                    'poste supplémentaire',
-                    'poste supplémentaire',
-                    'postes supplémentaires',
+                    'poste de conseiller numérique',
+                    'poste de conseiller numérique',
+                    'postes de conseillers numériques',
                     structure.nombreConseillersSouhaites,
                     true
                   )}
                 </h3> :
                 <h3 className="fr-card__title fr-h3">
                   <strong className="fr-text--bold">
-                    Nombre de poste de conseiller demand&eacute; non renseign&eacute;
+                    Demande de poste de conseiller num&eacute;rique
                   </strong>
                 </h3>
               }
@@ -72,21 +72,17 @@ function StructurePrimoEntranteDetail({ structure, listeStructure }) {
               }
             </p>
           </div>
-          <div className="fr-col-12" style={{ position: 'absolute', left: '0', top: '135px' }} >
-            <hr style={{ borderWidth: '0.5px' }} />
-          </div>
-          <div className="fr-card__desc fr-text--md" style={{ display: 'flex', marginTop: '3.7rem', gap: '24px' }}>
-            <div className="motif-structure">
-              <strong>Motif de la structure:</strong>
-              <span className="fr-mt-1w">Nouveau poste</span>
-            </div>
-            {['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) &&
-              <div className="commentaire-prefet">
+          {['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) &&
+            <>
+              <div className="fr-col-12" style={{ position: 'absolute', left: '0', top: '135px' }} >
+                <hr style={{ borderWidth: '0.5px' }} />
+              </div>
+              <div className="commentaire-prefet fr-card__desc fr-text--md" style={{ marginTop: '3.7rem', marginLeft: 0 }}>
                 <strong>Commentaire pr&eacute;fet:</strong>
                 <span className="fr-mt-1w">{structure?.prefet?.commentairePrefet ?? 'Non renseignée'}</span>
               </div>
-            }
-          </div>
+            </>
+          }
         </div>
         {checkStructureNouvelle(structure?.statut) &&
           <div className="fr-card__footer" style={{ paddingTop: '0' }}>
