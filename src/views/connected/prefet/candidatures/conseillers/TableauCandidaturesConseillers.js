@@ -118,13 +118,13 @@ export default function TableauCandidaturesConseillers() {
                 Demandes de postes ({structures?.items?.totalParDemandesConseiller?.totalDemandePoste})
               </button>
               <button onClick={() => setStatutDemande('posteValider')} className="fr-tag" aria-pressed={statutDemande === 'posteValider'}>
-                Postes valid&eacute;es par l&rsquo;ANCT ({structures?.items?.totalParDemandesConseiller?.totalPosteValider})
+                Postes valid&eacute;s par l&rsquo;ANCT ({structures?.items?.totalParDemandesConseiller?.totalPosteValider})
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
                 setStatutDemande('posteRefuser');
               }} className="fr-tag" aria-pressed={statutDemande === 'posteRefuser'}>
-                Postes refus&eacute;es par l&rsquo;ANCT ({structures?.items?.totalParDemandesConseiller?.totalPosteRefuser})
+                Postes refus&eacute;s par l&rsquo;ANCT ({structures?.items?.totalParDemandesConseiller?.totalPosteRefuser})
               </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
@@ -195,7 +195,7 @@ export default function TableauCandidaturesConseillers() {
                           <tr>
                             <td colSpan="12" style={{ width: '60rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <span className="not-found pair">Aucune candidature de conseillers num&eacute;riques trouv&eacute;es</span>
+                                <span className="not-found pair">Aucune candidature de conseillers num&eacute;riques trouv&eacute;s</span>
                               </div>
                             </td>
                           </tr>
