@@ -41,7 +41,7 @@ function FiltresEtTrisCandidatures() {
 
   const getDepartements = () => {
     if (userAuth?.region) {
-      return departementsRegionList.filter(departement => departement.region_name === codeRegionArray.find(r => r.code === userAuth?.region).nom);
+      return departementsRegionList.filter(departement => departement.region_name === codeRegionArray.find(r => r.code === userAuth?.region)?.nom);
     }
     return departementsRegionList.filter(departement => departement.num_dep === userAuth?.departement);
   };
