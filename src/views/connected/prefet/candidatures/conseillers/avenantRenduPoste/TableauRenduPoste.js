@@ -53,7 +53,7 @@ export function TableauRenduPoste({ structures, loading, error, ordreNom, ordre 
           <tr>
             <td colSpan="12" style={{ width: '60rem' }}>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <span className="not-found pair">Aucune demande de rendu poste trouv&eacute;</span>
+                <span className="not-found pair">Aucune demande de rendu poste trouv&eacute;e</span>
               </div>
             </td>
           </tr>
