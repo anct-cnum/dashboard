@@ -39,6 +39,11 @@ function AvenantAjoutPoste({ avenant, statutDemande }) {
           avenant?.nombreDePostesSouhaites,
           true
         )}
+        {avenant?.idStructureTransfert &&
+          <>
+            &nbsp;(Transfert)
+          </>
+        }
       </td>
       <td>{formatAvisPrefet(avenant?.avisPrefet)}</td>
       {avenant.statut === 'en_cours' ?
