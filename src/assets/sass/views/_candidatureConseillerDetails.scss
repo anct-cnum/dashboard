@@ -1,0 +1,43 @@
+@import "../colors/colors";
+
+.candidatureConseillerDetails {
+  .color-text span {
+    color: $light-grey;
+  }
+  .color-title-subpart strong {
+    font-weight: 500;
+  }
+  .commentaire-prefet {
+    background: $error-950;
+    padding: 1.5rem;
+    width: 50%;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px 8px 8px 0px;
+    height: fit-content;
+  }
+  .motif-structure {
+    background: $blue-france-975;
+    padding: 1.5rem;
+    width: 50%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px 8px 8px 0px;
+  }
+  .badge-avis-prefet {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .fr-badge {
+    height: min-content;
+  }
+  .title-modal-confirmation-poste {
+    display: inline-block;
+  }
+  .title-modal-confirmation-poste::first-letter {
+    text-transform: capitalize;
+  }
+}
