@@ -1,0 +1,31 @@
+@import "../colors/colors";
+
+@mixin custom-card-style {
+  border-radius: 5px;
+  flex: 0 0 49%;
+}
+
+.custom-card-style-info {
+  @include custom-card-style;
+  background-color: $info-975;
+}
+
+.custom-card-style-accept {
+  @include custom-card-style;
+  background-color: $success-950;
+}
+
+.custom-card-style-decline {
+  @include custom-card-style;
+  background-color: $warning-925;
+}
+
+.custom-card-text-accept {
+  color: $success-425; 
+  margin-top: 1px;
+}
+
+.custom-card-text-decline {
+  color: $red-hover;
+  margin-top: 1px;
+}
