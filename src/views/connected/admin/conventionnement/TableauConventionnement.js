@@ -29,9 +29,9 @@ export function TableauConventionnement({ conventions, loading, error, ordreNom,
               </span>
             </button>
           </th>
-          <th style={{ width: '25rem' }}>Nb. de postes demand&eacute;s</th>
-          <th style={{ width: '13rem' }}>Avis pr&eacute;fet</th>
+          <th style={{ width: '25rem' }}>Nombre de postes</th>
           <th style={{ width: '25rem' }}>Type de demande</th>
+          <th style={{ width: '13rem' }}>Avis pr&eacute;fet</th>
           <th style={{ width: '8rem' }}></th>
         </tr>
       </thead>
