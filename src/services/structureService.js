@@ -105,7 +105,7 @@ function getAllDemandesConseiller(page, statutDemande, filtreSearchBar, filtreDe
   } = demandesQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
 
   // eslint-disable-next-line max-len
-  return API.get(`${apiUrlRoot}/demandes/conseillers?role=${roleActivated()}&page=${page}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
+  return API.get(`${apiUrlRoot}/demandes/conseillers?role=${roleActivated()}&page=${page}&statutDemande=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
