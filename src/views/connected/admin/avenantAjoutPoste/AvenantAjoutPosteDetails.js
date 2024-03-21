@@ -27,8 +27,8 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
     <div className="fr-card">
       {openModalValidation &&
         <ModalValidationAvenantAjoutPoste
-          idStructure={avenant._id}
-          nomStructure={avenant.nom}
+          idStructure={avenant?._id}
+          nomStructure={avenant?.nom}
           demandesCoselec={demandesCoselec}
           nombreConseillersCoselec={avenant.nombreConseillersCoselec}
           setOpenModal={setOpenModalValidation}
@@ -36,8 +36,8 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
       }
       {openModalRefus &&
         <ModalRefusAvenantAjoutPoste
-          idStructure={avenant._id}
-          nomStructure={avenant.nom}
+          idStructure={avenant?._id}
+          nomStructure={avenant?.nom}
           demandesCoselec={demandesCoselec}
           nombreConseillersCoselec={avenant.nombreConseillersCoselec}
           setOpenModal={setOpenModalRefus}
@@ -94,11 +94,11 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
           <hr className="fr-card__desc" style={{ marginLeft: '-2rem', marginRight: '-2rem' }}/>
           <div className="fr-card__desc fr-container--fluid">
             <div className=" fr-grid-row" style={{ justifyContent: 'space-between' }}>
-              <div className="fr-card fr-card--no-border custom-card-style-info">
+              <div className="fr-card fr-card--no-border display-card-info">
                 <div className="fr-card__body">
                   <div className="fr-card__content">
                     <p className="fr-text--bold" style={{ marginBottom: '0px' }}>
-                      Motif de la structure :
+                      Motif de la structure&nbsp;:
                     </p>
                     <p className="fr-card__desc">{demandesCoselec?.motif ?? 'Non renseigné'}</p>
                   </div>
@@ -106,16 +106,16 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
               </div>
               {demandesCoselec.commentairePrefet &&
               <div className={`fr-card fr-card--no-border 
-              ${demandesCoselec.avisPrefet === 'favorable' ? 'custom-card-style-accept' : 'custom-card-style-decline'}`}>
+              ${demandesCoselec.avisPrefet === 'favorable' ? 'display-card-accept' : 'display-card-decline'}`}>
                 <div className="fr-card__body">
                   <div className="fr-card__content">
                     <p className="fr-text--bold" style={{ marginBottom: '0px' }}>
-                      Commentaire pr&eacute;fet :
+                      Commentaire pr&eacute;fet&nbsp;:
                     </p>
                     <p className="fr-card__desc">{demandesCoselec?.commentairePrefet}</p>
                     <p className={`fr-card__desc fr-text--bold 
-                    ${demandesCoselec?.avisPrefet === 'favorable' ? 'custom-card-text-accept' : 'custom-card-text-decline'}`}>
-                      {demandesCoselec.avisPrefet === 'favorable' ? 'Avis favorable' : 'Avis défavorable'}
+                    ${demandesCoselec?.avisPrefet === 'favorable' ? 'display-card-text-accept' : 'display-card-text-decline'}`}>
+                      {demandesCoselec?.avisPrefet === 'favorable' ? 'Avis favorable' : 'Avis défavorable'}
                     </p>
                   </div>
                 </div>
