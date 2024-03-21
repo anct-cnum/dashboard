@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+import { formatAvisPrefet } from '../../../../utils/formatagesUtils';
 
 function HistoriqueAvenantAjoutPoste({ avenant, typeConvention }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -21,6 +22,7 @@ function HistoriqueAvenantAjoutPoste({ avenant, typeConvention }) {
       </td>
       <td>{avenant?.nombreDePostesAccordes ?? '-'}</td>
       <td style={{ width: '13rem' }}>Avenant · ajout de poste</td>
+      {typeConvention === 'avenantAjoutPoste' && <td style={{ width: '13rem' }}>{formatAvisPrefet(avenant?.avisPrefet)}</td>}
       <td>
         <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={{
           pathname: `/${roleActivated}/demandes/convention/${avenant?.idStructure}`,
