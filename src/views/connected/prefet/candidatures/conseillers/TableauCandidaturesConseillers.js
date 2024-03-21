@@ -195,7 +195,7 @@ export default function TableauCandidaturesConseillers() {
                           <tr>
                             <td colSpan="12" style={{ width: '60rem' }}>
                               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <span className="not-found pair">Aucune candidature de conseillers num&eacute;riques trouv&eacute;s</span>
+                                <span className="not-found pair">Aucune candidature de conseillers num&eacute;riques trouv&eacute;e</span>
                               </div>
                             </td>
                           </tr>
