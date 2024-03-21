@@ -94,17 +94,18 @@ export default function TableauCandidaturesConseillers() {
   return (
     <div className="conventions">
       <Spinner loading={loading} />
-      {structures?.items?.structureBannerAvisPrefetOpen?.length > 0 && structures?.items?.structureBannerAvisPrefetOpen?.map((structure, idx) => {
-        return (
-          <BannerConfirmationAvisPrefet
-            key={idx}
-            closeBanner={closeBanner}
-            nomStructure={structure.nom}
-            avisPrefet={structure.prefet[0].avisPrefet === 'POSITIF' ? 'favorable' : 'défavorable'}
-            idDemande={structure._id}
-          />
-        );
-      })
+      {structures?.items?.structurePrimoEntranteBannerAvisPrefetOpen?.length > 0 &&
+        structures?.items?.structurePrimoEntranteBannerAvisPrefetOpen?.map((structure, idx) => {
+          return (
+            <BannerConfirmationAvisPrefet
+              key={idx}
+              closeBanner={closeBanner}
+              nomStructure={structure.nom}
+              avisPrefet={structure.prefet[0].avisPrefet === 'POSITIF' ? 'favorable' : 'défavorable'}
+              idDemande={structure._id}
+            />
+          );
+        })
       }
       <div className="fr-grid-row">
         <div className="fr-col-12">

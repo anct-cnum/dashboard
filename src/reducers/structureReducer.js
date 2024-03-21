@@ -281,7 +281,7 @@ export default function structure(state = initialState, action) {
         ...state,
         loading: false,
         items: {
-          ...state.items, structureBannerAvisPrefetOpen: state?.items?.structureBannerAvisPrefetOpen?.filter(
+          ...state.items, structurePrimoEntranteBannerAvisPrefetOpen: state?.items?.structurePrimoEntranteBannerAvisPrefetOpen?.filter(
             structure => structure._id !== action.idStructure)
         },
       };
