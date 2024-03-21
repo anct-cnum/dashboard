@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { pluralize } from '../../../../../utils/formatagesUtils';
+import { pluralize } from '../../../../../../utils/formatagesUtils';
 
-function CandidatureConseiller({ structure, statutDemande }) {
+function StructurePrimoEntrante({ structure, statutDemande }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   const formatAvisPrefet = avisPrefet => {
@@ -44,13 +44,20 @@ function CandidatureConseiller({ structure, statutDemande }) {
       {structure?.statut === 'CREEE' || structure?.statut === 'EXAMEN_COMPLEMENTAIRE_COSELEC' ?
         <td>
           <Link className={`fr-btn ${structure?.prefet?.avisPrefet ? 'fr-btn--secondary' : ''}`}
-            to={`/${roleActivated}/demandes/conseiller/${structure?._id}`}
+            to={{
+              pathname: `/${roleActivated}/demandes/conseiller/${structure?._id}`,
+              search: `?type=primo-entrante`,
+            }}
             state={{ 'origin': `/${roleActivated}/demandes/conseillers`, statutDemande }}>
             {structure?.prefet?.avisPrefet ? 'Modifier mon avis' : 'Donner mon avis'}
           </Link>
         </td> :
         <td style={{ textAlign: 'end' }}>
-          <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={`/${roleActivated}/demandes/conseiller/${structure?._id}`}
+          <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left"
+            to={{
+              pathname: `/${roleActivated}/demandes/conseiller/${structure?._id}`,
+              search: `?type=primo-entrante`,
+            }}
             state={{ 'origin': `/${roleActivated}/demandes/conseillers`, statutDemande }}>
             Details
           </Link>
@@ -60,9 +67,9 @@ function CandidatureConseiller({ structure, statutDemande }) {
   );
 }
 
-CandidatureConseiller.propTypes = {
+StructurePrimoEntrante.propTypes = {
   structure: PropTypes.object,
   statutDemande: PropTypes.string
 };
 
-export default CandidatureConseiller;
+export default StructurePrimoEntrante;

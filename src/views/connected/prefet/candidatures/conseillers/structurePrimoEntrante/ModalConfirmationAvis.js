@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { structureActions } from '../../../../../actions';
+import { structureActions } from '../../../../../../actions';
 import { useDispatch } from 'react-redux';
-import FilterSelect from '../../../../../components/FilterSelect';
+import FilterSelect from '../../../../../../components/FilterSelect';
 
 function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStructure }) {
   const dispatch = useDispatch();
@@ -137,6 +137,7 @@ ModalConfirmationAvis.propTypes = {
   structure: PropTypes.object,
   avisPrefet: PropTypes.string,
   listeStructure: PropTypes.array,
+  editMode: PropTypes.bool
 };
 
 export default ModalConfirmationAvis;

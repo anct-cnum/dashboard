@@ -5,12 +5,12 @@ import Spinner from '../../../../../components/Spinner';
 import Pagination from '../../../../../components/Pagination';
 import { scrollTopWindow } from '../../../../../utils/exportsUtils';
 import { useLocation, useNavigate } from 'react-router-dom';
-import CandidatureConseiller from './CandidatureConseiller';
 import BannerConfirmationAvisPrefet from '../BannerConfirmationAvisPrefet';
 import FiltresEtTrisCandidatures from '../FiltresEtTrisCandidatures';
-import AvenantAjoutPoste from './AvenantAjoutPoste';
 import TableauRenduPoste from './avenantRenduPoste/TableauRenduPoste';
 import FiltresEtTrisAvenantRenduPoste from './avenantRenduPoste/FiltresEtTrisAvenantRenduPoste';
+import AvenantAjoutPoste from './avenantAjoutPoste/AvenantAjoutPoste';
+import StructurePrimoEntrante from './structurePrimoEntrante/StructurePrimoEntrante';
 
 export default function TableauCandidaturesConseillers() {
 
@@ -184,7 +184,7 @@ export default function TableauCandidaturesConseillers() {
                         {!error && !loading && structures?.items?.data?.map((structure, idx) =>
                           <tr key={idx}>
                             {structure?.statutDemande === 'structurePrimoEntrante' &&
-                              <CandidatureConseiller structure={structure} statutDemande={statutDemande} />
+                              <StructurePrimoEntrante structure={structure} statutDemande={statutDemande} />
                             }
                             {structure?.statutDemande === 'avenantAjoutPoste' &&
                               <AvenantAjoutPoste avenant={structure} statutDemande={statutDemande} />
