@@ -24,7 +24,7 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
   };
 
   return (
-    <div className="fr-card">
+    <div className="fr-card card-add">
       {openModalValidation &&
         <ModalValidationAvenantAjoutPoste
           idStructure={avenant?._id}
@@ -104,9 +104,9 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
                   </div>
                 </div>
               </div>
-              {demandesCoselec.commentairePrefet &&
+              {demandesCoselec?.commentairePrefet &&
               <div className={`fr-card fr-card--no-border 
-              ${demandesCoselec.avisPrefet === 'favorable' ? 'display-card-accept' : 'display-card-decline'}`}>
+              ${demandesCoselec?.avisPrefet === 'favorable' ? 'display-card-accept' : 'display-card-decline'}`}>
                 <div className="fr-card__body">
                   <div className="fr-card__content">
                     <p className="fr-text--bold" style={{ marginBottom: '0px' }}>
