@@ -11,7 +11,7 @@ import pixRessources from '../assets/icons/pix-ressources.png';
 import pixCitoyen from '../assets/icons/pix-citoyen.png';
 
 // eslint-disable-next-line max-len
-function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRelationFinaliseeRupture, misesEnRelationNouvelleRupture, roleActivated, recrutement = false }) {
+function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRelationSansMission, misesEnRelationNouvelleRupture, roleActivated, recrutement = false }) {
 
   const { trackEvent } = useMatomo();
 
@@ -47,13 +47,13 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
           <AccordeonContrats
             conseiller={conseiller}
             misesEnRelationFinalisee={misesEnRelationFinalisee}
-            misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+            misesEnRelationSansMission={misesEnRelationSansMission}
             misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
           />
           <ContratsCards
             conseiller={conseiller}
             misesEnRelationFinalisee={misesEnRelationFinalisee}
-            misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+            misesEnRelationSansMission={misesEnRelationSansMission}
             misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
           />
         </>
@@ -132,19 +132,19 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
           <div className="fr-grid-row fr-col-12">
             <h4 className="titre">Contact du responsable</h4>
             <div className="fr-grid-row fr-col-12">
-              <div className="fr-mb-3w fr-col-6">
+              <div className="fr-mb-3w fr-col-12 fr-col-md-6">
                 <strong>Nom</strong><br />
                 <span>{conseiller?.supHierarchique?.nom ?? '-'}</span>
               </div>
-              <div className="fr-mb-3w fr-col-6">
+              <div className="fr-mb-3w fr-col-12 fr-col-md-6">
                 <strong>Email</strong><br />
                 <span>{conseiller?.supHierarchique?.email ?? '-'}</span>
               </div>
-              <div className="fr-mb-3w fr-col-6">
+              <div className="fr-mb-3w fr-col-12 fr-col-md-6">
                 <strong>Pr&eacute;nom</strong><br />
                 <span>{conseiller?.supHierarchique?.prenom ?? '-'}</span>
               </div>
-              <div className="fr-mb-3w fr-col-6">
+              <div className="fr-mb-3w fr-col-12 fr-col-md-6">
                 <strong>T&eacute;l&eacute;phone</strong><br />
                 <span>{formatNumeroTelephone(conseiller?.supHierarchique?.numeroTelephone)}</span>
               </div>
@@ -269,7 +269,7 @@ function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRe
 InformationConseiller.propTypes = {
   conseiller: PropTypes.object,
   misesEnRelationFinalisee: PropTypes.array,
-  misesEnRelationFinaliseeRupture: PropTypes.array,
+  misesEnRelationSansMission: PropTypes.array,
   misesEnRelationNouvelleRupture: PropTypes.object,
   roleActivated: PropTypes.string,
   recrutement: PropTypes.bool

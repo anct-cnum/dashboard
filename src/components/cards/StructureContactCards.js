@@ -6,7 +6,7 @@ export default function StructureContactCards({ structure }) {
 
   return (
     <>
-      <div className="color-text color-title-subpart">
+      <div className="color-text color-title-subpart contact-structure">
         <div className="fr-card">
           <div className="fr-card__body fr-p-0">
             <div className="fr-container fr-mt-3w">
@@ -14,44 +14,32 @@ export default function StructureContactCards({ structure }) {
                 <div className="fr-col-12 fr-col-lg-3">
                   <div className="fr-mb-3w">
                     <strong>Contact de la structure</strong><br />
-                    <span className="fr-text--regular fr-text--md">
+                    <span>
                       {structure ? formatNomContactStructure(structure) : ''}
                     </span>
                   </div>
                 </div>
-                <div className="fr-col-12 fr-col-md-3">
+                <div className="fr-col-12 fr-col-md-3 contact-fonction">
                   <div className="fr-mb-3w">
                     <strong>Fonction</strong><br />
-                    <span className="fr-text--regular fr-text--md" title={structure?.contact?.fonction ?? ''}>
-                      {structure?.contact?.fonction ?
-                        <>
-                          {structure?.contact?.fonction?.length > 28 ?
-                            `${structure?.contact?.fonction.substring(0, 28)}...` : structure?.contact?.fonction
-                          }
-                        </> : '-'
-                      }
+                    <span title={structure?.contact?.fonction ?? ''}>
+                      {structure?.contact?.fonction ?? '-'}
                     </span>
                   </div>
                 </div>
                 <div className="fr-col-12 fr-col-md-3">
                   <div className="fr-mb-3w">
                     <strong>T&eacute;l&eacute;phone</strong><br />
-                    <span className="fr-text--regular fr-text--md">
+                    <span>
                       {formatNumeroTelephone(structure?.contact?.telephone)}
                     </span>
                   </div>
                 </div>
-                <div className="fr-col-12 fr-col-md-3">
+                <div className="fr-col-12 fr-col-md-3 contact-mail">
                   <div className="fr-mb-3w">
                     <strong>Email</strong><br />
-                    <span className="fr-text--regular fr-text--md" title={structure?.contact?.email ?? ''}>
-                      {structure?.contact?.email ?
-                        <>
-                          {structure?.contact?.email?.length > 28 ?
-                            `${structure?.contact?.email.substring(0, 28)}...` : structure?.contact?.email
-                          }
-                        </> : '-'
-                      }
+                    <span title={structure?.contact?.email ?? ''}>
+                      {structure?.contact?.email ?? '-'}
                     </span>
                   </div>
                 </div>

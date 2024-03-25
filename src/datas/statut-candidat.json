@@ -36,6 +36,12 @@
       "badge": "info"
     },
     {
+      "name": "Contrats arrivés à terme",
+      "name_singular": "Contrat terminé",
+      "filter": "terminee_naturelle",
+      "badge": "info"
+    },
+    {
       "name": "Candidats en rupture",
       "name_singular": "Candidat en rupture",
       "filter": "finalisee_rupture",

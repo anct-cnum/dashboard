@@ -93,8 +93,8 @@ export function TableConseillers({ conseillers, loading, error, filtreRupture, f
                           </button>
                           <hr className="admin-select-hr" />
                         </li>
-                        <li className={filtreRupture === 'rupture' ? 'selected' : ''}>
-                          <button id="rupture" className="admin-select-option" onClick={handleSortRupture}>
+                        <li className={filtreRupture === 'sans-mission' ? 'selected' : ''}>
+                          <button id="sans-mission" className="admin-select-option" onClick={handleSortRupture}>
                             Sans mission
                           </button>
                         </li>

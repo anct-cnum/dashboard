@@ -23,8 +23,9 @@ function ConseillerDetails() {
   const currentPage = useSelector(state => state.pagination?.currentPage);
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
-  const [misesEnRelationFinaliseeRupture, setMisesEnRelationFinaliseeRupture] = useState([]);
+  const [misesEnRelationSansMission, setMisesEnRelationSansMission] = useState([]);
   const [misesEnRelationNouvelleRupture, setMisesEnRelationNouvelleRupture] = useState(null);
+
   const [openModal, setOpenModal] = useState(false);
 
   const updateStatut = (statut, motifRupture, dateRuptureValidee) => {
@@ -61,7 +62,10 @@ function ConseillerDetails() {
     if (conseiller !== undefined) {
       setMisesEnRelationNouvelleRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'nouvelle_rupture')[0]);
       setMisesEnRelationFinalisee(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee'));
-      setMisesEnRelationFinaliseeRupture(conseiller.misesEnRelation?.filter(miseEnRelation => miseEnRelation.statut === 'finalisee_rupture'));
+      setMisesEnRelationSansMission(conseiller.misesEnRelation?.filter(
+        miseEnRelation =>
+          miseEnRelation.statut === 'finalisee_rupture' || miseEnRelation.statut === 'terminee_naturelle'
+      ));
     }
   }, [conseiller]);
 
@@ -111,7 +115,7 @@ function ConseillerDetails() {
               }
             </>
           }
-          {conseiller?.statut === 'RUPTURE' &&
+          {(conseiller?.statut === 'RUPTURE' || conseiller?.statut === 'TERMINE') &&
             <p className="fr-badge fr-badge--error fr-badge--no-icon" style={{ height: '20%' }}>Contrat termin&eacute;</p>
           }
           {misesEnRelationNouvelleRupture &&
@@ -134,7 +138,7 @@ function ConseillerDetails() {
       <InformationConseiller
         conseiller={conseiller}
         misesEnRelationFinalisee={misesEnRelationFinalisee}
-        misesEnRelationFinaliseeRupture={misesEnRelationFinaliseeRupture}
+        misesEnRelationSansMission={misesEnRelationSansMission}
         misesEnRelationNouvelleRupture={misesEnRelationNouvelleRupture}
         roleActivated={roleActivated}
       />
