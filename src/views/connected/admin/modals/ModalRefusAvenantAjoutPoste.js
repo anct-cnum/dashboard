@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { conventionActions } from '../../../../actions';
 import { StatutCoselec } from '../../../../utils/enumUtils';
 
-function ModalValidationAvenantAjoutPoste({ idStructure, demandesCoselec, nombreConseillersCoselec, setOpenModal, nomStructure }) {
+function ModalRefusAvenantAjoutPoste({ idStructure, setOpenModal, nomStructure }) {
   const dispatch = useDispatch();
-  const [nombreDePostes, setNombreDePostes] = useState(demandesCoselec.nombreDePostesSouhaites);
-
-  const validationAvenantAjoutPoste = () => {
-    dispatch(conventionActions.updateAvenantAjoutPoste(idStructure, StatutCoselec.POSITIF, nombreDePostes, nombreConseillersCoselec));
-    setOpenModal(false);
+  const refusAvenantAjoutPoste = () => {
+    dispatch(conventionActions.updateAvenantAjoutPoste(idStructure, StatutCoselec.NÉGATIF));
   };
 
   return (
@@ -22,22 +19,13 @@ function ModalValidationAvenantAjoutPoste({ idStructure, demandesCoselec, nombre
               <div className="fr-modal__header">
                 <button className="fr-btn--close fr-btn" aria-controls="fr-modal-2" onClick={() => setOpenModal(false)}>Fermer</button>
               </div>
-              <div className="fr-modal__content fr-grid-row fr-grid-row--center">
+              <div className="fr-modal__content fr-grid-row fr-grid-row--center fr-mb-3w">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   Confirmer l&rsquo;attribution
                 </h1>
                 <p style={{ textAlign: 'center' }}>
                   Indiquez le nombre de postes attribu&eacute;s &agrave; la structure<br/>{nomStructure}
                 </p>
-                <input
-                  className="fr-input fr-col-6"
-                  type="number"
-                  min="1"
-                  max={demandesCoselec.nombreDePostesSouhaites}
-                  onChange={e => setNombreDePostes(e.target.value)}
-                  value={nombreDePostes}
-                  id="text-input-text" name="text-input-text"
-                />
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--center fr-btns-group--inline-lg">
@@ -47,7 +35,7 @@ function ModalValidationAvenantAjoutPoste({ idStructure, demandesCoselec, nombre
                     </button>
                   </li>
                   <li>
-                    <button disabled={nombreDePostes < 1} onClick={validationAvenantAjoutPoste} className="fr-btn">
+                    <button onClick={refusAvenantAjoutPoste} className="fr-btn">
                       Confirmer
                     </button>
                   </li>
@@ -61,12 +49,10 @@ function ModalValidationAvenantAjoutPoste({ idStructure, demandesCoselec, nombre
   );
 }
 
-ModalValidationAvenantAjoutPoste.propTypes = {
+ModalRefusAvenantAjoutPoste.propTypes = {
   idStructure: PropTypes.string,
   nomStructure: PropTypes.string,
-  demandesCoselec: PropTypes.object,
-  nombreConseillersCoselec: PropTypes.number,
   setOpenModal: PropTypes.func,
 };
 
-export default ModalValidationAvenantAjoutPoste;
+export default ModalRefusAvenantAjoutPoste;
