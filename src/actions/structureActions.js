@@ -17,12 +17,14 @@ export const structureActions = {
   getAllDemandesConseiller,
   getDemandeConseiller,
   confirmationAvisPrefet,
+  confirmationAvenantAvisPrefet,
   closeBannerAvisPrefet,
+  closeBannerAvenantAvisPrefet,
+  modificationCommentaireAvisPrefet,
   confirmationValidAvisAdmin,
   confirmationRefusAvisAdmin,
   resetConfirmationAvisAdmin,
 };
-
 // eslint-disable-next-line max-len
 function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre = 'nom', ordre = 1) {
   return dispatch => {
@@ -377,6 +379,30 @@ function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructur
   }
 }
 
+function confirmationAvenantAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec, idStructureTransfert) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.confirmationAvenantAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec, idStructureTransfert)
+    .then(
+      response => dispatch(success(response.success)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_AVENANT_AVIS_PREFET_REQUEST' };
+  }
+  function success(success) {
+    return { type: 'UPDATE_AVENANT_AVIS_PREFET_SUCCESS', success };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_AVENANT_AVIS_PREFET_FAILURE', error };
+  }
+}
+
 function closeBannerAvisPrefet(idStructure) {
   return dispatch => {
     dispatch(request());
@@ -398,6 +424,54 @@ function closeBannerAvisPrefet(idStructure) {
   }
   function failure(error) {
     return { type: 'UPDATE_BANNER_PREFET_FAILURE', error };
+  }
+}
+
+function closeBannerAvenantAvisPrefet(idStructure) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.closeBannerAvenantAvisPrefet(idStructure)
+    .then(
+      idStructure => dispatch(success(idStructure)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_BANNER_AVENANT_PREFET_REQUEST' };
+  }
+  function success(idStructure) {
+    return { type: 'UPDATE_BANNER_AVENANT_PREFET_SUCCESS', idStructure };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_BANNER_AVENANT_PREFET_FAILURE', error };
+  }
+}
+
+function modificationCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec) {
+  return dispatch => {
+    dispatch(request());
+
+    structureService.modificationCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec)
+    .then(
+      response => dispatch(success(response.success)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'UPDATE_COMMENTAIRE_PREFET_REQUEST' };
+  }
+  function success(success) {
+    return { type: 'UPDATE_COMMENTAIRE_PREFET_SUCCESS', success };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_COMMENTAIRE_PREFET_FAILURE', error };
   }
 }
 

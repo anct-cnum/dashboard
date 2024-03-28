@@ -86,7 +86,7 @@ function CandidatureConseillerDetail() {
         <StructurePrimoEntranteDetail structure={structure} listeStructure={listeStructure} />
       }
       {statutDemande === 'avenant-ajout-poste' && checkIfAvenantCorrect(structure) &&
-        <AvenantAjoutPosteDetail structure={structure} idDemandeCoselec={idDemandeCoselec} />
+        <AvenantAjoutPosteDetail structure={structure} idDemandeCoselec={idDemandeCoselec} listeStructure={listeStructure}/>
       }
     </div>
   );
