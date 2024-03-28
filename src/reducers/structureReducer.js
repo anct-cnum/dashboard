@@ -270,6 +270,40 @@ export default function structure(state = initialState, action) {
         loading: false,
         error: action.error
       };
+    case 'UPDATE_AVENANT_AVIS_PREFET_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'UPDATE_AVENANT_AVIS_PREFET_SUCCESS':
+      return {
+        ...state,
+        successAvisPrefet: action.success,
+        loading: false
+      };
+    case 'UPDATE_AVENANT_AVIS_PREFET_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
+    case 'UPDATE_COMMENTAIRE_PREFET_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'UPDATE_COMMENTAIRE_PREFET_SUCCESS':
+      return {
+        ...state,
+        successAvisPrefet: action.success,
+        loading: false
+      };
+    case 'UPDATE_COMMENTAIRE_PREFET_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
     case 'UPDATE_BANNER_PREFET_REQUEST':
       return {
         ...state,
@@ -286,6 +320,26 @@ export default function structure(state = initialState, action) {
         },
       };
     case 'UPDATE_BANNER_PREFET_FAILURE':
+      return {
+        loading: false,
+        error: action.error
+      };
+    case 'UPDATE_BANNER_AVENANT_PREFET_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'UPDATE_BANNER_AVENANT_PREFET_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: {
+          ...state.items, ajoutPosteBannerAvisPrefetOpen: state?.items?.ajoutPosteBannerAvisPrefetOpen?.filter(
+            structure => structure._id !== action.idStructure)
+        },
+      };
+    case 'UPDATE_BANNER_AVENANT_PREFET_FAILURE':
       return {
         loading: false,
         error: action.error

@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { structureActions } from '../../../../../actions';
+import { structureActions } from '../../../../../../actions';
 import { useDispatch } from 'react-redux';
+import FilterSelect from '../../../../../../components/FilterSelect';
 
-function ModalRefusAvisPrefet({ setOpenModal, structure }) {
+function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, idDemandeCoselec, listeStructure }) {
   const dispatch = useDispatch();
   const [commentaire, setCommentaire] = useState('');
   const [isTransfert, setIsTransfert] = useState(false);
+  const [idStructureTransfert, setIdStructureTransfert] = useState(null);
 
-  const refusAvisPrefet = () => {
-    dispatch(structureActions.confirmationAvisPrefet(structure?._id, 'defavorable', commentaire, isTransfert));
+  const filterOption = {
+    ignoreCase: true,
+    ignoreAccents: true,
+    trim: true,
+    matchFrom: 'any',
+    stringify: option => option ? `${option?.label}` : undefined,
+  };
+
+  const confirmationAvisPrefet = () => {
+    dispatch(structureActions.confirmationAvenantAvisPrefet(structure?._id, avisPrefet, commentaire, idDemandeCoselec, idStructureTransfert));
     setOpenModal(false);
     setCommentaire('');
+    setIdStructureTransfert(null);
   };
 
   return (<>
-    { structure.prefet.avisPrefet !== 'NEGATIF' &&
-      <button>
-        {structure.prefet.avisPrefet === 'POSITIF' ?
-          'Modifier en avis d&eacute;favorable' :
-          'Avis d&eacute;favorable'
-        }
-      </button>
-    }
-
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
         <div className="fr-grid-row fr-grid-row--center">
@@ -40,27 +42,24 @@ function ModalRefusAvisPrefet({ setOpenModal, structure }) {
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg"></span>
-                  {structure.prefet.avisPrefet === 'POSITIF' ?
-                    'Modifier en avis d&eacute;favorable' :
-                    'Confirmer l&rsquo;avis'
+                  {!structure?.prefet?.avisPrefet ?
+                    <>Confirmer l&rsquo;avis</> : <>Modifier en avis&nbsp;{avisPrefet}</>
                   }
-                
-        
                 </h1>
                 <p>
-                  {structure.prefet.avisPrefet === 'POSITIF' ?
-                    'Souhaitez-vous confirmer le changement d&rsquo;avis' :
-                    'Souhaitez-vous confirmer l&rsquo;avis d&eacute;favorable'
+                  {!structure?.prefet?.avisPrefet ?
+                    <>Souhaitez-vous confirmer l&rsquo;avis&nbsp;{avisPrefet} </> : <>Souhaitez-vous confirmer le changement d&rsquo;avis</>
                   }
                   &nbsp;pour la structure <strong>${structure?.nom}</strong>&nbsp;?
                 </p>
-                {structure.prefet.avisPrefet === 'POSITIF' &&
-                    <fieldset className="fr-fieldset fr-mb-1w" id="checkbox-structure" aria-labelledby="checkbox-structure">
-                      <legend className="fr-fieldset__legend--regular fr-fieldset__legend" id="checkbox-legend-structure">
-                        Cette demande concerne-t-elle un transfert de poste ?
-                      </legend>
-                      <div className="fr-fieldset__element">
-                        <div className="fr-checkbox-group" style={{ width: '10%' }}>
+                {avisPrefet === 'favorable' &&
+                  <fieldset className="fr-fieldset fr-mb-1w" id="checkbox-structure" aria-labelledby="checkbox-structure">
+                    <div className="fr-container fr-ml-n6v">
+                      <div className="fr-grid-row">
+                        <legend className="fr-col-11 fr-fieldset__legend--regular fr-fieldset__legend">
+                          Cette demande concerne-t-elle un transfert de poste ?
+                        </legend>
+                        <div className="fr-col-1 fr-checkbox-group" style={{ width: '10%' }}>
                           <input type="checkbox" id="checkbox-structure-transfert-oui"
                             name="checkbox-structure" aria-describedby="checkbox-structure" onChange={() => setIsTransfert(!isTransfert)} />
                           <label className="fr-label" htmlFor="checkbox-structure-transfert-oui" >
@@ -68,7 +67,23 @@ function ModalRefusAvisPrefet({ setOpenModal, structure }) {
                           </label>
                         </div>
                       </div>
-                    </fieldset>
+                    </div>
+                  </fieldset>
+                }
+                {isTransfert &&
+                  <div className="fr-select-group">
+                    <label className="fr-label fr-mb-1w" htmlFor="select">
+                      Veuillez s&eacute;lectionner la structure qui transfert son poste
+                    </label>
+                    <FilterSelect
+                      options={listeStructure}
+                      onChange={option => option ? setIdStructureTransfert(option?._id) : setIdStructureTransfert(null)}
+                      placeholder="Recherchez par id ou nom de la structure"
+                      noOptionsMessage={() => 'Aucune structure trouvée'}
+                      getOptionLabel={option => `${option?.idPG} - ${option?.nom}`}
+                      getOptionValue={option => option?._id}
+                      filterOption={filterOption} />
+                  </div>
                 }
                 <div className="fr-input-group">
                   <label className="fr-label" htmlFor="commentaire-input">
@@ -100,7 +115,9 @@ function ModalRefusAvisPrefet({ setOpenModal, structure }) {
                   <li>
                     <button
                       disabled={commentaire.trim().length < 10}
-                      onClick={refusAvisPrefet}
+                      onClick={() => {
+                        confirmationAvisPrefet();
+                      }}
                       className="fr-btn"
                     >
                       Confirmer
@@ -117,9 +134,12 @@ function ModalRefusAvisPrefet({ setOpenModal, structure }) {
   );
 }
 
-ModalRefusAvisPrefet.propTypes = {
+ModalConfirmationAvis.propTypes = {
   setOpenModal: PropTypes.func,
   structure: PropTypes.object,
+  avisPrefet: PropTypes.string,
+  idDemandeCoselec: PropTypes.string,
+  listeStructure: PropTypes.array,
 };
 
-export default ModalRefusAvisPrefet;
+export default ModalConfirmationAvis;
