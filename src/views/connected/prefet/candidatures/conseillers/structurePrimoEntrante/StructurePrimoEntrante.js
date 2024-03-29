@@ -43,13 +43,13 @@ function StructurePrimoEntrante({ structure, statutDemande }) {
       <td>{formatAvisPrefet(structure?.prefet?.avisPrefet)}</td>
       {structure?.statut === 'CREEE' || structure?.statut === 'EXAMEN_COMPLEMENTAIRE_COSELEC' ?
         <td>
-          <Link className={`fr-btn ${structure?.prefet?.avisPrefet ? 'fr-btn--secondary' : ''}`}
+          <Link className={`fr-btn ${['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) ? 'fr-btn--secondary' : ''}`}
             to={{
               pathname: `/${roleActivated}/demandes/conseiller/${structure?._id}`,
               search: `?type=primo-entrante`,
             }}
             state={{ 'origin': `/${roleActivated}/demandes/conseillers`, statutDemande }}>
-            {structure?.prefet?.avisPrefet ? 'Modifier mon avis' : 'Donner mon avis'}
+            {['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) ? 'Modifier mon avis' : 'Donner mon avis'}
           </Link>
         </td> :
         <td style={{ textAlign: 'end' }}>
