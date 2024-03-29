@@ -49,7 +49,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                   <>
                     <fieldset className="fr-fieldset fr-mb-1w" id="radio-hint" aria-labelledby="radio-transfert-structure radio-hint-messages">
                       <legend className="fr-fieldset__legend--regular fr-fieldset__legend" id="radio-transfert-structure">
-                        Cette demande concerne-t-elle un transfert de poste ?
+                        Cette demande concerne-t-elle un transfert de poste&nbsp;?
                       </legend>
                       <div className="fr-fieldset__element">
                         <div className="fr-radio-group" style={{ width: '10%' }}>

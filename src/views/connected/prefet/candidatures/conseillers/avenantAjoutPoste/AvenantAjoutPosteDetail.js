@@ -86,10 +86,10 @@ function AvenantAjoutPosteDetail({ structure, idDemandeCoselec, listeStructure }
               <span className="fr-mt-1w">{demandesCoselec?.motif ?? 'Non renseigné'}</span>
             </div>
             {demandesCoselec?.prefet?.commentaire &&
-              <div className={`commentaire-prefet${demandesCoselec?.prefet?.avis === 'POSITIF' ? '-positif' : '-negatif'}`}>
+              <div className={`commentaire-prefet ${demandesCoselec?.prefet?.avis === 'POSITIF' ? 'positif' : 'negatif'}`}>
                 <strong>Commentaire pr&eacute;fet:</strong>
                 <span className="fr-mt-1w">{demandesCoselec.prefet.commentaire}</span>
-                <button className={`lien-modifier${demandesCoselec?.prefet?.avis === 'POSITIF' ? '-positif' : '-negatif'}` }
+                <button className={`lien-modifier ${demandesCoselec?.prefet?.avis === 'POSITIF' ? 'positif' : 'negatif'}` }
                   onClick={() => {
                     setOpenModalCommentaire(true);
                   }}>

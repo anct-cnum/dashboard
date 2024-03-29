@@ -21,6 +21,7 @@ export default function structure(state = initialState, action) {
       };
     case 'GET_STRUCTURE_FAILURE':
       return {
+        ...state,
         error: action.error,
         loading: false
       };
@@ -38,6 +39,7 @@ export default function structure(state = initialState, action) {
       };
     case 'GET_CONNECTED_STRUCTURE_FAILURE':
       return {
+        ...state,
         error: action.error,
         loading: false
       };
@@ -55,6 +57,7 @@ export default function structure(state = initialState, action) {
       };
     case 'GET_STRUCTURE_DETAILS_FAILURE':
       return {
+        ...state,
         error: action.error,
         loading: false
       };
@@ -78,6 +81,7 @@ export default function structure(state = initialState, action) {
       };
     case 'PATCH_STRUCTURE_CONTACT_REQUEST':
       return {
+        ...state,
         loading: true,
         error: false,
         contactUpdated: false,
@@ -267,6 +271,7 @@ export default function structure(state = initialState, action) {
       };
     case 'UPDATE_AVIS_PREFET_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };
@@ -284,6 +289,7 @@ export default function structure(state = initialState, action) {
       };
     case 'UPDATE_AVENANT_AVIS_PREFET_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };
@@ -301,6 +307,7 @@ export default function structure(state = initialState, action) {
       };
     case 'UPDATE_COMMENTAIRE_PREFET_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };
@@ -321,6 +328,7 @@ export default function structure(state = initialState, action) {
       };
     case 'UPDATE_BANNER_PREFET_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };
@@ -341,6 +349,7 @@ export default function structure(state = initialState, action) {
       };
     case 'UPDATE_BANNER_AVENANT_PREFET_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };
@@ -358,6 +367,7 @@ export default function structure(state = initialState, action) {
       };
     case 'UPDATE_AVIS_ADMIN_FAILURE':
       return {
+        ...state,
         loading: false,
         error: action.error
       };

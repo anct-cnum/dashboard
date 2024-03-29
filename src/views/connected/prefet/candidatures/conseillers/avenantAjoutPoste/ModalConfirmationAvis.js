@@ -57,7 +57,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, idDemandeC
                     <div className="fr-container fr-ml-n6v">
                       <div className="fr-grid-row">
                         <legend className="fr-col-11 fr-fieldset__legend--regular fr-fieldset__legend">
-                          Cette demande concerne-t-elle un transfert de poste ?
+                          Cette demande concerne-t-elle un transfert de poste&nbsp;?
                         </legend>
                         <div className="fr-col-1 fr-checkbox-group" style={{ width: '10%' }}>
                           <input type="checkbox" id="checkbox-structure-transfert-oui"
