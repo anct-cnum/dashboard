@@ -151,7 +151,7 @@ export default function TableauCandidaturesConseillers() {
                     <table className={structures?.items?.data?.length < 2 ? 'no-result-table' : ''}>
                       <thead>
                         <tr>
-                          <th style={{ width: '27rem' }}>Structure</th>
+                          <th style={statutDemande === 'demandePoste' ? { width: '28rem' } : { width: '30rem' }}>Structure</th>
                           <th>
                             <button id="codePostal" className="filtre-btn" onClick={ordreColonne}>
                               <span>CP
@@ -164,7 +164,7 @@ export default function TableauCandidaturesConseillers() {
                               </span>
                             </button>
                           </th>
-                          <th style={{ width: '30rem' }}>
+                          <th style={statutDemande === 'demandePoste' ? { width: '27rem' } : { width: '21rem' }}>
                             <button id="createdAt" className="filtre-btn" onClick={ordreColonne}>
                               <span>Date de candidature
                                 {(ordreNom !== 'createdAt' || ordreNom === 'createdAt' && ordre) &&
@@ -176,9 +176,9 @@ export default function TableauCandidaturesConseillers() {
                               </span>
                             </button>
                           </th>
-                          <th style={{ width: '30rem' }}>Type de demande</th>
+                          <th style={{ width: '27rem' }}>Type de demande</th>
                           <th style={{ width: '15rem' }}>Demande</th>
-                          <th>Avis pr&eacute;fet</th>
+                          <th style={{ width: '12rem' }}>Avis pr&eacute;fet</th>
                           <th></th>
                         </tr>
                       </thead>
