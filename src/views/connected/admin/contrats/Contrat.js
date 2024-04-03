@@ -52,7 +52,7 @@ function Contrat({ contrat, statutContrat }) {
         <td>
           <div className="fr-grid-row" style={{ alignItems: 'center' }}>
             {formatStatutContrat(contrat?.statut, contrat?.contratCoordinateur)}
-            {contrat?.contratCoordinateur &&
+            {contrat?.contratCoordinateur && contrat?.statut !== 'renouvellement_initiee' &&
               <>
                 <div
                   data-tooltip-content="Conseiller numérique coordinateur"
