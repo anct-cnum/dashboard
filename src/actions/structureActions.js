@@ -21,6 +21,7 @@ export const structureActions = {
   closeBannerAvisPrefet,
   closeBannerAvenantAvisPrefet,
   modificationCommentaireAvisPrefet,
+  modificationAvenantCommentaireAvisPrefet,
   confirmationValidAvisAdmin,
   confirmationRefusAvisAdmin,
   resetConfirmationAvisAdmin,
@@ -355,11 +356,11 @@ function getDemandeConseiller(idStructure) {
   }
 }
 
-function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert) {
+function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert, insertedAt) {
   return dispatch => {
     dispatch(request());
 
-    structureService.confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert)
+    structureService.confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert, insertedAt)
     .then(
       response => dispatch(success(response.success)),
       error => {
@@ -450,12 +451,34 @@ function closeBannerAvenantAvisPrefet(idStructure) {
     return { type: 'UPDATE_BANNER_AVENANT_PREFET_FAILURE', error };
   }
 }
+function modificationCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, insertedAt) {
+  return dispatch => {
+    dispatch(request());
+    structureService.modificationCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, insertedAt)
+    .then(
+      response => dispatch(success(response.success)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
 
-function modificationCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec) {
+  function request() {
+    return { type: 'UPDATE_COMMENTAIRE_PREFET_REQUEST' };
+  }
+  function success(success) {
+    return { type: 'UPDATE_COMMENTAIRE_PREFET_SUCCESS', success };
+  }
+  function failure(error) {
+    return { type: 'UPDATE_COMMENTAIRE_PREFET_FAILURE', error };
+  }
+}
+
+function modificationAvenantCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec) {
   return dispatch => {
     dispatch(request());
 
-    structureService.modificationCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec)
+    structureService.modificationAvenantCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec)
     .then(
       response => dispatch(success(response.success)),
       error => {

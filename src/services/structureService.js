@@ -21,6 +21,7 @@ export const structureService = {
   closeBannerAvisPrefet,
   closeBannerAvenantAvisPrefet,
   modificationCommentaireAvisPrefet,
+  modificationAvenantCommentaireAvisPrefet,
   confirmationValidAvisAdmin,
   confirmationRefusAvisAdmin,
 };
@@ -119,8 +120,8 @@ function getDemandeConseiller(idStructure) {
   .catch(handleApiError);
 }
 
-function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert) {
-  return API.patch(`${apiUrlRoot}/avis/prefet/conseiller/${idStructure}?role=${roleActivated()}`, { avisPrefet, commentaire, idStructureTransfert })
+function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert, insertedAt) {
+  return API.patch(`${apiUrlRoot}/avis/prefet/conseiller/${idStructure}?role=${roleActivated()}`, { avisPrefet, commentaire, idStructureTransfert, insertedAt })
   .then(response => response.data)
   .catch(handleApiError);
 }
@@ -146,7 +147,13 @@ function closeBannerAvenantAvisPrefet(idStructure) {
   .catch(handleApiError);
 }
 
-function modificationCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec) {
+function modificationCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, insertedAt) {
+  return API.patch(`${apiUrlRoot}/avis/prefet/commentaire/${idStructure}?role=${roleActivated()}`, { avisPrefet, commentaire, insertedAt })
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function modificationAvenantCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec) {
   return API.patch(`${apiUrlRoot}/avenant/avis/prefet/commentaire/${idStructure}?role=${roleActivated()}`, { avisPrefet, commentaire, idDemandeCoselec })
   .then(response => response.data)
   .catch(handleApiError);

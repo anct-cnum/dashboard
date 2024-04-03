@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { structureActions } from '../../../../../../actions';
 import { useDispatch } from 'react-redux';
 
-function ModalModifierCommentaire({ setOpenModalCommentaire, avisPrefet, structure, idDemandeCoselec }) {
+function ModalModifierCommentaire({ setOpenModalCommentaire, avisPrefet, structure, insertedAt }) {
   const dispatch = useDispatch();
   const [commentaire, setCommentaire] = useState('');
-
   const modificationCommentaireAvisPrefet = () => {
-    dispatch(structureActions.modificationAvenantCommentaireAvisPrefet(structure?._id, avisPrefet, commentaire, idDemandeCoselec));
+    dispatch(structureActions.modificationCommentaireAvisPrefet(structure?._id, avisPrefet, commentaire, insertedAt));
     setOpenModalCommentaire(false);
     setCommentaire('');
   };
@@ -85,7 +84,7 @@ ModalModifierCommentaire.propTypes = {
   setOpenModalCommentaire: PropTypes.func,
   avisPrefet: PropTypes.string,
   structure: PropTypes.object,
-  idDemandeCoselec: PropTypes.string,
+  insertedAt: PropTypes.string,
 };
 
 export default ModalModifierCommentaire;

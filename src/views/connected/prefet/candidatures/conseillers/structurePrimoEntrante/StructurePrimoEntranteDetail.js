@@ -4,10 +4,12 @@ import dayjs from 'dayjs';
 import { pluralize } from '../../../../../../utils/formatagesUtils';
 import ModalConfirmationAvis from './ModalConfirmationAvis';
 import PropTypes from 'prop-types';
+import ModalModifierCommentaire from './ModalModifierCommentaire';
 
 function StructurePrimoEntranteDetail({ structure, listeStructure }) {
   const successAvisPrefet = useSelector(state => state.structure?.successAvisPrefet);
   const [openModalAvis, setOpenModalAvis] = useState(false);
+  const [openModalCommentaire, setOpenModalCommentaire] = useState(false);
   const [avisPrefet, setAvisPrefet] = useState('');
 
   useEffect(() => {
@@ -28,6 +30,15 @@ function StructurePrimoEntranteDetail({ structure, listeStructure }) {
           structure={structure}
           listeStructure={listeStructure}
           avisPrefet={avisPrefet}
+          insertedAt={structure?.prefet?.insertedAt}
+        />
+      }
+      {openModalCommentaire &&
+        <ModalModifierCommentaire
+          setOpenModalCommentaire={setOpenModalCommentaire}
+          avisPrefet={structure?.prefet?.avisPrefet === 'POSITIF' ? 'défavorable' : 'favorable'}
+          structure={structure}
+          insertedAt={structure?.prefet?.insertedAt}
         />
       }
       <div className="fr-card__body">
@@ -77,9 +88,16 @@ function StructurePrimoEntranteDetail({ structure, listeStructure }) {
               <div className="fr-col-12" style={{ position: 'absolute', left: '0', top: '135px' }} >
                 <hr style={{ borderWidth: '0.5px' }} />
               </div>
-              <div className="commentaire-prefet fr-card__desc fr-text--md" style={{ marginTop: '3.7rem', marginLeft: 0 }}>
+              <div className={`commentaire-prefet ${structure?.prefet?.avisPrefet === 'POSITIF' ? 'positif' : 'negatif'} fr-card__desc fr-text--md`}
+                style={{ marginTop: '3.7rem', marginLeft: 0 }}>
                 <strong>Commentaire pr&eacute;fet:</strong>
                 <span className="fr-mt-1w">{structure?.prefet?.commentairePrefet ?? 'Non renseignée'}</span>
+                <button className={`lien-modifier ${structure?.prefet?.avisPrefet === 'POSITIF' ? 'positif' : 'negatif'}` }
+                  onClick={() => {
+                    setOpenModalCommentaire(true);
+                  }}>
+                    Modifier mon commentaire <i className="ri-edit-line ri-xl"></i>
+                </button>
               </div>
             </>
           }

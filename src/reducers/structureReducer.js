@@ -311,6 +311,24 @@ export default function structure(state = initialState, action) {
         loading: false,
         error: action.error
       };
+    case 'UPDATE_COMMENTAIRE_AVENANT_PREFET_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case 'UPDATE_COMMENTAIRE_AVENANT_PREFET_SUCCESS':
+      return {
+        ...state,
+        successAvisPrefet: action.success,
+        loading: false
+      };
+    case 'UPDATE_COMMENTAIRE_AVENANT_PREFET_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
     case 'UPDATE_BANNER_PREFET_REQUEST':
       return {
         ...state,

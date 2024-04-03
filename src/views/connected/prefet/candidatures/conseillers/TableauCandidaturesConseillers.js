@@ -115,7 +115,7 @@ export default function TableauCandidaturesConseillers() {
               key={idx}
               closeBanner={closeBannerAvenant}
               nomStructure={structure.nom}
-              avisPrefet={structure.demandesCoselec[0].prefet.avis === 'POSITIF' ? 'favorable' : 'défavorable'}
+              avisPrefet={structure.demandesCoselec[0].prefet.avis}
               idDemande={structure._id}
             />
           );

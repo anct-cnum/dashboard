@@ -4,14 +4,14 @@ import { structureActions } from '../../../../../../actions';
 import { useDispatch } from 'react-redux';
 import FilterSelect from '../../../../../../components/FilterSelect';
 
-function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStructure }) {
+function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStructure, insertedAt }) {
   const dispatch = useDispatch();
   const [commentaire, setCommentaire] = useState('');
   const [isTransfert, setIsTransfert] = useState(false);
   const [idStructureTransfert, setIdStructureTransfert] = useState(null);
 
   const confirmationAvisPrefet = () => {
-    dispatch(structureActions.confirmationAvisPrefet(structure?._id, avisPrefet, commentaire, idStructureTransfert));
+    dispatch(structureActions.confirmationAvisPrefet(structure?._id, avisPrefet, commentaire, idStructureTransfert, insertedAt));
     setOpenModal(false);
     setCommentaire('');
     setIdStructureTransfert(null);
@@ -137,7 +137,7 @@ ModalConfirmationAvis.propTypes = {
   structure: PropTypes.object,
   avisPrefet: PropTypes.string,
   listeStructure: PropTypes.array,
-  editMode: PropTypes.bool
+  insertedAt: PropTypes.string
 };
 
 export default ModalConfirmationAvis;
