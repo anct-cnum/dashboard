@@ -181,7 +181,7 @@ export default function TableauConvention() {
                       <thead>
                         <tr>
                           <th style={{ width: '28rem' }}>Structure</th>
-                          <th style={{ width: '16rem' }}>
+                          <th style={{ width: '18rem' }}>
                             <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
                               <span>Date de la demande
                                 {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
