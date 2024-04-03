@@ -45,8 +45,10 @@ function AvenantAjoutPoste({ avenant, typeConvention }) {
           </>
         }
       </td>
-      <td style={{ width: '13rem' }}>Avenant · ajout de poste</td>
-      {typeConvention === 'avenantAjoutPoste' && <td style={{ width: '13rem' }}>{formatAvisPrefet(avenant?.prefet?.avis)}</td>}
+      <td>Avenant · ajout de poste</td>
+      {typeConvention === 'avenantAjoutPoste' &&
+        <td>{formatAvisPrefet(avenant?.prefet?.avis)}</td>
+      }
       <td style={{ textAlign: 'end', width: '25rem', paddingLeft: '0' }}>
         <Link className="fr-btn" to={{
           pathname: `/${roleActivated}/demandes/convention/${avenant?.idStructure}`,

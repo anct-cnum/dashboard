@@ -161,7 +161,7 @@ export default function TableauConvention() {
               </button>
             </ul>
             <div className="fr-col-12 fr-mb-2w fr-mt-3w">
-              {typeConvention === 'conventionnement' ?
+              {typeConvention === 'conventionnement' || typeConvention === 'avenantAjoutPoste' ?
                 <FiltresEtTrisConventionnement /> : <FiltresEtTrisConvention />
               }
             </div>
