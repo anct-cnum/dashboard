@@ -168,13 +168,14 @@ export default function TableauConvention() {
             <div className="fr-grid-row fr-grid-row--center fr-mt-1w">
               <div className="fr-col-12">
                 <div className="fr-table">
-                  {typeConvention === 'conventionnement' ?
+                  {typeConvention === 'conventionnement' || typeConvention === 'avenantAjoutPoste' ?
                     <TableauConventionnement
                       conventions={conventions}
                       loading={loading}
                       error={error}
                       ordreNom={ordreNom}
                       ordre={ordre}
+                      typeConvention={typeConvention}
                     /> :
                     <table>
                       <thead>
@@ -194,7 +195,6 @@ export default function TableauConvention() {
                           </th>
                           <th style={{ width: '14rem' }}>Nombre de postes</th>
                           <th style={{ width: '20rem' }}>Type de demande</th>
-                          { typeConvention === 'avenantAjoutPoste' && <th style={{ width: '13rem' }}>Avis pr&eacute;fet</th>}
                           <th style={{ width: '15rem' }}></th>
                         </tr>
                       </thead>
