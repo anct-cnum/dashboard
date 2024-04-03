@@ -8,6 +8,7 @@ function SousMenuCommun({
   roleActivated
 }) {
   const urlAide = `${process.env.REACT_APP_AIDE_HOSTNAME}/category/tableau-de-pilotage-1i6u8in`;
+  const urlFormation = `${process.env.REACT_APP_PUBLIC_HOSTNAME}/formation`;
   const mailContact = roleActivated === 'coordinateur' ? 'conum-coordinateur@anct.gouv.fr' : 'conseiller-numerique@anct.gouv.fr';
 
   return (
@@ -21,35 +22,9 @@ function SousMenuCommun({
         </Link>
       </li>
       <li className="fr-nav__item">
-        <button
-          id="recrutement"
-          className="fr-nav__btn"
-          aria-expanded={activeMenu === 'recrutement'}
-          aria-controls="menu-recrutement"
-          {...(location.pathname.startsWith(`/certifications`) || location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}
-          onClick={onClickMenu}>
-                Formation / Certification
-        </button>
-        <div className={`fr-collapse fr-menu ${activeMenu === 'recrutement' ? 'fr-collapse--expanded' : ''}`} id="menu-recrutement">
-          <ul className="fr-menu__list">
-            <li>
-              <Link
-                className="fr-nav__link"
-                to="/formation"
-                {...(location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Inscription en formation
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="fr-nav__link"
-                to="/certifications"
-                {...(location.pathname.startsWith(`/certifications`) ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Certifications
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <a className="fr-nav__link" href={urlFormation} target="blank" rel="noreferrer noopener">
+          Formation
+        </a>
       </li>
       <li className="fr-nav__item">
         <Link

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { conseillerActions, structureActions } from '../../../actions';
 
@@ -16,6 +15,7 @@ function SousMenuCoordinateur({
 
   const { nom, prenom, idPG } = conseiller || {};
   const urlAide = `${process.env.REACT_APP_AIDE_HOSTNAME}/category/tableau-de-pilotage-1i6u8in`;
+  const urlFormation = `${process.env.REACT_APP_PUBLIC_HOSTNAME}/formation`;
   const urlCra = `${process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR}?` +
   `identite_nom=${nom}&` +
   `identite_prenom=${prenom}&` +
@@ -42,35 +42,9 @@ function SousMenuCoordinateur({
           Compte-rendu d&apos;activit&eacute;
       </a>
       <li className="fr-nav__item">
-        <button
-          id="recrutement"
-          className="fr-nav__btn"
-          aria-expanded={activeMenu === 'recrutement'}
-          aria-controls="menu-recrutement"
-          {...(location.pathname.startsWith(`/certifications`) || location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}
-          onClick={onClickMenu}>
-            Formation / Certification
-        </button>
-        <div className={`fr-collapse fr-menu ${activeMenu === 'recrutement' ? 'fr-collapse--expanded' : ''}`} id="menu-recrutement">
-          <ul className="fr-menu__list">
-            <li>
-              <Link
-                className="fr-nav__link"
-                to="/formation"
-                {...(location.pathname.startsWith(`/formation`) ? { 'aria-current': 'page' } : {})}>
-                      &bull;&nbsp;Inscription en formation
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="fr-nav__link"
-                to="/certifications"
-                {...(location.pathname.startsWith(`/certifications`) ? { 'aria-current': 'page' } : {})}>
-                  &bull;&nbsp;Certifications
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <a className="fr-nav__link" href={urlFormation} target="blank" rel="noreferrer noopener">
+          Formation
+        </a>
       </li>
       <li className="fr-nav__item">
         <button
