@@ -45,9 +45,9 @@ function AvenantAjoutPoste({ avenant, statutDemande }) {
           </>
         }
       </td>
-      <td>{formatAvisPrefet(avenant?.prefet?.avis)}</td>
+      <td style={{ paddingLeft: '0' }}>{formatAvisPrefet(avenant?.prefet?.avis)}</td>
       {avenant.statut === 'en_cours' ?
-        <td>
+        <td style={{ textAlign: 'end', width: '32rem', paddingLeft: '0' }}>
           <Link className={`fr-btn ${avenant?.prefet?.avis ? 'fr-btn--secondary' : ''}`}
             to={{
               pathname: `/${roleActivated}/demandes/conseiller/${avenant?.idStructure}`,
