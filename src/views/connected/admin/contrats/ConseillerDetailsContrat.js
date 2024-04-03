@@ -140,7 +140,7 @@ function ConseillerDetailsContrat() {
               data-tooltip-float="true"
               className={`fr-ml-2w ${conseiller ? '' : 'fr-hidden'}`}
               src={pinCoordinateur}
-              alt="ic&ocirc;ne Conseiller numérique coordinateur"
+              alt="ic&ocirc;ne Conseiller num&eacute;rique coordinateur"
               style={{ height: '50px', position: 'absolute' }}
             />
           }
