@@ -120,8 +120,8 @@ function getDemandeConseiller(idStructure) {
   .catch(handleApiError);
 }
 
-function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert, insertedAt) {
-  return API.patch(`${apiUrlRoot}/avis/prefet/conseiller/${idStructure}?role=${roleActivated()}`, { avisPrefet, commentaire, idStructureTransfert, insertedAt })
+function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert) {
+  return API.patch(`${apiUrlRoot}/avis/prefet/conseiller/${idStructure}?role=${roleActivated()}`, { avisPrefet, commentaire, idStructureTransfert })
   .then(response => response.data)
   .catch(handleApiError);
 }

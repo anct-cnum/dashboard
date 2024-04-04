@@ -30,7 +30,6 @@ function StructurePrimoEntranteDetail({ structure, listeStructure }) {
           structure={structure}
           listeStructure={listeStructure}
           avisPrefet={avisPrefet}
-          insertedAt={structure?.prefet?.insertedAt}
         />
       }
       {openModalCommentaire &&
@@ -38,7 +37,6 @@ function StructurePrimoEntranteDetail({ structure, listeStructure }) {
           setOpenModalCommentaire={setOpenModalCommentaire}
           avisPrefet={structure?.prefet?.avisPrefet === 'POSITIF' ? 'défavorable' : 'favorable'}
           structure={structure}
-          insertedAt={structure?.prefet?.insertedAt}
         />
       }
       <div className="fr-card__body">

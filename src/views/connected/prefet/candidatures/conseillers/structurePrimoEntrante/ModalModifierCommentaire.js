@@ -84,7 +84,6 @@ ModalModifierCommentaire.propTypes = {
   setOpenModalCommentaire: PropTypes.func,
   avisPrefet: PropTypes.string,
   structure: PropTypes.object,
-  insertedAt: PropTypes.string,
 };
 
 export default ModalModifierCommentaire;

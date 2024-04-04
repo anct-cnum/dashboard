@@ -356,11 +356,11 @@ function getDemandeConseiller(idStructure) {
   }
 }
 
-function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert, insertedAt) {
+function confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert) {
   return dispatch => {
     dispatch(request());
 
-    structureService.confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert, insertedAt)
+    structureService.confirmationAvisPrefet(idStructure, avisPrefet, commentaire, idStructureTransfert)
     .then(
       response => dispatch(success(response.success)),
       error => {
