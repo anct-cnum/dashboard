@@ -31,6 +31,7 @@ function AvenantAjoutPoste({ avenant, statutDemande }) {
           <span>Non renseign&eacute;e</span>
         }
       </td>
+      <td>Poste suppl&eacute;mentaire</td>
       <td>
         {pluralize(
           'poste',

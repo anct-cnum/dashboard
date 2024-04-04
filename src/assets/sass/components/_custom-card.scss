@@ -1,0 +1,33 @@
+@import "../colors/colors";
+
+.card-add {
+  @mixin display-card {
+    border-radius: 5px;
+    flex: 0 0 49%;
+  }
+  
+  .display-card-info {
+    @include display-card;
+    background-color: $info-975;
+  }
+  
+  .display-card-accept {
+    @include display-card;
+    background-color: $success-950;
+  }
+  
+  .display-card-decline {
+    @include display-card;
+    background-color: $warning-925;
+  }
+  
+  .display-card-text-accept {
+    color: $success-425; 
+    margin-top: 1px;
+  }
+  
+  .display-card-text-decline {
+    color: $red-hover;
+    margin-top: 1px;
+  }
+ }
