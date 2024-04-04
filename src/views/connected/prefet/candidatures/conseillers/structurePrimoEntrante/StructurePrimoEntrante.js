@@ -40,9 +40,9 @@ function StructurePrimoEntrante({ structure, statutDemande }) {
           </>
       }
       </td>
-      <td>{formatAvisPrefet(structure?.prefet?.avisPrefet)}</td>
+      <td style={{ paddingLeft: '0' }}>{formatAvisPrefet(structure?.prefet?.avisPrefet)}</td>
       {structure?.statut === 'CREEE' || structure?.statut === 'EXAMEN_COMPLEMENTAIRE_COSELEC' ?
-        <td>
+        <td style={{ textAlign: 'end', width: '32rem', paddingLeft: '0' }}>
           <Link className={`fr-btn ${structure?.prefet?.avisPrefet ? 'fr-btn--secondary' : ''}`}
             to={{
               pathname: `/${roleActivated}/demandes/conseiller/${structure?._id}`,

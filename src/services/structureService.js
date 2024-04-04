@@ -147,14 +147,14 @@ function closeBannerAvenantAvisPrefet(idStructure) {
   .catch(handleApiError);
 }
 
-function modificationCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, insertedAt) {
-  return API.patch(`${apiUrlRoot}/avis/prefet/commentaire/${idStructure}?role=${roleActivated()}`, { avisPrefet, commentaire, insertedAt })
+function modificationCommentaireAvisPrefet(idStructure, commentaire) {
+  return API.patch(`${apiUrlRoot}/avis/prefet/commentaire/${idStructure}?role=${roleActivated()}`, { commentaire })
   .then(response => response.data)
   .catch(handleApiError);
 }
 
-function modificationAvenantCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec) {
-  return API.patch(`${apiUrlRoot}/avenant/avis/prefet/commentaire/${idStructure}?role=${roleActivated()}`, { avisPrefet, commentaire, idDemandeCoselec })
+function modificationAvenantCommentaireAvisPrefet(idStructure, commentaire, idDemandeCoselec) {
+  return API.patch(`${apiUrlRoot}/avenant/avis/prefet/commentaire/${idStructure}?role=${roleActivated()}`, { commentaire, idDemandeCoselec })
   .then(response => response.data)
   .catch(handleApiError);
 }

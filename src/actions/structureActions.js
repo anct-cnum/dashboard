@@ -451,10 +451,10 @@ function closeBannerAvenantAvisPrefet(idStructure) {
     return { type: 'UPDATE_BANNER_AVENANT_PREFET_FAILURE', error };
   }
 }
-function modificationCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, insertedAt) {
+function modificationCommentaireAvisPrefet(idStructure, commentaire) {
   return dispatch => {
     dispatch(request());
-    structureService.modificationCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, insertedAt)
+    structureService.modificationCommentaireAvisPrefet(idStructure, commentaire)
     .then(
       response => dispatch(success(response.success)),
       error => {
@@ -474,11 +474,11 @@ function modificationCommentaireAvisPrefet(idStructure, avisPrefet, commentaire,
   }
 }
 
-function modificationAvenantCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec) {
+function modificationAvenantCommentaireAvisPrefet(idStructure, commentaire, idDemandeCoselec) {
   return dispatch => {
     dispatch(request());
 
-    structureService.modificationAvenantCommentaireAvisPrefet(idStructure, avisPrefet, commentaire, idDemandeCoselec)
+    structureService.modificationAvenantCommentaireAvisPrefet(idStructure, commentaire, idDemandeCoselec)
     .then(
       response => dispatch(success(response.success)),
       error => {
