@@ -12,7 +12,6 @@ import { filtresConventionsActions } from '../../../actions/filtresConventionsAc
 import FiltresEtTrisConvention from './FiltresEtTrisConvention';
 import TableauConventionnement from './conventionnement/TableauConventionnement';
 import FiltresEtTrisConventionnement from './conventionnement/FiltresEtTrisConventionnement';
-import { statutStructure } from '../../../utils/enumUtils';
 import { pluralize } from '../../../utils/formatagesUtils';
 
 export default function TableauConvention() {
@@ -105,24 +104,25 @@ export default function TableauConvention() {
   return (
     <div className="conventions">
       <Spinner loading={loading} />
-      {candidatureStructure?.statut === statutStructure.REFUS_COSELEC &&
+      {candidatureStructure?.statutDemande === 'NÉGATIF' &&
         <div className="fr-alert fr-alert--warning" style={{ marginBottom: '2rem' }} >
           <h3 className="fr-alert__title">
-            L&rsquo;attribution d&rsquo;un poste de conseiller a &eacute;t&eacute; refus&eacute; par
+            L&rsquo;attribution de poste(s) de conseiller(s) a &eacute;t&eacute; refus&eacute;e par
             le comit&eacute; de s&eacute;lection pour la structure {candidatureStructure?.nom}.
           </h3>
           <p>La structure sera notifi&eacute;e par mail.</p>
         </div>
       }
-      {candidatureStructure?.statut === statutStructure.VALIDATION_COSELEC &&
+      {candidatureStructure?.statutDemande === 'POSITIF' &&
         <div className="fr-alert fr-alert--success" style={{ marginBottom: '2rem' }} >
           <h3 className="fr-alert__title">
-            L&rsquo;attribution&nbsp;
+            L&rsquo;attribution de&nbsp;
             {pluralize(
-              'd\'un poste de conseiller numérique',
-              'd\'un poste de conseiller numérique',
-              'des postes de conseillers numériques',
-              candidatureStructure?.nombreConseillersCoselec
+              'poste de conseiller',
+              'poste de conseiller',
+              'postes de conseillers',
+              candidatureStructure?.nombreDePostesAccordes,
+              true
             )}
             &nbsp;a &eacute;t&eacute; valid&eacute;e par
             le comit&eacute; de s&eacute;lection pour la structure {candidatureStructure?.nom}.

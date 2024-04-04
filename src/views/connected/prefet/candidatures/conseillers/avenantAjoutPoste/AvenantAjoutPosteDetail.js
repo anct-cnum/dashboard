@@ -45,7 +45,7 @@ function AvenantAjoutPosteDetail({ structure, idDemandeCoselec }) {
               }
             </div>
             <p className="fr-card__desc fr-text--lg fr-text--regular">
-              Demande initi&eacute;e le&nbsp;
+              Demande initi&eacute;e&nbsp;
               {demandesCoselec?.emetteurAvenant?.date ?
                 <span>le&nbsp;{dayjs(demandesCoselec.emetteurAvenant.date).format('DD/MM/YYYY')}</span> :
                 <span>&agrave; une date inconnue</span>

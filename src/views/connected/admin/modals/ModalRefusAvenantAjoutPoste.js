@@ -8,6 +8,7 @@ function ModalRefusAvenantAjoutPoste({ idStructure, setOpenModal, nomStructure }
   const dispatch = useDispatch();
   const refusAvenantAjoutPoste = () => {
     dispatch(conventionActions.updateAvenantAjoutPoste(idStructure, StatutCoselec.NÉGATIF));
+    setOpenModal(false);
   };
 
   return (
@@ -21,10 +22,10 @@ function ModalRefusAvenantAjoutPoste({ idStructure, setOpenModal, nomStructure }
               </div>
               <div className="fr-modal__content fr-grid-row fr-grid-row--center fr-mb-3w">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
-                  Confirmer l&rsquo;attribution
+                  Refuser l&rsquo;attribution
                 </h1>
                 <p style={{ textAlign: 'center' }}>
-                  Indiquez le nombre de postes attribu&eacute;s &agrave; la structure<br/>{nomStructure}
+                  Souhaitez-vous refuser l&rsquo;attribution de poste &agrave; la structure&nbsp;{nomStructure}
                 </p>
               </div>
               <div className="fr-modal__footer">

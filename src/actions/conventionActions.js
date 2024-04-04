@@ -6,6 +6,7 @@ export const conventionActions = {
   get,
   updateAvenantAjoutPoste,
   updateAvenantRenduPoste,
+  resetConfirmationAvisAdmin,
 };
 
 function getAll(page, typeConvention, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
@@ -126,4 +127,9 @@ function updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec) {
   function failure(error) {
     return { type: 'UPDATE_AVENANT_RENDU_POSTE_FAILURE', error };
   }
+}
+
+
+function resetConfirmationAvisAdmin() {
+  return { type: 'RESET_CONFIRMATION_AVIS_ADMIN' };
 }

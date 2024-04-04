@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 import ModalValidationAvenantAjoutPoste from '../modals/ModalValidationAvenantAjoutPoste';
 import ModalRefusAvenantAjoutPoste from '../modals/ModalRefusAvenantAjoutPoste';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { conventionActions } from '../../../../actions';
 
 function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const successConvention = useSelector(state => state.convention?.successAvisAdmin);
 
   const [openModalValidation, setOpenModalValidation] = useState(false);
   const [openModalRefus, setOpenModalRefus] = useState(false);
@@ -22,6 +29,27 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
         return <p className="fr-badge fr-badge--new">en attente de l&apos;avis pr&eacute;fet</p>;
     }
   };
+
+  useEffect(() => {
+    if (successConvention) {
+      navigate('/admin/demandes/conventions',
+        {
+          state: {
+            typeConvention: 'avenantAjoutPoste',
+            structure: {
+              nom: avenant?.nom,
+              statutDemande: demandesCoselec?.statut === 'validee' ? 'POSITIF' : 'NÉGATIF',
+              nombreDePostesAccordes: demandesCoselec?.nombreDePostesAccordes,
+            },
+          }
+        },
+        {
+          replace: true
+        }
+      );
+      dispatch(conventionActions.resetConfirmationAvisAdmin());
+    }
+  }, [successConvention]);
 
   return (
     <div className="fr-card card-add">
