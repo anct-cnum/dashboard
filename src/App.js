@@ -11,8 +11,6 @@ import './assets/sass/main.scss';
 import Header from './components/Header';
 import Alerte from './components/Alerte';
 import Documents from './views/connected/Documents';
-import Certifications from './views/connected/Certifications';
-import InscriptionFormation from './views/connected/InscriptionFormation';
 import GraphiqueNationale from './views/connected/commun/statistiques/GraphiqueNationale';
 import GraphiquePilotage from './views/connected/commun/statistiques/GraphiquePilotage';
 import GraphiqueStructure from './views/connected/commun/statistiques/GraphiqueStructure';
@@ -60,8 +58,6 @@ function App() {
         <Route path="/" element={<PrivateRoute/>}>
           {/* routes communes ici */}
           <Route path="/documents" element={<Documents />} />
-          <Route path="/certifications" element={<Certifications />} />
-          <Route path="/formation" element={<InscriptionFormation />} />
           <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
           <Route path="/statistiques-pilotage" element={<GraphiquePilotage />} />
           <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
