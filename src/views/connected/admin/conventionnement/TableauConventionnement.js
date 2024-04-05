@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Conventionnement from './Conventionnement';
 import { filtresConventionsActions, paginationActions } from '../../../../actions';
+import AvenantAjoutPoste from '../avenantAjoutPoste/AvenantAjoutPoste';
 
-export function TableauConventionnement({ conventions, loading, error, ordreNom, ordre }) {
+export function TableauConventionnement({ conventions, loading, error, ordreNom, ordre, typeConvention }) {
   const dispatch = useDispatch();
 
   const ordreColonne = e => {
@@ -16,8 +17,8 @@ export function TableauConventionnement({ conventions, loading, error, ordreNom,
     <table>
       <thead>
         <tr>
-          <th style={{ width: '31rem' }}>Structure</th>
-          <th style={{ width: '22rem' }}>
+          <th style={{ width: '28rem' }}>Structure</th>
+          <th style={{ width: '27rem' }}>
             <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
               <span>Date de la demande
                 {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
@@ -29,17 +30,22 @@ export function TableauConventionnement({ conventions, loading, error, ordreNom,
               </span>
             </button>
           </th>
-          <th style={{ width: '25rem' }}>Nombre de postes</th>
-          <th style={{ width: '25rem' }}>Type de demande</th>
-          <th style={{ width: '13rem' }}>Avis pr&eacute;fet</th>
-          <th style={{ width: '8rem' }}></th>
+          <th style={{ width: '24rem' }}>Nombre de postes</th>
+          <th style={{ width: typeConvention === 'conventionnement' ? '23rem' : '30rem' }}>Type de demande</th>
+          <th style={{ width: '12rem' }}>Avis pr&eacute;fet</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         {!error && !loading && conventions?.items?.data?.map((convention, idx) => {
           return (
             <tr key={idx}>
-              <Conventionnement structure={convention} typeConvention="conventionnement" />
+              {convention?.typeConvention === 'conventionnement' &&
+                <Conventionnement structure={convention} typeConvention={typeConvention} />
+              }
+              {convention?.typeConvention === 'avenantAjoutPoste' &&
+                <AvenantAjoutPoste avenant={convention} typeConvention={typeConvention} />
+              }
             </tr>
           );
         })
@@ -67,6 +73,7 @@ TableauConventionnement.propTypes = {
   ]),
   ordreNom: PropTypes.string,
   ordre: PropTypes.bool,
+  typeConvention: PropTypes.string,
 };
 
 export default TableauConventionnement;

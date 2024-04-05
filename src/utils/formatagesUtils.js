@@ -197,14 +197,3 @@ export const formatTypeDeContrat = typeDeContrat => {
       return typeDeContrat;
   }
 };
-
-export const formatAvisPrefet = avisPrefet => {
-  switch (avisPrefet) {
-    case 'favorable':
-      return <p className="fr-badge fr-badge--success">favorable</p>;
-    case 'défavorable':
-      return <p className="fr-badge fr-badge--error">d&eacute;favorable</p>;
-    default:
-      return '';
-  }
-};

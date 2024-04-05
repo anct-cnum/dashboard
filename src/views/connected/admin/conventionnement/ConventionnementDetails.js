@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { structureActions } from '../../../../actions';
 import ModalRefusAttributionPoste from '../modals/ModalRefusAttributionPoste';
+import { statutStructure } from '../../../../utils/enumUtils';
 
 function ConventionnementDetails({ structure }) {
   const dispatch = useDispatch();
@@ -24,8 +25,8 @@ function ConventionnementDetails({ structure }) {
             typeConvention: 'conventionnement',
             structure: {
               nom: structure?.nom,
-              statut: structure?.statut,
-              nombreConseillersCoselec: structure?.coselec[0]?.nombreConseillersCoselec,
+              statutDemande: structure?.statut === statutStructure.VALIDATION_COSELEC ? 'POSITIF' : 'NÉGATIF',
+              nombreDePostesAccordes: structure?.coselec[0]?.nombreConseillersCoselec,
             },
           }
         },
