@@ -4,18 +4,12 @@ import { structureActions } from '../../../../../../actions';
 import { useDispatch } from 'react-redux';
 import FilterSelect from '../../../../../../components/FilterSelect';
 
-function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStructure }) {
+function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, idDemandeCoselec, listeStructure }) {
   const dispatch = useDispatch();
   const [commentaire, setCommentaire] = useState('');
   const [isTransfert, setIsTransfert] = useState(false);
   const [idStructureTransfert, setIdStructureTransfert] = useState(null);
 
-  const confirmationAvisPrefet = () => {
-    dispatch(structureActions.confirmationAvisPrefet(structure?._id, avisPrefet, commentaire, idStructureTransfert));
-    setOpenModal(false);
-    setCommentaire('');
-    setIdStructureTransfert(null);
-  };
   const filterOption = {
     ignoreCase: true,
     ignoreAccents: true,
@@ -24,7 +18,14 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
     stringify: option => option ? `${option?.label}` : undefined,
   };
 
-  return (
+  const confirmationAvisPrefet = () => {
+    dispatch(structureActions.confirmationAvenantAvisPrefet(structure?._id, avisPrefet, commentaire, idDemandeCoselec, idStructureTransfert));
+    setOpenModal(false);
+    setCommentaire('');
+    setIdStructureTransfert(null);
+  };
+
+  return (<>
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
         <div className="fr-grid-row fr-grid-row--center">
@@ -34,7 +35,6 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                 <button className="fr-btn--close fr-btn" title="Fermer la fen&ecirc;tre modale" aria-controls="fr-modal-2" onClick={() => {
                   setOpenModal(false);
                   setCommentaire('');
-                  setIdStructureTransfert(null);
                 }}>
                   Fermer
                 </button>
@@ -42,48 +42,48 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg"></span>
-                  Confirmer l&rsquo;avis
+                  {!structure?.prefet?.avisPrefet ?
+                    <>Confirmer l&rsquo;avis</> : <>Modifier en avis&nbsp;{avisPrefet}</>
+                  }
                 </h1>
-                <p>Souhaitez-vous confirmer l&rsquo;avis {avisPrefet} pour la structure <strong>{structure?.nom}</strong>&nbsp;?</p>
+                <p>
+                  {!structure?.prefet?.avisPrefet ?
+                    <>Souhaitez-vous confirmer l&rsquo;avis&nbsp;{avisPrefet} </> : <>Souhaitez-vous confirmer le changement d&rsquo;avis</>
+                  }
+                  &nbsp;pour la structure <strong>${structure?.nom}</strong>&nbsp;?
+                </p>
                 {avisPrefet === 'favorable' &&
-                  <>
-                    <fieldset className="fr-fieldset fr-mb-1w" id="radio-hint" aria-labelledby="radio-transfert-structure radio-hint-messages">
-                      <legend className="fr-fieldset__legend--regular fr-fieldset__legend" id="radio-transfert-structure">
-                        Cette demande concerne-t-elle un transfert de poste&nbsp;?
-                      </legend>
-                      <div className="fr-fieldset__element">
-                        <div className="fr-radio-group" style={{ width: '10%' }}>
-                          <input type="radio" id="radio-structure-transfert-oui" name="radio-hint" onChange={() => setIsTransfert(true)} />
-                          <label className="fr-label" htmlFor="radio-structure-transfert-oui" >
+                  <fieldset className="fr-fieldset fr-mb-1w" id="checkbox-structure" aria-labelledby="checkbox-structure">
+                    <div className="fr-container fr-ml-n6v">
+                      <div className="fr-grid-row">
+                        <legend className="fr-col-11 fr-fieldset__legend--regular fr-fieldset__legend">
+                          Cette demande concerne-t-elle un transfert de poste&nbsp;?
+                        </legend>
+                        <div className="fr-col-1 fr-checkbox-group" style={{ width: '10%' }}>
+                          <input type="checkbox" id="checkbox-structure-transfert-oui"
+                            name="checkbox-structure" aria-describedby="checkbox-structure" onChange={() => setIsTransfert(!isTransfert)} />
+                          <label className="fr-label" htmlFor="checkbox-structure-transfert-oui" >
                             Oui
                           </label>
                         </div>
                       </div>
-                      <div className="fr-fieldset__element">
-                        <div className="fr-radio-group" style={{ width: '10%' }}>
-                          <input type="radio" id="radio-structure-transfert-non" name="radio-hint" onChange={() => setIsTransfert(false)} />
-                          <label className="fr-label" htmlFor="radio-structure-transfert-non">
-                            Non
-                          </label>
-                        </div>
-                      </div>
-                    </fieldset>
-                    {isTransfert &&
-                      <div className="fr-select-group">
-                        <label className="fr-label fr-mb-1w" htmlFor="select">
-                          Veuillez s&eacute;lectionner la structure qui transfert son poste
-                        </label>
-                        <FilterSelect
-                          options={listeStructure}
-                          onChange={option => option ? setIdStructureTransfert(option?._id) : setIdStructureTransfert(null)}
-                          placeholder="Recherchez par id ou nom de la structure"
-                          noOptionsMessage={() => 'Aucune structure trouvée'}
-                          getOptionLabel={option => `${option?.idPG} - ${option?.nom}`}
-                          getOptionValue={option => option?._id}
-                          filterOption={filterOption} />
-                      </div>
-                    }
-                  </>
+                    </div>
+                  </fieldset>
+                }
+                {isTransfert &&
+                  <div className="fr-select-group">
+                    <label className="fr-label fr-mb-1w" htmlFor="select">
+                      Veuillez s&eacute;lectionner la structure qui transfert son poste
+                    </label>
+                    <FilterSelect
+                      options={listeStructure}
+                      onChange={option => option ? setIdStructureTransfert(option?._id) : setIdStructureTransfert(null)}
+                      placeholder="Recherchez par id ou nom de la structure"
+                      noOptionsMessage={() => 'Aucune structure trouvée'}
+                      getOptionLabel={option => `${option?.idPG} - ${option?.nom}`}
+                      getOptionValue={option => option?._id}
+                      filterOption={filterOption} />
+                  </div>
                 }
                 <div className="fr-input-group">
                   <label className="fr-label" htmlFor="commentaire-input">
@@ -108,7 +108,6 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                     <button onClick={() => {
                       setOpenModal(false);
                       setCommentaire('');
-                      setIdStructureTransfert(null);
                     }} className="fr-btn fr-btn--secondary">
                       Annuler
                     </button>
@@ -116,7 +115,9 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                   <li>
                     <button
                       disabled={commentaire.trim().length < 10}
-                      onClick={confirmationAvisPrefet}
+                      onClick={() => {
+                        confirmationAvisPrefet();
+                      }}
                       className="fr-btn"
                     >
                       Confirmer
@@ -129,6 +130,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
         </div>
       </div>
     </dialog>
+  </>
   );
 }
 
@@ -136,6 +138,7 @@ ModalConfirmationAvis.propTypes = {
   setOpenModal: PropTypes.func,
   structure: PropTypes.object,
   avisPrefet: PropTypes.string,
+  idDemandeCoselec: PropTypes.string,
   listeStructure: PropTypes.array,
 };
 

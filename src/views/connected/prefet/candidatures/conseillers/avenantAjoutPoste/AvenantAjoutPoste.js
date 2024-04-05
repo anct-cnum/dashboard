@@ -46,16 +46,16 @@ function AvenantAjoutPoste({ avenant, statutDemande }) {
           </>
         }
       </td>
-      <td style={{ paddingLeft: '0' }}>{formatAvisPrefet(avenant?.avisPrefet)}</td>
+      <td style={{ paddingLeft: '0' }}>{formatAvisPrefet(avenant?.prefet?.avis)}</td>
       {avenant.statut === 'en_cours' ?
         <td style={{ textAlign: 'end', width: '32rem', paddingLeft: '0' }}>
-          <Link className={`fr-btn ${avenant?.avisPrefet ? 'fr-btn--secondary' : ''}`}
+          <Link className={`fr-btn ${avenant?.prefet?.avis ? 'fr-btn--secondary' : ''}`}
             to={{
               pathname: `/${roleActivated}/demandes/conseiller/${avenant?.idStructure}`,
               search: `?type=avenant-ajout-poste&demande=${avenant?.id}`,
             }}
             state={{ 'origin': `/${roleActivated}/demandes/conseillers`, statutDemande }}>
-            {avenant?.avisPrefet ? 'Modifier mon avis' : 'Donner mon avis'}
+            {avenant?.prefet?.avis ? 'Modifier mon avis' : 'Donner mon avis'}
           </Link>
         </td> :
         <td style={{ textAlign: 'end' }}>
