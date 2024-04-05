@@ -302,7 +302,7 @@ export default function structure(state = initialState, action) {
     case 'UPDATE_COMMENTAIRE_PREFET_SUCCESS':
       return {
         ...state,
-        successAvisPrefet: action.success,
+        structure: { ...state.structure, prefet: action.prefet },
         loading: false
       };
     case 'UPDATE_COMMENTAIRE_PREFET_FAILURE':
@@ -320,7 +320,7 @@ export default function structure(state = initialState, action) {
     case 'UPDATE_COMMENTAIRE_AVENANT_PREFET_SUCCESS':
       return {
         ...state,
-        successAvisPrefet: action.success,
+        structure: { ...state.structure, demandesCoselec: action.demandesCoselec },
         loading: false
       };
     case 'UPDATE_COMMENTAIRE_AVENANT_PREFET_FAILURE':

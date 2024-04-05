@@ -19,12 +19,28 @@
         width: 10.2%;
         text-align: end;
     }
-    .commentaire-prefet {
-      color: $purple-glycine-sun-319;
-      background: $purple-glycine-950;
+    @mixin commentaire {
+      flex-direction: column;
+      height: fit-content;
       padding: 1.5rem;
-      width: 100%;
+      display: flex;
+      width: 50%;
+    }
+    .commentaire-prefet {
+      &.negatif{
+        background: $error-950;
+      }
+      &.positif {
+        background: $success-950;
+      }
+      @include commentaire;
+      border-radius: 8px 8px 0px 8px;
       margin-left: auto;
+    }
+    .motif-structure {
+      background: $blue-france-975;
+      border-radius: 8px 8px 8px 0px;
+      @include commentaire;
     }
     .badge-avis-prefet {
       position: absolute;

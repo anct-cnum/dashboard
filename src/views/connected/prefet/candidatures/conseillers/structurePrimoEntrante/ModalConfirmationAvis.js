@@ -42,29 +42,31 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg"></span>
-                  Confirmer l&rsquo;avis
+                  {!['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) ?
+                    <>Confirmer l&rsquo;avis</> : <>Modifier en avis&nbsp;{avisPrefet}</>
+                  }
                 </h1>
-                <p>Souhaitez-vous confirmer l&rsquo;avis {avisPrefet} pour la structure <strong>{structure?.nom}</strong>&nbsp;?</p>
+                <p>
+                  {!['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) ?
+                    <>Souhaitez-vous confirmer l&rsquo;avis&nbsp;{avisPrefet} </> : <>Souhaitez-vous confirmer le changement d&rsquo;avis</>
+                  }
+                  &nbsp;pour la structure <strong>{structure?.nom}</strong>&nbsp;?
+                </p>
                 {avisPrefet === 'favorable' &&
                   <>
-                    <fieldset className="fr-fieldset fr-mb-1w" id="radio-hint" aria-labelledby="radio-transfert-structure radio-hint-messages">
-                      <legend className="fr-fieldset__legend--regular fr-fieldset__legend" id="radio-transfert-structure">
-                        Cette demande concerne-t-elle un transfert de poste&nbsp;?
-                      </legend>
-                      <div className="fr-fieldset__element">
-                        <div className="fr-radio-group" style={{ width: '10%' }}>
-                          <input type="radio" id="radio-structure-transfert-oui" name="radio-hint" onChange={() => setIsTransfert(true)} />
-                          <label className="fr-label" htmlFor="radio-structure-transfert-oui" >
-                            Oui
-                          </label>
-                        </div>
-                      </div>
-                      <div className="fr-fieldset__element">
-                        <div className="fr-radio-group" style={{ width: '10%' }}>
-                          <input type="radio" id="radio-structure-transfert-non" name="radio-hint" onChange={() => setIsTransfert(false)} />
-                          <label className="fr-label" htmlFor="radio-structure-transfert-non">
-                            Non
-                          </label>
+                    <fieldset className="fr-fieldset fr-mb-1w" id="checkbox-structure" aria-labelledby="checkbox-structure">
+                      <div className="fr-container fr-ml-n6v">
+                        <div className="fr-grid-row">
+                          <legend className="fr-col-11 fr-fieldset__legend--regular fr-fieldset__legend">
+                            Cette demande concerne-t-elle un transfert de poste&nbsp;?
+                          </legend>
+                          <div className="fr-col-1 fr-checkbox-group" style={{ width: '10%' }}>
+                            <input type="checkbox" id="checkbox-structure-transfert-oui"
+                              name="checkbox-structure" aria-describedby="checkbox-structure" onChange={() => setIsTransfert(!isTransfert)} />
+                            <label className="fr-label" htmlFor="checkbox-structure-transfert-oui" >
+                              Oui
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </fieldset>

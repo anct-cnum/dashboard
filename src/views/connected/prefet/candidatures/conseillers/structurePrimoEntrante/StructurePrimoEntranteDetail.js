@@ -90,12 +90,14 @@ function StructurePrimoEntranteDetail({ structure, listeStructure }) {
                 style={{ marginTop: '3.7rem', marginLeft: 0 }}>
                 <strong>Commentaire pr&eacute;fet:</strong>
                 <span className="fr-mt-1w">{structure?.prefet?.commentairePrefet ?? 'Non renseignée'}</span>
-                <button className={`lien-modifier ${structure?.prefet?.avisPrefet === 'POSITIF' ? 'positif' : 'negatif'}` }
-                  onClick={() => {
-                    setOpenModalCommentaire(true);
-                  }}>
+                {checkStructureNouvelle(structure?.statut) &&
+                  <button className={`lien-modifier ${structure?.prefet?.avisPrefet === 'POSITIF' ? 'positif' : 'negatif'}`}
+                    onClick={() => {
+                      setOpenModalCommentaire(true);
+                    }}>
                     Modifier mon commentaire <i className="ri-edit-line ri-xl"></i>
-                </button>
+                  </button>
+                }
               </div>
             </>
           }

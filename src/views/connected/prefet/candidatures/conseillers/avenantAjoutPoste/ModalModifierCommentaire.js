@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import { structureActions } from '../../../../../../actions';
 import { useDispatch } from 'react-redux';
 
-function ModalModifierCommentaire({ setOpenModalCommentaire, structure, idDemandeCoselec }) {
+function ModalModifierCommentaire({ setOpenModalCommentaire, structure, demandesCoselec }) {
   const dispatch = useDispatch();
-  const [commentaire, setCommentaire] = useState('');
+  const [commentaire, setCommentaire] = useState(demandesCoselec?.prefet?.commentaire || '');
 
   const modificationCommentaireAvisPrefet = () => {
-    dispatch(structureActions.modificationAvenantCommentaireAvisPrefet(structure?._id, commentaire, idDemandeCoselec));
+    dispatch(structureActions.modificationAvenantCommentaireAvisPrefet(structure?._id, commentaire, demandesCoselec.id));
     setOpenModalCommentaire(false);
     setCommentaire('');
   };
 
-  return (<>
+  return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
         <div className="fr-grid-row fr-grid-row--center">
@@ -77,15 +77,13 @@ function ModalModifierCommentaire({ setOpenModalCommentaire, structure, idDemand
         </div>
       </div>
     </dialog>
-  </>
   );
 }
 
 ModalModifierCommentaire.propTypes = {
   setOpenModalCommentaire: PropTypes.func,
-  avisPrefet: PropTypes.string,
   structure: PropTypes.object,
-  idDemandeCoselec: PropTypes.string,
+  demandesCoselec: PropTypes.object,
 };
 
 export default ModalModifierCommentaire;
