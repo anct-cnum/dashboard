@@ -4,7 +4,7 @@ import { pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/f
 import PopinSelectionCoordinateur from '../popins/PopinSelectionCoordinateur';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
-const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersActifsNonRenouveles, nbPostesCoordoDisponible }) => {
+const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersARenouveler, conseillersActifsNonRenouveles, nbPostesCoordoDisponible }) => {
   // conseillers actifs + conseillers actifs non renouvelés traitement pour supprimer les doublons dans les deux listes
   const conseillers = conseillersActifs.concat(conseillersActifsNonRenouveles?.filter(conseillerActifNonRenouvele => {
     return conseillersActifs.every(conseillerActif => conseillerActif?._id !== conseillerActifNonRenouvele?._id);
@@ -17,7 +17,8 @@ const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersActifsNo
   // à la structure de choisir un coordinateur parmi les conseillers actifs
   // et les conseillers actifs non renouvelés qui ont une date de fin de contrat non dépassée ou CDI
   const filteredActiveAdvisors = conseillers?.filter(contrat => contrat?.statut === 'finalisee' && checkConseillerDispoCoordo(contrat));
-  const nbConseillersCoordo = conseillersActifs?.filter(conseiller => conseiller?.estCoordinateur).length;
+  const nbConseillersCoordo = [...conseillersActifs, ...conseillersARenouveler]?.filter(conseiller => conseiller?.estCoordinateur).length;
+
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -61,6 +62,7 @@ const HireCoordinatorCard = ({ structure, conseillersActifs, conseillersActifsNo
 
 HireCoordinatorCard.propTypes = {
   conseillersActifs: propTypes.array,
+  conseillersARenouveler: propTypes.array,
   conseillersActifsNonRenouveles: propTypes.array,
   structure: propTypes.object,
   nbPostesCoordoDisponible: propTypes.number,
