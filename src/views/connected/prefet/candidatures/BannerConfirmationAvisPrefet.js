@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const BannerConfirmationAvisPrefet = ({ nomStructure, avisPrefet, closeBanner, idDemande }) => {
-
   const checkTypeAvisFavorable = () => {
     if (avisPrefet === 'favorable') {
       return true;

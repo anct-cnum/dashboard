@@ -90,6 +90,7 @@ export default function TableauCandidaturesConseillers() {
   };
 
   const closeBanner = idDemande => dispatch(structureActions.closeBannerAvisPrefet(idDemande));
+  const closeBannerAvenant = idDemande => dispatch(structureActions.closeBannerAvenantAvisPrefet(idDemande));
 
   return (
     <div className="conventions">
@@ -102,6 +103,19 @@ export default function TableauCandidaturesConseillers() {
               closeBanner={closeBanner}
               nomStructure={structure.nom}
               avisPrefet={structure.prefet[0].avisPrefet === 'POSITIF' ? 'favorable' : 'défavorable'}
+              idDemande={structure._id}
+            />
+          );
+        })
+      }
+      {structures?.items?.ajoutPosteBannerAvisPrefetOpen?.length > 0 &&
+        structures?.items?.ajoutPosteBannerAvisPrefetOpen?.map((structure, idx) => {
+          return (
+            <BannerConfirmationAvisPrefet
+              key={idx}
+              closeBanner={closeBannerAvenant}
+              nomStructure={structure.nom}
+              avisPrefet={structure.demandesCoselec[0].prefet.avis}
               idDemande={structure._id}
             />
           );
