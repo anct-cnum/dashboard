@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 import ModalValidationAvenantAjoutPoste from '../modals/ModalValidationAvenantAjoutPoste';
 import ModalRefusAvenantAjoutPoste from '../modals/ModalRefusAvenantAjoutPoste';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { conventionActions } from '../../../../actions';
 
 function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const successConvention = useSelector(state => state.convention?.successAvisAdmin);
 
   const [openModalValidation, setOpenModalValidation] = useState(false);
   const [openModalRefus, setOpenModalRefus] = useState(false);
@@ -22,6 +29,27 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
         return <p className="fr-badge fr-badge--new">en attente de l&apos;avis pr&eacute;fet</p>;
     }
   };
+
+  useEffect(() => {
+    if (successConvention) {
+      navigate('/admin/demandes/conventions',
+        {
+          state: {
+            typeConvention: 'avenantAjoutPoste',
+            structure: {
+              nom: avenant?.nom,
+              statutDemande: demandesCoselec?.statut === 'validee' ? 'POSITIF' : 'NÉGATIF',
+              nombreDePostesAccordes: demandesCoselec?.nombreDePostesAccordes,
+            },
+          }
+        },
+        {
+          replace: true
+        }
+      );
+      dispatch(conventionActions.resetConfirmationAvisAdmin());
+    }
+  }, [successConvention]);
 
   return (
     <div className="fr-card card-add">
@@ -104,18 +132,18 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
                   </div>
                 </div>
               </div>
-              {demandesCoselec?.commentairePrefet &&
-              <div className={`fr-card fr-card--no-border 
-              ${demandesCoselec?.avisPrefet === 'favorable' ? 'display-card-accept' : 'display-card-decline'}`}>
+              {demandesCoselec?.prefet?.commentaire &&
+              <div className={`fr-card fr-card--no-border
+              ${demandesCoselec?.prefet?.avis === 'favorable' ? 'display-card-accept' : 'display-card-decline'}`}>
                 <div className="fr-card__body">
                   <div className="fr-card__content">
                     <p className="fr-text--bold" style={{ marginBottom: '0px' }}>
                       Commentaire pr&eacute;fet&nbsp;:
                     </p>
-                    <p className="fr-card__desc">{demandesCoselec?.commentairePrefet}</p>
-                    <p className={`fr-card__desc fr-text--bold 
-                    ${demandesCoselec?.avisPrefet === 'favorable' ? 'display-card-text-accept' : 'display-card-text-decline'}`}>
-                      {demandesCoselec?.avisPrefet === 'favorable' ? 'Avis favorable' : 'Avis défavorable'}
+                    <p className="fr-card__desc">{demandesCoselec?.prefet?.commentaire}</p>
+                    <p className={`fr-card__desc fr-text--bold
+                    ${demandesCoselec?.prefet?.avis === 'favorable' ? 'display-card-text-accept' : 'display-card-text-decline'}`}>
+                      {demandesCoselec?.prefet?.avis === 'favorable' ? 'Avis favorable' : 'Avis défavorable'}
                     </p>
                   </div>
                 </div>
@@ -123,7 +151,7 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
             </div>
           </div>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-            {formatAvisPrefet(demandesCoselec?.avisPrefet)}
+            {formatAvisPrefet(demandesCoselec?.prefet?.avis)}
           </div>
         </div>
         <div className="fr-card__footer">
