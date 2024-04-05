@@ -91,7 +91,7 @@ export function useAdvisors() {
             miseEnRelation.statut === 'finalisee' && miseEnRelation.reconventionnement;
         //si la mise en relation & été cochée et donc soit le renouvellement a été initié soit la mise en relation est finalisée
         // et n'a pas encore été dédoublonnée et n'est pas un CDI
-        return (isRenouvellementInitie || isFinaliseeWithoutConventionnement) && isNotCDI;
+        return isRenouvellementInitie || (isFinaliseeWithoutConventionnement && isNotCDI);
       })
       .map(createConseiller);
 
