@@ -40,7 +40,7 @@ function AvenantAjoutPoste({ avenant, statutDemande }) {
           avenant?.nombreDePostesSouhaites,
           true
         )}
-        {avenant?.idStructureTransfert &&
+        {avenant?.prefet?.idStructureTransfert &&
           <>
             &nbsp;(Transfert)
           </>
