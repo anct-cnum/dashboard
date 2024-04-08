@@ -9,7 +9,6 @@ function AvenantAjoutPosteDetail({ structure, idDemandeCoselec, listeStructure }
   const [openModalAvis, setOpenModalAvis] = useState(false);
   const [openModalCommentaire, setOpenModalCommentaire] = useState(false);
   const [avisPrefet, setAvisPrefet] = useState('');
-
   const demandesCoselec = structure?.demandesCoselec?.find(demande => demande.id === idDemandeCoselec);
 
   return (
@@ -20,14 +19,13 @@ function AvenantAjoutPosteDetail({ structure, idDemandeCoselec, listeStructure }
           structure={structure}
           listeStructure={listeStructure}
           avisPrefet={avisPrefet}
-          idDemandeCoselec={idDemandeCoselec}
+          demandesCoselec={demandesCoselec}
         />
       }
       {openModalCommentaire &&
         <ModalModifierCommentaire
           setOpenModalCommentaire={setOpenModalCommentaire}
-          idDemandeCoselec={idDemandeCoselec}
-          avisPrefet={demandesCoselec?.prefet?.avis}
+          demandesCoselec={demandesCoselec}
           structure={structure}
         />
       }
@@ -50,7 +48,7 @@ function AvenantAjoutPosteDetail({ structure, idDemandeCoselec, listeStructure }
               </h3>
               {demandesCoselec?.prefet?.avis &&
                 <p className={`fr-badge fr-badge--${demandesCoselec?.prefet?.avis === 'favorable' ? 'success' : 'error'}`}>
-                    Avis {demandesCoselec?.prefet?.avis}
+                  Avis {demandesCoselec?.prefet?.avis}
                 </p>
               }
               {!demandesCoselec?.prefet?.avis &&
@@ -88,12 +86,14 @@ function AvenantAjoutPosteDetail({ structure, idDemandeCoselec, listeStructure }
               <div className={`commentaire-prefet ${demandesCoselec?.prefet?.avis === 'favorable' ? 'positif' : 'negatif'}`}>
                 <strong>Commentaire pr&eacute;fet:</strong>
                 <span className="fr-mt-1w">{demandesCoselec.prefet.commentaire}</span>
-                <button className={`lien-modifier ${demandesCoselec?.prefet?.avis === 'favorable' ? 'positif' : 'negatif'}` }
-                  onClick={() => {
-                    setOpenModalCommentaire(true);
-                  }}>
+                {demandesCoselec?.statut === 'en_cours' &&
+                  <button className={`lien-modifier ${demandesCoselec?.prefet?.avis === 'favorable' ? 'positif' : 'negatif'}`}
+                    onClick={() => {
+                      setOpenModalCommentaire(true);
+                    }}>
                     Modifier mon commentaire <i className="ri-edit-line ri-xl"></i>
-                </button>
+                  </button>
+                }
               </div>
             }
           </div>

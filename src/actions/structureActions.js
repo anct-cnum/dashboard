@@ -456,7 +456,7 @@ function modificationCommentaireAvisPrefet(idStructure, commentaire) {
     dispatch(request());
     structureService.modificationCommentaireAvisPrefet(idStructure, commentaire)
     .then(
-      response => dispatch(success(response.success)),
+      response => dispatch(success(response.prefet)),
       error => {
         dispatch(failure(error));
       }
@@ -466,8 +466,8 @@ function modificationCommentaireAvisPrefet(idStructure, commentaire) {
   function request() {
     return { type: 'UPDATE_COMMENTAIRE_PREFET_REQUEST' };
   }
-  function success(success) {
-    return { type: 'UPDATE_COMMENTAIRE_PREFET_SUCCESS', success };
+  function success(prefet) {
+    return { type: 'UPDATE_COMMENTAIRE_PREFET_SUCCESS', prefet };
   }
   function failure(error) {
     return { type: 'UPDATE_COMMENTAIRE_PREFET_FAILURE', error };
@@ -480,7 +480,7 @@ function modificationAvenantCommentaireAvisPrefet(idStructure, commentaire, idDe
 
     structureService.modificationAvenantCommentaireAvisPrefet(idStructure, commentaire, idDemandeCoselec)
     .then(
-      response => dispatch(success(response.success)),
+      response => dispatch(success(response.demandesCoselec)),
       error => {
         dispatch(failure(error));
       }
@@ -488,13 +488,13 @@ function modificationAvenantCommentaireAvisPrefet(idStructure, commentaire, idDe
   };
 
   function request() {
-    return { type: 'UPDATE_COMMENTAIRE_PREFET_REQUEST' };
+    return { type: 'UPDATE_COMMENTAIRE_AVENANT_PREFET_REQUEST' };
   }
-  function success(success) {
-    return { type: 'UPDATE_COMMENTAIRE_PREFET_SUCCESS', success };
+  function success(demandesCoselec) {
+    return { type: 'UPDATE_COMMENTAIRE_AVENANT_PREFET_SUCCESS', demandesCoselec };
   }
   function failure(error) {
-    return { type: 'UPDATE_COMMENTAIRE_PREFET_FAILURE', error };
+    return { type: 'UPDATE_COMMENTAIRE_AVENANT_PREFET_FAILURE', error };
   }
 }
 

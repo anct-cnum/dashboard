@@ -76,7 +76,7 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
           <h3 className="fr-card__title fr-h3">
             {demandesCoselec?.nombreDePostesAccordes ?
               <>
-                  Demande de {demandesCoselec?.nombreDePostesAccordes}{pluralize(
+                Demande de {demandesCoselec?.nombreDePostesAccordes}{pluralize(
                   ' poste supplémentaire ',
                   ' poste supplémentaire ',
                   ' postes de supplémentaires ',
@@ -84,7 +84,7 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
                 )}
               </> :
               <>
-                  Demande de {demandesCoselec?.nombreDePostesSouhaites}{pluralize(
+                Demande de {demandesCoselec?.nombreDePostesSouhaites}{pluralize(
                   ' poste supplémentaire ',
                   ' poste supplémentaire ',
                   ' postes supplémentaires ',
@@ -116,10 +116,10 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
               </strong>
             </p>
             <a className="fr-btn fr-btn--tertiary-no-outline" href={avenant?.url} target="_blank" rel="noopener noreferrer">
-                Voir le dossier D&eacute;marche Simplifi&eacute;e
+              Voir le dossier D&eacute;marche Simplifi&eacute;e
             </a>
           </div>
-          <hr className="fr-card__desc" style={{ marginLeft: '-2rem', marginRight: '-2rem' }}/>
+          <hr className="fr-card__desc" style={{ marginLeft: '-2rem', marginRight: '-2rem' }} />
           <div className="fr-card__desc fr-container--fluid">
             <div className=" fr-grid-row" style={{ justifyContent: 'space-between' }}>
               <div className="fr-card fr-card--no-border display-card-info">
@@ -133,21 +133,21 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
                 </div>
               </div>
               {demandesCoselec?.prefet?.commentaire &&
-              <div className={`fr-card fr-card--no-border
-              ${demandesCoselec?.prefet?.avis === 'favorable' ? 'display-card-accept' : 'display-card-decline'}`}>
-                <div className="fr-card__body">
-                  <div className="fr-card__content">
-                    <p className="fr-text--bold" style={{ marginBottom: '0px' }}>
-                      Commentaire pr&eacute;fet&nbsp;:
-                    </p>
-                    <p className="fr-card__desc">{demandesCoselec?.prefet?.commentaire}</p>
-                    <p className={`fr-card__desc fr-text--bold
+                <div className={`fr-card fr-card--no-border ${demandesCoselec?.prefet?.avis === 'favorable' ? 'display-card-accept' : 'display-card-decline'}`}>
+                  <div className="fr-card__body">
+                    <div className="fr-card__content">
+                      <p className="fr-text--bold" style={{ marginBottom: '0px' }}>
+                        Commentaire pr&eacute;fet&nbsp;:
+                      </p>
+                      <p className="fr-card__desc">{demandesCoselec?.prefet?.commentaire}</p>
+                      <p className={`fr-card__desc fr-text--bold fr-text--md
                     ${demandesCoselec?.prefet?.avis === 'favorable' ? 'display-card-text-accept' : 'display-card-text-decline'}`}>
-                      {demandesCoselec?.prefet?.avis === 'favorable' ? 'Avis favorable' : 'Avis défavorable'}
-                    </p>
+                        {demandesCoselec?.prefet?.avis === 'favorable' ? 'Avis favorable' : 'Avis défavorable'}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>}
+              }
             </div>
           </div>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
@@ -155,7 +155,7 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
           </div>
         </div>
         <div className="fr-card__footer">
-          <hr/>
+          <hr />
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-grid-row--center">
             {demandesCoselec?.statut === 'en_cours' &&
               <>

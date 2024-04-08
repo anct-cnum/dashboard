@@ -4,7 +4,7 @@ import { structureActions } from '../../../../../../actions';
 import { useDispatch } from 'react-redux';
 import FilterSelect from '../../../../../../components/FilterSelect';
 
-function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, idDemandeCoselec, listeStructure }) {
+function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, demandesCoselec, listeStructure }) {
   const dispatch = useDispatch();
   const [commentaire, setCommentaire] = useState('');
   const [isTransfert, setIsTransfert] = useState(false);
@@ -19,7 +19,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, idDemandeC
   };
 
   const confirmationAvisPrefet = () => {
-    dispatch(structureActions.confirmationAvenantAvisPrefet(structure?._id, avisPrefet, commentaire, idDemandeCoselec, idStructureTransfert));
+    dispatch(structureActions.confirmationAvenantAvisPrefet(structure._id, avisPrefet, commentaire, demandesCoselec.id, idStructureTransfert));
     setOpenModal(false);
     setCommentaire('');
     setIdStructureTransfert(null);
@@ -42,15 +42,15 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, idDemandeC
               <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg"></span>
-                  {!structure?.prefet?.avisPrefet ?
+                  {!demandesCoselec?.prefet?.avis ?
                     <>Confirmer l&rsquo;avis</> : <>Modifier en avis&nbsp;{avisPrefet}</>
                   }
                 </h1>
                 <p>
-                  {!structure?.prefet?.avisPrefet ?
+                  {!demandesCoselec?.prefet?.avis ?
                     <>Souhaitez-vous confirmer l&rsquo;avis&nbsp;{avisPrefet} </> : <>Souhaitez-vous confirmer le changement d&rsquo;avis</>
                   }
-                  &nbsp;pour la structure <strong>${structure?.nom}</strong>&nbsp;?
+                  &nbsp;pour la structure <strong>{structure?.nom}</strong>&nbsp;?
                 </p>
                 {avisPrefet === 'favorable' &&
                   <fieldset className="fr-fieldset fr-mb-1w" id="checkbox-structure" aria-labelledby="checkbox-structure">
@@ -115,9 +115,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, idDemandeC
                   <li>
                     <button
                       disabled={commentaire.trim().length < 10}
-                      onClick={() => {
-                        confirmationAvisPrefet();
-                      }}
+                      onClick={confirmationAvisPrefet}
                       className="fr-btn"
                     >
                       Confirmer
@@ -138,7 +136,7 @@ ModalConfirmationAvis.propTypes = {
   setOpenModal: PropTypes.func,
   structure: PropTypes.object,
   avisPrefet: PropTypes.string,
-  idDemandeCoselec: PropTypes.string,
+  demandesCoselec: PropTypes.object,
   listeStructure: PropTypes.array,
 };
 

@@ -5,14 +5,14 @@ import { useDispatch } from 'react-redux';
 
 function ModalModifierCommentaire({ setOpenModalCommentaire, structure }) {
   const dispatch = useDispatch();
-  const [commentaire, setCommentaire] = useState('');
+  const [commentaire, setCommentaire] = useState(structure?.prefet?.commentairePrefet || '');
+
   const modificationCommentaireAvisPrefet = () => {
     dispatch(structureActions.modificationCommentaireAvisPrefet(structure?._id, commentaire));
     setOpenModalCommentaire(false);
-    setCommentaire('');
   };
 
-  return (<>
+  return (
     <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" className="fr-modal modalOpened" role="dialog" >
       <div className="fr-container fr-container--fluid fr-container-md">
         <div className="fr-grid-row fr-grid-row--center">
@@ -21,7 +21,6 @@ function ModalModifierCommentaire({ setOpenModalCommentaire, structure }) {
               <div className="fr-modal__header">
                 <button className="fr-btn--close fr-btn" title="Fermer la fen&ecirc;tre modale" aria-controls="fr-modal-2" onClick={() => {
                   setOpenModalCommentaire(false);
-                  setCommentaire('');
                 }}>
                   Fermer
                 </button>
@@ -53,7 +52,6 @@ function ModalModifierCommentaire({ setOpenModalCommentaire, structure }) {
                   <li>
                     <button onClick={() => {
                       setOpenModalCommentaire(false);
-                      setCommentaire('');
                     }} className="fr-btn fr-btn--secondary">
                       Annuler
                     </button>
@@ -61,9 +59,7 @@ function ModalModifierCommentaire({ setOpenModalCommentaire, structure }) {
                   <li>
                     <button
                       disabled={commentaire.trim().length < 10}
-                      onClick={() => {
-                        modificationCommentaireAvisPrefet();
-                      }}
+                      onClick={modificationCommentaireAvisPrefet}
                       className="fr-btn"
                     >
                       Confirmer
@@ -76,7 +72,6 @@ function ModalModifierCommentaire({ setOpenModalCommentaire, structure }) {
         </div>
       </div>
     </dialog>
-  </>
   );
 }
 
