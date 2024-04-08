@@ -73,7 +73,7 @@ export default function convention(state = initialState, action) {
               demandeCoselec => {
                 if (demandeCoselec.statut === 'en_cours' && demandeCoselec.type === 'ajout') {
                   if (action.response.statutAvenantAjoutPosteUpdated === 'validee') {
-                    demandeCoselec.nombreDePostesAccordes = action.response.nbDePosteAccorderUpdated;
+                    demandeCoselec.nombreDePostesAccordes = Number(action.response.nbDePosteAccorderUpdated);
                   }
                   demandeCoselec.statut = action.response.statutAvenantAjoutPosteUpdated;
                   return demandeCoselec;
