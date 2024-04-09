@@ -23,6 +23,7 @@ if (process.env.REACT_APP_SENTRY_ENABLED === 'true') {
     ignoreErrors: [
       //Extension Safari
       /webkit-masked-url/i,
+      /t.onDisconnect/i,
     ],
   });
 }
