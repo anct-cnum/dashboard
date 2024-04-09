@@ -166,6 +166,10 @@
     color: $black;
     padding: 21px;
   }
+  .react-datepicker {
+    position: absolute !important;
+    right: -170px !important;
+  }
   @media (min-width: 1200px) {
     .hide-graphique-xs {
       display:none;
