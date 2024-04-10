@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { authenticationActions } from '../actions';
+import { useDispatch } from 'react-redux';
 
 const UserMenu = ({
   user,
@@ -11,6 +13,7 @@ const UserMenu = ({
   roles,
 }) => {
   const truncate = input => input?.length > 27 ? `${input?.substring(0, 27)}...` : input;
+  const dispatch = useDispatch();
 
   const formatRoleMenu = role => {
     if (role === 'grandReseau') {
@@ -106,7 +109,10 @@ const UserMenu = ({
                         href="#"
                         target="_self"
                         style={{ boxShadow: 'none' }}
-                        onClick={() => changeRoleActivated(role)}
+                        onClick={() => {
+                          changeRoleActivated(role);
+                          dispatch(authenticationActions.resetApplication());
+                        }}
                         key={i}
                       >
                         {formatRoleMenu(role)}
