@@ -161,6 +161,7 @@ function MesPostes() {
         {countDemandesCoordinateurValide > 0 &&
           <HireCoordinatorCard
             conseillersActifs={conseillersActifs}
+            conseillersARenouveler={conseillersARenouveler}
             conseillersActifsNonRenouveles={conseillersActifsNonRenouveles}
             structure={structure}
             nbPostesCoordoDisponible={countDemandesCoordinateurValide}

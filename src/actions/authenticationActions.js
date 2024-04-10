@@ -2,6 +2,7 @@ export const authenticationActions = {
   login,
   changeRoleActivated,
   refreshToken,
+  resetApplication,
 };
 
 function login(data) {
@@ -26,4 +27,8 @@ function refreshToken(accessToken) {
   function success(accessToken) {
     return { type: 'REFRESH_TOKEN', accessToken };
   }
+}
+
+function resetApplication() {
+  return { type: 'RESET_APPLICATION' };
 }

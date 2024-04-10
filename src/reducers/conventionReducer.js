@@ -66,13 +66,14 @@ export default function convention(state = initialState, action) {
     case 'UPDATE_AVENANT_AJOUT_POSTE_SUCCESS':
       return {
         ...state,
+        successAvisAdmin: true,
         convention: {
           ...state.convention, demandesCoselec:
             state.convention.demandesCoselec.map(
               demandeCoselec => {
                 if (demandeCoselec.statut === 'en_cours' && demandeCoselec.type === 'ajout') {
                   if (action.response.statutAvenantAjoutPosteUpdated === 'validee') {
-                    demandeCoselec.nombreDePostesAccordes = action.response.nbDePosteAccorderUpdated;
+                    demandeCoselec.nombreDePostesAccordes = Number(action.response.nbDePosteAccorderUpdated);
                   }
                   demandeCoselec.statut = action.response.statutAvenantAjoutPosteUpdated;
                   return demandeCoselec;
@@ -88,6 +89,11 @@ export default function convention(state = initialState, action) {
         ...state,
         error: action.error,
         loading: false
+      };
+    case 'RESET_CONFIRMATION_AVIS_ADMIN':
+      return {
+        ...state,
+        successAvisAdmin: false,
       };
     case 'UPDATE_AVENANT_RENDU_POSTE_REQUEST':
       return {

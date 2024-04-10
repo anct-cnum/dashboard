@@ -7,6 +7,17 @@ import { Link } from 'react-router-dom';
 function HistoriqueAvenantAjoutPoste({ avenant, typeConvention }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
+  const formatAvisPrefet = avisPrefet => {
+    switch (avisPrefet) {
+      case 'favorable':
+        return <p className="fr-badge fr-badge--success">favorable</p>;
+      case 'défavorable':
+        return <p className="fr-badge fr-badge--error">d&eacute;favorable</p>;
+      default:
+        return '';
+    }
+  };
+
   return (
     <>
       <td className="uppercase-letter">
@@ -21,6 +32,7 @@ function HistoriqueAvenantAjoutPoste({ avenant, typeConvention }) {
       </td>
       <td>{avenant?.nombreDePostesAccordes ?? '-'}</td>
       <td style={{ width: '13rem' }}>Avenant · ajout de poste</td>
+      {typeConvention === 'avenantAjoutPoste' && <td style={{ width: '13rem' }}>{formatAvisPrefet(avenant?.prefet?.avis)}</td>}
       <td>
         <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={{
           pathname: `/${roleActivated}/demandes/convention/${avenant?.idStructure}`,

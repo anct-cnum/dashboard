@@ -15,6 +15,7 @@
 @use './views/conventions';
 @use './views/coordinateurDetails';
 @use './views/mesPostes';
+@use './views/candidatureConseillerDetails';
 @use './components/FiltersAndSortsCandidatures';
 @use './components/pagination';
 @use './components/spinner';
@@ -22,6 +23,7 @@
 @use './components/inclusion-connect.scss';
 @use './components/banner';
 @use './components/reactDatePicker.scss';
+@use './components/custom-card.scss';
 
 // @import
 @import '~@gouvfr/dsfr/dist/dsfr/dsfr.min.css';

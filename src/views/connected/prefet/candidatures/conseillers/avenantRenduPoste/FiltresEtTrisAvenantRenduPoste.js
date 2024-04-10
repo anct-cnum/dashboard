@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filtresDemandesActions, paginationActions } from '../../../../actions';
-import departementsRegionRaw from '../../../../datas/departements-region.json';
-import departementsRegionTomRaw from '../../../../datas/departements-region-tom.json';
-import codeRegionsRaw from '../../../../datas/code_region.json';
+import departementsRegionRaw from '../../../../../../datas/departements-region.json';
+import departementsRegionTomRaw from '../../../../../../datas/departements-region-tom.json';
+import codeRegionsRaw from '../../../../../../datas/code_region.json';
+import { filtresDemandesActions, paginationActions } from '../../../../../../actions';
 
-function FiltresEtTrisCandidatures() {
+function FiltresEtTrisAvenantRenduPoste() {
   const dispatch = useDispatch();
   const departementsRegionArray = Array.from(departementsRegionRaw);
   const departementsRegionTomArray = Array.from(departementsRegionTomRaw);
@@ -13,7 +13,6 @@ function FiltresEtTrisCandidatures() {
   const departementsRegionList = departementsRegionArray.concat(departementsRegionTomArray);
   const filterDepartement = useSelector(state => state.filtresDemandes?.departement);
   const filtreRegion = useSelector(state => state.filtresDemandes?.region);
-  const filtreAvisPrefet = useSelector(state => state.filtresDemandes?.avisPrefet);
   const userAuth = useSelector(state => state.authentication?.user);
 
   const selectFiltreRegion = e => {
@@ -41,7 +40,7 @@ function FiltresEtTrisCandidatures() {
 
   const getDepartements = () => {
     if (userAuth?.region) {
-      return departementsRegionList.filter(departement => departement.region_name === codeRegionArray.find(r => r.code === userAuth?.region)?.nom);
+      return departementsRegionList.filter(departement => departement.region_name === codeRegionArray.find(r => r.code === userAuth?.region).nom);
     }
     return departementsRegionList.filter(departement => departement.num_dep === userAuth?.departement);
   };
@@ -54,11 +53,6 @@ function FiltresEtTrisCandidatures() {
       );
     }
     return codeRegionArray.filter(region => region.code === userAuth?.region);
-  };
-
-  const selectFiltreAvisPrefet = e => {
-    dispatch(paginationActions.setPage(1));
-    dispatch(filtresDemandesActions.changeFiltreAvisPrefet(e.target?.value));
   };
 
   return (
@@ -88,17 +82,9 @@ function FiltresEtTrisCandidatures() {
             )}
           </select>
         </div>
-        <div className="fr-select-group fr-col-12" id="filtre-statut">
-          <select className="fr-select" value={filtreAvisPrefet} onChange={selectFiltreAvisPrefet}>
-            <option value={'tous'}>S&eacute;lectionner l&rsquo;avis</option>
-            <option value={'sans-avis'}>Sans avis</option>
-            <option value={'favorable'}>Favorable</option>
-            <option value={'défavorable'}>D&eacute;favorable</option>
-          </select>
-        </div>
       </div>
     </>
   );
 }
 
-export default FiltresEtTrisCandidatures;
+export default FiltresEtTrisAvenantRenduPoste;

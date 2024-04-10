@@ -24,7 +24,7 @@ import filtresConventionsReducer from './filtresConventionsReducer';
 import filtresDemandesReducer from './filtresDemandesReducer';
 import coordinateurReducer from './coordinateurReducer';
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   menu: menuReducer,
   authentication: authenticationReducer,
   statistiques: statistiquesReducer,
@@ -50,5 +50,13 @@ const rootReducer = combineReducers({
   filtresDemandes: filtresDemandesReducer,
   coordinateur: coordinateurReducer
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === 'RESET_APPLICATION') {
+    const { authentication, user, menu } = state;
+    state = { authentication, user, menu };
+  }
+  return appReducer(state, action);
+};
 
 export default rootReducer;

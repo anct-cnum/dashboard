@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
-import { Tooltip } from 'react-tooltip';
+import { pluralize } from '../../../../utils/formatagesUtils';
 
 function Conventionnement({ structure, typeConvention }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const formatAvisPrefet = avisPrefet => {
     switch (avisPrefet) {
       case 'POSITIF':
-        return <div className="square-icone-checkbox"><span className="fr-icon-checkbox-circle-fill" aria-hidden="true" /></div>;
+        return <p className="fr-badge fr-badge--success">favorable</p>;
       case 'NÉGATIF':
-        return <div className="square-icone-close"><span className="fr-icon-close-circle-fill" aria-hidden="true" /></div>;
+        return <p className="fr-badge fr-badge--error">d&eacute;favorable</p>;
       default:
         return '';
     }
@@ -30,35 +30,30 @@ function Conventionnement({ structure, typeConvention }) {
           <span>Non renseign&eacute;e</span>
         }
       </td>
-      <td>{structure?.nombreConseillersSouhaites ? structure.nombreConseillersSouhaites : '-'}</td>
+      <td>{pluralize(
+        'poste',
+        'poste',
+        'postes',
+        structure?.nombreConseillersSouhaites ? structure?.nombreConseillersSouhaites : 0,
+        true
+      )}
+      {structure?.prefet?.idStructureTransfert &&
+          <>
+            &nbsp;(Transfert)
+          </>
+      }
+      </td>
+      <td>Conventionnement initial</td>
       {typeConvention === 'conventionnement' &&
         <td>{formatAvisPrefet(structure?.prefet?.avisPrefet)}</td>
       }
-      <td>
-        <div className="fr-grid-row" style={{ alignItems: 'center' }}>
-          <span className="fr-mr-2w">Conventionnement initial</span>
-          {structure?.prefet?.idStructureTransfert &&
-            <>
-              <div
-                className="fr-mt-1w"
-                data-tooltip-content="Transfert de poste"
-                data-tooltip-float="true"
-                data-tooltip-id={`tooltip-conventionnement-${structure?.idPG}`}
-              >
-                <i className="ri-arrow-left-right-line" style={{ fontSize: '1.9rem' }}></i>
-              </div>
-              <Tooltip variant="light" id={`tooltip-conventionnement-${structure?.idPG}`} className="infobulle" />
-            </>
-          }
-        </div>
-      </td>
-      <td>
-        <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={{
+      <td style={{ textAlign: 'end', width: '28rem', paddingLeft: '0' }}>
+        <Link className="fr-btn" to={{
           pathname: `/${roleActivated}/demandes/convention/${structure?._id}`,
           search: `?type=conventionnement`,
         }}
         state={{ 'origin': `/${roleActivated}/demandes/conventions`, typeConvention }}>
-          D&eacute;tails
+          Traiter la demande
         </Link>
       </td>
     </>

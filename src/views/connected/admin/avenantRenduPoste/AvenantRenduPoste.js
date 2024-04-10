@@ -21,7 +21,7 @@ function AvenantRenduPoste({ avenant, typeConvention }) {
       </td>
       <td>{avenant?.nombreDePostesRendus ?? '-'}</td>
       <td style={{ width: '13rem' }}>Avenant · poste rendu</td>
-      <td>
+      <td style={{ textAlign: 'end' }}>
         <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={{
           pathname: `/${roleActivated}/demandes/convention/${avenant?.idStructure}`,
           search: `?type=avenant-rendu-poste&demande=${avenant?.id}`,
