@@ -5,7 +5,7 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { datePickerActions } from '../../actions/datePickerActions';
 import { useLocation } from 'react-router-dom';
-import { autoPlacement, flip, offset, shift } from '@floating-ui/dom';
+import { offset } from '@floating-ui/dom';
 
 registerLocale('fr', fr);
 
