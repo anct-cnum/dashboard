@@ -5,6 +5,7 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { datePickerActions } from '../../actions/datePickerActions';
 import { useLocation } from 'react-router-dom';
+import { offset } from '@floating-ui/dom';
 
 registerLocale('fr', fr);
 
@@ -46,6 +47,14 @@ function CustomDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin }) {
       name={nomDate}
       dateFormat="dd/MM/yyyy"
       locale="fr"
+      popperClassName="datePicker-custom-css"
+      popperProps={{
+        middleware: [
+          offset(({ rects }) => ({
+            alignmentAxis: -rects.reference.height / 2 - rects.floating.height / 2,
+          })),
+        ],
+      }}
       selected={initDate}
       onChange={date => setDate(date)}
       onCalendarOpen={() => setActive(true)}
