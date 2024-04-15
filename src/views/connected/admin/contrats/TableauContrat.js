@@ -21,6 +21,7 @@ export default function TableauContrat() {
   const [annulationRecrutement, setAnnulationRecrutement] = useState(location.state?.conseillerRefusRecrutement || null);
   const loading = useSelector(state => state.contrat?.loading);
   const error = useSelector(state => state.contrat?.error);
+  const reloadingList = useSelector(state => state.contrat?.reloadingList);
   const contrats = useSelector(state => state.contrat);
   const ordre = useSelector(state => state.filtresConventions?.ordre);
   const ordreNom = useSelector(state => state.filtresConventions?.ordreNom);
@@ -61,7 +62,7 @@ export default function TableauContrat() {
       dispatch(filtresConventionsActions.resetFiltre());
       setPage(1);
     }
-    if (!error) {
+    if (!error || reloadingList === true) {
       if (initContrat === false && page !== undefined) {
         dispatch(contratActions.getAll(
           page,
