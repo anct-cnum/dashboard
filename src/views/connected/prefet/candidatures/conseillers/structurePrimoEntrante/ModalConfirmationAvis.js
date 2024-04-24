@@ -50,7 +50,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, listeStruc
                   {!['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) ?
                     <>Souhaitez-vous confirmer l&rsquo;avis&nbsp;{avisPrefet} </> : <>Souhaitez-vous confirmer le changement d&rsquo;avis</>
                   }
-                  &nbsp;pour la structure <strong>{structure?.nom}</strong>&nbsp;?
+                  &nbsp;pour la structure <strong>{structure?.idPG} - {structure?.nom}</strong>&nbsp;?
                 </p>
                 {avisPrefet === 'favorable' &&
                   <>
