@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 
 function HistoriqueConventionnement({ structure, typeConvention }) {
+
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const formatAvisPrefet = avisPrefet => {
     switch (avisPrefet) {
@@ -25,8 +26,14 @@ function HistoriqueConventionnement({ structure, typeConvention }) {
         <span>ID {structure?.idPG}</span>
       </td>
       <td>
-        {structure?.createdAt ?
-          <span>{dayjs(structure.createdAt).format('DD/MM/YYYY')}</span> :
+        {structure?.dateDeLaDemande ?
+          <span>{dayjs(structure.dateDeLaDemande).format('DD/MM/YYYY')}</span> :
+          <span>Non renseign&eacute;e</span>
+        }
+      </td>
+      <td>
+        {structure?.dateDeCoselec ?
+          <span>{dayjs(structure.dateDeCoselec).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>
