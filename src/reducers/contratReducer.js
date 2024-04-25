@@ -1,5 +1,6 @@
 const initialState = {
   error: false,
+  isReloadingList: false,
 };
 
 export default function contrat(state = initialState, action) {
@@ -8,6 +9,7 @@ export default function contrat(state = initialState, action) {
       return {
         ...state,
         error: false,
+        isReloadingList: false,
         loading: true
       };
     case 'GETALL_CONTRAT_SUCCESS':
@@ -37,7 +39,8 @@ export default function contrat(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error: action.error
+        error: action.error,
+        isReloadingList: true
       };
     case 'VALIDATION_CONTRAT_RECRUTEMENT_REQUEST':
       return {
@@ -54,7 +57,8 @@ export default function contrat(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error: action.error
+        error: action.error,
+        isReloadingList: true
       };
     case 'ANNULATION_CONTRAT_RECRUTEMENT_REQUEST':
       return {
