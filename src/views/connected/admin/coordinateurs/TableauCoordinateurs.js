@@ -62,7 +62,7 @@ export default function TableauCoordinateurs() {
       dispatch(paginationActions.setPage(1));
       setPage(1);
     }
-    if (!error) {
+    if (!error || error === 'Le dossier n\'existe pas') {
       if (initDemandeCoordinateur === false && page !== undefined) {
         dispatch(coordinateurActions.getAllDemandesCoordinateur(
           page,

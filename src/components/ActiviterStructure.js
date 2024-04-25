@@ -7,6 +7,7 @@ import { checkStructurePhase2 } from '../views/connected/structure/utils/functio
 function ActiviterStructure({ structure, roleActivated }) {
 
   const demandesCoordinateurValidees = structure?.demandesCoordinateur?.filter(demande => demande.statut === 'validee').length ?? 0;
+  const conseillersValider = structure?.conseillersValiderRenouvellementReconventionnement.concat(structure?.conseillersValiderReconventionnement);
 
   return (
     <>
@@ -184,9 +185,9 @@ function ActiviterStructure({ structure, roleActivated }) {
                 'Profil validé',
                 'Profil validé',
                 'Profils validés',
-                structure?.conseillersValiderReconventionnement?.length
+                conseillersValider?.length
               )}</strong>
-              {structure?.conseillersValiderReconventionnement?.map(conseiller =>
+              {conseillersValider?.map(conseiller =>
                 <span key={conseiller._id} className="fr-col-12" style={{ height: '2rem' }}>
                   <button
                     style={{ paddingLeft: '0' }}
@@ -197,7 +198,7 @@ function ActiviterStructure({ structure, roleActivated }) {
                   </button>
                 </span>
               )}
-              {structure?.conseillersValiderReconventionnement?.length === 0 &&
+              {conseillersValider?.length === 0 &&
                 <span className="fr-col-12">-</span>
               }
             </div>

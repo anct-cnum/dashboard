@@ -198,13 +198,14 @@ export default function TableauHistoriqueConvention() {
                         <thead>
                           <tr>
                             <th style={{ width: '40rem' }}>Structure</th>
+                            <th style={{ width: '18rem' }}>Date de la demande</th>
                             <th style={{ width: '18rem' }}>
-                              <button id="dateDemande" className="filtre-btn" onClick={ordreColonne}>
-                                <span>Date de la demande
-                                  {(ordreNom !== 'dateDemande' || ordreNom === 'dateDemande' && ordre) &&
+                              <button id="dateCoselec" className="filtre-btn" onClick={ordreColonne}>
+                                <span>Date de COSELEC
+                                  {(ordreNom !== 'dateCoselec' || ordreNom === 'dateCoselec' && ordre) &&
                                     <i className="ri-arrow-down-s-line chevron icone"></i>
                                   }
-                                  {(ordreNom === 'dateDemande' && !ordre) &&
+                                  {(ordreNom === 'dateCoselec' && !ordre) &&
                                     <i className="ri-arrow-up-s-line chevron icone"></i>
                                   }
                                 </span>

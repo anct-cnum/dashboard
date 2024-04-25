@@ -166,6 +166,11 @@
     color: $black;
     padding: 21px;
   }
+  .datePicker-custom-css {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px
+  }
   @media (min-width: 1200px) {
     .hide-graphique-xs {
       display:none;
