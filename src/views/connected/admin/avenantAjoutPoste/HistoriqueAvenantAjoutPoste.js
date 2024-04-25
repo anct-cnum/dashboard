@@ -25,8 +25,14 @@ function HistoriqueAvenantAjoutPoste({ avenant, typeConvention }) {
         <span>ID {avenant?.idPG}</span>
       </td>
       <td>
-        {avenant?.emetteurAvenant?.date ?
-          <span>{dayjs(avenant.emetteurAvenant.date).format('DD/MM/YYYY')}</span> :
+        {avenant?.dateDeLaDemande ?
+          <span>{dayjs(avenant.dateDeLaDemande).format('DD/MM/YYYY')}</span> :
+          <span>Non renseign&eacute;e</span>
+        }
+      </td>
+      <td>
+        {avenant?.dateDeCoselec ?
+          <span>{dayjs(avenant.dateDeCoselec).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>

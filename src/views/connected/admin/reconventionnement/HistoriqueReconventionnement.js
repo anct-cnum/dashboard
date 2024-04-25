@@ -14,8 +14,14 @@ function HistoriqueReconventionnement({ reconventionnement, typeConvention }) {
         <span>ID {reconventionnement?.idPG}</span>
       </td>
       <td>
-        {reconventionnement?.dateDeCreation ?
-          <span>{dayjs(reconventionnement?.dateDeCreation).format('DD/MM/YYYY')}</span> :
+        {reconventionnement?.dateDeLaDemande ?
+          <span>{dayjs(reconventionnement?.dateDeLaDemande).format('DD/MM/YYYY')}</span> :
+          <span>Non renseign&eacute;e</span>
+        }
+      </td>
+      <td>
+        {reconventionnement?.dateDeCoselec ?
+          <span>{dayjs(reconventionnement?.dateDeCoselec).format('DD/MM/YYYY')}</span> :
           <span>Non renseign&eacute;e</span>
         }
       </td>
