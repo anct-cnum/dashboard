@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { conventionActions } from '../../../../actions';
 import { StatutCoselec } from '../../../../utils/enumUtils';
 
-function ModalRefusAvenantAjoutPoste({ idStructure, setOpenModal, nomStructure }) {
+function ModalRefusAvenantAjoutPoste({ idStructure, setOpenModal, nomStructure, idPGStructure }) {
   const dispatch = useDispatch();
   const refusAvenantAjoutPoste = () => {
     dispatch(conventionActions.updateAvenantAjoutPoste(idStructure, StatutCoselec.NÉGATIF));
@@ -25,7 +25,7 @@ function ModalRefusAvenantAjoutPoste({ idStructure, setOpenModal, nomStructure }
                   Refuser l&rsquo;attribution
                 </h1>
                 <p style={{ textAlign: 'center' }}>
-                  Souhaitez-vous refuser l&rsquo;attribution de poste &agrave; la structure&nbsp;{nomStructure}
+                  Souhaitez-vous refuser l&rsquo;attribution de poste &agrave; la structure&nbsp;{idPGStructure} - {nomStructure}
                 </p>
               </div>
               <div className="fr-modal__footer">
@@ -52,6 +52,7 @@ function ModalRefusAvenantAjoutPoste({ idStructure, setOpenModal, nomStructure }
 
 ModalRefusAvenantAjoutPoste.propTypes = {
   idStructure: PropTypes.string,
+  idPGStructure: PropTypes.string,
   nomStructure: PropTypes.string,
   setOpenModal: PropTypes.func,
 };

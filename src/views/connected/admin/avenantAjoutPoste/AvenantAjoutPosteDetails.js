@@ -65,6 +65,7 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
       {openModalRefus &&
         <ModalRefusAvenantAjoutPoste
           idStructure={avenant?._id}
+          idPGStructure={avenant?.idPG}
           nomStructure={avenant?.nom}
           demandesCoselec={demandesCoselec}
           nombreConseillersCoselec={avenant.nombreConseillersCoselec}
