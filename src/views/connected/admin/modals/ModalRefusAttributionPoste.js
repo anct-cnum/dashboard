@@ -33,7 +33,7 @@ function ModalRefusAttributionPoste({ setOpenModal, structure }) {
                 </h1>
                 <p>
                   Souhaitez-vous refuser l&rsquo;attribution d&rsquo;un poste
-                  &agrave; la structure&nbsp;<strong>{structure?.nom}</strong>&nbsp;?
+                  &agrave; la structure&nbsp;<strong>{structure?.idPG} - {structure?.nom}</strong>&nbsp;?
                 </p>
               </div>
               <div className="fr-modal__footer">

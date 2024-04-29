@@ -50,7 +50,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet, demandesCo
                   {!demandesCoselec?.prefet?.avis ?
                     <>Souhaitez-vous confirmer l&rsquo;avis&nbsp;{avisPrefet} </> : <>Souhaitez-vous confirmer le changement d&rsquo;avis</>
                   }
-                  &nbsp;pour la structure <strong>{structure?.nom}</strong>&nbsp;?
+                  &nbsp;pour la structure <strong>{structure?.idPG} - {structure?.nom}</strong>&nbsp;?
                 </p>
                 {avisPrefet === 'favorable' &&
                   <fieldset className="fr-fieldset fr-mb-1w" id="checkbox-structure" aria-labelledby="checkbox-structure">
