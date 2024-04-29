@@ -32,7 +32,7 @@ function ModalConfirmationAvis({ setOpenModal, structure, avisPrefet }) {
                   <span className="fr-fi-arrow-right-line fr-fi--lg"></span>
                   Confirmer l&rsquo;avis
                 </h1>
-                <p>Souhaitez-vous confirmer l&rsquo;avis {avisPrefet} pour la structure <strong>{structure?.nom}</strong>&nbsp;?</p>
+                <p>Souhaitez-vous confirmer l&rsquo;avis {avisPrefet} pour la structure <strong>{structure?.idPG} - {structure?.nom}</strong>&nbsp;?</p>
                 <div className="fr-input-group">
                   <label className="fr-label" htmlFor="commentaire-input">
                     Commentaire (obligatoire, max 1000 caract&egrave;res)&nbsp;:
