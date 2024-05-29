@@ -62,6 +62,12 @@ function AvenantAjoutPosteDetail({ structure, idDemandeCoselec, listeStructure }
                 <span>&agrave; une date inconnue</span>
               }
             </p>
+            {structure?.structureTransfert[0] &&
+            <p className="fr-card__desc fr-text--lg fr-text--regular">
+              Cette candidature est une demande de transfert de poste depuis la structure&nbsp;
+              <strong>{structure.structureTransfert[0].idPG} - {structure.structureTransfert[0].nom}</strong>
+            </p>
+            }
             <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
               <strong className="fr-text--bold">
                 {pluralize(
@@ -74,9 +80,7 @@ function AvenantAjoutPosteDetail({ structure, idDemandeCoselec, listeStructure }
               </strong>
             </p>
           </div>
-          <div className="fr-col-12" style={{ position: 'absolute', left: '0', top: '175px' }} >
-            <hr style={{ borderWidth: '0.5px' }} />
-          </div>
+          <hr className="fr-card__desc" style={{ marginLeft: '-2rem', marginRight: '-2rem' }} />
           <div className="fr-card__desc fr-text--md" style={{ display: 'flex', marginTop: '3.7rem', gap: '24px' }}>
             <div className="motif-structure">
               <strong>Motif de la structure:</strong>
