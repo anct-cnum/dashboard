@@ -80,10 +80,10 @@ function StructurePrimoEntranteDetail({ structure, listeStructure }) {
                 <span>Non renseign&eacute;e</span>
               }
             </p>
-            {structure?.structureTransfert[0] &&
+            {structure?.structureTransfert &&
               <p className="fr-card__desc fr-text--lg fr-text--regular">
                 Cette candidature est une demande de transfert de poste depuis la structure&nbsp;
-                <strong>{structure.structureTransfert[0].idPG} - {structure.structureTransfert[0].nom}</strong>
+                <strong>{structure.structureTransfert.idPG} - {structure.structureTransfert.nom}</strong>
               </p>
             }
           </div>
