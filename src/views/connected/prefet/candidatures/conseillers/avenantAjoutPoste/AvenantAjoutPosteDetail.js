@@ -62,10 +62,10 @@ function AvenantAjoutPosteDetail({ structure, idDemandeCoselec, listeStructure }
                 <span>&agrave; une date inconnue</span>
               }
             </p>
-            {structure?.structureTransfert[0] &&
+            {structure?.structureTransfert &&
             <p className="fr-card__desc fr-text--lg fr-text--regular">
               Cette candidature est une demande de transfert de poste depuis la structure&nbsp;
-              <strong>{structure.structureTransfert[0].idPG} - {structure.structureTransfert[0].nom}</strong>
+              <strong>{structure.structureTransfert.idPG} - {structure.structureTransfert.nom}</strong>
             </p>
             }
             <p className="fr-card__desc fr-text--lg" style={{ color: '#000091' }}>
