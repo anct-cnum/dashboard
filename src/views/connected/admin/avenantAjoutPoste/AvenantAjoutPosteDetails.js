@@ -65,6 +65,7 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
       {openModalRefus &&
         <ModalRefusAvenantAjoutPoste
           idStructure={avenant?._id}
+          idPGStructure={avenant?.idPG}
           nomStructure={avenant?.nom}
           demandesCoselec={demandesCoselec}
           nombreConseillersCoselec={avenant.nombreConseillersCoselec}
@@ -100,6 +101,12 @@ function AvenantAjoutPosteDetails({ avenant, idDemandeCoselec }) {
               <span>&agrave; une date inconnue</span>
             }
           </p>
+          {avenant?.structureTransfert &&
+            <p className="fr-card__desc fr-text--lg fr-text--regular">
+              Cette candidature est une demande de transfert de poste depuis la structure&nbsp;
+              <strong>{avenant.structureTransfert.idPG} - {avenant.structureTransfert.nom}</strong>
+            </p>
+          }
           <div className="fr-card__desc" style={{ display: 'flex', justifyContent: 'space-between' }}>
             <p className="fr-text--lg" style={{ color: '#000091', width: '54%' }}>
               <strong className="fr-text--bold">
