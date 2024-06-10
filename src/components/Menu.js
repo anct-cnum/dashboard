@@ -103,7 +103,7 @@ function Menu(
               <SousMenuCommun onClickMenu={onClickMenu} activeMenu={activeMenu} roleActivated={roleActivated} trackEvent={trackEvent} />
             </>
             }
-            {roleActivated === 'hub_coop' &&
+            {roleActivated === 'hub' &&
             <>
               <MenuHub onClickMenu={onClickMenu} activeMenu={activeMenu} trackEvent={trackEvent} />
               <SousMenuCommun onClickMenu={onClickMenu} activeMenu={activeMenu} roleActivated={roleActivated} trackEvent={trackEvent} />

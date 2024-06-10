@@ -24,12 +24,12 @@ export default function Hub() {
         </div>
       }
       <Routes>
-        <Route path="/hub_coop/informations" element={<MesInformations />} />
-        <Route path="/hub_coop/liste-structures" element={<TableauStructures />} />
-        <Route path="/hub_coop/structure/:idStructure" element={<StructureDetails />} />
-        <Route path="/hub_coop/liste-conseillers" element={<TableauConseillers />} />
-        <Route path="/hub_coop/conseiller/:idConseiller" element={<ConseillerDetails />} />
-        <Route path="/hub_coop/exports" element={<Exports />} />
+        <Route path="/hub/informations" element={<MesInformations />} />
+        <Route path="/hub/liste-structures" element={<TableauStructures />} />
+        <Route path="/hub/structure/:idStructure" element={<StructureDetails />} />
+        <Route path="/hub/liste-conseillers" element={<TableauConseillers />} />
+        <Route path="/hub/conseiller/:idConseiller" element={<ConseillerDetails />} />
+        <Route path="/hub/exports" element={<Exports />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </>
