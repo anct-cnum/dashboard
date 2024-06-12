@@ -20,7 +20,7 @@ const UserMenu = ({
       return `Grand réseau - ${user.reseau}`;
     } else if (role === 'prefet') {
       return `Préfet - ${user?.departement ? 'dép ' + user?.departement : 'région ' + user?.region}`;
-    } else if (role === 'hub_coop') {
+    } else if (role === 'hub') {
       return `Hub - ${user?.hub}`;
     } else if (role === 'structure') {
       return `Structure - ${truncate(user?.nomStructure)}`;

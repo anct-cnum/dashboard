@@ -31,7 +31,7 @@ export default function Accueil() {
       { roleActivated === 'prefet' &&
         <Prefet />
       }
-      { roleActivated === 'hub_coop' &&
+      { roleActivated === 'hub' &&
         <Hub />
       }
       { roleActivated === 'structure' &&

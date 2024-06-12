@@ -1,6 +1,7 @@
 {
   "name": "dashboard",
   "version": "0.1.0",
+  "license": "AGPL-3.0",
   "private": true,
   "dependencies": {
     "@gouvfr/dsfr": "^1.9.1",
