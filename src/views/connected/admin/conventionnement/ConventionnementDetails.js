@@ -79,7 +79,8 @@ function ConventionnementDetails({ structure }) {
             </p>
             {structure?.prefet?.structureTransfert &&
               <p className="fr-card__desc fr-text--lg fr-text--regular">
-                Cette candidature est une demande de transfert de poste depuis la structure <strong>{structure.prefet.structureTransfert.nom}</strong>
+                Cette candidature est une demande de transfert de poste depuis la structure&nbsp;
+                <strong>{structure.prefet.structureTransfert.idPG} - {structure.prefet.structureTransfert.nom}</strong>
               </p>
             }
             {structure?.nombreConseillersSouhaites ?

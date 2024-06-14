@@ -80,12 +80,16 @@ function StructurePrimoEntranteDetail({ structure, listeStructure }) {
                 <span>Non renseign&eacute;e</span>
               }
             </p>
+            {structure?.structureTransfert &&
+              <p className="fr-card__desc fr-text--lg fr-text--regular">
+                Cette candidature est une demande de transfert de poste depuis la structure&nbsp;
+                <strong>{structure.structureTransfert.idPG} - {structure.structureTransfert.nom}</strong>
+              </p>
+            }
           </div>
           {['NÉGATIF', 'POSITIF'].includes(structure?.prefet?.avisPrefet) &&
             <>
-              <div className="fr-col-12" style={{ position: 'absolute', left: '0', top: '135px' }} >
-                <hr style={{ borderWidth: '0.5px' }} />
-              </div>
+              <hr className="fr-card__desc" style={{ marginLeft: '-2rem', marginRight: '-2rem' }} />
               <div className={`commentaire-prefet ${structure?.prefet?.avisPrefet === 'POSITIF' ? 'positif' : 'negatif'} fr-card__desc fr-text--md`}
                 style={{ marginTop: '3.7rem', marginLeft: 0 }}>
                 <strong>Commentaire pr&eacute;fet:</strong>

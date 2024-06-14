@@ -74,7 +74,7 @@ function FiltresEtTrisGestionnaires() {
               <option value="admin">Admin</option>
               <option value="grandReseau">Grand r&eacute;seau</option>
               <option value="prefet">Pr&eacute;fet</option>
-              <option value="hub_coop">Hub</option>
+              <option value="hub">Hub</option>
               <option value="coordinateur">Coordinateur</option>
               <option value="structure">Structure</option>
             </select>

@@ -71,4 +71,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Licence
 
-Voir le fichier [LICENSE](./LICENSE.md) | [ETALAB-Licence-Ouverte-v2.0](./ETALAB-Licence-Ouverte-v2.0.pdf) du dépot.
+Voir le fichier [LICENSE](./LICENSE) du dépot.
