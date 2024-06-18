@@ -22,6 +22,9 @@ function Contrat({ contrat, statutContrat }) {
     if (contrat?.statut === 'recrutee' && contrat?.createdAt) {
       return dayjs(contrat.createdAt).format('DD/MM/YYYY');
     }
+    if (contrat?.statut === 'finalisee' && contrat?.nouvelleDateFinDeContrat) {
+      return dayjs(contrat.nouvelleDateFinDeContrat.dateDeLaDemande).format('DD/MM/YYYY');
+    }
     return 'Non renseignée';
   };
 
@@ -33,6 +36,8 @@ function Contrat({ contrat, statutContrat }) {
         return <span className={`${contratCoordinateur ? 'fr-mr-2w' : ''}`}>Recrutement</span>;
       case 'renouvellement_initiee':
         return <span>Renouvellement</span>;
+      case 'finalisee':
+        return <span>Prolongation</span>;
       default:
         return '';
     }

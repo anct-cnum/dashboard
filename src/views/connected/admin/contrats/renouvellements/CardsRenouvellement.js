@@ -2,16 +2,24 @@ import React from 'react';
 import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { formatTypeDeContrat } from '../../../../../utils/formatagesUtils';
+import { ModalMode } from '../../../../../utils/enumUtils';
 
-const CardsRenouvellement = ({ miseEnRelation, setOpenModal, setOpenModalContrat, urlDossierDS }) => {
+const CardsRenouvellement = ({ miseEnRelation, setOpenModal, setOpenModalContrat, urlDossierDS, handleOpenModalContrat }) => {
 
   return (
     <div className="fr-card fr-mt-4w fr-card--no-border background-cards-contrat">
       <div className="fr-card__body">
         <div className="fr-card__content fr-pb-2w">
           <h3 className="fr-card__title fr-h3">
-            Demande de renouvellement de contrat
+            {
+              miseEnRelation?.nouvelleDateFinDeContrat ?
+                'Demande de prolongation de contrat' :
+                'Demande de renouvellement de contrat'
+            }
           </h3>
+          {miseEnRelation?.nouvelleDateFinDeContrat && <p className="fr-card__desc fr-text--md fr-text--regular">
+            Nouvelle date de fin souhait&eacute;e: {dayjs(miseEnRelation?.nouvelleDateFinDeContrat).format('DD/MM/YYYY')}
+          </p>}
           {miseEnRelation?.emetteurRenouvellement?.date &&
             <p className="fr-card__desc fr-text--lg fr-text--regular">
               Demande initi&eacute;e le {miseEnRelation ? dayjs(miseEnRelation.emetteurRenouvellement.date).format('DD/MM/YYYY') : ''}
@@ -79,7 +87,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, setOpenModalContrat
             </div>
           </div>
           <div className="fr-card__start fr-mb-0" style={{ textAlign: 'end' }}>
-            {miseEnRelation?.statut === 'finalisee' ?
+            {miseEnRelation?.statut === 'finalisee' && !miseEnRelation?.nouvelleDateFinDeContrat ?
               <p className="fr-badge fr-badge--success">Demande valid&eacute;e</p> :
               <p className="fr-badge fr-badge--new">Demande en attente de validation</p>
             }
@@ -87,11 +95,15 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, setOpenModalContrat
         </div>
         <div className="fr-card__footer">
           <ul className="fr-btns-group fr-btns-group--icon-left fr-btns-group--inline-reverse fr-btns-group--inline-lg">
-            {miseEnRelation?.statut === 'renouvellement_initiee' &&
+            {(miseEnRelation?.statut === 'renouvellement_initiee' || miseEnRelation?.nouvelleDateFinDeContrat) &&
               <li>
                 <button
                   className="fr-btn fr-btn--secondary"
-                  onClick={() => setOpenModalContrat(true)}
+                  onClick= {
+                    miseEnRelation?.nouvelleDateFinDeContrat ?
+                      () => handleOpenModalContrat(ModalMode.PROLONGATION) :
+                      () => setOpenModalContrat(true)
+                  }
                 >
                   Modifier la demande
                 </button>
@@ -121,6 +133,7 @@ CardsRenouvellement.propTypes = {
   setOpenModal: propTypes.func,
   setOpenModalContrat: propTypes.func,
   urlDossierDS: propTypes.string,
+  handleOpenModalContrat: propTypes.func,
 };
 
 export default CardsRenouvellement;

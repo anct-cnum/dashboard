@@ -14,6 +14,7 @@ export const contratService = {
   updateContractRecrutementStructure,
   updateContractRecrutementAdmin,
   updateContract,
+  extendContract
 };
 
 function getAll(page, statutContrat, filtreSearchBar, filtreDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom, ordre) {
@@ -96,6 +97,12 @@ function updateContractRecrutementAdmin(typeDeContrat, dateDebutDeContrat, dateF
 
 function updateContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, id) {
   return API.patch(`${apiUrlRoot}/contrat/${id}?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire })
+  .then(response => response.data)
+  .catch(handleApiError);
+}
+
+function extendContract(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, id) {
+  return API.patch(`${apiUrlRoot}/prolongation-contrat/${id}?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire })
   .then(response => response.data)
   .catch(handleApiError);
 }

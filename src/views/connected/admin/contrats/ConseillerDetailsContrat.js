@@ -39,6 +39,7 @@ function ConseillerDetailsContrat() {
   const [openModal, setOpenModal] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
   const [libelleErreur, setLibelleErreur] = useState(false);
+  const [mode, setMode] = useState(null);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -90,6 +91,11 @@ function ConseillerDetailsContrat() {
 
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
     dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.contrat?._id));
+  };
+
+  const handleOpenModalContrat = mode => {
+    setMode(mode);
+    setOpenModalContrat(true);
   };
 
   return (
@@ -191,6 +197,7 @@ function ConseillerDetailsContrat() {
                 miseEnRelation={conseiller?.contrat}
                 setOpenModal={setOpenModal}
                 setOpenModalContrat={setOpenModalContrat}
+                handleOpenModalContrat={handleOpenModalContrat}
               />
               {openModal &&
                 <ModalValidationRenouvellement setOpenModal={setOpenModal} idMiseEnRelation={conseiller?.contrat?._id} />
@@ -200,7 +207,7 @@ function ConseillerDetailsContrat() {
                   setOpenModalContrat={setOpenModalContrat}
                   updateContract={updateContract}
                   conseiller={conseiller?.contrat}
-                  editMode={true}
+                  mode={mode}
                 />
               }
             </>

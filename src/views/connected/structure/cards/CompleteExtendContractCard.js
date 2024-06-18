@@ -1,15 +1,15 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import dayjs from 'dayjs';
 import { calculateMonthsDifference } from '../../../../utils/calculateUtils';
 import AdvisorCard from './AdvisorCard';
 import { formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import { ModalMode } from '../../../../utils/enumUtils';
 
 const CompleteContractCard = ({ conseiller, handleOpenModalContrat, structure }) => {
-  const { dateDebutDeContrat, dateFinDeContrat, typeDeContrat } = conseiller;
+  const { dateFinDeContrat, typeDeContrat, nouvelleDateFinDeContrat
+  } = conseiller;
 
-  const months = calculateMonthsDifference(dateDebutDeContrat, dateFinDeContrat);
+  const months = calculateMonthsDifference(dateFinDeContrat, nouvelleDateFinDeContrat.dateSouhaitee);
 
   return (
     <>
@@ -22,14 +22,13 @@ const CompleteContractCard = ({ conseiller, handleOpenModalContrat, structure })
             <div className="banner__text">
               <p className="fr-notice__title title__color">
                 Envoyer les pi&egrave;ces justificatives sur D&eacute;marches-Simplifi&eacute;es pour
-                finaliser la demande de renouvellement
+                finaliser la demande de prolongation de contrat
               </p>
               <p className="fr-text--sm">
                 {typeDeContrat ?
                   <>
-                    Demande d&rsquo;un contrat&nbsp;{formatTypeDeContrat(typeDeContrat)}
-                    &nbsp;{validTypeDeContratWithoutEndDate(typeDeContrat) ? '' : `de ${months} mois `}
-                    avec une date de d&eacute;but le {dayjs(dateDebutDeContrat).format('DD/MM/YYYY')}
+                    Demande d&rsquo;une prolongation {formatTypeDeContrat(typeDeContrat)}
+                    &nbsp;{validTypeDeContratWithoutEndDate(typeDeContrat) ? '' : `de ${months} mois supplémentaires`}
                   </> : ''
                 }
               </p>
@@ -47,7 +46,7 @@ const CompleteContractCard = ({ conseiller, handleOpenModalContrat, structure })
             <button
               className="fr-btn fr-btn--secondary fr-icon-edit-line fr-ml-2w"
               title="&Eacute;diter le contrat"
-              onClick={() => handleOpenModalContrat(ModalMode.EDITION, conseiller)}
+              onClick={() => handleOpenModalContrat(ModalMode.PROLONGATION, conseiller)}
             ></button>
           </div>
         </div>

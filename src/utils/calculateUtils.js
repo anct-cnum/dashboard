@@ -18,3 +18,8 @@ export const calcNbJoursAvantDateFinContrat = dateFinContrat => {
 
   return Math.max(nbJours, 0);
 };
+
+export const isContractExpiring = dateFinDeContrat => {
+  const daysLeft = calcNbJoursAvantDateFinContrat(dateFinDeContrat);
+  return daysLeft <= 30 && daysLeft > 0;
+};
