@@ -11,6 +11,7 @@ export const contratActions = {
   updateContractRecrutementStructure,
   updateContractRecrutementAdmin,
   updateContract,
+  extendContract,
   resetAnnulationRecrutement,
   closeBannerAnnulationRecrutement,
 };
@@ -235,6 +236,38 @@ function updateContract(typeDeContrat, dateDebut, dateFin, salaire, id) {
   }
   function failure(error) {
     return { type: 'UPDATE_CONTRAT_RENOUVELLEMENT_FAILURE', error };
+  }
+}
+function extendContract(typeDeContrat, dateDebut, dateFin, salaire, id) {
+  return dispatch => {
+    dispatch(request());
+
+    contratService.extendContract(typeDeContrat, dateDebut, dateFin, salaire, id)
+    .then(
+      miseEnRelation => {
+        const roleUser = roleActivated();
+        if (roleUser === 'admin') {
+          dispatch(updateContratConseiller(miseEnRelation));
+        }
+        dispatch(success());
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'EXTEND_CONTRAT_RENOUVELLEMENT_REQUEST' };
+  }
+  function success() {
+    return { type: 'EXTEND_CONTRAT_RENOUVELLEMENT_SUCCESS' };
+  }
+  function updateContratConseiller(miseEnRelationUpdated) {
+    return { type: 'UPDATE_MISE_EN_RELATION_CONTRAT', miseEnRelationUpdated };
+  }
+  function failure(error) {
+    return { type: 'EXTEND_CONTRAT_RENOUVELLEMENT_FAILURE', error };
   }
 }
 

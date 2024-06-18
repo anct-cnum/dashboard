@@ -4,12 +4,13 @@ import { useDispatch } from 'react-redux';
 import PopinConfirmationAnnulation from '../popins/PopinConfirmationAnnulation';
 import PopinEditionContrat from '../popins/PopinEditionContrat';
 import { conseillerActions, contratActions } from '../../../../actions';
+import { ModalMode } from '../../../../utils/enumUtils';
 
 function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal, idConseiller }) {
   const dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
-  const [editMode, setEditMode] = useState(false);
+  const [mode, setMode] = useState(null);
   const [openModalContrat, setOpenModalContrat] = useState(false);
 
   const updateContractRecrutement = (typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur = false) => {
@@ -31,7 +32,7 @@ function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal, idConsei
           setOpenModalContrat={setOpenModalContrat}
           updateContract={updateContractRecrutement}
           conseiller={miseEnRelation}
-          editMode={editMode}
+          mode={mode}
           createContract={updateContractRecrutement}
         />
       }
@@ -90,7 +91,7 @@ function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal, idConsei
               Annuler le recrutement
             </button>
             <button onClick={() => {
-              setEditMode(true);
+              setMode(ModalMode.EDITION);
               setOpenModalContrat(true);
             }}
             className="fr-btn fr-ml-md-2w fr-mt-2w fr-mt-md-0"

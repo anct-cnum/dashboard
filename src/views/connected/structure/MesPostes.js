@@ -37,7 +37,7 @@ function MesPostes() {
   const successSendMail = useSelector(state => state.conseiller?.successRelanceInvitation);
   const errorSendMail = useSelector(state => state.conseiller?.errorRelanceInvitation);
 
-  const [editMode, setEditMode] = useState(false);
+  const [mode, setMode] = useState(null);
   const [selectedConseiller, setSelectedConseiller] = useState(null);
   const [motif, setMotif] = useState('');
   const dispatch = useDispatch();
@@ -45,6 +45,7 @@ function MesPostes() {
     conseillersActifsEtRenouveller,
     conseillersActifs,
     conseillersARenouveler,
+    conseillersAProlonger,
     conseillersActifsNonRenouveles,
     conseillersEnCoursDeRecrutement,
     anciensConseillers,
@@ -88,8 +89,8 @@ function MesPostes() {
     }
   }, [successSendMail, errorSendMail]);
 
-  const handleOpenModalContrat = (editMode = false, conseiller = null) => {
-    setEditMode(editMode);
+  const handleOpenModalContrat = (mode, conseiller = null) => {
+    setMode(mode);
     setSelectedConseiller(conseiller);
     setOpenModalContrat(true);
   };
@@ -111,6 +112,10 @@ function MesPostes() {
     dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
   };
 
+  const extendContract = (typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId) => {
+    dispatch(contratActions.extendContract(typeDeContrat, dateDebut, dateFin, salaire, miseEnrelationId));
+  };
+
   return (
     <div className="mes-postes">
       <div className="main__banner">
@@ -129,9 +134,10 @@ function MesPostes() {
         <PopinEditionContrat
           setOpenModalContrat={setOpenModalContrat}
           updateContract={updateContract}
-          conseiller={selectedConseiller}
-          editMode={editMode}
+          extendContract={extendContract}
           createContract={createContract}
+          conseiller={selectedConseiller}
+          mode={mode}
         />
       )}
       {openModal && (
@@ -170,9 +176,10 @@ function MesPostes() {
         {misesEnRelation?.length > 0 && (
           <>
             {
-              conseillersARenouveler?.length > 0 &&
+              (conseillersARenouveler?.length > 0 || conseillersAProlonger?.length > 0) &&
               <RenewAdvisorsSection
                 conseillersARenouveler={conseillersARenouveler}
+                conseillersAProlonger={conseillersAProlonger}
                 structure={structure}
                 roleActivated={roleActivated}
                 handleOpenModalContrat={handleOpenModalContrat}

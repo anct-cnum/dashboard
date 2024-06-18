@@ -12,6 +12,7 @@ import ModalValidationRecrutement from '../../modals/ModalValidationRecrutement'
 import ModalAnnulationRecrutement from '../../modals/ModalAnnulationRecrutement';
 import pinCoordinateur from '../../../../../assets/icons/icone-coordinateur.svg';
 import { Tooltip } from 'react-tooltip';
+import { ModalMode } from '../../../../../utils/enumUtils';
 
 function CandidatDetailsRecrutement() {
   const dispatch = useDispatch();
@@ -132,7 +133,7 @@ function CandidatDetailsRecrutement() {
           setOpenModalContrat={setOpenModalContrat}
           updateContract={updateContract}
           conseiller={conseiller?.miseEnRelation}
-          editMode={true}
+          mode={ModalMode.EDITION}
         />
       }
       {openModal &&

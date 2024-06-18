@@ -80,6 +80,10 @@ export const filterActiveAdvisors = (contrat, structure) => {
          (contrat?.phaseConventionnement && contrat?.statut === 'finalisee');
 };
 
+export const isConventionnementOrReconventionnementValide =
+structure => structure?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_VALIDÉ ||
+structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ;
+
 export const checkStructurePhase2 = statut => {
   if (statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ) {
     return true;

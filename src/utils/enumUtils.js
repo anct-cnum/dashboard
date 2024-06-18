@@ -29,3 +29,8 @@ export const statutStructure = {
 };
 
 export const StatutsStructuresActives = ['VALIDATION_COSELEC'];
+
+export const ModalMode = {
+  EDITION: 'EDITION',
+  PROLONGATION: 'PROLONGATION',
+};

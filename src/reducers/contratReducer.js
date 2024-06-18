@@ -171,6 +171,23 @@ export default function contrat(state = initialState, action) {
         error: action.error,
         loading: false
       };
+    case 'EXTEND_CONTRAT_RENOUVELLEMENT_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loading: true
+      };
+    case 'EXTEND_CONTRAT_RENOUVELLEMENT_SUCCESS':
+      return {
+        ...state,
+        loading: false
+      };
+    case 'EXTEND_CONTRAT_RENOUVELLEMENT_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+        loading: false
+      };
     default:
       return state;
   }

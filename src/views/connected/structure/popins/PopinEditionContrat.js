@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
+import { ModalMode } from '../../../../utils/enumUtils';
 
 registerLocale('fr', fr);
-function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, editMode, createContract }) {
+function PopinEditionContrat({ setOpenModalContrat, updateContract, extendContract, conseiller, mode, createContract }) {
   const [dateDebut, setDateDebut] = useState(null);
   const [dateFin, setDateFin] = useState(null);
   const [typeDeContrat, setTypeDeContrat] = useState(null);
@@ -17,8 +18,10 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   const handleSubmit = () => {
     if (isRecrutementCoordinateur) {
       updateContract(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur);
-    } else if (editMode) {
+    } else if (mode === ModalMode.EDITION) {
       updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnrelationId);
+    } else if (mode === ModalMode.PROLONGATION) {
+      extendContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnrelationId);
     } else {
       createContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.miseEnrelationId);
     }
@@ -40,14 +43,14 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
   };
 
   useEffect(() => {
-    if (editMode && conseiller) {
+    if ((mode === ModalMode.EDITION || mode === ModalMode.PROLONGATION) && conseiller) {
       setTypeDeContrat(conseiller?.typeDeContrat);
       setIsRecrutementCoordinateur(conseiller?.contratCoordinateur ?? false);
       setDateDebut(conseiller?.dateDebutDeContrat ? new Date(conseiller?.dateDebutDeContrat) : null);
       setDateFin(conseiller?.dateFinDeContrat ? new Date(conseiller?.dateFinDeContrat) : null);
       setSalaire(conseiller?.salaire ? String(conseiller?.salaire) : '');
     }
-  }, [editMode, conseiller]);
+  }, [mode, conseiller]);
 
   const checkContratValid = () => {
     if (validTypeDeContratWithoutEndDate(typeDeContrat)) {
@@ -57,7 +60,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
     } else if (!dateFin || !dateDebut || !typeDeContrat) {
       return true;
     }
-    if (editMode) {
+    if (mode === ModalMode.EDITION || mode === ModalMode.PROLONGATION) {
       if ((conseiller?.salaire && String(conseiller?.salaire) !== salaire) || (!conseiller?.salaire && salaire)) {
         return false;
       }
@@ -148,6 +151,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           }}
                           value="CDI"
                           checked={typeDeContrat === 'CDI'}
+                          disabled={mode === ModalMode.PROLONGATION}
                         />
                         <label className="fr-label" htmlFor="radio-1">
                           CDI
@@ -165,6 +169,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="CDD"
                           checked={typeDeContrat === 'CDD'}
+                          disabled={mode === ModalMode.PROLONGATION}
                         />
                         <label className="fr-label" htmlFor="radio-2">
                           CDD
@@ -184,6 +189,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="PEC"
                           checked={typeDeContrat === 'PEC'}
+                          disabled={mode === ModalMode.PROLONGATION}
                         />
                         <label className="fr-label" htmlFor="radio-3">
                           PEC
@@ -201,6 +207,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                           onChange={motif => setTypeDeContrat(motif.target.value)}
                           value="contrat_de_projet_public"
                           checked={typeDeContrat === 'contrat_de_projet_public'}
+                          disabled={mode === ModalMode.PROLONGATION}
                         />
                         <label className="fr-label" htmlFor="radio-4">
                           Contrat de projet public
@@ -226,6 +233,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                         maxDate={dateFin}
                         selected={dateDebut}
                         onChange={date => setDateDebut(date)}
+                        disabled={mode === ModalMode.PROLONGATION}
                       />
                     </div>
                   </div>
@@ -261,6 +269,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                     onChange={handleChangeSalaire}
                     min={salaireMinimum}
                     value={salaire}
+                    disabled={mode === ModalMode.PROLONGATION}
                   />
                   {errorSalaire() &&
                     <p id="text-input-error-desc-error" className="fr-error-text">
@@ -283,7 +292,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
                       className="fr-btn fr-btn--icon-left"
                       title="&Eacute;diter le contrat"
                     >
-                      {editMode ? 'Modifier' : 'Confirmer'}
+                      {mode === ModalMode.EDITION ? 'Modifier' : 'Confirmer'}
                     </button>
                   </li>
                 </ul>
@@ -298,9 +307,10 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, conseiller, 
 
 PopinEditionContrat.propTypes = {
   updateContract: PropTypes.func,
+  extendContract: PropTypes.func,
   conseiller: PropTypes.object,
   setOpenModalContrat: PropTypes.func,
-  editMode: PropTypes.bool,
+  mode: PropTypes.string,
   createContract: PropTypes.func,
 };
 

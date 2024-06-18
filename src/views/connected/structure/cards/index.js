@@ -12,6 +12,7 @@ import EditContractCard from './EditContractCard';
 import CompleteContractCard from './CompleteContractCard';
 import ReconventionnementInfosCard from './ReconventionnementInfosCard';
 import HireCoordinatorCard from './HireCoordinatorCard';
+import CompleteExtendContractCard from './CompleteExtendContractCard';
 
 export {
   AccompagnementsCard,
@@ -27,5 +28,6 @@ export {
   EditContractCard,
   CompleteContractCard,
   ReconventionnementInfosCard,
-  HireCoordinatorCard
+  HireCoordinatorCard,
+  CompleteExtendContractCard
 };

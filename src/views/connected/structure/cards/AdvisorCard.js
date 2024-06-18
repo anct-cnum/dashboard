@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import propTypes from 'prop-types';
 import { formatNomConseiller, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
@@ -10,20 +11,25 @@ import { conseillerActions } from '../../../../actions/conseillerActions';
 const AdvisorCard = ({ conseiller }) => {
   const dispatch = useDispatch();
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const isContractExpiring = conseiller.dateFinDeContrat &&
+      calcNbJoursAvantDateFinContrat(conseiller.dateFinDeContrat) <= 30 &&
+      calcNbJoursAvantDateFinContrat(conseiller.dateFinDeContrat) > 0;
   const displayBadge = statut => {
     switch (statut) {
       case 'finalisee':
-        return (!conseiller?.dateFinDeContrat || calcNbJoursAvantDateFinContrat(conseiller?.dateFinDeContrat) > 0) ?
-          <p className="fr-badge fr-badge--success">En activit&eacute;</p> :
-          <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>;
+        return (!conseiller.dateFinDeContrat || calcNbJoursAvantDateFinContrat(conseiller.dateFinDeContrat) > 0) ?
+          isContractExpiring ?
+            <p className="fr-badge fr-badge--sm fr-badge--new">Arrive &agrave; &eacute;ch&eacute;ance</p> :
+            <p className="fr-badge fr-badge--sm fr-badge--success">En activit&eacute;</p> :
+          <p className="fr-badge fr-badge--sm fr-badge--warning">Contrat termin&eacute;</p>;
       case 'nouvelle_rupture':
-        return <p className="fr-badge fr-badge--info">Rupture en cours</p>;
+        return <p className="fr-badge fr-badge--sm fr-badge--info">Rupture en cours</p>;
       case 'renouvellement_initiee':
-        return <p className="fr-badge fr-badge--success">En activit&eacute;</p>;
+        return <p className="fr-badge fr-badge--sm fr-badge--success">En activit&eacute;</p>;
       case 'finalisee_rupture':
-        return <p className="fr-badge fr-badge--warning">Contrat termin&eacute;</p>;
+        return <p className="fr-badge fr-badge--sm fr-badge--warning">Contrat termin&eacute;</p>;
       case 'recrutee':
-        return <p className="fr-badge fr-badge--new">Recrutement en cours</p>;
+        return <p className="fr-badge fr-badge--sm fr-badge--new">Recrutement en cours</p>;
       default:
         return;
     }

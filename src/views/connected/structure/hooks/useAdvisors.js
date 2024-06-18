@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { miseEnRelationAction } from '../../../../actions';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
+import { isContractExpiring } from '../../../../utils/calculateUtils';
+import { isConventionnementOrReconventionnementValide } from '../utils/functionUtils';
 
 export function useAdvisors() {
   const misesEnRelation = useSelector(state => state?.misesEnRelation?.misesEnRelation);
@@ -9,6 +11,7 @@ export function useAdvisors() {
   const [conseillersActifs, setConseillersActifs] = useState([]);
   const [conseillersActifsEtRenouveller, setConseillersActifsEtRenouveller] = useState([]);
   const [conseillersARenouveler, setConseillersARenouveler] = useState([]);
+  const [conseillersAProlonger, setConseillersAProlonger] = useState([]);
   const [conseillersActifsNonRenouveles, setConseillersActifsNonRenouveles] = useState([]);
   const [conseillersEnCoursDeRecrutement, setConseillersEnCoursDeRecrutement] = useState([]);
   const [anciensConseillers, setAnciensConseillers] = useState([]);
@@ -25,6 +28,7 @@ export function useAdvisors() {
       renouvellement,
       dateDebutDeContrat,
       dateFinDeContrat,
+      nouvelleDateFinDeContrat,
       typeDeContrat,
       phaseConventionnement,
       salaire,
@@ -44,6 +48,7 @@ export function useAdvisors() {
       renouvellement,
       dateDebutDeContrat,
       dateFinDeContrat,
+      nouvelleDateFinDeContrat,
       typeDeContrat,
       salaire,
       statut,
@@ -95,6 +100,22 @@ export function useAdvisors() {
       })
       .map(createConseiller);
 
+      const conseillersAProlonger = misesEnRelation
+      .filter(miseEnRelation => {
+        if (!miseEnRelation) {
+          return false;
+        }
+        const isFinalisee =
+            miseEnRelation.statut === 'finalisee';
+        return (
+          isFinalisee &&
+          isContractExpiring(miseEnRelation?.dateFinDeContrat) &&
+          !validTypeDeContratWithoutEndDate(miseEnRelation.typeDeContrat) &&
+          isConventionnementOrReconventionnementValide(structure)
+        );
+      })
+      .map(createConseiller);
+
       const bannieresRenouvellementValide = misesEnRelation
       .filter(miseEnRelation => miseEnRelation.banniereValidationRenouvellement)
       .map(createConseiller);
@@ -117,6 +138,7 @@ export function useAdvisors() {
 
       setConseillersActifsNonRenouveles([...conseillersActifsNonRenouveles, ...nouvellesRuptures]);
       setConseillersARenouveler(conseillersARenouveler);
+      setConseillersAProlonger(conseillersAProlonger);
       setConseillersActifs([...recrutees, ...nouvellesRuptures]);
       setConseillersActifsEtRenouveller(countConseillerActifsEtRenouveller);
       setConseillersEnCoursDeRecrutement(conseillersEnCoursDeRecrutement);
@@ -131,6 +153,7 @@ export function useAdvisors() {
     conseillersActifsEtRenouveller,
     conseillersActifs,
     conseillersARenouveler,
+    conseillersAProlonger,
     conseillersActifsNonRenouveles,
     conseillersEnCoursDeRecrutement,
     anciensConseillers,

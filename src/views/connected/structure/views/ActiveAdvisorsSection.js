@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import AdvisorCard from '../cards/AdvisorCard';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import { checkStructurePhase2 } from '../utils/functionUtils';
+import { isContractExpiring } from '../../../../utils/calculateUtils';
 
 const ActiveAdvisorsSection = ({ structure, conseillersActifs, roleActivated }) => {
 
@@ -11,7 +12,10 @@ const ActiveAdvisorsSection = ({ structure, conseillersActifs, roleActivated }) 
   const filterActiveAdvisors = conseiller => {
     if (isReconventionnementValide) {
       return (
-        (!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) && conseiller?.phaseConventionnement && conseiller?.statut === 'finalisee') ||
+        (!validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat) &&
+        conseiller?.phaseConventionnement &&
+        conseiller?.statut === 'finalisee' &&
+        !isContractExpiring(conseiller?.dateFinDeContrat)) ||
         (validTypeDeContratWithoutEndDate(conseiller?.typeDeContrat))
       );
     }
