@@ -38,7 +38,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src --fix",
+    "lint": "eslint src --max-warnings=0 --cache --cache-location node_modules/.cache/eslint",
     "husky:install": "husky install",
     "husky:init": "husky add .husky/pre-commit 'npx --no-install git-precommit-checks'",
     "husky:uninstall": "git config --unset core.hooksPath"

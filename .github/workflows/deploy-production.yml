@@ -1,4 +1,4 @@
-name: Déploiement sur l'espace de production
+name: Déploiement en production
 
 on:
   workflow_dispatch:
@@ -16,7 +16,7 @@ jobs:
           node-version-file: package.json
       - name: Retrieve cached dependencies
         id: retrieve-dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: node_modules-${{ hashFiles('package-lock.json') }}
           path: node_modules
@@ -25,7 +25,7 @@ jobs:
         run: npm ci --omit=dev
       - name: Cache dependencies if not present
         if: steps.retrieve-dependencies.outputs.cache-hit == false
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: node_modules.-${{ hashFiles('package-lock.json') }}
           path: node_modules
@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Retrieve cached dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: node_modules-${{ hashFiles('package-lock.json') }}
           path: node_modules
@@ -73,7 +73,7 @@ jobs:
           source: ".htaccess"
           target: "build/.htaccess"
       - name: Upload release bundle as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bundle
           path: build/*
@@ -84,7 +84,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Retrieve bundle React
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: bundle
           path: build
