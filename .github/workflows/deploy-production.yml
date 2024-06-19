@@ -8,16 +8,12 @@ on:
 jobs:
   dependencies:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.9.0]
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: npm
+          node-version-file: package.json
       - name: Retrieve cached dependencies
         id: retrieve-dependencies
         uses: actions/cache@v3
