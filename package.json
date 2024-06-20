@@ -68,5 +68,10 @@
   },
   "engines": {
     "node": "20.12.2"
+  },
+  "overrides": {
+    "nth-check": "2.0.1",
+    "postcss": "8.4.31",
+    "ws": "8.17.1"
   }
 }
