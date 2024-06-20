@@ -1,8 +1,17 @@
 {
   "name": "dashboard",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "AGPL-3.0",
-  "private": true,
+  "scripts": {
+    "build": "react-scripts build",
+    "dev": "react-scripts start",
+    "eject": "react-scripts eject",
+    "husky:init": "husky add .husky/pre-commit 'npx --no-install git-precommit-checks'",
+    "husky:install": "husky install",
+    "husky:uninstall": "git config --unset core.hooksPath",
+    "lint": "eslint src --max-warnings=0 --cache --cache-location node_modules/.cache/eslint",
+    "start": "serve -s build"
+  },
   "dependencies": {
     "@gouvfr/dsfr": "^1.9.1",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
@@ -31,16 +40,12 @@
     "slugify": "^1.6.6",
     "web-vitals": "^3.5.2"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "dev": "NODE_ENV=development react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint src --max-warnings=0 --cache --cache-location node_modules/.cache/eslint",
-    "husky:install": "husky install",
-    "husky:init": "husky add .husky/pre-commit 'npx --no-install git-precommit-checks'",
-    "husky:uninstall": "git config --unset core.hooksPath"
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "git-precommit-checks": "^3.1.0",
+    "husky": "^9.0.10",
+    "sass": "^1.70.0"
   },
   "eslintConfig": {
     "extends": [
@@ -58,13 +63,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint": "^8.56.0",
-    "eslint-plugin-react": "^7.33.2",
-    "git-precommit-checks": "^3.1.0",
-    "husky": "^9.0.10",
-    "sass": "^1.70.0"
   },
   "engines": {
     "node": "20.12.2"
