@@ -37,10 +37,7 @@ const renderCard = (conseiller, idx, roleActivated, handleOpenModalContrat, stru
         key={idx}
       />
     );
-  }
-
-
-  else if (conseiller?.statut === 'finalisee') {
+  } else if (conseiller?.statut === 'finalisee') {
     return (
       <ExtendContractCard
         conseiller={conseiller}

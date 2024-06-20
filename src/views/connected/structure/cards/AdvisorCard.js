@@ -3,7 +3,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { formatNomConseiller, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
-import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
+import { calcNbJoursAvantDateFinContrat, isContractExpiring } from '../../../../utils/calculateUtils';
 import { useSelector, useDispatch } from 'react-redux';
 import pinCoordo from '../../../../assets/icons/icone-coordinateur.svg';
 import { conseillerActions } from '../../../../actions/conseillerActions';
@@ -11,14 +11,11 @@ import { conseillerActions } from '../../../../actions/conseillerActions';
 const AdvisorCard = ({ conseiller }) => {
   const dispatch = useDispatch();
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const isContractExpiring = conseiller.dateFinDeContrat &&
-      calcNbJoursAvantDateFinContrat(conseiller.dateFinDeContrat) <= 30 &&
-      calcNbJoursAvantDateFinContrat(conseiller.dateFinDeContrat) > 0;
   const displayBadge = statut => {
     switch (statut) {
       case 'finalisee':
         return (!conseiller.dateFinDeContrat || calcNbJoursAvantDateFinContrat(conseiller.dateFinDeContrat) > 0) ?
-          isContractExpiring ?
+          isContractExpiring(conseiller.dateFinDeContrat) ?
             <p className="fr-badge fr-badge--sm fr-badge--new">Arrive &agrave; &eacute;ch&eacute;ance</p> :
             <p className="fr-badge fr-badge--sm fr-badge--success">En activit&eacute;</p> :
           <p className="fr-badge fr-badge--sm fr-badge--warning">Contrat termin&eacute;</p>;
