@@ -18,7 +18,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, setOpenModalContrat
             }
           </h3>
           {miseEnRelation?.nouvelleDateFinDeContrat && <p className="fr-card__desc fr-text--md fr-text--regular">
-            Nouvelle date de fin souhait&eacute;e: {dayjs(miseEnRelation?.nouvelleDateFinDeContrat).format('DD/MM/YYYY')}
+            Nouvelle date de fin souhait&eacute;e: {dayjs(miseEnRelation?.nouvelleDateFinDeContrat.dateSouhaitee).format('DD/MM/YYYY')}
           </p>}
           {miseEnRelation?.emetteurRenouvellement?.date &&
             <p className="fr-card__desc fr-text--lg fr-text--regular">
