@@ -92,6 +92,10 @@ function ConseillerDetailsContrat() {
   const updateContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
     dispatch(contratActions.updateContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.contrat?._id));
   };
+  
+  const extendContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
+    dispatch(contratActions.extendContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.contrat?._id));
+  };
 
   const handleOpenModalContrat = mode => {
     setMode(mode);
@@ -206,6 +210,7 @@ function ConseillerDetailsContrat() {
                 <PopinEditionContrat
                   setOpenModalContrat={setOpenModalContrat}
                   updateContract={updateContract}
+                  extendContract={extendContract}
                   conseiller={conseiller?.contrat}
                   mode={mode}
                 />
