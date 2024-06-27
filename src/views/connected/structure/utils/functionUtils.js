@@ -127,3 +127,12 @@ export const getAlertLevel = group => {
       return '';
   }
 };
+
+export function getDateFin(conseiller) {
+  if (conseiller?.nouvelleDateFinDeContrat) {
+    return new Date(conseiller.nouvelleDateFinDeContrat?.dateSouhaitee);
+  } else if (conseiller?.dateFinDeContrat) {
+    return new Date(conseiller.dateFinDeContrat);
+  }
+  return null;
+}
