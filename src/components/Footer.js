@@ -25,7 +25,7 @@ function Footer() {
                 <a
                   className="fr-footer__content-link"
                   title="Cartographie"
-                  href="https://carte.conseiller-numerique.gouv.fr/"
+                  href="https://www.conseiller-numerique.gouv.fr/carte"
                   target="_blank" rel="noopener noreferrer">
                   Cartographie
                 </a>
