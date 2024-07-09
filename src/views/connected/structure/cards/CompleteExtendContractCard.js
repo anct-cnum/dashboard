@@ -4,12 +4,13 @@ import { calculateMonthsDifference } from '../../../../utils/calculateUtils';
 import AdvisorCard from './AdvisorCard';
 import { formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import { ModalMode } from '../../../../utils/enumUtils';
+import { getDemandeInitiee } from '../utils/functionUtils';
 
 const CompleteContractCard = ({ conseiller, handleOpenModalContrat, structure }) => {
-  const { dateFinDeContrat, typeDeContrat, nouvelleDateFinDeContrat
+  const { dateFinDeContrat, typeDeContrat
   } = conseiller;
 
-  const months = calculateMonthsDifference(dateFinDeContrat, nouvelleDateFinDeContrat.dateSouhaitee);
+  const months = calculateMonthsDifference(dateFinDeContrat, getDemandeInitiee(conseiller)?.dateDeFinSouhaitee);
 
   return (
     <>

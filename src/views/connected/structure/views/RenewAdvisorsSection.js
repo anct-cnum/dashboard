@@ -5,7 +5,7 @@ import CompleteContractCard from '../cards/CompleteContractCard';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
 import ExtendContractCard from '../cards/ExtendContractCard';
 import { CompleteExtendContractCard } from '../cards';
-import { isConventionnementOrReconventionnementValide } from '../utils/functionUtils';
+import { getDemandeInitiee, isConventionnementOrReconventionnementValide } from '../utils/functionUtils';
 
 const renderCard = (conseiller, idx, roleActivated, handleOpenModalContrat, structure) => {
   if (conseiller?.reconventionnement && conseiller?.statut !== 'renouvellement_initiee') {
@@ -27,7 +27,7 @@ const renderCard = (conseiller, idx, roleActivated, handleOpenModalContrat, stru
         key={idx}
       />
     );
-  } else if (conseiller?.nouvelleDateFinDeContrat) {
+  } else if (getDemandeInitiee(conseiller)) {
     return (
       <CompleteExtendContractCard
         conseiller={conseiller}

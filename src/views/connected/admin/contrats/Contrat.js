@@ -5,11 +5,17 @@ import pinCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 import { Tooltip } from 'react-tooltip';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { getDemandeInitiee } from '../../structure/utils/functionUtils';
 
 function Contrat({ contrat, statutContrat }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
+  const isInitiated = statutContrat === 'prolongation_initiee' && contrat?.statut === 'finalisee' && contrat?.demandesDeProlongation;
 
   const dateDeLaDemande = contrat => {
+    if (isInitiated) {
+      const demandeInitiee = getDemandeInitiee(contrat);
+      return dayjs(demandeInitiee?.dateDeLaDemande).format('DD/MM/YYYY');
+    }
     if (contrat?.statut === 'nouvelle_rupture' && contrat?.emetteurRupture?.date) {
       return dayjs(contrat.emetteurRupture.date).format('DD/MM/YYYY');
     }
@@ -21,9 +27,6 @@ function Contrat({ contrat, statutContrat }) {
     }
     if (contrat?.statut === 'recrutee' && contrat?.createdAt) {
       return dayjs(contrat.createdAt).format('DD/MM/YYYY');
-    }
-    if (contrat?.statut === 'finalisee' && contrat?.nouvelleDateFinDeContrat) {
-      return dayjs(contrat.nouvelleDateFinDeContrat.dateDeLaDemande).format('DD/MM/YYYY');
     }
     return 'Non renseignée';
   };

@@ -145,6 +145,9 @@ export default function TableauHistoriqueContrat() {
               }} className="fr-tag" aria-pressed={statutContrat === 'renouvelee'}>
                 Renouvellements de contrat ({contrats?.items?.totalParContrat?.renouvellementDeContrat})
               </button>
+              <button onClick={() => setStatutContrat('prolongation_initiee')} className="fr-tag" aria-pressed={statutContrat === 'prolongation_initiee'}>
+                Prolongation de contrat ({contrats?.items?.totalParContrat?.prolongationDeContrat})
+              </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
                 setStatutContrat('finalisee_rupture');
