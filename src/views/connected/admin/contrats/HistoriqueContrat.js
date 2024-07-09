@@ -6,14 +6,15 @@ import { useSelector } from 'react-redux';
 
 function HistoriqueContrat({ contrat, statutContrat }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const isExtended = statutContrat === 'renouvelee' && contrat?.statut === 'finalisee' && contrat?.prolongationDeContrat;
+  const isExtended = statutContrat === 'prolongation_initiee' && contrat?.statut === 'finalisee' && contrat?.demandesDeProlongation;
 
   const dateDeLaDemande = contrat => {
+    if (isExtended) {
+      const demandeValidee = contrat.demandesDeProlongation?.find(demande => demande.statut === 'validee');
+      return dayjs(demandeValidee?.dateDeLaDemande).format('DD/MM/YYYY');
+    }
     if (contrat?.statut === 'finalisee_rupture' && contrat?.emetteurRupture?.date) {
       return dayjs(contrat.emetteurRupture.date).format('DD/MM/YYYY');
-    }
-    if (isExtended) {
-      return dayjs(contrat?.prolongationDeContrat).format('DD/MM/YYYY');
     }
     if (contrat?.statut === 'renouvelee' && contrat?.emetteurRenouvellement?.date) {
       return dayjs(contrat.emetteurRenouvellement.date).format('DD/MM/YYYY');

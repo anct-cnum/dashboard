@@ -129,10 +129,15 @@ export const getAlertLevel = group => {
 };
 
 export function getDateFin(conseiller) {
-  if (conseiller?.nouvelleDateFinDeContrat) {
-    return new Date(conseiller.nouvelleDateFinDeContrat?.dateSouhaitee);
+  const demandeInitiee = getDemandeInitiee(conseiller);
+  if (demandeInitiee) {
+    return new Date(demandeInitiee.dateDeFinSouhaitee);
   } else if (conseiller?.dateFinDeContrat) {
     return new Date(conseiller.dateFinDeContrat);
   }
   return null;
+}
+
+export function getDemandeInitiee(contrat) {
+  return contrat.demandesDeProlongation?.find(demande => demande.statut === 'initiee');
 }

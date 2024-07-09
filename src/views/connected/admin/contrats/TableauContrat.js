@@ -131,6 +131,9 @@ export default function TableauContrat() {
               <button onClick={() => setStatutContrat('renouvellement_initiee')} className="fr-tag" aria-pressed={statutContrat === 'renouvellement_initiee'}>
                 Renouvellements de contrat ({contrats?.items?.totalParContrat?.renouvellementDeContrat})
               </button>
+              <button onClick={() => setStatutContrat('prolongation_initiee')} className="fr-tag" aria-pressed={statutContrat === 'prolongation_initiee'}>
+                Prolongation de contrat ({contrats?.items?.totalParContrat?.prolongationDeContrat})
+              </button>
               <button onClick={() => {
                 dispatch(paginationActions.setPage(1));
                 setStatutContrat('nouvelle_rupture');

@@ -150,6 +150,7 @@ function CandidatDetailsRecrutement() {
         setOpenModalContrat={setOpenModalContrat}
         setOpenModalAnnulation={setOpenModalAnnulation}
         setOpenModal={setOpenModal}
+        statutContrat={location?.state?.statutContrat}
       />
       <InformationCandidat conseiller={conseiller} />
     </div>

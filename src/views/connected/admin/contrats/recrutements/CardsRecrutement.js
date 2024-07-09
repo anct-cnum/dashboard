@@ -3,18 +3,33 @@ import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { formatTypeDeContrat } from '../../../../../utils/formatagesUtils';
 
-const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenModalContrat, setOpenModalAnnulation }) => {
+const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenModalContrat, setOpenModalAnnulation, statutContrat }) => {
+
+  const getInitiatedDate = (statutContrat, miseEnRelation) => {
+    if (statutContrat === 'prolongation_initiee' && miseEnRelation.demandesDeProlongation?.length > 0) {
+      const validProlongationRequests = miseEnRelation.demandesDeProlongation.filter(demande => demande.statut === 'validee');
+      if (validProlongationRequests.length > 0) {
+        const lastProlongationRequest = validProlongationRequests[validProlongationRequests.length - 1];
+        return lastProlongationRequest?.dateDeLaDemande || '';
+      }
+    }
+    return miseEnRelation?.emetteurRecrutement?.date || '';
+  };
 
   return (
     <div className="fr-card fr-mt-2w fr-card--no-border background-cards-contrat">
       <div className="fr-card__body">
         <div className="fr-card__content fr-pb-2w">
           <h3 className="fr-card__title fr-h3">
-            Demande de recrutement
+            {
+              statutContrat === 'finalisee' ?
+                'Demande de recrutement' :
+                'Demande de prolongation'
+            }
           </h3>
           {miseEnRelation?.emetteurRecrutement?.date &&
             <p className="fr-card__desc fr-text--lg fr-text--regular">
-              Demande initi&eacute;e le {miseEnRelation ? dayjs(miseEnRelation.emetteurRecrutement.date).format('DD/MM/YYYY') : ''}
+              Demande initi&eacute;e le {miseEnRelation ? dayjs(getInitiatedDate(statutContrat, miseEnRelation)).format('DD/MM/YYYY') : ''}
             </p>
           }
           <div className="fr-card__desc fr-grid-row fr-mt-3w fr-col-12 color-text color-title-subpart">
@@ -128,6 +143,7 @@ CardsRecrutement.propTypes = {
   setOpenModalContrat: propTypes.func,
   setOpenModalAnnulation: propTypes.func,
   urlDossierDS: propTypes.string,
+  statutContrat: propTypes.string,
 };
 
 export default CardsRecrutement;
