@@ -6,10 +6,10 @@ import { useSelector } from 'react-redux';
 
 function HistoriqueContrat({ contrat, statutContrat }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const isExtended = statutContrat === 'prolongation_initiee' && contrat?.statut === 'finalisee' && contrat?.demandesDeProlongation;
+  const aProlonger = statutContrat === 'prolongation_initiee' && contrat?.statut === 'finalisee' && contrat?.demandesDeProlongation;
 
   const dateDeLaDemande = contrat => {
-    if (isExtended) {
+    if (aProlonger) {
       const demandeValidee = contrat.demandesDeProlongation?.find(demande => demande.statut === 'validee');
       return dayjs(demandeValidee?.dateDeLaDemande).format('DD/MM/YYYY');
     }
@@ -39,7 +39,7 @@ function HistoriqueContrat({ contrat, statutContrat }) {
   };
 
   const formatStatutContrat = statut => {
-    if (isExtended) {
+    if (aProlonger) {
       return 'Prolongation';
     }
     switch (statut) {
