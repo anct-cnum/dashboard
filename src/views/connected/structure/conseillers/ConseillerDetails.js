@@ -28,12 +28,16 @@ function ConseillerDetails() {
   const [openModal, setOpenModal] = useState(false);
 
   const updateStatut = (statut, motifRupture, dateRuptureValidee) => {
-    if (statut === 'nouvelle_rupture') {
-      dispatch(conseillerActions.updateStatus(misesEnRelationFinalisee[0]?._id, statut, motifRupture, dateRuptureValidee));
+    if (motifRupture === 'CDISation') {
+      dispatch(conseillerActions.validationRupture(misesEnRelationFinalisee[0]?.conseillerObj?._id, dateRuptureValidee));
     } else {
-      dispatch(conseillerActions.updateStatus(misesEnRelationNouvelleRupture?._id, statut));
+      if (statut === 'nouvelle_rupture') {
+        dispatch(conseillerActions.updateStatus(misesEnRelationFinalisee[0]?._id, statut, motifRupture, dateRuptureValidee));
+      } else {
+        dispatch(conseillerActions.updateStatus(misesEnRelationNouvelleRupture?._id, statut));
+      }
+      scrollTopWindow();
     }
-    scrollTopWindow();
   };
 
   useEffect(() => {
