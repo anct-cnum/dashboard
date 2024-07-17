@@ -287,7 +287,19 @@ export default function conseiller(state = initialState, action) {
           statut: 'RUPTURE',
           mattermost: '',
           contrat: action.miseEnRelationUpdated,
-          misesEnRelation: state.conseillerContrat.misesEnRelation.map(
+          misesEnRelation: state.conseillerContrat?.misesEnRelation?.map(
+            miseEnRelation => (miseEnRelation._id === action.miseEnRelationUpdated._id) ? action.miseEnRelationUpdated : miseEnRelation
+          ),
+          permanences: []
+        },
+        conseiller: {
+          ...action.miseEnRelationUpdated.conseillerObj,
+          emailCN: '',
+          emailPro: '',
+          telephonePro: '',
+          statut: 'RUPTURE',
+          mattermost: '',
+          misesEnRelation: state.conseiller?.misesEnRelation?.map(
             miseEnRelation => (miseEnRelation._id === action.miseEnRelationUpdated._id) ? action.miseEnRelationUpdated : miseEnRelation
           ),
           permanences: []
