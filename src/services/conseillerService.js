@@ -212,8 +212,12 @@ function getCurriculumVitae(id) {
   .catch(); //rien ici dans le cas blob sinon erreur non affiché
 }
 
-function validationRupture(id, dateFinDeContrat) {
-  return API.patch(`${apiUrlRoot}/conseiller/rupture/validation/${id}?role=${roleActivated()}`, { dateFinDeContrat })
+function validationRupture(id, dateFinDeContrat, motifRupture) {
+  const payload = { dateFinDeContrat };
+  if (motifRupture) {
+    payload.motifRupture = motifRupture;
+  }
+  return API.patch(`${apiUrlRoot}/conseiller/rupture/validation/${id}?role=${roleActivated()}`, { payload })
   .then(response => response.data)
   .catch(handleApiError);
 }

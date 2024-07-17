@@ -442,11 +442,11 @@ function getCurriculumVitae(id, candidat) {
   }
 }
 
-function validationRupture(id, dateFinDeContrat) {
+function validationRupture(id, dateFinDeContrat, motifRupture) {
   return dispatch => {
     dispatch(request());
 
-    conseillerService.validationRupture(id, dateFinDeContrat)
+    conseillerService.validationRupture(id, dateFinDeContrat, motifRupture)
     .then(
       miseEnRelationUpdated => dispatch(success(miseEnRelationUpdated)),
       error => {
