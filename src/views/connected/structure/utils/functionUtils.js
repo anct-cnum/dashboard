@@ -1,5 +1,7 @@
+import { calcNbJoursAvantDateFinContrat, isContractExpiring } from '../../../../utils/calculateUtils';
 import { StatutConventionnement } from '../../../../utils/enumUtils';
 import { pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
+import React from 'react';
 
 export function getNombreDePostes(demandesCoselec) {
   if (!demandesCoselec) {
@@ -141,3 +143,36 @@ export function getDateFin(conseiller) {
 export function getDemandeInitiee(contrat) {
   return contrat.demandesDeProlongation?.find(demande => demande.statut === 'initiee');
 }
+
+
+const renderStatusBadge = (statut, conseiller) => {
+  switch (statut) {
+    case 'finalisee': {
+      if (!conseiller.dateFinDeContrat || calcNbJoursAvantDateFinContrat(conseiller.dateFinDeContrat) > 0) {
+        if (isContractExpiring(conseiller.dateFinDeContrat)) {
+          return <p className="fr-badge fr-badge--sm fr-badge--new">Arrive &agrave; &eacute;ch&eacute;ance</p>;
+        } else {
+          return <p className="fr-badge fr-badge--sm fr-badge--success">En activit&eacute;</p>;
+        }
+      } else {
+        return <p className="fr-badge fr-badge--sm fr-badge--warning">Contrat termin&eacute;</p>;
+      }
+    }
+    case 'nouvelle_rupture':
+      return <p className="fr-badge fr-badge--sm fr-badge--info">Rupture en cours</p>;
+
+    case 'renouvellement_initiee':
+      return <p className="fr-badge fr-badge--sm fr-badge--success">En activit&eacute;</p>;
+
+    case 'finalisee_rupture':
+      return <p className="fr-badge fr-badge--sm fr-badge--warning">Contrat termin&eacute;</p>;
+
+    case 'recrutee':
+      return <p className="fr-badge fr-badge--sm fr-badge--new">Recrutement en cours</p>;
+
+    default:
+      return null;
+  }
+};
+
+export default renderStatusBadge;

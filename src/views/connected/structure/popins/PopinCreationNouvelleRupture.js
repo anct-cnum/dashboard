@@ -37,20 +37,15 @@ function PopinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   Déclaration d&rsquo;une rupture
                 </h1>
-                <p>Veuillez renseigner les informations ci-dessous</p>
+                <p className="fr-mb-1w">Veuillez renseigner les informations ci-dessous</p>
                 <div className="fr-col-12">
-                  <label
-                    className="fr-label"
-                    style={{ fontSize: 'unset' }}
-                  >
-                    <strong className="important">1. Indiquer la date de fin de contrat (obligatoire)&nbsp;:</strong>
-                  </label>
+                  <strong className="important">1. Indiquer la date de fin de contrat (obligatoire)&nbsp;:</strong>
                 </div>
                 <div className="fr-col-xl-12 btn-fr-col-xl-3">
                   <DatePicker
                     id="datePicker"
                     name="datePicker"
-                    className="fr-input fr-my-2w fr-mr-6w fr-col-6"
+                    className="fr-input fr-my-1w fr-mr-6w fr-col-6"
                     dateFormat="dd/MM/yyyy"
                     placeholderText="../../...."
                     locale="fr"
@@ -63,7 +58,7 @@ function PopinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
                 </div>
                 <div className="fr-col-12 fr-mt-1w">
                   <label
-                    className="fr-label"
+                    className="fr-label fr-text--sm fr-m-0w"
                     style={{ fontSize: 'unset' }}
                     htmlFor="datePicker">
                     <p><strong>2. Indiquer le motif de fin de contrat (obligatoire)&nbsp;:</strong></p>
@@ -75,21 +70,21 @@ function PopinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
                       <div className="fr-radio-group fr-radio-group--sm">
                         <input type="radio" id="radio-1" name="motifRupture"
                           onChange={ motif => setMotifRuptureValide(motif.target.value)} value="licenciement" />
-                        <label className="fr-label" htmlFor="radio-1">
+                        <label className="fr-label fr-text--sm fr-mb-0" htmlFor="radio-1">
                             Licenciement : Pour motif &eacute;conomique / Rupture conventionnelle / Pour faute professionnelle
                         </label>
                       </div>
                       <div className="fr-radio-group fr-radio-group--sm">
                         <input type="radio" id="radio-2" name="motifRupture"
                           onChange={ motif => setMotifRuptureValide(motif.target.value)} value="nonReconductionCDD" />
-                        <label className="fr-label" htmlFor="radio-2">
+                        <label className="fr-label fr-text--sm fr-mb-0" htmlFor="radio-2">
                             Non-reconduction du CDD : Pour motif &eacute;conomique / A l&rsquo;amiable / Non-satisfaction
                         </label>
                       </div>
                       <div className="fr-radio-group fr-radio-group--sm">
                         <input type="radio" id="radio-3" name="motifRupture"
                           onChange={ motif => setMotifRuptureValide(motif.target.value)} value="demission" />
-                        <label className="fr-label" htmlFor="radio-3">
+                        <label className="fr-label fr-text--sm fr-mb-0" htmlFor="radio-3">
                             D&eacute;mission : Li&eacute;e &agrave; la formation
                             / Inad&eacute;quation du profil au poste / Raisons personnelles
                             / Autre opportunit&eacute; professionnelle / Changement de structure au sein du dispositif /
@@ -98,8 +93,8 @@ function PopinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
                       </div>
                       <div className="fr-radio-group fr-radio-group--sm">
                         <input type="radio" id="radio-4" name="motifRupture"
-                          onChange={ motif => setMotifRuptureValide(motif.target.value)} value="CDISation" />
-                        <label className="fr-label" htmlFor="radio-4">
+                          onChange={ motif => setMotifRuptureValide(motif.target.value)} value="CDIsation" />
+                        <label className="fr-label fr-text--sm fr-mb-0" htmlFor="radio-4">
                             CDIsation de contrat
                         </label>
                       </div>
@@ -107,7 +102,7 @@ function PopinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
                   </fieldset>
                 </div>
               </div>
-              <div className="fr-modal__footer">
+              <div className="fr-modal__footer fr-pt-1w">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
                   <li >
                     <button onClick={() => {

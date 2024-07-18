@@ -3,34 +3,14 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { formatNomConseiller, formatTypeDeContrat, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import dayjs from 'dayjs';
-import { calcNbJoursAvantDateFinContrat, isContractExpiring } from '../../../../utils/calculateUtils';
 import { useSelector, useDispatch } from 'react-redux';
 import pinCoordo from '../../../../assets/icons/icone-coordinateur.svg';
 import { conseillerActions } from '../../../../actions/conseillerActions';
+import renderStatusBadge from '../utils/functionUtils';
 
 const AdvisorCard = ({ conseiller }) => {
   const dispatch = useDispatch();
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const displayBadge = statut => {
-    switch (statut) {
-      case 'finalisee':
-        return (!conseiller.dateFinDeContrat || calcNbJoursAvantDateFinContrat(conseiller.dateFinDeContrat) > 0) ?
-          isContractExpiring(conseiller.dateFinDeContrat) ?
-            <p className="fr-badge fr-badge--sm fr-badge--new">Arrive &agrave; &eacute;ch&eacute;ance</p> :
-            <p className="fr-badge fr-badge--sm fr-badge--success">En activit&eacute;</p> :
-          <p className="fr-badge fr-badge--sm fr-badge--warning">Contrat termin&eacute;</p>;
-      case 'nouvelle_rupture':
-        return <p className="fr-badge fr-badge--sm fr-badge--info">Rupture en cours</p>;
-      case 'renouvellement_initiee':
-        return <p className="fr-badge fr-badge--sm fr-badge--success">En activit&eacute;</p>;
-      case 'finalisee_rupture':
-        return <p className="fr-badge fr-badge--sm fr-badge--warning">Contrat termin&eacute;</p>;
-      case 'recrutee':
-        return <p className="fr-badge fr-badge--sm fr-badge--new">Recrutement en cours</p>;
-      default:
-        return;
-    }
-  };
 
   const resendInvitationEspaceCoop = conseillerId => {
     dispatch(conseillerActions.resendInvitConseiller(conseillerId));
@@ -122,7 +102,7 @@ const AdvisorCard = ({ conseiller }) => {
               </>
               }
             </div>
-            <div className="badge-statut-advisor-card card__text">{displayBadge(conseiller?.statut)}</div>
+            <div className="badge-statut-advisor-card card__text">{renderStatusBadge(conseiller.statut, conseiller)}</div>
             <div className="btn-actions-conseiller">
               {conseiller?.emailCN?.address && !conseiller?.mattermost?.id &&
                 <>
