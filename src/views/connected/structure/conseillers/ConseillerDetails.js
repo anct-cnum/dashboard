@@ -28,7 +28,7 @@ function ConseillerDetails() {
   const [openModal, setOpenModal] = useState(false);
 
   const updateStatut = (statut, motifRupture, dateRuptureValidee) => {
-    if (motifRupture === 'CDISation') {
+    if (motifRupture === 'CDIsation') {
       dispatch(conseillerActions.validationRupture(misesEnRelationFinalisee[0]?.conseillerObj?._id, dateRuptureValidee, motifRupture));
     } else {
       if (statut === 'nouvelle_rupture') {

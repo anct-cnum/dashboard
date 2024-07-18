@@ -20,6 +20,9 @@ export const calcNbJoursAvantDateFinContrat = dateFinContrat => {
 };
 
 export const isContractExpiring = dateFinDeContrat => {
+  if (!dateFinDeContrat) {
+    return false;
+  }
   const daysLeft = calcNbJoursAvantDateFinContrat(dateFinDeContrat);
   return daysLeft <= 30;
 };
