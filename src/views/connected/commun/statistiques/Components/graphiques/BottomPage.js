@@ -8,8 +8,7 @@ import largeurEcran from '../utils/functionsLargeurEcran';
 import labelsCorrespondance from '../../../../../../datas/labelsCorrespondance.json';
 import { statistiquesActions } from '../../../../../../actions';
 import { Tooltip } from 'react-tooltip';
-
-require('dayjs/locale/fr');
+import('dayjs/locale/fr');
 
 function BottomPage({ donneesStats }) {
 
@@ -45,7 +44,7 @@ function BottomPage({ donneesStats }) {
           listDelete.push(i);
         }
       });
-  
+
       if (!statsReorientations.find(stats => stats?.nom === 'Autres&#0;')) {
         statsReorientations.push(donneesAutre);
         listDelete.forEach(i => {

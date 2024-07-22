@@ -1,8 +1,7 @@
 import dayjs from 'dayjs';
 import React from 'react';
 import StatutCandidat from '../datas/statut-candidat.json';
-
-const slugify = require('slugify');
+import slugify from 'slugify';
 
 export function formatDate(date) {
   return dayjs(date).format('YYYY-MM-DD');
