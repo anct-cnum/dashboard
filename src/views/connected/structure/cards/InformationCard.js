@@ -13,7 +13,7 @@ const InformationCard = () => (
       trois ans si, &agrave; l&lsquo;&eacute;ch&eacute;ance de la p&eacute;riode couverte par la premi&egrave;re convention, elles souhaitent
       conserver les postes qui leurs ont &eacute;t&eacute; attribu&eacute;s.{' '}
       <a className="fr-link"
-        href={`${process.env.REACT_APP_AIDE_HOSTNAME}/article/renouvellement-informations-generales-1ci8cxv/`}
+        href={`${import.meta.env.VITE_APP_AIDE_HOSTNAME}/article/renouvellement-informations-generales-1ci8cxv/`}
         target="_blank"
         rel="noopener noreferrer">
         En savoir plus

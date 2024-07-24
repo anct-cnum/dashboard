@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
   const authenticationUser = useSelector(state => state.authentication?.user?.entity?.$id);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const urlSiteVitrine = process.env.REACT_APP_PUBLIC_HOSTNAME;
+  const urlSiteVitrine = import.meta.env.VITE_APP_PUBLIC_HOSTNAME;
 
   return (
     <>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function PopinRecrutee({ setDisplayModal, urlDossierDS }) {
-  const demarchesSimplifieesUrl = process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_HOSTNAME;
+  const demarchesSimplifieesUrl = import.meta.env.VITE_APP_DEMARCHES_SIMPLIFIEES_HOSTNAME;
 
   return (
     <dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="fr-modal-1" className="fr-modal modalOpened">

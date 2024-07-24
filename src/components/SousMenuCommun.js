@@ -7,8 +7,8 @@ function SousMenuCommun({
   activeMenu,
   roleActivated
 }) {
-  const urlAide = `${process.env.REACT_APP_AIDE_HOSTNAME}/category/tableau-de-pilotage-1i6u8in`;
-  const urlFormation = `${process.env.REACT_APP_PUBLIC_HOSTNAME}/formation`;
+  const urlAide = `${import.meta.env.VITE_APP_AIDE_HOSTNAME}/category/tableau-de-pilotage-1i6u8in`;
+  const urlFormation = `${import.meta.env.VITE_APP_PUBLIC_HOSTNAME}/formation`;
   const mailContact = roleActivated === 'coordinateur' ? 'conum-coordinateur@anct.gouv.fr' : 'conseiller-numerique@anct.gouv.fr';
 
   return (

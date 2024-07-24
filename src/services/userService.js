@@ -21,8 +21,8 @@ function verifyToken(token) {
 
 function login(username, password) {
 
-  const strategy = process.env.REACT_APP_STRATEGYAUTH;
-  const apiUrlAuth = `${process.env.REACT_APP_API_URL}/authentication`;
+  const strategy = import.meta.env.VITE_APP_STRATEGYAUTH;
+  const apiUrlAuth = `${import.meta.env.VITE_APP_API_URL}/authentication`;
 
   const requestOptions = {
     method: 'POST',

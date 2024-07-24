@@ -4,10 +4,10 @@ import apiUrlRoot from '../../helpers/apiUrl';
 import { UserManager, WebStorageStateStore } from 'oidc-client-ts';
 
 const userManager = new UserManager({
-  authority: process.env.REACT_APP_AUTH_OIDC_AUTHORITY,
-  client_id: process.env.REACT_APP_AUTH_CLIENT_ID,
-  client_secret: process.env.REACT_APP_AUTH_CLIENT_SECRET,
-  post_logout_redirect_uri: `${process.env.REACT_APP_AUTH_REDIRECT_URI}/passerelle`,
+  authority: import.meta.env.VITE_APP_AUTH_OIDC_AUTHORITY,
+  client_id: import.meta.env.VITE_APP_AUTH_CLIENT_ID,
+  client_secret: import.meta.env.VITE_APP_AUTH_CLIENT_SECRET,
+  post_logout_redirect_uri: `${import.meta.env.VITE_APP_AUTH_REDIRECT_URI}/passerelle`,
   userStore: new WebStorageStateStore({ store: window.localStorage }),
 });
 
@@ -15,7 +15,7 @@ const userManager = new UserManager({
 const getProfile = () =>
   JSON.parse(
     localStorage.getItem(
-      process.env.REACT_APP_AUTH_OIDC_USER_KEY
+      import.meta.env.VITE_APP_AUTH_OIDC_USER_KEY
     )
   );
 

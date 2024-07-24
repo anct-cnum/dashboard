@@ -1,3 +1,3 @@
-const apiUrlRoot = process.env.REACT_APP_API_URL;
+const apiUrlRoot = import.meta.env.VITE_APP_API_URL;
 
 export default apiUrlRoot;

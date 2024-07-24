@@ -14,7 +14,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, extendContra
   const [typeDeContrat, setTypeDeContrat] = useState(null);
   const [isRecrutementCoordinateur, setIsRecrutementCoordinateur] = useState(false);
   const [salaire, setSalaire] = useState('');
-  const salaireMinimum = Number(process.env.REACT_APP_CONTRAT_SMIC);
+  const salaireMinimum = Number(import.meta.env.VITE_APP_CONTRAT_SMIC);
 
   const handleSubmit = () => {
     if (isRecrutementCoordinateur) {

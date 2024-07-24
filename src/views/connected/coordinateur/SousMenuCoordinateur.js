@@ -14,9 +14,9 @@ function SousMenuCoordinateur({
   const structure = useSelector(state => state.structure?.connectedStructure);
 
   const { nom, prenom, idPG } = conseiller || {};
-  const urlAide = `${process.env.REACT_APP_AIDE_HOSTNAME}/category/tableau-de-pilotage-1i6u8in`;
-  const urlFormation = `${process.env.REACT_APP_PUBLIC_HOSTNAME}/formation`;
-  const urlCra = `${process.env.REACT_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR}?` +
+  const urlAide = `${import.meta.env.VITE_APP_AIDE_HOSTNAME}/category/tableau-de-pilotage-1i6u8in`;
+  const urlFormation = `${import.meta.env.VITE_APP_PUBLIC_HOSTNAME}/formation`;
+  const urlCra = `${import.meta.env.VITE_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR}?` +
   `identite_nom=${nom}&` +
   `identite_prenom=${prenom}&` +
   `champ_Q2hhbXAtMzU2NjQ5MQ=${nom}&` +

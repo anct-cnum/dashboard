@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Documents() {
-  const urlSiteVitrine = process.env.REACT_APP_PUBLIC_HOSTNAME;
+  const urlSiteVitrine = import.meta.env.VITE_APP_PUBLIC_HOSTNAME;
 
   return (
     <div className="fr-container fr-my-10w">

@@ -6,7 +6,7 @@ import { filtresDemandesActions } from '../../actions';
 
 function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const urlSiteVitrine = process.env.REACT_APP_PUBLIC_HOSTNAME;
+  const urlSiteVitrine = import.meta.env.VITE_APP_PUBLIC_HOSTNAME;
   const dispatch = useDispatch();
 
   return (
