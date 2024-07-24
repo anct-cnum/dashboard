@@ -28,33 +28,23 @@ jobs:
           key: node_modules.-${{ hashFiles('package-lock.json') }}
           path: node_modules
 
-  build:
-    needs: dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Retrieve cached dependencies
-        uses: actions/cache@v4
-        with:
-          key: node_modules-${{ hashFiles('package-lock.json') }}
-          path: node_modules
       - name: Override .env
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_REACT_APP_API_URL: ${{ secrets.REACT_ADMIN_API_STAGING }}
-          envkey_REACT_APP_STRATEGYAUTH: "local"
-          envkey_REACT_APP_SENTRY_ENABLED: "true"
-          envkey_REACT_APP_SENTRY_ENVIRONMENT: "staging"
+          envkey_REACT_APP_STRATEGYAUTH: local
+          envkey_REACT_APP_SENTRY_ENABLED: true
+          envkey_REACT_APP_SENTRY_ENVIRONMENT: staging
           envkey_REACT_APP_SENTRY_DSN: ${{ secrets.SENTRY_PILOTAGE_DSN }}
-          envkey_REACT_APP_SENTRY_TRACE_RATE: "0.01"
-          envkey_REACT_APP_FRANCE_COMPETENCES_HOSTNAME: "https://www.francecompetences.fr/recherche/rncp/34137"
-          envkey_REACT_APP_PIX_CERTIFIER_HOSTNAME: "https://pix.fr/se-certifier"
-          envkey_REACT_APP_AIDE_HOSTNAME: "https://aide.conseiller-numerique.gouv.fr/fr"
-          envkey_REACT_APP_DEMARCHES_SIMPLIFIEES_HOSTNAME: "https://www.demarches-simplifiees.fr"
-          envkey_REACT_APP_PUBLIC_HOSTNAME: "https://beta.www.conseiller-numerique.gouv.fr"
-          envkey_REACT_APP_DEMARCHES_SIMPLIFIEES_RECRUTEMENT_COORDINATEUR: "https://www.demarches-simplifiees.fr/commencer/fb113b44-2742-438c-95dd-37b3d6342d88"
-          envkey_REACT_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR: "https://www.demarches-simplifiees.fr/commencer/a1dac784-b6a0-4733-82c9-2c5c660797cf"
-          envkey_REACT_APP_MATOMO_URL: "https://stats.data.gouv.fr/"
+          envkey_REACT_APP_SENTRY_TRACE_RATE: 0.01
+          envkey_REACT_APP_FRANCE_COMPETENCES_HOSTNAME: https://www.francecompetences.fr/recherche/rncp/34137
+          envkey_REACT_APP_PIX_CERTIFIER_HOSTNAME: https://pix.fr/se-certifier
+          envkey_REACT_APP_AIDE_HOSTNAME: https://aide.conseiller-numerique.gouv.fr/fr
+          envkey_REACT_APP_DEMARCHES_SIMPLIFIEES_HOSTNAME: https://www.demarches-simplifiees.fr
+          envkey_REACT_APP_PUBLIC_HOSTNAME: https://beta.www.conseiller-numerique.gouv.fr
+          envkey_REACT_APP_DEMARCHES_SIMPLIFIEES_RECRUTEMENT_COORDINATEUR: https://www.demarches-simplifiees.fr/commencer/fb113b44-2742-438c-95dd-37b3d6342d88
+          envkey_REACT_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR: https://www.demarches-simplifiees.fr/commencer/a1dac784-b6a0-4733-82c9-2c5c660797cf
+          envkey_REACT_APP_MATOMO_URL: https://stats.data.gouv.fr/
           envkey_REACT_APP_MATOMO_ID: ${{ secrets.MATOMO_SITE_ID }}
           envkey_REACT_APP_AUTH_CLIENT_ID: ${{ secrets.IC_RECETTE_AUTH_CLIENT_ID }}
           envkey_REACT_APP_AUTH_CLIENT_SECRET: ${{ secrets.IC_RECETTE_AUTH_CLIENT_SECRET }}
@@ -63,39 +53,24 @@ jobs:
           envkey_REACT_APP_AUTH_OIDC_USER_KEY: ${{ secrets.IC_RECETTE_AUTH_OIDC_USER_KEY }}
           envkey_REACT_APP_CONTRAT_SMIC: 1766.92
           file_name: .env
-      - name: copy robots.txt
+      - name: Copy robots.txt
         uses: canastro/copy-file-action@master
         with:
-          source: "desindexation/robots.txt"
-          target: "public/robots.txt"
-      - name: copy index.html
+          source: desindexation/robots.txt
+          target: public/robots.txt
+      - name: Copy index.html
         uses: canastro/copy-file-action@master
         with:
-          source: "desindexation/index.html"
-          target: "public/index.html"
+          source: desindexation/index.html
+          target: public/index.html
       - name: Build application
         run: npm run build
-      - name: copy .htaccess
+      - name: Copy .htaccess
         uses: canastro/copy-file-action@master
         with:
-          source: ".htaccess"
-          target: "build/.htaccess"
-      - name: Upload release bundle as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: bundle
-          path: build/*
+          source: .htaccess
+          target: build/.htaccess
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Retrieve bundle React
-        uses: actions/download-artifact@v4
-        with:
-          name: bundle
-          path: build
       - name: Deploy on clever cloud
         uses: s0/git-publish-subdir-action@develop
         env:
@@ -104,7 +79,6 @@ jobs:
           FOLDER: build
           SSH_PRIVATE_KEY: ${{ secrets.CLEVER_CLOUD_DEPLOY_PRIVATE_KEY }}
           KNOWN_HOSTS_FILE: resources/known_hosts
-      - uses: actions/checkout@v4
       - name: Create Sentry release
         uses: getsentry/action-release@v1
         env:
