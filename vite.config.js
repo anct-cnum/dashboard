@@ -2,7 +2,7 @@ import { defineConfig, transformWithEsbuild } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '',
+  base: '/',
   plugins: [
     {
       name: 'load+transform-js-files-as-jsx',
