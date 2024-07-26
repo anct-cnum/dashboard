@@ -95,7 +95,7 @@ function PopinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
                         <input type="radio" id="radio-4" name="motifRupture"
                           onChange={ motif => setMotifRuptureValide(motif.target.value)} value="CDIsation" />
                         <label className="fr-label fr-text--sm fr-mb-0" htmlFor="radio-4">
-                            CDIsation de contrat
+                            CDIsation / titularisation de contrat
                         </label>
                       </div>
                     </div>
