@@ -58,7 +58,7 @@ function MenuHub({ onClickMenu, activeMenu, trackEvent }) {
                 {...(location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'statistiques-nationales', action: `click-${roleActivated}` })}
               >
-                &bull;&nbsp;Statistiques nationales du dispositif
+                Statistiques nationales du dispositif
               </Link>
             </li>
             <li>
@@ -66,7 +66,7 @@ function MenuHub({ onClickMenu, activeMenu, trackEvent }) {
                 {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'statistiques-territoriales', action: `click-${roleActivated}` })}
               >
-                &bull;&nbsp;Statistiques territoriales du dispositif
+                Statistiques territoriales du dispositif
               </Link>
             </li>
           </ul>
