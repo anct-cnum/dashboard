@@ -108,7 +108,7 @@ export function useAdvisors() {
         const isFinalisee =
             miseEnRelation.statut === 'finalisee';
         return (
-          isFinalisee &&
+          isFinalisee && !miseEnRelation.reconventionnement &&
           isContractExpiring(miseEnRelation?.dateFinDeContrat) &&
           !validTypeDeContratWithoutEndDate(miseEnRelation.typeDeContrat) &&
           isConventionnementOrReconventionnementValide(structure)
