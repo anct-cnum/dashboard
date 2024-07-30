@@ -2,7 +2,6 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { formatNomConseiller } from '../../../../utils/formatagesUtils';
 import AdvisorCard from './AdvisorCard';
-import { ModalMode } from '../../../../utils/enumUtils';
 
 const EditContractCard = ({ conseiller, handleOpenModalContrat }) => {
 
@@ -24,7 +23,7 @@ const EditContractCard = ({ conseiller, handleOpenModalContrat }) => {
             <button
               className="fr-btn fr-btn--icon-left fr-icon-edit-line card__button"
               title="&Eacute;diter son nouveau contrat"
-              onClick={() => handleOpenModalContrat(ModalMode.EDITION, conseiller)}
+              onClick={() => handleOpenModalContrat(false, conseiller)}
             >
               &Eacute;diter son nouveau contrat
             </button>
