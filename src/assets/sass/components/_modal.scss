@@ -2,12 +2,12 @@
 
 /* Modal Gestion */
 .modalOpened {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .fr-modal__content span, .fr-modal__content p {
-    color: $black !important;
+  color: $black !important;
 }
 
 .fr-fieldset-contract__content {

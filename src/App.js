@@ -6,8 +6,6 @@ import Login from './views/anonymous/Login';
 import Passerelle from './views/anonymous/Passerelle';
 import Accueil from './views/connected/Accueil';
 import Footer from './components/Footer';
-import './assets/js';
-import './assets/sass/main.scss';
 import Header from './components/Header';
 import Alerte from './components/Alerte';
 import Documents from './views/connected/Documents';
@@ -22,6 +20,17 @@ import { getAccessToken } from './helpers/getAccessToken';
 import GraphiqueConseiller from './views/connected/commun/statistiques/GraphiqueConseiller';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import Spinner from './components/Spinner';
+
+import '@gouvfr/dsfr/dist/dsfr/dsfr.module';
+import './assets/sass/main.scss';
+import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
+import '@gouvfr/dsfr/dist/utility/icons/icons-communication/icons-communication.min.css';
+import '@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css';
+import '@gouvfr/dsfr/dist/utility/icons/icons-design/icons-design.min.css';
+import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css';
+import '@gouvfr/dsfr/dist/utility/icons/icons-document/icons-document.min.css';
+import 'react-datepicker/dist/react-datepicker.css';
+import 'remixicon/fonts/remixicon.css';
 
 function App() {
 
