@@ -18,7 +18,7 @@ function SousMenuCommun({
           to={`${roleActivated}/exports`}
           className="fr-nav__link"
           {...(location.pathname.startsWith(`/${roleActivated}/exports`) ? { 'aria-current': 'page' } : {})}>
-                Exports
+          Exports
         </Link>
       </li>
       <li className="fr-nav__item">
@@ -31,7 +31,7 @@ function SousMenuCommun({
           to={`/documents`}
           className="fr-nav__link"
           {...(location.pathname.startsWith(`/documents`) ? { 'aria-current': 'page' } : {})}>
-                Documents
+          Documents
         </Link>
       </li>
       <li className="fr-nav__item">
@@ -41,18 +41,18 @@ function SousMenuCommun({
           aria-expanded={activeMenu === 'aide'}
           aria-controls="menu-aide"
           onClick={onClickMenu}>
-                Aide
+          Aide
         </button>
         <div className={`fr-collapse fr-menu ${activeMenu === 'aide' ? 'fr-collapse--expanded' : ''}`} id="menu-aide">
           <ul className="fr-menu__list">
             <li>
               <a className="fr-nav__link" href={urlAide} target="blank" rel="noreferrer noopener">
-                      &bull;&nbsp;FAQ
+                FAQ
               </a>
             </li>
             <li>
               <a className="fr-nav__link" href={`mailto:${mailContact}`}>
-                      &bull;&nbsp;Nous contacter
+                Nous contacter
               </a>
             </li>
           </ul>

@@ -58,7 +58,7 @@ function MenuGrandReseau({ onClickMenu, activeMenu, trackEvent }) {
                 {...(location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'statistiques-nationales', action: `click-${roleActivated}` })}
               >
-                &bull;&nbsp;Statistiques nationales du dispositif
+                Statistiques nationales du dispositif
               </Link>
             </li>
             <li>
@@ -66,13 +66,13 @@ function MenuGrandReseau({ onClickMenu, activeMenu, trackEvent }) {
                 {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'statistiques-territoriales', action: `click-${roleActivated}` })}
               >
-                &bull;&nbsp;Statistiques territoriales du dispositif
+                Statistiques territoriales du dispositif
               </Link>
             </li>
             <li>
               <Link className="fr-nav__link" to={`/statistiques-pilotage`}
                 {...(location.pathname.startsWith(`/statistiques-pilotage`) ? { 'aria-current': 'page' } : {})}>
-                &bull;&nbsp;Mes statistiques de pilotage
+                Mes statistiques de pilotage
               </Link>
             </li>
           </ul>

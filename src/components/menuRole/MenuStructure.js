@@ -103,7 +103,7 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
                 {...(location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'statistiques-nationales', action: `click-${roleActivated}` })}
               >
-                &bull;&nbsp;Statistiques nationales du dispositif
+                Statistiques nationales du dispositif
               </Link>
             </li>
             <li>
@@ -111,13 +111,13 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
                 {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'statistiques-territoriales', action: `click-${roleActivated}` })}
               >
-                &bull;&nbsp;Statistiques territoriales du dispositif
+                Statistiques territoriales du dispositif
               </Link>
             </li>
             <li>
               <Link className="fr-nav__link" to={`/statistiques-structure/${authenticationUser}`}
                 {...(location.pathname.startsWith(`/statistiques-structure`) ? { 'aria-current': 'page' } : {})}>
-                &bull;&nbsp;Mes statistiques structure
+                Mes statistiques structure
               </Link>
             </li>
           </ul>

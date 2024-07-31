@@ -59,12 +59,12 @@ function SousMenuCoordinateur({
           <ul className="fr-menu__list">
             <li>
               <a className="fr-nav__link" href={urlAide} target="blank" rel="noreferrer noopener">
-                &bull;&nbsp;FAQ
+                FAQ
               </a>
             </li>
             <li>
               <a className="fr-nav__link" href="mailto:conseiller-numerique@anct.gouv.fr">
-                &bull;&nbsp;Nous contacter
+                Nous contacter
               </a>
             </li>
           </ul>
