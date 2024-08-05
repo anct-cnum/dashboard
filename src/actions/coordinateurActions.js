@@ -9,7 +9,6 @@ export const coordinateurActions = {
   confirmationValidAvisAdmin,
 };
 
-// eslint-disable-next-line max-len
 function getAllDemandesCoordinateur(page, statutDemande, filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
   return dispatch => {
     dispatch(request());

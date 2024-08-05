@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
@@ -47,10 +46,11 @@ async function getExportDonneesTerritoire(territoire, dateDebut, dateFin, nomOrd
   .catch(handleApiError);
 }
 
-function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre) {
-
+function getExportDonneesConseiller(
+  dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre
+) {
   const exportConseillersRoute = '/conseillers-csv';
-  let {
+  const {
     ordreColonne,
     filterDateStart,
     filterDateEnd,
@@ -60,26 +60,30 @@ function getExportDonneesConseiller(dateDebut, dateFin, filtreRupture, filtreCoo
     filterByRegion,
     filterByDepartement,
     filterByNameStructure,
-  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement, filtreParNomStructure);
+  } = conseillerQueryStringParameters(
+    nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement, filtreParNomStructure
+  );
+
+  // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}${filterByNameStructure}`)
   .then(response => response.data)
   .catch(handleApiError);
-
 }
-function getExportDonneesConseillerCoordonnes(filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre) {
 
+function getExportDonneesConseillerCoordonnes(filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre) {
   const exportConseillersRoute = '/conseillers-coordonnes-csv';
-  let {
+  const {
     ordreColonne,
     filterByNameConseiller,
     filterByRegion,
     filterByDepartement,
     filterByNameStructure,
   } = conseillerCoordonnesQueryStringParameters(nomOrdre, ordre, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure);
+
+  // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByNameConseiller}${ordreColonne}${filterByRegion}${filterByDepartement}${filterByNameStructure}`)
   .then(response => response.data)
   .catch(handleApiError);
-
 }
 
 function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre) {
@@ -96,6 +100,7 @@ function getExportDonneesStructure(dateDebut, dateFin, filtreParNom, filtreParDe
 
   } = structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut);
 
+  // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports${exportConseillersRoute}?role=${roleActivated()}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}`)
   .then(response => response.data)
   .catch(handleApiError);
@@ -113,6 +118,8 @@ function getStatistiquesConseillerCSV(dateDebut, dateFin, idType, codePostal, vi
     filterByFirstName,
     filterByIdStructure,
   } = statsCsvConseillerQueryStringParameters(dateDebut, dateFin, idType, codePostal, ville, codeCommune, nom, prenom, structureId);
+
+  // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${roleActivated()}&type=conseiller${filterDateStart}${filterDateEnd}${filterIdType}${filterByVille}${filterByCodeCommune}${filterByCodePostal}${filterByLastName}${filterByFirstName}${filterByIdStructure}`)
   .then(response => response.data)
   .catch(handleApiError);
@@ -127,6 +134,8 @@ function getStatistiquesStructureCSV(dateDebut, dateFin, idType, codePostal, vil
     filterByCodeCommune,
     filterByCodePostal,
   } = statsCsvStructureQueryStringParameters(dateDebut, dateFin, idType, codePostal, ville, codeCommune);
+
+  // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${roleActivated()}&type=structure${filterDateStart}${filterDateEnd}${filterIdType}${filterByVille}${filterByCodeCommune}${filterByCodePostal}`)
   .then(response => response.data)
   .catch(handleApiError);
@@ -144,6 +153,8 @@ function getStatistiquesGrandReseauCSV(dateDebut, dateFin, codePostal, ville, co
     filterByIdStructure,
     filterByIdConseiller
   } = statsCsvGrandReseauQueryStringParameters(dateDebut, dateFin, codePostal, ville, codeCommune, structureId, conseillerId, region, departement);
+
+  // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports/statistiques-csv?role=${roleActivated()}&type=grandReseau${filterDateStart}${filterDateEnd}${filterByVille}${filterByCodeCommune}${filterByCodePostal}${filterByRegion}${filterByDepartement}${filterByIdStructure}${filterByIdConseiller}`)
   .then(response => response.data)
   .catch(handleApiError);
@@ -178,7 +189,9 @@ function getExportDonneesGestionnaires(filtreRole, filtreParNom, nomOrdre, ordre
   .catch(handleApiError);
 }
 
-function getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre) {
+function getExportDonneesHistoriqueDossiersConvention(
+  typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre
+) {
   const {
     filterDateStart,
     filterDateEnd,
@@ -189,6 +202,7 @@ function getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut,
     ordreColonne,
   } = historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre);
 
+  // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports/historique-dossiers-convention-csv?role=${roleActivated()}&type=${typeConvention}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisAdmin}`)
   .then(response => response.data)
   .catch(handleApiError);
@@ -203,6 +217,8 @@ function getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, fi
     filterByRegion,
     filterByDepartement
   } = contratQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, ordreNom, ordre);
+
+  // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports/historique-contrats-csv?role=${roleActivated()}&statut=${statutContrat}${filterDateStart}${filterDateEnd}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}`)
   .then(response => response.data)
   .catch(handleApiError);
@@ -216,6 +232,8 @@ function getExportDemandesCoordinateurs(statutDemande, filtreSearchBar, filtreDe
     filterByAvisPrefet,
     ordreColonne,
   } = demandesQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre);
+
+  // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/exports/demandes-coordinateurs-csv?role=${roleActivated()}&statut=${statutDemande}${ordreColonne}${filterByName}${filterByRegion}${filterByDepartement}${filterByAvisPrefet}`)
   .then(response => response.data)
   .catch(handleApiError);

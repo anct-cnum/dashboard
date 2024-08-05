@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
@@ -42,31 +41,37 @@ function getDatasTerritoires(territoire, dateDebut, dateFin, page, nomOrdre, ord
 }
 
 function getStatistiquesTerritoire(dateDebut, dateFin, typeTerritoire, idTerritoire) {
-  return API.get(`${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&role=anonyme`)
+  return API.get(
+    `${apiUrlRoot}/stats/territoire/cra?dateDebut=${dateDebut}&dateFin=${dateFin}&typeTerritoire=${typeTerritoire}&idTerritoire=${idTerritoire}&role=anonyme`
+  )
   .then(response => response.data)
   .catch(handleApiError);
 }
 
 function getStatistiquesStructure(dateDebut, dateFin, idStructure, codePostal, codeCommune) {
   const { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune } = statsQueryStringParameters(dateDebut, dateFin, codePostal, codeCommune);
-  return API.get(
-    `${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}&idStructure=${idStructure}`)
+  // eslint-disable-next-line max-len
+  return API.get(`${apiUrlRoot}/stats/structure/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}&idStructure=${idStructure}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
 
 function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal, codeCommune, idStructure) {
-  const { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune, filterByIdStructure } = statsQueryStringParameters(dateDebut, dateFin, codePostal, codeCommune, idStructure);
-  return API.get(
-    `${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}${filterByIdStructure}&idConseiller=${idConseiller}`)
+  const { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune, filterByIdStructure } =
+    statsQueryStringParameters(dateDebut, dateFin, codePostal, codeCommune, idStructure);
+
+  // eslint-disable-next-line max-len
+  return API.get(`${apiUrlRoot}/stats/conseiller/cras?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}${filterByIdStructure}&idConseiller=${idConseiller}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
 
 function getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idConseiller, codePostal, codeCommune, idStructure) {
-  const { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune, filterByIdStructure } = statsQueryStringParameters(dateDebut, dateFin, codePostal, codeCommune, idStructure);
-  return API.get(
-    `${apiUrlRoot}/stats/recrutement/conseiller/cras?role=anonyme${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}${filterByIdStructure}&idConseiller=${idConseiller}`)
+  const { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune, filterByIdStructure } =
+    statsQueryStringParameters(dateDebut, dateFin, codePostal, codeCommune, idStructure);
+
+  // eslint-disable-next-line max-len
+  return API.get(`${apiUrlRoot}/stats/recrutement/conseiller/cras?role=anonyme${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}${filterByIdStructure}&idConseiller=${idConseiller}`)
   .then(response => response.data)
   .catch(handleApiError);
 }
@@ -95,6 +100,8 @@ function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, co
     filterByIdConseiller,
     filterByIdStructure
   } = statsGrandReseauQueryStringParameters(dateDebut, dateFin, conseillerId, codePostal, codeCommune, region, departement, structureId);
+
+  // eslint-disable-next-line max-len
   return API.get(`stats/nationales/cras/grand-reseau?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterByCodePostal}${filterByCodeCommune}${filterByRegion}${filterByDepartement}${filterByIdStructure}${filterByIdConseiller}`)
   .then(response => response.data)
   .catch(handleApiError);

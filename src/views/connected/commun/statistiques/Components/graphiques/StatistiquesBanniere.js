@@ -6,9 +6,21 @@ import dayjs from 'dayjs';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { alerteEtSpinnerActions, exportsActions } from '../../../../../../actions';
 
-// eslint-disable-next-line max-len
-function StatistiquesBanniere({ dateDebut, dateFin, id, typeStats, codePostal, ville, codeCommune, nom, prenom, region, departement, conseillerId, structureId }) {
-
+function StatistiquesBanniere({
+  dateDebut,
+  dateFin,
+  id,
+  typeStats,
+  codePostal,
+  ville,
+  codeCommune,
+  nom,
+  prenom,
+  region,
+  departement,
+  conseillerId,
+  structureId
+}) {
   const dispatch = useDispatch();
   const location = useLocation();
   const exports = useSelector(state => state.exports);

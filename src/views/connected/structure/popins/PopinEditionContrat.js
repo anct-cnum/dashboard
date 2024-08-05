@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from 'react-datepicker';
@@ -68,8 +67,10 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, extendContra
       if (!conseiller?.typeDeContrat?.includes(typeDeContrat)) {
         return false;
       }
-      // eslint-disable-next-line max-len
-      if ((conseiller?.contratCoordinateur && conseiller?.contratCoordinateur !== isRecrutementCoordinateur) || (!conseiller?.contratCoordinateur && isRecrutementCoordinateur)) {
+      if (
+        (conseiller?.contratCoordinateur && conseiller?.contratCoordinateur !== isRecrutementCoordinateur) ||
+        (!conseiller?.contratCoordinateur && isRecrutementCoordinateur)
+      ) {
         return false;
       }
       if (new Date(conseiller?.dateDebutDeContrat)?.getTime() !== dateDebut?.getTime()) {
@@ -222,6 +223,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, extendContra
                     <label className="fr-label">
                       Date de d&eacute;but de contrat
                     </label>
+                    {/* eslint-disable-next-line max-len */}
                     <div className={`fr-col-xl-11 ${(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) ? 'date-debut-contrat-coordinateur' : 'date-debut-contrat'} `}>
                       <DatePicker
                         id="datePickerDebutContrat"
@@ -242,6 +244,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, extendContra
                     <label className="fr-label">
                       Date de fin de contrat
                     </label>
+                    {/* eslint-disable-next-line max-len */}
                     <div className={`fr-col-xl-11 ${(conseiller?.quotaCoordinateur || conseiller?.contratCoordinateur) ? 'date-fin-contrat-coordinateur' : 'date-fin-contrat'} `}>
                       <DatePicker
                         id="datePickerFinContrat"

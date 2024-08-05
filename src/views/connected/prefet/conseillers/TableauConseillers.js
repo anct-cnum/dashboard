@@ -42,8 +42,19 @@ export default function TableauConseillers() {
       dispatch(conseillerActions.getAllRecruter(currentPage, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreRegion,
         filterDepartement, filtreParNomStructure, ordreNom, ordre ? 1 : -1));
     }
-    // eslint-disable-next-line max-len
-  }, [dateDebut, dateFin, currentPage, filtreCoordinateur, filtreRupture, filtreParNomConseiller, ordreNom, ordre, filtreRegion, filterDepartement, filtreParNomStructure]);
+  }, [
+    dateDebut,
+    dateFin,
+    currentPage,
+    filtreCoordinateur,
+    filtreRupture,
+    filtreParNomConseiller,
+    ordreNom,
+    ordre,
+    filtreRegion,
+    filterDepartement,
+    filtreParNomStructure
+  ]);
 
   useEffect(() => {
     scrollTopWindow();

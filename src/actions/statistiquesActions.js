@@ -253,8 +253,9 @@ function getStatistiquesConseiller(dateDebut, dateFin, idConseiller, codePostal 
 function getStatistiquesConseillerParcoursRecrutement(dateDebut, dateFin, idConseiller, codePostal = null, codeCommune = null, idStructure) {
   return dispatch => {
     dispatch(request());
-    // eslint-disable-next-line max-len
-    statistiquesService.getStatistiquesConseillerParcoursRecrutement(formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, codeCommune, idStructure)
+    statistiquesService.getStatistiquesConseillerParcoursRecrutement(
+      formatDate(dateDebut), formatDate(dateFin), idConseiller, codePostal, codeCommune, idStructure
+    )
     .then(
       statsConseiller => {
         dispatch(success(statsConseiller));

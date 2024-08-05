@@ -79,8 +79,19 @@ function suppressionCandidat({ id, motif }) {
   .catch(handleApiError);
 }
 
-// eslint-disable-next-line max-len
-function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre) {
+function getAllRecruter(
+  page,
+  dateDebut,
+  dateFin,
+  filtreRupture,
+  filtreCoordinateur,
+  filtreParNomConseiller,
+  filtreParRegion,
+  filtreParDepartement,
+  filtreParNomStructure,
+  nomOrdre,
+  ordre
+) {
   let {
     ordreColonne,
     filterDateStart,
@@ -91,11 +102,12 @@ function getAllRecruter(page, dateDebut, dateFin, filtreRupture, filtreCoordinat
     filterByRegion,
     filterByDepartement,
     filterByNameStructure,
-  // eslint-disable-next-line max-len
-  } = conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement, filtreParNomStructure);
+  } = conseillerQueryStringParameters(
+    nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement, filtreParNomStructure
+  );
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/conseillers-recruter?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}${filterByNameStructure}&role=${roleActivated()}`;
+  const uri = `${apiUrlRoot}/conseillers-recruter?skip=${page}${filterByNameConseiller}${filterDateStart}${filterDateEnd}${rupture}${ordreColonne}${coordinateur}${filterByRegion}${filterByDepartement}${filterByNameStructure}&role=${roleActivated()}`;
 
   return API.get(uri)
   .then(response => response.data)
@@ -109,11 +121,10 @@ function getConseillersCoordonnes(page, filtreParNomConseiller, filtreParRegion,
     filterByRegion,
     filterByDepartement,
     filterByNameStructure,
-
   } = conseillerCoordonnesQueryStringParameters(nomOrdre, ordre, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure);
 
   // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/conseillers-coordonnes?skip=${page}${filterByNameConseiller}${ordreColonne}${filterByRegion}${filterByDepartement}${filterByNameStructure}&role=${roleActivated()}`;
+  const uri = `${apiUrlRoot}/conseillers-coordonnes?skip=${page}${filterByNameConseiller}${ordreColonne}${filterByRegion}${filterByDepartement}${filterByNameStructure}&role=${roleActivated()}`;
 
   return API.get(uri)
   .then(response => response.data)
@@ -125,11 +136,9 @@ function getAllCandidatsByAdmin(page, filtreSearch, filtreParRegion, filtreParDe
     filterByNameAndEmailCandidat,
     filterByRegion,
     filterByDepartement,
-  // eslint-disable-next-line max-len
   } = candidatQueryStringParameters(filtreSearch, filtreParRegion, filtreParDepartement);
 
-  // eslint-disable-next-line max-len
-  let uri = `${apiUrlRoot}/candidats?skip=${page}${filterByNameAndEmailCandidat}${filterByDepartement}${filterByRegion}&role=${roleActivated()}`;
+  const uri = `${apiUrlRoot}/candidats?skip=${page}${filterByNameAndEmailCandidat}${filterByDepartement}${filterByRegion}&role=${roleActivated()}`;
 
   return API.get(uri)
   .then(response => response.data)
@@ -140,7 +149,6 @@ function getAllCandidats(search, page, nomOrdre, ordre, persoFilters) {
   const filterSearch = search !== '' ? `&search=${search}` : '';
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
 
-  // eslint-disable-next-line max-len
   let uri = `${apiUrlRoot}/candidats/structure?skip=${page}${filterSearch}${ordreColonne}&role=${roleActivated()}`;
 
   if (persoFilters) {
@@ -167,7 +175,6 @@ function getAllMisesEnRelation(search, page, filter, nomOrdre, ordre, persoFilte
   const filterSearch = search !== '' ? `&search=${search}` : '';
   const ordreColonne = nomOrdre ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
 
-  // eslint-disable-next-line max-len
   let uri = `${apiUrlRoot}/structures/misesEnRelation?skip=${page}${ordreColonne}${filterSearch}&role=${roleActivated()}`;
 
   if (filter) {

@@ -27,8 +27,8 @@ const AccueilBanners = () => {
     if (idDemandeCoordinateur) {
       const user = localStorage.getItem('user');
       const formatUser = JSON.parse(user);
-      // eslint-disable-next-line max-len
-      formatUser.user.demandesCoordinateurBannerInformation = formatUser.user.demandesCoordinateurBannerInformation.filter(demande => demande.id !== idDemandeCoordinateur);
+      formatUser.user.demandesCoordinateurBannerInformation =
+        formatUser.user.demandesCoordinateurBannerInformation.filter(demande => demande.id !== idDemandeCoordinateur);
       localStorage.setItem('user', JSON.stringify(formatUser));
     }
     if (errorCoordinateur) {
@@ -44,8 +44,8 @@ const AccueilBanners = () => {
     if (idMiseEnRelation) {
       const user = localStorage.getItem('user');
       const formatUser = JSON.parse(user);
-      // eslint-disable-next-line max-len
-      formatUser.user.miseEnRelationRefusRecrutement = formatUser.user.miseEnRelationRefusRecrutement.filter(miseEnRelation => miseEnRelation._id !== idMiseEnRelation);
+      formatUser.user.miseEnRelationRefusRecrutement =
+        formatUser.user.miseEnRelationRefusRecrutement.filter(miseEnRelation => miseEnRelation._id !== idMiseEnRelation);
       localStorage.setItem('user', JSON.stringify(formatUser));
     }
     if (errorContrat) {

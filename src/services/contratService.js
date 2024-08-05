@@ -18,8 +18,8 @@ export const contratService = {
 };
 
 function getAll(page, statutContrat, filtreSearchBar, filtreDepartement, filtreRegion, filtreStatutDossierRupture, ordreNom, ordre) {
-  // eslint-disable-next-line max-len
-  const filterByStatutDossierRupture = filtreStatutDossierRupture !== 'tous' && filtreStatutDossierRupture !== undefined ? `&statutDossierRupture=${filtreStatutDossierRupture}` : '';
+  const filterByStatutDossierRupture =
+  filtreStatutDossierRupture !== 'tous' && filtreStatutDossierRupture !== undefined ? `&statutDossierRupture=${filtreStatutDossierRupture}` : '';
   const {
     ordreColonne,
     filterByName,
@@ -87,8 +87,9 @@ function updateContractRecrutementStructure(typeDeContrat, dateDebutDeContrat, d
   .catch(handleApiError);
 }
 
-// eslint-disable-next-line max-len
-function updateContractRecrutementAdmin(typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, isRecrutementCoordinateur, miseEnrelationId, conseillerId) {
+function updateContractRecrutementAdmin(
+  typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, isRecrutementCoordinateur, miseEnrelationId, conseillerId
+) {
   // eslint-disable-next-line max-len
   return API.patch(`${apiUrlRoot}/admin/recrutement/contrat/${miseEnrelationId}/${conseillerId}?role=${roleActivated()}`, { typeDeContrat, dateDebutDeContrat, dateFinDeContrat, salaire, isRecrutementCoordinateur })
   .then(response => response.data)

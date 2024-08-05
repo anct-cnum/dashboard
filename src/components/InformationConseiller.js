@@ -10,8 +10,9 @@ import pixUtilisation from '../assets/icons/pix-utilisation.png';
 import pixRessources from '../assets/icons/pix-ressources.png';
 import pixCitoyen from '../assets/icons/pix-citoyen.png';
 
-// eslint-disable-next-line max-len
-function InformationConseiller({ conseiller, misesEnRelationFinalisee, misesEnRelationFinaliseeRupture, misesEnRelationNouvelleRupture, roleActivated, recrutement = false }) {
+function InformationConseiller({
+  conseiller, misesEnRelationFinalisee, misesEnRelationFinaliseeRupture, misesEnRelationNouvelleRupture, roleActivated, recrutement = false
+}) {
 
   const { trackEvent } = useMatomo();
 

@@ -15,8 +15,10 @@ function ButtonsAction({ updateStatut, miseEnRelation, setDisplayModal, idConsei
 
   const updateContractRecrutement = (typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur = false) => {
     dispatch(contratActions.updateContractRecrutementStructure(typeDeContrat, dateDebut, dateFin, salaire, isRecrutementCoordinateur, miseEnRelation._id));
-    // eslint-disable-next-line max-len
-    if ((miseEnRelation?.contratCoordinateur && miseEnRelation?.contratCoordinateur !== isRecrutementCoordinateur) || (!miseEnRelation?.contratCoordinateur && isRecrutementCoordinateur)) {
+    if (
+      (miseEnRelation?.contratCoordinateur && miseEnRelation?.contratCoordinateur !== isRecrutementCoordinateur) ||
+      (!miseEnRelation?.contratCoordinateur && isRecrutementCoordinateur)
+    ) {
       setDisplayModal(true);
     }
   };

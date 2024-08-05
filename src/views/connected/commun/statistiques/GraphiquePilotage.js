@@ -36,8 +36,9 @@ export default function GraphiquePilotage() {
         setInitStats(true);
         dispatch(statistiquesActions.resetFiltre());
       } else {
-        // eslint-disable-next-line max-len
-        dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, codePostal, region, departement, structureId, conseillerId));
+        dispatch(statistiquesActions.getStatistiquesNationaleGrandReseau(
+          dateDebut, dateFin, codeCommune, codePostal, region, departement, structureId, conseillerId
+        ));
       }
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({

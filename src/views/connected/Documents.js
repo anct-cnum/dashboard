@@ -43,8 +43,10 @@ export default function Documents() {
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/ConventionMutualisationEPCI.pdf"
-              // eslint-disable-next-line max-len
-              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger le mod&egrave;le de convention de mutualisation de poste pour un EPCI">
+              className="fr-link"
+              target="blank"
+              rel="noreferrer noopener"
+              title="T&eacute;l&eacute;charger le mod&egrave;le de convention de mutualisation de poste pour un EPCI">
               T&eacute;l&eacute;charger le mod&egrave;le de convention de mutualisation de poste pour un EPCI (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
@@ -256,8 +258,10 @@ export default function Documents() {
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/les-conseils-pour-bien-demarrer.pdf"
-              // eslint-disable-next-line max-len
-              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger le kit &laquo;Bien d&eacute;marrer ma mission&raquo;">
+              className="fr-link"
+              target="blank"
+              rel="noreferrer noopener"
+              title="T&eacute;l&eacute;charger le kit &laquo;Bien d&eacute;marrer ma mission&raquo;">
               T&eacute;l&eacute;charger le kit &laquo;Bien d&eacute;marrer ma mission&raquo; &agrave; remettre au(x) Conseiller(s) (pdf)
             </a>
             <span className="fr-footer__bottom-link" style={{ display: 'block' }}>
@@ -328,8 +332,10 @@ export default function Documents() {
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/guide-d-utilisation-de-l-outil-de-suivi-d-activite.pdf"
-              // eslint-disable-next-line max-len
-              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger le guide d&rsquo;utilisation de l&rsquo;outil de suivi d&rsquo;activit&eacute;">
+              className="fr-link"
+              target="blank"
+              rel="noreferrer noopener"
+              title="T&eacute;l&eacute;charger le guide d&rsquo;utilisation de l&rsquo;outil de suivi d&rsquo;activit&eacute;">
               T&eacute;l&eacute;charger le guide d&rsquo;utilisation de l&rsquo;outil de suivi d&rsquo;activit&eacute;
               des Conseillers num&eacute;riques (pdf)
             </a>
@@ -342,8 +348,11 @@ export default function Documents() {
         <div className="fr-grid-row">
           <p>
             <a href="https://cdn.conseiller-numerique.gouv.fr/CNFS_x_demarches_administrative.pdf"
+              className="fr-link"
+              target="blank"
+              rel="noreferrer noopener"
               // eslint-disable-next-line max-len
-              className="fr-link" target="blank" rel="noreferrer noopener" title="T&eacute;l&eacute;charger la note &laquo;&nbsp; Conseillers num&eacute;riques, structures d&rsquo;accueil : comment accompagner les usagers dans leurs d&eacute;marches administratives en ligne ?&nbsp;&raquo;">
+              title="Télécharger la note « Conseillers numériques, structures d’accueil : comment accompagner les usagers dans leurs démarches administratives en ligne ? »">
               T&eacute;l&eacute;charger la note &laquo;&nbsp; Conseillers num&eacute;riques, structures d&rsquo;accueil&nbsp;:
               comment accompagner les usagers dans leurs d&eacute;marches administratives en ligne&nbsp;?&nbsp;&raquo; (pdf)
             </a>

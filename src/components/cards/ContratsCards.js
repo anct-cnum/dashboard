@@ -115,7 +115,6 @@ function ContratsCards({ misesEnRelationNouvelleRupture, misesEnRelationFinalise
         }
         {misesEnRelationFinaliseeRupture?.map(miseEnRelation =>
           <div
-            // eslint-disable-next-line max-len
             className={`fr-card fr-col-12 fr-p-4w contrat-terminer ${misesEnRelationFinalisee?.length > 0 || misesEnRelationNouvelleRupture ? 'fr-mt-3w' : ''}`}
             key={miseEnRelation?._id}
             style={{ paddingLeft: '1rem' }}

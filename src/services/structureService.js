@@ -48,8 +48,8 @@ function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, fi
     filterByStatut,
     filterByRegion,
     filterByDepartement,
-  // eslint-disable-next-line max-len
   } = structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut);
+
   // eslint-disable-next-line max-len
   return API.get(`${apiUrlRoot}/structures/?skip=${page}${filterByName}${filterDateStart}${filterDateEnd}${filterByType}${ordreColonne}${filterByDepartement}${filterByRegion}${filterByStatut}&role=${roleActivated()}`)
   .then(response => response.data)

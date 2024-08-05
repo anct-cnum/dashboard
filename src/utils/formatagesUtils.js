@@ -47,7 +47,6 @@ export function formatFileNameStatsConseiller(dateDebut, dateFin, nom, prenom, c
 }
 
 export function formatFileNameStatsStructure(dateDebut, dateFin, nom, codePostal, ville) {
-  // eslint-disable-next-line max-len
   return `Statistiques_structure_${slugifyAttribut(nom)}${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
 }
 

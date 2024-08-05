@@ -30,8 +30,8 @@ function RightPage({ donneesStats }) {
   //Filtrage pour ne garder que le mois en cours et les 3 précédents max
   let monthToPrint = get4lastMonths(new Date().getMonth(), new Date().getUTCFullYear());
   let statsEvolutionsFiltered = Object.values(statsEvolutionsMapped).filter(mois => {
-    // eslint-disable-next-line max-len
-    return monthToPrint[0].includes(mois.mois) && monthToPrint[1][monthToPrint[0].findIndex(mois2 => mois.mois === mois2)].toString() === mois.annee ? mois : '';
+    return monthToPrint[0].includes(mois.mois) &&
+      monthToPrint[1][monthToPrint[0].findIndex(mois2 => mois.mois === mois2)].toString() === mois.annee ? mois : '';
   });
 
   //Ajout des mois manquants (donc avec totalCras à 0)

@@ -26,12 +26,11 @@ export const structureActions = {
   confirmationRefusAvisAdmin,
   resetConfirmationAvisAdmin,
 };
-// eslint-disable-next-line max-len
+
 function getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre = 'nom', ordre = 1) {
   return dispatch => {
     dispatch(request());
 
-    // eslint-disable-next-line max-len
     structureService.getAll(page, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre)
     .then(
       structures => dispatch(success(structures)),

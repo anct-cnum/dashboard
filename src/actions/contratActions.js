@@ -100,7 +100,6 @@ function validationRecrutement(id) {
   }
 }
 
-// eslint-disable-next-line max-len
 function getAllHistorique(page, statutContrat, dateDebut, dateFin, filtreSearchBar, filtreDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = -1) {
   return dispatch => {
     dispatch(request());

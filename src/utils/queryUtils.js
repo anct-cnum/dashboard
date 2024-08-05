@@ -1,5 +1,6 @@
-// eslint-disable-next-line max-len
-export function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement, filtreParNomStructure) {
+export function conseillerQueryStringParameters(
+  nomOrdre, ordre, dateDebut, dateFin, filtreParNomConseiller, filtreRupture, filtreCoordinateur, filtreParRegion, filtreParDepartement, filtreParNomStructure
+) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const filterByNameConseiller = filtreParNomConseiller ? `&searchByConseiller=${filtreParNomConseiller}` : '';
@@ -43,11 +44,14 @@ export function conseillerQueryStringParameters(nomOrdre, ordre, dateDebut, date
       break;
   }
 
-  // eslint-disable-next-line max-len
-  return { ordreColonne, filterDateStart, filterDateEnd, filterByNameConseiller, rupture, coordinateur, filterByRegion, filterByDepartement, filterByNameStructure };
+  return {
+    ordreColonne, filterDateStart, filterDateEnd, filterByNameConseiller, rupture, coordinateur, filterByRegion, filterByDepartement, filterByNameStructure
+  };
 }
-// eslint-disable-next-line max-len
-export function conseillerCoordonnesQueryStringParameters(nomOrdre, ordre, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure) {
+
+export function conseillerCoordonnesQueryStringParameters(
+  nomOrdre, ordre, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure
+) {
   const filterByNameConseiller = filtreParNomConseiller ? `&searchByConseiller=${filtreParNomConseiller}` : '';
   const filterByRegion = filtreParRegion !== 'tous' && filtreParRegion !== undefined ? `&region=${filtreParRegion}` : '';
   const filterByDepartement = filtreParDepartement !== 'tous' && filtreParDepartement !== undefined ? `&departement=${filtreParDepartement}` : '';
@@ -70,8 +74,9 @@ export function territoireQueryString(nomOrdre, territoire, ordre, dateDebut, da
   return `?territoire=${territoire}&dateDebut=${dateDebut}&dateFin=${dateFin}${pageIfDefined}${ordreColonne}`;
 }
 
-// eslint-disable-next-line max-len
-export function structureQueryStringParameters(nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut) {
+export function structureQueryStringParameters(
+  nomOrdre, ordre, dateDebut, dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut
+) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const filterByName = filtreParNom ? `&searchByNom=${filtreParNom}` : '';
@@ -94,8 +99,9 @@ export function conventionQueryStringParameters(filtreParNomStructure, filterDep
   return { filterByName, filterByDepartement, filterByRegion, filterByAvisPrefet, ordreColonne };
 }
 
-// eslint-disable-next-line max-len
-export function historiqueConventionQueryStringParameters(dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre) {
+export function historiqueConventionQueryStringParameters(
+  dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre
+) {
   const filterByName = filtreParNomStructure ? `&searchByNomStructure=${filtreParNomStructure}` : '';
   const filterByRegion = filtreRegion !== 'tous' && filtreRegion !== undefined ? `&region=${filtreRegion}` : '';
   const filterByDepartement = filterDepartement !== 'tous' && filterDepartement !== undefined ? `&departement=${filterDepartement}` : '';
@@ -114,7 +120,6 @@ export function contratQueryStringParameters(filtreSearchBar, filtreDepartement,
   const ordreColonne = ordreNom ? '&nomOrdre=' + ordreNom + '&ordre=' + ordre : '';
 
   return { ordreColonne, filterByName, filterByRegion, filterByDepartement };
-
 }
 
 export function demandesQueryStringParameters(filtreSearchBar, filtreDepartement, filtreRegion, filtreAvisPrefet, ordreNom, ordre) {
@@ -138,8 +143,17 @@ export function statsCsvConseillerQueryStringParameters(dateDebut, dateFin, idTy
   const filterByCodeCommune = codeCommune !== 'tous' && codeCommune !== undefined ? `&codeCommune=${codeCommune}` : '';
   const filterByIdStructure = idStructure !== 'tous' && idStructure !== undefined ? `&idStructure=${idStructure}` : '';
 
-  // eslint-disable-next-line max-len
-  return { filterDateStart, filterDateEnd, filterIdType, filterByVille, filterByCodeCommune, filterByCodePostal, filterByLastName, filterByFirstName, filterByIdStructure };
+  return {
+    filterDateStart,
+    filterDateEnd,
+    filterIdType,
+    filterByVille,
+    filterByCodeCommune,
+    filterByCodePostal,
+    filterByLastName,
+    filterByFirstName,
+    filterByIdStructure
+  };
 }
 
 export function statsCsvStructureQueryStringParameters(dateDebut, dateFin, idType, codePostal, ville, codeCommune) {
@@ -153,7 +167,6 @@ export function statsCsvStructureQueryStringParameters(dateDebut, dateFin, idTyp
   return { filterDateStart, filterDateEnd, filterIdType, filterByVille, filterByCodeCommune, filterByCodePostal };
 }
 
-// eslint-disable-next-line max-len
 export function statsCsvGrandReseauQueryStringParameters(dateDebut, dateFin, codePostal, ville, codeCommune, structureId, conseillerId, region, departement) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
@@ -165,14 +178,24 @@ export function statsCsvGrandReseauQueryStringParameters(dateDebut, dateFin, cod
   const filterByIdStructure = structureId !== 'tous' && structureId !== undefined ? `&idStructure=${structureId}` : '';
   const filterByIdConseiller = conseillerId !== 'tous' && conseillerId !== undefined ? `&idConseiller=${conseillerId}` : '';
 
-  // eslint-disable-next-line max-len
-  return { filterDateStart, filterDateEnd, filterByVille, filterByCodeCommune, filterByCodePostal, filterByRegion, filterByDepartement, filterByIdStructure, filterByIdConseiller };
+  return {
+    filterDateStart,
+    filterDateEnd,
+    filterByVille,
+    filterByCodeCommune,
+    filterByCodePostal,
+    filterByRegion,
+    filterByDepartement,
+    filterByIdStructure,
+    filterByIdConseiller
+  };
 }
 
 export function gestionnairesQueryStringParameters(nomOrdre, ordre, filtreParRole, filtreParNom) {
   const filterByName = filtreParNom ? `&searchByNom=${filtreParNom}` : '';
   const filterByRole = filtreParRole !== 'tous' && filtreParRole !== undefined ? `&searchRole=${filtreParRole}` : '';
   const ordreColonne = nomOrdre && ordre !== undefined ? '&nomOrdre=' + nomOrdre + '&ordre=' + ordre : '';
+
   return { ordreColonne, filterByName, filterByRole };
 }
 
@@ -186,8 +209,9 @@ export function statsGrandReseauQueryStringParameters(dateDebut, dateFin, consei
   const filterByIdStructure = structureId !== 'tous' && structureId !== undefined ? `&idStructure=${structureId}` : '';
   const filterByIdConseiller = conseillerId !== 'tous' && conseillerId !== undefined ? `&idConseiller=${conseillerId}` : '';
 
-  // eslint-disable-next-line max-len
-  return { filterDateStart, filterDateEnd, filterByCodeCommune, filterByRegion, filterByCodePostal, filterByDepartement, filterByIdConseiller, filterByIdStructure };
+  return {
+    filterDateStart, filterDateEnd, filterByCodeCommune, filterByRegion, filterByCodePostal, filterByDepartement, filterByIdConseiller, filterByIdStructure
+  };
 }
 
 export function statsQueryStringParameters(dateDebut, dateFin, codePostal, codeCommune, idStructure) {

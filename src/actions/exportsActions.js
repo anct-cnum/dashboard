@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { exportsService } from '../services/exportsService';
 import dayjs from 'dayjs';
 import {
@@ -42,6 +41,7 @@ function exportFile(nameFile, collection = 'exports', hubName) {
   function request() {
     return { type: 'EXPORT_FILE_REQUEST' };
   }
+
   function success(blob, nameFile, hubName) {
     if (nameFile === 'demandes-ruptures') {
       nameFile = `${nameFile}_${dayjs(new Date()).format('DD-MM-YYYY')}`;
@@ -80,19 +80,43 @@ function exportDonneesTerritoire(territoire = 'departement', dateDebut, dateFin,
   function request() {
     return { type: 'EXPORT_TERRITOIRE_REQUEST' };
   }
+
   function success(exportTerritoireFileBlob) {
     const nameFile = `export-territoires_${territoire}_entre_${dayjs(dateDebut).format('YYYY-MM-DD')}_et_${dayjs(dateFin).format('YYYY-MM-DD')}`;
     return { type: 'EXPORT_TERRITOIRE_SUCCESS', exportTerritoireFileBlob, nameFile };
   }
+
   function failure(exportTerritoireFileError) {
     return { type: 'EXPORT_TERRITOIRE_FAILURE', exportTerritoireFileError };
   }
 }
 
-function exportDonneesConseiller(dateDebut = '2020-11-17', dateFin, filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+function exportDonneesConseiller(
+  dateDebut = '2020-11-17',
+  dateFin,
+  filtreRupture,
+  filtreCoordinateur,
+  filtreParNomConseiller,
+  filtreParRegion,
+  filtreParDepartement,
+  filtreParNomStructure,
+  nomOrdre = 'prenom',
+  ordre = 1
+) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportDonneesConseiller(formatDate(dateDebut), formatDate(dateFin), filtreRupture, filtreCoordinateur, filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre)
+    await exportsService.getExportDonneesConseiller(
+      formatDate(dateDebut),
+      formatDate(dateFin),
+      filtreRupture,
+      filtreCoordinateur,
+      filtreParNomConseiller,
+      filtreParRegion,
+      filtreParDepartement,
+      filtreParNomStructure,
+      nomOrdre,
+      ordre
+    )
     .then(exportConseillerFileBlob => dispatch(success(exportConseillerFileBlob)))
     .catch(exportConseillerFileError => dispatch(failure(exportConseillerFileError)));
   };
@@ -108,10 +132,25 @@ function exportDonneesConseiller(dateDebut = '2020-11-17', dateFin, filtreRuptur
     return { type: 'EXPORT_CONSEILLER_FAILURE', exportConseillerFileError };
   }
 }
-function exportDonneesConseillerCoordonees(filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre = 'prenom', ordre = 1) {
+
+function exportDonneesConseillerCoordonees(
+  filtreParNomConseiller,
+  filtreParRegion,
+  filtreParDepartement,
+  filtreParNomStructure,
+  nomOrdre = 'prenom',
+  ordre = 1
+) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportDonneesConseillerCoordonnes(filtreParNomConseiller, filtreParRegion, filtreParDepartement, filtreParNomStructure, nomOrdre, ordre)
+    await exportsService.getExportDonneesConseillerCoordonnes(
+      filtreParNomConseiller,
+      filtreParRegion,
+      filtreParDepartement,
+      filtreParNomStructure,
+      nomOrdre,
+      ordre
+    )
     .then(exportConseillerFileBlob => dispatch(success(exportConseillerFileBlob)))
     .catch(exportConseillerFileError => dispatch(failure(exportConseillerFileError)));
   };
@@ -119,19 +158,41 @@ function exportDonneesConseillerCoordonees(filtreParNomConseiller, filtreParRegi
   function request() {
     return { type: 'EXPORT_CONSEILLER_REQUEST' };
   }
+
   function success(exportConseillerFileBlob) {
     const nameFile = 'export-conseillers';
     return { type: 'EXPORT_CONSEILLER_SUCCESS', exportConseillerFileBlob, nameFile };
   }
+
   function failure(exportConseillerFileError) {
     return { type: 'EXPORT_CONSEILLER_FAILURE', exportConseillerFileError };
   }
 }
 
-function exportDonneesStructure(dateDebut = '2020-11-17', dateFin, filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre = 'nom', ordre = 1) {
+function exportDonneesStructure(
+  dateDebut = '2020-11-17',
+  dateFin,
+  filtreParNom,
+  filtreParDepartement,
+  filtreParType,
+  filtreParRegion,
+  filtreParStatut,
+  nomOrdre = 'nom',
+  ordre = 1
+) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportDonneesStructure(formatDate(dateDebut), formatDate(dateFin), filtreParNom, filtreParDepartement, filtreParType, filtreParRegion, filtreParStatut, nomOrdre, ordre)
+    await exportsService.getExportDonneesStructure(
+      formatDate(dateDebut),
+      formatDate(dateFin),
+      filtreParNom,
+      filtreParDepartement,
+      filtreParType,
+      filtreParRegion,
+      filtreParStatut,
+      nomOrdre,
+      ordre
+    )
     .then(exportStructureFileBlob => dispatch(success(exportStructureFileBlob)))
     .catch(exportStructureFileError => dispatch(failure(exportStructureFileError)));
   };
@@ -139,10 +200,12 @@ function exportDonneesStructure(dateDebut = '2020-11-17', dateFin, filtreParNom,
   function request() {
     return { type: 'EXPORT_STRUCTURE_REQUEST' };
   }
+
   function success(exportStructureFileBlob) {
     const nameFile = `export-structures_entre_${dayjs(dateDebut).format('YYYY-MM-DD')}_et_${dayjs(dateFin).format('YYYY-MM-DD')}`;
     return { type: 'EXPORT_STRUCTURE_SUCCESS', exportStructureFileBlob, nameFile };
   }
+
   function failure(exportStructureFileError) {
     return { type: 'EXPORT_STRUCTURE_FAILURE', exportStructureFileError };
   }
@@ -165,10 +228,12 @@ function exportStatistiquesConseillerCSV(dateDebut, dateFin, idType, codePostal,
   function request() {
     return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
   }
+
   function success(data) {
     const nameFile = formatFileNameStatsConseiller(dateDebut, dateFin, nom, prenom, codePostal, ville, nomStructure);
     return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
   }
+
   function failure(error) {
     return { type: 'EXPORT_STATISTIQUES_CSV_FAILURE', error };
   }
@@ -187,10 +252,12 @@ function exportStatistiquesStructureCSV(dateDebut, dateFin, idType, codePostal, 
   function request() {
     return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
   }
+
   function success(data) {
     const nameFile = formatFileNameStatsStructure(dateDebut, dateFin, nom, codePostal, ville);
     return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
   }
+
   function failure(error) {
     return { type: 'EXPORT_STATISTIQUES_CSV_FAILURE', error };
   }
@@ -209,10 +276,12 @@ function exportStatistiquesGrandReseauCSV(dateDebut, dateFin, codePostal, ville,
   function request() {
     return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
   }
+
   function success(data) {
     const nameFile = `Statistiques_grandReseau${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
     return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
   }
+
   function failure(error) {
     return { type: 'EXPORT_STATISTIQUES_CSV_FAILURE', error };
   }
@@ -231,10 +300,12 @@ function exportStatistiquesNationalesCSV(dateDebut, dateFin) {
   function request() {
     return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
   }
+
   function success(data) {
     const nameFile = `Statistiques_nationales_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
     return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
   }
+
   function failure(error) {
     return { type: 'EXPORT_STATISTIQUES_CSV_FAILURE', error };
   }
@@ -253,10 +324,12 @@ function exportStatistiquesTerritorialesCSV(dateDebut, dateFin, id, typeTerritoi
   function request() {
     return { type: 'EXPORT_STATISTIQUES_CSV_REQUEST' };
   }
+
   function success(data) {
     const nameFile = formatFileNameStatsTerritoriales(dateDebut, dateFin, typeTerritoire, id);
     return { type: 'EXPORT_STATISTIQUES_CSV_SUCCESS', data, nameFile };
   }
+
   function failure(error) {
     return { type: 'EXPORT_STATISTIQUES_CSV_FAILURE', error };
   }
@@ -273,19 +346,41 @@ function exportDonneesGestionnaires(filtreRole, filtreParNomGestionnaire, nomOrd
   function request() {
     return { type: 'EXPORT_GESTIONNAIRES_REQUEST' };
   }
+
   function success(exportGestionnairesFileBlob) {
     const nameFile = `export-gestionnaires_${filtreRole.toLowerCase()}`;
     return { type: 'EXPORT_GESTIONNAIRES_SUCCESS', exportGestionnairesFileBlob, nameFile };
   }
+
   function failure(error) {
     return { type: 'EXPORT_GESTIONNAIRES_FAILURE', error };
   }
 }
 
-function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre) {
+function exportDonneesHistoriqueDossiersConvention(
+  typeConvention,
+  dateDebut,
+  dateFin,
+  filtreParNomStructure,
+  filterDepartement,
+  filtreRegion,
+  filtreAvisAdmin,
+  ordreNom,
+  ordre
+) {
   return async dispatch => {
     dispatch(request());
-    await exportsService.getExportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, dateFin, filtreParNomStructure, filterDepartement, filtreRegion, filtreAvisAdmin, ordreNom, ordre)
+    await exportsService.getExportDonneesHistoriqueDossiersConvention(
+      typeConvention,
+      dateDebut,
+      dateFin,
+      filtreParNomStructure,
+      filterDepartement,
+      filtreRegion,
+      filtreAvisAdmin,
+      ordreNom,
+      ordre
+    )
     .then(exportHistoriqueDossiersConventionFileBlob => dispatch(success(exportHistoriqueDossiersConventionFileBlob)))
     .catch(exportHistoriqueDossiersConventionFileError => dispatch(failure(exportHistoriqueDossiersConventionFileError)));
   };
@@ -302,7 +397,16 @@ function exportDonneesHistoriqueDossiersConvention(typeConvention, dateDebut, da
   }
 }
 
-function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreSearchBar, filtreDepartement, filtreRegion, ordreNom = 'dateDemande', ordre = 1) {
+function exportDonneesHistoriqueContrat(
+  statutContrat,
+  dateDebut,
+  dateFin,
+  filtreSearchBar,
+  filtreDepartement,
+  filtreRegion,
+  ordreNom = 'dateDemande',
+  ordre = 1
+) {
   return async dispatch => {
     dispatch(request());
     await exportsService.getExportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtreSearchBar, filtreDepartement, filtreRegion, ordreNom, ordre)
@@ -313,10 +417,12 @@ function exportDonneesHistoriqueContrat(statutContrat, dateDebut, dateFin, filtr
   function request() {
     return { type: 'EXPORT_HISTORIQUE_CONTRAT_REQUEST' };
   }
+
   function success(exportHistoriqueContratFileBlob) {
     const nameFile = `export-historique-contrat_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
     return { type: 'EXPORT_HISTORIQUE_CONTRAT_SUCCESS', exportHistoriqueContratFileBlob, nameFile };
   }
+
   function failure(error) {
     return { type: 'EXPORT_HISTORIQUE_CONTRAT_FAILURE', error };
   }
@@ -333,10 +439,12 @@ function exportDemandesCoordinateurs(statutDemande, filtreSearchBar, filtreDepar
   function request() {
     return { type: 'EXPORT_DEMANDES_COORDINATEURS_REQUEST' };
   }
+
   function success(exportDemandesCoordinateursFileBlob, statutDemande) {
     const nameFile = `demandes-coordinateurs-${statutDemande}`;
     return { type: 'EXPORT_DEMANDES_COORDINATEURS_SUCCESS', exportDemandesCoordinateursFileBlob, nameFile };
   }
+
   function failure(error) {
     return { type: 'EXPORT_DEMANDES_COORDINATEURS_FAILURE', error };
   }
