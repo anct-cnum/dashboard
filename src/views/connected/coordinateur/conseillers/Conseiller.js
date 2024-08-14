@@ -24,7 +24,7 @@ function Conseiller({ conseiller }) {
           '-'}
       </td>
       <td style={{ width: '7rem' }}>
-        {conseiller?.dateDebutDeContrat ?
+        {conseiller?.dateFinDeContrat ?
           dayjs(conseiller.dateFinDeContrat).format('DD/MM/YYYY') :
           '-'}
       </td>
