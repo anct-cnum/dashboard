@@ -5,7 +5,7 @@ import { formatTypeDeContrat } from '../../../../../utils/formatagesUtils';
 import { ModalMode } from '../../../../../utils/enumUtils';
 import { getDemandeInitiee } from '../../../structure/utils/functionUtils';
 
-const CardsRenouvellement = ({ miseEnRelation, setOpenModal, setOpenModalContrat, urlDossierDS, handleOpenModalContrat }) => {
+const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS, handleOpenModalContrat }) => {
   const demandeInitiee = getDemandeInitiee(miseEnRelation);
   return (
     <div className="fr-card fr-mt-4w fr-card--no-border background-cards-contrat">
@@ -104,7 +104,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, setOpenModalContrat
                   onClick= {
                     demandeInitiee ?
                       () => handleOpenModalContrat(ModalMode.PROLONGATION) :
-                      () => setOpenModalContrat(ModalMode.EDITION)
+                      () => handleOpenModalContrat(ModalMode.EDITION)
                   }
                 >
                   Modifier la demande

@@ -200,7 +200,6 @@ function ConseillerDetailsContrat() {
                 urlDossierDS={conseiller?.url}
                 miseEnRelation={conseiller?.contrat}
                 setOpenModal={setOpenModal}
-                setOpenModalContrat={setOpenModalContrat}
                 handleOpenModalContrat={handleOpenModalContrat}
               />
               {openModal &&
