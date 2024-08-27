@@ -14,7 +14,6 @@ import StructureContactCards from '../../../../components/cards/StructureContact
 import { scrollTopWindow } from '../../../../utils/exportsUtils';
 import pinCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 import { Tooltip } from 'react-tooltip';
-import { ModalMode } from '../../../../utils/enumUtils';
 
 function ConseillerDetailsContrat() {
 
@@ -40,6 +39,7 @@ function ConseillerDetailsContrat() {
   const [openModal, setOpenModal] = useState(false);
   const [openModalContrat, setOpenModalContrat] = useState(false);
   const [libelleErreur, setLibelleErreur] = useState(false);
+  const [mode, setMode] = useState(null);
 
   useEffect(() => {
     if (!errorConseiller) {
@@ -95,6 +95,11 @@ function ConseillerDetailsContrat() {
   
   const extendContract = (typeDeContrat, dateDebut, dateFin, salaire) => {
     dispatch(contratActions.extendContract(typeDeContrat, dateDebut, dateFin, salaire, conseiller?.contrat?._id));
+  };
+
+  const handleOpenModalContrat = mode => {
+    setMode(mode);
+    setOpenModalContrat(true);
   };
 
   return (
@@ -196,6 +201,7 @@ function ConseillerDetailsContrat() {
                 miseEnRelation={conseiller?.contrat}
                 setOpenModal={setOpenModal}
                 setOpenModalContrat={setOpenModalContrat}
+                handleOpenModalContrat={handleOpenModalContrat}
               />
               {openModal &&
                 <ModalValidationRenouvellement setOpenModal={setOpenModal} idMiseEnRelation={conseiller?.contrat?._id} />
@@ -206,7 +212,7 @@ function ConseillerDetailsContrat() {
                   updateContract={updateContract}
                   extendContract={extendContract}
                   conseiller={conseiller?.contrat}
-                  mode={ModalMode.EDITION}
+                  mode={mode}
                 />
               }
             </>

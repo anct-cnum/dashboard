@@ -104,7 +104,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, setOpenModalContrat
                   onClick= {
                     demandeInitiee ?
                       () => handleOpenModalContrat(ModalMode.PROLONGATION) :
-                      () => setOpenModalContrat(true)
+                      () => setOpenModalContrat(ModalMode.EDITION)
                   }
                 >
                   Modifier la demande
