@@ -22,7 +22,7 @@ const CardsRecrutement = ({ miseEnRelation, conseiller, setOpenModal, setOpenMod
         <div className="fr-card__content fr-pb-2w">
           <h3 className="fr-card__title fr-h3">
             {
-              statutContrat === 'finalisee' ?
+              statutContrat === 'finalisee' && miseEnRelation.demandesDeProlongation?.length > 0 ?
                 'Demande de recrutement' :
                 'Demande de prolongation'
             }
