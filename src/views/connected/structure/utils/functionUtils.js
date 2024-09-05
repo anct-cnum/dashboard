@@ -2,6 +2,7 @@ import { calcNbJoursAvantDateFinContrat, isContractExpiring } from '../../../../
 import { StatutConventionnement } from '../../../../utils/enumUtils';
 import { pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 export function getNombreDePostes(demandesCoselec) {
   if (!demandesCoselec) {
@@ -174,5 +175,17 @@ const renderStatusBadge = (statut, conseiller) => {
       return null;
   }
 };
+
+export function DatePickerPortal({ children }) {
+  return ReactDOM.createPortal(
+    <div style={{
+      position: 'fixed',
+      zIndex: 9999,
+    }}>
+      {children}
+    </div>,
+    document.body
+  );
+}
 
 export default renderStatusBadge;
