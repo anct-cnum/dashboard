@@ -8,6 +8,7 @@ import { CompleteExtendContractCard } from '../cards';
 import { getDemandeInitiee, isConventionnementOrReconventionnementValide } from '../utils/functionUtils';
 
 const renderCard = (conseiller, idx, roleActivated, handleOpenModalContrat, structure) => {
+  console.log('structure?.conventionnement:', structure?.conventionnement);
   if (conseiller?.reconventionnement && conseiller?.statut !== 'renouvellement_initiee') {
     return (
       <EditContractCard
@@ -37,7 +38,8 @@ const renderCard = (conseiller, idx, roleActivated, handleOpenModalContrat, stru
         key={idx}
       />
     );
-  } else if (conseiller?.statut === 'finalisee') {
+  } else if (conseiller?.statut === 'finalisee' &&
+    ![StatutConventionnement.CONVENTIONNEMENT_VALIDÉ, StatutConventionnement.RECONVENTIONNEMENT_INITIÉ].includes(structure?.conventionnement?.statut)) {
     return (
       <ExtendContractCard
         conseiller={conseiller}
