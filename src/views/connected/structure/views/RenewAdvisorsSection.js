@@ -8,7 +8,6 @@ import { CompleteExtendContractCard } from '../cards';
 import { getDemandeInitiee, isConventionnementOrReconventionnementValide } from '../utils/functionUtils';
 
 const renderCard = (conseiller, idx, roleActivated, handleOpenModalContrat, structure) => {
-  console.log('structure?.conventionnement:', structure?.conventionnement);
   if (conseiller?.reconventionnement && conseiller?.statut !== 'renouvellement_initiee') {
     return (
       <EditContractCard
@@ -38,8 +37,7 @@ const renderCard = (conseiller, idx, roleActivated, handleOpenModalContrat, stru
         key={idx}
       />
     );
-  } else if (conseiller?.statut === 'finalisee' &&
-    ![StatutConventionnement.CONVENTIONNEMENT_VALIDÉ, StatutConventionnement.RECONVENTIONNEMENT_INITIÉ].includes(structure?.conventionnement?.statut)) {
+  } else if (conseiller?.statut === 'finalisee') {
     return (
       <ExtendContractCard
         conseiller={conseiller}
@@ -60,21 +58,35 @@ const RenewAdvisorsSection = ({
   handleOpenModalContrat,
 }) => {
   return (
-    isConventionnementOrReconventionnementValide(structure) &&
-    (
-      <div className="container fr-mt-4w">
-        <h6 className="fr-text--bold">
-          Contrats &agrave; renouveller ({conseillersARenouveler?.length + conseillersAProlonger?.length})
-        </h6>
-        {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
+    <div className="container fr-mt-4w">
+      <h6 className="fr-text--bold">
+        Contrats &agrave;{' '}
+        {isConventionnementOrReconventionnementValide(structure) ?
+          'renouveller' :
+          'Prolonger'}
+        ({conseillersARenouveler?.length + conseillersAProlonger?.length})
+      </h6>
+      {structure?.conventionnement?.statut ===
+        StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
         conseillersARenouveler?.map((conseiller, idx) =>
-          renderCard(conseiller, idx, roleActivated, handleOpenModalContrat, structure)
+          renderCard(
+            conseiller,
+            idx,
+            roleActivated,
+            handleOpenModalContrat,
+            structure
+          )
         )}
-        {conseillersAProlonger?.map((conseiller, idx) =>
-          renderCard(conseiller, idx, roleActivated, handleOpenModalContrat, structure)
-        )}
-      </div>
-    )
+      {conseillersAProlonger?.map((conseiller, idx) =>
+        renderCard(
+          conseiller,
+          idx,
+          roleActivated,
+          handleOpenModalContrat,
+          structure
+        )
+      )}
+    </div>
   );
 };
 

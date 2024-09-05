@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { miseEnRelationAction } from '../../../../actions';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import { isContractExpiring } from '../../../../utils/calculateUtils';
-import { isConventionnementOrReconventionnementValide } from '../utils/functionUtils';
 
 export function useAdvisors() {
   const misesEnRelation = useSelector(state => state?.misesEnRelation?.misesEnRelation);
@@ -102,16 +101,17 @@ export function useAdvisors() {
 
       const conseillersAProlonger = misesEnRelation
       .filter(miseEnRelation => {
-        if (!miseEnRelation) {
+        if (!miseEnRelation || ['CONVENTIONNEMENT_VALIDÉ', 'RECONVENTIONNEMENT_INITIÉ'].includes(structure?.conventionnement?.statut)) {
           return false;
         }
         const isFinalisee =
             miseEnRelation.statut === 'finalisee';
+        const ProlongationHorsEditionContratRenouvellement = structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' ?
+          miseEnRelation.phaseConventionnement : !miseEnRelation.reconventionnement;
         return (
-          isFinalisee && !miseEnRelation.reconventionnement &&
+          isFinalisee && ProlongationHorsEditionContratRenouvellement &&
           isContractExpiring(miseEnRelation?.dateFinDeContrat) &&
-          !validTypeDeContratWithoutEndDate(miseEnRelation.typeDeContrat) &&
-          isConventionnementOrReconventionnementValide(structure)
+          !validTypeDeContratWithoutEndDate(miseEnRelation.typeDeContrat)
         );
       })
       .map(createConseiller);
