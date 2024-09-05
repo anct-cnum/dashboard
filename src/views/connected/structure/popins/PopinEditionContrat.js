@@ -4,9 +4,10 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import { ModalMode } from '../../../../utils/enumUtils';
-import { getDateFin } from '../utils/functionUtils';
+import { DatePickerPortal, getDateFin } from '../utils/functionUtils';
 
 registerLocale('fr', fr);
+
 function PopinEditionContrat({ setOpenModalContrat, updateContract, extendContract, conseiller, mode, createContract }) {
   const [dateDebut, setDateDebut] = useState(null);
   const [dateFin, setDateFin] = useState(null);
@@ -237,6 +238,8 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, extendContra
                         selected={dateDebut}
                         onChange={date => setDateDebut(date)}
                         disabled={mode === ModalMode.PROLONGATION}
+                        popperContainer={DatePickerPortal}
+                        popperPlacement="top"
                       />
                     </div>
                   </div>
@@ -258,6 +261,8 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, extendContra
                         minDate={dateDebut !== null ? dateDebut : new Date()}
                         selected={dateFin}
                         onChange={date => setDateFin(date)}
+                        popperContainer={DatePickerPortal}
+                        popperPlacement="top"
                       />
                     </div>
                   </div>
