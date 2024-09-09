@@ -58,21 +58,35 @@ const RenewAdvisorsSection = ({
   handleOpenModalContrat,
 }) => {
   return (
-    isConventionnementOrReconventionnementValide(structure) &&
-    (
-      <div className="container fr-mt-4w">
-        <h6 className="fr-text--bold">
-          Contrats &agrave; renouveller ({conseillersARenouveler?.length + conseillersAProlonger?.length})
-        </h6>
-        {structure?.conventionnement?.statut === StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
+    <div className="container fr-mt-4w">
+      <h6 className="fr-text--bold">
+        Contrats &agrave;{' '}
+        {isConventionnementOrReconventionnementValide(structure) ?
+          'renouveller' :
+          'Prolonger'}
+        ({conseillersARenouveler?.length + conseillersAProlonger?.length})
+      </h6>
+      {structure?.conventionnement?.statut ===
+        StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&
         conseillersARenouveler?.map((conseiller, idx) =>
-          renderCard(conseiller, idx, roleActivated, handleOpenModalContrat, structure)
+          renderCard(
+            conseiller,
+            idx,
+            roleActivated,
+            handleOpenModalContrat,
+            structure
+          )
         )}
-        {conseillersAProlonger?.map((conseiller, idx) =>
-          renderCard(conseiller, idx, roleActivated, handleOpenModalContrat, structure)
-        )}
-      </div>
-    )
+      {conseillersAProlonger?.map((conseiller, idx) =>
+        renderCard(
+          conseiller,
+          idx,
+          roleActivated,
+          handleOpenModalContrat,
+          structure
+        )
+      )}
+    </div>
   );
 };
 
