@@ -278,7 +278,6 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, extendContra
                     onChange={handleChangeSalaire}
                     min={salaireMinimum}
                     value={salaire}
-                    disabled={mode === ModalMode.PROLONGATION}
                   />
                   {errorSalaire() &&
                     <p id="text-input-error-desc-error" className="fr-error-text">
