@@ -141,6 +141,16 @@ export function getDateFin(conseiller) {
   return null;
 }
 
+export function getSalaire(conseiller) {
+  const demandeInitiee = getDemandeInitiee(conseiller);
+  if (demandeInitiee) {
+    return String(demandeInitiee.salaireSouhaitee);
+  } else if (conseiller?.salaire) {
+    return String(conseiller?.salaire);
+  }
+  return '';
+}
+
 export function getDemandeInitiee(contrat) {
   return contrat.demandesDeProlongation?.find(demande => demande.statut === 'initiee');
 }
