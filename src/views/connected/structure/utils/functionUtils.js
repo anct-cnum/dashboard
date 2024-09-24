@@ -143,7 +143,7 @@ export function getDateFin(conseiller) {
 
 export function getSalaire(conseiller) {
   const demandeInitiee = getDemandeInitiee(conseiller);
-  if (demandeInitiee) {
+  if (demandeInitiee?.salaireSouhaitee) {
     return String(demandeInitiee.salaireSouhaitee);
   } else if (conseiller?.salaire) {
     return String(conseiller?.salaire);

@@ -79,7 +79,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS, handl
                         <strong className="fr-text--md">Salaire brut mensuel</strong><br />
                         <span className="fr-text--regular fr-text--md">
                           {miseEnRelation?.salaire || demandeInitiee?.salaireSouhaitee ?
-                            `${demandeInitiee ? demandeInitiee?.salaireSouhaitee : miseEnRelation?.salaire} €` : '-'}
+                            `${demandeInitiee?.salaireSouhaitee ? demandeInitiee?.salaireSouhaitee : miseEnRelation?.salaire} €` : '-'}
                         </span>
                       </div>
                     </div>
