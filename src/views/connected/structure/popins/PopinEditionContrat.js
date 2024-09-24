@@ -4,7 +4,7 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import { ModalMode } from '../../../../utils/enumUtils';
-import { DatePickerPortal, getDateFin } from '../utils/functionUtils';
+import { DatePickerPortal, getDateFin, getSalaire } from '../utils/functionUtils';
 
 registerLocale('fr', fr);
 
@@ -49,7 +49,7 @@ function PopinEditionContrat({ setOpenModalContrat, updateContract, extendContra
       setIsRecrutementCoordinateur(conseiller?.contratCoordinateur ?? false);
       setDateDebut(conseiller?.dateDebutDeContrat ? new Date(conseiller?.dateDebutDeContrat) : null);
       setDateFin(getDateFin(conseiller));
-      setSalaire(conseiller?.salaire ? String(conseiller?.salaire) : '');
+      setSalaire(getSalaire(conseiller));
     }
   }, [mode, conseiller]);
 
