@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { formatTypeDeContrat } from '../../../../../utils/formatagesUtils';
 import { ModalMode } from '../../../../../utils/enumUtils';
-import { getDemandeInitiee } from '../../../structure/utils/functionUtils';
+import { getDemandeInitiee, getSalaire } from '../../../structure/utils/functionUtils';
 
 const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS, handleOpenModalContrat }) => {
   const demandeInitiee = getDemandeInitiee(miseEnRelation);
@@ -78,8 +78,7 @@ const CardsRenouvellement = ({ miseEnRelation, setOpenModal, urlDossierDS, handl
                       <div>
                         <strong className="fr-text--md">Salaire brut mensuel</strong><br />
                         <span className="fr-text--regular fr-text--md">
-                          {miseEnRelation?.salaire || demandeInitiee?.salaireSouhaitee ?
-                            `${demandeInitiee?.salaireSouhaitee ? demandeInitiee?.salaireSouhaitee : miseEnRelation?.salaire} €` : '-'}
+                          {getSalaire(miseEnRelation) === '' ? '-' : `${getSalaire(miseEnRelation)} €` }
                         </span>
                       </div>
                     </div>
