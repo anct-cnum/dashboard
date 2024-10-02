@@ -42,7 +42,7 @@ function App() {
   const auth = useAuth();
 
   useEffect(() => {
-    if (auth?.isAuthenticated && location.pathname !== '/login' && accessToken) {
+    if (location.pathname !== '/login' && accessToken) {
       refreshToken(auth, dispatch, accessToken);
     }
   }, [location, auth, accessToken]);

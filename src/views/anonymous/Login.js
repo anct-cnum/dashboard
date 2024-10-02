@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useAuth } from 'react-oidc-context';
 import { useParams, useNavigate } from 'react-router-dom';
-import logoOneLineIC from '../../assets/brands/logo-inclusion-connect-one-line.svg';
-import logoTwoLinesIC from '../../assets/brands/logo-inclusion-connect-two-lines.svg';
 import { userActions } from '../../actions';
+import './Login.css';
+import Spinner from '../../components/Spinner';
+import { handleProConnectLogin } from '../../helpers/proConnectLogin';
 
 export default function Login() {
 
@@ -16,23 +16,13 @@ export default function Login() {
   const error = useSelector(state => state.authentication?.error);
   const tokenVerified = useSelector(state => state?.user?.tokenVerified);
   const dispatch = useDispatch();
-  const auth = useAuth();
   const [submitted, setSubmitted] = useState(false);
   const [networkError, setNetworkError] = useState(false);
+  const [proConnectLoading, setProConnectLoading] = useState(false);
   const { username, password } = inputs;
   const user = useSelector(state => state.authentication?.user);
   
   const navigate = useNavigate();
-
-
-  const login = async () => {
-    localStorage.setItem('user', JSON.stringify({}));
-    try {
-      await auth.signinRedirect();
-    } catch (e) {
-      setNetworkError(true);
-    }
-  };
 
   const { verificationToken } = useParams();
  
@@ -41,7 +31,6 @@ export default function Login() {
       localStorage.removeItem('user');
       dispatch(userActions.verifyToken(verificationToken));
     }
-    // on remove suite à la déconnexion..
     localStorage.removeItem('logoutAction');
   }, []);
 
@@ -63,24 +52,24 @@ export default function Login() {
       navigate('/accueil');
     }
   }, [user]);
-
+  
   return (
     <div className="login">
+      <Spinner loading={!(localStorage.getItem('user') && localStorage.getItem('user') !== '{}') && proConnectLoading} />
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-xs-12 fr-col-md-6">
             {(window.location.pathname === '/login' || tokenVerified) &&
               <>
-                <div className="logo-inclusion-connect-one-line">
-                  <button className="btn-inclusion-connect" onClick={login}>
-                    <img src={logoOneLineIC} height="14" alt="Se connecter avec Inclusion Connect" />
-                  </button>
-                </div>
-                <div className="logo-inclusion-connect-two-lines">
-                  <button className="btn-inclusion-connect" onClick={login}>
-                    <img src={logoTwoLinesIC} height="37" alt="Se connecter avec Inclusion Connect" />
-                  </button>
-                </div>
+                <button
+                  id="login"
+                  className="agentconnect-button"
+                  onClick={() =>
+                    handleProConnectLogin(verificationToken, setProConnectLoading, setNetworkError)
+                  }
+                >
+                  <span className="agentconnect-sr-only">S’identifier avec AgentConnect</span>
+                </button>
                 {
                   networkError && <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
                     <h3 className="fr-alert__title">&Eacute;chec de la connexion &agrave; Inclusion Connect</h3>

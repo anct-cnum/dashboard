@@ -1,29 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useAuth } from 'react-oidc-context';
-import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
-import logoOneLineIC from '../../assets/brands/logo-inclusion-connect-one-line.svg';
-import logoTwoLinesIC from '../../assets/brands/logo-inclusion-connect-two-lines.svg';
+import signInCallBack from '../../services/auth/signInCallBack';
+import { handleProConnectLogin } from '../../helpers/proConnectLogin';
 
 export default function Passerelle() {
 
-  const user = useSelector(state => state.authentication?.user);
   const isLoading = useSelector(state => state.authentication?.loading);
-  const [error, setError] = useState(null);
-  const auth = useAuth();
-  const navigate = useNavigate();
+  const [callbackLoading, setCallbackLoading] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
 
-  const login = async () => {
-    localStorage.setItem('user', JSON.stringify({}));
-    auth.signinRedirect();
-  };
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { verificationToken } = useParams();
 
   useEffect(() => {
-    if (user && localStorage.getItem('user') && localStorage.getItem('user') !== '{}') {
-      navigate('/accueil');
+    async function handleCallback() {
+      setCallbackLoading(true);
+      const searchParams = new URLSearchParams(location.search);
+      const code = searchParams.get('code');
+      const state = searchParams.get('state');
+      const storedState = localStorage.getItem('state');
+      const storedNonce = localStorage.getItem('nonce');
+      const stateWithToken = atob(state);
+      const { state: stateToken, nonce } = JSON.parse(stateWithToken);
+      
+      if (stateToken === storedState && nonce === storedNonce) {
+        try {
+          const { state: decodedState, verificationToken } = JSON.parse(stateWithToken);
+          const result = await signInCallBack(dispatch, code, decodedState, verificationToken);
+          if (result.success) {
+            navigate('/accueil');
+          }
+        } catch (error) {
+          setError('Une erreur est survenue lors de la connexion');
+        }
+      } else {
+        setError('Paramètres manquants');
+      }
+      setCallbackLoading(false);
     }
-  }, [user, error, isLoading, auth.isLoading]);
+    handleCallback();
+  }, [location, navigate]);
 
   useEffect(() => {
     const storedError = JSON.parse(localStorage.getItem('loginError'));
@@ -35,7 +56,7 @@ export default function Passerelle() {
 
   return (
     <div className="login">
-      <Spinner loading={!(localStorage.getItem('user') && localStorage.getItem('user') !== '{}') && (isLoading || auth.isLoading)} />
+      <Spinner loading={!(localStorage.getItem('user') && localStorage.getItem('user') !== '{}') && (isLoading || callbackLoading || loginLoading) } />
       <div className="fr-container fr-my-10w">
         {error === 'Connexion refusée' &&
             <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
@@ -55,19 +76,10 @@ export default function Passerelle() {
             </div>
         }
         <div className="fr-grid-row fr-grid-row--center fr-mt-1-5v" style={{ textAlign: 'center' }}>
-          { !isLoading && !auth.isLoading &&
-          <>
-            <div className="logo-inclusion-connect-one-line">
-              <button className="btn-inclusion-connect" onClick={login}>
-                <img src={logoOneLineIC} height="14" alt="Se connecter avec Inclusion Connect" />
-              </button>
-            </div>
-            <div className="logo-inclusion-connect-two-lines">
-              <button className="btn-inclusion-connect" onClick={login}>
-                <img src={logoTwoLinesIC} height="37" alt="Se connecter avec Inclusion Connect" />
-              </button>
-            </div>
-          </>
+          { !isLoading && !callbackLoading && !loginLoading &&
+          <button id="login" className="agentconnect-button" onClick={() => handleProConnectLogin(verificationToken, setLoginLoading, setError)}>
+            <span className="agentconnect-sr-only">S’identifier avec AgentConnect</span>
+          </button>
           }
         </div>
       </div>
