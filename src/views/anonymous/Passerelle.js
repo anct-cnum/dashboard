@@ -34,6 +34,8 @@ export default function Passerelle() {
           const result = await signInCallBack(dispatch, code, decodedState, verificationToken);
           if (result.success) {
             navigate('/accueil');
+          } else if (result.logoutUrl) {
+            window.location.href = result.logoutUrl;
           }
         } catch (error) {
           setError('Une erreur est survenue lors de la connexion');
