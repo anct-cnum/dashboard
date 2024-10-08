@@ -11,7 +11,6 @@ import { AuthProvider } from 'react-oidc-context';
 import { WebStorageStateStore } from 'oidc-client-ts';
 import { BrowserRouter as Router } from 'react-router-dom';
 import setup from './services/api';
-import signInCallBack from '../src/services/auth/signInCallBack';
 import { MatomoProvider, createInstance } from '@jonkoops/matomo-tracker-react';
 
 if (import.meta.env.VITE_APP_SENTRY_ENABLED === 'true') {
@@ -47,7 +46,6 @@ const oidcConfig = {
   post_logout_redirect_uri: `${import.meta.env.VITE_APP_AUTH_REDIRECT_URI}/login`,
   userStore: new WebStorageStateStore({ store: window.localStorage }),
   scope: 'openid profile email',
-  onSigninCallback: () => signInCallBack(store),
 };
 
 const instance = createInstance({

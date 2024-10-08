@@ -16,6 +16,9 @@ const signInCallBack = async (dispatch, code, state, verificationToken) => {
     localStorage.setItem('loginError', JSON.stringify(error?.response?.data ?? 'Connexion refusée'));
     localStorage.removeItem('user');
     dispatch({ type: 'LOGIN_FAILURE' });
+    if (error.response?.data?.logoutUrl) {
+      return { success: false, logoutUrl: error.response.data.logoutUrl };
+    }
     return { success: false };
   }
 };
