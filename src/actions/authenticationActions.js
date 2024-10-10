@@ -1,5 +1,6 @@
 export const authenticationActions = {
   login,
+  logout,
   changeRoleActivated,
   refreshToken,
   resetApplication,
@@ -31,4 +32,10 @@ function refreshToken(accessToken) {
 
 function resetApplication() {
   return { type: 'RESET_APPLICATION' };
+}
+
+function logout() {
+  localStorage.removeItem('user');
+  localStorage.removeItem('roleActivated');
+  return { type: 'LOGOUT' };
 }

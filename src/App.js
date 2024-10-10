@@ -14,7 +14,6 @@ import GraphiquePilotage from './views/connected/commun/statistiques/GraphiquePi
 import GraphiqueStructure from './views/connected/commun/statistiques/GraphiqueStructure';
 import GraphiqueTerritoire from './views/connected/commun/statistiques/GraphiqueTerritoire';
 import TableauTerritoires from './views/connected/commun/statistiques/TableauTerritoires';
-import { useAuth } from 'react-oidc-context';
 import refreshToken from './services/auth/refreshToken';
 import { getAccessToken } from './helpers/getAccessToken';
 import GraphiqueConseiller from './views/connected/commun/statistiques/GraphiqueConseiller';
@@ -37,15 +36,15 @@ function App() {
   const { trackPageView } = useMatomo();
   const isLoading = useSelector(state => state.alerteEtSpinner?.isLoading);
   const accessToken = useSelector(state => state.authentication?.accessToken) || getAccessToken();
+  const isAuthenticated = useSelector(state => state.authentication?.isAuthenticated);
   const dispatch = useDispatch();
   const location = useLocation();
-  const auth = useAuth();
 
   useEffect(() => {
     if (location.pathname !== '/login' && accessToken) {
-      refreshToken(auth, dispatch, accessToken);
+      refreshToken(isAuthenticated, dispatch, accessToken);
     }
-  }, [location, auth, accessToken]);
+  }, [location, isAuthenticated, accessToken]);
 
   useEffect(() => {
     trackPageView();
