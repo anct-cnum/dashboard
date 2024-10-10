@@ -5,6 +5,7 @@ import { userActions } from '../../actions';
 import './Login.css';
 import Spinner from '../../components/Spinner';
 import { handleProConnectLogin } from '../../helpers/proConnectLogin';
+import AccountNotFound from './AccountNotFound';
 
 export default function Login() {
 
@@ -19,6 +20,7 @@ export default function Login() {
   const [submitted, setSubmitted] = useState(false);
   const [networkError, setNetworkError] = useState(false);
   const [proConnectLoading, setProConnectLoading] = useState(false);
+  const [showAccountNotFound, setShowAccountNotFound] = useState(false);
   const { username, password } = inputs;
   const user = useSelector(state => state.authentication?.user);
   
@@ -32,6 +34,12 @@ export default function Login() {
       dispatch(userActions.verifyToken(verificationToken));
     }
     localStorage.removeItem('logoutAction');
+    const storedError = JSON.parse(localStorage.getItem('loginError'));
+    if (storedError === 'Connexion refusée') {
+      setShowAccountNotFound(true);
+      localStorage.removeItem('loginError');
+    }
+
   }, []);
 
   function handleChange(e) {
@@ -59,6 +67,7 @@ export default function Login() {
       <div className="fr-container fr-my-10w">
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-xs-12 fr-col-md-6">
+            {showAccountNotFound && <AccountNotFound/>}
             {(window.location.pathname === '/login' || tokenVerified) &&
               <>
                 <button
