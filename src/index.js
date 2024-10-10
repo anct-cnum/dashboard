@@ -7,8 +7,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './reducers/rootReducer';
 import * as Sentry from '@sentry/react';
 import { browserTracingIntegration } from '@sentry/browser';
-import { AuthProvider } from 'react-oidc-context';
-import { WebStorageStateStore } from 'oidc-client-ts';
 import { BrowserRouter as Router } from 'react-router-dom';
 import setup from './services/api';
 import { MatomoProvider, createInstance } from '@jonkoops/matomo-tracker-react';
@@ -35,19 +33,6 @@ const store = configureStore({
   }),
 });
 
-const oidcConfig = {
-  client_id: import.meta.env.VITE_APP_AUTH_CLIENT_ID,
-  client_secret: import.meta.env.VITE_APP_AUTH_CLIENT_SECRET,
-  authority: import.meta.env.VITE_APP_AUTH_OIDC_AUTHORITY,
-  redirect_uri:
-    window.location.pathname.startsWith('/invitation') ?
-      `${import.meta.env.VITE_APP_AUTH_REDIRECT_URI}/passerelle/${window.location.pathname.split('/').pop()}` :
-      `${import.meta.env.VITE_APP_AUTH_REDIRECT_URI}/passerelle`,
-  post_logout_redirect_uri: `${import.meta.env.VITE_APP_AUTH_REDIRECT_URI}/login`,
-  userStore: new WebStorageStateStore({ store: window.localStorage }),
-  scope: 'openid profile email',
-};
-
 const instance = createInstance({
   urlBase: import.meta.env.VITE_APP_MATOMO_URL,
   siteId: parseInt(import.meta.env.VITE_APP_MATOMO_ID, 10),
@@ -58,15 +43,13 @@ setup(store);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AuthProvider {...oidcConfig}>
-      <Provider store={store}>
-        <Router>
-          <MatomoProvider value={instance}>
-            <App />
-          </MatomoProvider>
-        </Router>
-      </Provider>
-    </AuthProvider>
+    <Provider store={store}>
+      <Router>
+        <MatomoProvider value={instance}>
+          <App />
+        </MatomoProvider>
+      </Router>
+    </Provider>
   </React.StrictMode>
 );
 

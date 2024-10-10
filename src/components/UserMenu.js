@@ -2,16 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { authenticationActions } from '../actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserMenu = ({
   user,
   roleActivated,
   changeRoleActivated,
   clickButtonLogout,
-  auth,
   roles,
 }) => {
+  const isAuthenticated = useSelector(state => state.authentication?.isAuthenticated);
   const truncate = input => input?.length > 27 ? `${input?.substring(0, 27)}...` : input;
   const dispatch = useDispatch();
 
@@ -72,7 +72,7 @@ const UserMenu = ({
                   </li>
                 )}
                 <li>
-                  {auth?.isAuthenticated ? (
+                  {isAuthenticated ? (
                     <button
                       className="fr-nav__link button-disconnect-auth"
                       href="#"
@@ -135,7 +135,6 @@ UserMenu.propTypes = {
   roleActivated: PropTypes.string,
   changeRoleActivated: PropTypes.func,
   clickButtonLogout: PropTypes.func,
-  auth: PropTypes.object,
   roles: PropTypes.array,
   structure: PropTypes.object,
 };

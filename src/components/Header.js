@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/brands/logo-conseiller-numerique-min.svg';
 import { menuActions, authenticationActions } from '../actions';
 import Menu from './Menu';
-import { useAuth } from 'react-oidc-context';
 import UserMenu from './UserMenu';
 import signOut from '../services/auth/logout';
 import Spinner from './Spinner';
@@ -14,7 +13,6 @@ function Header() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const auth = useAuth();
 
   const roles = useSelector(state => state.authentication?.rolesAllowed)?.filter(role => !['admin_coop', 'structure_coop', 'conseiller'].includes(role));
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -27,7 +25,7 @@ function Header() {
       await signOut();
       if (e?.target?.className.includes('button-disconnect-auth')) {
         localStorage.setItem('logoutAction', JSON.stringify('Déconnexion en cours...'));
-        await auth.signoutRedirect();
+        authenticationActions.logout();
       } else {
         navigate('/login');
       }
@@ -96,7 +94,7 @@ function Header() {
                   <div className="fr-header__tools" style={{ height: '57px' }}>
                     <div className="fr-header__tools-links" id="navigation-774" role="navigation" aria-label="Compte utilisateur">
                       <UserMenu user={user} roleActivated={roleActivated} roles={roles} changeRoleActivated={changeRoleActivated}
-                        auth={auth} clickButtonLogout={clickButtonLogout} />
+                        clickButtonLogout={clickButtonLogout} />
                     </div>
                   </div>
                 }
@@ -112,7 +110,6 @@ function Header() {
           roleActivated={roleActivated}
           roles={roles}
           changeRoleActivated={changeRoleActivated}
-          auth={auth}
           clickButtonLogout={clickButtonLogout}
         />
         }
