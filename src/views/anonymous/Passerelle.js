@@ -4,6 +4,22 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
 import signInCallBack from '../../services/auth/signInCallBack';
 import { handleProConnectLogin } from '../../helpers/proConnectLogin';
+import AccountNotFound from './AccountNotFound';
+
+
+const parseStateToken = state => {
+  const stateWithToken = atob(state);
+  const { state: stateToken, nonce, verificationToken } = JSON.parse(stateWithToken);
+  return { stateToken, nonce, decodedState: stateToken, verificationToken };
+};
+
+const validateState = (stateToken, nonce) => {
+  const storedState = localStorage.getItem('state');
+  const storedNonce = localStorage.getItem('nonce');
+  if (stateToken !== storedState || nonce !== storedNonce) {
+    throw new Error('Paramètres manquants');
+  }
+};
 
 export default function Passerelle() {
 
@@ -25,16 +41,16 @@ export default function Passerelle() {
       const state = searchParams.get('state');
       const storedState = localStorage.getItem('state');
       const storedNonce = localStorage.getItem('nonce');
-      const stateWithToken = atob(state);
-      const { state: stateToken, nonce } = JSON.parse(stateWithToken);
-      
+      const { stateToken, nonce, decodedState, verificationToken } = parseStateToken(state);
+      validateState(stateToken, nonce);
       if (stateToken === storedState && nonce === storedNonce) {
         try {
-          const { state: decodedState, verificationToken } = JSON.parse(stateWithToken);
           const result = await signInCallBack(dispatch, code, decodedState, verificationToken);
           if (result.success) {
             navigate('/accueil');
           } else if (result.logoutUrl) {
+            localStorage.setItem('loginError', JSON.stringify(result.message));
+            setError(result.message);
             window.location.href = result.logoutUrl;
           }
         } catch (error) {
@@ -61,21 +77,7 @@ export default function Passerelle() {
       <Spinner loading={!(localStorage.getItem('user') && localStorage.getItem('user') !== '{}') && (isLoading || callbackLoading || loginLoading) } />
       <div className="fr-container fr-my-10w">
         {error === 'Connexion refusée' &&
-            <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
-              <h3 className="fr-alert__title">Erreur : Le compte avec lequel vous tentez de vous connecter est inconnu.</h3>
-              <p className="fr-mb-1v">Merci de v&eacute;rifier que vous utilisez la m&ecirc;me adresse mail
-                que votre ancien compte&nbsp;: structure / pr&eacute;fet / coordinateur / grand r&eacute;seau / admin.</p>
-              <p>Si malgr&eacute; cela vous rencontrez toujours des difficult&eacute;s pour vous connecter nous vous invitons à&nbsp;:</p>
-              <ul>
-                <li>Consulter la <a className="fr-link fr-link--lg"
-                  href="https://aide.conseiller-numerique.gouv.fr/fr/article/je-narrive-pas-a-me-connecter-au-tableau-de-pilotage-comment-y-acceder-1fwci8l/">
-                  &nbsp;FAQ</a></li>
-                <li>Contacter le <a className="fr-link fr-link--lg"
-                  href="mailto:conseiller-numerique@anct.gouv.fr">support</a> si vous n&apos;y trouvez pas votre r&eacute;ponse.</li>
-              </ul>
-              <p>Le tableau de pilotage n&apos;est pas destin&eacute; aux Conseillers num&eacute;rique
-                mais seulement aux gestionnaires de structures accueillantes.</p>
-            </div>
+            <AccountNotFound />
         }
         <div className="fr-grid-row fr-grid-row--center fr-mt-1-5v" style={{ textAlign: 'center' }}>
           { !isLoading && !callbackLoading && !loginLoading &&

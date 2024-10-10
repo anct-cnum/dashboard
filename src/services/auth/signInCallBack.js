@@ -1,25 +1,42 @@
 import axios from 'axios';
 import { authenticationActions } from '../../actions';
 
+const API_URL = import.meta.env.VITE_APP_API_URL;
+
+const handleSuccessfulLogin = (dispatch, userData) => {
+  dispatch(authenticationActions.login(userData));
+  dispatch(authenticationActions.refreshToken(userData.accessToken));
+  localStorage.setItem('user', JSON.stringify(userData));
+  localStorage.setItem('roleActivated', userData.user?.roles[0]);
+};
+
+const handleLoginError = (dispatch, error) => {
+  const errorMessage = error?.response?.data ?? 'Connexion refusée';
+  localStorage.setItem('loginError', JSON.stringify(errorMessage));
+  localStorage.removeItem('user');
+  dispatch({ type: 'LOGIN_FAILURE' });
+  if (error.response?.data?.logoutUrl) {
+    return {
+      success: false,
+      logoutUrl: error.response.data.logoutUrl,
+      message: error.response.data.message
+    };
+  }
+  return { success: false };
+};
+
 const signInCallBack = async (dispatch, code, state, verificationToken) => {
+  dispatch({ type: 'LOGIN_REQUEST' });
   try {
-    dispatch({ type: 'LOGIN_REQUEST' });
-    const reponse = await axios.post(import.meta.env.VITE_APP_API_URL + '/login', { code, state }, { params: { verificationToken } });
-    if (reponse?.data?.accessToken) {
-      dispatch(authenticationActions.login(reponse?.data));
-      dispatch(authenticationActions.refreshToken(reponse?.data?.accessToken));
-      localStorage.setItem('user', JSON.stringify(reponse?.data));
-      localStorage.setItem('roleActivated', reponse?.data?.user?.roles[0]);
+    const response = await axios.post(`${API_URL}/login`, { code, state }, { params: { verificationToken } });
+    if (response?.data?.accessToken) {
+      handleSuccessfulLogin(dispatch, response.data);
       return { success: true };
+    } else {
+      throw new Error('No access token received');
     }
   } catch (error) {
-    localStorage.setItem('loginError', JSON.stringify(error?.response?.data ?? 'Connexion refusée'));
-    localStorage.removeItem('user');
-    dispatch({ type: 'LOGIN_FAILURE' });
-    if (error.response?.data?.logoutUrl) {
-      return { success: false, logoutUrl: error.response.data.logoutUrl };
-    }
-    return { success: false };
+    return handleLoginError(dispatch, error);
   }
 };
 
