@@ -65,9 +65,9 @@ export default function Login() {
     <div className="login">
       <Spinner loading={!(localStorage.getItem('user') && localStorage.getItem('user') !== '{}') && proConnectLoading} />
       <div className="fr-container fr-my-10w">
+        {showAccountNotFound && <AccountNotFound/>}
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-xs-12 fr-col-md-6">
-            {showAccountNotFound && <AccountNotFound/>}
             {(window.location.pathname === '/login' || tokenVerified) &&
               <>
                 <button
