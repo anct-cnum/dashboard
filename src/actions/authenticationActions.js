@@ -1,3 +1,5 @@
+import signOut from '../services/auth/logout';
+
 export const authenticationActions = {
   login,
   logout,
@@ -35,7 +37,24 @@ function resetApplication() {
 }
 
 function logout() {
-  localStorage.removeItem('user');
-  localStorage.removeItem('roleActivated');
-  return { type: 'LOGOUT' };
+  return dispatch => {
+    dispatch(request());
+    signOut()
+    .then(() => {
+      dispatch(success());
+    })
+    .catch(error => {
+      dispatch(failure(error));
+    });
+  };
+
+  function request() {
+    return { type: 'LOGOUT_REQUEST' };
+  }
+  function success() {
+    return { type: 'LOGOUT_SUCCESS' };
+  }
+  function failure(error) {
+    return { type: 'LOGOUT_FAILURE', error };
+  }
 }

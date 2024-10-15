@@ -37,6 +37,7 @@ function App() {
   const isLoading = useSelector(state => state.alerteEtSpinner?.isLoading);
   const accessToken = useSelector(state => state.authentication?.accessToken) || getAccessToken();
   const isAuthenticated = useSelector(state => state.authentication?.isAuthenticated);
+  const isLoggingOut = useSelector(state => state.authentication?.isLoggingOut);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -55,7 +56,7 @@ function App() {
       { isLoading === true &&
       <div className="wrapperModal"></div>
       }
-      <Spinner loading={!(!localStorage.getItem('logoutAction'))} />
+      <Spinner loading={isLoggingOut} />
       <Header />
       <Alerte />
       <Routes>
