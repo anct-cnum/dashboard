@@ -22,6 +22,7 @@ export default function Login() {
   const [proConnectLoading, setProConnectLoading] = useState(false);
   const [showAccountNotFound, setShowAccountNotFound] = useState(false);
   const { username, password } = inputs;
+  const isLoggingOut = useSelector(state => state.authentication?.isLoggingOut);
   const user = useSelector(state => state.authentication?.user);
   
   const navigate = useNavigate();
@@ -33,7 +34,6 @@ export default function Login() {
       localStorage.removeItem('user');
       dispatch(userActions.verifyToken(verificationToken));
     }
-    localStorage.removeItem('logoutAction');
     const storedError = JSON.parse(localStorage.getItem('loginError'));
     if (storedError === 'Connexion refusée') {
       setShowAccountNotFound(true);
@@ -63,7 +63,7 @@ export default function Login() {
   
   return (
     <div className="login">
-      <Spinner loading={!(localStorage.getItem('user') && localStorage.getItem('user') !== '{}') && proConnectLoading} />
+      <Spinner loading={!(localStorage.getItem('user') && localStorage.getItem('user') !== '{}') && (proConnectLoading || isLoggingOut)} />
       <div className="fr-container fr-my-10w">
         {showAccountNotFound && <AccountNotFound/>}
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>

@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/brands/logo-conseiller-numerique-min.svg';
 import { menuActions, authenticationActions } from '../actions';
 import Menu from './Menu';
 import UserMenu from './UserMenu';
-import signOut from '../services/auth/logout';
 import Spinner from './Spinner';
 
 function Header() {
@@ -17,22 +16,14 @@ function Header() {
   const roles = useSelector(state => state.authentication?.rolesAllowed)?.filter(role => !['admin_coop', 'structure_coop', 'conseiller'].includes(role));
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const user = useSelector(state => state.authentication?.user);
-  const [loading, setLoading] = useState(false);
+  const isLoggingOut = useSelector(state => state.authentication?.isLoggingOut);
 
-  const clickButtonLogout = async e => {
-    setLoading(true);
+  const clickButtonLogout = () => {
     try {
-      await signOut();
-      if (e?.target?.className.includes('button-disconnect-auth')) {
-        localStorage.setItem('logoutAction', JSON.stringify('Déconnexion en cours...'));
-        authenticationActions.logout();
-      } else {
-        navigate('/login');
-      }
+      dispatch(authenticationActions.logout());
+      navigate('/login');
     } catch (error) {
       navigate('/login');
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -47,7 +38,7 @@ function Header() {
 
   return (
     <>
-      <Spinner loading={loading} />
+      <Spinner loading={isLoggingOut} />
       <header role="banner" className="fr-header">
         <div className="fr-header__body">
           <div className="fr-container">

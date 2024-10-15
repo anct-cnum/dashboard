@@ -6,7 +6,10 @@ const initialState = {
   rolesAllowed: rolesUser(),
   user: getUser(),
   accessToken: getAccessToken(),
-  isAuthenticated: !!getAccessToken()
+  isAuthenticated: !!getAccessToken(),
+  error: null,
+  isLoggingOut: false,
+  loading: false
 };
 
 export default function authentication(state = initialState, action) {
@@ -37,10 +40,24 @@ export default function authentication(state = initialState, action) {
         ...initialState,
         isAuthenticated: false
       };
-    case 'LOGOUT':
+    case 'LOGOUT_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        isLoggingOut: true,
+        error: null
+      };
+    case 'LOGOUT_SUCCESS':
       return {
         ...initialState,
-        isAuthenticated: false
+        isLoggingOut: false
+      };
+    case 'LOGOUT_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        isLoggingOut: false,
+        error: action.error
       };
     case 'CHANGE_ROLE':
       return {
