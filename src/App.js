@@ -43,7 +43,7 @@ function App() {
 
   useEffect(() => {
     if (location.pathname !== '/login' && accessToken) {
-      refreshToken(isAuthenticated, dispatch, accessToken);
+      refreshToken(dispatch, accessToken);
     }
   }, [location, isAuthenticated, accessToken]);
 
