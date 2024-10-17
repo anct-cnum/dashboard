@@ -28,7 +28,14 @@ const handleLoginError = (dispatch, error) => {
 const signInCallBack = async (dispatch, code, state, verificationToken) => {
   dispatch({ type: 'LOGIN_REQUEST' });
   try {
-    const response = await axios.post(`${API_URL}/login`, { code, state }, { params: { verificationToken } });
+    const response = await axios.post(
+      `${API_URL}/login`,
+      { code, state },
+      {
+        params: { verificationToken },
+        withCredentials: true
+      }
+    );
     if (response?.data?.accessToken) {
       handleSuccessfulLogin(dispatch, response.data);
       return { success: true };
