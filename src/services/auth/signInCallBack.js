@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { authenticationActions } from '../../actions';
+import apiUrlRoot from '../../helpers/apiUrl';
 
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
@@ -34,6 +35,9 @@ const signInCallBack = async (dispatch, code, state, verificationToken) => {
       {
         params: { verificationToken },
         withCredentials: true,
+        headers: {
+          'Access-Control-Allow-Origin': `${apiUrlRoot}/login`,
+        },
       }
     );
     if (response?.data?.accessToken) {
