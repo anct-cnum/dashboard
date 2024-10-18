@@ -9,13 +9,12 @@ const refreshToken = async (dispatch, accessToken) => {
     const decodedToken = jwtDecode(accessToken);
     const isExpired = decodedToken.exp < Date.now().valueOf() / 1000;
     if (isExpired) {
-      let response;
       try {
-        response = await axios.post(
-          `${apiUrlRoot}/refresh-token`,
-          {},
-          { withCredentials: true }
-        );
+        const response = await axios(`${apiUrlRoot}/refresh-token`, {
+          method: 'post',
+          data: {},
+          withCredentials: true
+        });
         dispatch(authenticationActions.refreshToken(response.data?.accessToken));
       } catch (error) {
         window.location.pathname = '/login';
