@@ -18,7 +18,6 @@ const refreshToken = async (dispatch, accessToken) => {
         );
         dispatch(authenticationActions.refreshToken(response.data?.accessToken));
       } catch (error) {
-        console.log('------>error', error);
         window.location.pathname = '/login';
         await signOut();
       }
