@@ -5,7 +5,6 @@ import { authenticationActions } from '../../actions/authenticationActions';
 import apiUrlRoot from '../../helpers/apiUrl';
 
 const refreshToken = async (dispatch, accessToken) => {
-  console.log('------>refreshToken', accessToken);
   if (accessToken && Object.keys(accessToken)?.length > 0) {
     const decodedToken = jwtDecode(accessToken);
     const isExpired = decodedToken.exp < Date.now().valueOf() / 1000;
@@ -19,6 +18,7 @@ const refreshToken = async (dispatch, accessToken) => {
         );
         dispatch(authenticationActions.refreshToken(response.data?.accessToken));
       } catch (error) {
+        console.log('------>error', error);
         window.location.pathname = '/login';
         await signOut();
       }
