@@ -34,9 +34,6 @@ const signInCallBack = async (dispatch, code, state, verificationToken) => {
       {
         params: { verificationToken },
         withCredentials: true,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
       }
     );
     if (response?.data?.accessToken) {
