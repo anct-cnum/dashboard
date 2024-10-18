@@ -3,7 +3,7 @@ const path = require('path');
 
 const htaccessContent = `
 RewriteEngine On
-RewriteCond %{REQUEST_URI} !^/refresh-token
+
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
 RewriteRule ^ - [L]
