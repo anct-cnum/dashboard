@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
 import { handleProConnectLogin } from '../../helpers/proConnectLogin';
 import AccountNotFound from './AccountNotFound';
-import signInCallback from '../../services/auth/signInCallback';
+import signInCallBack from '../../services/auth/signInCallback';
 
 const parseStateToken = state => {
   const stateWithToken = atob(state);
@@ -44,7 +44,7 @@ export default function Passerelle() {
       validateState(stateToken, nonce);
       if (stateToken === storedState && nonce === storedNonce) {
         try {
-          const result = await signInCallback(dispatch, code, decodedState, verificationToken);
+          const result = await signInCallBack(dispatch, code, decodedState, verificationToken);
           if (result.success) {
             navigate('/accueil');
           } else if (result.logoutUrl) {
