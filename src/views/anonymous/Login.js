@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useAuth } from 'react-oidc-context';
 import { useParams, useNavigate } from 'react-router-dom';
-import logoOneLineIC from '../../assets/brands/logo-inclusion-connect-one-line.svg';
-import logoTwoLinesIC from '../../assets/brands/logo-inclusion-connect-two-lines.svg';
 import { userActions } from '../../actions';
+import './Login.css';
+import Spinner from '../../components/Spinner';
+import { handleProConnectLogin } from '../../helpers/proConnectLogin';
+import AccountNotFound from './AccountNotFound';
 
 export default function Login() {
 
@@ -16,23 +17,15 @@ export default function Login() {
   const error = useSelector(state => state.authentication?.error);
   const tokenVerified = useSelector(state => state?.user?.tokenVerified);
   const dispatch = useDispatch();
-  const auth = useAuth();
   const [submitted, setSubmitted] = useState(false);
   const [networkError, setNetworkError] = useState(false);
+  const [proConnectLoading, setProConnectLoading] = useState(false);
+  const [showAccountNotFound, setShowAccountNotFound] = useState(false);
   const { username, password } = inputs;
+  const isLoggingOut = useSelector(state => state.authentication?.isLoggingOut);
   const user = useSelector(state => state.authentication?.user);
   
   const navigate = useNavigate();
-
-
-  const login = async () => {
-    localStorage.setItem('user', JSON.stringify({}));
-    try {
-      await auth.signinRedirect();
-    } catch (e) {
-      setNetworkError(true);
-    }
-  };
 
   const { verificationToken } = useParams();
  
@@ -41,8 +34,11 @@ export default function Login() {
       localStorage.removeItem('user');
       dispatch(userActions.verifyToken(verificationToken));
     }
-    // on remove suite à la déconnexion..
-    localStorage.removeItem('logoutAction');
+    const storedError = JSON.parse(localStorage.getItem('loginError'));
+    if (storedError === 'Connexion refusée') {
+      setShowAccountNotFound(true);
+      localStorage.removeItem('loginError');
+    }
   }, []);
 
   function handleChange(e) {
@@ -63,34 +59,35 @@ export default function Login() {
       navigate('/accueil');
     }
   }, [user]);
-
+  
   return (
     <div className="login">
+      <Spinner loading={!(localStorage.getItem('user') && localStorage.getItem('user') !== '{}') && (proConnectLoading || isLoggingOut)} />
       <div className="fr-container fr-my-10w">
+        {showAccountNotFound && <AccountNotFound/>}
         <div className="fr-grid-row fr-grid-row--center" style={{ textAlign: 'center' }}>
           <div className="fr-col-xs-12 fr-col-md-6">
             {(window.location.pathname === '/login' || tokenVerified) &&
               <>
-                <div className="logo-inclusion-connect-one-line">
-                  <button className="btn-inclusion-connect" onClick={login}>
-                    <img src={logoOneLineIC} height="14" alt="Se connecter avec Inclusion Connect" />
-                  </button>
-                </div>
-                <div className="logo-inclusion-connect-two-lines">
-                  <button className="btn-inclusion-connect" onClick={login}>
-                    <img src={logoTwoLinesIC} height="37" alt="Se connecter avec Inclusion Connect" />
-                  </button>
-                </div>
+                <button
+                  id="login"
+                  className="proconnect-button"
+                  onClick={() =>
+                    handleProConnectLogin(verificationToken, setProConnectLoading, setNetworkError)
+                  }
+                >
+                  <span className="proconnect-sr-only">S’identifier avec ProConnect</span>
+                </button>
                 {
                   networkError && <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
-                    <h3 className="fr-alert__title">&Eacute;chec de la connexion &agrave; Inclusion Connect</h3>
+                    <h3 className="fr-alert__title">&Eacute;chec de la connexion &agrave; ProConnect</h3>
                     <p className="fr-mb-1v">
-                      Inclusion Connect ne r&eacute;pond pas,
+                       ProConnect ne r&eacute;pond pas,
                       merci de v&eacute;rifier votre r&eacute;seau ou de contacter le
-                      support Inclusion Connect par mail pour plus d&rsquo;informations.
+                      support ProConnect par mail pour plus d&rsquo;informations.
                     </p>
                     <a className="fr-link"
-                      href="mailto:support@connect.inclusion.beta.gouv.fr">support@connect.inclusion.beta.gouv.fr
+                      href="mailto:support.partenaires@agentconnect.gouv.fr">support.partenaires@agentconnect.gouv.fr
                     </a>
                   </div>
                 }

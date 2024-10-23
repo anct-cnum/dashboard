@@ -19,7 +19,6 @@ function Menu(
   {
     user,
     changeRoleActivated,
-    auth,
     roles,
     clickButtonLogout
   }
@@ -73,7 +72,6 @@ function Menu(
             roleActivated={roleActivated}
             roles={roles}
             changeRoleActivated={changeRoleActivated}
-            auth={auth}
             clickButtonLogout={clickButtonLogout}
           />
         }
@@ -126,7 +124,6 @@ Menu.propTypes = {
   user: PropTypes.object,
   changeRoleActivated: PropTypes.func,
   clickButtonLogout: PropTypes.func,
-  auth: PropTypes.object,
   roles: PropTypes.array,
 };
 

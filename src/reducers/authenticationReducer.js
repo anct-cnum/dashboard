@@ -5,7 +5,11 @@ const initialState = {
   roleActivated: roleActivated(),
   rolesAllowed: rolesUser(),
   user: getUser(),
-  accessToken: getAccessToken()
+  accessToken: getAccessToken(),
+  isAuthenticated: !!getAccessToken(),
+  error: null,
+  isLoggingOut: false,
+  loading: false
 };
 
 export default function authentication(state = initialState, action) {
@@ -22,15 +26,39 @@ export default function authentication(state = initialState, action) {
         accessToken: action.data.accessToken,
         rolesAllowed: action.data.user.roles,
         roleActivated: action.data.user.roles[0],
+        isAuthenticated: true,
         loading: false
       };
     case 'REFRESH_TOKEN':
       return {
         ...state,
-        accessToken: action.accessToken
+        accessToken: action.accessToken,
+        isAuthenticated: true
       };
     case 'LOGIN_FAILURE':
-      return {};
+      return {
+        ...initialState,
+        isAuthenticated: false
+      };
+    case 'LOGOUT_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        isLoggingOut: true,
+        error: null
+      };
+    case 'LOGOUT_SUCCESS':
+      return {
+        ...initialState,
+        isLoggingOut: false
+      };
+    case 'LOGOUT_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        isLoggingOut: false,
+        error: action.error
+      };
     case 'CHANGE_ROLE':
       return {
         ...state,

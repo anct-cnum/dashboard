@@ -1,9 +1,12 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function PrivateRoute() {
-  if (!localStorage.getItem('logoutAction')) { // Pour éviter le double navigate /login lors de la déconnexion
-    return localStorage.getItem('user') && localStorage.getItem('user') !== '{}' ? <Outlet /> : <Navigate to="/login" />;
+  const isAuthenticated = useSelector(state => state.authentication?.isAuthenticated);
+  const isLoggingOut = useSelector(state => state.authentication?.isLoggingOut);
+  if (isLoggingOut) {
+    return null;
   }
-  return;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }
