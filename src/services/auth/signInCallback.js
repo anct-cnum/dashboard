@@ -26,7 +26,7 @@ const handleLoginError = (dispatch, error) => {
   return { success: false };
 };
 
-const signInCallBack = async (dispatch, code, state, verificationToken) => {
+const signInCallback = async (dispatch, code, state, verificationToken) => {
   dispatch({ type: 'LOGIN_REQUEST' });
   try {
     const response = await axios.post(
@@ -51,4 +51,4 @@ const signInCallBack = async (dispatch, code, state, verificationToken) => {
   }
 };
 
-export default signInCallBack;
+export default signInCallback;
