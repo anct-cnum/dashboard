@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
-import signInCallback from '../../services/auth/signInCallback';
 import { handleProConnectLogin } from '../../helpers/proConnectLogin';
 import AccountNotFound from './AccountNotFound';
+import signInCallback from '../../services/auth/signInCallback';
 
 const parseStateToken = state => {
   const stateWithToken = atob(state);
