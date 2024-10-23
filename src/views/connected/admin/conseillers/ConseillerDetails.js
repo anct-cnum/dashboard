@@ -157,7 +157,7 @@ function ConseillerDetails() {
           </div>
         }
         <div className="fr-col-md-4 fr-col-sm-6 fr-col-12 btn-invitation">
-          {conseiller?.emailCN?.address && !conseiller?.mattermost?.id &&
+          {conseiller?.statut === "RECRUTE" &&
             <button
               className="fr-btn fr-icon-mail-line fr-btn--icon-left fr-ml-auto"
               title="Inviter &agrave; rejoindre l&rsquo;espace Coop"

@@ -87,7 +87,7 @@ function FiltresEtTrisGrandReseau() {
             <SelectOptions
               options={listeConseillers}
               valueName="_id"
-              labelName="emailCN"
+              labelName="emailPro"
               title="S&eacute;lection Conum"
               defaultValue={'tous'}
             />
