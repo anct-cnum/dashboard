@@ -18,7 +18,7 @@ export default function Accueil() {
     if (!localStorage.getItem('user')) {
       navigate('/login');
     } else if (location.pathname.startsWith('/accueil') && localStorage.getItem('user') !== '{}' && window.location.pathname.split('/').length > 2) {
-      navigate('/accueil'); // pour ne pas partir en vue 404 si token présent après signInCallback
+      navigate('/accueil'); // pour ne pas partir en vue 404 si token présent après signInCallBack
     }
   });
 
