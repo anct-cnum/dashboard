@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import dayjs from 'dayjs';
-import { Tooltip } from 'react-tooltip';
-import { getAlertLevel, getGroupText } from '../../structure/utils/functionUtils';
 
 function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
