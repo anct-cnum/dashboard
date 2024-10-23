@@ -17,16 +17,11 @@ function Conseiller({ conseiller }) {
         <td style={{ maxWidth: '6.5rem' }}>{conseiller?.nom}</td>
         <td style={{ maxWidth: '4rem', overflowWrap: 'break-word' }}>{conseiller?.prenom}</td>
         <td style={{ maxWidth: '13rem', overflowWrap: 'break-word' }}>
-          <a className="email" href={'mailto:' + conseiller?.address}>
-            {conseiller?.address}
+          <a className="email" href={'mailto:' + conseiller?.emailPro}>
+            {conseiller?.emailPro}
           </a>
         </td>
         <td style={{ width: '27rem' }}>{conseiller?.nomStructure}</td>
-        <td>
-          <svg height="80" width="40">
-            <circle cx="10" cy="43" r="8" fill={`${conseiller?.compteCoopActif ? '#18753C' : '#B34000'}`} />
-          </svg>
-        </td>
         <td className="center-text">
           {conseiller?.rupture}
         </td>

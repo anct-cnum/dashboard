@@ -99,9 +99,7 @@ export default function TableauConseillers() {
                           <th>Code d&eacute;partement</th>
                           <th>D&eacute;but de contrat</th>
                           <th>Fin de contrat</th>
-                          <th>Activ&eacute;</th>
                           <th>CRA saisis</th>
-                          <th>Groupe CRA</th>
                           <th></th>
                         </tr>
                       </thead>

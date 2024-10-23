@@ -46,9 +46,6 @@ function exportFile(nameFile, collection = 'exports', hubName) {
     if (nameFile === 'demandes-ruptures') {
       nameFile = `${nameFile}_${dayjs(new Date()).format('DD-MM-YYYY')}`;
     }
-    if (nameFile === 'cnfs-without-cra') {
-      nameFile = 'export_cnfs_m2';
-    }
     if (nameFile === 'cnfs-hub') {
       nameFile = `export-cnfs_${dayjs(new Date()).format('DD-MM-YYYY')}_${hubName}`;
     }
