@@ -80,14 +80,14 @@ export default function Login() {
                 </button>
                 {
                   networkError && <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
-                    <h3 className="fr-alert__title">&Eacute;chec de la connexion &agrave; Inclusion Connect</h3>
+                    <h3 className="fr-alert__title">&Eacute;chec de la connexion &agrave; ProConnect</h3>
                     <p className="fr-mb-1v">
-                      Inclusion Connect ne r&eacute;pond pas,
+                       ProConnect ne r&eacute;pond pas,
                       merci de v&eacute;rifier votre r&eacute;seau ou de contacter le
-                      support Inclusion Connect par mail pour plus d&rsquo;informations.
+                      support ProConnect par mail pour plus d&rsquo;informations.
                     </p>
                     <a className="fr-link"
-                      href="mailto:support@connect.inclusion.beta.gouv.fr">support@connect.inclusion.beta.gouv.fr
+                      href="mailto:support.partenaires@agentconnect.gouv.fr">support.partenaires@agentconnect.gouv.fr
                     </a>
                   </div>
                 }
