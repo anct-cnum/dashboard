@@ -39,7 +39,6 @@ export default function Login() {
       setShowAccountNotFound(true);
       localStorage.removeItem('loginError');
     }
-
   }, []);
 
   function handleChange(e) {
@@ -72,12 +71,12 @@ export default function Login() {
               <>
                 <button
                   id="login"
-                  className="agentconnect-button"
+                  className="proconnect-button"
                   onClick={() =>
                     handleProConnectLogin(verificationToken, setProConnectLoading, setNetworkError)
                   }
                 >
-                  <span className="agentconnect-sr-only">S’identifier avec AgentConnect</span>
+                  <span className="proconnect-sr-only">S’identifier avec ProConnect</span>
                 </button>
                 {
                   networkError && <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">

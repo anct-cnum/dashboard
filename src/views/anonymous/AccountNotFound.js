@@ -3,7 +3,7 @@ import React from 'react';
 const AccountNotFound = () => {
   return (
     <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
-      <h3 className="fr-alert__title">Erreur : Le compte avec lequel vous tentez de vous connecter est inconnu.</h3>
+      <h2 className="fr-alert__title">Erreur : Le compte avec lequel vous tentez de vous connecter est inconnu.</h2>
       <p className="fr-mb-1v">Merci de vérifier que vous utilisez la même adresse mail
         que votre ancien compte&nbsp;: structure / préfet / coordinateur / grand réseau / admin.</p>
       <p>Si malgré cela vous rencontrez toujours des difficultés pour vous connecter nous vous invitons à&nbsp;:</p>

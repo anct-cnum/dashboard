@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
-import signInCallBack from '../../services/auth/signInCallBack';
+import signInCallback from '../../services/auth/signInCallback';
 import { handleProConnectLogin } from '../../helpers/proConnectLogin';
 import AccountNotFound from './AccountNotFound';
-
 
 const parseStateToken = state => {
   const stateWithToken = atob(state);
@@ -45,7 +44,7 @@ export default function Passerelle() {
       validateState(stateToken, nonce);
       if (stateToken === storedState && nonce === storedNonce) {
         try {
-          const result = await signInCallBack(dispatch, code, decodedState, verificationToken);
+          const result = await signInCallback(dispatch, code, decodedState, verificationToken);
           if (result.success) {
             navigate('/accueil');
           } else if (result.logoutUrl) {
@@ -81,8 +80,8 @@ export default function Passerelle() {
         }
         <div className="fr-grid-row fr-grid-row--center fr-mt-1-5v" style={{ textAlign: 'center' }}>
           { !isLoading && !callbackLoading && !loginLoading &&
-          <button id="login" className="agentconnect-button" onClick={() => handleProConnectLogin(verificationToken, setLoginLoading, setError)}>
-            <span className="agentconnect-sr-only">S’identifier avec AgentConnect</span>
+          <button id="login" className="proconnect-button" onClick={() => handleProConnectLogin(verificationToken, setLoginLoading, setError)}>
+            <span className="proconnect-sr-only">S’identifier avec ProConnect</span>
           </button>
           }
         </div>
