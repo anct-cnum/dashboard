@@ -281,7 +281,6 @@ export default function conseiller(state = initialState, action) {
         loading: false,
         conseillerContrat: {
           ...state.conseillerContrat,
-          emailCN: '',
           emailPro: '',
           telephonePro: '',
           statut: 'RUPTURE',
@@ -294,7 +293,6 @@ export default function conseiller(state = initialState, action) {
         },
         conseiller: {
           ...action.miseEnRelationUpdated.conseillerObj,
-          emailCN: '',
           emailPro: '',
           telephonePro: '',
           statut: 'RUPTURE',

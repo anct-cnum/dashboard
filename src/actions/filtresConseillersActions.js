@@ -5,7 +5,6 @@ export const filtresConseillersActions = {
   changeFiltreRegion,
   changeProfil,
   changeCertifie,
-  changeGroupeCRA,
   changeNomConseiller,
   changeCoordinateur,
   changeRupture,
@@ -23,10 +22,6 @@ function changeProfil(dataProfil) {
   
 function changeCertifie(dataCertifie) {
   return { type: 'CHANGE_CERTIFIE', dataCertifie };
-}
-  
-function changeGroupeCRA(dataGroupeCRA) {
-  return { type: 'CHANGE_GROUPE_CRA', dataGroupeCRA };
 }
   
 function changeNomConseiller(nomConseiller) {
