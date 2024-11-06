@@ -75,21 +75,6 @@ function InformationConseiller({
             <h4 className="titre">Informations professionelles</h4>
             <div className="fr-mb-3w">
               <strong>Email</strong><br />
-              {conseiller?.emailCN?.address &&
-                <a className="email" href={'mailto:' + conseiller?.emailCN?.address}>
-                  {conseiller?.emailCN?.address}
-                </a>
-              }
-              {!conseiller?.emailCN?.address &&
-                <span>-</span>
-              }
-            </div>
-            <div className="fr-mb-3w">
-              <strong>T&eacute;l&eacute;phone</strong><br />
-              <span>{formatNumeroTelephone(conseiller?.telephonePro)}</span>
-            </div>
-            <div className="fr-mb-3w">
-              <strong>Email secondaire</strong><br />
               {conseiller?.emailPro &&
                 <a className="email" href={'mailto:' + conseiller?.emailPro}>
                   {conseiller?.emailPro}
@@ -100,12 +85,8 @@ function InformationConseiller({
               }
             </div>
             <div className="fr-mb-3w">
-              <strong>Groupe CRA</strong><br />
-              <span>{conseiller?.groupeCRA ?? '-'}</span>
-            </div>
-            <div className="fr-mb-3w">
-              <strong>Compte activ&eacute;</strong><br />
-              <span>{conseiller?.mattermost?.id ? 'Oui' : 'Non'}</span>
+              <strong>T&eacute;l&eacute;phone</strong><br />
+              <span>{formatNumeroTelephone(conseiller?.telephonePro)}</span>
             </div>
             <div className="fr-mb-3w">
               <strong>Anonyme sur la cartographie</strong><br />

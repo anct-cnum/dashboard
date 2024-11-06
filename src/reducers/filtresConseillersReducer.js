@@ -39,11 +39,6 @@ export default function filtresConseillers(state = initialState, action) {
         ...state,
         certifie: action.dataCertifie
       };
-    case 'CHANGE_GROUPE_CRA':
-      return {
-        ...state,
-        groupeCRA: action.dataGroupeCRA
-      };
     case 'CHANGE_COORDINATEUR':
       return {
         ...state,

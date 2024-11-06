@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import dayjs from 'dayjs';
-import { Tooltip } from 'react-tooltip';
-import { getAlertLevel, getGroupText } from '../../structure/utils/functionUtils';
 
 function Conseiller({ conseiller }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -28,22 +26,7 @@ function Conseiller({ conseiller }) {
           dayjs(conseiller.dateFinDeContrat).format('DD/MM/YYYY') :
           '-'}
       </td>
-      <td>
-        <svg height="80" width="40">
-          <circle cx="10" cy="43" r="8" fill={`${conseiller?.compteCoopActif ? '#18753C' : '#B34000'}`} />
-        </svg>
-      </td>
       <td style={{ width: '4rem' }}>{conseiller?.craCount}</td>
-      <td style={{ width: '4rem' }}>
-        <span
-          data-tooltip-id={`tooltip-groupe-cra${conseiller?.idPG}`}
-          data-tooltip-content={getGroupText(conseiller?.groupeCRA)}
-          data-tooltip-variant={getAlertLevel(conseiller?.groupeCRA)}
-        >
-          {conseiller?.groupeCRA}
-        </span>
-        <Tooltip variant="light" id={`tooltip-groupe-cra${conseiller?.idPG}`} className="infobulle" style={{ opacity: 1, zIndex: 1 }}/>
-      </td>
       <td>
         <button
           className="fr-btn fr-icon-eye-line fr-mb-2w"

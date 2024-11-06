@@ -103,7 +103,7 @@ const AdvisorCard = ({ conseiller }) => {
             </div>
             <div className="badge-statut-advisor-card card__text">{renderStatusBadge(conseiller.statut, conseiller)}</div>
             <div className="btn-actions-conseiller">
-              {conseiller?.emailCN?.address && !conseiller?.mattermost?.id &&
+              {conseiller?.statut === 'RECRUTE' &&
                 <>
                   <button
                     className="fr-btn fr-mr-1w fr-icon-mail-line card__button"
