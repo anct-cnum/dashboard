@@ -21,7 +21,9 @@ function ConseillerDetails() {
   const loading = useSelector(state => state.conseiller?.loading);
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
   const successSendMail = useSelector(state => state.conseiller?.successRelanceInvitation);
+  const successSendMailCandidat = useSelector(state => state.conseiller?.successResendInvitCandidatConseiller);
   const errorSendMail = useSelector(state => state.conseiller?.errorRelanceInvitation);
+  const errorSendMailCandidat = useSelector(state => state.conseiller?.errorCandidat);
   const currentPage = useSelector(state => state.pagination?.currentPage);
 
   const [misesEnRelationFinalisee, setMisesEnRelationFinalisee] = useState([]);
@@ -30,6 +32,10 @@ function ConseillerDetails() {
 
   const resendInvitationEspaceCoop = conseillerId => {
     dispatch(conseillerActions.resendInvitConseiller(conseillerId));
+  };
+  const resendInvitCandidat = () => {
+    window.scrollTo(0, 0);
+    dispatch(conseillerActions.resendInvitCandidat(conseiller?._id));
   };
 
   useEffect(() => {
@@ -81,7 +87,22 @@ function ConseillerDetails() {
         status: null, description: null
       }));
     }
-  }, [successSendMail, errorSendMail]);
+
+    if (successSendMailCandidat) {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'success',
+        message: successSendMailCandidat,
+        status: null, description: null
+      }));
+    }
+    if (errorSendMailCandidat) {
+      dispatch(alerteEtSpinnerActions.getMessageAlerte({
+        type: 'error',
+        message: errorSendMailCandidat,
+        status: null, description: null
+      }));
+    }
+  }, [successSendMail, errorSendMail, successSendMailCandidat, errorSendMailCandidat]);
 
   return (
     <div className="fr-container conseillerDetails">
@@ -156,10 +177,10 @@ function ConseillerDetails() {
             }
           </div>
         }
-        <div className="fr-col-md-4 fr-col-sm-6 fr-col-12 btn-invitation">
-          {conseiller?.statut === 'RECRUTE' &&
+        <div className="fr-col-12 btn-invitation">
+          {conseiller?.statut === 'RECRUTE' && <>
             <button
-              className="fr-btn fr-icon-mail-line fr-btn--icon-left fr-ml-auto"
+              className="fr-col-lg-3 fr-col-md-3 fr-col-sm-6 fr-btn fr-icon-mail-line fr-btn--icon-left fr-ml-auto"
               title="Inviter &agrave; rejoindre l&rsquo;espace Coop"
               onClick={() => {
                 resendInvitationEspaceCoop(conseiller?._id);
@@ -167,6 +188,13 @@ function ConseillerDetails() {
             >
               Inviter sur l&rsquo;espace Coop
             </button>
+            {conseiller?.usersActived[0]?.passwordCreated === true &&
+              <button className="fr-col-lg-3 fr-col-md-3 fr-col-sm-6 fr-btn fr-icon-mail-line fr-btn--icon-left fr-ml-md-2w fr-mt-2w fr-mt-md-0"
+                title="Renvoyer l&rsquo;email d&rsquo;invitation" onClick={resendInvitCandidat}>
+                Inviter sur l&rsquo;espace Candidat
+              </button>
+            }
+          </>
           }
         </div>
       </div>
