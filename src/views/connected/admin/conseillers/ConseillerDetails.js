@@ -188,7 +188,7 @@ function ConseillerDetails() {
             >
               Inviter sur l&rsquo;espace Coop
             </button>
-            {conseiller?.usersActived[0]?.passwordCreated === true &&
+            {conseiller?.usersActived[0]?.passwordCreated === false &&
               <button className="fr-col-lg-3 fr-col-md-3 fr-col-sm-6 fr-btn fr-icon-mail-line fr-btn--icon-left fr-ml-md-2w fr-mt-2w fr-mt-md-0"
                 title="Renvoyer l&rsquo;email d&rsquo;invitation" onClick={resendInvitCandidat}>
                 Inviter sur l&rsquo;espace Candidat
