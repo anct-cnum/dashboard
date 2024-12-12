@@ -137,26 +137,13 @@ function ActiviterStructure({ structure, roleActivated }) {
           <h4 className="titre">Conventionnement phase 2</h4>
           {checkStructurePhase2(structure?.conventionnement?.statut) ? <>
             <div className="fr-mb-3w">
-              {structure?.conventionnement?.statut === StatutConventionnement.CONVENTIONNEMENT_VALIDÉ_PHASE_2 ?
-                <>
-                  <strong>{pluralize(
-                    'Poste attribué',
-                    'Poste attribué',
-                    'Postes attribués',
-                    structure?.posteValiderCoselec
-                  )}</strong><br />
-                  <span>{structure?.posteValiderCoselec ?? '-'}</span>
-                </> :
-                <>
-                  <strong>{pluralize(
-                    'Poste attribué',
-                    'Poste attribué',
-                    'Postes attribués',
-                    structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees
-                  )}</strong><br />
-                  <span>{structure?.conventionnement?.dossierReconventionnement?.nbPostesAttribuees ?? '-'}</span>
-                </>
-              }
+              <strong>{pluralize(
+                'Poste attribué',
+                'Poste attribué',
+                'Postes attribués',
+                structure?.posteValiderCoselec
+              )}</strong><br />
+              <span>{structure?.posteValiderCoselec ?? '-'}</span>
             </div>
             <div className="fr-mb-3w fr-grid-row">
               <strong>{pluralize(
