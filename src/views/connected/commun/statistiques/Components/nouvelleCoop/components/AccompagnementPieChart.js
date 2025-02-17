@@ -64,4 +64,3 @@ CustomTooltip.propTypes = {
 };
 
 export default AccompagnementPieChart;
-

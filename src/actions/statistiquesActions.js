@@ -16,6 +16,7 @@ export const statistiquesActions = {
   getStatistiquesConseillerParcoursRecrutement,
   getStatistiquesTerritoire,
   getStatistiquesNationale,
+  getStatistiquesNationaleNouvelleCoop,
   getStatistiquesNationaleGrandReseau,
   getCodesPostauxCrasConseillerStructure,
   getFiltresCrasConseiller,
@@ -49,6 +50,32 @@ function getStatistiquesNationale(dateDebut, dateFin) {
     dispatch(request());
 
     statistiquesService.getStatistiquesNationale(formatDate(dateDebut), formatDate(dateFin))
+    .then(
+      statsNationales => {
+        dispatch(success(statsNationales));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_STATS_CRA_NATIONALES_REQUEST' };
+  }
+  function success(statsNationales) {
+    return { type: 'GET_STATS_CRA_NATIONALES_SUCCESS', statsNationales };
+  }
+  function failure(error) {
+    return { type: 'GET_STATS_CRA_NATIONALES_FAILURE', error };
+  }
+}
+
+function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin) {
+  return dispatch => {
+    dispatch(request());
+
+    statistiquesService.getStatistiquesNationaleNouvelleCoop(formatDate(dateDebut), formatDate(dateFin))
     .then(
       statsNationales => {
         dispatch(success(statsNationales));

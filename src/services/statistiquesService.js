@@ -13,6 +13,7 @@ export const statistiquesService = {
   getStatistiquesConseiller,
   getStatistiquesConseillerParcoursRecrutement,
   getStatistiquesNationale,
+  getStatistiquesNationaleNouvelleCoop,
   getStatistiquesNationaleGrandReseau,
   getCodesPostauxCrasConseillerStructure,
   getFiltresCrasConseiller,
@@ -80,6 +81,19 @@ function getStatistiquesNationale(dateDebut, dateFin) {
   const { filterDateStart, filterDateEnd } = statsQueryStringParameters(dateDebut, dateFin);
 
   return API.get(`stats/nationales/cras?role=anonyme${filterDateStart}${filterDateEnd}`)
+  .then(response => response.data)
+  .catch(error => {
+    if (error.response.status === 403) {
+      signOut();
+    }
+    Promise.reject(error.response.data.message);
+  });
+}
+
+function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin) {
+  const { filterDateStart, filterDateEnd } = statsQueryStringParameters(dateDebut, dateFin);
+
+  return API.get(`stats/nationales/cras/nouvelle-coop?role=${roleActivated()}${filterDateStart}${filterDateEnd}`)
   .then(response => response.data)
   .catch(error => {
     if (error.response.status === 403) {

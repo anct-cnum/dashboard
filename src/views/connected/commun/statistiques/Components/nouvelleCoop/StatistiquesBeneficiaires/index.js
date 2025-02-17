@@ -33,13 +33,13 @@ const StatistiquesBeneficiaires = ({
     0,
   );
 
-  const totalWithTrancheAge = beneficiaires.trancheAges.reduce(
+  const totalWithTrancheAge = beneficiaires.tranche_ages.reduce(
     (total, { count, value }) =>
       value === 'NonCommunique' ? total : total + count,
     0,
   );
 
-  const totalWithStatut = beneficiaires.statutsSocial.reduce(
+  const totalWithStatut = beneficiaires.statuts_social.reduce(
     (total, { count, value }) =>
       value === 'NonCommunique' ? total : total + count,
     0,
@@ -139,13 +139,13 @@ const StatistiquesBeneficiaires = ({
             <div className="fr-mr-3w fr-mb-2w">
               <ProgressBar
                 size="large"
-                progress={beneficiaires.trancheAges.map(toProgress)}
+                progress={beneficiaires.tranche_ages.map(toProgress)}
                 colors={tranchesAgeColors}
                 tooltopKey="tranches-age"
               />
             </div>
             <QuantifiedShareLegend
-              quantifiedShares={beneficiaires.trancheAges}
+              quantifiedShares={beneficiaires.tranche_ages}
               colors={tranchesAgeColors}
             />
           </div>
@@ -180,13 +180,13 @@ const StatistiquesBeneficiaires = ({
             <div className="fr-mr-3w fr-mb-2w">
               <ProgressBar
                 size="large"
-                progress={beneficiaires.statutsSocial.map(toProgress)}
+                progress={beneficiaires.statuts_social.map(toProgress)}
                 colors={statusColors}
                 tooltopKey="status-beneficiaires"
               />
             </div>
             <QuantifiedShareLegend
-              quantifiedShares={beneficiaires.statutsSocial}
+              quantifiedShares={beneficiaires.statuts_social}
               colors={statusColors}
             />
           </div>
