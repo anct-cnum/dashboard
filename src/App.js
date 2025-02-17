@@ -55,8 +55,8 @@ function App() {
 
   return (
     <div className="App">
-      { isLoading === true &&
-      <div className="wrapperModal"></div>
+      {isLoading === true &&
+        <div className="wrapperModal"></div>
       }
       <Spinner loading={isLoggingOut} />
       <Header />
@@ -70,7 +70,7 @@ function App() {
           {/* routes communes ici */}
           <Route path="/documents" element={<Documents />} />
           <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
-          <Route path="/statistiques-nationales-nouvelle-coop" element={<GraphiqueNationaleNouvelleCoop />} />
+          <Route path="/statistiques-nouvelle-coop-nationales" element={<GraphiqueNationaleNouvelleCoop />} />
           <Route path="/statistiques-pilotage" element={<GraphiquePilotage />} />
           <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
           <Route path="/statistiques-conseiller/:idConseiller" element={<GraphiqueConseiller />} />
