@@ -1,0 +1,11 @@
+.fr-print {
+  height: 0;
+  visibility: hidden;
+  overflow: hidden;
+
+  @media print {
+    height: auto;
+    visibility: visible;
+    print-color-adjust: exact;
+  }
+}

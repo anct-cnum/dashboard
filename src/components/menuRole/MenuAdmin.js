@@ -137,6 +137,14 @@ function MenuAdmin({ onClickMenu, activeMenu, trackEvent }) {
               </Link>
             </li>
             <li>
+              <Link className="fr-nav__link" to={`/statistiques-nationales-nouvelle-coop`}
+                {...(location.pathname.startsWith(`/statistiques-nationales-nouvelle-coop`) ? { 'aria-current': 'page' } : {})}
+                onClick={() => trackEvent({ category: '/statistiques-nationales-nouvelle-coop', action: `click-${roleActivated}` })}
+              >
+                Statistiques depuis le 15/11/2024
+              </Link>
+            </li>
+            <li>
               <Link className="fr-nav__link" to="/statistiques-territoires"
                 {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'statistiques-territoriales', action: `click-${roleActivated}` })}
