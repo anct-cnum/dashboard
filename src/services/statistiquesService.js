@@ -1,8 +1,13 @@
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { statsGrandReseauQueryStringParameters, statsQueryStringParameters, territoireQueryString } from '../utils/queryUtils';
 import signOut from './auth/logout';
+import {
+  statsGrandReseauQueryStringParameters,
+  statsQueryStringParameters,
+  territoireQueryString,
+  statsQueryStringParametersForCoop
+} from '../utils/queryUtils';
 
 export const statistiquesService = {
   getTerritoire,
@@ -90,10 +95,11 @@ function getStatistiquesNationale(dateDebut, dateFin) {
   });
 }
 
-function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin) {
-  const { filterDateStart, filterDateEnd } = statsQueryStringParameters(dateDebut, dateFin);
+function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, lieu, type, mediateur) {
+  const { filterDateStart, filterDateEnd, filterType, filterLieu, filterMediateur } =
+  statsQueryStringParametersForCoop(dateDebut, dateFin, lieu, type, mediateur);
 
-  return API.get(`stats/nationales/cras/nouvelle-coop?role=${roleActivated()}${filterDateStart}${filterDateEnd}`)
+  return API.get(`stats/nationales/cras/nouvelle-coop?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterType}${filterLieu}${filterMediateur}`)
   .then(response => response.data)
   .catch(error => {
     if (error.response.status === 403) {

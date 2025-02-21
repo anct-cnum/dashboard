@@ -62,9 +62,9 @@ function MenuHub({ onClickMenu, activeMenu, trackEvent }) {
               </Link>
             </li>
             <li>
-              <Link className="fr-nav__link" to={`/statistiques-nouvelle-coop-nationales`}
-                {...(location.pathname.startsWith(`/statistiques-nouvelle-coop-nationales`) ? { 'aria-current': 'page' } : {})}
-                onClick={() => trackEvent({ category: '/statistiques-nouvelle-coop-nationales', action: `click-${roleActivated}` })}
+              <Link className="fr-nav__link" to={`/nouvelles-statistiques`}
+                {...(location.pathname.startsWith(`/nouvelles-statistiques`) ? { 'aria-current': 'page' } : {})}
+                onClick={() => trackEvent({ category: '/nouvelles-statistiques', action: `click-${roleActivated}` })}
               >
                 Statistiques depuis le 15/11/2024
               </Link>

@@ -44,7 +44,6 @@ const StatistiquesActivites = ({
         {wording === 'personnel' ? 'vos activités' : 'les activités'}
       </h2>
       <div className="fr-background-alt--blue-france fr-p-4w fr-mb-3w fr-border-radius--16 fr-grid-row fr-flex-gap-4v">
-        {/* TODO A afficher correctement */}
         {activites.type_activites.map(({ count, proportion, value }) => (
           <StatistiqueAccompagnement
             key={value}
@@ -201,7 +200,7 @@ const StatistiquesActivites = ({
             <div className="fr-flex fr-align-items-center">
               <AccompagnementPieChart
                 size={128}
-                data={activites.type_lieu} // pas le meme
+                data={activites.type_lieu}
                 colors={canauxAccompagnementColors}
               />
               <QuantifiedShareLegend

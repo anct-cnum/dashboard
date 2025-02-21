@@ -3,7 +3,6 @@ const initialState = {
   dateFin: new Date(),
   dateDebutStatistique: new Date(1605571200000),
   dateFinStatistique: new Date(),
-  dateDebutCoop: new Date(1731628800000)
 };
 
 export default function datePicker(state = initialState, action) {

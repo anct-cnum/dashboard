@@ -71,11 +71,11 @@ function getStatistiquesNationale(dateDebut, dateFin) {
   }
 }
 
-function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin) {
+function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, lieu, type, mediateur) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getStatistiquesNationaleNouvelleCoop(formatDate(dateDebut), formatDate(dateFin))
+    statistiquesService.getStatistiquesNationaleNouvelleCoop(formatDate(dateDebut), formatDate(dateFin), lieu, type, mediateur)
     .then(
       statsNationales => {
         dispatch(success(statsNationales));
@@ -87,13 +87,13 @@ function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin) {
   };
 
   function request() {
-    return { type: 'GET_STATS_CRA_NATIONALES_REQUEST' };
+    return { type: 'GET_STATS_CRA_COOP_REQUEST' };
   }
-  function success(statsNationales) {
-    return { type: 'GET_STATS_CRA_NATIONALES_SUCCESS', statsNationales };
+  function success(statsCoop) {
+    return { type: 'GET_STATS_CRA_COOP_SUCCESS', statsCoop };
   }
   function failure(error) {
-    return { type: 'GET_STATS_CRA_NATIONALES_FAILURE', error };
+    return { type: 'GET_STATS_CRA_COOP_FAILURE', error };
   }
 }
 

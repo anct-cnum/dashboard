@@ -20,6 +20,7 @@ import miseEnRelationReducer from './miseEnRelationReducer';
 import conventionReducer from './conventionReducer';
 import contratReducer from './contratReducer';
 import datePickerReducer from './datePickerReducer';
+import filtresCoopReducer from './filtresCoopReducer';
 import filtresConventionsReducer from './filtresConventionsReducer';
 import filtresDemandesReducer from './filtresDemandesReducer';
 import coordinateurReducer from './coordinateurReducer';
@@ -46,6 +47,7 @@ const appReducer = combineReducers({
   filtresStructures: filtresStructuresReducer,
   filtresGestionnaires: filtresGestionnairesReducer,
   datePicker: datePickerReducer,
+  filtresCoop: filtresCoopReducer,
   filtresConventions: filtresConventionsReducer,
   filtresDemandes: filtresDemandesReducer,
   coordinateur: coordinateurReducer
