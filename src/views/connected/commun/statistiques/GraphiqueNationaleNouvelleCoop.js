@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
+import { filtresCoopActions } from '../../../../actions/filtresCoopActions';
 import dataDefaultCoop from '../.././../../datas/data-default-coop.json';
 import Spinner from '../../../../components/Spinner';
 import '../../../../assets/sass/nouvelleCoop.scss';
@@ -21,6 +22,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
   const loading = useSelector(state => state.statistiques?.loading);
   const dateDebut = useSelector(state => state.filtresCoop?.dateDebutCoop);
   const minDateCoop = useSelector(state => state.filtresCoop.minDateCoop);
+  const maxDateCoop = useSelector(state => state.filtresCoop.maxDateCoop);
   const dateFin = useSelector(state => state.filtresCoop?.dateFin);
   const mediateur = useSelector(state => state.filtresCoop?.mediateur);
   const lieu = useSelector(state => state.filtresCoop?.lieu);
@@ -28,11 +30,21 @@ export default function GraphiqueNationaleNouvelleCoop() {
   const donneesStatistiques = donneesStatistiquesOne?.data ? donneesStatistiquesOne : dataDefaultCoop;
 
   const newSearchParams = new URLSearchParams(location.search.toString());
+  const changeQuery = {
+    du: 'changeDateDebut',
+    au: 'changeDateFin',
+    type: 'changeType',
+    mediateurId: 'changeMediateur',
+    lieu: 'changeLocalisation',
+    commune: 'changeLocalisation',
+    departement: 'changeLocalisation',
+  };
   for (const key of newSearchParams.keys()) {
     const value = newSearchParams.get(key);
     const checkValidity = ['du', 'au'].includes(key) ? dayjs(value).isValid() : true;
     if (checkValidity) {
       searchParams[key] = value;
+      dispatch(filtresCoopActions[changeQuery[key]](value));
     }
   }
 
@@ -48,39 +60,13 @@ export default function GraphiqueNationaleNouvelleCoop() {
     }
   }, [dateDebut, dateFin, lieu, type, mediateur, error]);
 
-  // DONNEE FILTER BOUCHONNER
-  const initialMediateursOptions = [
-    {
-      label: 'Coordinateur Inscrit avec tout (Mes statistiques)',
-      value: { mediateurId: '123', email: 'abc@exemple.com' }
-    },
-    { label: 'Médiateur Avec activités', value: { mediateurId: '456', email: 'def@exemple.com' } },
-    { label: 'Conseiller Num Inscrit', value: { mediateurId: '789', email: 'ghj@exemple.com' } }
-  ];
-  const communesOptions = [
-    { value: '69382', label: 'Lyon 2eme · 69002' },
-    { value: '75101', label: 'Paris 1er · 75001' }
-  ];
-  const departementsOptions = [
-    { value: '69', label: '69 · Rhône' },
-    { value: '75', label: '75 · Paris' }
-  ];
-  const lieuxActiviteOptions = [
-    {
-      value: '36929ed7-3b6f-4ed3-9924-b5e1a6c27096',
-      label: 'Exemple de Mediateque',
-      extra: []
-    },
-    {
-      value: '36f20d7e-90ed-4932-911a-55320617ad56',
-      label: 'Exemple de Centre Social',
-      extra: []
-    }
-  ];
+  const initialMediateursOptions = donneesStatistiques.initialMediateursOptions;
+  const communesOptions = donneesStatistiques.communesOptions;
+  const departementsOptions = donneesStatistiques.departementsOptions;
+  const lieuxActiviteOptions = donneesStatistiques.lieuxActiviteOptions;
 
   return (
-    <div
-      className="fr-container fr-my-10w fr-border-radius--8 fr-border fr-pt-8v fr-px-8v fr-pb-10v fr-mb-6v">
+    <div className="fr-container">
       <div className="fr-flex fr-align-items-center fr-flex-gap-3v fr-my-6v">
         <IconInSquare iconId="fr-icon-line-chart-line" size="medium" />
         <h1 className="fr-h3 fr-mb-0 fr-text-title--blue-france">Statistiques</h1>
@@ -90,6 +76,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
         className="fr-mt-0-5v"
         defaultFilters={{ du: dateDebut, au: dateFin, ...searchParams }}
         minDate={minDateCoop}
+        maxDate={maxDateCoop}
         initialMediateursOptions={initialMediateursOptions}
         communesOptions={communesOptions}
         departementsOptions={departementsOptions}

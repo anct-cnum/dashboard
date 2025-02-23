@@ -9,6 +9,7 @@ import StatistiqueMateriel from './StatistiqueMateriel';
 import ProgressListItem from '../components/ProgressListItem';
 import StatistiqueAccompagnement from './StatistiqueAccompagnement';
 import { sPluriel, numberToString } from '../utils/convert';
+
 import {
   canauxAccompagnementColors,
   dureesAccompagnementColors,
@@ -89,7 +90,7 @@ const StatistiquesActivites = ({
             </span>
           </div>
           <SegmentedControl
-            className="fr-md-col fr-col-12 fr-ml-auto"
+            className="fr-md-col fr-ml-auto"
             hideLegend
             small
             legend="Bascule entre les thématiques"

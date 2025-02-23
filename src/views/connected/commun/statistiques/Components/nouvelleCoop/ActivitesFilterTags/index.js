@@ -59,6 +59,7 @@ const ActivitesFilterTags = ({
   departementsOptions,
   lieuxActiviteOptions,
   minDate,
+  maxDate,
   className,
 }) => {
 
@@ -85,12 +86,8 @@ const ActivitesFilterTags = ({
   const dispatch = useDispatch();
 
   function onPeriodChange(value) {
-    if (value?.du) {
-      dispatch(filtresCoopActions.changeDateDebut(dayjs(value?.du).format('YYYY-MM-DD')));
-    }
-    if (value?.au) {
-      dispatch(filtresCoopActions.changeDateFin(dayjs(value?.au).format('YYYY-MM-DD')));
-    }
+    dispatch(filtresCoopActions.changeDateDebut(dayjs(value?.du ?? minDate).format('YYYY-MM-DD')));
+    dispatch(filtresCoopActions.changeDateFin(dayjs(value?.au ?? maxDate).format('YYYY-MM-DD')));
 
     return replaceRouteParams(
       value === null ? { du: null, au: null } : { du: value.du, au: value.au },
@@ -202,6 +199,7 @@ ActivitesFilterTags.propTypes = {
   isMediateur: PropTypes.bool,
   beneficiairesFilter: PropTypes.bool,
   minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
 };
 

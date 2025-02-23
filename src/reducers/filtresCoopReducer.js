@@ -2,6 +2,7 @@ const initialState = {
   dateFin: new Date(),
   dateDebutCoop: new Date(1731628800000),
   minDateCoop: new Date(1731628800000),
+  maxDateCoop: new Date(),
   type: '',
   mediateur: '',
   lieu: {
