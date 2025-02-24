@@ -2,8 +2,7 @@ export const filtresCoopActions = {
   changeDateDebut,
   changeDateFin,
   changeType,
-  changeMediateur,
-  changeLocalisation
+  changeMediateur
 };
 
 function changeDateDebut(dateDebutCoop) {
@@ -21,9 +20,3 @@ function changeType(typeCra) {
 function changeMediateur(mediateurId) {
   return { type: 'CHANGE_MEDIATEUR', mediateurId };
 }
-
-function changeLocalisation(lieu) {
-  return { type: 'CHANGE_LIEU', lieu };
-}
-
-

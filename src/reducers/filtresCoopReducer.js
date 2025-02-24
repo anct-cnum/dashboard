@@ -5,11 +5,6 @@ const initialState = {
   maxDateCoop: new Date(),
   type: '',
   mediateur: '',
-  lieu: {
-    lieu: null,
-    commune: null,
-    departement: null,
-  }
 };
 
 export default function filterCoop(state = initialState, action) {
@@ -33,11 +28,6 @@ export default function filterCoop(state = initialState, action) {
       return {
         ...state,
         mediateur: action.mediateurId,
-      };
-    case 'CHANGE_LIEU':
-      return {
-        ...state,
-        lieu: action.lieu,
       };
     default:
       return state;

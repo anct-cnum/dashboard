@@ -3,11 +3,6 @@ import classNames from 'classnames';
 import FilterTag from './FilterTag';
 import PropTypes from 'prop-types';
 
-export const locationTypeLabels = {
-  lieu: 'Lieu d’activité',
-  commune: 'Commune',
-  departement: 'Département',
-};
 export const typeActiviteForSlug =
 {
   individuel: 'Individuel',

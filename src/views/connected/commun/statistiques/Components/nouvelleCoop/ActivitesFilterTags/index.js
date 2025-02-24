@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { filtresCoopActions } from '../../../../../../../actions/filtresCoopActions';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import LocationFilter from './LocationFilter';
 import ActiviteTypeFilter from './ActiviteTypeFilter';
 import MediateurFilter from './MediateurFilter';
 
@@ -55,9 +54,6 @@ const createRouteParamsReplacer =
 const ActivitesFilterTags = ({
   defaultFilters,
   initialMediateursOptions,
-  communesOptions,
-  departementsOptions,
-  lieuxActiviteOptions,
   minDate,
   maxDate,
   className,
@@ -103,54 +99,6 @@ const ActivitesFilterTags = ({
     replaceRouteParams({ mediateur: mediateurId });
   };
 
-  const defaultLocation =
-    // eslint-disable-next-line no-nested-ternary
-    defaultFilters.lieu ?
-      {
-        type: 'lieu',
-        value: defaultFilters.lieu,
-      } :
-      // eslint-disable-next-line no-nested-ternary
-      defaultFilters.commune ?
-        {
-          type: 'commune',
-          value: defaultFilters.commune,
-        } :
-        defaultFilters.departement ?
-          {
-            type: 'departement',
-            value: defaultFilters.departement,
-          } :
-          undefined;
-
-  const onLocationChange = location => {
-    const newLocationParams = {
-      lieu: null,
-      commune: null,
-      departement: null,
-    };
-    if (!location) {
-      dispatch(filtresCoopActions.changeLocalisation(newLocationParams));
-      replaceRouteParams(newLocationParams);
-      return;
-    }
-
-    if (location.type === 'lieu') {
-      newLocationParams.lieu = location.value;
-    }
-
-    if (location.type === 'commune') {
-      newLocationParams.commune = location.value;
-    }
-
-    if (location.type === 'departement') {
-      newLocationParams.departement = location.value;
-    }
-
-    dispatch(filtresCoopActions.changeLocalisation(newLocationParams));
-    replaceRouteParams(newLocationParams);
-  };
-
   return (
     <div
       className={classNames(
@@ -172,13 +120,6 @@ const ActivitesFilterTags = ({
           minDate={minDate ?? new Date()}
           defaultValue={defaultPeriod}
         />
-        <LocationFilter
-          onChange={onLocationChange}
-          defaultValue={defaultLocation}
-          lieuxActiviteOptions={lieuxActiviteOptions}
-          communesOptions={communesOptions}
-          departementsOptions={departementsOptions}
-        />
         <ActiviteTypeFilter
           onChange={onActiviteTypeChange}
           defaultValue={defaultFilters.type}
@@ -191,13 +132,6 @@ const ActivitesFilterTags = ({
 ActivitesFilterTags.propTypes = {
   defaultFilters: PropTypes.object,
   initialMediateursOptions: PropTypes.array,
-  initialBeneficiairesOptions: PropTypes.array,
-  communesOptions: PropTypes.array,
-  departementsOptions: PropTypes.array,
-  lieuxActiviteOptions: PropTypes.array,
-  isCoordinateur: PropTypes.bool,
-  isMediateur: PropTypes.bool,
-  beneficiairesFilter: PropTypes.bool,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,

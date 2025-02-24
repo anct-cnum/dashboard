@@ -25,7 +25,6 @@ export default function GraphiqueNationaleNouvelleCoop() {
   const maxDateCoop = useSelector(state => state.filtresCoop.maxDateCoop);
   const dateFin = useSelector(state => state.filtresCoop?.dateFin);
   const mediateur = useSelector(state => state.filtresCoop?.mediateur);
-  const lieu = useSelector(state => state.filtresCoop?.lieu);
   const type = useSelector(state => state.filtresCoop?.type);
   const donneesStatistiques = donneesStatistiquesOne?.data ? donneesStatistiquesOne : dataDefaultCoop;
 
@@ -34,10 +33,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
     du: 'changeDateDebut',
     au: 'changeDateFin',
     type: 'changeType',
-    mediateurId: 'changeMediateur',
-    lieu: 'changeLocalisation',
-    commune: 'changeLocalisation',
-    departement: 'changeLocalisation',
+    mediateurId: 'changeMediateur'
   };
   for (const key of newSearchParams.keys()) {
     const value = newSearchParams.get(key);
@@ -50,7 +46,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
 
   useEffect(() => {
     if (!error) {
-      dispatch(statistiquesActions.getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, lieu, type, mediateur));
+      dispatch(statistiquesActions.getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, type, mediateur));
     } else {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
@@ -58,12 +54,9 @@ export default function GraphiqueNationaleNouvelleCoop() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, lieu, type, mediateur, error]);
+  }, [dateDebut, dateFin, type, mediateur, error]);
 
   const initialMediateursOptions = donneesStatistiques.initialMediateursOptions;
-  const communesOptions = donneesStatistiques.communesOptions;
-  const departementsOptions = donneesStatistiques.departementsOptions;
-  const lieuxActiviteOptions = donneesStatistiques.lieuxActiviteOptions;
 
   return (
     <div className="fr-container">
@@ -78,11 +71,6 @@ export default function GraphiqueNationaleNouvelleCoop() {
         minDate={minDateCoop}
         maxDate={maxDateCoop}
         initialMediateursOptions={initialMediateursOptions}
-        communesOptions={communesOptions}
-        departementsOptions={departementsOptions}
-        lieuxActiviteOptions={lieuxActiviteOptions}
-        isCoordinateur={false}
-        isMediateur
       />
       <div className="contentContainer contentContainer--794">
         <section className="fr-mb-6w">
