@@ -62,9 +62,6 @@
                 }
         },
         "initialMediateursOptions": [],
-        "communesOptions": [],
-        "departementsOptions": [],
-        "lieuxActiviteOptions": [],
         "links": {
                 "self": {
                         "href": ""

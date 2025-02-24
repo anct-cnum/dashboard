@@ -99,7 +99,10 @@ const FilterTag = ({
 FilterTag.propTypes = {
   label: PropTypes.string,
   children: PropTypes.object,
-  value: PropTypes.object,
+  value: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string
+  ]),
   valueLabel: PropTypes.func,
   onClear: PropTypes.func,
 };

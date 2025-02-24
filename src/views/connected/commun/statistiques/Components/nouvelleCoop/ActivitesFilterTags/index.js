@@ -50,7 +50,6 @@ const createRouteParamsReplacer =
         navigate,
       });
 
-
 const ActivitesFilterTags = ({
   defaultFilters,
   initialMediateursOptions,
@@ -62,6 +61,7 @@ const ActivitesFilterTags = ({
   const navigate = useNavigate();
   const searchParams = useLocation();
   const pathname = useLocation().pathname;
+  const dispatch = useDispatch();
 
   const replaceRouteParams = useMemo(
     () =>
@@ -79,7 +79,6 @@ const ActivitesFilterTags = ({
         au: defaultFilters.au,
       } :
       undefined;
-  const dispatch = useDispatch();
 
   function onPeriodChange(value) {
     dispatch(filtresCoopActions.changeDateDebut(dayjs(value?.du ?? minDate).format('YYYY-MM-DD')));

@@ -16,7 +16,6 @@ import ActivitesFilterTags from './Components/nouvelleCoop/ActivitesFilterTags';
 export default function GraphiqueNationaleNouvelleCoop() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const searchParams = {};
   const donneesStatistiquesOne = useSelector(state => state.statistiques.statsCoop);
   const error = useSelector(state => state.statistiques?.error);
   const loading = useSelector(state => state.statistiques?.loading);
@@ -27,22 +26,28 @@ export default function GraphiqueNationaleNouvelleCoop() {
   const mediateur = useSelector(state => state.filtresCoop?.mediateur);
   const type = useSelector(state => state.filtresCoop?.type);
   const donneesStatistiques = donneesStatistiquesOne?.data ? donneesStatistiquesOne : dataDefaultCoop;
-
   const newSearchParams = new URLSearchParams(location.search.toString());
   const changeQuery = {
     du: 'changeDateDebut',
     au: 'changeDateFin',
     type: 'changeType',
-    mediateurId: 'changeMediateur'
+    mediateur: 'changeMediateur'
   };
-  for (const key of newSearchParams.keys()) {
-    const value = newSearchParams.get(key);
-    const checkValidity = ['du', 'au'].includes(key) ? dayjs(value).isValid() : true;
-    if (checkValidity) {
-      searchParams[key] = value;
-      dispatch(filtresCoopActions[changeQuery[key]](value));
+
+  const initialMediateursOptions = donneesStatistiques.initialMediateursOptions;
+  const searchParams = {};
+
+  const searchParamsFunction = () => {
+    for (const key of newSearchParams.keys()) {
+      const value = newSearchParams.get(key);
+      const checkValidity = ['du', 'au'].includes(key) ? dayjs(value).isValid() : changeQuery[key];
+      if (checkValidity) {
+        searchParams[key] = value;
+        dispatch(filtresCoopActions[changeQuery[key]](value));
+      }
     }
-  }
+    return searchParams;
+  };
 
   useEffect(() => {
     if (!error) {
@@ -56,8 +61,6 @@ export default function GraphiqueNationaleNouvelleCoop() {
     }
   }, [dateDebut, dateFin, type, mediateur, error]);
 
-  const initialMediateursOptions = donneesStatistiques.initialMediateursOptions;
-
   return (
     <div className="fr-container">
       <div className="fr-flex fr-align-items-center fr-flex-gap-3v fr-my-6v">
@@ -67,7 +70,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
       <Spinner loading={loading} />
       <ActivitesFilterTags
         className="fr-mt-0-5v"
-        defaultFilters={{ du: dateDebut, au: dateFin, ...searchParams }}
+        defaultFilters={{ du: dateDebut, au: dateFin, ...searchParamsFunction() }}
         minDate={minDateCoop}
         maxDate={maxDateCoop}
         initialMediateursOptions={initialMediateursOptions}

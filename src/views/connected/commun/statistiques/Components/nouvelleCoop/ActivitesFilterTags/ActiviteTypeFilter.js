@@ -95,7 +95,7 @@ const ActiviteTypeFilter = ({
 
 ActiviteTypeFilter.propTypes = {
   onChange: PropTypes.func,
-  defaultValue: PropTypes.object,
+  defaultValue: PropTypes.string,
 };
 
 export default ActiviteTypeFilter;

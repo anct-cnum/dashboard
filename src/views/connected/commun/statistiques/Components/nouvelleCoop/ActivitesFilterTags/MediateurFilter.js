@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CustomSelect from './CustomSelect';
 import FilterTag from './FilterTag';
@@ -8,10 +8,15 @@ const MediateurFilter = ({
   defaultValue,
   initialMediateursOptions,
 }) => {
-  const [mediateur, setMediateur] = useState(
-    initialMediateursOptions.find(
+
+  const [mediateur, setMediateur] = useState(null);
+
+  useEffect(() => {
+    const initMediateur = initialMediateursOptions.find(
       option => option.value?.mediateurId === defaultValue,
-    ) ?? null);
+    ) ?? null;
+    setMediateur(initMediateur);
+  }, [initialMediateursOptions]);
 
   const onClear = () => {
     onChange(null);
@@ -51,7 +56,7 @@ const MediateurFilter = ({
 
 MediateurFilter.propTypes = {
   onChange: PropTypes.func,
-  defaultValue: PropTypes.object,
+  defaultValue: PropTypes.string,
   initialMediateursOptions: PropTypes.array,
 };
 
