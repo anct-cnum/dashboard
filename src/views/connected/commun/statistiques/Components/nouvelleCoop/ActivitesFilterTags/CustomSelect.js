@@ -57,7 +57,6 @@ const noOptionsMessage = () => (
   <div className={styles.noOptionsContainer}>Aucun résultat</div>
 );
 
-
 const CustomSelect = ({
   components,
   ...props
@@ -105,8 +104,7 @@ CustomSelect.propTypes = {
   classNames: PropTypes.func,
   loadingMessage: PropTypes.bool,
   noOptionsMessage: PropTypes.bool,
-  loadOptions: PropTypes.bool
-
+  loadOptions: PropTypes.func
 };
 
 export default CustomSelect;

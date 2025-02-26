@@ -22,6 +22,7 @@ export const statistiquesActions = {
   getFiltresCrasConseiller,
   getFiltresCrasConseillerParcoursRecrutement,
   resetFiltre,
+  getConseillersNouvelleCoop,
 };
 
 function changeCodePostalStats(codePostal, ville, codeCommune = null) {
@@ -77,8 +78,8 @@ function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, type, mediateu
 
     statistiquesService.getStatistiquesNationaleNouvelleCoop(formatDate(dateDebut), formatDate(dateFin), type, mediateur)
     .then(
-      statsNationales => {
-        dispatch(success(statsNationales));
+      statsNouvelleCoop => {
+        dispatch(success(statsNouvelleCoop));
       },
       error => {
         dispatch(failure(error));
@@ -384,4 +385,28 @@ function getFiltresCrasConseillerParcoursRecrutement(idConseiller) {
 
 function resetFiltre() {
   return { type: 'RESET_FILTRES_STATS' };
+}
+
+function getConseillersNouvelleCoop(search) {
+  return dispatch => {
+    dispatch(request());
+
+    statistiquesService.getConseillersNouvelleCoop(search)
+    .then(
+      conseillers => dispatch(success(conseillers)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CONSEILLERS_NOUVELLE_COOP_REQUEST' };
+  }
+  function success(conseillersOptions) {
+    return { type: 'GET_CONSEILLERS_NOUVELLE_COOP_SUCCESS', conseillersOptions };
+  }
+  function failure(error) {
+    return { type: 'GET_CONSEILLERS_NOUVELLE_COOP_FAILURE', error };
+  }
 }

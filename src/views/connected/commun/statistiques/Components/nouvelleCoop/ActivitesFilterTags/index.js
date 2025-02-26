@@ -56,6 +56,7 @@ const ActivitesFilterTags = ({
   minDate,
   maxDate,
   className,
+  isActiveSearch,
 }) => {
 
   const navigate = useNavigate();
@@ -113,6 +114,7 @@ const ActivitesFilterTags = ({
           onChange={onMediateurChange}
           initialMediateursOptions={initialMediateursOptions}
           defaultValue={defaultFilters.mediateur}
+          isActiveSearch={isActiveSearch}
         />
         <PeriodFilter
           onChange={onPeriodChange}
@@ -134,6 +136,7 @@ ActivitesFilterTags.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
+  isActiveSearch: PropTypes.bool,
 };
 
 export default ActivitesFilterTags;

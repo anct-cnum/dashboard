@@ -5,6 +5,8 @@ const initialState = {
   maxDateCoop: new Date(),
   type: '',
   mediateur: '',
+  searchNomEtOuPrenomConseiller: '',
+  conseillersOptions: []
 };
 
 export default function filterCoop(state = initialState, action) {
@@ -28,6 +30,24 @@ export default function filterCoop(state = initialState, action) {
       return {
         ...state,
         mediateur: action.mediateurId,
+      };
+    case 'GET_CONSEILLERS_NOUVELLE_COOP_REQUEST':
+      return {
+        ...state,
+        error: false,
+        loadingNouvelleCoop: true
+      };
+    case 'GET_CONSEILLERS_NOUVELLE_COOP_SUCCESS':
+      return {
+        ...state,
+        loadingNouvelleCoop: false,
+        conseillersOptions: action.conseillersOptions.result,
+      };
+    case 'GET_CONSEILLERS_NOUVELLE_COOP_FAILURE':
+      return {
+        ...state,
+        loadingNouvelleCoop: false,
+        error: action.error
       };
     default:
       return state;

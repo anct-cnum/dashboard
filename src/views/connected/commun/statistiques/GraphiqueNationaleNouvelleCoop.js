@@ -25,6 +25,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
   const dateFin = useSelector(state => state.filtresCoop?.dateFin);
   const mediateur = useSelector(state => state.filtresCoop?.mediateur);
   const type = useSelector(state => state.filtresCoop?.type);
+  const conseillersOptions = useSelector(state => state.filtresCoop?.conseillersOptions);
   const donneesStatistiques = donneesStatistiquesOne?.data ? donneesStatistiquesOne : dataDefaultCoop;
   const newSearchParams = new URLSearchParams(location.search.toString());
   const changeQuery = {
@@ -34,7 +35,8 @@ export default function GraphiqueNationaleNouvelleCoop() {
     mediateur: 'changeMediateur'
   };
 
-  const initialMediateursOptions = donneesStatistiques.initialMediateursOptions;
+  const initialMediateursOptions = donneesStatistiques.initialMediateursOptions.concat(conseillersOptions);
+  const isActiveSearch = donneesStatistiques.isActiveSearchMediateur;
   const searchParams = {};
 
   const searchParamsFunction = () => {
@@ -74,6 +76,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
         minDate={minDateCoop}
         maxDate={maxDateCoop}
         initialMediateursOptions={initialMediateursOptions}
+        isActiveSearch={isActiveSearch}
       />
       <div className="contentContainer contentContainer--794">
         <section className="fr-mb-6w">
