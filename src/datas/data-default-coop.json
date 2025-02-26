@@ -1,0 +1,72 @@
+{
+        "data": {
+                "type": "statistiques",
+                "id": "statistiques",
+                "attributes": {
+                        "accompagnements_par_jour": [],
+                        "accompagnements_par_mois": [],
+                        "beneficiaires": {
+                                "total": 0,
+                                "genres": [],
+                                "tranche_ages": [],
+                                "statuts_social": []
+                        },
+                        "activites": {
+                                "total": 0,
+                                "type_activites": [],
+                                "durees": [],
+                                "type_lieu": [],
+                                "thematiques": [],
+                                "thematiques_demarches": [],
+                                "materiels": []
+                        },
+                        "totaux": {
+                                "activites": {
+                                        "total": 0,
+                                        "individuels": {
+                                                "total": 0,
+                                                "proportion": 0
+                                        },
+                                        "collectifs": {
+                                                "total": 0,
+                                                "proportion": 0,
+                                                "participants": 0
+                                        },
+                                        "demarches": {
+                                                "total": 0,
+                                                "proportion": 0
+                                        }
+                                },
+                                "accompagnements": {
+                                        "total": 0,
+                                        "individuels": {
+                                                "total": 0,
+                                                "proportion": 0
+                                        },
+                                        "collectifs": {
+                                                "total": 0,
+                                                "proportion": 0
+                                        },
+                                        "demarches": {
+                                                "total": 0,
+                                                "proportion": 0
+                                        }
+                                },
+                                "beneficiaires": {
+                                        "total": 0,
+                                        "nouveaux": 0,
+                                        "suivis": 0,
+                                        "anonymes": 0
+                                }
+                        }
+                }
+        },
+        "initialMediateursOptions": [],
+        "isActiveSearchMediateur": false,
+        "links": {
+                "self": {
+                        "href": ""
+                }
+        },
+        "meta": {}
+}

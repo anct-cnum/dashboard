@@ -223,6 +223,14 @@ export function statsQueryStringParameters(dateDebut, dateFin, codePostal, codeC
 
   return { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune, filterByIdStructure };
 }
+export function statsQueryStringParametersForCoop(dateDebut, dateFin, type, mediateur) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
+  const filterType = type ? `&type=${type}` : '';
+  const filterMediateur = mediateur ? `&mediateur=${mediateur}` : '';
+
+  return { filterDateStart, filterDateEnd, filterType, filterMediateur };
+}
 
 export function candidatQueryStringParameters(filtreSearch, filtreParRegion, filtreParDepartement) {
   const filterByNameAndEmailCandidat = filtreSearch ? `&search=${filtreSearch}` : '';

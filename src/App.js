@@ -10,6 +10,7 @@ import Header from './components/Header';
 import Alerte from './components/Alerte';
 import Documents from './views/connected/Documents';
 import GraphiqueNationale from './views/connected/commun/statistiques/GraphiqueNationale';
+import GraphiqueNationaleNouvelleCoop from './views/connected/commun/statistiques/GraphiqueNationaleNouvelleCoop';
 import GraphiquePilotage from './views/connected/commun/statistiques/GraphiquePilotage';
 import GraphiqueStructure from './views/connected/commun/statistiques/GraphiqueStructure';
 import GraphiqueTerritoire from './views/connected/commun/statistiques/GraphiqueTerritoire';
@@ -23,6 +24,7 @@ import Spinner from './components/Spinner';
 import '@gouvfr/dsfr/dist/dsfr/dsfr.module';
 import './assets/sass/main.scss';
 import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
+import '@gouvfr/dsfr/dist/utility/utility.min.css';
 import '@gouvfr/dsfr/dist/utility/icons/icons-communication/icons-communication.min.css';
 import '@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css';
 import '@gouvfr/dsfr/dist/utility/icons/icons-design/icons-design.min.css';
@@ -53,8 +55,8 @@ function App() {
 
   return (
     <div className="App">
-      { isLoading === true &&
-      <div className="wrapperModal"></div>
+      {isLoading === true &&
+        <div className="wrapperModal"></div>
       }
       <Spinner loading={isLoggingOut} />
       <Header />
@@ -64,17 +66,18 @@ function App() {
         <Route path="/passerelle" element={<Passerelle />} />
         <Route path="/passerelle/:token" element={<Passerelle />} />
         <Route path="/invitation/:verificationToken" element={<Login />} />
-        <Route path="/" element={<PrivateRoute/>}>
+        <Route path="/" element={<PrivateRoute />}>
           {/* routes communes ici */}
           <Route path="/documents" element={<Documents />} />
           <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
+          <Route path="/nouvelles-statistiques" element={<GraphiqueNationaleNouvelleCoop />} />
           <Route path="/statistiques-pilotage" element={<GraphiquePilotage />} />
           <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
           <Route path="/statistiques-conseiller/:idConseiller" element={<GraphiqueConseiller />} />
           <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
           <Route path="/statistiques-territoire/:maille/:codeTerritoire" element={<GraphiqueTerritoire />} />
           <Route index element={<Navigate to="/accueil" />} /> {/* pour fixer le warning du react router */}
-          <Route path="*" element={<Accueil />}/>
+          <Route path="*" element={<Accueil />} />
         </Route>
       </Routes>
       <Footer />

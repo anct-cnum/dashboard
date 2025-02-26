@@ -1,0 +1,28 @@
+.fr-pb-50v {
+  padding-bottom: 200px;
+}
+
+.fr-mb-50v {
+  margin-bottom: 200px;
+}
+
+/* sm spaces */
+@media (min-width: 36em) {
+  .fr-mt-sm-0 {
+    margin-top: 0 !important;
+  }
+
+  .fr-mb-sm-0 {
+    margin-bottom: 0 !important;
+  }
+}
+
+@media (min-width: 78em) {
+  .fr-mr-xl-0 {
+    margin-right: 0;
+  }
+
+  .fr-p-xl-24v {
+    padding: 6rem !important;
+  }
+}
