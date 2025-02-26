@@ -16,11 +16,13 @@ export const statistiquesActions = {
   getStatistiquesConseillerParcoursRecrutement,
   getStatistiquesTerritoire,
   getStatistiquesNationale,
+  getStatistiquesNationaleNouvelleCoop,
   getStatistiquesNationaleGrandReseau,
   getCodesPostauxCrasConseillerStructure,
   getFiltresCrasConseiller,
   getFiltresCrasConseillerParcoursRecrutement,
   resetFiltre,
+  getConseillersNouvelleCoop,
 };
 
 function changeCodePostalStats(codePostal, ville, codeCommune = null) {
@@ -67,6 +69,32 @@ function getStatistiquesNationale(dateDebut, dateFin) {
   }
   function failure(error) {
     return { type: 'GET_STATS_CRA_NATIONALES_FAILURE', error };
+  }
+}
+
+function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, type, mediateur) {
+  return dispatch => {
+    dispatch(request());
+
+    statistiquesService.getStatistiquesNationaleNouvelleCoop(formatDate(dateDebut), formatDate(dateFin), type, mediateur)
+    .then(
+      statsNouvelleCoop => {
+        dispatch(success(statsNouvelleCoop));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_STATS_CRA_COOP_REQUEST' };
+  }
+  function success(statsCoop) {
+    return { type: 'GET_STATS_CRA_COOP_SUCCESS', statsCoop };
+  }
+  function failure(error) {
+    return { type: 'GET_STATS_CRA_COOP_FAILURE', error };
   }
 }
 
@@ -357,4 +385,28 @@ function getFiltresCrasConseillerParcoursRecrutement(idConseiller) {
 
 function resetFiltre() {
   return { type: 'RESET_FILTRES_STATS' };
+}
+
+function getConseillersNouvelleCoop(search) {
+  return dispatch => {
+    dispatch(request());
+
+    statistiquesService.getConseillersNouvelleCoop(search)
+    .then(
+      conseillers => dispatch(success(conseillers)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request() {
+    return { type: 'GET_CONSEILLERS_NOUVELLE_COOP_REQUEST' };
+  }
+  function success(conseillersOptions) {
+    return { type: 'GET_CONSEILLERS_NOUVELLE_COOP_SUCCESS', conseillersOptions };
+  }
+  function failure(error) {
+    return { type: 'GET_CONSEILLERS_NOUVELLE_COOP_FAILURE', error };
+  }
 }

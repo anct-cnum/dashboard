@@ -30,7 +30,7 @@ export default function GraphiqueNationale() {
       }));
     }
   }, [dateDebut, dateFin, error]);
-  
+
   return (
     <div className="statistiques">
       <Spinner loading={loading || loadingExport} />

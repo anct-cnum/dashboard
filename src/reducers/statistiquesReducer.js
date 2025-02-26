@@ -99,6 +99,25 @@ export default function statistiques(state = initialState, action) {
         error: action.error,
         loading: false,
       };
+    case 'GET_STATS_CRA_COOP_REQUEST':
+      return {
+        ...state,
+        statsCoop: null,
+        loading: true,
+        error: false,
+      };
+    case 'GET_STATS_CRA_COOP_SUCCESS':
+      return {
+        ...state,
+        statsCoop: action.statsCoop,
+        loading: false,
+      };
+    case 'GET_STATS_CRA_COOP_FAILURE':
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
     case 'UPDATE_AUTRES_REORIENTATIONS':
       return {
         ...state,

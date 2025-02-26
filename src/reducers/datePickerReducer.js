@@ -4,7 +4,7 @@ const initialState = {
   dateDebutStatistique: new Date(1605571200000),
   dateFinStatistique: new Date(),
 };
-  
+
 export default function datePicker(state = initialState, action) {
   switch (action.type) {
     case 'CHANGE_DATE_DEBUT':

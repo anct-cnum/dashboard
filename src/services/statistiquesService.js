@@ -1,8 +1,13 @@
 import { handleApiError, roleActivated } from '../helpers';
 import apiUrlRoot from '../helpers/apiUrl';
 import { API } from './api';
-import { statsGrandReseauQueryStringParameters, statsQueryStringParameters, territoireQueryString } from '../utils/queryUtils';
 import signOut from './auth/logout';
+import {
+  statsGrandReseauQueryStringParameters,
+  statsQueryStringParameters,
+  territoireQueryString,
+  statsQueryStringParametersForCoop
+} from '../utils/queryUtils';
 
 export const statistiquesService = {
   getTerritoire,
@@ -13,10 +18,12 @@ export const statistiquesService = {
   getStatistiquesConseiller,
   getStatistiquesConseillerParcoursRecrutement,
   getStatistiquesNationale,
+  getStatistiquesNationaleNouvelleCoop,
   getStatistiquesNationaleGrandReseau,
   getCodesPostauxCrasConseillerStructure,
   getFiltresCrasConseiller,
-  getFiltresCrasConseillerParcoursRecrutement
+  getFiltresCrasConseillerParcoursRecrutement,
+  getConseillersNouvelleCoop,
 };
 
 function getTerritoire(typeTerritoire, idTerritoire, dateFin) {
@@ -88,6 +95,27 @@ function getStatistiquesNationale(dateDebut, dateFin) {
     Promise.reject(error.response.data.message);
   });
 }
+
+function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, type, mediateur) {
+  const { filterDateStart, filterDateEnd, filterType, filterMediateur } = statsQueryStringParametersForCoop(dateDebut, dateFin, type, mediateur);
+
+  return API.get(`stats/nationales/cras/nouvelle-coop?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterType}${filterMediateur}`)
+  .then(response => response.data)
+  .catch(error => {
+    if (error.response.status === 403) {
+      signOut();
+      window.location.pathname = '/login';
+    }
+    Promise.reject(error.response.data.message);
+  });
+}
+
+function getConseillersNouvelleCoop(search) {
+  return API.get(`${apiUrlRoot}/admin/conseillers/nouvelle-coop?role=${roleActivated()}&search=${search}`)
+  .then(response => response.data)
+  .catch();
+}
+
 
 function getStatistiquesNationaleGrandReseau(dateDebut, dateFin, codeCommune, codePostal, region, departement, structureId, conseillerId) {
   const {
