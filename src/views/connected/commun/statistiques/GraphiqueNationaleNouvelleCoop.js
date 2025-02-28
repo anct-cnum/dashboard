@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import dayjs from 'dayjs';
+
 import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
 import { filtresCoopActions } from '../../../../actions/filtresCoopActions';
 import dataDefaultCoop from '../.././../../datas/data-default-coop.json';
@@ -12,6 +12,7 @@ import StatistiquesActivites from './Components/nouvelleCoop/StatistiquesActivit
 import StatistiquesBeneficiaires from './Components/nouvelleCoop/StatistiquesBeneficiaires';
 import IconInSquare from './Components/nouvelleCoop/components/IconInSquare';
 import ActivitesFilterTags from './Components/nouvelleCoop/ActivitesFilterTags';
+import { validateActivitesFilters } from './Components/utils/functionsSearchParams';
 
 export default function GraphiqueNationaleNouvelleCoop() {
   const dispatch = useDispatch();
@@ -19,15 +20,22 @@ export default function GraphiqueNationaleNouvelleCoop() {
   const donneesStatistiquesOne = useSelector(state => state.statistiques.statsCoop);
   const error = useSelector(state => state.statistiques?.error);
   const loading = useSelector(state => state.statistiques?.loading);
-  const dateDebut = useSelector(state => state.filtresCoop?.dateDebutCoop);
+  const filtreDateDebut = useSelector(state => state.filtresCoop?.dateDebutCoop);
   const minDateCoop = useSelector(state => state.filtresCoop.minDateCoop);
   const maxDateCoop = useSelector(state => state.filtresCoop.maxDateCoop);
-  const dateFin = useSelector(state => state.filtresCoop?.dateFin);
-  const mediateur = useSelector(state => state.filtresCoop?.mediateur);
-  const type = useSelector(state => state.filtresCoop?.type);
+  const filtreDateFin = useSelector(state => state.filtresCoop?.dateFin);
+  const filtreMediateur = useSelector(state => state.filtresCoop?.mediateur);
+  const filtreType = useSelector(state => state.filtresCoop?.type);
+  const [dateDebut, setDateDebut] = useState('');
+  const [dateFin, setDateFin] = useState('');
+  const [mediateur, setMediateur] = useState('');
+  const [type, setType] = useState('');
   const conseillersOptions = useSelector(state => state.filtresCoop?.conseillersOptions);
   const donneesStatistiques = donneesStatistiquesOne?.data ? donneesStatistiquesOne : dataDefaultCoop;
-  const newSearchParams = new URLSearchParams(location.search.toString());
+  const initialMediateursOptions = donneesStatistiques.initialMediateursOptions.concat(conseillersOptions);
+  const isActiveSearch = donneesStatistiques.isActiveSearchMediateur;
+  const queryParams = Object.fromEntries(new URLSearchParams(location.search));
+  const searchParams = validateActivitesFilters(queryParams);
   const changeQuery = {
     du: 'changeDateDebut',
     au: 'changeDateFin',
@@ -35,26 +43,38 @@ export default function GraphiqueNationaleNouvelleCoop() {
     mediateur: 'changeMediateur'
   };
 
-  const initialMediateursOptions = donneesStatistiques.initialMediateursOptions.concat(conseillersOptions);
-  const isActiveSearch = donneesStatistiques.isActiveSearchMediateur;
-  const searchParams = {};
+  useEffect(() => {
+    for (const key of Object.keys(searchParams)) {
+      const value = searchParams[key];
+      dispatch(filtresCoopActions[changeQuery[key]](value));
 
-  const searchParamsFunction = () => {
-    for (const key of newSearchParams.keys()) {
-      const value = newSearchParams.get(key);
-      const checkValidity = ['du', 'au'].includes(key) ? dayjs(value).isValid() : changeQuery[key];
-      if (checkValidity) {
-        searchParams[key] = value;
-        dispatch(filtresCoopActions[changeQuery[key]](value));
+      if (key === 'du') {
+        setDateDebut(value);
+      }
+      if (key === 'au') {
+        setDateFin(value);
+      }
+      if (key === 'type') {
+        setType(value);
+      }
+      if (key === 'mediateur') {
+        setMediateur(value);
       }
     }
-    return searchParams;
-  };
+  }, []);
 
   useEffect(() => {
-    if (!error) {
+    setDateDebut(filtreDateDebut);
+    setDateFin(filtreDateFin);
+    setType(filtreType);
+    setMediateur(filtreMediateur);
+  }, [filtreDateDebut, filtreDateFin, filtreType, filtreMediateur]);
+
+  useEffect(() => {
+    if (!error && dateDebut) {
       dispatch(statistiquesActions.getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, type, mediateur));
-    } else {
+    }
+    if (error) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
         type: 'error',
         message: 'Les statistiques n\'ont pas pu être chargées !',
@@ -72,7 +92,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
       <Spinner loading={loading} />
       <ActivitesFilterTags
         className="fr-mt-0-5v"
-        defaultFilters={{ du: dateDebut, au: dateFin, ...searchParamsFunction() }}
+        defaultFilters={{ du: filtreDateDebut, au: filtreDateFin, ...validateActivitesFilters(queryParams) }}
         minDate={minDateCoop}
         maxDate={maxDateCoop}
         initialMediateursOptions={initialMediateursOptions}

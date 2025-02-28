@@ -15,13 +15,9 @@ const MediateurFilter = ({
   const dispatch = useDispatch();
   const [mediateur, setMediateur] = useState(null);
   const [searchParNomEtOuPrenom, setSearchParNomEtOuPrenom] = useState('');
-
-  useEffect(() => {
-    const initMediateur = initialMediateursOptions.find(
-      option => option.value?.mediateurId === defaultValue,
-    ) ?? null;
-    setMediateur(initMediateur);
-  }, [initialMediateursOptions]);
+  const [key, setKey] = useState(0);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const closeMenu = () => setMenuIsOpen(false);
 
   const onClear = () => {
     onChange(null);
@@ -41,28 +37,27 @@ const MediateurFilter = ({
 
   const debouncedDispatch = useCallback(
     debounce(value => {
-      if (value !== '') {
-        dispatch(statistiquesActions.getConseillersNouvelleCoop(value));
-      }
-    }, 500)
+      dispatch(statistiquesActions.getConseillersNouvelleCoop(value));
+    }, 1000)
     , []);
 
-  const handleChangeValueSearchInSelect = value => {
-    setSearchParNomEtOuPrenom(value);
-    debouncedDispatch(value);
+  const handleChangeValueSearchInSelect = (value, { action }) => {
+    if (action === 'input-change') {
+      debouncedDispatch(value);
+      setSearchParNomEtOuPrenom(value);
+    }
   };
 
-  const loadOptionsConseiller = value => {
+  const loadOptionsConseiller = () => {
     return new Promise(resolve => {
       setTimeout(() => {
-        const optionsConseiller = initialMediateursOptions.filter(option =>
-          option.label.toLowerCase().includes(value.toLowerCase())
-        );
-
-        resolve(optionsConseiller);
+        resolve(initialMediateursOptions);
+        setKey(prevKey => prevKey + 1);
+        setMenuIsOpen(true);
       }, 1000);
     });
   };
+
   function debounce(func, timeout = 500) {
     let timer;
     return (...args) => {
@@ -72,6 +67,16 @@ const MediateurFilter = ({
       }, timeout);
     };
   }
+
+  useEffect(() => {
+    if (defaultValue) {
+      const initMediateur = initialMediateursOptions.find(
+        option => option.value?.mediateurId === defaultValue,
+      ) ?? null;
+
+      setMediateur(initMediateur);
+    }
+  }, [initialMediateursOptions]);
 
   return (
     <FilterTag
@@ -83,13 +88,18 @@ const MediateurFilter = ({
       <div style={{ width: 456 }}>
         {isActiveSearch &&
           <CustomSelect
+            key={key}
             instanceId="mediateur-filter-search"
             placeholder="Rechercher un médiateur"
             className="fr-mb-2v fr-mt-3v"
+            defaultOptions={initialMediateursOptions}
             onChange={onSelectChange}
             onInputChange={handleChangeValueSearchInSelect}
             loadOptions={loadOptionsConseiller}
-            value={searchParNomEtOuPrenom}
+            defaultValue={searchParNomEtOuPrenom}
+            inputValue={searchParNomEtOuPrenom}
+            menuIsOpen={menuIsOpen}
+            onMenuClose={closeMenu}
           />
         }
         {!isActiveSearch &&
