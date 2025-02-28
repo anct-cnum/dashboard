@@ -223,13 +223,14 @@ export function statsQueryStringParameters(dateDebut, dateFin, codePostal, codeC
 
   return { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune, filterByIdStructure };
 }
-export function statsQueryStringParametersForCoop(dateDebut, dateFin, type, mediateur) {
+export function statsQueryStringParametersForCoop(dateDebut, dateFin, type, mediateur, departement) {
   const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
   const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
   const filterType = type ? `&type=${type}` : '';
   const filterMediateur = mediateur ? `&mediateur=${mediateur}` : '';
+  const filterDepartement = departement ? `&departement=${departement}` : '';
 
-  return { filterDateStart, filterDateEnd, filterType, filterMediateur };
+  return { filterDateStart, filterDateEnd, filterType, filterMediateur, filterDepartement };
 }
 
 export function candidatQueryStringParameters(filtreSearch, filtreParRegion, filtreParDepartement) {
