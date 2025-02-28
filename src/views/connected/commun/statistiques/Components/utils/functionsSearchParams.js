@@ -24,6 +24,7 @@ const ActivitesFilterValidations = {
   au: z.string().regex(isoDayRegex).optional(),
   type: z.enum(typeActiviteSlugValues).optional(),
   mediateur: z.string().uuid().optional(),
+  departement: z.string().max(3).optional(),
 };
 
 export const validateActivitesFilters = searchParams => {

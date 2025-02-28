@@ -27,7 +27,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
   const filtreDateFin = useSelector(state => state.filtresCoop?.dateFin);
   const filtreMediateur = useSelector(state => state.filtresCoop?.mediateur);
   const filtreType = useSelector(state => state.filtresCoop?.type);
-  const filterDepartement = useSelector(state => state.filtresCoop?.lieu);
+  const filterDepartement = useSelector(state => state.filtresCoop?.departement);
   const [dateDebut, setDateDebut] = useState('');
   const [dateFin, setDateFin] = useState('');
   const [mediateur, setMediateur] = useState('');

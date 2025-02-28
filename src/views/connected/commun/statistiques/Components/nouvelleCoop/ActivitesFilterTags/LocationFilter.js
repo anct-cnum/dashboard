@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import CustomSelect from './CustomSelect';
 import FilterTag from './FilterTag';
-import { locationTypeLabels } from './generateActivitesFiltersLabels';
 
 export const labelsToOptions = (
   object,
@@ -19,8 +18,6 @@ export const labelsToOptions = (
       ({ label, value }),
   );
 
-const locationTypeOptions = labelsToOptions(locationTypeLabels);
-
 const locationValuePlaceholder = {
   departement: 'Choisir un département',
 };
@@ -28,50 +25,37 @@ const locationValuePlaceholder = {
 const LocationFilter = ({
   onChange,
   defaultValue,
-  communesOptions,
   departementsOptions,
-  lieuxActiviteOptions,
 }) => {
   const [locationType, setLocationType] = useState(
-    defaultValue?.type ?? null,
+    defaultValue?.type ?? 'departement',
   );
 
   const [locationValue, setLocationValue] = useState(
     defaultValue?.value ?? null,
   );
 
-  const onTypeChange = option => {
-    setLocationType(option?.value ?? null);
-    setLocationValue(null);
-  };
-
   const onValueChange = option => {
-    if (!option || !locationType || !option.value) {
+    if (!option || !option.value) {
       return setLocationValue(null);
     }
 
     setLocationValue(option.value);
     onChange({
-      type: locationType,
+      type: 'departement',
       value: option?.value,
     });
   };
 
   const onClear = () => {
     onChange(null);
-    setLocationType(null);
+    setLocationType('departement');
     setLocationValue(null);
   };
 
   const optionsForType = type =>
-  // eslint-disable-next-line no-nested-ternary
-    type ?
-    // eslint-disable-next-line no-nested-ternary
-      type === 'commune' ?
-        communesOptions :
-        type === 'departement' ?
-          departementsOptions :
-          lieuxActiviteOptions :
+    type === 'departement' ?
+      departementsOptions :
       [];
 
   const filterValue =
@@ -89,11 +73,6 @@ const LocationFilter = ({
       ?.label ?? null
     );
   };
-
-  const defaultTypeValue =
-                locationType ?
-                  locationTypeOptions.find(({ value }) => value === locationType) :
-                  undefined;
 
   const locationValueForTypeOptions = optionsForType(locationType);
 
@@ -113,13 +92,6 @@ const LocationFilter = ({
       label="Lieu"
     >
       <div style={{ width: 460 }}>
-        <CustomSelect
-          instanceId="location-filter-type"
-          options={locationTypeOptions}
-          defaultValue={defaultTypeValue}
-          onChange={onTypeChange}
-          placeholder="Choisir un type de localisation"
-        />
         {locationType && (
           <CustomSelect
             className="fr-mt-4v"
@@ -139,9 +111,7 @@ const LocationFilter = ({
 LocationFilter.propTypes = {
   onChange: PropTypes.func,
   defaultValue: PropTypes.object,
-  communesOptions: PropTypes.array,
   departementsOptions: PropTypes.array,
-  lieuxActiviteOptions: PropTypes.array,
 };
 
 export default LocationFilter;
