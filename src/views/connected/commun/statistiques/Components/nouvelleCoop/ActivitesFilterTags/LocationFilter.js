@@ -22,8 +22,6 @@ export const labelsToOptions = (
 const locationTypeOptions = labelsToOptions(locationTypeLabels);
 
 const locationValuePlaceholder = {
-  lieu: 'Choisir un lieu d’activité',
-  commune: 'Choisir une commune',
   departement: 'Choisir un département',
 };
 
