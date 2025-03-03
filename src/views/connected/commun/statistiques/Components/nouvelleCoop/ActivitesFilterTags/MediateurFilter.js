@@ -22,6 +22,7 @@ const MediateurFilter = ({
   const onClear = () => {
     onChange(null);
     setMediateur(null);
+    setSearchParNomEtOuPrenom('');
   };
 
   const valueLabel = option => option?.label ?? null;
