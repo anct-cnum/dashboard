@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import ActiviteTypeFilter from './ActiviteTypeFilter';
 import MediateurFilter from './MediateurFilter';
+import LocationFilter from './LocationFilter';
 
 dayjs.extend(customParseFormat);
 
@@ -53,6 +54,7 @@ const createRouteParamsReplacer =
 const ActivitesFilterTags = ({
   defaultFilters,
   initialMediateursOptions,
+  departementsOptions,
   minDate,
   maxDate,
   className,
@@ -99,6 +101,29 @@ const ActivitesFilterTags = ({
     replaceRouteParams({ mediateur: mediateurId });
   };
 
+  const defaultLocation = defaultFilters.departement ?
+    {
+      type: 'departement',
+      value: defaultFilters.departement,
+    } :
+    undefined;
+
+  const onLocationChange = location => {
+    const newLocationParams = {
+      departement: null,
+    };
+    if (!location) {
+      dispatch(filtresCoopActions.changeDepartement(newLocationParams.departement));
+      replaceRouteParams(newLocationParams);
+      return;
+    }
+    if (location.type === 'departement') {
+      newLocationParams.departement = location.value;
+    }
+    dispatch(filtresCoopActions.changeDepartement(newLocationParams.departement));
+    replaceRouteParams(newLocationParams);
+  };
+
   return (
     <div
       className={classNames(
@@ -121,6 +146,11 @@ const ActivitesFilterTags = ({
           minDate={minDate ?? new Date()}
           defaultValue={defaultPeriod}
         />
+        <LocationFilter
+          onChange={onLocationChange}
+          defaultValue={defaultLocation}
+          departementsOptions={departementsOptions}
+        />
         <ActiviteTypeFilter
           onChange={onActiviteTypeChange}
           defaultValue={defaultFilters.type}
@@ -133,6 +163,7 @@ const ActivitesFilterTags = ({
 ActivitesFilterTags.propTypes = {
   defaultFilters: PropTypes.object,
   initialMediateursOptions: PropTypes.array,
+  departementsOptions: PropTypes.array,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,

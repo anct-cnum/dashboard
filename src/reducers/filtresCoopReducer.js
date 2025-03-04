@@ -5,6 +5,7 @@ const initialState = {
   maxDateCoop: new Date(),
   type: '',
   mediateur: '',
+  departement: '',
   searchNomEtOuPrenomConseiller: '',
   conseillersOptions: []
 };
@@ -30,6 +31,11 @@ export default function filterCoop(state = initialState, action) {
       return {
         ...state,
         mediateur: action.mediateurId,
+      };
+    case 'CHANGE_DEPARTEMENT':
+      return {
+        ...state,
+        departement: action.departement,
       };
     case 'GET_CONSEILLERS_NOUVELLE_COOP_REQUEST':
       return {

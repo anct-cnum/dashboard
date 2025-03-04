@@ -1,8 +1,6 @@
 import { dateAsDay } from '../utils/convert';
 
 export const locationTypeLabels = {
-  lieu: 'Lieu d’activité',
-  commune: 'Commune',
   departement: 'Département',
 };
 export const typeActiviteForSlug =
@@ -28,19 +26,9 @@ export const generateActivitesPeriodeFilterLabel = ({
   du,
 }) => `${dateAsDay(new Date(du))} - ${dateAsDay(new Date(au))}`;
 
-export const generateActivitesLocationTypeFilterLabel = ({
-  commune,
-  departement,
-  lieu,
-}) => {
-  if (commune) {
-    return locationTypeLabels.commune;
-  }
+export const generateActivitesLocationTypeFilterLabel = ({ departement }) => {
   if (departement) {
     return locationTypeLabels.departement;
-  }
-  if (lieu) {
-    return locationTypeLabels.lieu;
   }
   return null;
 };

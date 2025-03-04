@@ -72,11 +72,11 @@ function getStatistiquesNationale(dateDebut, dateFin) {
   }
 }
 
-function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, type, mediateur) {
+function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, type, mediateur, departement) {
   return dispatch => {
     dispatch(request());
 
-    statistiquesService.getStatistiquesNationaleNouvelleCoop(formatDate(dateDebut), formatDate(dateFin), type, mediateur)
+    statistiquesService.getStatistiquesNationaleNouvelleCoop(formatDate(dateDebut), formatDate(dateFin), type, mediateur, departement)
     .then(
       statsNouvelleCoop => {
         dispatch(success(statsNouvelleCoop));

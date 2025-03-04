@@ -13,6 +13,7 @@ import StatistiquesBeneficiaires from './Components/nouvelleCoop/StatistiquesBen
 import IconInSquare from './Components/nouvelleCoop/components/IconInSquare';
 import ActivitesFilterTags from './Components/nouvelleCoop/ActivitesFilterTags';
 import { validateActivitesFilters } from './Components/utils/functionsSearchParams';
+import departements from '../../../../datas/departements-region.json';
 
 export default function GraphiqueNationaleNouvelleCoop() {
   const dispatch = useDispatch();
@@ -26,21 +27,26 @@ export default function GraphiqueNationaleNouvelleCoop() {
   const filtreDateFin = useSelector(state => state.filtresCoop?.dateFin);
   const filtreMediateur = useSelector(state => state.filtresCoop?.mediateur);
   const filtreType = useSelector(state => state.filtresCoop?.type);
+  const filterDepartement = useSelector(state => state.filtresCoop?.departement);
   const [dateDebut, setDateDebut] = useState('');
   const [dateFin, setDateFin] = useState('');
   const [mediateur, setMediateur] = useState('');
   const [type, setType] = useState('');
+  const [departement, setDepartement] = useState('');
   const conseillersOptions = useSelector(state => state.filtresCoop?.conseillersOptions);
   const donneesStatistiques = donneesStatistiquesOne?.data ? donneesStatistiquesOne : dataDefaultCoop;
   const initialMediateursOptions = donneesStatistiques.initialMediateursOptions.concat(conseillersOptions);
   const isActiveSearch = donneesStatistiques.isActiveSearchMediateur;
   const queryParams = Object.fromEntries(new URLSearchParams(location.search));
   const searchParams = validateActivitesFilters(queryParams);
+  const departementsOptions = departements.map(departement => ({ value: departement.num_dep, label: `${departement.num_dep} · ${departement.dep_name}` }));
+
   const changeQuery = {
     du: 'changeDateDebut',
     au: 'changeDateFin',
     type: 'changeType',
-    mediateur: 'changeMediateur'
+    mediateur: 'changeMediateur',
+    departement: 'changeDepartement',
   };
 
   useEffect(() => {
@@ -60,6 +66,9 @@ export default function GraphiqueNationaleNouvelleCoop() {
       if (key === 'mediateur') {
         setMediateur(value);
       }
+      if (key === 'departement') {
+        setDepartement(value);
+      }
     }
   }, []);
 
@@ -68,11 +77,12 @@ export default function GraphiqueNationaleNouvelleCoop() {
     setDateFin(filtreDateFin);
     setType(filtreType);
     setMediateur(filtreMediateur);
-  }, [filtreDateDebut, filtreDateFin, filtreType, filtreMediateur]);
+    setDepartement(filterDepartement);
+  }, [filtreDateDebut, filtreDateFin, filtreType, filtreMediateur, filterDepartement]);
 
   useEffect(() => {
     if (!error && dateDebut) {
-      dispatch(statistiquesActions.getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, type, mediateur));
+      dispatch(statistiquesActions.getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, type, mediateur, departement));
     }
     if (error) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -81,7 +91,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
         status: null, description: null
       }));
     }
-  }, [dateDebut, dateFin, type, mediateur, error]);
+  }, [dateDebut, dateFin, type, mediateur, departement, error]);
 
   return (
     <div className="fr-container">
@@ -97,6 +107,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
         maxDate={maxDateCoop}
         initialMediateursOptions={initialMediateursOptions}
         isActiveSearch={isActiveSearch}
+        departementsOptions={departementsOptions}
       />
       <div className="contentContainer contentContainer--794">
         <section className="fr-mb-6w">

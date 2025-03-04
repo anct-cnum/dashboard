@@ -3,6 +3,7 @@ export const filtresCoopActions = {
   changeDateFin,
   changeType,
   changeMediateur,
+  changeDepartement,
   changesearchNomEtOuPrenomConseiller
 };
 
@@ -20,6 +21,10 @@ function changeType(typeCra) {
 
 function changeMediateur(mediateurId) {
   return { type: 'CHANGE_MEDIATEUR', mediateurId };
+}
+
+function changeDepartement(departement) {
+  return { type: 'CHANGE_DEPARTEMENT', departement };
 }
 
 function changesearchNomEtOuPrenomConseiller(searchNomEtOuPrenomConseiller) {
