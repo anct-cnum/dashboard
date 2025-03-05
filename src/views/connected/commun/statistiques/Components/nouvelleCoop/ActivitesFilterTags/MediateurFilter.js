@@ -15,9 +15,6 @@ const MediateurFilter = ({
   const dispatch = useDispatch();
   const [mediateur, setMediateur] = useState(null);
   const [searchParNomEtOuPrenom, setSearchParNomEtOuPrenom] = useState('');
-  const [key, setKey] = useState(0);
-  const [menuIsOpen, setMenuIsOpen] = useState(false);
-  const closeMenu = () => setMenuIsOpen(false);
 
   const onClear = () => {
     onChange(null);
@@ -53,9 +50,7 @@ const MediateurFilter = ({
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(initialMediateursOptions);
-        setKey(prevKey => prevKey + 1);
-        setMenuIsOpen(true);
-      }, 1000);
+      }, 500);
     });
   };
 
@@ -89,7 +84,6 @@ const MediateurFilter = ({
       <div style={{ width: 456 }}>
         {isActiveSearch &&
           <CustomSelect
-            key={key}
             instanceId="mediateur-filter-search"
             placeholder="Rechercher un médiateur"
             className="fr-mb-2v fr-mt-3v"
@@ -99,8 +93,6 @@ const MediateurFilter = ({
             loadOptions={loadOptionsConseiller}
             defaultValue={searchParNomEtOuPrenom}
             inputValue={searchParNomEtOuPrenom}
-            menuIsOpen={menuIsOpen}
-            onMenuClose={closeMenu}
           />
         }
         {!isActiveSearch &&
