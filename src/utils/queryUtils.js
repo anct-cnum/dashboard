@@ -223,14 +223,14 @@ export function statsQueryStringParameters(dateDebut, dateFin, codePostal, codeC
 
   return { filterDateStart, filterDateEnd, filterByCodePostal, filterByCodeCommune, filterByIdStructure };
 }
-export function statsQueryStringParametersForCoop(dateDebut, dateFin, type, mediateur, departement) {
-  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString()}` : '';
-  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString()}` : '';
-  const filterType = type ? `&type=${type}` : '';
-  const filterMediateur = mediateur ? `&mediateur=${mediateur}` : '';
-  const filterDepartement = departement ? `&departement=${departement}` : '';
+export function statsQueryStringParametersForCoop(dateDebut, dateFin, types, mediateurs, departements) {
+  const filterDateStart = (dateDebut !== '') ? `&dateDebut=${new Date(dateDebut).toISOString().split('T')[0]}` : '';
+  const filterDateEnd = (dateFin !== '') ? `&dateFin=${new Date(dateFin).toISOString().split('T')[0]}` : '';
+  const filterTypes = types ? `&types=${types}` : '';
+  const filterMediateurs = mediateurs ? `&mediateurs=${mediateurs}` : '';
+  const filterDepartements = departements ? `&departements=${departements}` : '';
 
-  return { filterDateStart, filterDateEnd, filterType, filterMediateur, filterDepartement };
+  return { filterDateStart, filterDateEnd, filterTypes, filterMediateurs, filterDepartements };
 }
 
 export function candidatQueryStringParameters(filtreSearch, filtreParRegion, filtreParDepartement) {

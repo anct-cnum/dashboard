@@ -11,7 +11,7 @@
     "start": "vite preview"
   },
   "dependencies": {
-    "@codegouvfr/react-dsfr": "^1.16.7",
+    "@codegouvfr/react-dsfr": "^1.17.0",
     "@gouvfr/dsfr": "^1.11.1",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
     "@reduxjs/toolkit": "^2.1.0",
@@ -26,6 +26,7 @@
     "highcharts": "^11.3.0",
     "highcharts-react-official": "^3.2.1",
     "jwt-decode": "^4.0.0",
+    "radix-ui": "^1.1.3",
     "react": "^18.2.0",
     "react-calendar": "^5.1.0",
     "react-datepicker": "^7.3.0",

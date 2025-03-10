@@ -1,9 +1,9 @@
 export const filtresCoopActions = {
   changeDateDebut,
   changeDateFin,
-  changeType,
-  changeMediateur,
-  changeDepartement,
+  changeTypes,
+  changeMediateurs,
+  changeDepartements,
   changesearchNomEtOuPrenomConseiller
 };
 
@@ -15,16 +15,16 @@ function changeDateFin(dateFin) {
   return { type: 'CHANGE_DATE_COOP_FIN', dateFin };
 }
 
-function changeType(typeCra) {
-  return { type: 'CHANGE_TYPE', typeCra };
+function changeTypes(activiteTypes) {
+  return { type: 'CHANGE_TYPES', activiteTypes };
 }
 
-function changeMediateur(mediateurId) {
-  return { type: 'CHANGE_MEDIATEUR', mediateurId };
+function changeMediateurs(mediateursIds) {
+  return { type: 'CHANGE_MEDIATEURS', mediateursIds };
 }
 
-function changeDepartement(departement) {
-  return { type: 'CHANGE_DEPARTEMENT', departement };
+function changeDepartements(departements) {
+  return { type: 'CHANGE_DEPARTEMENTS', departements };
 }
 
 function changesearchNomEtOuPrenomConseiller(searchNomEtOuPrenomConseiller) {
