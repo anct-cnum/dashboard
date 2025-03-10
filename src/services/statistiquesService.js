@@ -96,12 +96,11 @@ function getStatistiquesNationale(dateDebut, dateFin) {
   });
 }
 
-function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, type, mediateur, departement) {
-  const { filterDateStart, filterDateEnd, filterType, filterMediateur, filterDepartement } =
-  statsQueryStringParametersForCoop(dateDebut, dateFin, type, mediateur, departement);
-
+function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, types, mediateurs, departements) {
+  const { filterDateStart, filterDateEnd, filterTypes, filterMediateurs, filterDepartements } =
+  statsQueryStringParametersForCoop(dateDebut, dateFin, types, mediateurs, departements);
   // eslint-disable-next-line max-len
-  return API.get(`stats/nationales/cras/nouvelle-coop?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterType}${filterMediateur}${filterDepartement}`)
+  return API.get(`stats/nationales/cras/nouvelle-coop?role=${roleActivated()}${filterDateStart}${filterDateEnd}${filterTypes}${filterMediateurs}${filterDepartements}`)
   .then(response => response.data)
   .catch(error => {
     if (error.response.status === 403) {

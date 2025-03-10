@@ -3,9 +3,9 @@ const initialState = {
   dateDebutCoop: new Date(1731628800000),
   minDateCoop: new Date(1731628800000),
   maxDateCoop: new Date(),
-  type: '',
-  mediateur: '',
-  departement: '',
+  types: [],
+  mediateurs: [],
+  departements: [],
   searchNomEtOuPrenomConseiller: '',
   conseillersOptions: []
 };
@@ -15,27 +15,27 @@ export default function filterCoop(state = initialState, action) {
     case 'CHANGE_DATE_COOP_DEBUT':
       return {
         ...state,
-        dateDebutCoop: action?.dateDebutCoop,
+        dateDebutCoop: action.dateDebutCoop,
       };
     case 'CHANGE_DATE_COOP_FIN':
       return {
         ...state,
         dateFin: action.dateFin,
       };
-    case 'CHANGE_TYPE':
+    case 'CHANGE_TYPES':
       return {
         ...state,
-        type: action.typeCra,
+        types: action.activiteTypes,
       };
-    case 'CHANGE_MEDIATEUR':
+    case 'CHANGE_MEDIATEURS':
       return {
         ...state,
-        mediateur: action.mediateurId,
+        mediateurs: action.mediateursIds,
       };
-    case 'CHANGE_DEPARTEMENT':
+    case 'CHANGE_DEPARTEMENTS':
       return {
         ...state,
-        departement: action.departement,
+        departements: action.departements,
       };
     case 'GET_CONSEILLERS_NOUVELLE_COOP_REQUEST':
       return {
