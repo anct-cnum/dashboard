@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
+import { datePickerActions } from '../../../../actions/datePickerActions';
 
 import Spinner from '../../../../components/Spinner';
 import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
@@ -16,6 +17,7 @@ export default function GraphiquePilotage() {
 
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
+  const dateFinMax = useSelector(state => state.datePicker?.dateFinMax);
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const ville = useSelector(state => state.statistiques?.villeStats);
   const codeCommune = useSelector(state => state.statistiques?.codeCommuneStats);
@@ -29,6 +31,10 @@ export default function GraphiquePilotage() {
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
   const loadingExport = useSelector(state => state.exports?.loading);
   const [initStats, setInitStats] = useState(false);
+
+  useEffect(() => {
+    dispatch(datePickerActions.changeDateFin(dateFinMax));
+  }, []);
 
   useEffect(() => {
     if (!error) {
@@ -58,7 +64,7 @@ export default function GraphiquePilotage() {
             <h1 className="titre">Mes statistiques de pilotage</h1>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w">
-            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} dateFinMax={dateFinMax} />
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-7">
             <hr className="fr-hr fr-mt-3v"/>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import { alerteEtSpinnerActions, statistiquesActions, filtresEtTrisStatsActions } from '../../../../actions';
+import { datePickerActions } from '../../../../actions/datePickerActions';
 
 import Spinner from '../../../../components/Spinner';
 import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
@@ -19,6 +20,7 @@ export default function GraphiqueTerritoire() {
 
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
+  const dateFinMax = useSelector(state => state.datePicker?.dateFinMax);
   const loading = useSelector(state => state.statistiques?.loading);
   const error = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
@@ -28,7 +30,11 @@ export default function GraphiqueTerritoire() {
   const territoireRequest = useSelector(state => state.statistiques?.territoire);
   const errorTerritoire = useSelector(state => state.statistiques?.errorTerritoire);
   const loadingTerritoire = useSelector(state => state.statistiques?.loadingTerritoire);
-  
+
+  useEffect(() => {
+    dispatch(datePickerActions.changeDateFin(dateFinMax));
+  }, []);
+
   useEffect(() => {
     if (!errorTerritoire) {
       if (stateTypeTerritoire !== maille) {
@@ -75,7 +81,7 @@ export default function GraphiqueTerritoire() {
             <h1 className="titre">Statistiques - {territoire?.nomDepartement ?? territoire?.nomRegion}</h1>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w">
-            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} dateFinMax={dateFinMax} />
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-7">
             <hr className="fr-hr fr-mt-3v"/>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 
 import { alerteEtSpinnerActions, statistiquesActions, structureActions } from '../../../../actions';
+import { datePickerActions } from '../../../../actions/datePickerActions';
 
 import Spinner from '../../../../components/Spinner';
 import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
@@ -33,6 +34,11 @@ export default function GraphiqueStructure() {
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
+  const dateFinMax = useSelector(state => state.datePicker?.dateFinMax);
+
+  useEffect(() => {
+    dispatch(datePickerActions.changeDateFin(dateFinMax));
+  }, []);
 
   useEffect(() => {
     if (!structureError) {
@@ -80,7 +86,7 @@ export default function GraphiqueStructure() {
             <h1 className={`titre ${structure?.nom.length > 50 ? 'titre-long' : ''}`} >Statistiques - {structure?.nom}</h1>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w print-graphique">
-            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} dateFinMax={dateFinMax} />
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-3 fr-mb-6w print-graphique">
             {structure !== undefined &&

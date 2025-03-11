@@ -9,11 +9,10 @@ import { offset } from '@floating-ui/dom';
 
 registerLocale('fr', fr);
 
-function CustomDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin }) {
+function CustomDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin, dateFinMax }) {
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
   const { state } = useLocation();
-
 
   const setDate = date => {
     if (nomDate === 'datePickerDebut') {
@@ -45,6 +44,7 @@ function CustomDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin }) {
     <DatePicker
       id={idDate}
       name={nomDate}
+      maxDate={dateFinMax ?? new Date()}
       dateFormat="dd/MM/yyyy"
       locale="fr"
       popperClassName="datePicker-custom-css"
@@ -55,7 +55,7 @@ function CustomDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin }) {
           })),
         ],
       }}
-      selected={initDate}
+      selected={dateFinMax ?? initDate}
       onChange={date => setDate(date)}
       onCalendarOpen={() => setActive(true)}
       onCalendarClose={() => setActive(false)}
@@ -71,6 +71,7 @@ CustomDatePicker.propTypes = {
   initDate: PropTypes.instanceOf(Date),
   dateDebut: PropTypes.instanceOf(Date),
   dateFin: PropTypes.instanceOf(Date),
+  dateFinMax: PropTypes.instanceOf(Date),
   value: PropTypes.instanceOf(Date),
   onClick: PropTypes.string,
 };

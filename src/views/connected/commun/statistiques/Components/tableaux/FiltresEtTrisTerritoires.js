@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { downloadFile, scrollTopWindow } from '../../../../../../utils/exportsUtils';
 import { exportsActions, filtresEtTrisStatsActions, paginationActions } from '../../../../../../actions';
+import { datePickerActions } from '../../../../../../actions/datePickerActions';
 
 import Spinner from '../../../../../../components/Spinner';
 import BlockDatePickers from '../../../../../../components/datePicker/BlockDatePickers';
@@ -12,6 +13,7 @@ function FiltresEtTrisTerritoires() {
   const territoire = useSelector(state => state.filtresEtTris?.territoire);
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
+  const dateFinMax = useSelector(state => state.datePicker?.dateFinMax);
 
   const exportTerritoireFileBlob = useSelector(state => state.exports);
   const exportTerritoireFileError = useSelector(state => state.exports?.error);
@@ -23,6 +25,10 @@ function FiltresEtTrisTerritoires() {
     dispatch(paginationActions.setPage(1));
     dispatch(filtresEtTrisStatsActions.changeTerritoire(e.target.value));
   };
+
+  useEffect(() => {
+    dispatch(datePickerActions.changeDateFin(dateFinMax));
+  }, []);
 
   useEffect(() => {
     if (has(exportTerritoireFileBlob?.blob) && exportTerritoireFileError === false) {
@@ -47,7 +53,7 @@ function FiltresEtTrisTerritoires() {
         </select>
       </div>
       <div className="fr-col-12 fr-col-offset-md-1 fr-mt-1w fr-col-md-4 fr-mb-4w fr-mb-md-0">
-        <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
+        <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} dateFinMax={dateFinMax} />
       </div>
     </>
   );

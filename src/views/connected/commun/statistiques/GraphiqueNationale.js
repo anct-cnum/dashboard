@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { alerteEtSpinnerActions, statistiquesActions } from '../../../../actions';
+import { datePickerActions } from '../../../../actions/datePickerActions';
 
 import Spinner from '../../../../components/Spinner';
 import BlockDatePickers from '../../../../components/datePicker/BlockDatePickers';
@@ -14,10 +15,15 @@ export default function GraphiqueNationale() {
 
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
+  const dateFinMax = useSelector(state => state.datePicker?.dateFinMax);
   const loadingExport = useSelector(state => state.exports?.loading);
   const loading = useSelector(state => state.statistiques?.loading);
   const error = useSelector(state => state.statistiques?.error);
   const donneesStatistiques = useSelector(state => state.statistiques?.statsData);
+
+  useEffect(() => {
+    dispatch(datePickerActions.changeDateFin(dateFinMax));
+  }, []);
 
   useEffect(() => {
     if (!error) {
@@ -40,7 +46,7 @@ export default function GraphiqueNationale() {
             <h1 className="titre">Statistiques Nationales</h1>
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w">
-            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin}/>
+            <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} dateFinMax={dateFinMax} />
           </div>
           <div className="fr-col-12 fr-col-md-6 fr-col-lg-7">
             <hr className="fr-hr fr-mt-3v"/>
