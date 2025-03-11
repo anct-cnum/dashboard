@@ -41,6 +41,7 @@ export const MediateurFilter = ({
   const params = new URLSearchParams(searchParams.search.toString());
   const [searchParNomEtOuPrenom, setSearchParNomEtOuPrenom] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const optonsSelectAll = [{ label: 'Tous les médiateurs', value: initialMediateursOptions.map(option => option.value.mediateurId) }];
 
   const mediateursOptions = initialMediateursOptions
   .filter(onlyDefinedIds)
@@ -77,16 +78,18 @@ export const MediateurFilter = ({
   };
 
   const handleSelectFilter = option => {
-
     if (!option) {
       return handleClearFilters();
     }
-    setMediateurs([...mediateurs, option]);
+    if (option.label === 'Tous les mediateurs') {
+      setMediateurs(mediateursOptions);
+    } else {
+      setMediateurs([...mediateurs, option]);
+    }
   };
 
   const handleRemoveFilter = option =>
     setMediateurs(mediateurs.filter(matchingOption(option)));
-
 
   const debouncedDispatch = useCallback(
     debounce(value => {
@@ -156,7 +159,7 @@ export const MediateurFilter = ({
             instanceId="mediateur-filter-search"
             placeholder="Choisir un médiateur numérique"
             className="fr-mb-2v fr-mt-3v"
-            options={mediateursOptions.filter(availableOptionsIn(mediateurs))}
+            options={optonsSelectAll.concat(mediateursOptions).filter(availableOptionsIn(mediateurs))}
             onChange={handleSelectFilter}
             value={[]}
           />
