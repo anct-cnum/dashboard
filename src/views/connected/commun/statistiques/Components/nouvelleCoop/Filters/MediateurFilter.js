@@ -52,8 +52,18 @@ export const MediateurFilter = ({
   );
 
   const [mediateurs, setMediateurs] = useState(selectedMediateurs);
+
   useEffect(() => {
-    setMediateurs(selectedMediateurs);
+    if (isActiveSearch) {
+      const includesOptions = initialMediateursOptions.map(i => i.value?.mediateurId);
+      const mediateursCacheSansDoublon =
+      [...new Map([...mediateurs, ...selectedMediateurs]
+      .map(item => [item.value, item])).values()]
+      .filter(i => includesOptions.includes(i.value));
+      setMediateurs(mediateursCacheSansDoublon);
+    } else {
+      setMediateurs(selectedMediateurs);
+    }
   }, [initialMediateursOptions]);
 
   const hasFilters = mediateurs.length > 0;
@@ -73,6 +83,7 @@ export const MediateurFilter = ({
 
   const handleClearFilters = () => {
     setMediateurs([]);
+    setSearchParNomEtOuPrenom('');
     update(params)('mediateurs', []);
     closePopover(true);
   };
@@ -81,9 +92,10 @@ export const MediateurFilter = ({
     if (!option) {
       return handleClearFilters();
     }
-    if (option.label === 'Tous les mediateurs') {
+    if (option.label === 'Tous les médiateurs') {
       setMediateurs(mediateursOptions);
     } else {
+      setSearchParNomEtOuPrenom('');
       setMediateurs([...mediateurs, option]);
     }
   };
@@ -150,6 +162,7 @@ export const MediateurFilter = ({
             onInputChange={handleChangeValueSearchInSelect}
             loadOptions={loadOptionsConseiller}
             inputValue={searchParNomEtOuPrenom}
+            cacheOptions
             value={[]}
           />
         }

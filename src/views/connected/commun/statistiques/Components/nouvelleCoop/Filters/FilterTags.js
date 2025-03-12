@@ -120,6 +120,8 @@ const FilterTags = ({
   filters,
   mediateursOptions,
   departementsOptions,
+  setMediateursCache,
+  isActiveSearch
 }) => {
   const navigate = useNavigate();
   const searchParams = useLocation();
@@ -147,7 +149,9 @@ const FilterTags = ({
     } else {
       params.delete(key);
     }
-
+    if (isActiveSearch) {
+      setMediateursCache(mediateursOptions.filter(i => i.value.mediateurId !== value));
+    }
     navigate(`?${params}`, { scroll: false, replace: true });
   };
 
@@ -200,6 +204,8 @@ FilterTags.propTypes = {
   filters: PropTypes.object,
   mediateursOptions: PropTypes.array,
   departementsOptions: PropTypes.array,
+  setMediateursCache: PropTypes.func,
+  isActiveSearch: PropTypes.bool,
 };
 
 export default FilterTags;
