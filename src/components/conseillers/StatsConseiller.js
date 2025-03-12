@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BlockDatePickers from '../datePicker/BlockDatePickers';
 import ElementCodePostal from '../../views/connected/commun/statistiques/Components/graphiques/ElementCodePostal';
@@ -9,6 +9,7 @@ import LeftPage from '../../views/connected/commun/statistiques/Components/graph
 import { useDispatch, useSelector } from 'react-redux';
 import SelectOptions from '../SelectOptions';
 import { statistiquesActions } from '../../actions';
+import { datePickerActions } from '../../actions/datePickerActions';
 
 function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
   const codePostal = useSelector(state => state.statistiques?.codePostalStats);
   const dateDebut = useSelector(state => state.datePicker?.dateDebut);
   const dateFin = useSelector(state => state.datePicker?.dateFin);
+  const dateFinMax = useSelector(state => state.datePicker?.dateFinMax);
   const listeStructures = useSelector(state => state.statistiques?.listeStructures);
   const idStructure = useSelector(state => state.statistiques?.structureStats);
 
@@ -34,6 +36,10 @@ function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
     dispatch(statistiquesActions.changeStructureStats(e.target?.value));
   };
 
+  useEffect(() => {
+    dispatch(datePickerActions.changeDateFin(dateFinMax));
+  }, []);
+
   return (
     <div className="structure fr-container fr-my-10w">
       <div className="fr-grid-row">
@@ -41,7 +47,7 @@ function StatsConseiller({ conseiller, idConseiller, statistiquesLoading }) {
           <h1 className={`titre ${conseiller?.nom?.length > 50 ? 'titre-long' : ''}`} >Statistiques - {formatNomStatistiques()}</h1>
         </div>
         <div className="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-6w print-graphique">
-          <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} />
+          <BlockDatePickers dateDebut={dateDebut} dateFin={dateFin} dateFinMax={dateFinMax} />
         </div>
         <div className="fr-col-12 fr-col-md-6 fr-col-lg-3 fr-mb-6w print-graphique">
           {conseiller !== undefined &&

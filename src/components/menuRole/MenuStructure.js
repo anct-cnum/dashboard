@@ -103,7 +103,7 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
                 {...(location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'statistiques-nationales', action: `click-${roleActivated}` })}
               >
-                Statistiques nationales du dispositif
+                Statistiques nationales jusqu&rsquo;au 15/11/2024
               </Link>
             </li>
             <li>
@@ -119,13 +119,13 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
                 {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: 'statistiques-territoriales', action: `click-${roleActivated}` })}
               >
-                Statistiques territoriales du dispositif
+                Statistiques territoriales jusqu&rsquo;au 15/11/2024
               </Link>
             </li>
             <li>
               <Link className="fr-nav__link" to={`/statistiques-structure/${authenticationUser}`}
                 {...(location.pathname.startsWith(`/statistiques-structure`) ? { 'aria-current': 'page' } : {})}>
-                Mes statistiques structure
+                Statistiques de ma structure jusqu&rsquo;au 15/11/2024
               </Link>
             </li>
           </ul>

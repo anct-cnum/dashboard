@@ -29,15 +29,16 @@ export default function GraphiqueNationaleNouvelleCoop() {
   const filtreMediateurs = useSelector(state => state.filtresCoop?.mediateurs);
   const filtreTypes = useSelector(state => state.filtresCoop?.types);
   const filterDepartements = useSelector(state => state.filtresCoop?.departements);
+  const conseillersOptions = useSelector(state => state.filtresCoop?.conseillersOptions);
   const [dateDebut, setDateDebut] = useState(filtreDateDebut);
   const [dateFin, setDateFin] = useState(filtreDateFin);
   const [mediateurs, setMediateurs] = useState([]);
   const [types, setTypes] = useState([]);
   const [departements, setDepartements] = useState([]);
-  const conseillersOptions = useSelector(state => state.filtresCoop?.conseillersOptions);
 
   const donneesStatistiques = donneesStatistiquesOne?.data ? donneesStatistiquesOne : dataDefaultCoop;
   const initialMediateursOptions = donneesStatistiques.initialMediateursOptions.concat(conseillersOptions);
+  const [mediateursCache, setMediateursCache] = useState(initialMediateursOptions);
   const isActiveSearch = donneesStatistiques.isActiveSearchMediateur;
   const departementsOptions = departementsRegions
   .map(departement => ({ value: departement.num_dep, label: `${departement.num_dep} · ${departement.dep_name}` }));
@@ -59,6 +60,15 @@ export default function GraphiqueNationaleNouvelleCoop() {
     mediateurs: [],
     departements: [],
   };
+
+  useEffect(() => {
+    if (isActiveSearch) {
+      const mediateursCacheSansDoublon =
+      [...new Map([...mediateursCache, ...initialMediateursOptions].map(item => [item.value?.mediateurId, item])).values()];
+      setMediateursCache(mediateursCacheSansDoublon);
+    }
+  }, [conseillersOptions]);
+
   useEffect(() => {
     if (Object.keys(searchParams).length > 0) {
       for (const key of Object.keys(searchParams)) {
@@ -114,7 +124,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
         defaultFilters={{ du: filtreDateDebut, au: filtreDateFin, ...validateActivitesFilters(queryParams) }}
         minDate={minDateCoop}
         maxDate={maxDateCoop}
-        initialMediateursOptions={initialMediateursOptions}
+        initialMediateursOptions={isActiveSearch ? mediateursCache : initialMediateursOptions}
         isActiveSearch={isActiveSearch}
         departementsOptions={departementsOptions}
       />
@@ -123,7 +133,9 @@ export default function GraphiqueNationaleNouvelleCoop() {
           du: filtreDateDebut, au: filtreDateFin, ...validateActivitesFilters(queryParams)
         }}
         departementsOptions={departementsOptions}
-        mediateursOptions={initialMediateursOptions}
+        mediateursOptions={isActiveSearch ? mediateursCache : initialMediateursOptions}
+        setMediateursCache={setMediateursCache}
+        isActiveSearch={isActiveSearch}
         beneficiairesOptions={[]}
       />
       <div className="contentContainer contentContainer--794">

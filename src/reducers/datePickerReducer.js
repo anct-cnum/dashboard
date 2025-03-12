@@ -1,6 +1,7 @@
 const initialState = {
   dateDebut: new Date(1605571200000),
   dateFin: new Date(),
+  dateFinMax: new Date('2024-11-15'),
   dateDebutStatistique: new Date(1605571200000),
   dateFinStatistique: new Date(),
 };

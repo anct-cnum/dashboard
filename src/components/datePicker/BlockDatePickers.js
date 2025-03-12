@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CustomDatePicker from './CustomDatePicker';
 
-function BlockDatePickers({ dateDebut, dateFin }) {
+function BlockDatePickers({ dateDebut, dateFin, dateFinMax }) {
 
   return (
     <>
@@ -12,7 +12,7 @@ function BlockDatePickers({ dateDebut, dateFin }) {
       </span>
       <span>&nbsp;au&nbsp;</span>
       <span id="span-datePickerFin">
-        <CustomDatePicker initDate={dateFin} dateDebut={dateDebut} idDate="datePickerFin" nomDate="datePickerFin" />
+        <CustomDatePicker initDate={dateFin} dateDebut={dateDebut} dateFinMax={dateFinMax} idDate="datePickerFin" nomDate="datePickerFin" />
       </span>
     </>
   );
@@ -21,6 +21,7 @@ function BlockDatePickers({ dateDebut, dateFin }) {
 BlockDatePickers.propTypes = {
   dateDebut: PropTypes.instanceOf(Date),
   dateFin: PropTypes.instanceOf(Date),
+  dateFinMax: PropTypes.instanceOf(Date),
 };
 
 

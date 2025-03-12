@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CustomSelect from './CustomSelect';
@@ -41,6 +41,8 @@ export const MediateurFilter = ({
   const params = new URLSearchParams(searchParams.search.toString());
   const [searchParNomEtOuPrenom, setSearchParNomEtOuPrenom] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const optonsSelectAll = [{ label: 'Tous les médiateurs', value: initialMediateursOptions.map(option => option.value.mediateurId) }];
+  const loadingOptions = useSelector(state => state.filtresCoop?.loadingOptions);
 
   const mediateursOptions = initialMediateursOptions
   .filter(onlyDefinedIds)
@@ -51,8 +53,18 @@ export const MediateurFilter = ({
   );
 
   const [mediateurs, setMediateurs] = useState(selectedMediateurs);
+
   useEffect(() => {
-    setMediateurs(selectedMediateurs);
+    if (isActiveSearch) {
+      const includesOptions = initialMediateursOptions.map(i => i.value?.mediateurId);
+      const mediateursCacheSansDoublon =
+        [...new Map([...mediateurs, ...selectedMediateurs]
+        .map(item => [item.value, item])).values()]
+        .filter(i => includesOptions.includes(i.value));
+      setMediateurs(mediateursCacheSansDoublon);
+    } else {
+      setMediateurs(selectedMediateurs);
+    }
   }, [initialMediateursOptions]);
 
   const hasFilters = mediateurs.length > 0;
@@ -72,21 +84,25 @@ export const MediateurFilter = ({
 
   const handleClearFilters = () => {
     setMediateurs([]);
+    setSearchParNomEtOuPrenom('');
     update(params)('mediateurs', []);
     closePopover(true);
   };
 
   const handleSelectFilter = option => {
-
     if (!option) {
       return handleClearFilters();
     }
-    setMediateurs([...mediateurs, option]);
+    if (option.label === 'Tous les médiateurs') {
+      setMediateurs(mediateursOptions);
+    } else {
+      setSearchParNomEtOuPrenom('');
+      setMediateurs([...mediateurs, option]);
+    }
   };
 
   const handleRemoveFilter = option =>
     setMediateurs(mediateurs.filter(matchingOption(option)));
-
 
   const debouncedDispatch = useCallback(
     debounce(value => {
@@ -99,14 +115,6 @@ export const MediateurFilter = ({
       debouncedDispatch(value);
       setSearchParNomEtOuPrenom(value);
     }
-  };
-
-  const loadOptionsConseiller = () => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(mediateursOptions.filter(availableOptionsIn(mediateurs)));
-      }, 500);
-    });
   };
 
   function debounce(func, timeout = 500) {
@@ -142,11 +150,12 @@ export const MediateurFilter = ({
             instanceId="mediateur-filter-search"
             placeholder="Rechercher un médiateur"
             className="fr-mb-2v fr-mt-3v"
-            defaultOptions={mediateursOptions.filter(availableOptionsIn(mediateurs))}
+            options={mediateursOptions.filter(availableOptionsIn(mediateurs))}
             onChange={handleSelectFilter}
+            isLoading={loadingOptions}
             onInputChange={handleChangeValueSearchInSelect}
-            loadOptions={loadOptionsConseiller}
             inputValue={searchParNomEtOuPrenom}
+            cacheOptions
             value={[]}
           />
         }
@@ -156,7 +165,7 @@ export const MediateurFilter = ({
             instanceId="mediateur-filter-search"
             placeholder="Choisir un médiateur numérique"
             className="fr-mb-2v fr-mt-3v"
-            options={mediateursOptions.filter(availableOptionsIn(mediateurs))}
+            options={optonsSelectAll.concat(mediateursOptions).filter(availableOptionsIn(mediateurs))}
             onChange={handleSelectFilter}
             value={[]}
           />
