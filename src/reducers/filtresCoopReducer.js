@@ -7,7 +7,8 @@ const initialState = {
   mediateurs: [],
   departements: [],
   searchNomEtOuPrenomConseiller: '',
-  conseillersOptions: []
+  conseillersOptions: [],
+  loadingOptions: false
 };
 
 export default function filterCoop(state = initialState, action) {
@@ -41,18 +42,18 @@ export default function filterCoop(state = initialState, action) {
       return {
         ...state,
         error: false,
-        loadingNouvelleCoop: true
+        loadingOptions: true
       };
     case 'GET_CONSEILLERS_NOUVELLE_COOP_SUCCESS':
       return {
         ...state,
-        loadingNouvelleCoop: false,
+        loadingOptions: false,
         conseillersOptions: action.conseillersOptions.result,
       };
     case 'GET_CONSEILLERS_NOUVELLE_COOP_FAILURE':
       return {
         ...state,
-        loadingNouvelleCoop: false,
+        loadingOptions: false,
         error: action.error
       };
     default:

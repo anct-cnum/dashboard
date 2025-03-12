@@ -29,12 +29,12 @@ export default function GraphiqueNationaleNouvelleCoop() {
   const filtreMediateurs = useSelector(state => state.filtresCoop?.mediateurs);
   const filtreTypes = useSelector(state => state.filtresCoop?.types);
   const filterDepartements = useSelector(state => state.filtresCoop?.departements);
+  const conseillersOptions = useSelector(state => state.filtresCoop?.conseillersOptions);
   const [dateDebut, setDateDebut] = useState(filtreDateDebut);
   const [dateFin, setDateFin] = useState(filtreDateFin);
   const [mediateurs, setMediateurs] = useState([]);
   const [types, setTypes] = useState([]);
   const [departements, setDepartements] = useState([]);
-  const conseillersOptions = useSelector(state => state.filtresCoop?.conseillersOptions);
 
   const donneesStatistiques = donneesStatistiquesOne?.data ? donneesStatistiquesOne : dataDefaultCoop;
   const initialMediateursOptions = donneesStatistiques.initialMediateursOptions.concat(conseillersOptions);

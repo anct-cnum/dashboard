@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CustomSelect from './CustomSelect';
@@ -42,6 +42,7 @@ export const MediateurFilter = ({
   const [searchParNomEtOuPrenom, setSearchParNomEtOuPrenom] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const optonsSelectAll = [{ label: 'Tous les médiateurs', value: initialMediateursOptions.map(option => option.value.mediateurId) }];
+  const loadingOptions = useSelector(state => state.filtresCoop?.loadingOptions);
 
   const mediateursOptions = initialMediateursOptions
   .filter(onlyDefinedIds)
@@ -57,9 +58,9 @@ export const MediateurFilter = ({
     if (isActiveSearch) {
       const includesOptions = initialMediateursOptions.map(i => i.value?.mediateurId);
       const mediateursCacheSansDoublon =
-      [...new Map([...mediateurs, ...selectedMediateurs]
-      .map(item => [item.value, item])).values()]
-      .filter(i => includesOptions.includes(i.value));
+        [...new Map([...mediateurs, ...selectedMediateurs]
+        .map(item => [item.value, item])).values()]
+        .filter(i => includesOptions.includes(i.value));
       setMediateurs(mediateursCacheSansDoublon);
     } else {
       setMediateurs(selectedMediateurs);
@@ -116,14 +117,6 @@ export const MediateurFilter = ({
     }
   };
 
-  const loadOptionsConseiller = () => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(mediateursOptions.filter(availableOptionsIn(mediateurs)));
-      }, 500);
-    });
-  };
-
   function debounce(func, timeout = 500) {
     let timer;
     return (...args) => {
@@ -157,10 +150,10 @@ export const MediateurFilter = ({
             instanceId="mediateur-filter-search"
             placeholder="Rechercher un médiateur"
             className="fr-mb-2v fr-mt-3v"
-            defaultOptions={mediateursOptions.filter(availableOptionsIn(mediateurs))}
+            options={mediateursOptions.filter(availableOptionsIn(mediateurs))}
             onChange={handleSelectFilter}
+            isLoading={loadingOptions}
             onInputChange={handleChangeValueSearchInSelect}
-            loadOptions={loadOptionsConseiller}
             inputValue={searchParNomEtOuPrenom}
             cacheOptions
             value={[]}
