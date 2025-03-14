@@ -27,6 +27,7 @@ const MesPostesBanners = ({
       reconventionnementBannerComponent = <CompleteRequestBanner structure={structure} />;
       break;
     case StatutConventionnement.CONVENTIONNEMENT_VALIDÉ:
+      // eslint-disable-next-line no-unused-vars
       reconventionnementBannerComponent = <RequestBanner openModal={openModal} setOpenModal={setOpenModal} />;
       break;
     default:
@@ -79,7 +80,7 @@ const MesPostesBanners = ({
 
   return (
     <>
-      {reconventionnementBannerComponent}
+      {/* {reconventionnementBannerComponent} */}
       {inProgressAvenantBannerComponent}
       {validatedAvenantBannerComponent}
       {ValidatedRenouvellementBannerComponent}
