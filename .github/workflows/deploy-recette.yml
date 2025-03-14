@@ -75,6 +75,7 @@ jobs:
           BRANCH: master
           FOLDER: dist
           SSH_PRIVATE_KEY: ${{ secrets.CLEVER_CLOUD_DEPLOY_PRIVATE_KEY }}
+          KNOWN_HOSTS_FILE: resources/known_hosts
       - name: Create Sentry release
         uses: getsentry/action-release@v1
         env:
