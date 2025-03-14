@@ -69,7 +69,7 @@ jobs:
           target: dist/.htaccess
 
       - name: Deploy on clever cloud
-        uses: s0/git-publish-subdir-action@develop
+        uses: s0/git-publish-subdir-action@61eb9e6420447e7cbf010f7cce37103665c46bfa
         env:
           REPO: ${{ secrets.CLEVER_DASHBOARD_RECETTE }}
           BRANCH: master
