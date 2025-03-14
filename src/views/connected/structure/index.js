@@ -74,7 +74,7 @@ export default function Structure() {
         <Route path="/structure/ma-structure" element={<MaStructure />} />
         <Route path="/structure/postes" element={<MesPostes />} />
         <Route path="/structure/recrutement-coordinateur" element={<RecrutementCoordinateur />} />
-        <Route path="/structure/demande-de-reconventionnement" element={<DemandeReco />} />
+        {/* <Route path="/structure/demande-de-reconventionnement" element={<DemandeReco />} /> */}
         <Route path="/structure/liste-conseillers" element={<TableauConseillers />} />
         <Route path="/structure/conseiller/:idConseiller" element={<ConseillerDetails />} />
         <Route path="/structure/candidats/:filter" element={<TableauCandidatures />} />
