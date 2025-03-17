@@ -139,7 +139,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
               }
               <div>
                 <ul className="fr-btns-group fr-btns-group--inline-md">
-                  {
+                  {/* {
                     isReconventionnement && <li>
                       <button className="fr-btn fr-btn--secondary"
                         disabled={isButtonDisabled(structure)}
@@ -154,7 +154,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                         <Tooltip variant="light" id="tooltip-bouton-ajout-poste" className="infobulle" />
                       }
                     </li>
-                  }
+                  } */}
                   <li>
                     <button className="fr-btn fr-btn--secondary"
                       disabled={isButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}

@@ -29,6 +29,7 @@ const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreCon
       !checkStructurePhase2(structure?.conventionnement?.statut);
   }
 
+  // eslint-disable-next-line no-unused-vars
   function isAddButtonDisabled(structure) {
     return structure?.demandesCoselec?.length > 0 &&
       structure?.lastDemandeCoselec?.statut === 'en_cours';
@@ -129,7 +130,7 @@ const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreCon
               }
               <div>
                 <ul className="fr-btns-group fr-btns-group--inline-md">
-                  <li>
+                  {/* <li>
                     <button className="fr-btn fr-btn--secondary"
                       disabled={isAddButtonDisabled(structure)}
                       data-tooltip-id="tooltip-bouton-ajout-poste"
@@ -142,7 +143,7 @@ const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreCon
                     {isAddButtonDisabled(structure) &&
                       <Tooltip variant="light" id="tooltip-bouton-ajout-poste" className="infobulle" />
                     }
-                  </li>
+                  </li> */}
                   <li>
                     <button className="fr-btn fr-btn--secondary"
                       disabled={isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}
