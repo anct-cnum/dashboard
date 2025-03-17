@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import MesInformations from './MesInformations';
 import MesPostes from './MesPostes';
-import DemandeReco from './DemandeReco';
+// import DemandeReco from './DemandeReco';
 import Exports from './Exports';
 import TableauCandidatures from './candidatures/TableauCandidatures';
 import CandidatDetails from './candidatures/CandidatDetails';
