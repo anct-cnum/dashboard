@@ -1,4 +1,4 @@
-@import '../colors/colors';
+@use '../colors/colors' as *;
 
 .candidatDetails {
     .delete-candidature {
