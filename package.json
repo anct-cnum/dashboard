@@ -47,7 +47,8 @@
   },
   "devDependencies": {
     "eslint": "^8.56.0",
-    "eslint-plugin-react": "^7.33.2"
+    "eslint-plugin-react": "^7.33.2",
+    "sass-embedded": "^1.88.0"
   },
   "engines": {
     "node": "20.12.2"
