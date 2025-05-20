@@ -78,10 +78,6 @@ const StatistiquesGenerales = ({
                     )}{' '}
                     ateliers*
                   </li>
-                  <li>
-                    {totalCounts.accompagnements.total} aides aux
-                    démarches administratives
-                  </li>
                 </ul>
                 *Les ateliers collectifs comptent pour 1 accompagnement par
                 participant. Ex&nbsp;: Un atelier collectif avec 10 participants
