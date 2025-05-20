@@ -79,7 +79,7 @@ const StatistiquesGenerales = ({
                     ateliers*
                   </li>
                   <li>
-                    {totalCounts.accompagnements.demarches.total} aides aux
+                    {totalCounts.accompagnements.total} aides aux
                     démarches administratives
                   </li>
                 </ul>
