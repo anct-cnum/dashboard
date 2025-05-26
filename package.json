@@ -11,22 +11,22 @@
     "start": "vite preview"
   },
   "dependencies": {
-    "@codegouvfr/react-dsfr": "^1.23.3",
-    "@gouvfr/dsfr": "^1.11.2",
+    "@codegouvfr/react-dsfr": "^1.23.14",
+    "@gouvfr/dsfr": "^1.13.2",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
-    "@reduxjs/toolkit": "^2.8.1",
+    "@reduxjs/toolkit": "^2.8.2",
     "@sentry/react": "^7.119.2",
-    "@vitejs/plugin-react": "^4.4.1",
+    "@vitejs/plugin-react": "^4.5.0",
     "axios": "^1.9.0",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.13",
     "downloadjs": "^1.4.7",
-    "framer-motion": "^12.11.0",
+    "framer-motion": "^12.13.0",
     "highcharts": "^11.3.0",
     "highcharts-react-official": "^3.2.2",
     "jwt-decode": "^4.0.0",
-    "radix-ui": "^1.4.1",
+    "radix-ui": "^1.4.2",
     "react": "^18.2.0",
     "react-calendar": "^5.1.0",
     "react-datepicker": "^7.3.0",
@@ -43,12 +43,12 @@
     "usehooks-ts": "^3.1.1",
     "vite": "^6.3.5",
     "web-vitals": "^4.2.2",
-    "zod": "^3.24.4"
+    "zod": "^3.25.28"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
-    "sass-embedded": "^1.88.0"
+    "sass-embedded": "^1.89.0"
   },
   "engines": {
     "node": "20.12.2"
