@@ -36,7 +36,7 @@ export function setStatistiquesGraphique(typeGraphique, largeurGraphique, hauteu
   if (typeGraphique !== 'xy') {
     chart.type = type;
   } else {
-    chart.zoomType = type;
+    chart.zooming = { type };
   }
 
   return chart;
