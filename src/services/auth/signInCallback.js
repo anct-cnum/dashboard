@@ -1,10 +1,12 @@
 import axios from 'axios';
+import * as Sentry from '@sentry/react';
 import { authenticationActions } from '../../actions';
 import apiUrlRoot from '../../helpers/apiUrl';
 
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
 const handleSuccessfulLogin = (dispatch, userData) => {
+  Sentry.setUser({ id: userData.user?._id });
   dispatch(authenticationActions.login(userData));
   dispatch(authenticationActions.refreshToken(userData.accessToken));
   localStorage.setItem('user', JSON.stringify(userData));
