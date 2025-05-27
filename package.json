@@ -15,7 +15,7 @@
     "@gouvfr/dsfr": "^1.11.2",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
     "@reduxjs/toolkit": "^2.8.2",
-    "@sentry/react": "^7.119.2",
+    "@sentry/react": "^9.22.0",
     "@vitejs/plugin-react": "^4.5.0",
     "axios": "^1.9.0",
     "classnames": "^2.5.1",
