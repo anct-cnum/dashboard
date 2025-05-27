@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@codegouvfr/react-dsfr": "^1.23.14",
-    "@gouvfr/dsfr": "^1.13.2",
+    "@gouvfr/dsfr": "^1.11.2",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
     "@reduxjs/toolkit": "^2.8.2",
     "@sentry/react": "^7.119.2",
