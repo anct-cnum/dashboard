@@ -17,13 +17,11 @@ export const typeActiviteForSlug =
 };
 export const typeActiviteLabels = {
   Individuel: 'Accompagnement individuel',
-  Demarche: 'Aide aux démarches administratives',
   Collectif: 'Atelier collectif',
 };
 
 export const typeActiviteSlugLabels = {
   individuel: typeActiviteLabels[typeActiviteForSlug.individuel],
-  demarche: typeActiviteLabels[typeActiviteForSlug.demarche],
   collectif: typeActiviteLabels[typeActiviteForSlug.collectif],
 };
 

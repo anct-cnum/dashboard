@@ -4,7 +4,6 @@ const isoDayRegex = /^\d{4}-\d{2}-\d{2}$/;
 
 const typeActiviteLabels = {
   Individuel: 'Accompagnement individuel',
-  Demarche: 'Aide aux démarches administratives',
   Collectif: 'Atelier collectif',
 };
 const typeActiviteForSlug =
@@ -15,7 +14,6 @@ const typeActiviteForSlug =
 };
 const typeActiviteSlugLabels = {
   individuel: typeActiviteLabels[typeActiviteForSlug.individuel],
-  demarche: typeActiviteLabels[typeActiviteForSlug.demarche],
   collectif: typeActiviteLabels[typeActiviteForSlug.collectif],
 };
 const typeActiviteSlugValues = Object.keys(typeActiviteSlugLabels);

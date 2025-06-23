@@ -6,7 +6,6 @@ import Button from '@codegouvfr/react-dsfr/Button';
 import Tag from '@codegouvfr/react-dsfr/Tag';
 export const typeActiviteLabels = {
   Individuel: 'Accompagnement individuel',
-  Demarche: 'Aide aux démarches administratives',
   Collectif: 'Atelier collectif',
 };
 export const typeActiviteForSlug =
@@ -17,7 +16,6 @@ export const typeActiviteForSlug =
 };
 export const typeActiviteSlugLabels = {
   individuel: typeActiviteLabels[typeActiviteForSlug.individuel],
-  demarche: typeActiviteLabels[typeActiviteForSlug.demarche],
   collectif: typeActiviteLabels[typeActiviteForSlug.collectif],
 };
 export const generateActivitesPeriodeFilterLabel = ({
