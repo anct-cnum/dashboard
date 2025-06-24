@@ -41,7 +41,7 @@ export const MediateurFilter = ({
   const params = new URLSearchParams(searchParams.search.toString());
   const [searchParNomEtOuPrenom, setSearchParNomEtOuPrenom] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const optonsSelectAll = [{ label: 'Tous les médiateurs', value: initialMediateursOptions.map(option => option.value.mediateurId) }];
+  const optonsSelectAll = [{ label: 'Tous les conseillers numérique', value: initialMediateursOptions.map(option => option.value.mediateurId) }];
   const loadingOptions = useSelector(state => state.filtresCoop?.loadingOptions);
 
   const mediateursOptions = initialMediateursOptions
@@ -93,7 +93,7 @@ export const MediateurFilter = ({
     if (!option) {
       return handleClearFilters();
     }
-    if (option.label === 'Tous les médiateurs') {
+    if (option.label === 'Tous les conseillers numérique') {
       setMediateurs(mediateursOptions);
     } else {
       setSearchParNomEtOuPrenom('');
@@ -134,7 +134,7 @@ export const MediateurFilter = ({
       onEscapeKeyDown={() => handleSubmit()}
       trigger={
         <TriggerButton isOpen={isOpen} isFilled={hasFilters}>
-          Médiateur{hasFilters && ` · ${mediateurs.length}`}
+          Conseiller{hasFilters && ` · ${mediateurs.length}`} numérique
         </TriggerButton>
       }
     >
@@ -148,7 +148,7 @@ export const MediateurFilter = ({
         {isActiveSearch &&
           <CustomSelect
             instanceId="mediateur-filter-search"
-            placeholder="Rechercher un médiateur"
+            placeholder="Rechercher un conseiller numérique"
             className="fr-mb-2v fr-mt-3v"
             options={mediateursOptions.filter(availableOptionsIn(mediateurs))}
             onChange={handleSelectFilter}
@@ -163,7 +163,7 @@ export const MediateurFilter = ({
           <CustomSelect
             inputId="mediateur-filter"
             instanceId="mediateur-filter-search"
-            placeholder="Choisir un médiateur numérique"
+            placeholder="Choisir un conseiller numérique"
             className="fr-mb-2v fr-mt-3v"
             options={optonsSelectAll.concat(mediateursOptions).filter(availableOptionsIn(mediateurs))}
             onChange={handleSelectFilter}
@@ -176,8 +176,8 @@ export const MediateurFilter = ({
               options={mediateurs}
               onRemoveFilter={handleRemoveFilter}
               label={{
-                singular: 'médiateur sélectionné',
-                plural: 'médiateurs sélectionnés',
+                singular: 'conseiller numérique sélectionné',
+                plural: 'conseillers sélectionnés',
               }}
             />
             <FilterFooter onClearFilters={handleClearFilters} />
