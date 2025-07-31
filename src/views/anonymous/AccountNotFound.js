@@ -9,7 +9,7 @@ const AccountNotFound = () => {
       <p>Si malgré cela vous rencontrez toujours des difficultés pour vous connecter nous vous invitons à&nbsp;:</p>
       <ul>
         <li>Consulter la <a className="fr-link fr-link--lg"
-          href="https://aide.conseiller-numerique.gouv.fr/fr/article/je-narrive-pas-a-me-connecter-au-tableau-de-pilotage-comment-y-acceder-1fwci8l/">
+          href="https://aide.conseiller-numerique.gouv.fr/fr/article/se-connecter-au-tableau-de-pilotage-avec-pro-connect-uy13kr/?bust=1750079137187/">
           &nbsp;FAQ</a></li>
         <li>Contacter le <a className="fr-link fr-link--lg"
           href="mailto:conseiller-numerique@anct.gouv.fr">support</a> si vous n&apos;y trouvez pas votre réponse.</li>

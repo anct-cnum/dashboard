@@ -31,7 +31,7 @@ jobs:
           path: node_modules
 
       - name: Override .env
-        uses: SpicyPizza/create-envfile@v2.0
+        uses: SpicyPizza/create-envfile@v2.0.3
         with:
           envkey_VITE_APP_API_URL: ${{ secrets.REACT_ADMIN_API_RECETTE }}
           envkey_VITE_APP_STRATEGYAUTH: local
