@@ -100,7 +100,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
   }, [filtreDateDebut, filtreDateFin, filtreTypes, filtreMediateurs, filterDepartements]);
 
   useEffect(() => {
-    if (!error && dateDebut && dateFin) {
+    if (!error && new Date(dateDebut) >= new Date('2024-11-15') && dateFin) {
       dispatch(statistiquesActions.getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, types, mediateurs, departements));
     }
     if (error) {

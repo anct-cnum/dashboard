@@ -91,8 +91,8 @@ export const PeriodeFilter = ({
   );
 
   useEffect(() => {
-    setStart(defaultValue ? new Date(defaultValue.du) : minDate);
-    setEnd(defaultValue ? new Date(defaultValue.au) : maxDate);
+    setStart(start < new Date('2024-11-15') ? minDate : start);
+    setEnd(end);
   }, [defaultValue]);
 
   const onStartChange = value => {

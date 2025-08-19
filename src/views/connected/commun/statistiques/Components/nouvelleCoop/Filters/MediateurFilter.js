@@ -41,7 +41,7 @@ export const MediateurFilter = ({
   const params = new URLSearchParams(searchParams.search.toString());
   const [searchParNomEtOuPrenom, setSearchParNomEtOuPrenom] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const optonsSelectAll = [{ label: 'Tous les conseillers numérique', value: initialMediateursOptions.map(option => option.value.mediateurId) }];
+  const optonsSelectAll = [{ label: 'Tous les conseillers numériques', value: initialMediateursOptions.map(option => option.value.mediateurId) }];
   const loadingOptions = useSelector(state => state.filtresCoop?.loadingOptions);
 
   const mediateursOptions = initialMediateursOptions
@@ -93,7 +93,7 @@ export const MediateurFilter = ({
     if (!option) {
       return handleClearFilters();
     }
-    if (option.label === 'Tous les conseillers numérique') {
+    if (option.label === 'Tous les conseillers numériques') {
       setMediateurs(mediateursOptions);
     } else {
       setSearchParNomEtOuPrenom('');
