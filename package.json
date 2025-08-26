@@ -11,22 +11,22 @@
     "start": "vite preview"
   },
   "dependencies": {
-    "@codegouvfr/react-dsfr": "^1.23.3",
-    "@gouvfr/dsfr": "^1.11.2",
+    "@codegouvfr/react-dsfr": "^1.26.0",
+    "@gouvfr/dsfr": "^1.14.0",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
-    "@reduxjs/toolkit": "^2.8.1",
+    "@reduxjs/toolkit": "^2.8.2",
     "@sentry/react": "^7.119.2",
     "@vitejs/plugin-react": "^4.4.1",
-    "axios": "^1.9.0",
+    "axios": "^1.11.0",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.13",
     "downloadjs": "^1.4.7",
-    "framer-motion": "^12.11.0",
+    "framer-motion": "^12.23.12",
     "highcharts": "^11.3.0",
     "highcharts-react-official": "^3.2.2",
     "jwt-decode": "^4.0.0",
-    "radix-ui": "^1.4.1",
+    "radix-ui": "^1.4.3",
     "react": "^18.2.0",
     "react-calendar": "^5.1.0",
     "react-datepicker": "^7.3.0",
@@ -34,8 +34,8 @@
     "react-loader-spinner": "^6.1.6",
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.22.0",
-    "react-select": "^5.10.1",
-    "react-tooltip": "^5.28.1",
+    "react-select": "^5.10.2",
+    "react-tooltip": "^5.29.1",
     "recharts": "^2.15.3",
     "redux": "^5.0.1",
     "remixicon": "^4.6.0",
@@ -48,7 +48,7 @@
   "devDependencies": {
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
-    "sass-embedded": "^1.88.0"
+    "sass-embedded": "^1.90.0"
   },
   "engines": {
     "node": "20.12.2"
