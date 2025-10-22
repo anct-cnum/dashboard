@@ -86,34 +86,12 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
         </div>
       </li>
       <li className="fr-nav__item">
-        <button
-          id="statistiques"
-          className="fr-nav__btn"
-          aria-expanded={activeMenu === 'statistiques'}
-          aria-controls="menu-statistiques"
-          // eslint-disable-next-line max-len
-          {...(location.pathname.startsWith(`/statistiques-nationales`) || location.pathname.startsWith(`/statistiques-territoires`) || location.pathname.startsWith(`/statistiques-structure/${authenticationUser}`) ? { 'aria-current': 'page' } : {})}
-          onClick={onClickMenu}>
+        <Link className="fr-nav__link" to={`/nouvelles-statistiques`}
+          {...(location.pathname.startsWith(`/nouvelles-statistiques`) ? { 'aria-current': 'page' } : {})}
+          onClick={() => trackEvent({ category: '/nouvelles-statistiques', action: `click-${roleActivated}` })}
+        >
           Statistiques
-        </button>
-        <div className={`fr-collapse fr-menu ${activeMenu === 'statistiques' ? 'fr-collapse--expanded' : ''}`} id="menu-statistiques">
-          <ul className="fr-menu__list">
-            <li>
-              <Link className="fr-nav__link" to={`/nouvelles-statistiques`}
-                {...(location.pathname.startsWith(`/nouvelles-statistiques`) ? { 'aria-current': 'page' } : {})}
-                onClick={() => trackEvent({ category: '/nouvelles-statistiques', action: `click-${roleActivated}` })}
-              >
-                Statistiques nationales
-              </Link>
-            </li>
-            <li>
-              <Link className="fr-nav__link" to={`/statistiques-structure/${authenticationUser}`}
-                {...(location.pathname.startsWith(`/statistiques-structure`) ? { 'aria-current': 'page' } : {})}>
-                Statistiques de ma structure jusqu&rsquo;au 15/11/2024
-              </Link>
-            </li>
-          </ul>
-        </div>
+        </Link>
       </li>
     </>
   );

@@ -22,7 +22,7 @@ jobs:
           path: node_modules
       - name: Install dependencies
         if: steps.retrieve-dependencies.outputs.cache-hit == false
-        run: npm ci --omit=dev
+        run: npm ci --include=dev
       - name: Cache dependencies if not present
         if: steps.retrieve-dependencies.outputs.cache-hit == false
         uses: actions/cache@v4
@@ -67,15 +67,6 @@ jobs:
         with:
           source: .htaccess
           target: dist/.htaccess
-
-      - name: Deploy on clever cloud
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: ${{ secrets.CLEVER_DASHBOARD_RECETTE }}
-          BRANCH: master
-          FOLDER: dist
-          SSH_PRIVATE_KEY: ${{ secrets.CLEVER_CLOUD_DEPLOY_PRIVATE_KEY }}
-          KNOWN_HOSTS_FILE: resources/known_hosts
       - name: Create Sentry release
         uses: getsentry/action-release@v1
         env:

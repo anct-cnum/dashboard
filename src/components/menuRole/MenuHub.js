@@ -45,7 +45,7 @@ function MenuHub({ onClickMenu, activeMenu, trackEvent }) {
           {...(location.pathname.startsWith(`/nouvelles-statistiques`) ? { 'aria-current': 'page' } : {})}
           onClick={() => trackEvent({ category: '/nouvelles-statistiques', action: `click-${roleActivated}` })}
         >
-          Statistiques nationales
+          Statistiques
         </Link>
       </li>
     </>
