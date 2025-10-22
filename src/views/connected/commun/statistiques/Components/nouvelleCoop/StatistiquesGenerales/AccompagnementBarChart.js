@@ -28,42 +28,61 @@ const CustomTooltip = ({
     </ul>
   );
 
-const AccompagnementBarChart = ({ data }) => (
-  <ResponsiveContainer width="100%" height={200}>
-    <BarChart
-      data={data}
-      margin={{ top: 15, right: 30, left: -20, bottom: 10 }}
-      barSize={data.length > 12 ? 6 : 16}
-      overflow="visible"
-    >
-      <XAxis
-        className="fr-text--sm fr-text--medium"
-        dataKey="label"
-        scale="point"
-        tick={{ dy: 10 }}
-        padding={{ left: 10, right: 10 }}
-        tickLine={false}
-        angle={-45}
-        interval={data.length > 12 ? 2 : 0}
-      />
-      <YAxis
-        className="fr-text--sm fr-text--medium"
-        tickMargin={10}
-        allowDecimals={false}
-        interval="preserveStartEnd"
-      />
-      <Tooltip content={<CustomTooltip />} />
-      <Bar dataKey="count" fill="#009099" radius={[10, 10, 0, 0]}>
-        <LabelList
-          dataKey="count"
-          position="top"
-          style={{ fontSize: 14, fontWeight: 'bold' }}
-          formatter={count => (count === 0 ? '' : count)}
+const AccompagnementBarChart = ({ data }) => {
+  const displayData = data.length > 12 ? data.slice(-30) : data;
+  return (
+    <ResponsiveContainer width="100%" height={200}>
+      <BarChart
+        data={displayData}
+        margin={{ top: 15, right: 30, left: 20, bottom: 10 }}
+        barSize={displayData.length > 12 ? 6 : 16}
+      >
+        <XAxis
+          className="fr-text--sm fr-text--medium"
+          dataKey="label"
+          scale="point"
+          tick={{ dy: 10 }}
+          padding={{ left: 22, right: 22 }}
+          tickLine={false}
+          angle={-45}
+          interval={displayData.length > 12 ? 2 : 0}
         />
-      </Bar>
-    </BarChart>
-  </ResponsiveContainer>
-);
+        <YAxis
+          className="fr-text--sm fr-text--medium"
+          tickMargin={15}
+          allowDecimals={false}
+          interval="preserveStartEnd"
+          tickFormatter={value => {
+            if (value >= 1000) {
+              return `${(value / 1000).toFixed(1)}k`;
+            }
+            return value.toString();
+          }}
+        />
+        <Tooltip content={<CustomTooltip />} />
+        <Bar dataKey="count" fill="#009099" radius={[10, 10, 0, 0]}>
+          <LabelList
+            dataKey="count"
+            position="top"
+            style={{
+              fontSize: displayData.length > 12 ? 10 : 12,
+              fontWeight: 'bold',
+            }}
+            formatter={count => {
+              if (count === 0) {
+                return '';
+              }
+              if (count >= 1000) {
+                return `${(count / 1000).toFixed(1)}k`;
+              }
+              return count.toString();
+            }}
+          />
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
+  );
+};
 
 AccompagnementBarChart.propTypes = {
   data: PropTypes.array,
