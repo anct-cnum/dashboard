@@ -1,7 +1,7 @@
 const initialState = {
   dateFin: new Date(),
-  dateDebutCoop: new Date(1731628800000),
-  minDateCoop: new Date(1731628800000),
+  dateDebutCoop: new Date(1605571200000),
+  minDateCoop: new Date(1605571200000),
   maxDateCoop: new Date(),
   types: [],
   mediateurs: [],

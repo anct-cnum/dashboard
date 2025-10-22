@@ -69,13 +69,10 @@ function App() {
         <Route path="/" element={<PrivateRoute />}>
           {/* routes communes ici */}
           <Route path="/documents" element={<Documents />} />
-          <Route path="/statistiques-nationales" element={<GraphiqueNationale />} />
           <Route path="/nouvelles-statistiques" element={<GraphiqueNationaleNouvelleCoop />} />
           <Route path="/statistiques-pilotage" element={<GraphiquePilotage />} />
           <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
           <Route path="/statistiques-conseiller/:idConseiller" element={<GraphiqueConseiller />} />
-          <Route path="/statistiques-territoires" element={<TableauTerritoires />} />
-          <Route path="/statistiques-territoire/:maille/:codeTerritoire" element={<GraphiqueTerritoire />} />
           <Route index element={<Navigate to="/accueil" />} /> {/* pour fixer le warning du react router */}
           <Route path="*" element={<Accueil />} />
         </Route>

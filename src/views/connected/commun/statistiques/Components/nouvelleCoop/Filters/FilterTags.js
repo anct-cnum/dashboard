@@ -22,7 +22,7 @@ export const generateActivitesPeriodeFilterLabel = ({
   au,
   du,
 }) => ({
-  label: `${dateAsDay(new Date(du) < new Date('2024-11-15') ? new Date('2024-11-15') : new Date(du))} - ${dateAsDay(new Date(au))}`,
+  label: `${dateAsDay(new Date(du) < new Date('2020-11-17') ? new Date('2020-11-17') : new Date(du))} - ${dateAsDay(new Date(au))}`,
   key: ['du', 'au'],
   type: 'periode',
 });

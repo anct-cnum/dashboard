@@ -91,7 +91,7 @@ export const PeriodeFilter = ({
   );
 
   useEffect(() => {
-    setStart(start < new Date('2024-11-15') ? minDate : start);
+    setStart(start < new Date('2020-11-17') ? minDate : start);
     setEnd(end);
   }, [defaultValue]);
 

@@ -99,27 +99,11 @@ function MenuStructure({ onClickMenu, activeMenu, trackEvent }) {
         <div className={`fr-collapse fr-menu ${activeMenu === 'statistiques' ? 'fr-collapse--expanded' : ''}`} id="menu-statistiques">
           <ul className="fr-menu__list">
             <li>
-              <Link className="fr-nav__link" to={`/statistiques-nationales`}
-                {...(location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}
-                onClick={() => trackEvent({ category: 'statistiques-nationales', action: `click-${roleActivated}` })}
-              >
-                Statistiques nationales jusqu&rsquo;au 15/11/2024
-              </Link>
-            </li>
-            <li>
               <Link className="fr-nav__link" to={`/nouvelles-statistiques`}
                 {...(location.pathname.startsWith(`/nouvelles-statistiques`) ? { 'aria-current': 'page' } : {})}
                 onClick={() => trackEvent({ category: '/nouvelles-statistiques', action: `click-${roleActivated}` })}
               >
-                Statistiques depuis le 15/11/2024
-              </Link>
-            </li>
-            <li>
-              <Link className="fr-nav__link" to="/statistiques-territoires"
-                {...(location.pathname.startsWith(`/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
-                onClick={() => trackEvent({ category: 'statistiques-territoriales', action: `click-${roleActivated}` })}
-              >
-                Statistiques territoriales jusqu&rsquo;au 15/11/2024
+                Statistiques nationales
               </Link>
             </li>
             <li>

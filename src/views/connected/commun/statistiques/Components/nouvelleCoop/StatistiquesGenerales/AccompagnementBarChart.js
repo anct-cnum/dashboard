@@ -34,6 +34,7 @@ const AccompagnementBarChart = ({ data }) => (
       data={data}
       margin={{ top: 15, right: 30, left: -20, bottom: 10 }}
       barSize={data.length > 12 ? 6 : 16}
+      overflow="visible"
     >
       <XAxis
         className="fr-text--sm fr-text--medium"

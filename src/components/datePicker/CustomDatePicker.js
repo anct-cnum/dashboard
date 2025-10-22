@@ -45,6 +45,7 @@ function CustomDatePicker({ idDate, nomDate, initDate, dateDebut, dateFin, dateF
       id={idDate}
       name={nomDate}
       maxDate={dateFinMax ?? new Date()}
+      minDate={dateDebut || new Date(1605571200000)}
       dateFormat="dd/MM/yyyy"
       locale="fr"
       popperClassName="datePicker-custom-css"

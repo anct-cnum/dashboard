@@ -112,44 +112,12 @@ function MenuPrefet({ onClickMenu, activeMenu, trackEvent }) {
         </div>
       </li>
       <li className="fr-nav__item">
-        <button
-          id="statistiques"
-          className="fr-nav__btn"
-          aria-expanded={activeMenu === 'statistiques'}
-          aria-controls="menu-statistiques"
-          // eslint-disable-next-line max-len
-          {...(location.pathname.startsWith(`/${roleActivated}/statistiques-territoires`) || location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}
-          onClick={onClickMenu}>
-          Statistiques
-        </button>
-        <div className={`fr-collapse fr-menu ${activeMenu === 'statistiques' ? 'fr-collapse--expanded' : ''}`} id="menu-statistiques">
-          <ul className="fr-menu__list">
-            <li>
-              <Link className="fr-nav__link" to={`/statistiques-nationales`}
-                {...(location.pathname.startsWith(`/statistiques-nationales`) ? { 'aria-current': 'page' } : {})}
-                onClick={() => trackEvent({ category: 'statistiques-nationales', action: `click-${roleActivated}` })}
-              >
-                Statistiques nationales jusqu&rsquo;au 15/11/2024
-              </Link>
-            </li>
-            <li>
-              <Link className="fr-nav__link" to={`/nouvelles-statistiques`}
-                {...(location.pathname.startsWith(`/nouvelles-statistiques`) ? { 'aria-current': 'page' } : {})}
-                onClick={() => trackEvent({ category: '/nouvelles-statistiques', action: `click-${roleActivated}` })}
-              >
-                Statistiques depuis le 15/11/2024
-              </Link>
-            </li>
-            <li>
-              <Link className="fr-nav__link" to={`/${roleActivated}/statistiques-territoires`}
-                {...(location.pathname.startsWith(`/${roleActivated}/statistiques-territoires`) ? { 'aria-current': 'page' } : {})}
-                onClick={() => trackEvent({ category: 'statistiques-territoriales', action: `click-${roleActivated}` })}
-              >
-                Statistiques territoriales jusqu&rsquo;au 15/11/2024
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <Link className="fr-nav__link" to={`/nouvelles-statistiques`}
+          {...(location.pathname.startsWith(`/nouvelles-statistiques`) ? { 'aria-current': 'page' } : {})}
+          onClick={() => trackEvent({ category: '/nouvelles-statistiques', action: `click-${roleActivated}` })}
+        >
+          Statistiques nationales
+        </Link>
       </li>
     </>
   );
