@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { useMatomo } from '@jonkoops/matomo-tracker-react';
 
 function Structure({ structure }) {
-  const roleActivated = useSelector(state => state.authentication?.roleActivated);
-  const { trackEvent } = useMatomo();
 
   return (
     <>
@@ -21,22 +16,7 @@ function Structure({ structure }) {
             {structure?.contact?.email}
           </a>
         </td>
-        <td>{structure?.conseillersRecruter}/{structure?.posteValiderCoselec}</td>
-        <td>
-          <div className="btn-actions-structures">
-            <button
-              className="fr-btn fr-icon-eye-line fr-mr-2w"
-              title="D&eacute;tail"
-              onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)}/>
-            <Link
-              onClick={() => trackEvent({ category: 'statistiques-structures', action: `click-${roleActivated}` })}
-              className="fr-btn fr-icon-line-chart-line"
-              title="Statistiques"
-              to={`/statistiques-structure/${structure?._id}`}
-              state={{ 'origin': `/${roleActivated}/liste-structures`, structure }}
-            />
-          </div>
-        </td>
+        <td colSpan="12">{structure?.conseillersRecruter}/{structure?.posteValiderCoselec}</td>
       </tr>
     </>
   );

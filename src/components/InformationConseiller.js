@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-import { Link } from 'react-router-dom';
-import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import AccordeonContrats from './AccordeonContrats';
 import ContratsCards from './cards/ContratsCards';
 import { formatAdressePermanence, formatNumeroTelephone, formatRenderStars } from '../utils/formatagesUtils';
@@ -11,10 +9,8 @@ import pixRessources from '../assets/icons/pix-ressources.png';
 import pixCitoyen from '../assets/icons/pix-citoyen.png';
 
 function InformationConseiller({
-  conseiller, misesEnRelationFinalisee, misesEnRelationFinaliseeRupture, misesEnRelationNouvelleRupture, roleActivated, recrutement = false
+  conseiller, misesEnRelationFinalisee, misesEnRelationFinaliseeRupture, misesEnRelationNouvelleRupture, recrutement = false
 }) {
-
-  const { trackEvent } = useMatomo();
 
   return (
     <div>
@@ -28,17 +24,6 @@ function InformationConseiller({
           <div className="fr-grid-row fr-mt-2w fr-mb-2w">
             <div className="fr-col-md-6 fr-col-12 titreCol">
               <h2>Activit&eacute;</h2>
-            </div>
-            <div className="fr-col-md-6 fr-col-12 btn-statistiques fr-mb-2w fr-mb-md-0">
-              <Link
-                onClick={() => trackEvent({ category: 'statistiques-conseillers', action: `click-${roleActivated}` })}
-                className="fr-btn fr-icon-line-chart-line fr-btn--icon-left fr-ml-auto"
-                title="Statistiques"
-                to={`/statistiques-conseiller/${conseiller?._id}`}
-                state={{ 'origin': `/${roleActivated}/conseiller/${conseiller?._id}`, conseiller }}
-              >
-                Voir ses statistiques
-              </Link>
             </div>
           </div>
         </>

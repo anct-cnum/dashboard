@@ -11,10 +11,8 @@ import Alerte from './components/Alerte';
 import Documents from './views/connected/Documents';
 import GraphiqueNationaleNouvelleCoop from './views/connected/commun/statistiques/GraphiqueNationaleNouvelleCoop';
 import GraphiquePilotage from './views/connected/commun/statistiques/GraphiquePilotage';
-import GraphiqueStructure from './views/connected/commun/statistiques/GraphiqueStructure';
 import refreshToken from './services/auth/refreshToken';
 import { getAccessToken } from './helpers/getAccessToken';
-import GraphiqueConseiller from './views/connected/commun/statistiques/GraphiqueConseiller';
 import { useMatomo } from '@jonkoops/matomo-tracker-react';
 import Spinner from './components/Spinner';
 
@@ -68,8 +66,6 @@ function App() {
           <Route path="/documents" element={<Documents />} />
           <Route path="/nouvelles-statistiques" element={<GraphiqueNationaleNouvelleCoop />} />
           <Route path="/statistiques-pilotage" element={<GraphiquePilotage />} />
-          <Route path="/statistiques-structure/:idStructure" element={<GraphiqueStructure />} />
-          <Route path="/statistiques-conseiller/:idConseiller" element={<GraphiqueConseiller />} />
           <Route index element={<Navigate to="/accueil" />} /> {/* pour fixer le warning du react router */}
           <Route path="*" element={<Accueil />} />
         </Route>
