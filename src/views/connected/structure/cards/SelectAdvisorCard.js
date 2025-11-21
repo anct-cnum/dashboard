@@ -110,11 +110,6 @@ const SelectAdvisorCard = ({ miseEnRelation, roleActivated, handleSelectAdvisor,
                 title="D&eacute;tail"
                 onClick={() => window.open(`/${roleActivated}/conseiller/${miseEnRelation?.conseiller?._id}`)}
               />
-              <button
-                className="fr-btn fr-icon-line-chart-line card__button"
-                title="Statistiques"
-                onClick={() => window.open(`/statistiques-conseiller/${miseEnRelation?.conseiller?._id}`)}
-              />
             </div>
           </div>
         </div>

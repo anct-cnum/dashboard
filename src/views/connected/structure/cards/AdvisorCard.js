@@ -134,11 +134,6 @@ const AdvisorCard = ({ conseiller }) => {
                   onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}
                 />
               }
-              <button
-                className="fr-btn fr-icon-line-chart-line card__button"
-                title="Statistiques"
-                onClick={() => window.open(`/statistiques-conseiller/${conseiller?._id}`)}
-              />
             </div>
           </div>
         </div>

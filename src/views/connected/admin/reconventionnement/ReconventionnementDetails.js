@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import { badgeStatutDossierDS, formatNomConseiller, formatTypeDeContrat, pluralize, validTypeDeContratWithoutEndDate } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { calcNbJoursAvantDateFinContrat } from '../../../../utils/calculateUtils';
 
 function ReconventionnementDetails({ reconventionnement }) {
@@ -113,12 +112,6 @@ function ReconventionnementDetails({ reconventionnement }) {
                                 className="fr-btn fr-icon-eye-line fr-ml-auto fr-mr-2w"
                                 onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}
                                 title="D&eacute;tail"
-                              />
-                              <Link
-                                className="fr-btn fr-icon-line-chart-line"
-                                title="Statistiques"
-                                to={`/statistiques-conseiller/${conseiller?._id}`}
-                                state={{ 'origin': `/${roleActivated}/demandes/convention/${reconventionnement?._id}`, conseiller }}
                               />
                             </div>
                           </div>
@@ -254,12 +247,6 @@ function ReconventionnementDetails({ reconventionnement }) {
                           className="fr-btn fr-icon-eye-line fr-ml-auto fr-mr-2w"
                           onClick={() => window.open(`/${roleActivated}/conseiller/${conseiller?._id}`)}
                           title="D&eacute;tail"
-                        />
-                        <Link
-                          className="fr-btn fr-icon-line-chart-line"
-                          title="Statistiques"
-                          to={`/statistiques-conseiller/${conseiller?._id}`}
-                          state={{ 'origin': `/${roleActivated}/demandes/convention/${reconventionnement?._id}`, conseiller }}
                         />
                       </div>
                     </div>

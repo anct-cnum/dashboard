@@ -120,20 +120,6 @@ function PreselectionConseillerDetails() {
         <div className="fr-col-md-6 fr-col-12 titreCol">
           <h2>Activit&eacute;</h2>
         </div>
-        <div className="fr-col-md-6 fr-col-12 btn-statistiques fr-mb-2w fr-mb-md-0">
-          <Link
-            className="fr-btn fr-icon-line-chart-line fr-btn--icon-left fr-ml-auto"
-            title="Statistiques"
-            to={`/${roleActivated}/candidature/statistiques-conseiller/${conseiller?._id}`}
-            state={{
-              'origin': `/${roleActivated}/preselection/conseiller/${conseiller?._id}`,
-              'origin_parent': location?.state?.origin_parent,
-              conseiller
-            }}
-          >
-            Voir ses statistiques
-          </Link>
-        </div>
       </div>
       <InformationConseiller
         conseiller={conseiller}
