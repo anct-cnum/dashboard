@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 function Structure({ structure }) {
+  const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
   return (
     <>
@@ -16,7 +18,15 @@ function Structure({ structure }) {
             {structure?.contact?.email}
           </a>
         </td>
-        <td colSpan="12">{structure?.conseillersRecruter}/{structure?.posteValiderCoselec}</td>
+        <td>{structure?.conseillersRecruter}/{structure?.posteValiderCoselec}</td>
+        <td>
+          <div className="btn-actions-structures">
+            <button
+              className="fr-btn fr-icon-eye-line fr-mr-2w"
+              title="D&eacute;tail"
+              onClick={() => window.open(`/${roleActivated}/structure/${structure?._id}`)} />
+          </div>
+        </td>
       </tr>
     </>
   );
