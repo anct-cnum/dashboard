@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-
 function Structure({ structure }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
 
