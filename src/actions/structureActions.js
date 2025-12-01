@@ -236,11 +236,11 @@ function hiddenMessageError() {
   return { type: 'ERROR_MESSAGE_HIDDEN' };
 }
 
-function createAvenant(type, structureId, nombreDePostes, motif, autreMotif) {
+function createAvenant(type, structureId, nombreDePostes, motif, autreMotif, estPosteCoordinateur = false) {
   return dispatch => {
     dispatch(request());
 
-    structureService.createAvenant(type, structureId, nombreDePostes, motif, autreMotif)
+    structureService.createAvenant(type, structureId, nombreDePostes, motif, autreMotif, estPosteCoordinateur)
     .then(
       structure => dispatch(success(structure)),
       error => {

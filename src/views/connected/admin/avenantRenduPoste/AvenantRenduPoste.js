@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+import iconeCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 
 function AvenantRenduPoste({ avenant, typeConvention }) {
   const roleActivated = useSelector(state => state.authentication?.roleActivated);
@@ -20,7 +21,9 @@ function AvenantRenduPoste({ avenant, typeConvention }) {
         }
       </td>
       <td>{avenant?.nombreDePostesRendus ?? '-'}</td>
-      <td style={{ width: '13rem' }}>Avenant · poste rendu</td>
+      <td>Avenant · poste rendu {avenant?.estPosteCoordinateur &&
+        <img alt="ic&ocirc;ne Conseiller num&eacute;rique coordinateur" src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
+      }</td>
       <td style={{ textAlign: 'end' }}>
         <Link className="fr-btn fr-icon-eye-line fr-btn--icon-left" to={{
           pathname: `/${roleActivated}/demandes/convention/${avenant?.idStructure}`,

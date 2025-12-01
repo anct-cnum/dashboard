@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useAdvisors } from '../hooks/useAdvisors';
 
-function PopinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionType, setStep }) {
+function PopinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionType, setStep, setEstPosteCoordinateur, estPosteCoordinateur }) {
 
   const {
     conseillersActifs,
@@ -15,8 +15,11 @@ function PopinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
   const nbConseillerActifTotal = conseillersActifs.length + conseillersARenouveler.length + conseillersEnCoursDeRecrutement.length;
   const nombreDePostesLibres = structure?.posteValiderCoselec - nbConseillerActifTotal;
   const isErreurNombreDePostes = nombreDePostesLibres < nombreDePostes;
+  const posteCoordinateurExistant = structure?.demandesCoordinateur.filter(demande => demande.statut === 'validee' &&
+    !demande?.estRendu && !demande?.miseEnRelationIds).length > 0;
+  const conseillersCoordinateursActifs = conseillersActifs.filter(conseiller => conseiller?.contratCoordinateur).length;
   const disable = () => actionType === 'add' ? !nombreDePostes : isErreurNombreDePostes;
-  
+
   const handleCancel = () => {
     setStep(0);
     setNombreDePostes(1);
@@ -62,12 +65,28 @@ function PopinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
                   />
                   {
                     disable() && actionType !== 'add' &&
-                   <p id="text-input-error-desc-error" className="fr-error-text">
-                     Le nombre de postes que vous souhaitez rendre doit &ecirc;tre inf&eacute;rieur ou
-                     &eacute;gal au nombre de postes inutilis&eacute;s par votre structure.
-                   </p>
+                    <p id="text-input-error-desc-error" className="fr-error-text">
+                      Le nombre de postes que vous souhaitez rendre doit &ecirc;tre inf&eacute;rieur ou
+                      &eacute;gal au nombre de postes inutilis&eacute;s par votre structure.
+                    </p>
                   }
                 </div>
+                {conseillersCoordinateursActifs < posteCoordinateurExistant && <div className="fr-grid-row">
+                  <legend className="fr-fieldset__legend--regular fr-fieldset__legend" id="radio-legend">
+                    Cette demande concerne-t-elle un poste de coordinateur ?
+                  </legend>
+                  <div className="fr-radio-group fr-mr-2w">
+                    <input type="radio" id="oui" name="poste-coordinateur" value="oui" onChange={() => setEstPosteCoordinateur(!estPosteCoordinateur)} />
+                    <label className="fr-label" htmlFor="oui">Oui</label>
+                  </div>
+
+                  <div className="fr-radio-group">
+                    <input type="radio" id="non" name="poste-coordinateur" value="non"
+                      onChange={() => setEstPosteCoordinateur(!estPosteCoordinateur)} checked/>
+                    <label className="fr-label" htmlFor="non">Non</label>
+                  </div>
+                </div>
+                }
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
@@ -85,7 +104,7 @@ function PopinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
                       className="fr-btn fr-btn--icon-left"
                       title="Confirmer la demande d'ajout de poste(s)"
                     >
-                     Continuer
+                      Continuer
                     </button>
                   </li>
                 </ul>
@@ -101,6 +120,8 @@ function PopinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
 PopinGestionPostesNombre.propTypes = {
   setNombreDePostes: PropTypes.func,
   setStep: PropTypes.func,
+  setEstPosteCoordinateur: PropTypes.func,
+  estPosteCoordinateur: PropTypes.bool,
   nombreDePostes: PropTypes.number,
   actionType: PropTypes.string,
 };

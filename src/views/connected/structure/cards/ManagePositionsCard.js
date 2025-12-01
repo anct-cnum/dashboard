@@ -8,6 +8,7 @@ import PopinGestionPostes from '../popins/PopinGestionPostes';
 import { PhaseConventionnement, StatutConventionnement } from '../../../../utils/enumUtils';
 import { checkStructurePhase2, displayNombreDePostes, displayStatutRequestText, getNombreDePostes } from '../utils/functionUtils';
 import { Tooltip } from 'react-tooltip';
+import iconeCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 
 const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersActifs, nbreConseillersEnCoursDeRecrutement, nbreConseillersRenouveler }) => {
 
@@ -129,6 +130,8 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                           {displayStatutRequestText(demande)} {' '}{' '}
                             le {dayjs(demande?.emetteurAvenant?.date).format('DD/MM/YYYY')}
                         </span>
+                        {demande?.estPosteCoordinateur && <img alt="ic&ocirc;ne Conseiller num&eacute;rique coordinateur"
+                          src={iconeCoordinateur} className="fr-ml-1w fr-mb-n1w" />}
                       </p>
                     ))
                   }
