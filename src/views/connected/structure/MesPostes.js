@@ -58,7 +58,8 @@ function MesPostes() {
   const { structure, openModal, setOpenModal } = useStructure();
   const countDemandesCoordinateurValide =
     structure?.demandesCoordinateur?.filter(
-      demandeCoordinateur => demandeCoordinateur.statut === 'validee',
+      demandeCoordinateur => demandeCoordinateur.statut === 'validee' &&
+      !demandeCoordinateur?.estRendu
     ).length || 0;
 
   useEffect(() => {

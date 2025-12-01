@@ -8,11 +8,13 @@ const PopinGestionPostes = ({ step, actionType, setStep, setDernierAvenantValide
   const [nombreDePostes, setNombreDePostes] = useState(1);
   const [motif, setMotif] = useState('');
   const [autreMotif, setAutreMotif] = useState('');
+  const [estPosteCoordinateur, setEstPosteCoordinateur] = useState(false);
 
   switch (step) {
     case 1:
       return <PopinGestionPostesNombre setNombreDePostes={setNombreDePostes} setStep={setStep}
-        nombreDePostes={nombreDePostes} actionType={actionType}
+        nombreDePostes={nombreDePostes} actionType={actionType} setEstPosteCoordinateur={setEstPosteCoordinateur}
+        estPosteCoordinateur={estPosteCoordinateur}
       />;
     case 2:
       return <PopinGestionPostesMotif setStep={setStep}
@@ -25,6 +27,7 @@ const PopinGestionPostes = ({ step, actionType, setStep, setDernierAvenantValide
         nombreDePostes={nombreDePostes}
         setAutreMotif={setAutreMotif} setNombreDePostes={setNombreDePostes}
         setDernierAvenantValide={setDernierAvenantValide}
+        estPosteCoordinateur={estPosteCoordinateur}
       />;
     default:
       return null;

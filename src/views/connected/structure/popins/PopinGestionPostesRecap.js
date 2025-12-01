@@ -9,8 +9,9 @@ function PopinGestionPostesRecap({
   setStep, autreMotif,
   nombreDePostes, actionType, motif,
   setAutreMotif, setNombreDePostes, setMotif,
+  estPosteCoordinateur
 }) {
-  
+
   const dispatch = useDispatch();
   const structureId = useSelector(state => state.structure?.structure?._id);
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function PopinGestionPostesRecap({
     if (actionType === 'add') {
       dispatch(structureActions.createAvenant('ajout', structureId, nombreDePostes, motif, autreMotif));
     } else {
-      dispatch(structureActions.createAvenant('retrait', structureId, nombreDePostes, motif, autreMotif));
+      dispatch(structureActions.createAvenant('retrait', structureId, nombreDePostes, motif, autreMotif, estPosteCoordinateur));
     }
     if (!window.location.pathname.includes('/structure/postes')) {
       navigate('/structure/postes');
@@ -76,9 +77,9 @@ function PopinGestionPostesRecap({
                     <span className="fr-text fr-text--bold">
                       {nombreDePostes}{' '}
                       {pluralize(
-                        'poste vacant',
-                        'poste vacant',
-                        'postes vacants',
+                        `poste${estPosteCoordinateur && ' coordinateur'} vacant`,
+                        `poste${estPosteCoordinateur && ' coordinateur'} vacant`,
+                        `postes${estPosteCoordinateur && ' coordinateurs'} vacants`,
                         nombreDePostes
                       )}.
                     </span>
@@ -125,6 +126,7 @@ PopinGestionPostesRecap.propTypes = {
   setAutreMotif: PropTypes.func.isRequired,
   setNombreDePostes: PropTypes.func.isRequired,
   setMotif: PropTypes.func.isRequired,
+  estPosteCoordinateur: PropTypes.bool,
 };
 
 export default PopinGestionPostesRecap;

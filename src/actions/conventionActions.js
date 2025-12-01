@@ -106,11 +106,11 @@ function updateAvenantAjoutPoste(id, statut, nbDePosteAccorder = 0, nbDePosteCos
   }
 }
 
-function updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec) {
+function updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec, estPosteCoordinateur = false) {
   return dispatch => {
     dispatch(request());
 
-    conventionService.updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec)
+    conventionService.updateAvenantRenduPoste(id, nbDePosteRendu, nbDePosteCoselec, estPosteCoordinateur)
     .then(
       response => dispatch(success(response)),
       error => {

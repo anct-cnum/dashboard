@@ -4,14 +4,16 @@ import { pluralize } from '../../../../utils/formatagesUtils';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { conventionActions } from '../../../../actions';
+import iconeCoordinateur from '../../../../assets/icons/icone-coordinateur.svg';
 
 function AvenantRenduPosteDetails({ avenant, idDemandeCoselec }) {
   const dispatch = useDispatch();
 
   const demandesCoselec = avenant?.demandesCoselec?.find(demande => demande.id === idDemandeCoselec);
+  const posteCoordinateur = demandesCoselec?.estPosteCoordinateur;
 
   const updateAvenantRenduPoste = () => {
-    dispatch(conventionActions.updateAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostesRendus, avenant.nombreConseillersCoselec));
+    dispatch(conventionActions.updateAvenantRenduPoste(avenant._id, demandesCoselec.nombreDePostesRendus, avenant.nombreConseillersCoselec, posteCoordinateur));
   };
 
   return (
@@ -19,7 +21,9 @@ function AvenantRenduPosteDetails({ avenant, idDemandeCoselec }) {
       <div className="fr-card__body">
         <div className="fr-card__content">
           <h3 className="fr-card__title fr-h3">
-            Avenant · poste rendu
+            Avenant · poste rendu {posteCoordinateur &&
+              <img alt="ic&ocirc;ne Conseiller num&eacute;rique coordinateur" src={iconeCoordinateur} className="fr-ml-2w fr-mb-n1w" />
+            }
           </h3>
           <p className="fr-card__desc fr-text--lg fr-text--regular">
             Demande initi&eacute;e&nbsp;
@@ -31,17 +35,17 @@ function AvenantRenduPosteDetails({ avenant, idDemandeCoselec }) {
           <p className="fr-card__desc fr-text--lg" style={{ color: '#000091', width: '54%' }}>
             <strong className="fr-text--bold" style={{ color: '#000091', width: '24%' }}>
               {demandesCoselec?.nombreDePostesRendus}{pluralize(
-                ' poste de conseiller vacant rendu ',
-                ' poste de conseiller vacant rendu ',
-                ' postes de conseillers vacants rendus ',
+                ` poste de conseiller${posteCoordinateur ? ' coordinateur' : ''} vacant rendu `,
+                ` poste de conseiller${posteCoordinateur ? ' coordinateur' : ''} vacant rendu `,
+                ` postes de conseillers${posteCoordinateur ? ' coordinateurs' : ''} vacants rendus `,
                 demandesCoselec?.nombreDePostesRendus
               )}
             </strong><br />
             sur {avenant?.nombreConseillersCoselec}
             {pluralize(
-              ' poste de conseiller validé ',
-              ' poste de conseiller validé ',
-              ' postes de conseillers validés ',
+              ` poste de conseiller validé `,
+              ` poste de conseiller validé `,
+              ` postes de conseillers validés `,
               avenant?.nombreConseillersCoselec
             )}
             pour ce conventionnement

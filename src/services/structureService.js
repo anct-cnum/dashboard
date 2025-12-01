@@ -80,9 +80,9 @@ function updateStructureSiret(siret, structureId) {
   .catch(handleApiError);
 }
 
-function createAvenant(type, id, nombreDePostes, motif, autreMotif = '') {
+function createAvenant(type, id, nombreDePostes, motif, autreMotif = '', estPosteCoordinateur = false) {
   // eslint-disable-next-line max-len
-  return API.patch(`${apiUrlRoot}/avenant/creation/${id}?role=${roleActivated()}`, { type, nombreDePostes, motif: motif || autreMotif })
+  return API.patch(`${apiUrlRoot}/avenant/creation/${id}?role=${roleActivated()}`, { type, nombreDePostes, motif: motif || autreMotif, estPosteCoordinateur })
   .then(response => response.data)
   .catch(handleApiError);
 }
