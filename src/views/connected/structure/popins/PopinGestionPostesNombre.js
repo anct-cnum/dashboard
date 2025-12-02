@@ -15,9 +15,9 @@ function PopinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
   const nbConseillerActifTotal = conseillersActifs.length + conseillersARenouveler.length + conseillersEnCoursDeRecrutement.length;
   const nombreDePostesLibres = structure?.posteValiderCoselec - nbConseillerActifTotal;
   const isErreurNombreDePostes = nombreDePostesLibres < nombreDePostes;
-  const posteCoordinateurExistant = structure?.demandesCoordinateur.filter(demande => demande.statut === 'validee' &&
+  const posteCoordinateurExistant = structure?.demandesCoordinateur?.filter(demande => demande.statut === 'validee' &&
     !demande?.estRendu && !demande?.miseEnRelationIds).length > 0;
-  const conseillersCoordinateursActifs = conseillersActifs.filter(conseiller => conseiller?.contratCoordinateur).length;
+  const conseillersCoordinateursActifs = conseillersActifs?.filter(conseiller => conseiller?.contratCoordinateur).length;
   const disable = () => actionType === 'add' ? !nombreDePostes : isErreurNombreDePostes;
 
   const handleCancel = () => {

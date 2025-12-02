@@ -77,9 +77,9 @@ function PopinGestionPostesRecap({
                     <span className="fr-text fr-text--bold">
                       {nombreDePostes}{' '}
                       {pluralize(
-                        `poste${estPosteCoordinateur && ' coordinateur'} vacant`,
-                        `poste${estPosteCoordinateur && ' coordinateur'} vacant`,
-                        `postes${estPosteCoordinateur && ' coordinateurs'} vacants`,
+                        `poste${estPosteCoordinateur ? ' coordinateur' : ''} vacant`,
+                        `poste${estPosteCoordinateur ? ' coordinateur' : ''} vacant`,
+                        `postes${estPosteCoordinateur ? ' coordinateurs' : ''} vacants`,
                         nombreDePostes
                       )}.
                     </span>
