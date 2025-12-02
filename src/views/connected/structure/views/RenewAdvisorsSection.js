@@ -61,9 +61,9 @@ const RenewAdvisorsSection = ({
     <div className="container fr-mt-4w">
       <h6 className="fr-text--bold">
         Contrats &agrave;{' '}
-        {isConventionnementOrReconventionnementValide(structure) ?
+        {isConventionnementOrReconventionnementValide(structure) && conseillersARenouveler.length > 0 ?
           'renouveller' :
-          'Prolonger'}
+          'prolonger'}
         ({conseillersARenouveler?.length + conseillersAProlonger?.length})
       </h6>
       {structure?.conventionnement?.statut ===
