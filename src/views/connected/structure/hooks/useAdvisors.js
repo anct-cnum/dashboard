@@ -105,12 +105,11 @@ export function useAdvisors() {
           ['CONVENTIONNEMENT_VALIDÉ', 'RECONVENTIONNEMENT_INITIÉ'].includes(structure?.conventionnement?.statut)) && !miseEnRelation?.contratCoordinateur) {
           return false;
         }
-        const isFinalisee =
-            miseEnRelation.statut === 'finalisee';
+        const isFinalisee = miseEnRelation.statut === 'finalisee';
         const ProlongationHorsEditionContratRenouvellement = structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' ?
           miseEnRelation.phaseConventionnement : !miseEnRelation.reconventionnement;
         return (
-          (isFinalisee || miseEnRelation?.contratCoordinateur) && ProlongationHorsEditionContratRenouvellement &&
+          (isFinalisee || (miseEnRelation?.contratCoordinateur && isFinalisee)) && ProlongationHorsEditionContratRenouvellement &&
           isContractExpiring(miseEnRelation?.dateFinDeContrat) &&
           !validTypeDeContratWithoutEndDate(miseEnRelation.typeDeContrat)
         );
