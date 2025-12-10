@@ -34,21 +34,11 @@ function Footer() {
                 <a
                   className="fr-footer__content-link"
                   title="Statistiques publiques"
-                  href="https://metabase.conseiller-numerique.gouv.fr/public/dashboard/446208c4-cae2-4c0c-be19-44cb14ce7d06"
+                  href="https://inclusion-numerique.anct.gouv.fr/vitrine/donnees-territoriales/mediateurs-numeriques/national"
                   target="_blank" rel="noopener noreferrer">
-                  Statistiques publiques
+                  Statistiques
                 </a>
               </li>
-              <li className="fr-footer__content-item">
-                <a
-                  className="fr-footer__content-link"
-                  title="Statistiques publiques"
-                  href="https://metabase.conseiller-numerique.gouv.fr/dashboard/6"
-                  target="_blank" rel="noopener noreferrer">
-                  Statistiques internes
-                </a>
-              </li>
-              {/* Seulement pour hub & coordo pour Mattermost ? */}
               <li className="fr-footer__content-item">
                 <a
                   title="Mattermost"
@@ -58,13 +48,13 @@ function Footer() {
                   Mattermost
                 </a>
               </li>
-              <li className="fr-footer__content-item">
+              <li className="fr-footer__content-item" style={{ 'white-space': 'nowrap' }}>
                 <a
                   title="La Base"
                   className="fr-footer__content-link"
-                  href="https://labase.anct.gouv.fr/base/3"
+                  href="https://lesbases.anct.gouv.fr/"
                   target="_blank" rel="noopener noreferrer">
-                  La Base
+                  Les Bases du numérique d’intérêt général
                 </a>
               </li>
             </ul>
