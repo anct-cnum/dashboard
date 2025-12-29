@@ -1,118 +1,9 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { dateAsDay } from '../utils/convert';
 import Button from '@codegouvfr/react-dsfr/Button';
 import Tag from '@codegouvfr/react-dsfr/Tag';
-export const typeActiviteLabels = {
-  Individuel: 'Accompagnement individuel',
-  Collectif: 'Atelier collectif',
-};
-export const typeActiviteForSlug =
-{
-  individuel: 'Individuel',
-  demarche: 'Demarche',
-  collectif: 'Collectif',
-};
-export const typeActiviteSlugLabels = {
-  individuel: typeActiviteLabels[typeActiviteForSlug.individuel],
-  collectif: typeActiviteLabels[typeActiviteForSlug.collectif],
-};
-export const generateActivitesPeriodeFilterLabel = ({
-  au,
-  du,
-}) => ({
-  label: `${dateAsDay(new Date(du) < new Date('2020-11-17') ? new Date('2020-11-17') : new Date(du))} - ${dateAsDay(new Date(au))}`,
-  key: ['du', 'au'],
-  type: 'periode',
-});
-export const generateActivitesFiltersLabels = (
-  {
-    mediateurs,
-    types,
-    departements,
-    au,
-    du,
-  },
-  {
-    mediateursOptions,
-    departementsOptions,
-  }
-) => {
-  const periode =
-    du && au ?
-      generateActivitesPeriodeFilterLabel({
-        du,
-        au,
-      }) :
-      null;
-
-  const typesLabel = types ?
-    types.map(type => ({
-      label: typeActiviteSlugLabels[type],
-      key: type,
-      type: 'types',
-    })) :
-    [];
-  const generateMediateurFilterLabel = (
-    { mediateurs = [] },
-    { mediateursOptions = [] },
-  ) =>
-    mediateursOptions
-    .filter(
-      ({ value }) =>
-        value?.mediateurId && mediateurs.includes(value.mediateurId),
-    )
-    .map(({ label, value }) => ({
-      label,
-      key: value?.mediateurId,
-      type: 'mediateurs',
-    }));
-  const mediateursLabels = generateMediateurFilterLabel(
-    { mediateurs },
-    { mediateursOptions },
-  );
-  const generateLieuxLabels = (
-    {
-      departements = [],
-    },
-    {
-      departementsOptions = [],
-    },
-  ) => [
-    ...departementsOptions
-    .filter(({ value }) => departements?.includes(value))
-    .map(({ label, value }) => ({
-      label,
-      key: value,
-      type: 'departements',
-    })),
-  ];
-  const lieuxLabels = generateLieuxLabels(
-    { departements },
-    { departementsOptions },
-  );
-
-  return [
-    ...mediateursLabels,
-    ...(periode === null ? [] : [periode]),
-    ...lieuxLabels,
-    ...typesLabel,
-  ];
-};
-const labelPrefixes = {
-  departements: 'Département : ',
-
-};
-export const toLieuPrefix = ({
-  label,
-  type,
-  key,
-}) => ({
-  label: labelPrefixes[type] ? `${labelPrefixes[type]}${label}` : label,
-  type,
-  key,
-});
+import { filterLabelsToDisplay, toLieuPrefix } from '../../utils/functionLabel';
 
 const FilterTags = ({
   filters,
@@ -125,7 +16,7 @@ const FilterTags = ({
   const searchParams = useLocation();
   const params = new URLSearchParams(searchParams.search.toString());
 
-  const filterLabelsToDisplay = generateActivitesFiltersLabels(filters, {
+  const filterLabels = filterLabelsToDisplay(filters, {
     departementsOptions,
     mediateursOptions,
   }).map(toLieuPrefix);
@@ -158,11 +49,11 @@ const FilterTags = ({
   };
 
   return (
-    filterLabelsToDisplay.length > 0 && (
+    filterLabels.length > 0 && (
       <>
         <div className="fr-flex fr-justify-content-space-between fr-mb-2v">
           <ul className="fr-tags-group">
-            {filterLabelsToDisplay.map(filter => (
+            {filterLabels.map(filter => (
               <li
                 className="fr-line-height-1"
                 key={`${filter.type}-${filter.key}`}

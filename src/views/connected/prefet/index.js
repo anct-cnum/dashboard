@@ -27,17 +27,16 @@ export default function Prefet() {
             <p>Pour g&eacute;rer au mieux le dispositif Conseiller num&eacute;rique au sein de votre territoire, vous avez besoin d&rsquo;indicateurs et
               d&rsquo;informations cl&eacute;s pour suivre et piloter l&rsquo;activit&eacute; des structures, des conseillers num&eacute;rique et des
               conseillers num&eacute;rique coordinateurs. C&rsquo;est pourquoi votre espace change et &eacute;volue&nbsp;!</p>
-            <p>Il permet de&nbsp;:
-              <ul>
-                <li>Visualiser le liste des structures laur&eacute;ates de votre territoire</li>
-                <li>Visualiser la liste des conseillers num&eacute;rique exerçant sur votre territoire</li>
-                <li>Consulter le formulaire de motivation d&rsquo;une structure candidate au poste de coordinateur</li>
-                <li>Donner un avis sur une candidature de coordinateur</li>
-                <li>D&rsquo;acc&eacute;der aux informations g&eacute;n&eacute;rales d&rsquo;une structure et d&rsquo;un conseiller</li>
-                <li>Visualiser les statistiques des conseillers et celles des structures</li>
-              </ul>
+            <p>Il permet de&nbsp;: </p>
+            <ul>
+              <li>Visualiser le liste des structures laur&eacute;ates de votre territoire</li>
+              <li>Visualiser la liste des conseillers num&eacute;rique exerçant sur votre territoire</li>
+              <li>Consulter le formulaire de motivation d&rsquo;une structure candidate au poste de coordinateur</li>
+              <li>Donner un avis sur une candidature de coordinateur</li>
+              <li>D&rsquo;acc&eacute;der aux informations g&eacute;n&eacute;rales d&rsquo;une structure et d&rsquo;un conseiller</li>
+              <li>Visualiser les statistiques des conseillers et celles des structures</li>
+            </ul>
               Et bien plus encore...
-            </p>
             <p><b>Vous avez des questions&nbsp;?</b></p>
             <p>L&rsquo;&eacute;quipe d&rsquo;animation se tient &agrave; votre disposition par email &agrave; l&rsquo;adresse&nbsp;:&nbsp;
               <a className="email" href={'mailto:conseiller-numerique@anct.gouv.fr'}>conseiller-numerique@anct.gouv.fr</a></p>

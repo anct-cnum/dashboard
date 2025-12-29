@@ -1,7 +1,9 @@
 import { statistiquesService } from '../services/statistiquesService';
 import { formatDate } from '../utils/formatagesUtils';
+import { filterLabelsToDisplay, infoParTypeFiltre } from '../views/connected/commun/statistiques/Components/utils/functionLabel';
 
 export const statistiquesActions = {
+  exportStatistiquesNationaleNouvelleCoop,
   changeCodePostalStats,
   changeStructureStats,
   changeConseillerStats,
@@ -72,11 +74,81 @@ function getStatistiquesNationale(dateDebut, dateFin) {
   }
 }
 
-function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, types, mediateurs, departements) {
+function exportStatistiquesNationaleNouvelleCoop(donneesStatistiques, filters, departementsOptions, mediateursOptions) {
+  return () => {
+
+    if (!donneesStatistiques || !donneesStatistiques.data) {
+      return;
+    }
+    const data = donneesStatistiques.data.attributes;
+    let csv = '';
+    const filterLabels = filterLabelsToDisplay(
+      filters,
+      departementsOptions ?? [],
+      mediateursOptions ?? [],
+    );
+    const addSection = (title, items) => {
+      if (!items || !items.length) {
+        return;
+      }
+      csv += title + '\n';
+      items.forEach(item => {
+        csv += `${item.label};${new Intl.NumberFormat('fr-FR').format(item.count)};${item.proportion ? item.proportion.toLocaleString('fr-FR', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 1
+        }) + '%' : ''}\n`;
+      });
+
+      csv += '\n';
+    };
+
+    csv += 'Filtres appliqués :\n';
+    for (const [type, labels] of Object.entries(infoParTypeFiltre(filterLabels))) {
+      const title = type.charAt(0).toUpperCase() + type.slice(1);
+      csv += title + ';' + labels.join(' | ') + '\n';
+    }
+    csv += '\n';
+    csv += 'STATISTIQUES GÉNÉRALES\n';
+    csv += `Accompagnements;${data.totaux.accompagnements.total}\n`;
+    csv += `Bénéficiaires accompagnés;${data.totaux.beneficiaires.total}\n`;
+    csv += `dont\n`;
+    csv += `;nouveaux;${data.totaux.beneficiaires.nouveaux}\n`;
+    csv += `;bénéficiaires suivis;${data.totaux.beneficiaires.suivis}\n`;
+    csv += `;bénéficiaires anonymes;${data.totaux.beneficiaires.anonymes}\n`;
+    csv += '\n';
+    addSection('Nombre d’accompagnements par jour', data.accompagnements_par_jour);
+    addSection('Nombre d’accompagnements par mois', data.accompagnements_par_mois);
+
+    addSection('STATISTIQUES SUR LES ACTIVITÉS', data.activites.type_activites);
+    addSection('Médiation numérique', data.activites.thematiques);
+    addSection('Démarches administratives', data.activites.thematiques_demarches);
+    addSection('Canaux des activités', data.activites.type_lieu);
+    addSection('Durée des activités', data.activites.durees);
+
+    csv += `STATISTIQUES SUR LES BÉNÉFICIAIRES\n`;
+    addSection('Genres', data.beneficiaires?.genres);
+    addSection('Tranches d’âge', data.beneficiaires?.tranche_ages);
+    addSection('Statuts', data.beneficiaires?.statuts_social);
+
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+
+    a.href = url;
+    a.download = `statistiques-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+    return;
+  };
+}
+
+function getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, types, mediateurs, departements, signal) {
   return dispatch => {
     dispatch(request());
-
-    statistiquesService.getStatistiquesNationaleNouvelleCoop(formatDate(dateDebut), formatDate(dateFin), types, mediateurs, departements)
+    statistiquesService.getStatistiquesNationaleNouvelleCoop(formatDate(dateDebut), formatDate(dateFin), types, mediateurs, departements, signal)
     .then(
       statsNouvelleCoop => {
         dispatch(success(statsNouvelleCoop));

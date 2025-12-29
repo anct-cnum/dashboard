@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CustomSelect from './CustomSelect';
@@ -38,6 +38,7 @@ const LieuFilter = ({
   defaultValue = [],
   departementsOptions = [],
 }) => {
+  const triggerRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchParams = useLocation();
@@ -109,10 +110,15 @@ const LieuFilter = ({
     <Popover
       open={isOpen}
       onOpenChange={setIsOpen}
-      onInteractOutside={() => handleSubmit()}
+      onInteractOutside={event => {
+        if (triggerRef.current?.contains(event.target)) {
+          return;
+        }
+        return handleSubmit();
+      }}
       onEscapeKeyDown={() => handleSubmit()}
       trigger={
-        <TriggerButton isOpen={isOpen} isFilled={hasFilters}>
+        <TriggerButton ref={triggerRef} isOpen={isOpen} isFilled={hasFilters}>
           Lieu{hasFilters && <>&nbsp;·&nbsp;{allFilters.length}</>}
         </TriggerButton>
       }

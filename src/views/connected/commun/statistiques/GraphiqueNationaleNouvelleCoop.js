@@ -100,8 +100,9 @@ export default function GraphiqueNationaleNouvelleCoop() {
   }, [filtreDateDebut, filtreDateFin, filtreTypes, filtreMediateurs, filterDepartements]);
 
   useEffect(() => {
+    const controller = new AbortController();
     if (!error && new Date(dateDebut) >= new Date('2020-11-17') && dateFin) {
-      dispatch(statistiquesActions.getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, types, mediateurs, departements));
+      dispatch(statistiquesActions.getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, types, mediateurs, departements, controller.signal));
     }
     if (error) {
       dispatch(alerteEtSpinnerActions.getMessageAlerte({
@@ -110,6 +111,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
         status: null, description: null
       }));
     }
+    return () => controller.abort();
   }, [dateDebut, dateFin, types, mediateurs, departements, error]);
 
   return (
@@ -117,8 +119,32 @@ export default function GraphiqueNationaleNouvelleCoop() {
       <div className="fr-flex fr-align-items-center fr-flex-gap-3v fr-my-6v">
         <IconInSquare iconId="fr-icon-line-chart-line" size="medium" />
         <h1 className="fr-h3 fr-mb-0 fr-text-title--blue-france">Statistiques</h1>
+        <button
+          className="fr-btn--tertiary fr-btn fr-ml-auto"
+          type="button"
+          disabled={donneesStatistiquesOne?.length === 0 || !donneesStatistiquesOne}
+          onClick={() => {
+            dispatch(statistiquesActions.exportStatistiquesNationaleNouvelleCoop(
+              donneesStatistiques,
+              {
+                du: filtreDateDebut, au: filtreDateFin, ...validateActivitesFilters(queryParams)
+              },
+              departementsOptions,
+              isActiveSearch ? mediateursCache : initialMediateursOptions,
+            ));
+          }}>
+          Exporter en CSV
+        </button>
+        <button
+          className="fr-btn--tertiary fr-btn fr-ml-2w"
+          type="button"
+          onClick={() => {
+            window.print();
+          }}>
+          Exporter en PDF
+        </button>
       </div>
-      <Spinner loading={loading} />
+      <Spinner loading={loading || !donneesStatistiquesOne} />
       <Filters
         className="fr-mt-0-5v fr-mb-5v"
         defaultFilters={{ du: filtreDateDebut, au: filtreDateFin, ...validateActivitesFilters(queryParams) }}
@@ -161,6 +187,6 @@ export default function GraphiqueNationaleNouvelleCoop() {
           />
         </section>
       </div>
-    </ div>
+    </div>
   );
 }

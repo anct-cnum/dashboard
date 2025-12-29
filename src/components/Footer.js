@@ -48,7 +48,7 @@ function Footer() {
                   Mattermost
                 </a>
               </li>
-              <li className="fr-footer__content-item" style={{ 'white-space': 'nowrap' }}>
+              <li className="fr-footer__content-item" style={{ 'whiteSpace': 'nowrap' }}>
                 <a
                   title="La Base"
                   className="fr-footer__content-link"
