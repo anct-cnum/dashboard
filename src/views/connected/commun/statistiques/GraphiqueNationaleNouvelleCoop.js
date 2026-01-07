@@ -42,7 +42,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
   const isActiveSearch = donneesStatistiques.isActiveSearchMediateur;
   const departementsOptions = departementsRegions
   .map(departement => ({ value: departement.num_dep, label: `${departement.num_dep} · ${departement.dep_name}` }));
-
+  const filtreDateDebutValide = new Date(filtreDateDebut) >= new Date('2020-11-17') ? filtreDateDebut : minDateCoop;
   const queryParams = Object.fromEntries(new URLSearchParams(location.search.toString()));
   const searchParams = validateActivitesFilters(queryParams);
 
@@ -54,7 +54,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
     departements: 'changeDepartements',
   };
   const filtresDefault = {
-    du: filtreDateDebut,
+    du: filtreDateDebutValide,
     au: filtreDateFin,
     types: [],
     mediateurs: [],
@@ -83,7 +83,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
       for (const key of Object.keys(filtresDefault)) {
         dispatch(filtresCoopActions[changeQuery[key]](filtresDefault[key]));
       }
-      setDateDebut(filtreDateDebut);
+      setDateDebut(filtreDateDebutValide);
       setDateFin(filtreDateFin);
       setTypes([]);
       setMediateurs([]);
@@ -92,7 +92,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
   }, [location.search.toString()]);
 
   useEffect(() => {
-    setDateDebut(filtreDateDebut);
+    setDateDebut(filtreDateDebutValide);
     setDateFin(filtreDateFin);
     setTypes(filtreTypes.join(','));
     setMediateurs(filtreMediateurs.join(','));
@@ -127,7 +127,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
             dispatch(statistiquesActions.exportStatistiquesNationaleNouvelleCoop(
               donneesStatistiques,
               {
-                du: filtreDateDebut, au: filtreDateFin, ...validateActivitesFilters(queryParams)
+                du: filtreDateDebutValide, au: filtreDateFin, ...validateActivitesFilters(queryParams)
               },
               departementsOptions,
               isActiveSearch ? mediateursCache : initialMediateursOptions,
@@ -147,7 +147,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
       <Spinner loading={loading || !donneesStatistiquesOne} />
       <Filters
         className="fr-mt-0-5v fr-mb-5v"
-        defaultFilters={{ du: filtreDateDebut, au: filtreDateFin, ...validateActivitesFilters(queryParams) }}
+        defaultFilters={{ du: filtreDateDebutValide, au: filtreDateFin, ...validateActivitesFilters(queryParams) }}
         minDate={minDateCoop}
         maxDate={maxDateCoop}
         initialMediateursOptions={isActiveSearch ? mediateursCache : initialMediateursOptions}
@@ -156,7 +156,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
       />
       <FilterTags
         filters={{
-          du: filtreDateDebut, au: filtreDateFin, ...validateActivitesFilters(queryParams)
+          du: filtreDateDebutValide, au: filtreDateFin, ...validateActivitesFilters(queryParams)
         }}
         departementsOptions={departementsOptions}
         mediateursOptions={isActiveSearch ? mediateursCache : initialMediateursOptions}
