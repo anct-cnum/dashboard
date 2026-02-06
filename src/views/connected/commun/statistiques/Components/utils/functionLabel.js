@@ -1,4 +1,4 @@
-import { dateAsDay } from '../nouvelleCoop/utils/convert';
+import { dateAsDay, dateAsFRDate } from '../nouvelleCoop/utils/convert';
 export const typeActiviteLabels = {
   Individuel: 'Accompagnement individuel',
   Collectif: 'Atelier collectif',
@@ -29,7 +29,7 @@ export const generateActivitesPeriodeFilterLabel = ({
   au,
   du,
 }) => ({
-  label: `${dateAsDay(new Date(du) < new Date('2020-11-17') ? new Date('2020-11-17') : new Date(du))} - ${dateAsDay(new Date(au))}`,
+  label: `${dateAsDay(dateAsFRDate(du) < dateAsFRDate('2020-11-17') ? dateAsFRDate('2020-11-17') : dateAsFRDate(du))} - ${dateAsDay(new Date(au))}`,
   key: ['du', 'au'],
   type: 'periode',
 });

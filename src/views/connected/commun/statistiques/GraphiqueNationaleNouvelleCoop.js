@@ -15,6 +15,7 @@ import Filters from './Components/nouvelleCoop/Filters';
 import FilterTags from './Components/nouvelleCoop/Filters/FilterTags';
 import { validateActivitesFilters } from './Components/utils/functionsSearchParams';
 import departementsRegions from '../../../../datas/departements-region.json';
+import { dateAsFRDate } from './Components/nouvelleCoop/utils/convert';
 
 export default function GraphiqueNationaleNouvelleCoop() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
   const isActiveSearch = donneesStatistiques.isActiveSearchMediateur;
   const departementsOptions = departementsRegions
   .map(departement => ({ value: departement.num_dep, label: `${departement.num_dep} · ${departement.dep_name}` }));
-  const filtreDateDebutValide = new Date(filtreDateDebut) >= new Date('2020-11-17') ? filtreDateDebut : minDateCoop;
+  const filtreDateDebutValide = dateAsFRDate(filtreDateDebut) >= dateAsFRDate('2020-11-17') ? dateAsFRDate(filtreDateDebut) : dateAsFRDate(minDateCoop);
   const queryParams = Object.fromEntries(new URLSearchParams(location.search.toString()));
   const searchParams = validateActivitesFilters(queryParams);
 
@@ -73,7 +74,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
     if (Object.keys(searchParams).length > 0) {
       for (const key of Object.keys(searchParams)) {
         dispatch(filtresCoopActions[changeQuery[key]](searchParams[key]));
-        setDateDebut(searchParams[key] ?? dateDebut);
+        setDateDebut(searchParams[key] ?? dateAsFRDate(dateDebut));
         setDateFin(searchParams[key] ?? dateFin);
         setTypes(searchParams[key] ?? types);
         setMediateurs(searchParams[key] ?? mediateurs);
@@ -101,7 +102,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
 
   useEffect(() => {
     const controller = new AbortController();
-    if (!error && new Date(dateDebut) >= new Date('2020-11-17') && dateFin) {
+    if (!error && dateAsFRDate(dateDebut) >= dateAsFRDate('2020-11-17') && dateFin) {
       dispatch(statistiquesActions.getStatistiquesNationaleNouvelleCoop(dateDebut, dateFin, types, mediateurs, departements, controller.signal));
     }
     if (error) {
@@ -148,7 +149,7 @@ export default function GraphiqueNationaleNouvelleCoop() {
       <Filters
         className="fr-mt-0-5v fr-mb-5v"
         defaultFilters={{ du: filtreDateDebutValide, au: filtreDateFin, ...validateActivitesFilters(queryParams) }}
-        minDate={minDateCoop}
+        minDate={dateAsFRDate(minDateCoop)}
         maxDate={maxDateCoop}
         initialMediateursOptions={isActiveSearch ? mediateursCache : initialMediateursOptions}
         isActiveSearch={isActiveSearch}

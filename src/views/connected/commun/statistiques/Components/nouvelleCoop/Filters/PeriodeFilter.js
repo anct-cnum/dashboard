@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 import FilterFooter from './elements/FilterFooter';
 import TriggerButton from './elements/TriggerButton';
 import styles from './Calendar.module.css';
-import { dateAsIsoDay } from '../utils/convert';
+import { dateAsIsoDay, dateAsFull, dateAsDay, dateAsFRDate } from '../utils/convert';
 import ReactCalendar from 'react-calendar';
 
 const dateFormatter = (format, options) =>
@@ -66,6 +66,7 @@ const FilterCalendar = ({
       className={classNames(styles.calendar)}
       tileClassName={tileClassName}
       formatShortWeekday={formatShortWeekday}
+      locale="fr-FR"
     />
   </div>
 );
@@ -84,14 +85,14 @@ export const PeriodeFilter = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const [start, setStart] = useState(
-    defaultValue ? new Date(defaultValue.du) : minDate,
+    defaultValue ? dateAsFRDate(defaultValue.du) : dateAsFRDate(minDate),
   );
   const [end, setEnd] = useState(
     defaultValue ? new Date(defaultValue.au) : maxDate,
   );
 
   useEffect(() => {
-    setStart(start < new Date('2020-11-17') ? minDate : start);
+    setStart(start < dateAsFull('2020-11-17') ? dateAsFull(minDate) : start);
     setEnd(end);
   }, [defaultValue]);
 
@@ -100,12 +101,20 @@ export const PeriodeFilter = ({
       return setStart(null);
     }
 
-    if (end && value > end) {
+    const normalizedValue = new Date(
+      value.getFullYear(),
+      value.getMonth(),
+      value.getDate(),
+      12, 0, 0
+    );
+
+    if (end && normalizedValue > end) {
       setEnd(null);
-      setStart(value);
+      setStart(normalizedValue);
       return;
     }
-    setStart(value);
+
+    setStart(normalizedValue);
   };
 
   const onEndChange = value => {
@@ -135,8 +144,8 @@ export const PeriodeFilter = ({
       return;
     }
     if (isSubmitClicked) {
-      dispatch(filtresCoopActions.changeDateDebut(dayjs(dateAsIsoDay(start) ?? minDate).format('YYYY-MM-DD')));
-      dispatch(filtresCoopActions.changeDateFin(dayjs(dateAsIsoDay(end) ?? maxDate).format('YYYY-MM-DD')));
+      dispatch(filtresCoopActions.changeDateDebut(dateAsIsoDay(start ?? minDate)));
+      dispatch(filtresCoopActions.changeDateFin(dateAsIsoDay(end ?? maxDate)));
       setIsSubmitClicked(false);
     }
     params.set('du', dateAsIsoDay(start));
@@ -147,7 +156,7 @@ export const PeriodeFilter = ({
   const handleClearFilters = () => {
     setStart(null);
     setEnd(null);
-    dispatch(filtresCoopActions.changeDateDebut(dayjs(minDate).format('YYYY-MM-DD')));
+    dispatch(filtresCoopActions.changeDateDebut(dateAsIsoDay(minDate)));
     dispatch(filtresCoopActions.changeDateFin(dayjs(maxDate).format('YYYY-MM-DD')));
     params.delete('du');
     params.delete('au');
@@ -163,14 +172,14 @@ export const PeriodeFilter = ({
       trigger={
         <TriggerButton isOpen={isOpen} isFilled={start !== null && end !== null}>
           {start && end ?
-            `${formatDate(start, 'dd.MM.yy')} - ${formatDate(end, 'dd.MM.yy')}` :
+            `${dateAsDay(start)} - ${dateAsDay(end)}` :
             'Période'}
         </TriggerButton>
       }
     >
       <div className="fr-flex fr-flex-gap-4v">
         <FilterCalendar
-          minDate={minDate}
+          minDate={dateAsFRDate(minDate)}
           onChange={onStartChange}
           title="Début"
           value={start}

@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import React from 'react';
 import StatutCandidat from '../datas/statut-candidat.json';
 import slugify from 'slugify';
+import { dateAsIsoDay } from '../views/connected/commun/statistiques/Components/nouvelleCoop/utils/convert';
 
 export function formatDate(date) {
   return dayjs(date).format('YYYY-MM-DD');
@@ -43,15 +44,15 @@ const slugifyAttribut = attribut => slugify(attribut, { replacement: '-', lower:
 
 export function formatFileNameStatsConseiller(dateDebut, dateFin, nom, prenom, codePostal, ville, nomStructure) {
   // eslint-disable-next-line max-len
-  return `Statistiques_conseiller_${formatNomConseillerExport(nom, prenom)}${nomStructure ? `_${slugifyAttribut(nomStructure)}` : ''}${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+  return `Statistiques_conseiller_${formatNomConseillerExport(nom, prenom)}${nomStructure ? `_${slugifyAttribut(nomStructure)}` : ''}${formatCodePostalVille(codePostal, ville)}_${dateAsIsoDay(dateDebut)}_${formatDate(dateFin)}`;
 }
 
 export function formatFileNameStatsStructure(dateDebut, dateFin, nom, codePostal, ville) {
-  return `Statistiques_structure_${slugifyAttribut(nom)}${formatCodePostalVille(codePostal, ville)}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+  return `Statistiques_structure_${slugifyAttribut(nom)}${formatCodePostalVille(codePostal, ville)}_${dateAsIsoDay(dateDebut)}_${formatDate(dateFin)}`;
 }
 
 export function formatFileNameStatsTerritoriales(dateDebut, dateFin, typeTerritoire, id) {
-  return `Statistiques_${removeCodePrefix(typeTerritoire)}_${id}_${formatDate(dateDebut)}_${formatDate(dateFin)}`;
+  return `Statistiques_${removeCodePrefix(typeTerritoire)}_${id}_${dateAsIsoDay(dateDebut)}_${formatDate(dateFin)}`;
 }
 
 export function pluralize(zero, singulier, pluriel, count, showCount = false) {
