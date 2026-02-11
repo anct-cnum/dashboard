@@ -12,8 +12,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
+          node-version: 18
           cache: npm
-          node-version-file: package.json
       - name: Retrieve cached dependencies
         id: retrieve-dependencies
         uses: actions/cache@v4
@@ -62,6 +62,25 @@ jobs:
         with:
           source: .htaccess
           target: dist/.htaccess
+
+      - name: Install Clever CLI
+        run: npm install -g clever-tools
+
+      - name: Login to Clever Cloud
+        run: clever login --token ${{ secrets.CLEVER_TOKEN }} --secret ${{ secrets.CLEVER_SECRET }}
+
+      - name: Parse .env and set variables
+        run: |
+          while IFS= read -r line; do
+          name="${line%%=*}"
+          value="${line#*=}"
+          clever env set "$name" "$value" --app ${{ secrets.CLEVER_DASHBOARD_PRODUCTION }}
+          done < .env
+
+      - uses: actions/setup-node@v4
+        with:
+          cache: npm
+          node-version-file: package.json
       - name: Create Sentry release
         uses: getsentry/action-release@v1
         env:
