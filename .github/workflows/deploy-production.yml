@@ -12,8 +12,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
           cache: npm
+          node-version-file: package.json
       - name: Retrieve cached dependencies
         id: retrieve-dependencies
         uses: actions/cache@v4
@@ -28,33 +28,6 @@ jobs:
         uses: actions/cache@v4
         with:
           key: node_modules.-${{ hashFiles('package-lock.json') }}
-          path: node_modules
-
-      - name: Override .env
-        uses: SpicyPizza/create-envfile@v2.0.3
-        with:
-          envkey_VITE_APP_API_URL: ${{ secrets.REACT_ADMIN_API_PRODUCTION }}
-          envkey_VITE_APP_STRATEGYAUTH: local
-          envkey_VITE_APP_SENTRY_ENABLED: true
-          envkey_VITE_APP_SENTRY_ENVIRONMENT: production
-          envkey_VITE_APP_SENTRY_DSN: ${{ secrets.SENTRY_PILOTAGE_DSN }}
-          envkey_VITE_APP_SENTRY_TRACE_RATE: 0.05
-          envkey_VITE_APP_FRANCE_COMPETENCES_HOSTNAME: https://www.francecompetences.fr/recherche/rncp/34137
-          envkey_VITE_APP_PIX_CERTIFIER_HOSTNAME: https://pix.fr/se-certifier
-          envkey_VITE_APP_AIDE_HOSTNAME: https://aide.conseiller-numerique.gouv.fr/fr
-          envkey_VITE_APP_DEMARCHES_SIMPLIFIEES_HOSTNAME: https://www.demarches-simplifiees.fr
-          envkey_VITE_APP_DEMARCHES_SIMPLIFIEES_RECRUTEMENT_COORDINATEUR: https://www.demarches-simplifiees.fr/commencer/conseiller-numerique-coordinateur
-          envkey_VITE_APP_DEMARCHES_SIMPLIFIEES_CRA_COORDINATEUR: https://www.demarches-simplifiees.fr/commencer/compte-rendu-d-activite-cra-conseiller-numerique-c
-          envkey_VITE_APP_PUBLIC_HOSTNAME: https://www.conseiller-numerique.gouv.fr
-          envkey_VITE_APP_MATOMO_URL: https://stats.data.gouv.fr/
-          envkey_VITE_APP_MATOMO_ID: ${{ secrets.MATOMO_SITE_ID }}
-          envkey_VITE_APP_AUTH_CLIENT_ID: ${{ secrets.IC_PRODUCTION_AUTH_CLIENT_ID }}
-          envkey_VITE_APP_AUTH_CLIENT_SECRET: ${{ secrets.IC_PRODUCTION_AUTH_CLIENT_SECRET }}
-          envkey_VITE_APP_AUTH_OIDC_AUTHORITY: ${{ secrets.IC_PRODUCTION_AUTH_OIDC_AUTHORITY }}
-          envkey_VITE_APP_AUTH_REDIRECT_URI: ${{ secrets.IC_PRODUCTION_AUTH_REDIRECT_URI }}
-          envkey_VITE_APP_AUTH_OIDC_USER_KEY: ${{ secrets.IC_PRODUCTION_AUTH_OIDC_USER_KEY }}
-          envkey_VITE_APP_CONTRAT_SMIC: 1766.92
-          file_name: .env
       - name: Build application
         run: npm run build
       - name: Copy .htaccess
@@ -62,25 +35,6 @@ jobs:
         with:
           source: .htaccess
           target: dist/.htaccess
-
-      - name: Install Clever CLI
-        run: npm install -g clever-tools
-
-      - name: Login to Clever Cloud
-        run: clever login --token ${{ secrets.CLEVER_TOKEN }} --secret ${{ secrets.CLEVER_SECRET }}
-
-      - name: Parse .env and set variables
-        run: |
-          while IFS= read -r line; do
-          name="${line%%=*}"
-          value="${line#*=}"
-          clever env set "$name" "$value" --app ${{ secrets.CLEVER_DASHBOARD_PRODUCTION }}
-          done < .env
-
-      - uses: actions/setup-node@v4
-        with:
-          cache: npm
-          node-version-file: package.json
       - name: Create Sentry release
         uses: getsentry/action-release@v1
         env:
