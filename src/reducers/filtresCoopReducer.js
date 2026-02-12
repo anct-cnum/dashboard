@@ -1,7 +1,9 @@
+import { dateAsFRDate } from '../views/connected/commun/statistiques/Components/nouvelleCoop/utils/convert';
+
 const initialState = {
   dateFin: new Date(),
-  dateDebutCoop: new Date(1605571200000),
-  minDateCoop: new Date(1605571200000),
+  dateDebutCoop: dateAsFRDate(1605571200000),
+  minDateCoop: dateAsFRDate(1605571200000),
   maxDateCoop: new Date(),
   types: [],
   mediateurs: [],
