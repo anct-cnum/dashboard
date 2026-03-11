@@ -13,15 +13,14 @@ export const sPluriel = count => (count === 1 ? '' : 's');
 
 const parseDateLocal = dateInput => {
   if (typeof dateInput === 'number' || dateInput instanceof Date) {
-    return dayjs.utc(dateInput).tz('Europe/Paris', false);
+    return dayjs.utc(dateInput).tz('Europe/Paris');
   }
 
-  if (typeof dateInput === 'string' && /^\d{4}-\d{2}-\d{2}/.test(dateInput)) {
-    const [y, m, d] = dateInput.split('T')[0].split('-');
-    return dayjs.tz(`${y}-${m}-${d}`, 'Europe/Paris');
+  if (typeof dateInput === 'string' && (/^\d{4}-\d{2}-\d{2}/.test(dateInput) || /^\d{4}-\d{2}-\d{2}T/.test(dateInput))) {
+    return dayjs.utc(dateInput).tz('Europe/Paris');
   }
 
-  return dayjs(dateInput);
+  return dayjs(dateInput).tz('Europe/Paris');
 };
 
 export const dateAsFull = date => {
