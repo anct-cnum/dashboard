@@ -7,7 +7,11 @@ updates:
       interval: "weekly"
       day: "monday"
     ignore:
-      - dependency-name: "eslint*"
+       - dependency-name: "eslint*"
+       - dependency-name: "@gouvfr/dsfr"
+         update-types: 
+          - "version-update:semver-patch" 
+          - "version-update:semver-minor"
     groups:
       minor-and-patch:
         update-types:
