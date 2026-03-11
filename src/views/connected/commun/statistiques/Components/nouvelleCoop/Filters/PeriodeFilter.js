@@ -180,11 +180,13 @@ export const PeriodeFilter = ({
       <div className="fr-flex fr-flex-gap-4v">
         <FilterCalendar
           minDate={dateAsFRDate(minDate)}
+          maxDate={maxDate}
           onChange={onStartChange}
           title="Début"
           value={start}
         />
         <FilterCalendar
+          minDate={dateAsFRDate(minDate)}
           maxDate={maxDate}
           onChange={onEndChange}
           title="Fin"

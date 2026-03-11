@@ -12,12 +12,8 @@ export const numberToString = value => value?.toLocaleString('fr-FR');
 export const sPluriel = count => (count === 1 ? '' : 's');
 
 const parseDateLocal = dateInput => {
-  if (typeof dateInput === 'number') {
-    return dayjs.utc(dateInput).tz('Europe/Paris', true);
-  }
-
-  if (dateInput instanceof Date) {
-    return dayjs.utc(dateInput).tz('Europe/Paris', true);
+  if (typeof dateInput === 'number' || dateInput instanceof Date) {
+    return dayjs.utc(dateInput).tz('Europe/Paris', false);
   }
 
   if (typeof dateInput === 'string' && /^\d{4}-\d{2}-\d{2}/.test(dateInput)) {
