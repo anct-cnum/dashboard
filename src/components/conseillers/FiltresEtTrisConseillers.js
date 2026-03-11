@@ -116,7 +116,8 @@ function FiltresEtTrisConseillers() {
                 aria-describedby="toggle-698-hint-text"
                 id="toggle-698"
               />
-              <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller">
+              <label className="fr-toggle__label" htmlFor="toggle-698" data-fr-checked-label="Structure" data-fr-unchecked-label="Conseiller"
+                style={{ whiteSpace: 'nowrap' }} >
                 S&eacute;lectionner le type de recherche
               </label>
             </div>
