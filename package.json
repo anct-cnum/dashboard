@@ -43,7 +43,7 @@
     "usehooks-ts": "^3.1.1",
     "vite": "^7.3.1",
     "web-vitals": "^5.1.0",
-    "zod": "^3.25.28"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
