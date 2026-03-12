@@ -9,9 +9,13 @@ updates:
     ignore:
        - dependency-name: "eslint*"
        - dependency-name: "@gouvfr/dsfr"
-         update-types: 
-          - "version-update:semver-patch" 
+         update-types:
+          - "version-update:semver-patch"
           - "version-update:semver-minor"
+       - dependency-name: "react"
+         versions: ["19.x"]
+       - dependency-name: "react-dom"
+         versions: ["19.x"]
     groups:
       minor-and-patch:
         update-types:
