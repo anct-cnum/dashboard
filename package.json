@@ -22,7 +22,7 @@
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.20",
     "downloadjs": "^1.4.7",
-    "framer-motion": "^12.36.0",
+    "framer-motion": "^12.38.0",
     "highcharts": "^12.5.0",
     "highcharts-react-official": "^3.2.3",
     "jwt-decode": "^4.0.0",
