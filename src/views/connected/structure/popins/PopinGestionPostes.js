@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import PopinGestionPostesRecap from './PopinGestionPostesRecap';
 import PopinGestionPostesMotif from './PopinGestionPostesMotif';
 import PopinGestionPostesNombre from './PopinGestionPostesNombre';
@@ -9,6 +10,9 @@ const PopinGestionPostes = ({ step, actionType, setStep, setDernierAvenantValide
   const [motif, setMotif] = useState('');
   const [autreMotif, setAutreMotif] = useState('');
   const [estPosteCoordinateur, setEstPosteCoordinateur] = useState(false);
+
+  const structure = useSelector(state => state.structure?.structure);
+  const estDernierPoste = actionType === 'remove' && nombreDePostes === structure?.posteValiderCoselec;
 
   switch (step) {
     case 1:
@@ -28,6 +32,7 @@ const PopinGestionPostes = ({ step, actionType, setStep, setDernierAvenantValide
         setAutreMotif={setAutreMotif} setNombreDePostes={setNombreDePostes}
         setDernierAvenantValide={setDernierAvenantValide}
         estPosteCoordinateur={estPosteCoordinateur}
+        estDernierPoste={estDernierPoste}
       />;
     default:
       return null;

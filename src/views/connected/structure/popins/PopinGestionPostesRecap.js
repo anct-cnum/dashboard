@@ -9,7 +9,7 @@ function PopinGestionPostesRecap({
   setStep, autreMotif,
   nombreDePostes, actionType, motif,
   setAutreMotif, setNombreDePostes, setMotif,
-  estPosteCoordinateur
+  estPosteCoordinateur, estDernierPoste
 }) {
 
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ function PopinGestionPostesRecap({
                   Fermer
                 </button>
               </div>
-              <div className="fr-modal__content fr-mb-2w">
+              <div className="fr-modal__content">
                 <h1 id="fr-modal-2-title" className="fr-modal__title">
                   <span className="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>
                   R&eacute;capitulatif de votre demande
@@ -86,7 +86,21 @@ function PopinGestionPostesRecap({
                   </p>
                 }
                 <strong>Motif:</strong>
-                <p style={{ marginBottom: '50px' }}>{motif || autreMotif}</p>
+                <p>{motif || autreMotif}</p>
+                {estDernierPoste &&
+                  <div className="fr-highlight">
+                    <p><strong>Votre structure n&apos;aura plus de poste actif.</strong>{' '}
+                      Nous vous invitons &agrave; r&eacute;pondre au formulaire ci-dessous.</p>
+                    <a
+                      href={import.meta.env.VITE_APP_FORMULAIRE_RENDU_POSTE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="fr-btn"
+                    >
+                      R&eacute;pondre au formulaire
+                    </a>
+                  </div>
+                }
               </div>
               <div className="fr-modal__footer">
                 <ul className="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
@@ -127,6 +141,7 @@ PopinGestionPostesRecap.propTypes = {
   setNombreDePostes: PropTypes.func.isRequired,
   setMotif: PropTypes.func.isRequired,
   estPosteCoordinateur: PropTypes.bool,
+  estDernierPoste: PropTypes.bool,
 };
 
 export default PopinGestionPostesRecap;
