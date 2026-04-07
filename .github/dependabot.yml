@@ -16,6 +16,10 @@ updates:
          versions: ["19.x"]
        - dependency-name: "react-dom"
          versions: ["19.x"]
+       - dependency-name: "*"
+         update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
     groups:
       minor-and-patch:
         update-types:
