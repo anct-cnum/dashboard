@@ -98,6 +98,13 @@ function PopinCreationNouvelleRupture({ setOpenModal, updateStatut }) {
                             CDIsation / titularisation de contrat
                         </label>
                       </div>
+                      <div className="fr-radio-group fr-radio-group--sm">
+                        <input type="radio" id="radio-5" name="FinDeSubventionnement"
+                          onChange={motif => setMotifRuptureValide(motif.target.value)} value="FinDeSubventionnement" />
+                        <label className="fr-label fr-text--sm fr-mb-0" htmlFor="radio-5">
+                          Fin de subventionnement
+                        </label>
+                      </div>
                     </div>
                   </fieldset>
                 </div>

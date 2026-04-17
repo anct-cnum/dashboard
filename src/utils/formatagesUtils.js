@@ -131,6 +131,8 @@ export const formatMotifRupture = motif => {
       return 'Licenciement';
     case 'demission':
       return 'Démission';
+    case 'FinDeSubventionnement':
+      return 'Fin de subventionnement';
     default:
       return motif;
   }
