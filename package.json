@@ -11,7 +11,7 @@
     "start": "vite preview"
   },
   "dependencies": {
-    "@codegouvfr/react-dsfr": "^1.32.0",
+    "@codegouvfr/react-dsfr": "^1.32.1",
     "@gouvfr/dsfr": "^1.11.2",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
     "@reduxjs/toolkit": "^2.11.2",
@@ -35,7 +35,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.22.0",
     "react-select": "^5.10.2",
-    "react-tooltip": "^5.30.0",
+    "react-tooltip": "^5.30.1",
     "recharts": "^3.8.1",
     "redux": "^5.0.1",
     "remixicon": "^4.9.1",
