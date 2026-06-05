@@ -81,7 +81,7 @@ const LieuFilter = ({
   };
 
   const handleSubmit = (close = false) => {
-    dispatch(filtresCoopActions.changeDepartements(departements));
+    dispatch(filtresCoopActions.changeDepartements(departements.map(({ value }) => value)));
     update(params)('departements', departements);
     closePopover(close);
   };

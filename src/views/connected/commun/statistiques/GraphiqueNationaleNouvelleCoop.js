@@ -74,12 +74,12 @@ export default function GraphiqueNationaleNouvelleCoop() {
     if (Object.keys(searchParams).length > 0) {
       for (const key of Object.keys(searchParams)) {
         dispatch(filtresCoopActions[changeQuery[key]](searchParams[key]));
-        setDateDebut(searchParams[key] ?? dateAsFRDate(dateDebut));
-        setDateFin(searchParams[key] ?? dateFin);
-        setTypes(searchParams[key] ?? types);
-        setMediateurs(searchParams[key] ?? mediateurs);
-        setDepartements(searchParams[key] ?? departements);
       }
+      setDateDebut(searchParams.du ?? dateAsFRDate(dateDebut));
+      setDateFin(searchParams.au ?? dateFin);
+      setTypes(searchParams.types ?? []);
+      setMediateurs(searchParams.mediateurs ?? []);
+      setDepartements(searchParams.departements ?? []);
     } else {
       for (const key of Object.keys(filtresDefault)) {
         dispatch(filtresCoopActions[changeQuery[key]](filtresDefault[key]));
