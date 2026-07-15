@@ -63,8 +63,7 @@ const RenewAdvisorsSection = ({
         Contrats &agrave;{' '}
         {isConventionnementOrReconventionnementValide(structure) && conseillersARenouveler.length > 0 ?
           'renouveller' :
-          'prolonger'}
-        ({conseillersARenouveler?.length + conseillersAProlonger?.length})
+          'prolonger'} ({conseillersARenouveler?.length + conseillersAProlonger?.length})
       </h6>
       {structure?.conventionnement?.statut ===
         StatutConventionnement.RECONVENTIONNEMENT_VALIDÉ &&

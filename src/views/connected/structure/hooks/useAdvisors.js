@@ -107,7 +107,7 @@ export function useAdvisors() {
         }
         const isFinalisee = miseEnRelation.statut === 'finalisee';
         const ProlongationHorsEditionContratRenouvellement = structure?.conventionnement?.statut === 'RECONVENTIONNEMENT_VALIDÉ' ?
-          miseEnRelation.phaseConventionnement : !miseEnRelation.reconventionnement;
+          (miseEnRelation.phaseConventionnement || miseEnRelation.contratCoordinateur) : !miseEnRelation.reconventionnement;
         return (
           (isFinalisee || (miseEnRelation?.contratCoordinateur && isFinalisee)) && ProlongationHorsEditionContratRenouvellement &&
           isContractExpiring(miseEnRelation?.dateFinDeContrat) &&
