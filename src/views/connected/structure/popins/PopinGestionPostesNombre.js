@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useAdvisors } from '../hooks/useAdvisors';
@@ -13,12 +13,22 @@ function PopinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
 
   const structure = useSelector(state => state.structure?.structure);
   const nbConseillerActifTotal = conseillersActifs.length + conseillersARenouveler.length + conseillersEnCoursDeRecrutement.length;
-  const nombreDePostesLibres = structure?.posteValiderCoselec - nbConseillerActifTotal;
+  const quotaCoordinateur = structure?.demandesCoordinateur?.filter(d => d.statut === 'validee' && !d.estRendu).length;
+  const nombreDePostesLibres = (quotaCoordinateur > 0 ? structure?.posteValiderCoselecConventionnement : structure?.posteValiderCoselec) -
+    nbConseillerActifTotal;
   const isErreurNombreDePostes = nombreDePostesLibres < nombreDePostes;
   const posteCoordinateurExistant = structure?.demandesCoordinateur?.filter(demande => demande.statut === 'validee' &&
     !demande?.estRendu && !demande?.miseEnRelationIds).length > 0;
-  const conseillersCoordinateursActifs = conseillersActifs?.filter(conseiller => conseiller?.contratCoordinateur).length;
+  const conseillersCoordinateursActifs = conseillersActifs?.filter(conseiller => conseiller?.estCoordinateur).length;
+  const seulPosteVacantEstCoordinateur = conseillersCoordinateursActifs < posteCoordinateurExistant &&
+    nbConseillerActifTotal >= structure?.posteValiderCoselec;
   const disable = () => actionType === 'add' ? !nombreDePostes : isErreurNombreDePostes;
+
+  useEffect(() => {
+    if (seulPosteVacantEstCoordinateur) {
+      setEstPosteCoordinateur(true);
+    }
+  }, [seulPosteVacantEstCoordinateur]);
 
   const handleCancel = () => {
     setStep(0);
@@ -76,13 +86,15 @@ function PopinGestionPostesNombre({ setNombreDePostes, nombreDePostes, actionTyp
                     Cette demande concerne-t-elle un poste de coordinateur ?
                   </legend>
                   <div className="fr-radio-group fr-mr-2w">
-                    <input type="radio" id="oui" name="poste-coordinateur" value="oui" onChange={() => setEstPosteCoordinateur(!estPosteCoordinateur)} />
+                    <input type="radio" id="oui" name="poste-coordinateur" value="oui"
+                      checked={estPosteCoordinateur} onChange={() => setEstPosteCoordinateur(true)} />
                     <label className="fr-label" htmlFor="oui">Oui</label>
                   </div>
 
                   <div className="fr-radio-group">
                     <input type="radio" id="non" name="poste-coordinateur" value="non"
-                      onChange={() => setEstPosteCoordinateur(!estPosteCoordinateur)} checked/>
+                      checked={!estPosteCoordinateur} disabled={seulPosteVacantEstCoordinateur}
+                      onChange={() => setEstPosteCoordinateur(false)} />
                     <label className="fr-label" htmlFor="non">Non</label>
                   </div>
                 </div>

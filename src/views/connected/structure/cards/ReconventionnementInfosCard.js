@@ -11,6 +11,8 @@ import { Tooltip } from 'react-tooltip';
 const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreConseillersRenouveler, nbreConseillersEnCoursDeRecrutement }) => {
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
   const nbConseillerActifTotal = nbreConseillersActifs + nbreConseillersRenouveler + nbreConseillersEnCoursDeRecrutement;
+  const quotaCoordinateur = structure?.demandesCoordinateur?.filter(d => d.statut === 'validee' && !d.estRendu).length;
+  const posteValiderCoselecTotal = quotaCoordinateur > 0 ? structure?.posteValiderCoselecConventionnement : structure?.posteValiderCoselec;
   const texteTooltip = `Une demande est en cours d'instruction. Vous ne pouvez faire aucune action pendant cette période.`;
 
   const displayBadge = () => {
@@ -130,23 +132,9 @@ const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreCon
               }
               <div>
                 <ul className="fr-btns-group fr-btns-group--inline-md">
-                  {/* <li>
-                    <button className="fr-btn fr-btn--secondary"
-                      disabled={isAddButtonDisabled(structure)}
-                      data-tooltip-id="tooltip-bouton-ajout-poste"
-                      data-tooltip-content={texteTooltip}
-                      onClick={() => {
-                        handlePopin('add', 1);
-                      }}>
-                      Ajouter un poste
-                    </button>
-                    {isAddButtonDisabled(structure) &&
-                      <Tooltip variant="light" id="tooltip-bouton-ajout-poste" className="infobulle" />
-                    }
-                  </li> */}
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}
+                      disabled={isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= posteValiderCoselecTotal}
                       data-tooltip-id="tooltip-bouton-rendre-poste"
                       data-tooltip-content={texteTooltip}
                       onClick={() => {
@@ -154,7 +142,7 @@ const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreCon
                       }}>
                       Rendre un poste
                     </button>
-                    {(isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec) &&
+                    {(isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= posteValiderCoselecTotal) &&
                       <Tooltip variant="light" id="tooltip-bouton-rendre-poste" className="infobulle" />
                     }
                   </li>
