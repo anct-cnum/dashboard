@@ -85,7 +85,7 @@ export default function TableauHistoriqueConvention() {
           ordreNom,
           ordre ? -1 : 1
         ));
-        navigate(location.pathname, { replace: true });
+        navigate('.', { replace: true });
         setInitConseiller(true);
       }
     } else {

@@ -72,7 +72,7 @@ export default function TableauCandidaturesConseillers() {
           ordreNom,
           ordre ? -1 : 1
         ));
-        navigate(location.pathname, { replace: true });
+        navigate('.', { replace: true });
         setInitDemandeConseiller(true);
       }
     } else {

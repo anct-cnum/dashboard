@@ -69,7 +69,7 @@ export default function TableauCoordinateurs() {
           ordreNom,
           ordre ? 1 : -1
         ));
-        navigate(location.pathname, { replace: true });
+        navigate('.', { replace: true });
         setInitDemandeCoordinateur(true);
       }
     } else {

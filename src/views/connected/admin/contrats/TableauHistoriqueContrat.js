@@ -79,7 +79,7 @@ export default function TableauHistoriqueContrat() {
           ordreNom,
           ordre ? -1 : 1
         ));
-        navigate(location.pathname, { replace: true });
+        navigate('.', { replace: true });
         setInitContrat(true);
       }
     } else {
