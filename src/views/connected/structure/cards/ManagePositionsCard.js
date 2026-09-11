@@ -16,8 +16,6 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
   const dossier = isReconventionnement ? structure?.conventionnement?.dossierReconventionnement :
     structure?.conventionnement?.dossierConventionnement;
   const nbConseillerActifTotal = nbreConseillersActifs + nbreConseillersRenouveler + nbreConseillersEnCoursDeRecrutement;
-  const quotaCoordinateur = structure?.demandesCoordinateur?.filter(d =>
-    d.statut === 'validee' && !d.estRendu).length;
 
   const urlDossier = isReconventionnement ? structure?.urlDossierReconventionnement : structure?.urlDossierConventionnement;
   const phase = isReconventionnement ? 'Conventionnement phase 2' : 'Conventionnement phase 1';
@@ -147,8 +145,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                 <ul className="fr-btns-group fr-btns-group--inline-md">
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={isButtonDisabled(structure) || nbConseillerActifTotal >= (quotaCoordinateur > 0 ?
-                        structure?.posteValiderCoselecConventionnement : structure?.posteValiderCoselec) }
+                      disabled={isButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}
                       data-tooltip-id="tooltip-bouton-rendre-poste"
                       data-tooltip-content={texteTooltip}
                       onClick={() => {
@@ -156,8 +153,7 @@ const ManagePositionsCard = ({ structure, cardStyle, hasBorder, nbreConseillersA
                       }}>
                       Rendre un poste
                     </button>
-                    {(isButtonDisabled(structure) || nbConseillerActifTotal >= (quotaCoordinateur > 0 ?
-                      structure?.posteValiderCoselecConventionnement : structure?.posteValiderCoselec)) &&
+                    {(isButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec) &&
                       <Tooltip variant="light" id="tooltip-bouton-rendre-poste" className="infobulle" />
                     }
                   </li>

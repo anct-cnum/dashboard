@@ -11,8 +11,6 @@ import { Tooltip } from 'react-tooltip';
 const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreConseillersRenouveler, nbreConseillersEnCoursDeRecrutement }) => {
   const { actionType, step, setStep, handlePopin } = usePopinGestionPostes();
   const nbConseillerActifTotal = nbreConseillersActifs + nbreConseillersRenouveler + nbreConseillersEnCoursDeRecrutement;
-  const quotaCoordinateur = structure?.demandesCoordinateur?.filter(d => d.statut === 'validee' && !d.estRendu).length;
-  const posteValiderCoselecTotal = quotaCoordinateur > 0 ? structure?.posteValiderCoselecConventionnement : structure?.posteValiderCoselec;
   const texteTooltip = `Une demande est en cours d'instruction. Vous ne pouvez faire aucune action pendant cette période.`;
 
   const displayBadge = () => {
@@ -134,7 +132,7 @@ const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreCon
                 <ul className="fr-btns-group fr-btns-group--inline-md">
                   <li>
                     <button className="fr-btn fr-btn--secondary"
-                      disabled={isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= posteValiderCoselecTotal}
+                      disabled={isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec}
                       data-tooltip-id="tooltip-bouton-rendre-poste"
                       data-tooltip-content={texteTooltip}
                       onClick={() => {
@@ -142,7 +140,7 @@ const ReconventionnementInfosCard = ({ structure, nbreConseillersActifs, nbreCon
                       }}>
                       Rendre un poste
                     </button>
-                    {(isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= posteValiderCoselecTotal) &&
+                    {(isRemoveButtonDisabled(structure) || nbConseillerActifTotal >= structure?.posteValiderCoselec) &&
                       <Tooltip variant="light" id="tooltip-bouton-rendre-poste" className="infobulle" />
                     }
                   </li>
