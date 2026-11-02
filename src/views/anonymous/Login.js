@@ -78,6 +78,17 @@ export default function Login() {
                 >
                   <span className="proconnect-sr-only">S’identifier avec ProConnect</span>
                 </button>
+                <p className="fr-mt-2w">
+                  <a
+                    className="fr-link fr-link--sm"
+                    href="https://proconnect.crisp.help/fr/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Consulter l’aide ProConnect - nouvelle fenêtre"
+                  >
+                    Besoin d’aide pour vous connecter ? Consulter l’aide ProConnect
+                  </a>
+                </p>
                 {
                   networkError && <div className="fr-alert fr-alert--error fr-mt-1w fr-mb-4w">
                     <h3 className="fr-alert__title">&Eacute;chec de la connexion &agrave; ProConnect</h3>
